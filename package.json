@@ -1,0 +1,29 @@
+{
+  "name": "qsu",
+  "version": "0.0.9",
+  "description": "Quick and Simple Utility for javascript",
+  "scripts": {
+    "test": "mocha --require @babel/register --parallel test/*.spec.js",
+    "dev": "babel-node index.js"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "author": "Jooy Lee <leejooy96@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leejooy96/qsu"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/register": "^7.13.8",
+    "eslint": "^7.22.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "mocha": "^8.3.2"
+  },
+  "dependencies": {
+    "moment": "^2.29.1"
+  }
+}
