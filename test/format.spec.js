@@ -1,12 +1,12 @@
 const assert = require('assert');
-const format = require('../format');
+const { number } = require('../format');
 
 describe('Format', () => {
-  it('numberFormat', (done) => {
-    assert.strictEqual(format.numberFormat('1234'), '1,234');
-    assert.strictEqual(format.numberFormat(1234), '1,234');
-    assert.strictEqual(format.numberFormat(12345678), '12,345,678');
-    assert.strictEqual(format.numberFormat(null), '0');
+  it('number', (done) => {
+    assert.strictEqual(number('1234'), '1,234');
+    assert.strictEqual(number(1234), '1,234');
+    assert.strictEqual(number(12345678), '12,345,678');
+    assert.strictEqual(number(null), '0');
     done();
   });
 });
