@@ -65,5 +65,12 @@ Utility to simplify date format printing or calculation.
 | .dayDiff | <li>date1 **{String&#124;Date}**</li><li>date2 **{String&#124;Date&#124;null}**</li> |  | `daydiff('2021-01-01', '2021-01-02') // 2` |
 | .today | <li>format **{'yyyy-mm-dd'&#124;null}**</li> |  | `today('YYYY-MM-DD') // 2020-01-01` |
 
+## qsu.misc()
+Various utilities that help with convenience codes or complex operations.
+
+| Method | Params | Description | Example |
+| --- | --- | --- | --- |
+| .sleep | <li>Milliseconds **{Number}** |  | `sleep(1000) // 1s` |
+
 # License
 Copyright © 2021 Jooyeon Lee Released under the MIT license.
