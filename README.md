@@ -33,7 +33,7 @@ function main () {
 const _ = require('qsu/date'); // or require('qsu').date 
 
 function main () {
-    return _.today('YYYY-MM-DD'); // Return 20xx-xx-xx
+    return _.today('YYYY-MM-DD'); // '20xx-xx-xx'
 }
 ```
 OR
@@ -41,11 +41,11 @@ OR
 const { today } = require('qsu/date'); // or require('qsu').date 
 
 function main () {
-    return today('YYYY-MM-DD'); // Return 20xx-xx-xx
+    return today('YYYY-MM-DD'); // '20xx-xx-xx'
 }
 ```
 
-# API Reference
+# Reference
 ```javascript
 qsu.{{Util}}.{{Method}}({{Params1}}, {{Params2}})
 ```
@@ -69,7 +69,7 @@ Utility to simplify date format printing or calculation.
 
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
-| .dayDiff | <li>date1 **{String&#124;Date}**</li><li>date2 **{String&#124;Date&#124;null}**</li> |  | `daydiff('2021-01-01', '2021-01-02') // 2` |
+| .dayDiff | <li>date1 **{String&#124;Date}**</li><li>date2 **{String&#124;Date&#124;null}**</li> |  | `daydiff('2021-01-01', '2021-01-03') // 2` |
 | .today | <li>format **{'yyyy-mm-dd'&#124;null}**</li> |  | `today('YYYY-MM-DD') // 2020-01-01` |
 
 ## qsu.misc
