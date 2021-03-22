@@ -82,7 +82,8 @@ Utility to simplify date format printing or calculation.
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
 | .dayDiff | <li>date1 **{String&#124;Date}**</li><li>date2 **{String&#124;Date&#124;null}**</li> | Calculates the difference between two given dates and returns the number of days. | `daydiff('2021-01-01', '2021-01-03') // 2` |
-| .today | <li>format **{'yyyy-mm-dd'&#124;null}**</li> | Returns today's date. | `today('YYYY-MM-DD') // 2020-01-01` |
+| .today | <li>format **{'yyyy-mm-dd'&#124;null}**</li> | Returns today's date. | `today('YYYY-MM-DD') // 2021-01-01` |
+| .isRealDate | <li>dateString (yyyy-mm-dd) **{String}**</li> | Checks if a given date actually exists. Check only in yyyy-mm-dd format. | `isRealDate('2021-01-01') // true`<br/>`isRealDate('2021-02-30') // false` |
 
 ## qsu.misc
 Various utilities that help with convenience codes or complex operations.

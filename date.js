@@ -17,7 +17,15 @@ const today = (dateType) => {
   return moment().format(format);
 };
 
+const isRealDate = (d) => {
+  if (!d || typeof d !== 'string') return false;
+  const date = new Date(d);
+  if (!date.getTime() || !d.match(/^\d{4}-\d{2}-\d{2}$/)) return false;
+  return date.toISOString().slice(0, 10) === d;
+};
+
 module.exports = {
   dayDiff,
   today,
+  isRealDate,
 };
