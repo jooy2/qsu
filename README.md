@@ -82,15 +82,16 @@ Utility to simplify date format printing or calculation.
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
 | .dayDiff | <li>date1 **{String&#124;Date}**</li><li>date2 **{String&#124;Date&#124;null}**</li> | Calculates the difference between two given dates and returns the number of days. | `daydiff('2021-01-01', '2021-01-03') // 2` |
-| .today | <li>format **{'yyyy-mm-dd'&#124;null}**</li> | Returns today's date. | `today('YYYY-MM-DD') // 2021-01-01` |
-| .isRealDate | <li>dateString (yyyy-mm-dd) **{String}**</li> | Checks if a given date actually exists. Check only in yyyy-mm-dd format. | `isRealDate('2021-01-01') // true`<br/>`isRealDate('2021-02-30') // false` |
+| .today | <li>format **{'YYYY-MM-DD'&#124;null}**</li> | Returns today's date. | `today('YYYY-MM-DD') // 2021-01-01` |
+| .isRealDate | <li>dateString (YYYY-MM-DD) **{String}**</li> | Checks if a given date actually exists. Check only in YYYY-MM-DD format. | `isRealDate('2021-01-01') // true`<br/>`isRealDate('2021-02-30') // false` |
 
 ## qsu.misc
 Various utilities that help with convenience codes or complex operations.
 
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
-| .sleep | <li>Milliseconds **{Number}**</li> | Sleep function using Promise. | `await sleep(1000) // 1s`<br/>`sleep(5000).then(() => { ... })` |
+| .sleep | <li>milliseconds **{Number}**</li> | Sleep function using Promise. | `await sleep(1000) // 1s`<br/>`sleep(5000).then(() => { ... })` |
+| .takes | <li>function **{() => Function}**</li> | Aggregate the execution time (in milliseconds) of the function passed as an argument. For a function to be passed explicitly, use the function without parentheses or the Arrow function or function() {...} as arguments. If the second argument is true, the decimal point is truncated. | `takes(testFunction) // 0.321...`<br/>`takes(() => testFUnction(args1, args2)) // 0.234...`<br/>`takes(() => testFunction, true) // 3` |
 
 # Contribute
 You can report issues on Github Issue. You can also request a pull to fix bugs and add frequently used features.
