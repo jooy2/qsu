@@ -9,6 +9,12 @@ const shuffle = (arr) => {
   return newArr;
 };
 
+const setWithDefault = (value = null, length = 1) => {
+  if (length < 1) return [];
+  return Array(length).fill(value);
+};
+
 module.exports = {
   shuffle,
+  setWithDefault,
 };
