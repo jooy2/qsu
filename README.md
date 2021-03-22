@@ -59,8 +59,15 @@ Utility to help process array type data.
 
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
-| .shuffle | <li>array **{Array}**</li> | Shuffle the order of the given array and return | `shuffle([1, 2, 3, 4]) // [4, 2, 3, 1]...` |
-| .setWithDefault | <li>defaultValue **{Any}**</li><li>arrayLength **{Number&#124;null}**</li> | Initialize an array with a default value of a specific length | `setWithDefault('abc', 4) // ['abc', 'abc', 'abc', 'abc']`<br/>`setWithDefault(null, 3) // [null, null, null]` |
+| .shuffle | array **{Array}** | Shuffle the order of the given array and return | `shuffle([1, 2, 3, 4]) // [4, 2, 3, 1]...` |
+| .setWithDefault | <li>defaultValue **{Any}**</li><li>arrayLength **{Number&#124;null}**</li> | Initialize an array with a default value of a specific length. | `setWithDefault('abc', 4) // ['abc', 'abc', 'abc', 'abc']`<br/>`setWithDefault(null, 3) // [null, null, null]` |
+
+## qsu.string
+Utility to help process string type data.
+
+| Method | Params | Description | Example |
+| --- | --- | --- | --- |
+| .removeSpecialChar | string **{String}** | Returns after removing all special characters, including spaces. | `removeSpecialChar('Hello, World!') // HelloWorld` |
 
 ## qsu.math
 Utility for arithmetic on numbers.
@@ -74,7 +81,7 @@ Utility that converts to Human-Readable String format.
 
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
-| .number | <li>val **{String&#124;Number}**</li> | Return in number format including comma symbol. | `number(1234567) // 1,234,567` |
+| .number | val **{String&#124;Number}** | Return in number format including comma symbol. | `number(1234567) // 1,234,567` |
 
 ## qsu.date
 Utility to simplify date format printing or calculation.
@@ -82,16 +89,16 @@ Utility to simplify date format printing or calculation.
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
 | .dayDiff | <li>date1 **{String&#124;Date}**</li><li>date2 **{String&#124;Date&#124;null}**</li> | Calculates the difference between two given dates and returns the number of days. | `daydiff('2021-01-01', '2021-01-03') // 2` |
-| .today | <li>format **{'YYYY-MM-DD'&#124;null}**</li> | Returns today's date. | `today('YYYY-MM-DD') // 2021-01-01` |
-| .isRealDate | <li>dateString (YYYY-MM-DD) **{String}**</li> | Checks if a given date actually exists. Check only in YYYY-MM-DD format. | `isRealDate('2021-01-01') // true`<br/>`isRealDate('2021-02-30') // false` |
+| .today | format **{'YYYY-MM-DD'&#124;null}** | Returns today's date. | `today('YYYY-MM-DD') // 2021-01-01` |
+| .isRealDate | dateString (YYYY-MM-DD) **{String}** | Checks if a given date actually exists. Check only in YYYY-MM-DD format. | `isRealDate('2021-01-01') // true`<br/>`isRealDate('2021-02-30') // false` |
 
 ## qsu.misc
 Various utilities that help with convenience codes or complex operations.
 
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
-| .sleep | <li>milliseconds **{Number}**</li> | Sleep function using Promise. | `await sleep(1000) // 1s`<br/>`sleep(5000).then(() => { ... })` |
-| .takes | <li>function **{() => Function}**</li> | Aggregate the execution time (in milliseconds) of the function passed as an argument. For a function to be passed explicitly, use the function without parentheses or the Arrow function or function() {...} as arguments. If the second argument is true, the decimal point is truncated. | `takes(testFunction) // 0.321...`<br/>`takes(() => testFUnction(args1, args2)) // 0.234...`<br/>`takes(() => testFunction, true) // 3` |
+| .sleep | milliseconds **{Number}** | Sleep function using Promise. | `await sleep(1000) // 1s`<br/>`sleep(5000).then(() => { ... })` |
+| .takes | function **{() => Function}** | Aggregate the execution time (in milliseconds) of the function passed as an argument. For a function to be passed explicitly, use the function without parentheses or the Arrow function or function() {...} as arguments. If the second argument is true, the decimal point is truncated. | `takes(testFunction) // 0.321...`<br/>`takes(() => testFUnction(args1, args2)) // 0.234...`<br/>`takes(() => testFunction, true) // 3` |
 
 # Contribute
 You can report issues on Github Issue. You can also request a pull to fix bugs and add frequently used features.
