@@ -50,6 +50,13 @@ function main () {
 qsu.{{Util}}.{{Method}}({{Params1}}, {{Params2}})
 ```
 
+## qsu.array
+Utility to help process array type data.
+
+| Method | Params | Description | Example |
+| --- | --- | --- | --- |
+| .shuffle | <li>array **{Array}**</li> |  | `shuffle([1, 2, 3, 4]) // [4, 2, 3, 1]...` |
+
 ## qsu.math
 Utility for arithmetic on numbers.
 
