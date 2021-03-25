@@ -13,6 +13,20 @@ const empty = (data) => {
   }
 };
 
+const isUrl = (url, withProtocol = false, strict = false) => {
+  if (!url || typeof url !== 'string') return false;
+  const protocol = (withProtocol && url.indexOf('://') === -1) ? 'https://' : '';
+  const temp = () => null;
+  if (strict && url.indexOf('.') === -1) return false;
+  try {
+    temp(new URL(`${protocol}${url}`));
+  } catch (e) {
+    return false;
+  }
+  return true;
+};
+
 module.exports = {
   empty,
+  isUrl,
 };

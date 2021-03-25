@@ -82,6 +82,7 @@ Utility for data inspection.
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
 | .empty | data **{Any}** | Returns true if the passed data is empty or has a length of 0. | `empty([]) // true`<br/>`empty('') // true`<br/>`empty('abc') // false` |
+| .isUrl | <li>url **{String}**</li><li>withProtocol **{Boolean&#124;null}**</li><li>strict **{Boolean&#124;null}**</li> | Returns true if the given data is in the correct URL format. If withProtocol is true, it is automatically appended to the URL when the protocol does not exist. If strict is true, URLs without commas (.) return false. | `isUrl('google.com') // false`<br/>`isUrl('google.com', true) // true`<br/>`isUrl('https://google.com') // true` |
 
 ## qsu.format
 Utility that converts to Human-Readable String format.
