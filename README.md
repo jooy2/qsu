@@ -76,6 +76,13 @@ Utility for arithmetic on numbers.
 | --- | --- | --- | --- |
 | .rand | <li>min **{Number&#124;null}**</li><li>max **{Number&#124;null}**</li> | Returns a random number (0 to max or between min and max). | `rand() // 0-1`<br/>`rand(10) // 0~10`<br/>`rand(10, 20) // 10~20` |
 
+## qsu.verify
+Utility for data inspection.
+
+| Method | Params | Description | Example |
+| --- | --- | --- | --- |
+| .empty | data **{Any}** | Returns true if the passed data is empty or has a length of 0. | `empty([]) // true`<br/>`empty('') // true`<br/>`empty('abc') // false` |
+
 ## qsu.format
 Utility that converts to Human-Readable String format.
 
