@@ -67,7 +67,8 @@ Utility to help process string type data.
 
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
-| .removeSpecialChar | string **{String}** | Returns after removing all special characters, including spaces. | `removeSpecialChar('Hello, World!') // HelloWorld` |
+| .removeSpecialChar | string **{String}** | Returns after removing all special characters, including spaces. | `removeSpecialChar('Hello, World!') // 'HelloWorld'` |
+| .removeNewLine |  **{String}** | Removes \n, \r characters or replaces them with specified characters. | `removeNewLine('ab\ncd') // 'abcd'`<br/>`removeNewLine('ab\r\ncd', '-') // 'ab-cd'` |
 
 ## qsu.math
 Utility for arithmetic on numbers.
