@@ -68,7 +68,7 @@ Utility to help process string type data.
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
 | .removeSpecialChar | string **{String}** | Returns after removing all special characters, including spaces. | `removeSpecialChar('Hello, World!') // 'HelloWorld'` |
-| .removeNewLine |  **{String}** | Removes \n, \r characters or replaces them with specified characters. | `removeNewLine('ab\ncd') // 'abcd'`<br/>`removeNewLine('ab\r\ncd', '-') // 'ab-cd'` |
+| .removeNewLine | string **{String}** | Removes \n, \r characters or replaces them with specified characters. | `removeNewLine('ab\ncd') // 'abcd'`<br/>`removeNewLine('ab\r\ncd', '-') // 'ab-cd'` |
 
 ## qsu.math
 Utility for arithmetic on numbers.
@@ -84,6 +84,7 @@ Utility for data inspection.
 | --- | --- | --- | --- |
 | .empty | data **{Any}** | Returns true if the passed data is empty or has a length of 0. | `empty([]) // true`<br/>`empty('') // true`<br/>`empty('abc') // false` |
 | .isUrl | <li>url **{String}**</li><li>withProtocol **{Boolean&#124;null}**</li><li>strict **{Boolean&#124;null}**</li> | Returns true if the given data is in the correct URL format. If withProtocol is true, it is automatically appended to the URL when the protocol does not exist. If strict is true, URLs without commas (.) return false. | `isUrl('google.com') // false`<br/>`isUrl('google.com', true) // true`<br/>`isUrl('https://google.com') // true` |
+| .contains | <li>string **{String}**</li><li>searchData **{Array&#124;String}** | Returns true if the first string argument contains the second argument "string" or "one or more of the strings listed in the array". | `contains('abc', 'a') // true`<br/>`contains('abc', 'd') // false`<br/>`contains('abc', ['a', 'd']) // true` |
 
 ## qsu.format
 Utility that converts to Human-Readable String format.

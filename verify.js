@@ -26,7 +26,19 @@ const isUrl = (url, withProtocol = false, strict = false) => {
   return true;
 };
 
+const contains = (str, search) => {
+  if (!str || !search || (typeof str !== 'string' && typeof str !== 'object')
+      || (typeof str === 'object' && !Array.isArray(str))) return false;
+  if (typeof search === 'string') return str.indexOf(search) !== -1;
+  const searchLength = search.length;
+  for (let i = 0; i < searchLength; i += 1) {
+    if (str.indexOf(search[i]) !== -1) return true;
+  }
+  return false;
+};
+
 module.exports = {
   empty,
   isUrl,
+  contains,
 };

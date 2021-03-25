@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { empty, isUrl } = require('../verify');
+const { empty, isUrl, contains } = require('../verify');
 
 describe('Verify', () => {
   it('empty', (done) => {
@@ -28,6 +28,15 @@ describe('Verify', () => {
     assert.strictEqual(isUrl('https://google'), true);
     assert.strictEqual(isUrl('https://google', false, true), false);
     assert.strictEqual(isUrl('https://google.com?query=qsu'), true);
+    done();
+  });
+
+  it('contains', (done) => {
+    assert.strictEqual(contains('12345', '3'), true);
+    assert.strictEqual(contains('12345', '10'), false);
+    assert.strictEqual(contains('ABC', ['A']), true);
+    assert.strictEqual(contains('ABC', ['A', 'B', 'C']), true);
+    assert.strictEqual(contains('ABC', ['D', 'E', 'F']), false);
     done();
   });
 });
