@@ -1,7 +1,7 @@
 # 🧰 QSU
 Quick and Simple Utility for JavaScript (NodeJS)
 
-A collection of complex or useful features that are often used in JavaScript.
+A collection of complex or useful features that are often used in JavaScript. It is implemented to be used in both a client or server environment.
 
 qsu is optimized for modern development environments, so older browsers such as Internet Explorer 11 and Legacy Edge (Not Chromium) may not support it unless you use a transcompiler. Some functions use ES6 or higher JS standard syntax.
 
@@ -61,6 +61,7 @@ Utility to help process array type data.
 | --- | --- | --- | --- |
 | .shuffle | array **{Array}** | Shuffle the order of the given array and return | `shuffle([1, 2, 3, 4]) // [4, 2, 3, 1]...` |
 | .setWithDefault | <li>defaultValue **{Any}**</li><li>arrayLength **{Number&#124;null}**</li> | Initialize an array with a default value of a specific length. | `setWithDefault('abc', 4) // ['abc', 'abc', 'abc', 'abc']`<br/>`setWithDefault(null, 3) // [null, null, null]` |
+| .unique | <li>defaultValue **{Any}**</li><li>arrayLength **{Number&#124;null}**</li> | Remove duplicate values from array and two-dimensional array data. In the case of 2d arrays, json type data duplication is not removed. | `unique([1, 2, 2, 3]) // [1, 2, 3]`<br/>`unique([[1], [1], [2]) // [[1], [2]]` |
 
 ## qsu.string
 Utility to help process string type data.

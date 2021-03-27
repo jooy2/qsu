@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { shuffle, setWithDefault } = require('../array');
+const { shuffle, setWithDefault, unique } = require('../array');
 
 describe('Array', () => {
   it('shuffle', (done) => {
@@ -14,6 +14,14 @@ describe('Array', () => {
     assert(setWithDefault('test'));
     assert(setWithDefault('test', 10));
     assert(setWithDefault(100, 5));
+    done();
+  });
+
+  it('unique', (done) => {
+    assert.deepStrictEqual(unique([1, 1, 2, 2, 3]), [1, 2, 3]);
+    assert.deepStrictEqual(unique(['1', '2', '3', '3', '4']), ['1', '2', '3', '4']);
+    assert.deepStrictEqual(unique([1, '1', 1, 'a', 2, 'b']), [1, '1', 'a', 2, 'b']);
+    assert.deepStrictEqual(unique([[1, 2], [1, 2], [2, 3], [2, 4]]), [[1, 2], [2, 3], [2, 4]]);
     done();
   });
 });
