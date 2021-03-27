@@ -109,7 +109,6 @@ Various utilities that help with convenience codes or complex operations.
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
 | .sleep | milliseconds **{Number}** | Sleep function using Promise. | `await sleep(1000) // 1s`<br/>`sleep(5000).then(() => { ... })` |
-| .takes | function **{() => Function}** | Aggregate the execution time (in milliseconds) of the function passed as an argument. For a function to be passed explicitly, use the function without parentheses or the Arrow function or function() {...} as arguments. If the second argument is true, the decimal point is truncated. | `takes(testFunction) // 0.321...`<br/>`takes(() => testFUnction(args1, args2)) // 0.234...`<br/>`takes(() => testFunction, true) // 3` |
 
 # Contribute
 You can report issues on Github Issue. You can also request a pull to fix bugs and add frequently used features.
