@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'arrow-parens': 0,
     'import/extensions': 0,
+    'no-throw-literal': 0,
   },
   overrides: [
     {

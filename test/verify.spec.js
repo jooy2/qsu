@@ -1,6 +1,6 @@
 const assert = require('assert');
 const {
-  empty, isUrl, contains, is2dArray,
+  empty, isUrl, contains, is2dArray, between,
 } = require('../verify');
 
 describe('Verify', () => {
@@ -48,6 +48,13 @@ describe('Verify', () => {
     assert.strictEqual(is2dArray('A'), false);
     assert.strictEqual(is2dArray([{ a: 1 }, { b: 2 }]), false);
     assert.strictEqual(is2dArray([[1], [2]]), true);
+    done();
+  });
+
+  it('between', (done) => {
+    assert.strictEqual(between(1, [1, 10]), false);
+    assert.strictEqual(between(1, [1, 10], true), true);
+    assert.strictEqual(between(11, [10, 100]), true);
     done();
   });
 });

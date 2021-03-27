@@ -61,7 +61,7 @@ Utility to help process array type data.
 | --- | --- | --- | --- |
 | .shuffle | array **{Array}** | Shuffle the order of the given array and return | `shuffle([1, 2, 3, 4]) // [4, 2, 3, 1]...` |
 | .setWithDefault | <li>defaultValue **{Any}**</li><li>arrayLength **{Number&#124;null}**</li> | Initialize an array with a default value of a specific length. | `setWithDefault('abc', 4) // ['abc', 'abc', 'abc', 'abc']`<br/>`setWithDefault(null, 3) // [null, null, null]` |
-| .unique | <li>defaultValue **{Any}**</li><li>arrayLength **{Number&#124;null}**</li> | Remove duplicate values from array and two-dimensional array data. In the case of 2d arrays, json type data duplication is not removed. | `unique([1, 2, 2, 3]) // [1, 2, 3]`<br/>`unique([[1], [1], [2]) // [[1], [2]]` |
+| .unique | array **{Array}** | Remove duplicate values from array and two-dimensional array data. In the case of 2d arrays, json type data duplication is not removed. | `unique([1, 2, 2, 3]) // [1, 2, 3]`<br/>`unique([[1], [1], [2]) // [[1], [2]]` |
 
 ## qsu.string
 Utility to help process string type data.
@@ -88,6 +88,7 @@ Utility for data inspection.
 | .isUrl | <li>url **{String}**</li><li>withProtocol **{Boolean&#124;null}**</li><li>strict **{Boolean&#124;null}**</li> | Returns true if the given data is in the correct URL format. If withProtocol is true, it is automatically appended to the URL when the protocol does not exist. If strict is true, URLs without commas (.) return false. | `isUrl('google.com') // false`<br/>`isUrl('google.com', true) // true`<br/>`isUrl('https://google.com') // true` |
 | .contains | <li>string **{String}**</li><li>searchData **{Array&#124;String}** | Returns true if the first string argument contains the second argument "string" or "one or more of the strings listed in the array". | `contains('abc', 'a') // true`<br/>`contains('abc', 'd') // false`<br/>`contains('abc', ['a', 'd']) // true` |
 | .is2dArray | array **{Array}** | Returns true if the given array is a two-dimensional array. | `is2dArray([1]) // false`<br/>`is2dArray([[1], [2]) // true` |
+| .between | <li>value **{Number}**</li><li>range **{[min, max]}</li><li>inclusive **{Boolean&#124;null}**</li>** | Returns true if the first argument is in the range of the second argument ([min, max]). To allow the minimum and maximum values to be in the range, pass true for the third argument. | `between(10, [10, 20]) // false`<br/>`between(10, [10, 20], true) // true` |
 
 ## qsu.format
 Utility that converts to Human-Readable String format.
