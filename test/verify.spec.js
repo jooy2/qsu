@@ -1,5 +1,7 @@
 const assert = require('assert');
-const { empty, isUrl, contains } = require('../verify');
+const {
+  empty, isUrl, contains, is2dArray,
+} = require('../verify');
 
 describe('Verify', () => {
   it('empty', (done) => {
@@ -37,6 +39,15 @@ describe('Verify', () => {
     assert.strictEqual(contains('ABC', ['A']), true);
     assert.strictEqual(contains('ABC', ['A', 'B', 'C']), true);
     assert.strictEqual(contains('ABC', ['D', 'E', 'F']), false);
+    done();
+  });
+
+  it('is2dArray', (done) => {
+    assert.strictEqual(is2dArray([]), false);
+    assert.strictEqual(is2dArray([[], []]), true);
+    assert.strictEqual(is2dArray('A'), false);
+    assert.strictEqual(is2dArray([{ a: 1 }, { b: 2 }]), false);
+    assert.strictEqual(is2dArray([[1], [2]]), true);
     done();
   });
 });

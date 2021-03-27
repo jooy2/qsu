@@ -37,8 +37,14 @@ const contains = (str, search) => {
   return false;
 };
 
+const is2dArray = (arr) => {
+  if (!arr || typeof arr !== 'object' || !Array.isArray(arr)) return false;
+  return arr.filter(Array.isArray).length === 2;
+};
+
 module.exports = {
   empty,
   isUrl,
   contains,
+  is2dArray,
 };
