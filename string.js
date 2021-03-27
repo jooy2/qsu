@@ -8,7 +8,13 @@ const removeNewLine = (str, replaceTo = '') => {
   return str.replace(/(\r\n|\n|\r)/gm, replaceTo).trim();
 };
 
+const capitalizeFirst = (str) => {
+  if (!str || typeof str !== 'string' || str.length < 1) return null;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 module.exports = {
   removeSpecialChar,
   removeNewLine,
+  capitalizeFirst,
 };
