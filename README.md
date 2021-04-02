@@ -71,6 +71,7 @@ Utility to help process string type data.
 | .removeSpecialChar | string **{String}** | Returns after removing all special characters, including spaces. | `removeSpecialChar('Hello, World!') // 'HelloWorld'` |
 | .removeNewLine | string **{String}** | Removes \n, \r characters or replaces them with specified characters. | `removeNewLine('ab\ncd') // 'abcd'`<br/>`removeNewLine('ab\r\ncd', '-') // 'ab-cd'` |
 | .capitalizeFirst | string **{String}** | Converts the first letter of the entire string to uppercase and returns. | `capitalizeFirst('abcd') // 'Abcd'` |
+| .count | <li>string **{String}**</li><li>search **{String}**</li> | Returns the number of times the second String character is contained in the first String argument. | `count('abcabc', 'a') // 2` |
 
 ## qsu.math
 Utility for arithmetic on numbers.

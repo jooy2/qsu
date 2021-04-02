@@ -1,5 +1,7 @@
 const assert = require('assert');
-const { removeSpecialChar, removeNewLine, capitalizeFirst } = require('../string');
+const {
+  removeSpecialChar, removeNewLine, capitalizeFirst, count,
+} = require('../string');
 
 describe('String', () => {
   it('removeSpecialChar', (done) => {
@@ -25,6 +27,14 @@ st`), 'test');
     assert.strictEqual(capitalizeFirst('t'), 'T');
     assert.strictEqual(capitalizeFirst('test'), 'Test');
     assert.strictEqual(capitalizeFirst('tEST'), 'TEST');
+    done();
+  });
+
+  it('count', (done) => {
+    assert.strictEqual(count('hello', 'l'), 2);
+    assert.strictEqual(count('abcdABCD', 'a'), 1);
+    assert.strictEqual(count('aaaaaa', 'a'), 6);
+    assert.strictEqual(count('hello', 'll'), 1);
     done();
   });
 });

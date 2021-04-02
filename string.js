@@ -13,8 +13,14 @@ const capitalizeFirst = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
+const count = (str, search) => {
+  if (!str || typeof str !== 'string' || !search || typeof search !== 'string') return 0;
+  return (str.match(new RegExp(search, 'g')) || []).length;
+};
+
 module.exports = {
   removeSpecialChar,
   removeNewLine,
   capitalizeFirst,
+  count,
 };
