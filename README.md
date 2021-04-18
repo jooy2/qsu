@@ -62,6 +62,7 @@ Utility to help process array type data.
 | .shuffle | array **{Array}** | Shuffle the order of the given array and return | `shuffle([1, 2, 3, 4]) // [4, 2, 3, 1]...` |
 | .setWithDefault | <li>defaultValue **{Any}**</li><li>arrayLength **{Number&#124;null}**</li> | Initialize an array with a default value of a specific length. | `setWithDefault('abc', 4) // ['abc', 'abc', 'abc', 'abc']`<br/>`setWithDefault(null, 3) // [null, null, null]` |
 | .unique | array **{Array}** | Remove duplicate values from array and two-dimensional array data. In the case of 2d arrays, json type data duplication is not removed. | `unique([1, 2, 2, 3]) // [1, 2, 3]`<br/>`unique([[1], [1], [2]) // [[1], [2]]` |
+| .setWithNumber | <li>start **{Number}**</li><li>end **{Number}**</li> | Creates and returns an Array in the order of start...end values. | `setWithNumber(1, 3) // [1, 2, 3]`<br/>`setWithNumber(0, 3) // [0, 1, 2, 3]` |
 
 ## qsu.string
 Utility to help process string type data.

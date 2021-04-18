@@ -28,8 +28,14 @@ const unique = (arr) => {
   return [...new Set(arr)];
 };
 
+const setWithNumber = (start, end) => {
+  if (start === null || end === null || start > end) return null;
+  return Array.from({ length: (end - start) + 1 }, (_, i) => i + start);
+};
+
 module.exports = {
   shuffle,
   setWithDefault,
   unique,
+  setWithNumber,
 };
