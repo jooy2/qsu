@@ -98,6 +98,7 @@ Utility that converts to Human-Readable String format.
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
 | .number | val **{String&#124;Number}** | Return in number format including comma symbol. | `number(1234567) // 1,234,567` |
+| .fileSize | <li>bytes **{Number}**</li><li>decimals **{Number}**</li> | Converts the file size in bytes to human-readable and returns it. The return value is a String and includes the file units (Bytes, MB, GB...). If the second optional argument value is included, you can display as many decimal places as you like. | `fileSize(2000, 3) // '1.953 KB'`<br/>`fileSize(250000000) // '238.42 MB'` |
 
 ## qsu.date
 Utility to simplify date format printing or calculation.
