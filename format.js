@@ -7,7 +7,20 @@ const fileSize = (bytes, decimals = 2) => {
   return `${parseFloat((bytes / 1024 ** byteCalc).toFixed((decimals < 0 ? 0 : decimals)))} ${['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'][byteCalc]}`;
 };
 
+const msToTime = (milliseconds = 0, withMilliseconds = false, separator = ':') => {
+  if (!milliseconds || typeof milliseconds !== 'number' || typeof separator !== 'string') return 'Unknown';
+  const ms = Math.floor((milliseconds % 1000) / 100);
+  let sec = Math.floor((milliseconds / 1000) % 60);
+  let min = Math.floor((milliseconds / (1000 * 60)) % 60);
+  let hour = Math.floor(milliseconds / (1000 * 60 * 60));
+  hour = (hour < 10) ? `0${hour}` : hour;
+  min = (min < 10) ? `0${min}` : min;
+  sec = (sec < 10) ? `0${sec}` : sec;
+  return `${hour}${separator}${min}${separator}${sec}${withMilliseconds ? `.${ms}` : ''}`;
+};
+
 module.exports = {
   number,
   fileSize,
+  msToTime,
 };

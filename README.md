@@ -99,6 +99,7 @@ Utility that converts to Human-Readable String format.
 | --- | --- | --- | --- |
 | .number | val **{String&#124;Number}** | Return in number format including comma symbol. | `number(1234567) // 1,234,567` |
 | .fileSize | <li>bytes **{Number}**</li><li>decimals **{Number}**</li> | Converts the file size in bytes to human-readable and returns it. The return value is a String and includes the file units (Bytes, MB, GB...). If the second optional argument value is included, you can display as many decimal places as you like. | `fileSize(2000, 3) // '1.953 KB'`<br/>`fileSize(250000000) // '238.42 MB'` |
+| .msToTime | <li>milliseconds **{Number}**</li><li>withMilliseconds **{Boolean}**</li><li>separator **{String}**</li> | Converts milliseconds to hours, minutes, seconds, and milliseconds and returns. If the second argument is true, milliseconds are also printed. You can put any separator (String) between hours, minutes, and seconds in the third argument. | `msToTime(100000) // '00:01:40'`<br/>`msToTime(100000, true, '-') // '00-01-40.0'` |
 
 ## qsu.date
 Utility to simplify date format printing or calculation.
