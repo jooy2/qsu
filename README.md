@@ -80,6 +80,7 @@ Utility for arithmetic on numbers.
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
 | .rand | <li>min **{Number&#124;null}**</li><li>max **{Number&#124;null}**</li> | Returns a random number (0 to max or between min and max). | `rand() // 0-1`<br/>`rand(10) // 0~10`<br/>`rand(10, 20) // 10~20` |
+| .add | <li>...numbers **{Number&#124;Array}**</li> | Returns after adding up all the n arguments of numbers or the values of a single array of numbers. | `add(1, 2, 3) // 6`<br/>`add([1, 2, 3, 4]) // 10` |
 
 ## qsu.verify
 Utility for data inspection.

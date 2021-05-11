@@ -43,8 +43,8 @@ const is2dArray = (arr) => {
 };
 
 const between = (number, range, inclusive = false) => {
-  if (!number) throw 'Need a value to compare with range';
-  if (!range || typeof range !== 'object' || range.length !== 2) throw 'You should use range like this: [min, max]';
+  if (!number) throw new Error('Need a value to compare with range');
+  if (!range || typeof range !== 'object' || range.length !== 2) throw new Error('You should use range like this: [min, max]');
   const minM = Math.min.apply(Math, [range[0], range[1]]);
   const maxM = Math.max.apply(Math, [range[0], range[1]]);
   return inclusive ? number >= minM && number <= maxM : number > minM && number < maxM;
