@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { rand, add } = require('../math');
+const { rand, add, mul } = require('../math');
 
 describe('Math', () => {
   it('rand', (done) => {
@@ -19,6 +19,14 @@ describe('Math', () => {
     assert.strictEqual(add(1), 1);
     assert.strictEqual(add(1, 2, 3, 4), 10);
     assert.strictEqual(add([1, 2, 3]), 6);
+    done();
+  });
+
+  it('mul', (done) => {
+    assert.strictEqual(mul(1), 1);
+    assert.strictEqual(mul(1, 2, 3, 4), 24);
+    assert.strictEqual(mul([1, 2, 3]), 6);
+    assert.strictEqual(mul(1, 5, 7, 0, 9), 0);
     done();
   });
 });
