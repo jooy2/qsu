@@ -1,5 +1,7 @@
 const assert = require('assert');
-const { number, fileSize, msToTime } = require('../format');
+const {
+  number, fileSize, msToTime, secToTime,
+} = require('../format');
 
 describe('Format', () => {
   it('number', (done) => {
@@ -23,6 +25,14 @@ describe('Format', () => {
     assert.strictEqual(msToTime(100000, true), '00:01:40.0');
     assert.strictEqual(msToTime(100000, false, '-'), '00-01-40');
     assert.strictEqual(msToTime(123456789), '34:17:36');
+    done();
+  });
+
+  it('secToTime', (done) => {
+    assert.strictEqual(secToTime(5), '00:00:05');
+    assert.strictEqual(secToTime(60), '00:01:00');
+    assert.strictEqual(secToTime(3800, '-'), '01-03-20');
+    assert.strictEqual(secToTime(360000), '100:00:00');
     done();
   });
 });
