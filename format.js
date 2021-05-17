@@ -27,7 +27,6 @@ const secToTime = (seconds = 0, separator = ':') => {
   hour = (hour < 10) ? `0${hour}` : hour;
   min = (min < 10) ? `0${min}` : min;
   sec = (sec < 10) ? `0${sec}` : sec;
-  console.log(`${hour}${separator}${min}${separator}${sec}`);
   return `${hour}${separator}${min}${separator}${sec}`;
 };
 
