@@ -1,6 +1,6 @@
 const assert = require('assert');
 const {
-  number, fileSize, msToTime, secToTime,
+  number, fileSize, fileExt, msToTime, secToTime,
 } = require('../format');
 
 describe('Format', () => {
@@ -13,6 +13,14 @@ describe('Format', () => {
   });
 
   it('fileSize', (done) => {
+    assert.strictEqual(fileExt('C:\\Users\\test\\Desktop\\text.txt'), 'txt');
+    assert.strictEqual(fileExt('hello.html'), 'html');
+    assert.strictEqual(fileExt('this.is.file.PNG'), 'png');
+    assert.strictEqual(fileExt('no-ext'), 'Unknown');
+    done();
+  });
+
+  it('fileExt', (done) => {
     assert.strictEqual(fileSize(1), '1 Bytes');
     assert.strictEqual(fileSize(1000000), '976.56 KB');
     assert.strictEqual(fileSize(2000, 3), '1.953 KB');

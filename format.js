@@ -7,6 +7,13 @@ const fileSize = (bytes, decimals = 2) => {
   return `${parseFloat((bytes / 1024 ** byteCalc).toFixed((decimals < 0 ? 0 : decimals)))} ${['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'][byteCalc]}`;
 };
 
+const fileExt = (path) => {
+  if (!path || typeof path !== 'string' || path.indexOf('.') === -1) return 'Unknown';
+  const p = path.trim().toLowerCase();
+  const pSpl = p.split('.');
+  return pSpl.length > 0 ? pSpl[pSpl.length - 1] : 'Unknown';
+};
+
 const msToTime = (milliseconds = 0, withMilliseconds = false, separator = ':') => {
   if (!milliseconds || typeof milliseconds !== 'number' || typeof separator !== 'string') return 'Unknown';
   const ms = Math.floor((milliseconds % 1000) / 100);
@@ -33,6 +40,7 @@ const secToTime = (seconds = 0, separator = ':') => {
 module.exports = {
   number,
   fileSize,
+  fileExt,
   msToTime,
   secToTime,
 };
