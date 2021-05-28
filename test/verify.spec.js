@@ -1,6 +1,6 @@
 const assert = require('assert');
 const {
-  empty, isUrl, contains, is2dArray, between,
+  empty, isUrl, contains, is2dArray, between, length,
 } = require('../verify');
 
 describe('Verify', () => {
@@ -55,6 +55,16 @@ describe('Verify', () => {
     assert.strictEqual(between(1, [1, 10]), false);
     assert.strictEqual(between(1, [1, 10], true), true);
     assert.strictEqual(between(11, [10, 100]), true);
+    done();
+  });
+
+  it('length', (done) => {
+    assert.strictEqual(length('12345'), 5);
+    assert.strictEqual(length(12345), 5);
+    assert.strictEqual(length(() => '123'), 3);
+    assert.strictEqual(length([1, 2, 3, 4]), 4);
+    assert.strictEqual(length({ hello: 'world', lorem: 'ipsum' }), 2);
+    assert.strictEqual(length([{ hello: 1, world: 2 }, { lorem: 3 }]), 2);
     done();
   });
 });

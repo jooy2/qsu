@@ -93,6 +93,7 @@ Utility for data inspection.
 | .contains | <li>string **{String}**</li><li>searchData **{Array&#124;String}** | Returns true if the first string argument contains the second argument "string" or "one or more of the strings listed in the array". | `contains('abc', 'a') // true`<br/>`contains('abc', 'd') // false`<br/>`contains('abc', ['a', 'd']) // true` |
 | .is2dArray | array **{Array}** | Returns true if the given array is a two-dimensional array. | `is2dArray([1]) // false`<br/>`is2dArray([[1], [2]) // true` |
 | .between | <li>value **{Number}**</li><li>range **{[min, max]}</li><li>inclusive **{Boolean&#124;null}**</li>** | Returns true if the first argument is in the range of the second argument ([min, max]). To allow the minimum and maximum values to be in the range, pass true for the third argument. | `between(10, [10, 20]) // false`<br/>`between(10, [10, 20], true) // true` |
+| .length | <li>data **{Any}**</li> | Returns the length of any type of data. If the argument value is null or undefined, 0 is returned. | `length('12345') // 5`<br/>`length([1, 2, 3]]) // 3` |
 
 ## qsu.format
 Utility that converts to Human-Readable String format.

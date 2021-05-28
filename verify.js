@@ -50,10 +50,29 @@ const between = (number, range, inclusive = false) => {
   return inclusive ? number >= minM && number <= maxM : number > minM && number < maxM;
 };
 
+const length = (data) => {
+  if (!data || typeof data === 'undefined') return 0;
+  switch (typeof data) {
+    default:
+    case 'string':
+      return data.length;
+    case 'object':
+      return Array.isArray(data) ? data.length : Object.keys(data).length;
+    case 'number':
+    case 'bigint':
+      return data.toString().length;
+    case 'boolean':
+      return data ? 4 : 5;
+    case 'function':
+      return length(data());
+  }
+};
+
 module.exports = {
   empty,
   isUrl,
   contains,
   is2dArray,
   between,
+  length,
 };
