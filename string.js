@@ -18,9 +18,15 @@ const count = (str, search) => {
   return (str.match(new RegExp(search, 'g')) || []).length;
 };
 
+const shuffle = (str) => {
+  if (!str || typeof str !== 'string') return null;
+  return [...str].sort(() => Math.random() - 0.5).join('');
+};
+
 module.exports = {
   removeSpecialChar,
   removeNewLine,
   capitalizeFirst,
   count,
+  shuffle,
 };

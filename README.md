@@ -73,6 +73,7 @@ Utility to help process string type data.
 | .removeNewLine | string **{String}** | Removes \n, \r characters or replaces them with specified characters. | `removeNewLine('ab\ncd') // 'abcd'`<br/>`removeNewLine('ab\r\ncd', '-') // 'ab-cd'` |
 | .capitalizeFirst | string **{String}** | Converts the first letter of the entire string to uppercase and returns. | `capitalizeFirst('abcd') // 'Abcd'` |
 | .count | <li>string **{String}**</li><li>search **{String}**</li> | Returns the number of times the second String character is contained in the first String argument. | `count('abcabc', 'a') // 2` |
+| .shuffle | <li>string **{String}**</li> | Randomly shuffles the received string and returns it. | `shuffle('abcdefg') // 'bgafced'` |
 
 ## qsu.math
 Utility for arithmetic on numbers.

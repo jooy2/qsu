@@ -1,6 +1,6 @@
 const assert = require('assert');
 const {
-  removeSpecialChar, removeNewLine, capitalizeFirst, count,
+  removeSpecialChar, removeNewLine, capitalizeFirst, count, shuffle,
 } = require('../string');
 
 describe('String', () => {
@@ -35,6 +35,12 @@ st`), 'test');
     assert.strictEqual(count('abcdABCD', 'a'), 1);
     assert.strictEqual(count('aaaaaa', 'a'), 6);
     assert.strictEqual(count('hello', 'll'), 1);
+    done();
+  });
+
+  it('shuffle', (done) => {
+    assert(shuffle('hi'));
+    assert(shuffle('abc def ghi'));
     done();
   });
 });
