@@ -1,6 +1,6 @@
 const assert = require('assert');
 const {
-  removeSpecialChar, removeNewLine, capitalizeFirst, count, shuffle,
+  removeSpecialChar, removeNewLine, capitalizeFirst, count, shuffle, createRandom,
 } = require('../string');
 
 describe('String', () => {
@@ -41,6 +41,13 @@ st`), 'test');
   it('shuffle', (done) => {
     assert(shuffle('hi'));
     assert(shuffle('abc def ghi'));
+    done();
+  });
+
+  it('createRandomCode', (done) => {
+    assert(createRandom());
+    assert(createRandom(5));
+    assert(createRandom(10));
     done();
   });
 });

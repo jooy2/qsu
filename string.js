@@ -23,10 +23,18 @@ const shuffle = (str) => {
   return [...str].sort(() => Math.random() - 0.5).join('');
 };
 
+const createRandom = (length = 12) => {
+  if (typeof length !== 'number') return null;
+  return Math.random().toString(36).substr(2, length).split('')
+    .map(c => (Math.random() < 0.5 ? c.toUpperCase() : c))
+    .join('');
+};
+
 module.exports = {
   removeSpecialChar,
   removeNewLine,
   capitalizeFirst,
   count,
   shuffle,
+  createRandom,
 };
