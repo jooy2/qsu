@@ -6,7 +6,7 @@ A collection of complex or useful features that are often used in JavaScript. It
 qsu is optimized for modern development environments, so older browsers such as Internet Explorer 11 and Legacy Edge (Not Chromium) may not support it unless you use a transcompiler. Some functions use ES6 or higher JS standard syntax.
 
 # Installation
-Qsu requires Node.js 10.x or higher, and the repository is serviced through NPM.
+Qsu requires Node.js 12.x or higher, and the repository is serviced through NPM.
 After configuring the node environment, you can simply run the following command.
 ```javascript
 $ npm i --save qsu
