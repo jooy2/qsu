@@ -11,6 +11,7 @@ module.exports = {
     'airbnb',
   ],
   rules: {
+    'linebreak-style': ['error', 'windows'],
     'arrow-parens': 0,
     'import/extensions': 0,
   },
