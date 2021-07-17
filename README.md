@@ -75,6 +75,7 @@ Utility to help process string type data.
 | .count | <li>string **{String}**</li><li>search **{String}**</li> | Returns the number of times the second String character is contained in the first String argument. | `count('abcabc', 'a') // 2` |
 | .shuffle | <li>string **{String}**</li> | Randomly shuffles the received string and returns it. | `shuffle('abcdefg') // 'bgafced'` |
 | .createRandom | <li>length **{Number}**</li> | Returns a random String containing numbers or uppercase and lowercase letters of the given length. The default return length is 12. | `createRandom(5) // 'CHy2M'` |
+| .hideRandom | <li>str **{String}**</li><li>hideLength **{Number}**</li><li>hideStr **{String}**</li> | Replaces strings at random locations with a specified number of characters (default 1) with characters (default *). | `hideRandom('hello', 2, '#') // '#el#o'` |
 
 ## qsu.math
 Utility for arithmetic on numbers.

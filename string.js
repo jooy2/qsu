@@ -1,3 +1,5 @@
+import { rand } from './math';
+
 const removeSpecialChar = (str) => {
   if (!str || typeof str !== 'string') return str;
   return str.replace(/[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f]/gi, '');
@@ -30,6 +32,23 @@ const createRandom = (length = 12) => {
     .join('');
 };
 
+const hideRandom = (str, hideLength = 1, hideStr = '*') => {
+  let currentStr = str;
+  let hideCount = 0;
+  let tempIdx = 0;
+  const totalStrLength = currentStr.length;
+  let currentStrLength = 0;
+  while ((hideCount < hideLength) && (currentStrLength < totalStrLength)) {
+    tempIdx = rand(0, totalStrLength);
+    if (/[a-zA-Z가-힣]/.test(currentStr.substr(tempIdx, 1))) {
+      currentStr = `${currentStr.substr(0, tempIdx)}${hideStr}${currentStr.substr(tempIdx + 1)}`;
+      hideCount += 1;
+    }
+    currentStrLength += 1;
+  }
+  return currentStr;
+};
+
 module.exports = {
   removeSpecialChar,
   removeNewLine,
@@ -37,4 +56,5 @@ module.exports = {
   count,
   shuffle,
   createRandom,
+  hideRandom,
 };
