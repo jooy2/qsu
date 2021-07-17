@@ -96,6 +96,7 @@ Utility for data inspection.
 | .is2dArray | array **{Array}** | Returns true if the given array is a two-dimensional array. | `is2dArray([1]) // false`<br/>`is2dArray([[1], [2]) // true` |
 | .between | <li>value **{Number}**</li><li>range **{[min, max]}</li><li>inclusive **{Boolean&#124;null}**</li>** | Returns true if the first argument is in the range of the second argument ([min, max]). To allow the minimum and maximum values to be in the range, pass true for the third argument. | `between(10, [10, 20]) // false`<br/>`between(10, [10, 20], true) // true` |
 | .length | <li>data **{Any}**</li> | Returns the length of any type of data. If the argument value is null or undefined, 0 is returned. | `length('12345') // 5`<br/>`length([1, 2, 3]]) // 3` |
+| .isBotAgent | <li>userAgent **{String}**</li> | Analyze the user agent value to determine if it's a bot for a search engine. Returns true if it's a bot. | `isBotAgent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)') // true` |
 
 ## qsu.format
 Utility that converts to Human-Readable String format.

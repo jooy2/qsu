@@ -1,6 +1,6 @@
 const assert = require('assert');
 const {
-  empty, isUrl, contains, is2dArray, between, length,
+  empty, isUrl, contains, is2dArray, between, length, isBotAgent,
 } = require('../verify');
 
 describe('Verify', () => {
@@ -65,6 +65,12 @@ describe('Verify', () => {
     assert.strictEqual(length([1, 2, 3, 4]), 4);
     assert.strictEqual(length({ hello: 'world', lorem: 'ipsum' }), 2);
     assert.strictEqual(length([{ hello: 1, world: 2 }, { lorem: 3 }]), 2);
+    done();
+  });
+
+  it('isBotAgent', (done) => {
+    assert.strictEqual(isBotAgent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html'), true);
+    assert.strictEqual(isBotAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'), false);
     done();
   });
 });
