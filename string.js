@@ -1,4 +1,4 @@
-import { rand } from './math';
+const { rand } = require('./math');
 
 const removeSpecialChar = (str) => {
   if (!str || typeof str !== 'string') return str;
