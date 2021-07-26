@@ -13,7 +13,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/leejooy96/qsu"
+    "url": "https://github.com/jooy2/qsu"
   },
   "devDependencies": {
     "@babel/node": "^7.14.7",
