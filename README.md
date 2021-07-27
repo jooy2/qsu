@@ -8,7 +8,7 @@ qsu is optimized for modern development environments, so older browsers such as 
 # Installation
 Qsu requires Node.js 12.x or higher, and the repository is serviced through NPM.
 After configuring the node environment, you can simply run the following command.
-```javascript
+```
 $ npm i --save qsu
 ```
 
@@ -50,7 +50,7 @@ function main () {
 ```
 
 # Reference
-```javascript
+```
 qsu.{{Util}}.{{Method}}({{Params1}}, {{Params2}})
 ```
 
@@ -108,7 +108,7 @@ Utility that converts to Human-Readable String format.
 | .fileSize | <li>bytes **{Number}**</li><li>decimals **{Number}**</li> | Converts the file size in bytes to human-readable and returns it. The return value is a String and includes the file units (Bytes, MB, GB...). If the second optional argument value is included, you can display as many decimal places as you like. | `fileSize(2000, 3) // '1.953 KB'`<br/>`fileSize(250000000) // '238.42 MB'` |
 | .fileExt | <li>path **{String}**</li> | Returns only the extensions in the file path. If unknown, returns 'Unknown'. | `fileExt('C:\Temp\hello.txt') // 'txt'`<br/>`fileExt('this-is-file.mp3') // 'mp3'` |
 | .msToTime | <li>milliseconds **{Number}**</li><li>withMilliseconds **{Boolean}**</li><li>separator **{String}**</li> | Converts milliseconds to hours, minutes, seconds, and milliseconds and returns. If the second argument is true, milliseconds are also printed. You can put any separator (String) between hours, minutes, and seconds in the third argument. | `msToTime(100000) // '00:01:40'`<br/>`msToTime(100000, true, '-') // '00-01-40.0'` |
-| .secToTime | <li>seconds **{Number}**</li><li>separator **{String}**</li> | Converts seconds to hours, minutes, seconds and returns. You can put any separator (String) between hours, minutes, and seconds in the third argument. | `secToTime(3800) // '01:03:20'`<br/>`secToTime(60, '-') // '00-01-00'` |
+| .secToTime | <li>seconds **{Number}**</li><li>separator **{String}**</li><li>onlyHour **{Boolean}**</li> | Converts seconds to hours, minutes, seconds and returns. You can put any separator (String) between hours, minutes, and seconds in the third argument. | `secToTime(3800) // '01:03:20'`<br/>`secToTime(60, '-') // '00-01-00'` |
 
 ## qsu.date
 Utility to simplify date format printing or calculation.
@@ -127,7 +127,7 @@ Various utilities that help with convenience codes or complex operations.
 | .sleep | milliseconds **{Number}** | Sleep function using Promise. | `await sleep(1000) // 1s`<br/>`sleep(5000).then(() => { ... })` |
 
 # Contribute
-You can report issues on Github Issue. You can also request a pull to fix bugs and add frequently used features.
+You can report issues on GitHub Issue. You can also request a pull to fix bugs and add frequently used features.
 
 # License
 Copyright © 2021 Jooyeon Lee Released under the MIT license.

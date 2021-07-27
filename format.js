@@ -26,7 +26,7 @@ const msToTime = (milliseconds = 0, withMilliseconds = false, separator = ':') =
   return `${hour}${separator}${min}${separator}${sec}${withMilliseconds ? `.${ms}` : ''}`;
 };
 
-const secToTime = (seconds = 0, separator = ':') => {
+const secToTime = (seconds = 0, separator = ':', onlyHour = false) => {
   if (!seconds || typeof seconds !== 'number' || typeof separator !== 'string') return 'Unknown';
   let sec = Math.floor(seconds % 60);
   let min = Math.floor((seconds / 60) % 60);
@@ -34,7 +34,7 @@ const secToTime = (seconds = 0, separator = ':') => {
   hour = (hour < 10) ? `0${hour}` : hour;
   min = (min < 10) ? `0${min}` : min;
   sec = (sec < 10) ? `0${sec}` : sec;
-  return `${hour}${separator}${min}${separator}${sec}`;
+  return onlyHour ? hour : `${hour}${separator}${min}${separator}${sec}`;
 };
 
 module.exports = {
