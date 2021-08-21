@@ -1,4 +1,4 @@
-<div style="display: flex;align-items: center;flex-direction: column">
+<div align="center">
 
 ![logo](qsu-logo.png)
 ### Node.js Quick & Simple Utility for JavaScript
