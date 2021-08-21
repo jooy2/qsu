@@ -1,5 +1,12 @@
-# 🧰 QSU
-Quick and Simple Utility for JavaScript (NodeJS)
+<div style="text-align: center">
+
+![logo](qsu-logo.png)
+### Node.js Quick & Simple Utility for JavaScript
+
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mui-org/material-ui/blob/master/LICENSE)
+[![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu)
+[![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu)
+</div>
 
 A collection of complex or useful features that are often used in JavaScript. It is implemented to be used in both a client or server environment.
 
@@ -131,4 +138,4 @@ Various utilities that help with convenience codes or complex operations.
 You can report issues on GitHub Issue. You can also request a pull to fix bugs and add frequently used features.
 
 # License
-Copyright © 2021 Jooyeon Lee Released under the MIT license.
+Copyright © 2021 Jooy2 Released under the MIT license.
