@@ -1,6 +1,8 @@
 const assert = require('assert');
 const moment = require('moment');
-const { dayDiff, today, isRealDate } = require('../date');
+const {
+  dayDiff, today, isRealDate, convertDate,
+} = require('../date');
 
 describe('Date', () => {
   it('dayDiff', (done) => {
@@ -23,6 +25,14 @@ describe('Date', () => {
     assert.strictEqual(isRealDate('2021-02-29'), false);
     assert.strictEqual(isRealDate('2021-03-32'), false);
     assert.strictEqual(isRealDate('2021-13-01'), false);
+    done();
+  });
+
+  it('convertDate', (done) => {
+    assert.strictEqual(convertDate('20210101'), '2021-01-01');
+    assert.strictEqual(convertDate('20210101', 'YYYY-MM-DD'), '2021-01-01');
+    assert.strictEqual(convertDate('20210101', 'YYYY'), '2021');
+    assert.strictEqual(convertDate('2021', 'YYYY-MM-DD'), '2021-01-01');
     done();
   });
 });

@@ -116,7 +116,8 @@ Utility to simplify date format printing or calculation.
 | Method | Params | Description | Example |
 | --- | --- | --- | --- |
 | .dayDiff | <li>date1 **{String&#124;Date}**</li><li>date2 **{String&#124;Date&#124;null}**</li> | Calculates the difference between two given dates and returns the number of days. | `daydiff('2021-01-01', '2021-01-03') // 2` |
-| .today | format **{'YYYY-MM-DD'&#124;null}** | Returns today's date. | `today('YYYY-MM-DD') // 2021-01-01` |
+| .today | dateFormat **{String}** | Returns today's date. | `today('YYYY-MM-DD') // 2021-01-01` |
+| .convertDate | <li>dateString **{String}**</li><li>dateFormat **{String}** | Returns a date in YYYY-MM-DD or desired format based on the first argument (date in String format). | `convertDate('2021-01-01', 'YYYY') // 2021`<br/>`convertDate('2021', 'YYYY_MM_DD') // 2021_01_01` |
 | .isRealDate | dateString (YYYY-MM-DD) **{String}** | Checks if a given date actually exists. Check only in YYYY-MM-DD format. | `isRealDate('2021-01-01') // true`<br/>`isRealDate('2021-02-30') // false` |
 
 ## qsu.misc

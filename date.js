@@ -1,4 +1,5 @@
 const moment = require('moment');
+const { type } = require('mocha/lib/utils');
 
 const dayDiff = (d1, d2) => {
   const d2a = d2 || new Date();
@@ -24,8 +25,14 @@ const isRealDate = (d) => {
   return date.toISOString().slice(0, 10) === d;
 };
 
+const convertDate = (date, format) => {
+  if (!date || typeof date !== 'string') return null;
+  return moment(date).format(format || 'YYYY-MM-DD');
+};
+
 module.exports = {
   dayDiff,
   today,
   isRealDate,
+  convertDate,
 };
