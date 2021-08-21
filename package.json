@@ -9,19 +9,19 @@
   "engines": {
     "node": ">=12.0.0"
   },
-  "author": "Jooy Lee <leejooy96@gmail.com>",
+  "author": "Jooy2 <jootc.help@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/jooy2/qsu"
   },
   "devDependencies": {
-    "@babel/node": "^7.14.7",
-    "@babel/preset-env": "^7.14.7",
-    "@babel/register": "^7.14.5",
-    "eslint": "^7.30.0",
+    "@babel/node": "^7.14.9",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/register": "^7.15.3",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
-    "mocha": "^9.0.2"
+    "mocha": "^9.1.0"
   },
   "dependencies": {
     "moment": "^2.29.1"
