@@ -1,60 +1,64 @@
 const assert = require('assert');
-const {
-  removeSpecialChar, removeNewLine, capitalizeFirst, count, shuffle, createRandom, hideRandom,
-} = require('../string');
+const _ = require('../string');
 
 describe('String', () => {
   it('removeSpecialChar', (done) => {
-    assert.strictEqual(removeSpecialChar('1　2！3☆4＠5＋6─🌍'), '123456');
-    assert.strictEqual(removeSpecialChar('Hello, World!'), 'HelloWorld');
-    assert.strictEqual(removeSpecialChar('12 34-56,78=90'), '1234567890');
-    assert.strictEqual(removeSpecialChar('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'), 'ABC가나다ㄱㄴㄷㅏㅑㅓ天地人');
+    assert.strictEqual(_.removeSpecialChar('1　2！3☆4＠5＋6─🌍'), '123456');
+    assert.strictEqual(_.removeSpecialChar('Hello, World!'), 'HelloWorld');
+    assert.strictEqual(_.removeSpecialChar('12 34-56,78=90'), '1234567890');
+    assert.strictEqual(_.removeSpecialChar('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'), 'ABC가나다ㄱㄴㄷㅏㅑㅓ天地人');
     done();
   });
 
   it('removeNewLine', (done) => {
-    assert.strictEqual(removeNewLine(`te
+    assert.strictEqual(_.removeNewLine(`te
 st`), 'test');
-    assert.strictEqual(removeNewLine('te\rst'), 'test');
-    assert.strictEqual(removeNewLine('te\nst'), 'test');
-    assert.strictEqual(removeNewLine('te\r\nst'), 'test');
-    assert.strictEqual(removeNewLine('te\r\nst', '|'), 'te|st');
-    assert.strictEqual(removeNewLine('t\ne\r\ns\rt', '-'), 't-e-s-t');
+    assert.strictEqual(_.removeNewLine('te\rst'), 'test');
+    assert.strictEqual(_.removeNewLine('te\nst'), 'test');
+    assert.strictEqual(_.removeNewLine('te\r\nst'), 'test');
+    assert.strictEqual(_.removeNewLine('te\r\nst', '|'), 'te|st');
+    assert.strictEqual(_.removeNewLine('t\ne\r\ns\rt', '-'), 't-e-s-t');
     done();
   });
 
   it('capitalizeFirst', (done) => {
-    assert.strictEqual(capitalizeFirst('t'), 'T');
-    assert.strictEqual(capitalizeFirst('test'), 'Test');
-    assert.strictEqual(capitalizeFirst('tEST'), 'TEST');
+    assert.strictEqual(_.capitalizeFirst('t'), 'T');
+    assert.strictEqual(_.capitalizeFirst('test'), 'Test');
+    assert.strictEqual(_.capitalizeFirst('tEST'), 'TEST');
     done();
   });
 
   it('count', (done) => {
-    assert.strictEqual(count('hello', 'l'), 2);
-    assert.strictEqual(count('abcdABCD', 'a'), 1);
-    assert.strictEqual(count('aaaaaa', 'a'), 6);
-    assert.strictEqual(count('hello', 'll'), 1);
+    assert.strictEqual(_.count('hello', 'l'), 2);
+    assert.strictEqual(_.count('abcdABCD', 'a'), 1);
+    assert.strictEqual(_.count('aaaaaa', 'a'), 6);
+    assert.strictEqual(_.count('hello', 'll'), 1);
     done();
   });
 
   it('shuffle', (done) => {
-    assert(shuffle('hi'));
-    assert(shuffle('abc def ghi'));
+    assert(_.shuffle('hi'));
+    assert(_.shuffle('abc def ghi'));
     done();
   });
 
   it('createRandomCode', (done) => {
-    assert(createRandom());
-    assert(createRandom(5));
-    assert(createRandom(10));
+    assert(_.createRandom());
+    assert(_.createRandom(5));
+    assert(_.createRandom(10));
     done();
   });
 
   it('hideRandom', (done) => {
-    assert(hideRandom('test'));
-    assert(hideRandom('test', 2));
-    assert(hideRandom('test', 2, '#'));
+    assert(_.hideRandom('test'));
+    assert(_.hideRandom('test', 2));
+    assert(_.hideRandom('test', 2, '#'));
+    done();
+  });
+
+  it('truncate', (done) => {
+    assert.strictEqual(_.truncate('test', 2), 'te');
+    assert.strictEqual(_.truncate('test', 1, '...'), 't...');
     done();
   });
 });

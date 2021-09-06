@@ -49,6 +49,14 @@ const hideRandom = (str, hideLength = 1, hideStr = '*') => {
   return currentStr;
 };
 
+const truncate = (str, length = 0, ellipsis = '') => {
+  let convStr = str;
+  if (str.length > length) {
+    convStr = str.substring(0, length) + ellipsis;
+  }
+  return convStr;
+};
+
 module.exports = {
   removeSpecialChar,
   removeNewLine,
@@ -57,4 +65,5 @@ module.exports = {
   shuffle,
   createRandom,
   hideRandom,
+  truncate,
 };

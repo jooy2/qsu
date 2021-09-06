@@ -19,7 +19,7 @@ Some solutions partially referenced external documentation (e.g. [Stack Overflow
 # Installation
 Qsu requires Node.js 12.x or higher, and the repository is serviced through NPM.
 After configuring the node environment, you can simply run the following command.
-```
+```bash
 $ npm i --save qsu
 ```
 
@@ -87,6 +87,7 @@ Utility to help process string type data.
 | .shuffle | <li>string **{String}**</li> | Randomly shuffles the received string and returns it. | `shuffle('abcdefg') // 'bgafced'` |
 | .createRandom | <li>length **{Number}**</li> | Returns a random String containing numbers or uppercase and lowercase letters of the given length. The default return length is 12. | `createRandom(5) // 'CHy2M'` |
 | .hideRandom | <li>str **{String}**</li><li>hideLength **{Number}**</li><li>hideStr **{String}**</li> | Replaces strings at random locations with a specified number of characters (default 1) with characters (default *). | `hideRandom('hello', 2, '#') // '#el#o'` |
+| .truncate | <li>str **{String}**</li><li>length **{Number}**</li><li>ellipsis **{String}**</li> | Truncates a long string to a specified length, optionally appending an ellipsis after the string. | `truncate('hello', 3) // 'hel'`<br/>`truncate('hello', 2, '...') // 'he...'` |
 
 ## qsu.math
 Utility for arithmetic on numbers.
