@@ -3,8 +3,10 @@
   "version": "0.2.2",
   "description": "Quick and Simple Utility for javascript",
   "scripts": {
-    "test": "mocha --require @babel/register --parallel test/*.spec.js",
-    "dev": "babel-node index.js"
+    "test": "npm run lint && mocha --require @babel/register --parallel test/*.spec.js",
+    "dev": "babel-node index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "engines": {
     "node": ">=12.0.0"
@@ -21,6 +23,7 @@
     "@babel/register": "^7.15.3",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.24.2",
     "mocha": "^9.1.1"
   },
   "dependencies": {

@@ -8,12 +8,11 @@ module.exports = {
     es6: true,
   },
   extends: [
-    'airbnb',
+    'airbnb/base',
   ],
   rules: {
     'linebreak-style': ['error', 'windows'],
     'arrow-parens': 0,
-    'import/extensions': 0,
   },
   overrides: [
     {
