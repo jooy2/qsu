@@ -4,13 +4,17 @@
 ### Node.js Quick & Simple Utility for JavaScript
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jooy2/qsu/blob/master/LICENSE)
+![Programming Language Usage](https://img.shields.io/github/languages/top/jooy2/qsu)
 [![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu)
 [![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu)
+[![Followers](https://img.shields.io/github/followers/jooy2?style=social)](https://github.com/jooy2)
 </div>
 
 A collection of complex or useful features that are often used in JavaScript. It is implemented to be used in both a client or server environment.
 
 qsu is optimized for modern development environments, so older browsers such as Internet Explorer 11 and Legacy Edge (Not Chromium) may not support it unless you use a transcompiler. Some functions use ES6 or higher JS standard syntax.
+
+Some solutions partially referenced external documentation (e.g. [Stack Overflow](https://stackoverflow.com)).
 
 # Installation
 Qsu requires Node.js 12.x or higher, and the repository is serviced through NPM.
