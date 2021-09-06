@@ -1,8 +1,8 @@
 const assert = require('assert');
-const { sleep } = require('../misc');
+const _ = require('../misc');
 
 describe('Misc', () => {
   it('sleep', (done) => {
-    assert(sleep(100).then(() => done()));
+    assert(_.sleep(100).then(() => done()));
   });
 });
