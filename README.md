@@ -6,6 +6,8 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jooy2/qsu/blob/master/LICENSE)
 ![Programming Language Usage](https://img.shields.io/github/languages/top/jooy2/qsu)
 [![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu)
+![minified size](https://img.shields.io/bundlephobia/min/qsu)
+![github repo size](https://img.shields.io/github/repo-size/jooy2/qsu)
 [![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu)
 [![Followers](https://img.shields.io/github/followers/jooy2?style=social)](https://github.com/jooy2)
 </div>
