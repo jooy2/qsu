@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const { rand } = require('./math');
 
 const removeSpecialChar = (str) => {
@@ -57,6 +58,22 @@ const truncate = (str, length = 0, ellipsis = '') => {
   return convStr;
 };
 
+const encrypt = (str, secret, algorithm = 'aes-256-cbc') => {
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv(algorithm, secret, iv);
+  let enc = cipher.update(str);
+  enc = Buffer.concat([enc, cipher.final()]);
+  return `${iv.toString('hex')}:${enc.toString('hex')}`;
+};
+
+const decrypt = (str, secret, algorithm = 'aes-256-cbc') => {
+  const arrStr = str.split(':');
+  const decipher = crypto.createDecipheriv(algorithm, secret, Buffer.from(arrStr.shift(), 'hex'));
+  let decrypted = decipher.update(Buffer.from(arrStr.join(':'), 'hex'));
+  decrypted = Buffer.concat([decrypted, decipher.final()]);
+  return decrypted.toString();
+};
+
 module.exports = {
   removeSpecialChar,
   removeNewLine,
@@ -66,4 +83,6 @@ module.exports = {
   createRandom,
   hideRandom,
   truncate,
+  encrypt,
+  decrypt,
 };

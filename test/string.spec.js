@@ -61,4 +61,15 @@ st`), 'test');
     assert.strictEqual(_.truncate('test', 1, '...'), 't...');
     done();
   });
+
+  it('encrypt', (done) => {
+    assert(_.encrypt('test', '12345678901234567890123456789012'));
+    assert(_.encrypt('test', '12345678901234567890123456789012', 'aes-256-gcm'));
+    done();
+  });
+
+  it('decrypt', (done) => {
+    assert.strictEqual(_.decrypt('61ba43b65fc3fc2bdbd0d1ad8576344d:1831d7c37d12b3bf7ee73195d31af91b', '12345678901234567890123456789012'), 'test');
+    done();
+  });
 });
