@@ -90,7 +90,7 @@ Utility to help process string type data.
 | .createRandom | <li>length **{Number}**</li> | Returns a random String containing numbers or uppercase and lowercase letters of the given length. The default return length is 12. | `createRandom(5) // 'CHy2M'` |
 | .hideRandom | <li>str **{String}**</li><li>hideLength **{Number}**</li><li>hideStr **{String}**</li> | Replaces strings at random locations with a specified number of characters (default 1) with characters (default *). | `hideRandom('hello', 2, '#') // '#el#o'` |
 | .truncate | <li>str **{String}**</li><li>length **{Number}**</li><li>ellipsis **{String&#124;null}**</li> | Truncates a long string to a specified length, optionally appending an ellipsis after the string. | `truncate('hello', 3) // 'hel'`<br/>`truncate('hello', 2, '...') // 'he...'` |
-| .encrypt | <li>str **{String}**</li><li>secret **{String}**</li><li>algorithm **{String&#124;null}**</li> | Encrypt with the algorithm of your choice (default: aes-256-cbc) using a string and a secret (secret). | `encrypt('test', 'secret-key')` |
+| .encrypt | <li>str **{String}**</li><li>secret **{String}**</li><li>algorithm **{String&#124;null}**</li><li>ivSize **{Number&#124;null}**</li> | Encrypt with the algorithm of your choice (algorithm default: aes-256-cbc, ivSize default: 16) using a string and a secret (secret). | `encrypt('test', 'secret-key')` |
 | .decrypt | <li>str **{String}**</li><li>secret **{String}**</li><li>algorithm **{String&#124;null}**</li> | Decrypt with the specified algorithm (default: `aes-256-cbc`) using a string and a secret (secret). | `decrypt('61ba43b65fc...', 'secret-key') // 'test'` |
 
 ## qsu.math

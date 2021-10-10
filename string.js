@@ -58,8 +58,8 @@ const truncate = (str, length = 0, ellipsis = '') => {
   return convStr;
 };
 
-const encrypt = (str, secret, algorithm = 'aes-256-cbc') => {
-  const iv = crypto.randomBytes(16);
+const encrypt = (str, secret, algorithm = 'aes-256-cbc', ivSize = 16) => {
+  const iv = crypto.randomBytes(ivSize);
   const cipher = crypto.createCipheriv(algorithm, secret, iv);
   let enc = cipher.update(str);
   enc = Buffer.concat([enc, cipher.final()]);

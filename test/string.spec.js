@@ -64,7 +64,7 @@ st`), 'test');
 
   it('encrypt', (done) => {
     assert(_.encrypt('test', '12345678901234567890123456789012'));
-    assert(_.encrypt('test', '12345678901234567890123456789012', 'aes-256-gcm'));
+    assert(_.encrypt('test', '12345678901234567890123456789012', 'aes-256-gcm', 16));
     done();
   });
 
