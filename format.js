@@ -37,10 +37,27 @@ const secToTime = (seconds = 0, separator = ':', onlyHour = false) => {
   return onlyHour ? hour : `${hour}${separator}${min}${separator}${sec}`;
 };
 
+const license = (args = {}) => {
+  if (typeof args !== 'object' || args.length < 1) {
+    throw new Error('An argument of type Object is required. Please refer to README.md.');
+  }
+  if (!args.author || !args.yearStart) {
+    throw new Error('holder and startYear are required.');
+  }
+  const br = args.htmlBr ? '<br/>' : '\n';
+  const type = args?.type?.toLowerCase() || 'mit';
+  switch (type) {
+    case 'mit':
+    default:
+      return `Copyright (c) ${args.yearStart}${args.yearEnd ? `-${args.yearEnd}` : ''} ${args.author}${args.email ? ` <${args.email}>` : ''}${br}${br}Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:${br}${br}The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.${br}${br}THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.`;
+  }
+};
+
 module.exports = {
   number,
   fileSize,
   fileExt,
   msToTime,
   secToTime,
+  license,
 };

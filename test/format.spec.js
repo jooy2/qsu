@@ -40,4 +40,10 @@ describe('Format', () => {
     assert.strictEqual(_.secToTime(360000), '100:00:00');
     done();
   });
+
+  it('license', (done) => {
+    assert(_.license({ type: 'mit', author: 'example', yearStart: 2021 }));
+    assert(_.license({ author: 'example', yearStart: 2021 }));
+    done();
+  });
 });
