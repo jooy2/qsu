@@ -10,6 +10,13 @@ describe('Format', () => {
     done();
   });
 
+  it('fileName', (done) => {
+    assert.strictEqual(_.fileName('C:\\Users\\test\\Desktop\\text.txt'), 'text');
+    assert.strictEqual(_.fileName('/home/user/Desktop/example.txt'), 'example');
+    assert.strictEqual(_.fileName('C:\\example.txt', true), 'example.txt');
+    done();
+  });
+
   it('fileSize', (done) => {
     assert.strictEqual(_.fileExt('C:\\Users\\test\\Desktop\\text.txt'), 'txt');
     assert.strictEqual(_.fileExt('hello.html'), 'html');

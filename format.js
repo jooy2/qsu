@@ -1,4 +1,16 @@
+const path = require('path');
+
 const number = (v) => new Intl.NumberFormat().format(v);
+
+const fileName = (filePath, withExtension) => {
+  if (!filePath || typeof filePath !== 'string' || filePath.length < 1) {
+    throw new Error('Unknown file path');
+  }
+  if (withExtension) {
+    return path.basename(filePath);
+  }
+  return path.basename(filePath, path.extname(filePath));
+};
 
 const fileSize = (bytes, decimals = 2) => {
   if (bytes === null || typeof bytes !== 'number' || typeof decimals !== 'number') return 'Unknown';
@@ -7,9 +19,9 @@ const fileSize = (bytes, decimals = 2) => {
   return `${parseFloat((bytes / 1024 ** byteCalc).toFixed((decimals < 0 ? 0 : decimals)))} ${['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'][byteCalc]}`;
 };
 
-const fileExt = (path) => {
-  if (!path || typeof path !== 'string' || path.indexOf('.') === -1) return 'Unknown';
-  const p = path.trim().toLowerCase();
+const fileExt = (filePath) => {
+  if (!filePath || typeof filePath !== 'string' || filePath.indexOf('.') === -1) return 'Unknown';
+  const p = filePath.trim().toLowerCase();
   const pSpl = p.split('.');
   return pSpl.length > 0 ? pSpl[pSpl.length - 1] : 'Unknown';
 };
@@ -55,6 +67,7 @@ const license = (args = {}) => {
 
 module.exports = {
   number,
+  fileName,
   fileSize,
   fileExt,
   msToTime,
