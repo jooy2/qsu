@@ -76,9 +76,16 @@ const decrypt = (str, secret, algorithm = 'aes-256-cbc') => {
 
 const md5 = (str) => {
   if (!str || typeof str !== 'string' || str.length < 1) {
-    throw new Error('1 string arguments required');
+    throw new Error('string arguments required');
   }
   return crypto.createHash('md5').update(str).digest('hex');
+};
+
+const sha1 = (str) => {
+  if (!str || typeof str !== 'string' || str.length < 1) {
+    throw new Error('string arguments required');
+  }
+  return crypto.createHash('sha1').update(str).digest('hex');
 };
 
 module.exports = {
@@ -93,4 +100,5 @@ module.exports = {
   encrypt,
   decrypt,
   md5,
+  sha1,
 };

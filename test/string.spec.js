@@ -78,4 +78,10 @@ st`), 'test');
     assert.strictEqual(_.md5('qsu-md5'), '94af002364e42b514badb41b870ceb04');
     done();
   });
+
+  it('sha1', (done) => {
+    assert.strictEqual(_.sha1('test'), 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3');
+    assert.strictEqual(_.sha1('qsu-md5'), 'e5c5dc3b2be3542475671d460f906c3b176bb5bf');
+    done();
+  });
 });
