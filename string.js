@@ -88,6 +88,13 @@ const sha1 = (str) => {
   return crypto.createHash('sha1').update(str).digest('hex');
 };
 
+const sha256 = (str) => {
+  if (!str || typeof str !== 'string' || str.length < 1) {
+    throw new Error('string arguments required');
+  }
+  return crypto.createHash('sha256').update(str).digest('hex');
+};
+
 module.exports = {
   removeSpecialChar,
   removeNewLine,
@@ -101,4 +108,5 @@ module.exports = {
   decrypt,
   md5,
   sha1,
+  sha256,
 };
