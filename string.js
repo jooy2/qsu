@@ -74,6 +74,13 @@ const decrypt = (str, secret, algorithm = 'aes-256-cbc') => {
   return decrypted.toString();
 };
 
+const md5 = (str) => {
+  if (!str || typeof str !== 'string' || str.length < 1) {
+    throw new Error('1 string arguments required');
+  }
+  return crypto.createHash('md5').update(str).digest('hex');
+};
+
 module.exports = {
   removeSpecialChar,
   removeNewLine,
@@ -85,4 +92,5 @@ module.exports = {
   truncate,
   encrypt,
   decrypt,
+  md5,
 };

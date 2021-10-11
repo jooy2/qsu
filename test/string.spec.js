@@ -72,4 +72,10 @@ st`), 'test');
     assert.strictEqual(_.decrypt('61ba43b65fc3fc2bdbd0d1ad8576344d:1831d7c37d12b3bf7ee73195d31af91b', '12345678901234567890123456789012'), 'test');
     done();
   });
+
+  it('md5', (done) => {
+    assert.strictEqual(_.md5('test'), '098f6bcd4621d373cade4e832627b4f6');
+    assert.strictEqual(_.md5('qsu-md5'), '94af002364e42b514badb41b870ceb04');
+    done();
+  });
 });

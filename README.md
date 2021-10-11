@@ -92,6 +92,7 @@ Utility to help process string type data.
 | .truncate | <li>str **{String}**</li><li>length **{Number}**</li><li>ellipsis **{String&#124;null}**</li> | Truncates a long string to a specified length, optionally appending an ellipsis after the string. | `truncate('hello', 3) // 'hel'`<br/>`truncate('hello', 2, '...') // 'he...'` |
 | .encrypt | <li>str **{String}**</li><li>secret **{String}**</li><li>algorithm **{String&#124;null}**</li><li>ivSize **{Number&#124;null}**</li> | Encrypt with the algorithm of your choice (algorithm default: aes-256-cbc, ivSize default: 16) using a string and a secret (secret). | `encrypt('test', 'secret-key')` |
 | .decrypt | <li>str **{String}**</li><li>secret **{String}**</li><li>algorithm **{String&#124;null}**</li> | Decrypt with the specified algorithm (default: `aes-256-cbc`) using a string and a secret (secret). | `decrypt('61ba43b65fc...', 'secret-key') // 'test'` |
+| .md5 | <li>str **{String}**</li> | Converts String data to md5 hash value and returns it. | `md5('test') // '098f6bcd4621d373cade4e832627b4f6'` |
 
 ## qsu.math
 Utility for arithmetic on numbers.
