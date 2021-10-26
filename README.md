@@ -95,6 +95,7 @@ Utility to help process string type data.
 | .md5 | <li>str **{String}**</li> | Converts String data to md5 hash value and returns it. | `md5('test') // '098f6bcd4621d373cade4e832627b4f6'` |
 | .sha1 | <li>str **{String}**</li> | Converts String data to sha1 hash value and returns it. | `sha1('test') // 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'` |
 | .sha256 | <li>str **{String}**</li> | Converts String data to sha256 hash value and returns it. | `sha256('test') // '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'` |
+| .unique | <li>str **{String}**</li> | Remove duplicate characters from a given string and output only one. | `unique('aaabbbcc') // 'abc'` |
 
 ## qsu.math
 Utility for arithmetic on numbers.

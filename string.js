@@ -95,6 +95,13 @@ const sha256 = (str) => {
   return crypto.createHash('sha256').update(str).digest('hex');
 };
 
+const unique = (str) => {
+  if (!str || typeof str !== 'string' || str.length < 1) {
+    throw new Error('string arguments required');
+  }
+  return String.prototype.concat(...new Set(str));
+};
+
 module.exports = {
   removeSpecialChar,
   removeNewLine,
@@ -109,4 +116,5 @@ module.exports = {
   md5,
   sha1,
   sha256,
+  unique,
 };

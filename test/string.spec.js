@@ -90,4 +90,10 @@ st`), 'test');
     assert.strictEqual(_.sha256('qsu-md5'), '8c4cfec3ec79dc572958ea7f0e3cfd24b90d174969df9a4773b37b68498871ed');
     done();
   });
+
+  it('unique', (done) => {
+    assert.strictEqual(_.unique('ababcdcd'), 'abcd');
+    assert.strictEqual(_.unique('abc--11111'), 'abc-1');
+    done();
+  });
 });
