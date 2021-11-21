@@ -27,10 +27,19 @@ const shuffle = (str) => {
 };
 
 const createRandom = (length = 12) => {
-  if (typeof length !== 'number') return null;
-  return Math.random().toString(36).substr(2, length).split('')
-    .map(c => (Math.random() < 0.5 ? c.toUpperCase() : c))
-    .join('');
+  if (typeof length !== 'number') {
+    return null;
+  }
+  let result = '';
+  let newChar;
+  const AVAIL_CHARACTERS = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const AVAIL_CHARACTERS_LENGTH = AVAIL_CHARACTERS.length;
+  for (let i = 0; i < length; i += 1) {
+    newChar = AVAIL_CHARACTERS.charAt(Math.floor(Math.random() * AVAIL_CHARACTERS_LENGTH));
+    newChar = Math.random() < 0.5 ? newChar.toUpperCase() : newChar;
+    result += newChar;
+  }
+  return result;
 };
 
 const hideRandom = (str, hideLength = 1, hideStr = '*') => {
