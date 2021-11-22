@@ -33,9 +33,15 @@ const setWithNumber = (start, end) => {
   return Array.from({ length: (end - start) + 1 }, (_, i) => i + start);
 };
 
+const average = (arr) => {
+  if (!arr) return null;
+  return arr.reduce((p, c) => p + c, 0) / arr.length;
+};
+
 module.exports = {
   shuffle,
   setWithDefault,
   unique,
   setWithNumber,
+  average,
 };

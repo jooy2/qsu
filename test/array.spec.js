@@ -32,4 +32,11 @@ describe('Array', () => {
     assert.deepStrictEqual(_.setWithNumber(1, 1), [1]);
     done();
   });
+
+  it('average', (done) => {
+    assert.deepStrictEqual(_.average([1, 3, 5, 7, 9]), 5);
+    assert.deepStrictEqual(_.average([1, 5, 15, 50]), 17.75);
+    assert.deepStrictEqual(_.average([5, -5]), 0);
+    done();
+  });
 });
