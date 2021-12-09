@@ -24,7 +24,7 @@ const capitalizeEachWords = (str, naturally) => {
     if (!naturally || !contains(splitStr[i], [
       'in', 'on', 'the', 'at', 'and', 'or', 'of', 'for', 'to', 'that',
       'a', 'by', 'it', 'is', 'as', 'are', 'were', 'was', 'nor', 'an',
-    ])) {
+    ], true)) {
       splitStr[i] = capitalizeFirst(splitStr[i]);
     }
   }
