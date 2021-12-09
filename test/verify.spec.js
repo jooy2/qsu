@@ -35,6 +35,8 @@ describe('Verify', () => {
     assert.strictEqual(_.contains('12345', '10'), false);
     assert.strictEqual(_.contains('ABC', ['A', 'B', 'C']), true);
     assert.strictEqual(_.contains('ABC', ['D', 'E', 'F']), false);
+    assert.strictEqual(_.contains('ABC', ['AB', 'C'], true), false);
+    assert.strictEqual(_.contains('AB', ['AB', 'C', 'D'], true), true);
     done();
   });
 

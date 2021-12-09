@@ -25,12 +25,18 @@ const isUrl = (url, withProtocol = false, strict = false) => {
   return true;
 };
 
-const contains = (str, search) => {
+const contains = (str, search, exact) => {
   if (!str || !search || (typeof str !== 'string' && typeof str !== 'object')
       || (typeof str === 'object' && !Array.isArray(str))) return false;
   if (typeof search === 'string') return str.indexOf(search) !== -1;
   for (let i = 0, iLen = search.length; i < iLen; i += 1) {
-    if (str.indexOf(search[i]) !== -1) return true;
+    if (exact) {
+      if (str === search[i]) {
+        return true;
+      }
+    } else if (str.indexOf(search[i]) !== -1) {
+      return true;
+    }
   }
   return false;
 };
