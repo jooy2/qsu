@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const { rand } = require('./math');
+const { contains } = require('./verify');
 
 const removeSpecialChar = (str, withoutSpace) => {
   if (!str || typeof str !== 'string') return str;
@@ -14,6 +15,20 @@ const removeNewLine = (str, replaceTo = '') => {
 const capitalizeFirst = (str) => {
   if (!str || typeof str !== 'string' || str.length < 1) return null;
   return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+const capitalizeEachWords = (str, naturally) => {
+  if (!str || typeof str !== 'string' || str.length < 1) return null;
+  const splitStr = str.trim().toLowerCase().split(' ');
+  for (let i = 0, iLen = splitStr.length; i < iLen; i += 1) {
+    if (!naturally || !contains(splitStr[i], [
+      'in', 'on', 'the', 'at', 'and', 'or', 'of', 'for', 'to', 'that',
+      'a', 'by', 'it', 'is', 'as', 'are', 'were', 'was', 'nor', 'an',
+    ])) {
+      splitStr[i] = capitalizeFirst(splitStr[i]);
+    }
+  }
+  return capitalizeFirst(splitStr.join(' '));
 };
 
 const count = (str, search) => {
@@ -115,6 +130,7 @@ module.exports = {
   removeSpecialChar,
   removeNewLine,
   capitalizeFirst,
+  capitalizeEachWords,
   count,
   shuffle,
   createRandom,

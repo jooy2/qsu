@@ -29,6 +29,13 @@ st`), 'test');
     done();
   });
 
+  it('capitalizeEachWords', (done) => {
+    assert.strictEqual(_.capitalizeEachWords('hello, world!'), 'Hello, World!');
+    assert.strictEqual(_.capitalizeEachWords('test'), 'Test');
+    assert.strictEqual(_.capitalizeEachWords('this is the test sentence.', true), 'This is the Test Sentence.');
+    done();
+  });
+
   it('count', (done) => {
     assert.strictEqual(_.count('hello', 'l'), 2);
     assert.strictEqual(_.count('abcdABCD', 'a'), 1);
