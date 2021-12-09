@@ -7,6 +7,7 @@ describe('String', () => {
     assert.strictEqual(_.removeSpecialChar('Hello, World!'), 'HelloWorld');
     assert.strictEqual(_.removeSpecialChar('12 34-56,78=90'), '1234567890');
     assert.strictEqual(_.removeSpecialChar('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'), 'ABC가나다ㄱㄴㄷㅏㅑㅓ天地人');
+    assert.strictEqual(_.removeSpecialChar('Hello World', true), 'Hello World');
     done();
   });
 
