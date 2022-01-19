@@ -13,7 +13,7 @@ const today = (dateType) => {
   if (dateType !== undefined && typeof dateType !== 'string') {
     return null;
   }
-  return moment().format(dateType ? dateType.toUpperCase() : 'YYYY-MM-DD');
+  return moment().format(dateType || 'YYYY-MM-DD');
 };
 
 const isRealDate = (d) => {
