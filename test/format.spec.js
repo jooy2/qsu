@@ -17,7 +17,7 @@ describe('Format', () => {
     done();
   });
 
-  it('fileSize', (done) => {
+  it('fileExt', (done) => {
     assert.strictEqual(_.fileExt('C:\\Users\\test\\Desktop\\text.txt'), 'txt');
     assert.strictEqual(_.fileExt('hello.html'), 'html');
     assert.strictEqual(_.fileExt('this.is.file.PNG'), 'png');
@@ -25,7 +25,7 @@ describe('Format', () => {
     done();
   });
 
-  it('fileExt', (done) => {
+  it('fileSize', (done) => {
     assert.strictEqual(_.fileSize(1), '1 Bytes');
     assert.strictEqual(_.fileSize(1000000), '976.56 KB');
     assert.strictEqual(_.fileSize(2000, 3), '1.953 KB');
