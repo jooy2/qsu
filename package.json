@@ -17,6 +17,12 @@
     "type": "git",
     "url": "https://github.com/jooy2/qsu"
   },
+  "keywords": [
+    "util",
+    "utility",
+    "tool",
+    "underscore"
+  ],
   "devDependencies": {
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
