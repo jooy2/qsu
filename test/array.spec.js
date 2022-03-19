@@ -39,4 +39,11 @@ describe('Array', () => {
     assert.deepStrictEqual(_.average([5, -5]), 0);
     done();
   });
+
+  it('move', (done) => {
+    assert.deepStrictEqual(_.move([1, 3, 5, 7, 9], 0, 3), [3, 5, 7, 1, 9]);
+    assert.deepStrictEqual(_.move([5, 10, 15], 1, 2), [5, 15, 10]);
+    assert.deepStrictEqual(_.move([5, 10, 15], 1, 1), [5, 10, 15]);
+    done();
+  });
 });

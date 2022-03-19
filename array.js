@@ -38,10 +38,20 @@ const average = (arr) => {
   return arr.reduce((p, c) => p + c, 0) / arr.length;
 };
 
+const move = (arr, from, to) => {
+  const arrayLength = arr.length;
+  if (!arr || from === null || to === null || arrayLength <= from || arrayLength <= to) {
+    throw new Error('Invalid move params');
+  }
+  arr.splice(to, 0, arr.splice(from, 1)[0]);
+  return arr;
+};
+
 module.exports = {
   shuffle,
   setWithDefault,
   unique,
   setWithNumber,
   average,
+  move,
 };
