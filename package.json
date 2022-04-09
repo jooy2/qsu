@@ -27,12 +27,12 @@
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/register": "^7.17.7",
-    "eslint": "^8.11.0",
+    "eslint": "^8.13.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-import": "^2.26.0",
     "mocha": "^9.2.2"
   },
   "dependencies": {
-    "moment": "^2.29.1"
+    "moment": "^2.29.2"
   }
 }
