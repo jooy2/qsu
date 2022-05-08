@@ -3,6 +3,7 @@
   "version": "0.5.5",
   "description": "Quick and Simple Utility for javascript",
   "type": "module",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "npm run lint && npm run build && mocha --parallel test/*.spec.js",
