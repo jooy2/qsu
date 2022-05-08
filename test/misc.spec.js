@@ -1,5 +1,5 @@
-const assert = require('assert');
-const _ = require('../misc');
+import assert from 'assert';
+import _ from '../dist/index.js';
 
 describe('Misc', () => {
   it('sleep', (done) => {

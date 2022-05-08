@@ -1,5 +1,5 @@
-const assert = require('assert');
-const _ = require('../string');
+import assert from 'assert';
+import _ from '../dist/index.js';
 
 describe('String', () => {
   it('removeSpecialChar', (done) => {
@@ -36,31 +36,29 @@ st`), 'test');
     done();
   });
 
-  it('count', (done) => {
-    assert.strictEqual(_.count('hello', 'l'), 2);
-    assert.strictEqual(_.count('abcdABCD', 'a'), 1);
-    assert.strictEqual(_.count('aaaaaa', 'a'), 6);
-    assert.strictEqual(_.count('hello', 'll'), 1);
+  it('strNumberOf', (done) => {
+    assert.strictEqual(_.strNumberOf('hello', 'l'), 2);
+    assert.strictEqual(_.strNumberOf('abcdABCD', 'a'), 1);
+    assert.strictEqual(_.strNumberOf('aaaaaa', 'a'), 6);
+    assert.strictEqual(_.strNumberOf('hello', 'll'), 1);
     done();
   });
 
-  it('shuffle', (done) => {
-    assert(_.shuffle('hi'));
-    assert(_.shuffle('abc def ghi'));
+  it('strShuffle', (done) => {
+    assert(_.strShuffle('hi'));
+    assert(_.strShuffle('abc def ghi'));
     done();
   });
 
-  it('createRandomCode', (done) => {
-    assert(_.createRandom());
-    assert(_.createRandom(5));
-    assert(_.createRandom(10));
+  it('strRandom', (done) => {
+    assert(_.strRandom(5));
+    assert(_.strRandom(10));
     done();
   });
 
-  it('hideRandom', (done) => {
-    assert(_.hideRandom('test'));
-    assert(_.hideRandom('test', 2));
-    assert(_.hideRandom('test', 2, '#'));
+  it('strBlindRandom', (done) => {
+    assert(_.strBlindRandom('test', 2));
+    assert(_.strBlindRandom('test', 2, '#'));
     done();
   });
 
@@ -99,9 +97,9 @@ st`), 'test');
     done();
   });
 
-  it('unique', (done) => {
-    assert.strictEqual(_.unique('ababcdcd'), 'abcd');
-    assert.strictEqual(_.unique('abc--11111'), 'abc-1');
+  it('strUnique', (done) => {
+    assert.strictEqual(_.strUnique('ababcdcd'), 'abcd');
+    assert.strictEqual(_.strUnique('abc--11111'), 'abc-1');
     done();
   });
 });

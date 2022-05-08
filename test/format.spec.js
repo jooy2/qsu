@@ -1,12 +1,11 @@
-const assert = require('assert');
-const _ = require('../format');
+import assert from 'assert';
+import _ from '../dist/index.js';
 
 describe('Format', () => {
-  it('number', (done) => {
-    assert.strictEqual(_.number('1234'), '1,234');
-    assert.strictEqual(_.number(1234), '1,234');
-    assert.strictEqual(_.number(12345678), '12,345,678');
-    assert.strictEqual(_.number(null), '0');
+  it('numberFormat', (done) => {
+    assert.strictEqual(_.numberFormat(1234), '1,234');
+    assert.strictEqual(_.numberFormat(12345678), '12,345,678');
+    assert.strictEqual(_.numberFormat(null), '0');
     done();
   });
 
@@ -43,14 +42,14 @@ describe('Format', () => {
 
   it('secToTime', (done) => {
     assert.strictEqual(_.secToTime(60), '00:01:00');
-    assert.strictEqual(_.secToTime(3800, '-'), '01-03-20');
+    assert.strictEqual(_.secToTime(3800, false, '-'), '01-03-20');
     assert.strictEqual(_.secToTime(360000), '100:00:00');
     done();
   });
 
   it('license', (done) => {
     assert(_.license({ type: 'mit', author: 'example', yearStart: 2021 }));
-    assert(_.license({ author: 'example', yearStart: 2021 }));
+    assert(_.license({ type: 'apache20', author: 'example', yearStart: 2021 }));
     done();
   });
 });

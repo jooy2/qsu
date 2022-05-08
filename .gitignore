@@ -1,3 +1,11 @@
+# Project files
+dist
+
+# Node.js
 node_modules
+
+# System files
 .DS_Store
+
+# IDEs
 .idea

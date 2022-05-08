@@ -1,23 +1,19 @@
-const assert = require('assert');
-const _ = require('../math');
+import assert from 'assert';
+import _ from '../dist/index.js';
 
 describe('Math', () => {
-  it('rand', (done) => {
-    assert(typeof _.rand() === 'number');
-    assert(typeof _.rand(1) === 'number');
-    assert(typeof _.rand(1, 2) === 'number');
+  it('numRandom', (done) => {
+    assert(typeof _.numRandom(1, 2) === 'number');
     for (let i = 0; i < 50; i += 1) {
-      assert(_.rand() <= 1);
-      assert(_.rand(5) <= 5);
-      const offsetTest = _.rand(5, 10);
+      const offsetTest = _.numRandom(5, 10);
       assert(offsetTest >= 5 && offsetTest <= 10);
     }
     done();
   });
 
-  it('add', (done) => {
-    assert.strictEqual(_.add(1, 2, 3, 4), 10);
-    assert.strictEqual(_.add([1, 2, 3]), 6);
+  it('sum', (done) => {
+    assert.strictEqual(_.sum(1, 2, 3, 4), 10);
+    assert.strictEqual(_.sum([1, 2, 3]), 6);
     done();
   });
 

@@ -1,19 +1,19 @@
-const assert = require('assert');
-const _ = require('../verify');
+import assert from 'assert';
+import _ from '../dist/index.js';
 
 describe('Verify', () => {
-  it('empty', (done) => {
-    assert.strictEqual(_.empty(''), true);
-    assert.strictEqual(_.empty('1234'), false);
-    assert.strictEqual(_.empty(1234), false);
-    assert.strictEqual(_.empty(1.234), false);
-    assert.strictEqual(_.empty(null), true);
-    assert.strictEqual(_.empty([]), true);
-    assert.strictEqual(_.empty([{}]), false);
-    assert.strictEqual(_.empty([[]]), false);
-    assert.strictEqual(_.empty(['1234']), false);
-    assert.strictEqual(_.empty({}), true);
-    assert.strictEqual(_.empty({ a: '1234' }), false);
+  it('isEmpty', (done) => {
+    assert.strictEqual(_.isEmpty(''), true);
+    assert.strictEqual(_.isEmpty('1234'), false);
+    assert.strictEqual(_.isEmpty(1234), false);
+    assert.strictEqual(_.isEmpty(1.234), false);
+    assert.strictEqual(_.isEmpty(null), true);
+    assert.strictEqual(_.isEmpty([]), true);
+    assert.strictEqual(_.isEmpty([{}]), false);
+    assert.strictEqual(_.isEmpty([[]]), false);
+    assert.strictEqual(_.isEmpty(['1234']), false);
+    assert.strictEqual(_.isEmpty({}), true);
+    assert.strictEqual(_.isEmpty({ a: '1234' }), false);
     done();
   });
 
@@ -43,26 +43,25 @@ describe('Verify', () => {
   it('is2dArray', (done) => {
     assert.strictEqual(_.is2dArray([]), false);
     assert.strictEqual(_.is2dArray([[], []]), true);
-    assert.strictEqual(_.is2dArray('A'), false);
     assert.strictEqual(_.is2dArray([{ a: 1 }, { b: 2 }]), false);
     assert.strictEqual(_.is2dArray([[1], [2]]), true);
     done();
   });
 
   it('between', (done) => {
-    assert.strictEqual(_.between(1, [1, 10]), false);
-    assert.strictEqual(_.between(1, [1, 10], true), true);
-    assert.strictEqual(_.between(11, [10, 100]), true);
+    assert.strictEqual(_.between([1, 10], 1), false);
+    assert.strictEqual(_.between([1, 10], 1, true), true);
+    assert.strictEqual(_.between([10, 100], 11), true);
     done();
   });
 
-  it('length', (done) => {
-    assert.strictEqual(_.length('12345'), 5);
-    assert.strictEqual(_.length(12345), 5);
-    assert.strictEqual(_.length(() => '123'), 3);
-    assert.strictEqual(_.length([1, 2, 3, 4]), 4);
-    assert.strictEqual(_.length({ hello: 'world', lorem: 'ipsum' }), 2);
-    assert.strictEqual(_.length([{ hello: 1, world: 2 }, { lorem: 3 }]), 2);
+  it('len', (done) => {
+    assert.strictEqual(_.len('12345'), 5);
+    assert.strictEqual(_.len(12345), 5);
+    assert.strictEqual(_.len(() => '123'), 3);
+    assert.strictEqual(_.len([1, 2, 3, 4]), 4);
+    assert.strictEqual(_.len({ hello: 'world', lorem: 'ipsum' }), 2);
+    assert.strictEqual(_.len([{ hello: 1, world: 2 }, { lorem: 3 }]), 2);
     done();
   });
 

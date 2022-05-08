@@ -1,17 +1,16 @@
-const assert = require('assert');
-const moment = require('moment');
-const _ = require('../date');
+import assert from 'assert';
+import moment from 'moment';
+import _ from '../dist/index.js';
 
 describe('Date', () => {
   it('dayDiff', (done) => {
-    assert.strictEqual(_.dayDiff('2021-01-01', '2021-01-02'), 1);
-    assert.strictEqual(_.dayDiff('2021-01-01', '2021-02-28'), 55);
+    assert.strictEqual(_.dayDiff(new Date('2021-01-01'), new Date('2021-01-02')), 1);
+    assert.strictEqual(_.dayDiff(new Date('2021-01-01'), new Date('2021-02-28')), 58);
     done();
   });
 
   it('today', (done) => {
     assert.strictEqual(_.today(), moment().format('YYYY-MM-DD'));
-    assert.strictEqual(_.today(1), null);
     assert.strictEqual(_.today('YYYY-MM-DD'), moment().format('YYYY-MM-DD'));
     assert.strictEqual(_.today('yyyy'), moment().format('YYYY'));
     done();

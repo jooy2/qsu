@@ -1,35 +1,34 @@
-const assert = require('assert');
-const _ = require('../array');
+import assert from 'assert';
+import _ from '../dist/index.js';
 
 describe('Array', () => {
-  it('shuffle', (done) => {
-    assert(_.shuffle([1, 2, 3, 4, 5, 6, 7, 8]));
-    assert(_.shuffle([[1, 2], [3, 4], [5, 6], [7, 8]]));
-    assert(_.shuffle([{ A: 1 }, { B: 2 }, { C: 3 }, { D: 4 }]));
+  it('arrShuffle', (done) => {
+    assert(_.arrShuffle([1, 2, 3, 4, 5, 6, 7, 8]));
+    assert(_.arrShuffle([[1, 2], [3, 4], [5, 6], [7, 8]]));
+    assert(_.arrShuffle([{ A: 1 }, { B: 2 }, { C: 3 }, { D: 4 }]));
     done();
   });
 
-  it('setWithDefault', (done) => {
-    assert(_.setWithDefault());
-    assert(_.setWithDefault('test'));
-    assert(_.setWithDefault('test', 10));
-    assert(_.setWithDefault(100, 5));
+  it('arrWithDefault', (done) => {
+    assert(_.arrWithDefault('test'));
+    assert(_.arrWithDefault('test', 10));
+    assert(_.arrWithDefault(100, 5));
     done();
   });
 
-  it('unique', (done) => {
-    assert.deepStrictEqual(_.unique([1, 1, 2, 2, 3]), [1, 2, 3]);
-    assert.deepStrictEqual(_.unique(['1', '2', '3', '3', '4']), ['1', '2', '3', '4']);
-    assert.deepStrictEqual(_.unique([1, '1', 1, 'a', 2, 'b']), [1, '1', 'a', 2, 'b']);
-    assert.deepStrictEqual(_.unique([[1, 2], [1, 2], [2, 3], [2, 4]]), [[1, 2], [2, 3], [2, 4]]);
+  it('arrUnique', (done) => {
+    assert.deepStrictEqual(_.arrUnique([1, 1, 2, 2, 3]), [1, 2, 3]);
+    assert.deepStrictEqual(_.arrUnique(['1', '2', '3', '3', '4']), ['1', '2', '3', '4']);
+    assert.deepStrictEqual(_.arrUnique([1, '1', 1, 'a', 2, 'b']), [1, '1', 'a', 2, 'b']);
+    assert.deepStrictEqual(_.arrUnique([[1, 2], [1, 2], [2, 3], [2, 4]]), [[1, 2], [2, 3], [2, 4]]);
     done();
   });
 
-  it('setWithNumber', (done) => {
-    assert.deepStrictEqual(_.setWithNumber(1, 2), [1, 2]);
-    assert.deepStrictEqual(_.setWithNumber(2, 1), null);
-    assert.deepStrictEqual(_.setWithNumber(0, 5), [0, 1, 2, 3, 4, 5]);
-    assert.deepStrictEqual(_.setWithNumber(1, 1), [1]);
+  it('arrWithNumber', (done) => {
+    assert.deepStrictEqual(_.arrWithNumber(1, 2), [1, 2]);
+    assert.throws(() => _.arrWithNumber(2, 1));
+    assert.deepStrictEqual(_.arrWithNumber(0, 5), [0, 1, 2, 3, 4, 5]);
+    assert.deepStrictEqual(_.arrWithNumber(1, 1), [1]);
     done();
   });
 
@@ -40,10 +39,10 @@ describe('Array', () => {
     done();
   });
 
-  it('move', (done) => {
-    assert.deepStrictEqual(_.move([1, 3, 5, 7, 9], 0, 3), [3, 5, 7, 1, 9]);
-    assert.deepStrictEqual(_.move([5, 10, 15], 1, 2), [5, 15, 10]);
-    assert.deepStrictEqual(_.move([5, 10, 15], 1, 1), [5, 10, 15]);
+  it('arrMove', (done) => {
+    assert.deepStrictEqual(_.arrMove([1, 3, 5, 7, 9], 0, 3), [3, 5, 7, 1, 9]);
+    assert.deepStrictEqual(_.arrMove([5, 10, 15], 1, 2), [5, 15, 10]);
+    assert.deepStrictEqual(_.arrMove([5, 10, 15], 1, 1), [5, 10, 15]);
     done();
   });
 });
