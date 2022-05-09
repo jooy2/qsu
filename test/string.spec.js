@@ -97,6 +97,18 @@ st`), 'test');
     done();
   });
 
+  it('encodeBase64', (done) => {
+    assert.strictEqual(_.encodeBase64('this is test'), 'dGhpcyBpcyB0ZXN0');
+    assert.strictEqual(_.encodeBase64('1234567890Test'), 'MTIzNDU2Nzg5MFRlc3Q=');
+    done();
+  });
+
+  it('decodeBase64', (done) => {
+    assert.strictEqual(_.decodeBase64('dGhpcyBpcyB0ZXN0'), 'this is test');
+    assert.strictEqual(_.decodeBase64('MTIzNDU2Nzg5MFRlc3Q='), '1234567890Test');
+    done();
+  });
+
   it('strUnique', (done) => {
     assert.strictEqual(_.strUnique('ababcdcd'), 'abcd');
     assert.strictEqual(_.strUnique('abc--11111'), 'abc-1');

@@ -323,6 +323,24 @@ Converts String data to sha256 hash value and returns it.
 _.sha256('test'); // Returns '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
 ```
 
+### `_.encodeBase64 (string)`
+
+Base64-encode the given string.
+- `str::string`
+
+```javascript
+_.encodeBase64('this is test'); // Returns 'dGhpcyBpcyB0ZXN0'
+```
+
+### `_.decodeBase64 (string)`
+
+Decodes an encoded base64 string to a plain string.
+- `encodedStr::string`
+
+```javascript
+_.decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
+```
+
 ### `_.strUnique (string)`
 
 Remove duplicate characters from a given string and output only one.

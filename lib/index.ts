@@ -265,6 +265,14 @@ export default class Qsu {
     return crypto.createHash('sha256').update(str).digest('hex');
   }
 
+  static encodeBase64(str: string) : string {
+    return Buffer.from(str, 'utf8').toString('base64');
+  }
+
+  static decodeBase64(encodedStr: string) : string {
+    return Buffer.from(encodedStr, 'base64').toString('utf8');
+  }
+
   static strUnique(str: string) : string {
     return [...new Set(str)].join('');
   }
