@@ -124,6 +124,7 @@ export default class Qsu {
         .reverse()
         .map((x):object => JSON.parse(x));
     }
+
     return [...new Set(array)];
   }
 
@@ -131,6 +132,7 @@ export default class Qsu {
     if (start > end) {
       throw new Error('end is greater than start.');
     }
+
     return Array.from({ length: (end - start) + 1 }, (_, i) => i + start);
   }
 
@@ -284,6 +286,7 @@ export default class Qsu {
     if (!data) {
       return true;
     }
+
     switch (typeof data) {
       case 'string':
         return data.length < 1;
@@ -325,6 +328,7 @@ export default class Qsu {
         return true;
       }
     }
+
     return false;
   }
 
@@ -374,6 +378,7 @@ export default class Qsu {
     if (withExtension) {
       return path.basename(filePath);
     }
+
     return path.basename(filePath, path.extname(filePath));
   }
 
@@ -381,7 +386,9 @@ export default class Qsu {
     if (bytes === 0 || bytes < 0) {
       return '0 Bytes';
     }
+
     const byteCalc = Math.floor(Math.log(bytes) / Math.log(1024));
+
     return `${parseFloat((bytes / 1024 ** byteCalc).toFixed((decimals < 0 ? 0 : decimals)))} ${['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'][byteCalc]}`;
   }
 
@@ -389,7 +396,9 @@ export default class Qsu {
     if (filePath.indexOf('.') === -1) {
       return 'Unknown';
     }
+
     const pSpl = filePath.trim().toLowerCase().split('.');
+
     return pSpl.length > 0 ? pSpl[pSpl.length - 1] : 'Unknown';
   }
 
