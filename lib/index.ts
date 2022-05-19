@@ -215,10 +215,12 @@ export default class Qsu {
 
     while ((hideCount < blindLength) && (currentStrLength < totalStrLength)) {
       tempIdx = this.numRandom(0, totalStrLength);
-      if (/[a-zA-Z가-힣]/.test(currentStr.substr(tempIdx, 1))) {
-        currentStr = `${currentStr.substr(0, tempIdx)}${blindStr}${currentStr.substr(tempIdx + 1)}`;
+
+      if (/[a-zA-Z가-힣]/.test(currentStr.substring(tempIdx, tempIdx + 1))) {
+        currentStr = `${currentStr.substring(0, tempIdx + 1)}${blindStr}${currentStr.substring(tempIdx + 2)}`;
         hideCount += 1;
       }
+
       currentStrLength += 1;
     }
 
