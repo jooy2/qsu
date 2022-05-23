@@ -238,6 +238,10 @@ export default class Qsu {
   }
 
   static encrypt(str: string, secret: string, algorithm = 'aes-256-cbc', ivSize = 16) : string {
+    if (str.length < 1) {
+      return '';
+    }
+
     const iv: Buffer = crypto.randomBytes(ivSize);
     const cipher = crypto.createCipheriv(algorithm, secret, iv);
     let enc = cipher.update(str);
@@ -248,6 +252,10 @@ export default class Qsu {
   }
 
   static decrypt(str: string, secret: string, algorithm = 'aes-256-cbc') : string {
+    if (str.length < 1) {
+      return '';
+    }
+
     const arrStr: any[] = str.split(':');
     const decipher = crypto.createDecipheriv(algorithm, secret, Buffer.from(arrStr.shift(), 'hex'));
     let decrypted = decipher.update(Buffer.from(arrStr.join(':'), 'hex'));
