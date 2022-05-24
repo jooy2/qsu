@@ -238,7 +238,7 @@ export default class Qsu {
   }
 
   static encrypt(str: string, secret: string, algorithm = 'aes-256-cbc', ivSize = 16) : string {
-    if (str.length < 1) {
+    if (!str || str.length < 1) {
       return '';
     }
 
@@ -252,7 +252,7 @@ export default class Qsu {
   }
 
   static decrypt(str: string, secret: string, algorithm = 'aes-256-cbc') : string {
-    if (str.length < 1) {
+    if (!str || str.length < 1) {
       return '';
     }
 
