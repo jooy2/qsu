@@ -68,6 +68,17 @@ st`), 'test');
     done();
   });
 
+  it('split', (done) => {
+    assert.deepStrictEqual(_.split('hello,js world', [',', ' ']), ['hello', 'js', 'world']);
+    assert.deepStrictEqual(_.split('hello,js world', ',', ' '), ['hello', 'js', 'world']);
+    assert.deepStrictEqual(_.split('hello, js world', ', '), ['hello', 'js world']);
+    assert.deepStrictEqual(_.split('hello, js world', 'hello', ' js ', 'w'), ['', ',', '', 'orld']);
+    assert.deepStrictEqual(_.split('hello+js.world', '+', '.'), ['hello', 'js', 'world']);
+    assert.deepStrictEqual(_.split('hello+?js world', '+?'), ['hello', 'js world']);
+    assert.deepStrictEqual(_.split('hello j\\s world', '\\s'), ['hello j', ' world']);
+    done();
+  });
+
   it('encrypt', (done) => {
     assert(_.encrypt('test', '12345678901234567890123456789012'));
     assert(_.encrypt('test', '12345678901234567890123456789012', 'aes-256-gcm', 16));

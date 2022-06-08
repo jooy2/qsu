@@ -273,6 +273,19 @@ _.truncate('hello', 3); // Returns 'hel'
 _.truncate('hello', 2, '...'); // Returns 'he...'
 ```
 
+### `_.split (string)`
+
+Splits a string based on the specified character and returns it as an Array. Unlike the existing split, it splits the values provided as multiple parameters (array or multiple arguments) at once.
+- `str::string`
+- `splitter::string||string[]||...string`
+
+```javascript
+_.split('hello% js world', '% '); // Returns ['hello', 'js world']
+_.split('hello,js,world', ','); // Returns ['hello', 'js', 'world']
+_.split('hello%js,world', ',', '%'); // Returns ['hello', 'js', 'world']
+_.split('hello%js,world', [',', '%']); // Returns ['hello', 'js', 'world']
+```
+
 ### `_.encrypt (string)`
 
 Encrypt with the algorithm of your choice (algorithm default: `aes-256-cbc`, ivSize default: `16`) using a string and a secret (secret).
