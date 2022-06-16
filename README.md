@@ -92,11 +92,13 @@ _.daydiff(new Date('2021-01-01'), new Date('2021-01-03')); // Returns 2
 ### `_.today (string)`
 
 Returns today's date.
-- `dateFormat::string?`
+- `separator::string = '-'`
+- `yearFirst::boolean = false`
 
 ```javascript
 _.today(); // Returns YYYY-MM-DD
-_.today('YYYY'); // Returns YYYY
+_.today('/'); // Returns YYYY/MM/DD
+_.today('/', false); // Returns DD/MM/YYYY
 ```
 
 ### `_.isRealDate (boolean)`
@@ -107,17 +109,6 @@ Checks if a given date actually exists. Check only in YYYY-MM-DD format.
 ```javascript
 _.isRealDate('2021-01-01'); // Returns true
 _.isRealDate('2021-02-30'); // Returns false
-```
-
-### `_.convertDate (string)`
-
-Returns a date in YYYY-MM-DD or desired format based on the first argument (date in String format).
-- `date::string`
-- `format::string?`
-
-```javascript
-_.convertDate('2021-01-01', 'YYYY'); // Returns 2021
-_.convertDate('2021', 'YYYY_MM_DD'); // Returns 2021_01_01
 ```
 
 ### `_.arrShuffle (any[])`
