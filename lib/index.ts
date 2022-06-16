@@ -86,10 +86,6 @@ export default class Qsu {
     return dateConverted.toISOString().slice(0, 10) === date;
   }
 
-  static convertDate(date: string, format?: string) : string {
-    return moment(date).format(format || 'YYYY-MM-DD');
-  }
-
   /*
   * Array
   * */

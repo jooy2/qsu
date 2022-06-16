@@ -24,12 +24,4 @@ describe('Date', () => {
     assert.strictEqual(_.isRealDate('2021-13-01'), false);
     done();
   });
-
-  it('convertDate', (done) => {
-    assert.strictEqual(_.convertDate('20210101'), '2021-01-01');
-    assert.strictEqual(_.convertDate('20210101', 'YYYY-MM-DD'), '2021-01-01');
-    assert.strictEqual(_.convertDate('20210101', 'YYYY'), '2021');
-    assert.strictEqual(_.convertDate('2021', 'YYYY-MM-DD'), '2021-01-01');
-    done();
-  });
 });
