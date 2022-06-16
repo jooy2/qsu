@@ -1,4 +1,3 @@
-import moment from 'moment';
 import path from 'path';
 import crypto from 'crypto';
 
@@ -72,8 +71,23 @@ export default class Qsu {
     return Math.ceil(Math.abs(date2c.getTime() - date1.getTime()) / (1000 * 3600 * 24));
   }
 
-  static today(dateFormat?: string) : string {
-    return moment().format(dateFormat || 'YYYY-MM-DD');
+  static today(separator = '-', yearFirst = true) : string {
+    const date = new Date();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const dateArr = [
+      `${month < 10 ? '0' : ''}${month}`,
+      `${day < 10 ? '0' : ''}${day}`,
+    ];
+
+    if (yearFirst) {
+      dateArr.unshift(date.getFullYear().toString());
+    } else {
+      dateArr.push(date.getFullYear().toString());
+    }
+
+    return dateArr.join(separator);
   }
 
   static isRealDate(date: string|Date) : boolean {

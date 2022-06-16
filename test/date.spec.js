@@ -1,5 +1,5 @@
 import assert from 'assert';
-import moment from 'moment';
+import { format } from 'date-fns';
 import _ from '../dist/index.js';
 
 describe('Date', () => {
@@ -10,9 +10,9 @@ describe('Date', () => {
   });
 
   it('today', (done) => {
-    assert.strictEqual(_.today(), moment().format('YYYY-MM-DD'));
-    assert.strictEqual(_.today('YYYY-MM-DD'), moment().format('YYYY-MM-DD'));
-    assert.strictEqual(_.today('yyyy'), moment().format('YYYY'));
+    assert.strictEqual(_.today(), format(new Date(), 'yyyy-MM-dd'));
+    assert.strictEqual(_.today('/'), format(new Date(), 'yyyy/MM/dd'));
+    assert.strictEqual(_.today('/', false), format(new Date(), 'MM/dd/yyyy'));
     done();
   });
 
