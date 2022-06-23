@@ -376,7 +376,7 @@ export default class Qsu {
 
   static contains(str:any[]|string, search: any[]|string, exact = false) : boolean {
     if (typeof search === 'string') {
-      return str.indexOf(search) !== -1;
+      return str.length < 1 ? false : str.indexOf(search) !== -1;
     }
 
     for (let i = 0, iLen = search.length; i < iLen; i += 1) {
