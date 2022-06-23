@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.5 (2022-06-23)
+
+- `contains`: When the length of the str parameter value of string type is 0, no error is thrown and false is returned.
+
 ## 1.0.4 (2022-06-16)
 **NOTICE**: `convertDate` is no longer supported due to the removal of `moment` as a dependent module.
 
