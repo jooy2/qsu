@@ -354,6 +354,24 @@ Remove duplicate characters from a given string and output only one.
 _.strUnique('aaabbbcc'); // Returns 'abc'
 ```
 
+### `_.isEqual (boolean)`
+
+It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
+
+`isEqual` returns `true` even if the data types do not match, but `isEqualStrict` returns `true` only when the data types of all argument values match.
+- `leftOperand::any`
+- `rightOperand::any||any[]||...any`
+
+```javascript
+const val1 = 'Left';
+const val2 = 1;
+
+_.isEqual('Left', 'Left', val1); // Returns true
+_.isEqual(1, [1, '1', 1, val2]); // Returns true
+_.isEqual(val1, ['Right', 'Left', 1]); // Returns false
+_.isEqual(1, 1, 1, 1); // Returns true
+```
+
 ### `_.isEmpty (boolean)`
 
 Returns true if the passed data is empty or has a length of 0.

@@ -2,6 +2,18 @@ import assert from 'assert';
 import _ from '../dist/index.js';
 
 describe('Verify', () => {
+  it('isEqual', (done) => {
+    const val1 = 'abc';
+    const val2 = 'abc';
+    const val3 = 'abc';
+
+    assert.strictEqual(_.isEqual(1, [1, 2, 3]), false);
+    assert.strictEqual(_.isEqual('abc', [val1, val2, val3]), true);
+    assert.strictEqual(_.isEqual('123', ['123', 123]), true);
+    assert.strictEqual(_.isEqual(123, '123', 123), true);
+    done();
+  });
+
   it('isEmpty', (done) => {
     assert.strictEqual(_.isEmpty(''), true);
     assert.strictEqual(_.isEmpty('1234'), false);
