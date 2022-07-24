@@ -14,6 +14,19 @@ describe('Verify', () => {
     done();
   });
 
+  it('isEqualStrict', (done) => {
+    const val1 = 'abc';
+    const val2 = 'abc';
+    const val3 = 'abc';
+
+    assert.strictEqual(_.isEqualStrict(1, [1, 2, 3, 4, 5]), false);
+    assert.strictEqual(_.isEqualStrict('abc', [val1, val2, val3]), true);
+    assert.strictEqual(_.isEqualStrict('123', ['123', 123]), false);
+    assert.strictEqual(_.isEqualStrict('123', ['123', '123']), true);
+    assert.strictEqual(_.isEqualStrict(123, '123', 123), false);
+    done();
+  });
+
   it('isEmpty', (done) => {
     assert.strictEqual(_.isEmpty(''), true);
     assert.strictEqual(_.isEmpty('1234'), false);
