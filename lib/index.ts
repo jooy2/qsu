@@ -249,7 +249,7 @@ export default class Qsu {
     return convStr;
   }
 
-  static split(str: string, ...splitter: Array<string>) {
+  static split(str: string, ...splitter: Array<string>) : string[] {
     const splitters = splitter.length > 0 && typeof splitter[0] === 'object' ? splitter[0] : splitter;
     const splitterLength: number = splitters.length;
     let charPattern = '';
@@ -276,7 +276,7 @@ export default class Qsu {
     }
 
     if (charPattern.length < 1 && strPattern.length < 1) {
-      return str;
+      return [str];
     }
 
     if (charPattern.length > 0) {
