@@ -1,8 +1,16 @@
 # Change Log
 
+## 1.0.6 (2022-07-24)
+
+- `isBotAgent`: Add `chrome-lighthouse` in bot lists
+- `split`: Fix incorrect return type
+- `isEqual`: Add new isEqual method
+- `isEqualStrict`: Add new isEqualStrict method
+- Import only the methods needed in the path and crypto module
+
 ## 1.0.5 (2022-06-23)
 
-- `contains`: When the length of the str parameter value of string type is 0, no error is thrown and false is returned.
+- `contains`: When the length of the str parameter value of string type is 0, no error is thrown and false is returned
 
 ## 1.0.4 (2022-06-16)
 **NOTICE**: `convertDate` is no longer supported due to the removal of `moment` as a dependent module.
@@ -33,4 +41,4 @@ The `today` method has changed its usage. We no longer support custom date forma
 
 ## 0.0.1 ~ 0.5.5 (2021-03-16 ~ 2022-04-09)
 
-- This is for the Alpha release and is not recommended for use.
+- This is for the Alpha release and is not recommended for use
