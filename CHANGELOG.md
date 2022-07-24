@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.7 (2022-07-24)
+
+- add `CHANGELOG.md` to `.npmignore`
+
 ## 1.0.6 (2022-07-24)
 
 - `isBotAgent`: Add `chrome-lighthouse` in bot lists

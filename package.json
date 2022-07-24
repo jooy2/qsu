@@ -1,7 +1,7 @@
 {
   "name": "qsu",
-  "version": "1.0.6",
-  "description": "Quick and Simple Utility for javascript",
+  "version": "1.0.7",
+  "description": "Quick and Simple Utility for JavaScript",
   "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
