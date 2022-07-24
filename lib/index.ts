@@ -1,5 +1,7 @@
-import path from 'path';
-import crypto from 'crypto';
+import { basename, extname } from 'path';
+import {
+  randomBytes, createCipheriv, createDecipheriv, createHash,
+} from 'crypto';
 
 declare interface LicenseOption {
   author: string
@@ -292,8 +294,8 @@ export default class Qsu {
       return '';
     }
 
-    const iv: Buffer = crypto.randomBytes(ivSize);
-    const cipher = crypto.createCipheriv(algorithm, secret, iv);
+    const iv: Buffer = randomBytes(ivSize);
+    const cipher = createCipheriv(algorithm, secret, iv);
     let enc = cipher.update(str);
 
     enc = Buffer.concat([enc, cipher.final()]);
@@ -307,7 +309,7 @@ export default class Qsu {
     }
 
     const arrStr: any[] = str.split(':');
-    const decipher = crypto.createDecipheriv(algorithm, secret, Buffer.from(arrStr.shift(), 'hex'));
+    const decipher = createDecipheriv(algorithm, secret, Buffer.from(arrStr.shift(), 'hex'));
     let decrypted = decipher.update(Buffer.from(arrStr.join(':'), 'hex'));
 
     decrypted = Buffer.concat([decrypted, decipher.final()]);
@@ -316,15 +318,15 @@ export default class Qsu {
   }
 
   static md5(str: string) : string {
-    return crypto.createHash('md5').update(str).digest('hex');
+    return createHash('md5').update(str).digest('hex');
   }
 
   static sha1(str: string) : string {
-    return crypto.createHash('sha1').update(str).digest('hex');
+    return createHash('sha1').update(str).digest('hex');
   }
 
   static sha256(str : string) : string {
-    return crypto.createHash('sha256').update(str).digest('hex');
+    return createHash('sha256').update(str).digest('hex');
   }
 
   static encodeBase64(str: string) : string {
@@ -436,10 +438,10 @@ export default class Qsu {
 
   static fileName(filePath: string, withExtension = false) : string {
     if (withExtension) {
-      return path.basename(filePath);
+      return basename(filePath);
     }
 
-    return path.basename(filePath, path.extname(filePath));
+    return basename(filePath, extname(filePath));
   }
 
   static fileSize<N extends number>(bytes: PositiveNumber<N>, decimals = 2) : string {
