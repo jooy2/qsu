@@ -1,6 +1,7 @@
 <div align="center">
 
 ![logo](qsu-logo.png)
+
 ### Node.js Quick & Simple Utility for JavaScript
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jooy2/qsu/blob/master/LICENSE)
@@ -10,19 +11,22 @@
 ![github repo size](https://img.shields.io/github/repo-size/jooy2/qsu)
 [![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu)
 [![Followers](https://img.shields.io/github/followers/jooy2?style=social)](https://github.com/jooy2)
+![Stars](https://img.shields.io/github/stars/jooy2/qsu?style=social)
+![Commit Count](https://img.shields.io/github/commit-activity/y/jooy2/qsu)
+![Line Count](https://img.shields.io/tokei/lines/github/jooy2/qsu)
 </div>
 
-A collection of complex or useful features that are often used in JavaScript. It is implemented to be used in both a client or server environment.
+A collection of complex or useful features that are often used in **JavaScript**. It is implemented to be used in both a client or server environment.
 
-qsu is optimized for modern development environments, so older browsers such as Internet Explorer 11 and Legacy Edge (Not Chromium) may not support it unless you use a transcompiler. Some functions use ES6 or higher JS standard syntax.
+**qsu** is optimized for modern development environments, so older browsers such as Internet Explorer 11 and Legacy Edge (Not Chromium) may not support it unless you use a transcompiler. Some functions use ES6 or higher JS standard syntax.
 
 Some solutions partially referenced external documentation (e.g. [Stack Overflow](https://stackoverflow.com)).
 
 # Installation
-Qsu requires Node.js 14.x or higher, and the repository is serviced through NPM.
+Qsu requires **Node.js 14.x** or higher, and the repository is serviced through **[NPM](https://npmjs.com)**.
 After configuring the node environment, you can simply run the following command.
 ```bash
-$ npm i --save qsu
+$ npm i qsu
 ```
 
 # Usage
@@ -555,7 +559,7 @@ _.license({
 ```
 
 # Contribute
-You can report issues on GitHub Issue. You can also request a pull to fix bugs and add frequently used features.
+You can report issues on [GitHub Issue Tracker](https://github.com/jooy2/qsu/issues). You can also request a pull to fix bugs and add frequently used features.
 
 # License
-Copyright © 2021 Jooy2 Released under the MIT license.
+Copyright © 2021-2022 Jooy2 Released under the MIT license.
