@@ -3,3 +3,4 @@ test/
 .idea/
 .DS_Store
 .git*
+CHANGELOG.md
