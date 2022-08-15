@@ -1,6 +1,6 @@
 {
   "name": "qsu",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Quick and Simple Utility for JavaScript",
   "type": "module",
   "types": "dist/index.d.ts",
