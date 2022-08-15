@@ -41,6 +41,7 @@ st`), 'test');
     assert.strictEqual(_.strNumberOf('abcdABCD', 'a'), 1);
     assert.strictEqual(_.strNumberOf('aaaaaa', 'a'), 6);
     assert.strictEqual(_.strNumberOf('hello', 'll'), 1);
+    assert.strictEqual(_.strNumberOf('hello', 'll'), 2); // TODO remove
     done();
   });
 

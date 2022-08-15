@@ -16,7 +16,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
   ],
   rules: {
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': 0,
     'arrow-parens': 0,
     'max-len': 0,
     '@typescript-eslint/no-explicit-any': 0
