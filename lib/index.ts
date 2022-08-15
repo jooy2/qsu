@@ -168,18 +168,34 @@ export default class Qsu {
   * String
   * */
   static removeSpecialChar(str: string, withoutSpace?: boolean) : string {
+    if (!str) {
+      return '';
+    }
+
     return str.replace(new RegExp(`[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f${withoutSpace ? ' ' : ''}]`, 'gi'), '');
   }
 
   static removeNewLine(str: string, replaceTo = '') : string {
+    if (!str) {
+      return '';
+    }
+
     return str.replace(/(\r\n|\n|\r)/gm, replaceTo).trim();
   }
 
   static capitalizeFirst(str: string) : string {
+    if (!str) {
+      return '';
+    }
+
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   static capitalizeEachWords(str: string, natural?: boolean) : string {
+    if (!str) {
+      return '';
+    }
+
     const splitStr = str.trim().toLowerCase().split(' ');
 
     for (let i = 0, iLen = splitStr.length; i < iLen; i += 1) {
@@ -195,10 +211,18 @@ export default class Qsu {
   }
 
   static strNumberOf(str: string, search: string) : number {
+    if (!str) {
+      return 0;
+    }
+
     return (str.match(new RegExp(search, 'g')) || []).length;
   }
 
   static strShuffle(str: string) : string {
+    if (!str) {
+      return '';
+    }
+
     return [...str].sort(() => Math.random() - 0.5).join('');
   }
 
@@ -218,6 +242,10 @@ export default class Qsu {
   }
 
   static strBlindRandom<N extends number>(str: string, blindLength: PositiveNumber<N>, blindStr = '*') : string {
+    if (!str) {
+      return '';
+    }
+
     let currentStr = str;
     let hideCount = 0;
     let tempIdx = 0;
@@ -240,11 +268,11 @@ export default class Qsu {
   }
 
   static truncate<N extends number>(str: string, length: PositiveNumber<N>, ellipsis = '') : string {
-    let convStr = str;
-
     if (!str) {
       return '';
     }
+
+    let convStr = str;
 
     if (str.length > length) {
       convStr = str.substring(0, length) + ellipsis;
@@ -254,6 +282,10 @@ export default class Qsu {
   }
 
   static split(str: string, ...splitter: Array<string>) : string[] {
+    if (!str) {
+      return [];
+    }
+
     const splitters = splitter.length > 0 && typeof splitter[0] === 'object' ? splitter[0] : splitter;
     const splitterLength: number = splitters.length;
     let charPattern = '';
@@ -342,6 +374,10 @@ export default class Qsu {
   }
 
   static strUnique(str: string) : string {
+    if (!str) {
+      return '';
+    }
+
     return [...new Set(str)].join('');
   }
 
