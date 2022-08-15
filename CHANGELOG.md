@@ -1,8 +1,14 @@
 # Change Log
 
+## 1.0.8 (2022-08-15)
+
+- Add GitHub workflows
+- `truncate`: Return empty string when str is null
+- `fileName`: Resolves windows path regardless of system environment
+
 ## 1.0.7 (2022-07-24)
 
-- add `CHANGELOG.md` to `.npmignore`
+- Add `CHANGELOG.md` to `.npmignore`
 
 ## 1.0.6 (2022-07-24)
 
