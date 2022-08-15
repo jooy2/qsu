@@ -242,6 +242,10 @@ export default class Qsu {
   static truncate<N extends number>(str: string, length: PositiveNumber<N>, ellipsis = '') : string {
     let convStr = str;
 
+    if (!str) {
+      return '';
+    }
+
     if (str.length > length) {
       convStr = str.substring(0, length) + ellipsis;
     }
