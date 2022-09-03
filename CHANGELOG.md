@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.1.0 (2022-09-03)
+
+- Reduced bundle size due to minify executable code
+- `isBotAgent`: remove duplicate string
+
 ## 1.0.9 (2022-08-15)
 
 - `str`: Handling of null str values
