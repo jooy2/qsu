@@ -1,6 +1,6 @@
 <div align="center">
 
-![logo](qsu-logo.png)
+![logo](logo.webp)
 
 ### Node.js Quick & Simple Utility for JavaScript
 
