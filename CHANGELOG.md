@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.1 (2022-10-08)
+
+- Upgrade package dependencies
+
 ## 1.1.0 (2022-09-03)
 
 - Reduced bundle size due to minify executable code
