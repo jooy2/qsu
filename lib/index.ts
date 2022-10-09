@@ -525,7 +525,7 @@ export default class Qsu {
   }
 
   static fileSize<N extends number>(bytes: PositiveNumber<N>, decimals = 2) : string {
-    if (bytes === 0 || bytes < 0) {
+    if (!bytes || bytes === 0 || bytes < 0) {
       return '0 Bytes';
     }
 
