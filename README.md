@@ -49,13 +49,17 @@ A collection of complex or useful features that are often used in **JavaScript**
 Some solutions partially referenced external documentation (e.g. [Stack Overflow](https://stackoverflow.com)).
 
 # Installation
+
 Qsu requires **Node.js 12.x** or higher, and the repository is serviced through **[NPM](https://npmjs.com)**.
+
 After configuring the node environment, you can simply run the following command.
+
 ```bash
-$ npm i qsu
+$ npm install qsu
 ```
 
 # Usage
+
 ```javascript
 import _ from 'qsu';
 
@@ -73,6 +77,7 @@ Sleep function using Promise.
 
 ```javascript
 await _.sleep(1000); // 1s
+
 _.sleep(5000).then(() => {
     // continue
 });
@@ -85,8 +90,8 @@ Returns a random number (Between min and max).
 - `max::number`
 
 ```javascript
-_.rand(1, 5); // Returns 1~5
-_.rand(10, 20); // Returns 10~20
+_.numRandom(1, 5); // Returns 1~5
+_.numRandom(10, 20); // Returns 10~20
 ```
 
 ### `_.sum (number)`
@@ -244,12 +249,12 @@ _.capitalizeEachWords('abcd'); // Returns 'Abcd'
 
 ### `_.strNumberOf (number)`
 
-Returns the number of times the second String character is contained in the first String argument.
+Returns the number of times the second String argument is contained in the first String argument.
 - `str::string`
 - `search::string`
 
 ```javascript
-_.count('abcabc', 'a'); // Returns 2
+_.strNumberOf('abcabc', 'a'); // Returns 2
 ```
 
 ### `_.strShuffle (string)`
@@ -258,7 +263,7 @@ Randomly shuffles the received string and returns it.
 - `str::string`
 
 ```javascript
-_.shuffle('abcdefg'); // Returns 'bgafced'
+_.strShuffle('abcdefg'); // Returns 'bgafced'
 ```
 
 ### `_.strRandom (string)`
@@ -279,7 +284,7 @@ Replaces strings at random locations with a specified number of characters (defa
 - `blindStr::string || '*'`
 
 ```javascript
-_.hideRandom('hello', 2, '#'); // Returns '#el#o'
+_.strBlindRandom('hello', 2, '#'); // Returns '#el#o'
 ```
 
 ### `_.truncate (string)`
@@ -503,7 +508,7 @@ Return number format including comma symbol.
 - `number::number`
 
 ```javascript
-_.number(1234567); // Returns 1,234,567
+_.numberFormat(1234567); // Returns 1,234,567
 ```
 
 ### `_.fileName (string)`
@@ -585,7 +590,9 @@ _.license({
 ```
 
 # Contribute
+
 You can report issues on [GitHub Issue Tracker](https://github.com/jooy2/qsu/issues). You can also request a pull to fix bugs and add frequently used features.
 
 # License
+
 Copyright © 2021-2022 Jooy2 Released under the MIT license.
