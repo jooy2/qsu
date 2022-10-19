@@ -24,10 +24,12 @@ jobs:
                   fetch-depth: 0
 
             - name: Setup NodeJS ${{ matrix.node_version }}
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v2
               with:
                   # choose node.js version to use
-                  node-version: '14'
+                  node-version: ${{ matrix.node_version }}
+                  cache: npm
+                  cache-dependency-path: package-lock.json
 
             # cache node_modules
             - name: Cache dependencies
