@@ -36,11 +36,11 @@ st`), 'test');
     done();
   });
 
-  it('strNumberOf', (done) => {
-    assert.strictEqual(_.strNumberOf('hello', 'l'), 2);
-    assert.strictEqual(_.strNumberOf('abcdABCD', 'a'), 1);
-    assert.strictEqual(_.strNumberOf('aaaaaa', 'a'), 6);
-    assert.strictEqual(_.strNumberOf('hello', 'll'), 1);
+  it('strCount', (done) => {
+    assert.strictEqual(_.strCount('hello', 'l'), 2);
+    assert.strictEqual(_.strCount('abcdABCD', 'a'), 1);
+    assert.strictEqual(_.strCount('aaaaaa', 'a'), 6);
+    assert.strictEqual(_.strCount('hello', 'll'), 1);
     done();
   });
 

@@ -210,7 +210,7 @@ export default class Qsu {
     return this.capitalizeFirst(splitStr.join(' '));
   }
 
-  static strNumberOf(str: string, search: string) : number {
+  static strCount(str: string, search: string) : number {
     if (!str) {
       return 0;
     }

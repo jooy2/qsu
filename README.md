@@ -247,14 +247,14 @@ Converts every word with spaces to uppercase. If the naturally argument is true,
 _.capitalizeEachWords('abcd'); // Returns 'Abcd'
 ```
 
-### `_.strNumberOf (number)`
+### `_.strCount (number)`
 
 Returns the number of times the second String argument is contained in the first String argument.
 - `str::string`
 - `search::string`
 
 ```javascript
-_.strNumberOf('abcabc', 'a'); // Returns 2
+_.strCount('abcabc', 'a'); // Returns 2
 ```
 
 ### `_.strShuffle (string)`
