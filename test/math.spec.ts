@@ -5,7 +5,7 @@ describe('Math', () => {
   it('numRandom', (done) => {
     assert(typeof _.numRandom(1, 2) === 'number');
     for (let i = 0; i < 50; i += 1) {
-      const offsetTest = _.numRandom(5, 10);
+      const offsetTest: number = _.numRandom(5, 10);
       assert(offsetTest >= 5 && offsetTest <= 10);
     }
     done();

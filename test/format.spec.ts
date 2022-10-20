@@ -5,6 +5,7 @@ describe('Format', () => {
   it('numberFormat', (done) => {
     assert.strictEqual(_.numberFormat(1234), '1,234');
     assert.strictEqual(_.numberFormat(12345678), '12,345,678');
+    // @ts-ignore
     assert.strictEqual(_.numberFormat(null), '0');
     done();
   });

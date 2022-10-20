@@ -19,3 +19,4 @@ tsconfig.json
 .eslintrc.cjs
 .prettierignore
 .prettierrc
+.mocharc.json
