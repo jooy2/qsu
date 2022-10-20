@@ -36,6 +36,7 @@
 - `contains`: When the length of the str parameter value of string type is 0, no error is thrown and false is returned
 
 ## 1.0.4 (2022-06-16)
+
 **NOTICE**: `convertDate` is no longer supported due to the removal of `moment` as a dependent module.
 
 The `today` method has changed its usage. We no longer support custom date formats.

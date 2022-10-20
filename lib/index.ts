@@ -1,44 +1,46 @@
 import { basename, extname, win32 } from 'path';
-import {
-  randomBytes, createCipheriv, createDecipheriv, createHash,
-} from 'crypto';
+import { randomBytes, createCipheriv, createDecipheriv, createHash } from 'crypto';
 
 declare interface LicenseOption {
-  author: string
-  email?: string
-  yearStart: string|number
-  yearEnd?: string
-  htmlBr?: boolean
-  type: 'mit' | 'apache20'
+  author: string;
+  email?: string;
+  yearStart: string | number;
+  yearEnd?: string;
+  htmlBr?: boolean;
+  type: 'mit' | 'apache20';
 }
 
-declare type PositiveNumber<N extends number> = number extends N ? N : `${N}` extends `-${string}` ? never : N;
+declare type PositiveNumber<N extends number> = number extends N
+  ? N
+  : `${N}` extends `-${string}`
+  ? never
+  : N;
 
 export default class Qsu {
   /*
-  * Misc
-  * */
-  static sleep<N extends number>(delay: PositiveNumber<N>) : Promise<void> {
+   * Misc
+   * */
+  static sleep<N extends number>(delay: PositiveNumber<N>): Promise<void> {
     return new Promise<void>((resolve) => {
       setTimeout(resolve, delay);
     });
   }
 
   /*
-  * Math
-  * */
-  static numRandom(min: number, max: number) : number {
+   * Math
+   * */
+  static numRandom(min: number, max: number): number {
     if (!min && !max) {
-      return (Math.random() > 0.5) ? 1 : 0;
+      return Math.random() > 0.5 ? 1 : 0;
     }
 
     const limit = !max ? min : max;
-    const offset = (!max || min >= max) ? null : min;
+    const offset = !max || min >= max ? null : min;
 
-    return Math.floor(Math.random() * (offset ? (limit - offset + 1) : limit + 1)) + (offset || 0);
+    return Math.floor(Math.random() * (offset ? limit - offset + 1 : limit + 1)) + (offset || 0);
   }
 
-  static sum(...args: number[]) : number {
+  static sum(...args: number[]): number {
     const val = args.length > 0 && typeof args[0] === 'object' ? args[0] : args;
     let total = 0;
 
@@ -51,7 +53,7 @@ export default class Qsu {
     return total;
   }
 
-  static mul(...args: number[]) : number {
+  static mul(...args: number[]): number {
     const val = args.length > 0 && typeof args[0] === 'object' ? args[0] : args;
     let total = val[0];
 
@@ -65,23 +67,20 @@ export default class Qsu {
   }
 
   /*
-  * Date
-  * */
-  static dayDiff(date1: Date, date2?: Date) : number {
+   * Date
+   * */
+  static dayDiff(date1: Date, date2?: Date): number {
     const date2c = date2 || new Date();
 
     return Math.ceil(Math.abs(date2c.getTime() - date1.getTime()) / (1000 * 3600 * 24));
   }
 
-  static today(separator = '-', yearFirst = true) : string {
+  static today(separator = '-', yearFirst = true): string {
     const date = new Date();
     const month = date.getMonth() + 1;
     const day = date.getDate();
 
-    const dateArr = [
-      `${month < 10 ? '0' : ''}${month}`,
-      `${day < 10 ? '0' : ''}${day}`,
-    ];
+    const dateArr = [`${month < 10 ? '0' : ''}${month}`, `${day < 10 ? '0' : ''}${day}`];
 
     if (yearFirst) {
       dateArr.unshift(date.getFullYear().toString());
@@ -92,7 +91,7 @@ export default class Qsu {
     return dateArr.join(separator);
   }
 
-  static isRealDate(date: string|Date) : boolean {
+  static isRealDate(date: string | Date): boolean {
     const dateConverted: Date = typeof date === 'string' ? new Date(date) : date;
 
     if (!dateConverted.getTime()) {
@@ -103,9 +102,9 @@ export default class Qsu {
   }
 
   /*
-  * Array
-  * */
-  static arrShuffle(array: any[]) : any[] {
+   * Array
+   * */
+  static arrShuffle(array: any[]): any[] {
     if (array.length === 1) {
       return array[0];
     }
@@ -120,7 +119,7 @@ export default class Qsu {
     return newArray;
   }
 
-  static arrWithDefault(defaultValue: any, length = 0) : any[] {
+  static arrWithDefault(defaultValue: any, length = 0): any[] {
     if (length < 1) {
       return [];
     }
@@ -128,31 +127,36 @@ export default class Qsu {
     return Array(length).fill(defaultValue);
   }
 
-  static arrUnique(array: any[]) : any[] {
+  static arrUnique(array: any[]): any[] {
     if (this.is2dArray(array)) {
-      return array.map((x): string => JSON.stringify(x))
+      return array
+        .map((x): string => JSON.stringify(x))
         .reverse()
         .filter((e, i, a) => a.indexOf(e, i + 1) === -1)
         .reverse()
-        .map((x):object => JSON.parse(x));
+        .map((x): object => JSON.parse(x));
     }
 
     return [...new Set(array)];
   }
 
-  static arrWithNumber(start: number, end: number) : number[] {
+  static arrWithNumber(start: number, end: number): number[] {
     if (start > end) {
       throw new Error('end is greater than start.');
     }
 
-    return Array.from({ length: (end - start) + 1 }, (_, i) => i + start);
+    return Array.from({ length: end - start + 1 }, (_, i) => i + start);
   }
 
-  static average(array: number[]) : number {
+  static average(array: number[]): number {
     return array.reduce((p, c) => p + c, 0) / array.length;
   }
 
-  static arrMove<N extends number>(array: any[], from: PositiveNumber<N>, to: PositiveNumber<N>) : any[] {
+  static arrMove<N extends number>(
+    array: any[],
+    from: PositiveNumber<N>,
+    to: PositiveNumber<N>
+  ): any[] {
     const arrayLength = array.length;
 
     if (arrayLength <= from || arrayLength <= to) {
@@ -165,17 +169,25 @@ export default class Qsu {
   }
 
   /*
-  * String
-  * */
-  static removeSpecialChar(str: string, withoutSpace?: boolean) : string {
+   * String
+   * */
+  static removeSpecialChar(str: string, withoutSpace?: boolean): string {
     if (!str) {
       return '';
     }
 
-    return str.replace(new RegExp(`[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f${withoutSpace ? ' ' : ''}]`, 'gi'), '');
+    return str.replace(
+      new RegExp(
+        `[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f${
+          withoutSpace ? ' ' : ''
+        }]`,
+        'gi'
+      ),
+      ''
+    );
   }
 
-  static removeNewLine(str: string, replaceTo = '') : string {
+  static removeNewLine(str: string, replaceTo = ''): string {
     if (!str) {
       return '';
     }
@@ -183,7 +195,7 @@ export default class Qsu {
     return str.replace(/(\r\n|\n|\r)/gm, replaceTo).trim();
   }
 
-  static capitalizeFirst(str: string) : string {
+  static capitalizeFirst(str: string): string {
     if (!str) {
       return '';
     }
@@ -191,7 +203,7 @@ export default class Qsu {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  static capitalizeEachWords(str: string, natural?: boolean) : string {
+  static capitalizeEachWords(str: string, natural?: boolean): string {
     if (!str) {
       return '';
     }
@@ -199,10 +211,35 @@ export default class Qsu {
     const splitStr = str.trim().toLowerCase().split(' ');
 
     for (let i = 0, iLen = splitStr.length; i < iLen; i += 1) {
-      if (!natural || !this.contains(splitStr[i], [
-        'in', 'on', 'the', 'at', 'and', 'or', 'of', 'for', 'to', 'that',
-        'a', 'by', 'it', 'is', 'as', 'are', 'were', 'was', 'nor', 'an',
-      ], true)) {
+      if (
+        !natural ||
+        !this.contains(
+          splitStr[i],
+          [
+            'in',
+            'on',
+            'the',
+            'at',
+            'and',
+            'or',
+            'of',
+            'for',
+            'to',
+            'that',
+            'a',
+            'by',
+            'it',
+            'is',
+            'as',
+            'are',
+            'were',
+            'was',
+            'nor',
+            'an'
+          ],
+          true
+        )
+      ) {
         splitStr[i] = this.capitalizeFirst(splitStr[i]);
       }
     }
@@ -210,7 +247,7 @@ export default class Qsu {
     return this.capitalizeFirst(splitStr.join(' '));
   }
 
-  static strCount(str: string, search: string) : number {
+  static strCount(str: string, search: string): number {
     if (!str || !search) {
       return 0;
     }
@@ -220,13 +257,13 @@ export default class Qsu {
 
     while (pos > -1) {
       count += 1;
-      pos = str.indexOf(search, pos += search.length);
+      pos = str.indexOf(search, (pos += search.length));
     }
 
     return count;
   }
 
-  static strShuffle(str: string) : string {
+  static strShuffle(str: string): string {
     if (!str) {
       return '';
     }
@@ -234,7 +271,10 @@ export default class Qsu {
     return [...str].sort(() => Math.random() - 0.5).join('');
   }
 
-  static strRandom<N extends number>(length: PositiveNumber<N>, additionalCharacters? : string) : string {
+  static strRandom<N extends number>(
+    length: PositiveNumber<N>,
+    additionalCharacters?: string
+  ): string {
     const availCharacters = `abcdefghijklmnopqrstuvwxyz0123456789${additionalCharacters}`;
     const availCharacterLength = availCharacters.length;
     let result = '';
@@ -249,7 +289,11 @@ export default class Qsu {
     return result;
   }
 
-  static strBlindRandom<N extends number>(str: string, blindLength: PositiveNumber<N>, blindStr = '*') : string {
+  static strBlindRandom<N extends number>(
+    str: string,
+    blindLength: PositiveNumber<N>,
+    blindStr = '*'
+  ): string {
     if (!str) {
       return '';
     }
@@ -261,11 +305,13 @@ export default class Qsu {
 
     const totalStrLength = currentStr.length;
 
-    while ((hideCount < blindLength) && (currentStrLength < totalStrLength)) {
+    while (hideCount < blindLength && currentStrLength < totalStrLength) {
       tempIdx = this.numRandom(0, totalStrLength);
 
       if (/[a-zA-Z가-힣]/.test(currentStr.substring(tempIdx, tempIdx + 1))) {
-        currentStr = `${currentStr.substring(0, tempIdx + 1)}${blindStr}${currentStr.substring(tempIdx + 2)}`;
+        currentStr = `${currentStr.substring(0, tempIdx + 1)}${blindStr}${currentStr.substring(
+          tempIdx + 2
+        )}`;
         hideCount += 1;
       }
 
@@ -275,7 +321,7 @@ export default class Qsu {
     return currentStr;
   }
 
-  static truncate<N extends number>(str: string, length: PositiveNumber<N>, ellipsis = '') : string {
+  static truncate<N extends number>(str: string, length: PositiveNumber<N>, ellipsis = ''): string {
     if (!str) {
       return '';
     }
@@ -289,12 +335,13 @@ export default class Qsu {
     return convStr;
   }
 
-  static split(str: string, ...splitter: Array<string>) : string[] {
+  static split(str: string, ...splitter: Array<string>): string[] {
     if (!str) {
       return [];
     }
 
-    const splitters = splitter.length > 0 && typeof splitter[0] === 'object' ? splitter[0] : splitter;
+    const splitters =
+      splitter.length > 0 && typeof splitter[0] === 'object' ? splitter[0] : splitter;
     const splitterLength: number = splitters.length;
     let charPattern = '';
     let strPattern = '';
@@ -333,7 +380,7 @@ export default class Qsu {
     return str.split(new RegExp(`${charPattern}${strPattern}+`, 'gi'));
   }
 
-  static encrypt(str: string, secret: string, algorithm = 'aes-256-cbc', ivSize = 16) : string {
+  static encrypt(str: string, secret: string, algorithm = 'aes-256-cbc', ivSize = 16): string {
     if (!str || str.length < 1) {
       return '';
     }
@@ -347,7 +394,7 @@ export default class Qsu {
     return `${iv.toString('hex')}:${enc.toString('hex')}`;
   }
 
-  static decrypt(str: string, secret: string, algorithm = 'aes-256-cbc') : string {
+  static decrypt(str: string, secret: string, algorithm = 'aes-256-cbc'): string {
     if (!str || str.length < 1) {
       return '';
     }
@@ -361,27 +408,27 @@ export default class Qsu {
     return decrypted.toString();
   }
 
-  static md5(str: string) : string {
+  static md5(str: string): string {
     return createHash('md5').update(str).digest('hex');
   }
 
-  static sha1(str: string) : string {
+  static sha1(str: string): string {
     return createHash('sha1').update(str).digest('hex');
   }
 
-  static sha256(str : string) : string {
+  static sha256(str: string): string {
     return createHash('sha256').update(str).digest('hex');
   }
 
-  static encodeBase64(str: string) : string {
+  static encodeBase64(str: string): string {
     return Buffer.from(str, 'utf8').toString('base64');
   }
 
-  static decodeBase64(encodedStr: string) : string {
+  static decodeBase64(encodedStr: string): string {
     return Buffer.from(encodedStr, 'base64').toString('utf8');
   }
 
-  static strUnique(str: string) : string {
+  static strUnique(str: string): string {
     if (!str) {
       return '';
     }
@@ -390,10 +437,13 @@ export default class Qsu {
   }
 
   /*
-  * Verify
-  * */
-  static isEqual(leftOperand: any, ...rightOperand: Array<any>) : boolean {
-    const rightOperands = rightOperand.length > 0 && typeof rightOperand[0] === 'object' ? rightOperand[0] : rightOperand;
+   * Verify
+   * */
+  static isEqual(leftOperand: any, ...rightOperand: Array<any>): boolean {
+    const rightOperands =
+      rightOperand.length > 0 && typeof rightOperand[0] === 'object'
+        ? rightOperand[0]
+        : rightOperand;
     const rightOperandLength: number = rightOperands.length;
 
     for (let i = 0; i < rightOperandLength; i += 1) {
@@ -406,8 +456,11 @@ export default class Qsu {
     return true;
   }
 
-  static isEqualStrict(leftOperand: any, ...rightOperand: Array<any>) : boolean {
-    const rightOperands = rightOperand.length > 0 && typeof rightOperand[0] === 'object' ? rightOperand[0] : rightOperand;
+  static isEqualStrict(leftOperand: any, ...rightOperand: Array<any>): boolean {
+    const rightOperands =
+      rightOperand.length > 0 && typeof rightOperand[0] === 'object'
+        ? rightOperand[0]
+        : rightOperand;
     const rightOperandLength: number = rightOperands.length;
 
     for (let i = 0; i < rightOperandLength; i += 1) {
@@ -419,7 +472,7 @@ export default class Qsu {
     return true;
   }
 
-  static isEmpty(data?: any) : boolean {
+  static isEmpty(data?: any): boolean {
     if (!data) {
       return true;
     }
@@ -437,13 +490,13 @@ export default class Qsu {
     }
   }
 
-  static isUrl(url: string, withProtocol = false, strict = false) : boolean {
+  static isUrl(url: string, withProtocol = false, strict = false): boolean {
     if (strict && url.indexOf('.') === -1) {
       return false;
     }
 
     try {
-      new URL(`${(withProtocol && url.indexOf('://') === -1) ? 'https://' : ''}${url}`).toString();
+      new URL(`${withProtocol && url.indexOf('://') === -1 ? 'https://' : ''}${url}`).toString();
     } catch (e) {
       return false;
     }
@@ -451,7 +504,7 @@ export default class Qsu {
     return true;
   }
 
-  static contains(str:any[]|string, search: any[]|string, exact = false) : boolean {
+  static contains(str: any[] | string, search: any[] | string, exact = false): boolean {
     if (typeof search === 'string') {
       return str.length < 1 ? false : str.indexOf(search) !== -1;
     }
@@ -469,18 +522,18 @@ export default class Qsu {
     return false;
   }
 
-  static is2dArray(array: any[]) : boolean {
+  static is2dArray(array: any[]): boolean {
     return array.filter(Array.isArray).length > 0;
   }
 
-  static between(range: [number, number], number: number, inclusive = false) : boolean {
+  static between(range: [number, number], number: number, inclusive = false): boolean {
     const minM = Math.min.apply(Math, [range[0], range[1]]);
     const maxM = Math.max.apply(Math, [range[0], range[1]]);
 
     return inclusive ? number >= minM && number <= maxM : number > minM && number < maxM;
   }
 
-  static len(data: any) : number {
+  static len(data: any): number {
     if (!data) {
       return 0;
     }
@@ -500,18 +553,20 @@ export default class Qsu {
     }
   }
 
-  static isBotAgent(userAgent: string) : boolean {
-    return /bot|naverbot|google|Googlebot|Googlebot-Mobile|Googlebot-Image|Google favicon|Chrome-Lighthouse|Mediapartners-Google|bingbot|slurp|java|wget|curl|Commons-HttpClient|Python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|jyxobot|FAST-WebCrawler|FAST Enterprise Crawler|biglotron|teoma|convera|seekbot|gigablast|exabot|ngbot|ia_archiver|GingerCrawler|webmon |httrack|webcrawler|grub.org|UsineNouvelleCrawler|antibot|netresearchserver|speedy|fluffy|bibnum.bnf|findlink|msrbot|panscient|yacybot|AISearchBot|IOI|ips-agent|tagoobot|MJ12bot|dotbot|woriobot|yanga|buzzbot|mlbot|yandexbot|purebot|Linguee Bot|Voyager|CyberPatrol|voilabot|baiduspider|citeseerxbot|spbot|twengabot|postrank|turnitinbot|scribdbot|page2rss|sitebot|linkdex|Adidxbot|blekkobot|ezooms|Mail.RU_Bot|discobot|heritrix|findthatfile|europarchive.org|NerdByNature.Bot|sistrix crawler|ahrefsbot|Aboundex|domaincrawler|wbsearchbot|summify|ccbot|edisterbot|seznambot|ec2linkfinder|gslfbot|aihitbot|intelium_bot|facebookexternalhit|yeti|RetrevoPageAnalyzer|lb-spider|sogou|lssbot|careerbot|wotbox|wocbot|ichiro|DuckDuckBot|lssrocketcrawler|drupact|webcompanycrawler|acoonbot|openindexspider|gnam gnam spider|web-archive-net.com.bot|backlinkcrawler|coccoc|integromedb|content crawler spider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler.com|siteexplorer.info|elisabot|proximic|changedetection|blexbot|arabot|WeSEE:Search|niki-bot|CrystalSemanticsBot|rogerbot|360Spider|psbot|InterfaxScanBot|Lipperhey SEO Service|CC Metadata Scaper|g00g1e.net|GrapeshotCrawler|urlappendbot|brainobot|fr-crawler|binlar|SimpleCrawler|Livelapbot|Twitterbot|cXensebot|smtbot|bnf.fr_bot|A6-Indexer|ADmantX|Facebot|OrangeBot|memorybot|AdvBot|MegaIndex|SemanticScholarBot|ltx71|nerdybot|xovibot|BUbiNG|Qwantify|archive.org_bot|Applebot|TweetmemeBot|crawler4j|findxbot|SemrushBot|yoozBot|lipperhey|y!j-asr|Domain Re-Animator Bot|AddThis/i.test(userAgent);
+  static isBotAgent(userAgent: string): boolean {
+    return /bot|naverbot|google|Googlebot|Googlebot-Mobile|Googlebot-Image|Google favicon|Chrome-Lighthouse|Mediapartners-Google|bingbot|slurp|java|wget|curl|Commons-HttpClient|Python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|jyxobot|FAST-WebCrawler|FAST Enterprise Crawler|biglotron|teoma|convera|seekbot|gigablast|exabot|ngbot|ia_archiver|GingerCrawler|webmon |httrack|webcrawler|grub.org|UsineNouvelleCrawler|antibot|netresearchserver|speedy|fluffy|bibnum.bnf|findlink|msrbot|panscient|yacybot|AISearchBot|IOI|ips-agent|tagoobot|MJ12bot|dotbot|woriobot|yanga|buzzbot|mlbot|yandexbot|purebot|Linguee Bot|Voyager|CyberPatrol|voilabot|baiduspider|citeseerxbot|spbot|twengabot|postrank|turnitinbot|scribdbot|page2rss|sitebot|linkdex|Adidxbot|blekkobot|ezooms|Mail.RU_Bot|discobot|heritrix|findthatfile|europarchive.org|NerdByNature.Bot|sistrix crawler|ahrefsbot|Aboundex|domaincrawler|wbsearchbot|summify|ccbot|edisterbot|seznambot|ec2linkfinder|gslfbot|aihitbot|intelium_bot|facebookexternalhit|yeti|RetrevoPageAnalyzer|lb-spider|sogou|lssbot|careerbot|wotbox|wocbot|ichiro|DuckDuckBot|lssrocketcrawler|drupact|webcompanycrawler|acoonbot|openindexspider|gnam gnam spider|web-archive-net.com.bot|backlinkcrawler|coccoc|integromedb|content crawler spider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler.com|siteexplorer.info|elisabot|proximic|changedetection|blexbot|arabot|WeSEE:Search|niki-bot|CrystalSemanticsBot|rogerbot|360Spider|psbot|InterfaxScanBot|Lipperhey SEO Service|CC Metadata Scaper|g00g1e.net|GrapeshotCrawler|urlappendbot|brainobot|fr-crawler|binlar|SimpleCrawler|Livelapbot|Twitterbot|cXensebot|smtbot|bnf.fr_bot|A6-Indexer|ADmantX|Facebot|OrangeBot|memorybot|AdvBot|MegaIndex|SemanticScholarBot|ltx71|nerdybot|xovibot|BUbiNG|Qwantify|archive.org_bot|Applebot|TweetmemeBot|crawler4j|findxbot|SemrushBot|yoozBot|lipperhey|y!j-asr|Domain Re-Animator Bot|AddThis/i.test(
+      userAgent
+    );
   }
 
   /*
-  * Format
-  * */
-  static numberFormat(number: number) : string {
+   * Format
+   * */
+  static numberFormat(number: number): string {
     return new Intl.NumberFormat().format(number);
   }
 
-  static fileName(filePath: string, withExtension = false) : string {
+  static fileName(filePath: string, withExtension = false): string {
     if (!filePath) {
       return '';
     }
@@ -532,17 +587,19 @@ export default class Qsu {
     return basename(filePath, extname(filePath));
   }
 
-  static fileSize<N extends number>(bytes: PositiveNumber<N>, decimals = 2) : string {
+  static fileSize<N extends number>(bytes: PositiveNumber<N>, decimals = 2): string {
     if (!bytes || bytes === 0 || bytes < 0) {
       return '0 Bytes';
     }
 
     const byteCalc = Math.floor(Math.log(bytes) / Math.log(1024));
 
-    return `${parseFloat((bytes / 1024 ** byteCalc).toFixed((decimals < 0 ? 0 : decimals)))} ${['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'][byteCalc]}`;
+    return `${parseFloat((bytes / 1024 ** byteCalc).toFixed(decimals < 0 ? 0 : decimals))} ${
+      ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'][byteCalc]
+    }`;
   }
 
-  static fileExt(filePath: string) : string {
+  static fileExt(filePath: string): string {
     if (filePath.indexOf('.') === -1) {
       return 'Unknown';
     }
@@ -552,32 +609,32 @@ export default class Qsu {
     return pSpl.length > 0 ? pSpl[pSpl.length - 1] : 'Unknown';
   }
 
-  static msToTime(milliseconds = 0, withMilliseconds = false, separator = ':') : string {
+  static msToTime(milliseconds = 0, withMilliseconds = false, separator = ':'): string {
     const ms: number = Math.floor((milliseconds % 1000) / 100);
-    let sec: string|number = Math.floor((milliseconds / 1000) % 60);
-    let min: string|number = Math.floor((milliseconds / (1000 * 60)) % 60);
-    let hour: string|number = Math.floor(milliseconds / (1000 * 60 * 60));
+    let sec: string | number = Math.floor((milliseconds / 1000) % 60);
+    let min: string | number = Math.floor((milliseconds / (1000 * 60)) % 60);
+    let hour: string | number = Math.floor(milliseconds / (1000 * 60 * 60));
 
-    hour = (hour < 10) ? `0${hour}` : hour;
-    min = (min < 10) ? `0${min}` : min;
-    sec = (sec < 10) ? `0${sec}` : sec;
+    hour = hour < 10 ? `0${hour}` : hour;
+    min = min < 10 ? `0${min}` : min;
+    sec = sec < 10 ? `0${sec}` : sec;
 
     return `${hour}${separator}${min}${separator}${sec}${withMilliseconds ? `.${ms}` : ''}`;
   }
 
-  static secToTime(seconds = 0, onlyHour = false, separator = ':') : string {
-    let sec: string|number = Math.floor(seconds % 60);
-    let min: string|number = Math.floor((seconds / 60) % 60);
-    let hour: string|number = Math.floor(seconds / (60 * 60));
+  static secToTime(seconds = 0, onlyHour = false, separator = ':'): string {
+    let sec: string | number = Math.floor(seconds % 60);
+    let min: string | number = Math.floor((seconds / 60) % 60);
+    let hour: string | number = Math.floor(seconds / (60 * 60));
 
-    hour = (hour < 10) ? `0${hour}` : hour;
-    min = (min < 10) ? `0${min}` : min;
-    sec = (sec < 10) ? `0${sec}` : sec;
+    hour = hour < 10 ? `0${hour}` : hour;
+    min = min < 10 ? `0${min}` : min;
+    sec = sec < 10 ? `0${sec}` : sec;
 
     return onlyHour ? hour.toString() : `${hour}${separator}${min}${separator}${sec}`;
   }
 
-  static license(options: LicenseOption) : string {
+  static license(options: LicenseOption): string {
     const br = options.htmlBr ? '<br/>' : '\n';
     const yearString = `${options.yearStart}${options.yearEnd ? `-${options.yearEnd}` : ''}`;
     const authorString = `${options.author}${options.email ? ` <${options.email}>` : ''}`;
@@ -592,6 +649,4 @@ export default class Qsu {
   }
 }
 
-export {
-  Qsu,
-};
+export { Qsu };

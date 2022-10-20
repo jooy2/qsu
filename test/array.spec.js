@@ -4,7 +4,14 @@ import _ from '../dist/index.js';
 describe('Array', () => {
   it('arrShuffle', (done) => {
     assert(_.arrShuffle([1, 2, 3, 4, 5, 6, 7, 8]));
-    assert(_.arrShuffle([[1, 2], [3, 4], [5, 6], [7, 8]]));
+    assert(
+      _.arrShuffle([
+        [1, 2],
+        [3, 4],
+        [5, 6],
+        [7, 8]
+      ])
+    );
     assert(_.arrShuffle([{ A: 1 }, { B: 2 }, { C: 3 }, { D: 4 }]));
     done();
   });
@@ -20,7 +27,19 @@ describe('Array', () => {
     assert.deepStrictEqual(_.arrUnique([1, 1, 2, 2, 3]), [1, 2, 3]);
     assert.deepStrictEqual(_.arrUnique(['1', '2', '3', '3', '4']), ['1', '2', '3', '4']);
     assert.deepStrictEqual(_.arrUnique([1, '1', 1, 'a', 2, 'b']), [1, '1', 'a', 2, 'b']);
-    assert.deepStrictEqual(_.arrUnique([[1, 2], [1, 2], [2, 3], [2, 4]]), [[1, 2], [2, 3], [2, 4]]);
+    assert.deepStrictEqual(
+      _.arrUnique([
+        [1, 2],
+        [1, 2],
+        [2, 3],
+        [2, 4]
+      ]),
+      [
+        [1, 2],
+        [2, 3],
+        [2, 4]
+      ]
+    );
     done();
   });
 

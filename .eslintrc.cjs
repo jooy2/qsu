@@ -1,20 +1,15 @@
 module.exports = {
   parserOptions: {
+    parser: '@typescript-eslint/parser',
     sourceType: 'module',
-    ecmaVersion: 2020,
+    ecmaVersion: 2022
   },
   env: {
     node: true,
-    es6: true,
+    es6: true
   },
-  parser: '@typescript-eslint/parser',
-  plugins: [
-    '@typescript-eslint',
-  ],
-  extends: [
-    'airbnb/base',
-    'plugin:@typescript-eslint/recommended',
-  ],
+  plugins: ['@typescript-eslint'],
+  extends: ['airbnb/base', 'plugin:@typescript-eslint/recommended', 'prettier'],
   rules: {
     'linebreak-style': 0,
     'arrow-parens': 0,
@@ -26,19 +21,19 @@ module.exports = {
       files: ['test/*.spec.js'],
       rules: {
         'import/extensions': 0,
-        'no-undef': 0,
-      },
-    },
+        'no-undef': 0
+      }
+    }
   ],
   settings: {
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.js'],
+      '@typescript-eslint/parser': ['.ts', '.js']
     },
     'import/resolver': {
       node: {
         paths: ['lib'],
-        extensions: ['.js', '.ts'],
-      },
-    },
-  },
+        extensions: ['.js', '.ts']
+      }
+    }
+  }
 };

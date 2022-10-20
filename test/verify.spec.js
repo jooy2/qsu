@@ -83,7 +83,10 @@ describe('Verify', () => {
   it('len', (done) => {
     assert.strictEqual(_.len('12345'), 5);
     assert.strictEqual(_.len(12345), 5);
-    assert.strictEqual(_.len(() => '123'), 3);
+    assert.strictEqual(
+      _.len(() => '123'),
+      3
+    );
     assert.strictEqual(_.len([1, 2, 3, 4]), 4);
     assert.strictEqual(_.len({ hello: 'world', lorem: 'ipsum' }), 2);
     assert.strictEqual(_.len([{ hello: 1, world: 2 }, { lorem: 3 }]), 2);
@@ -91,8 +94,16 @@ describe('Verify', () => {
   });
 
   it('isBotAgent', (done) => {
-    assert.strictEqual(_.isBotAgent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html'), true);
-    assert.strictEqual(_.isBotAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'), false);
+    assert.strictEqual(
+      _.isBotAgent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html'),
+      true
+    );
+    assert.strictEqual(
+      _.isBotAgent(
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      ),
+      false
+    );
     done();
   });
 });

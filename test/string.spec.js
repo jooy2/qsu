@@ -6,14 +6,20 @@ describe('String', () => {
     assert.strictEqual(_.removeSpecialChar('1　2！3☆4＠5＋6─🌍'), '123456');
     assert.strictEqual(_.removeSpecialChar('Hello, World!'), 'HelloWorld');
     assert.strictEqual(_.removeSpecialChar('12 34-56,78=90'), '1234567890');
-    assert.strictEqual(_.removeSpecialChar('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'), 'ABC가나다ㄱㄴㄷㅏㅑㅓ天地人');
+    assert.strictEqual(
+      _.removeSpecialChar('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'),
+      'ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'
+    );
     assert.strictEqual(_.removeSpecialChar('Hello World', true), 'Hello World');
     done();
   });
 
   it('removeNewLine', (done) => {
-    assert.strictEqual(_.removeNewLine(`te
-st`), 'test');
+    assert.strictEqual(
+      _.removeNewLine(`te
+st`),
+      'test'
+    );
     assert.strictEqual(_.removeNewLine('te\rst'), 'test');
     assert.strictEqual(_.removeNewLine('te\nst'), 'test');
     assert.strictEqual(_.removeNewLine('te\r\nst'), 'test');
@@ -32,7 +38,10 @@ st`), 'test');
   it('capitalizeEachWords', (done) => {
     assert.strictEqual(_.capitalizeEachWords('hello, world!'), 'Hello, World!');
     assert.strictEqual(_.capitalizeEachWords('test'), 'Test');
-    assert.strictEqual(_.capitalizeEachWords('this is the test sentence.', true), 'This is the Test Sentence.');
+    assert.strictEqual(
+      _.capitalizeEachWords('this is the test sentence.', true),
+      'This is the Test Sentence.'
+    );
     done();
   });
 
@@ -86,7 +95,13 @@ st`), 'test');
   });
 
   it('decrypt', (done) => {
-    assert.strictEqual(_.decrypt('61ba43b65fc3fc2bdbd0d1ad8576344d:1831d7c37d12b3bf7ee73195d31af91b', '12345678901234567890123456789012'), 'test');
+    assert.strictEqual(
+      _.decrypt(
+        '61ba43b65fc3fc2bdbd0d1ad8576344d:1831d7c37d12b3bf7ee73195d31af91b',
+        '12345678901234567890123456789012'
+      ),
+      'test'
+    );
     done();
   });
 
@@ -103,8 +118,14 @@ st`), 'test');
   });
 
   it('sha256', (done) => {
-    assert.strictEqual(_.sha256('test'), '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08');
-    assert.strictEqual(_.sha256('qsu-md5'), '8c4cfec3ec79dc572958ea7f0e3cfd24b90d174969df9a4773b37b68498871ed');
+    assert.strictEqual(
+      _.sha256('test'),
+      '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
+    );
+    assert.strictEqual(
+      _.sha256('qsu-md5'),
+      '8c4cfec3ec79dc572958ea7f0e3cfd24b90d174969df9a4773b37b68498871ed'
+    );
     done();
   });
 
