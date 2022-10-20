@@ -40,7 +40,11 @@ export default class Qsu {
     return Math.floor(Math.random() * (offset ? limit - offset + 1 : limit + 1)) + (offset || 0);
   }
 
-  static sum(...args: number[]): number {
+  static sum(...args: any[]): number;
+
+  static sum(...args: Array<number>): number;
+
+  static sum(...args: Array<number> | number[]): number {
     const val = args.length > 0 && typeof args[0] === 'object' ? args[0] : args;
     let total = 0;
 
@@ -53,7 +57,11 @@ export default class Qsu {
     return total;
   }
 
-  static mul(...args: number[]): number {
+  static mul(...args: any[]): number;
+
+  static mul(...args: Array<number>): number;
+
+  static mul(...args: Array<number> | number[]): number {
     const val = args.length > 0 && typeof args[0] === 'object' ? args[0] : args;
     let total = val[0];
 
@@ -339,7 +347,11 @@ export default class Qsu {
     return convStr;
   }
 
-  static split(str: string, ...splitter: Array<string>): string[] {
+  static split(str: string, ...splitter: any[]): string[];
+
+  static split(str: string, ...splitter: Array<string>): string[];
+
+  static split(str: string, ...splitter: Array<string> | string[]): string[] {
     if (!str) {
       return [];
     }
