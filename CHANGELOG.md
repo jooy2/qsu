@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.1.2 (2022-10-20)
+
+- `trim`: Add new trim method
+- `fileSize`: When byte is null, returns 0 bytes
+- `strCount`: Use indexOf instead of regular expression to use better performance
+- `strNumberOf`: Rename method name to strCount
+- Add prettier and reformat all codes
+- Change require nodejs version to >= 12
+- Remove unused ts-node package
+- Upgrade package dependencies
+
 ## 1.1.1 (2022-10-08)
 
 - Upgrade package dependencies
@@ -7,7 +18,7 @@
 ## 1.1.0 (2022-09-03)
 
 - Reduced bundle size due to minify executable code
-- `isBotAgent`: remove duplicate string
+- `isBotAgent`: Remove duplicate string
 
 ## 1.0.9 (2022-08-15)
 

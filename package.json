@@ -1,6 +1,6 @@
 {
   "name": "qsu",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Quick and Simple Utility for JavaScript",
   "type": "module",
   "types": "dist/index.d.ts",
@@ -44,7 +44,12 @@
     "array",
     "string",
     "date",
-    "math"
+    "math",
+    "verify",
+    "encrypt",
+    "decrypt",
+    "format",
+    "file"
   ],
   "devDependencies": {
     "@types/node": "^18.11.2",
