@@ -220,6 +220,18 @@ Moves the position of a specific element in an array to the specified position. 
 _.arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
 ```
 
+### `_.trim (string)`
+
+Removes leading and trailing spaces, and returns a value converted from two or more spaces between strings to one space. If the removeAllSpace value is true, all spaces including one space are removed.
+
+- `str::string`
+- `removeAllSpace::boolean`
+
+```javascript
+_.trim(' Hello Wor  ld '); // Returns 'Hello World'
+_.trim('H e l l o     World', true); // Returns 'HelloWorld'
+```
+
 ### `_.removeSpecialChar (string)`
 
 Returns after removing all special characters, including spaces.

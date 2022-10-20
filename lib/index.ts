@@ -171,6 +171,10 @@ export default class Qsu {
   /*
    * String
    * */
+  static trim(str: string, removeAllSpace = false): string {
+    return str.trim().replace(removeAllSpace ? /\s+/g : /\s{2,}/g, '');
+  }
+
   static removeSpecialChar(str: string, withoutSpace?: boolean): string {
     if (!str) {
       return '';

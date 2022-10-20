@@ -2,6 +2,13 @@ import assert from 'assert';
 import _ from '../dist/index.js';
 
 describe('String', () => {
+  it('trim', (done) => {
+    assert.strictEqual(_.trim(' hello world '), 'hello world');
+    assert.strictEqual(_.trim(' h e l l o wo     rld  ', true), 'helloworld');
+    assert.strictEqual(_.trim(' H   e   l  l  o World'), 'Hello World');
+    done();
+  });
+
   it('removeSpecialChar', (done) => {
     assert.strictEqual(_.removeSpecialChar('1　2！3☆4＠5＋6─🌍'), '123456');
     assert.strictEqual(_.removeSpecialChar('Hello, World!'), 'HelloWorld');
