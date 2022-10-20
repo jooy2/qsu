@@ -13,8 +13,8 @@ CHANGELOG.md
 
 # For development
 .git*
-terser.config.json
 tsconfig.json
+.terserrc
 .eslintignore
 .eslintrc.cjs
 .prettierignore
