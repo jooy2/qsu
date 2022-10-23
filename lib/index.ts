@@ -26,6 +26,20 @@ export default class Qsu {
     });
   }
 
+  static funcTimes<N extends number>(times: PositiveNumber<N>, iteratee: any): Array<any> {
+    const results = [];
+
+    for (let i = 0; i < times; i += 1) {
+      if (typeof iteratee === 'function') {
+        results[i] = iteratee.call();
+      } else {
+        results[i] = iteratee;
+      }
+    }
+
+    return results;
+  }
+
   static getPlatform(): string {
     switch (process.platform) {
       case 'win32':
@@ -689,6 +703,7 @@ export { Qsu };
 
 export const {
   sleep,
+  funcTimes,
   getPlatform,
   numRandom,
   sum,
