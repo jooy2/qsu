@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { sleep, getPlatform } from '../dist';
+import { sleep, getPlatform, contains } from '../dist';
 
 describe('Misc', () => {
   it('sleep', (done) => {
@@ -7,7 +7,7 @@ describe('Misc', () => {
   });
 
   it('getPlatform', (done) => {
-    assert.strictEqual(getPlatform(), 'Windows' || 'macOS' || 'Linux');
+    assert(contains(getPlatform(), ['Windows', 'macOS', 'Linux']));
     done();
   });
 });
