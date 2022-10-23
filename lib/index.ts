@@ -26,6 +26,26 @@ export default class Qsu {
     });
   }
 
+  static getPlatform(): string {
+    switch (process.platform) {
+      case 'win32':
+        return 'Windows';
+      case 'darwin':
+        return 'macOS';
+      case 'linux':
+      case 'aix':
+      case 'sunos':
+      case 'netbsd':
+      case 'openbsd':
+      case 'freebsd':
+      case 'cygwin':
+      case 'android':
+        return 'Linux';
+      default:
+        return 'Unknown';
+    }
+  }
+
   /*
    * Math
    * */
@@ -669,6 +689,7 @@ export { Qsu };
 
 export const {
   sleep,
+  getPlatform,
   numRandom,
   sum,
   mul,

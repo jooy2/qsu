@@ -71,6 +71,16 @@ _.sleep(5000).then(() => {
 });
 ```
 
+### `_.getPlatform (string)`
+
+Returns the operating system of the currently running process as a human-friendly string.
+
+- `milliseconds::number`
+
+```javascript
+_.getPlatform(); // Returns 'Windows'
+```
+
 ### `_.numRandom (number)`
 
 Returns a random number (Between min and max).
