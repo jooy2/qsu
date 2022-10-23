@@ -225,7 +225,7 @@ export default class Qsu {
     for (let i = 0, iLen = splitStr.length; i < iLen; i += 1) {
       if (
         !natural ||
-        !this.contains(
+        !Qsu.contains(
           splitStr[i],
           [
             'in',
@@ -252,11 +252,11 @@ export default class Qsu {
           true
         )
       ) {
-        splitStr[i] = this.capitalizeFirst(splitStr[i]);
+        splitStr[i] = Qsu.capitalizeFirst(splitStr[i]);
       }
     }
 
-    return this.capitalizeFirst(splitStr.join(' '));
+    return Qsu.capitalizeFirst(splitStr.join(' '));
   }
 
   static strCount(str: string, search: string): number {
