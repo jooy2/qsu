@@ -2,69 +2,67 @@
 
 ![logo](logo.webp)
 
-### Node.js Quick & Simple Utility for JavaScript
+### Quick & Simple Utility for NodeJS
 
-<table>
-<tr>
-  <td>📑</td>
-  <td>
-  
-  [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jooy2/qsu/blob/master/LICENSE)
+> [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jooy2/qsu/blob/master/LICENSE)
   ![Programming Language Usage](https://img.shields.io/github/languages/top/jooy2/qsu)
   ![Commit Count](https://img.shields.io/github/commit-activity/y/jooy2/qsu)
   ![Line Count](https://img.shields.io/tokei/lines/github/jooy2/qsu)
-  
-  </td>
-</tr>
-<tr>
-  <td>📊</td>
-  <td>
-  
   [![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu)
   [![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu)
   ![npm maintenance](https://img.shields.io/npms-io/maintenance-score/qsu)
   ![npm quality](https://img.shields.io/npms-io/quality-score/qsu)
   ![minified size](https://img.shields.io/bundlephobia/min/qsu)
   ![github repo size](https://img.shields.io/github/repo-size/jooy2/qsu)
-  
-  </td>
-</tr>
-<tr>
-  <td>💕</td>
-  <td>
-  
   [![Followers](https://img.shields.io/github/followers/jooy2?style=social)](https://github.com/jooy2)
   ![Stars](https://img.shields.io/github/stars/jooy2/qsu?style=social)
   
-  </td>
-</tr>
-</table>
-
 </div>
 
-A collection of complex or useful features that are often used in **JavaScript**. It is implemented to be used in both a client or server environment.
+**Qsu** is an underscore-based utility library optimized for the **[NodeJS](https://nodejs.org)** development environment. It is supported in one module without the need to separately write frequently used methods for each project.
 
-**qsu** is optimized for modern development environments, so older browsers such as Internet Explorer 11 and Legacy Edge (Not Chromium) may not support it unless you use a transcompiler. Some functions use ES6 or higher JS standard syntax.
-
-Some solutions partially referenced external documentation (e.g. [Stack Overflow](https://stackoverflow.com)).
+- Lightweight and fast!
+- Easy to install and use.
+- 100% optimized for the latest NodeJS and ESM environments.
+- Useful features for websites and web applications
 
 # Installation
 
-Qsu requires **Node.js 12.x** or higher, and the repository is serviced through **[NPM](https://npmjs.com)**.
+Qsu requires `Node.js 12.x` or higher, and the repository is serviced through **[NPM](https://npmjs.com)**.
 
 After configuring the node environment, you can simply run the following command.
 
 ```bash
+# via npm
 $ npm install qsu
+
+# via yarn
+$ yarn add qsu
+
+# via pnpm
+$ pnpm install qsu
 ```
 
-# Usage
+# How to use
+
+### Using named import (Multiple utilities in a single require) - Recommend
+
+```javascript
+const { today, strCount } = require('qsu');
+
+function main () {
+    console.log(today()); // '20xx-xx-xx'
+    console.log(strCount('123412341234', '1')); // 3
+}
+```
+
+### Using whole class (multiple utilities simultaneously with one object)
 
 ```javascript
 import _ from 'qsu';
 
-function main() {
-  console.log(_.today()); // '20xx-xx-xx'
+function main () {
+    console.log(_.today()); // '20xx-xx-xx'
 }
 ```
 
