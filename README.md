@@ -37,7 +37,7 @@ $ pnpm install qsu
 ### Using named import (Multiple utilities in a single require) - Recommend
 
 ```javascript
-const { today, strCount } = require('qsu');
+import { today, strCount } from 'qsu';
 
 function main() {
   console.log(today()); // '20xx-xx-xx'
