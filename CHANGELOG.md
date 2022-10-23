@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.1.3 (2022-10-23)
+
+- `funcTimes`: Add `funcTimes` method
+- `getPlatform`: Add `getPlatform` method
+- `sum`, `mul`, `split`: Fix type error
+- `arrUnique`, `capitalizeEachWords`, `strBlindRandom`: Fix correct use static method
+- Support named import
+- Change test script to TypeScript
+
 ## 1.1.2 (2022-10-20)
 
 - `trim`: Add new trim method
