@@ -79,8 +79,8 @@ Repeat iteratee n (times argument value) times. After the return result of each 
 - `iteratee::function`
 
 ```javascript
-function sayHi (str) {
-    return `Hi${str || ''}`;
+function sayHi(str) {
+  return `Hi${str || ''}`;
 }
 
 _.funcTimes(3, sayHi); // Returns ['Hi', 'Hi', 'Hi']
