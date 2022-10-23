@@ -136,7 +136,7 @@ export default class Qsu {
   }
 
   static arrUnique(array: any[]): any[] {
-    if (this.is2dArray(array)) {
+    if (Qsu.is2dArray(array)) {
       return array
         .map((x): string => JSON.stringify(x))
         .reverse()
