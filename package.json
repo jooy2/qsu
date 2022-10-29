@@ -1,70 +1,70 @@
 {
-  "name": "qsu",
-  "version": "1.1.3",
-  "description": "Quick and Simple Utility for JavaScript",
-  "type": "module",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "npm run format:fix && tsc && npm run minify",
-    "test": "npm run build && mocha test/**/*.spec.ts -r ts-node/register --loader=ts-node/esm --timeout 10000",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "minify": "terser dist/index.js --config-file .terserrc -o dist/index.js",
-    "prepare": "npm run build",
-    "format": "prettier .",
-    "format:fix": "prettier . --write"
-  },
-  "engines": {
-    "node": ">=12.0.0"
-  },
-  "author": "Jooy2 <jootc.help@gmail.com>",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "exports": {
-    ".": "./dist/index.js"
-  },
-  "typesVersions": {
-    "*": {
-      "index.d.ts": [
-        "dist/index.d.ts"
-      ]
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jooy2/qsu"
-  },
-  "keywords": [
-    "util",
-    "utility",
-    "tool",
-    "underscore",
-    "website",
-    "helper",
-    "array",
-    "string",
-    "date",
-    "math",
-    "verify",
-    "encrypt",
-    "decrypt",
-    "format",
-    "file"
-  ],
-  "devDependencies": {
-    "@types/mocha": "^10.0.0",
-    "@types/node": "^18.11.3",
-    "@typescript-eslint/eslint-plugin": "^5.40.1",
-    "@typescript-eslint/parser": "^5.40.1",
-    "date-fns": "^2.29.3",
-    "eslint": "^8.26.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "mocha": "^10.1.0",
-    "prettier": "^2.7.1",
-    "terser": "^5.15.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.8.4"
-  }
+	"name": "qsu",
+	"version": "1.1.3",
+	"description": "Quick and Simple Utility for JavaScript",
+	"type": "module",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "npm run format:fix && tsc && npm run minify",
+		"test": "npm run build && mocha test/**/*.spec.ts -r ts-node/register --loader=ts-node/esm --timeout 10000",
+		"lint": "eslint .",
+		"lint:fix": "eslint --fix .",
+		"minify": "terser dist/index.js --config-file .terserrc -o dist/index.js",
+		"prepare": "npm run build",
+		"format": "prettier .",
+		"format:fix": "prettier . --write"
+	},
+	"engines": {
+		"node": ">=12.0.0"
+	},
+	"author": "Jooy2 <jootc.help@gmail.com>",
+	"license": "MIT",
+	"main": "dist/index.js",
+	"exports": {
+		".": "./dist/index.js"
+	},
+	"typesVersions": {
+		"*": {
+			"index.d.ts": [
+				"dist/index.d.ts"
+			]
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jooy2/qsu"
+	},
+	"keywords": [
+		"util",
+		"utility",
+		"tool",
+		"underscore",
+		"website",
+		"helper",
+		"array",
+		"string",
+		"date",
+		"math",
+		"verify",
+		"encrypt",
+		"decrypt",
+		"format",
+		"file"
+	],
+	"devDependencies": {
+		"@types/mocha": "^10.0.0",
+		"@types/node": "^18.11.3",
+		"@typescript-eslint/eslint-plugin": "^5.40.1",
+		"@typescript-eslint/parser": "^5.40.1",
+		"date-fns": "^2.29.3",
+		"eslint": "^8.26.0",
+		"eslint-config-airbnb": "^19.0.4",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-import": "^2.26.0",
+		"mocha": "^10.1.0",
+		"prettier": "^2.7.1",
+		"terser": "^5.15.1",
+		"ts-node": "^10.9.1",
+		"typescript": "^4.8.4"
+	}
 }

@@ -40,8 +40,8 @@ $ pnpm install qsu
 import { today, strCount } from 'qsu';
 
 function main() {
-  console.log(today()); // '20xx-xx-xx'
-  console.log(strCount('123412341234', '1')); // 3
+	console.log(today()); // '20xx-xx-xx'
+	console.log(strCount('123412341234', '1')); // 3
 }
 ```
 
@@ -51,7 +51,7 @@ function main() {
 import _ from 'qsu';
 
 function main() {
-  console.log(_.today()); // '20xx-xx-xx'
+	console.log(_.today()); // '20xx-xx-xx'
 }
 ```
 
@@ -67,7 +67,7 @@ Sleep function using Promise.
 await _.sleep(1000); // 1s
 
 _.sleep(5000).then(() => {
-  // continue
+	// continue
 });
 ```
 
@@ -80,7 +80,7 @@ Repeat iteratee n (times argument value) times. After the return result of each 
 
 ```javascript
 function sayHi(str) {
-  return `Hi${str || ''}`;
+	return `Hi${str || ''}`;
 }
 
 _.funcTimes(3, sayHi); // Returns ['Hi', 'Hi', 'Hi']
@@ -644,11 +644,11 @@ Returns text in a specific license format based on the author information of the
 
 ```javascript
 _.license({
-  holder: 'example',
-  email: 'example@example.com',
-  yearStart: 2020,
-  yearEnd: 2021,
-  htmlBr: true
+	holder: 'example',
+	email: 'example@example.com',
+	yearStart: 2020,
+	yearEnd: 2021,
+	htmlBr: true
 });
 ```
 
