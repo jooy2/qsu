@@ -5,18 +5,21 @@ Thumbs.db
 
 # IDEs
 .idea/
+.vscode/
 
 # Project files
+.github/
 lib/
 test/
 CHANGELOG.md
 
 # For development
-.git*
-tsconfig.json
+.git/
 .terserrc
 .eslintignore
 .eslintrc.cjs
 .prettierignore
 .prettierrc
 .mocharc.json
+.editorconfig
+tsconfig.json

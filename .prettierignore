@@ -1,4 +1,10 @@
-dist/
-.idea/
+# Lock files
+*-lock.json
 
-package-lock.json
+# IDEs
+.idea/
+.vscode/
+
+# Project files
+.github/
+dist/
