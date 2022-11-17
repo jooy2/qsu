@@ -24,13 +24,15 @@ describe('Array', () => {
 	});
 
 	it('arrUnique', (done) => {
-		assert.deepStrictEqual(arrUnique([1, 1, 2, 2, 3]), [1, 2, 3]);
+		assert.deepStrictEqual(arrUnique([1, 1, 2, 2, 2, 2, 3]), [1, 2, 3]);
 		assert.deepStrictEqual(arrUnique(['1', '2', '3', '3', '4']), ['1', '2', '3', '4']);
 		assert.deepStrictEqual(arrUnique([1, '1', 1, 'a', 2, 'b']), [1, '1', 'a', 2, 'b']);
 		assert.deepStrictEqual(
 			arrUnique([
 				[1, 2],
 				[1, 2],
+				[2, 3],
+				[2, 3],
 				[2, 3],
 				[2, 4]
 			]),
