@@ -658,4 +658,4 @@ You can report issues on [GitHub Issue Tracker](https://github.com/jooy2/qsu/iss
 
 # License
 
-Copyright © 2021-2022 Jooy2 Released under the MIT license.
+Copyright © 2021-2022 [Jooy2](https://jooy2.com) <[jooy.contact@gmail.com](mailto:jooy.contact@gmail.com)> Released under the MIT license.
