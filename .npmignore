@@ -17,7 +17,7 @@ CHANGELOG.md
 .git/
 .terserrc
 .eslintignore
-.eslintrc.cjs
+.eslintrc.json
 .prettierignore
 .prettierrc
 .mocharc.json
