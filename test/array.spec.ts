@@ -1,5 +1,13 @@
 import assert from 'assert';
-import { arrShuffle, arrWithDefault, arrUnique, arrWithNumber, average, arrMove } from '../dist';
+import {
+	arrShuffle,
+	arrWithDefault,
+	arrUnique,
+	arrWithNumber,
+	average,
+	arrMove,
+	arrTo1dArray
+} from '../dist';
 
 describe('Array', () => {
 	it('arrShuffle', (done) => {
@@ -64,6 +72,31 @@ describe('Array', () => {
 		assert.deepStrictEqual(arrMove([1, 3, 5, 7, 9], 0, 3), [3, 5, 7, 1, 9]);
 		assert.deepStrictEqual(arrMove([5, 10, 15], 1, 2), [5, 15, 10]);
 		assert.deepStrictEqual(arrMove([5, 10, 15], 1, 1), [5, 10, 15]);
+		done();
+	});
+
+	it('arrTo1dArray', (done) => {
+		assert.deepStrictEqual(
+			arrTo1dArray([
+				[1, 2, 3, 4],
+				[5, 6, 7, 8]
+			]),
+			[1, 2, 3, 4, 5, 6, 7, 8]
+		);
+		assert.deepStrictEqual(arrTo1dArray([[1, 2, 3], 4, 5, [6, 7, 8]]), [1, 2, 3, 4, 5, 6, 7, 8]);
+		assert.deepStrictEqual(
+			arrTo1dArray([
+				[1, 2],
+				[
+					[3, 4],
+					[5, 6]
+				],
+				7,
+				[8]
+			]),
+			[1, 2, 3, 4, 5, 6, 7, 8]
+		);
+		assert.deepStrictEqual(arrTo1dArray([[[[1, 2, 3, 4, 5, 6]]], 7, 8]), [1, 2, 3, 4, 5, 6, 7, 8]);
 		done();
 	});
 });

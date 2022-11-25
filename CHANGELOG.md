@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.1.4 (2022-)
+- `arrTo1dArray`: Add `arrTo1dArray` method
+
 ## 1.1.3 (2022-10-23)
 
 - `funcTimes`: Add `funcTimes` method

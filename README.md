@@ -231,6 +231,16 @@ Moves the position of a specific element in an array to the specified position. 
 _.arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
 ```
 
+### `_.arrTo1dArray (any[])`
+
+Merges all elements of a multidimensional array into a one-dimensional array.
+
+- `array::any[]`
+
+```javascript
+_.arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
+```
+
 ### `_.trim (string)`
 
 Removes leading and trailing spaces, and returns a value converted from two or more spaces between strings to one space. If the removeAllSpace value is true, all spaces including one space are removed.

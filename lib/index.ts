@@ -210,6 +210,27 @@ export default class Qsu {
 		return array;
 	}
 
+	static arrTo1dArray(array: any[]): any[] {
+		const convert1dArray = (arr: any[]): any[] => {
+			const tempArr = [];
+			const arrayLength = arr.length;
+
+			for (let i = 0; i < arrayLength; i += 1) {
+				if (typeof arr[i] !== 'object') {
+					tempArr.push(arr[i]);
+				} else if (Qsu.is2dArray(arr[i])) {
+					tempArr.push(...convert1dArray(arr[i]));
+				} else {
+					tempArr.push(...arr[i]);
+				}
+			}
+
+			return tempArr;
+		};
+
+		return convert1dArray(array);
+	}
+
 	/*
 	 * String
 	 * */
@@ -717,6 +738,7 @@ export const {
 	arrWithNumber,
 	average,
 	arrMove,
+	arrTo1dArray,
 	trim,
 	removeSpecialChar,
 	removeNewLine,
