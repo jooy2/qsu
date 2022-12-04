@@ -18,7 +18,7 @@
 	"engines": {
 		"node": ">=12.0.0"
 	},
-	"author": "Jooy2 <jootc.help@gmail.com>",
+	"author": "Jooy2 <jooy2.contact@gmail.com>",
 	"license": "MIT",
 	"main": "dist/index.js",
 	"exports": {
@@ -53,18 +53,18 @@
 		"file"
 	],
 	"devDependencies": {
-		"@types/mocha": "^10.0.0",
-		"@types/node": "^18.11.9",
-		"@typescript-eslint/eslint-plugin": "^5.44.0",
-		"@typescript-eslint/parser": "^5.44.0",
+		"@types/mocha": "^10.0.1",
+		"@types/node": "^18.11.10",
+		"@typescript-eslint/eslint-plugin": "^5.45.0",
+		"@typescript-eslint/parser": "^5.45.0",
 		"date-fns": "^2.29.3",
-		"eslint": "^8.28.0",
+		"eslint": "^8.29.0",
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-import": "^2.26.0",
 		"mocha": "^10.1.0",
 		"prettier": "^2.8.0",
-		"terser": "^5.16.0",
+		"terser": "^5.16.1",
 		"ts-node": "^10.9.1",
 		"typescript": "^4.9.3"
 	}
