@@ -33,7 +33,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/jooy2/qsu"
+		"url": "https://github.com/jooy2/qsu.git"
 	},
 	"keywords": [
 		"util",
