@@ -6,7 +6,8 @@ import {
 	arrWithNumber,
 	average,
 	arrMove,
-	arrTo1dArray
+	arrTo1dArray,
+	arrRepeat
 } from '../dist';
 
 describe('Array', () => {
@@ -97,6 +98,18 @@ describe('Array', () => {
 			[1, 2, 3, 4, 5, 6, 7, 8]
 		);
 		assert.deepStrictEqual(arrTo1dArray([[[[1, 2, 3, 4, 5, 6]]], 7, 8]), [1, 2, 3, 4, 5, 6, 7, 8]);
+		done();
+	});
+
+	it('arrRepeat', (done) => {
+		assert.deepStrictEqual(arrRepeat([1, 2, 3, 4], 3), [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]);
+		assert.deepStrictEqual(arrRepeat({ a: 1, b: 2 }, 5), [
+			{ a: 1, b: 2 },
+			{ a: 1, b: 2 },
+			{ a: 1, b: 2 },
+			{ a: 1, b: 2 },
+			{ a: 1, b: 2 }
+		]);
 		done();
 	});
 });

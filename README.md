@@ -241,6 +241,18 @@ Merges all elements of a multidimensional array into a one-dimensional array.
 _.arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
 ```
 
+### `_.arrRepeat (any[])`
+
+Repeats the data of an `Array` or `Object` a specific number of times and returns it as a 1d array.
+
+- `array::any[]|object`
+- `count::number`
+
+```javascript
+_.arrRepeat([1, 2, 3, 4], 3); // Returns [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
+_.arrRepeat({ a: 1, b: 2 }, 2); // Returns [{ a: 1, b: 2 }, { a: 1, b: 2 }]
+```
+
 ### `_.trim (string)`
 
 Removes leading and trailing spaces, and returns a value converted from two or more spaces between strings to one space. If the removeAllSpace value is true, all spaces including one space are removed.

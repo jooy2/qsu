@@ -4,6 +4,7 @@
 
 - `arrTo1dArray`: Add `arrTo1dArray` method
 - `isObject`: Add `isObject` method
+- `arrRepeat`: Add `arrRepeat` method
 - `isValidDate`: Rename `isRealDate` to `isValidDate`
 
 ## 1.1.3 (2022-10-23)

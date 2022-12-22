@@ -231,6 +231,25 @@ export default class Qsu {
 		return convert1dArray(array);
 	}
 
+	static arrRepeat<N extends number>(array: any, count: PositiveNumber<N>): any[] {
+		if (!array || count < 1 || typeof array !== 'object') {
+			return [];
+		}
+
+		const isObject = Qsu.isObject(array);
+		const result: any[] = [];
+
+		for (let i = 0, iLen = count; i < iLen; i += 1) {
+			if (isObject) {
+				result.push(array);
+			} else {
+				result.push(...array);
+			}
+		}
+
+		return result;
+	}
+
 	/*
 	 * String
 	 * */
@@ -740,6 +759,7 @@ export const {
 	arrWithDefault,
 	arrUnique,
 	arrWithNumber,
+	arrRepeat,
 	average,
 	arrMove,
 	arrTo1dArray,
