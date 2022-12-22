@@ -1,5 +1,6 @@
 import assert from 'assert';
 import {
+	isObject,
 	isEqual,
 	isEqualStrict,
 	isEmpty,
@@ -12,6 +13,15 @@ import {
 } from '../dist';
 
 describe('Verify', () => {
+	it('isObject', (done) => {
+		assert.strictEqual(isObject(1), false);
+		assert.strictEqual(isObject([1, 2]), false);
+		assert.strictEqual(isObject([{ a: 1, b: 2 }]), false);
+		assert.strictEqual(isObject({ a: 1, b: 2 }), true);
+		assert.strictEqual(isObject({ a: {}, b: [] }), true);
+		done();
+	});
+
 	it('isEqual', (done) => {
 		const val1 = 'abc';
 		const val2 = 'abc';

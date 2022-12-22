@@ -510,6 +510,10 @@ export default class Qsu {
 	/*
 	 * Verify
 	 * */
+	static isObject(data: any): boolean {
+		return typeof data === 'object' && !Array.isArray(data) && data !== null;
+	}
+
 	static isEqual(leftOperand: any, ...rightOperand: Array<any>): boolean {
 		const rightOperands =
 			rightOperand.length > 0 && typeof rightOperand[0] === 'object'
@@ -758,6 +762,7 @@ export const {
 	encodeBase64,
 	decodeBase64,
 	strUnique,
+	isObject,
 	isEqual,
 	isEqualStrict,
 	isEmpty,

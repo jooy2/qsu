@@ -453,6 +453,17 @@ Remove duplicate characters from a given string and output only one.
 _.strUnique('aaabbbcc'); // Returns 'abc'
 ```
 
+### `_.isObject (boolean)`
+
+Check whether the given data is of type `Object`. Returns `false` for other data types including `Array`.
+
+- `data::any`
+
+```javascript
+_.isObject([1, 2, 3]); // Returns false
+_.isObject({ a: 1, b: 2 }); // Returns true
+```
+
 ### `_.isEqual (boolean)`
 
 It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
