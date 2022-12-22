@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.1.4 (2022-)
+## 1.1.4 (2022-12-22)
 
 - `arrTo1dArray`: Add `arrTo1dArray` method
 - `isObject`: Add `isObject` method
