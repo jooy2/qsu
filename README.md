@@ -153,15 +153,15 @@ _.today('/'); // Returns YYYY/MM/DD
 _.today('/', false); // Returns DD/MM/YYYY
 ```
 
-### `_.isRealDate (boolean)`
+### `_.isValidDate (boolean)`
 
 Checks if a given date actually exists. Check only in YYYY-MM-DD format.
 
 - `date::string|Date`
 
 ```javascript
-_.isRealDate('2021-01-01'); // Returns true
-_.isRealDate('2021-02-30'); // Returns false
+_.isValidDate('2021-01-01'); // Returns true
+_.isValidDate('2021-02-30'); // Returns false
 ```
 
 ### `_.arrShuffle (any[])`

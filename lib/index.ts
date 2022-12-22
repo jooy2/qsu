@@ -133,7 +133,7 @@ export default class Qsu {
 		return dateArr.join(separator);
 	}
 
-	static isRealDate(date: string | Date): boolean {
+	static isValidDate(date: string | Date): boolean {
 		const dateConverted: Date = typeof date === 'string' ? new Date(date) : date;
 
 		if (!dateConverted.getTime()) {
@@ -731,7 +731,7 @@ export const {
 	mul,
 	dayDiff,
 	today,
-	isRealDate,
+	isValidDate,
 	arrShuffle,
 	arrWithDefault,
 	arrUnique,

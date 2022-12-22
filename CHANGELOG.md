@@ -3,6 +3,7 @@
 ## 1.1.4 (2022-)
 
 - `arrTo1dArray`: Add `arrTo1dArray` method
+- `isValidDate`: Rename `isRealDate` to `isValidDate`
 
 ## 1.1.3 (2022-10-23)
 
