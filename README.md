@@ -588,6 +588,16 @@ _.len('12345'); // Returns 5
 _.len([1, 2, 3]); // Returns 3
 ```
 
+### `_.isEmail (boolean)`
+
+Checks if the given argument value is a valid email.
+
+- `email::string`
+
+```javascript
+_.isEmail('abc@def.com'); // Returns true
+```
+
 ### `_.isBotAgent (boolean)`
 
 Analyze the user agent value to determine if it's a bot for a search engine. Returns `true` if it's a bot.

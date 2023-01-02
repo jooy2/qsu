@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.5 (2023-01-)
+
+- `isEmail`: Add `isEmail` method
+
 ## 1.1.4 (2022-12-22)
 
 - `arrTo1dArray`: Add `arrTo1dArray` method

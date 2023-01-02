@@ -9,6 +9,7 @@ import {
 	is2dArray,
 	between,
 	len,
+	isEmail,
 	isBotAgent
 } from '../dist';
 
@@ -110,6 +111,22 @@ describe('Verify', () => {
 		assert.strictEqual(len([1, 2, 3, 4]), 4);
 		assert.strictEqual(len({ hello: 'world', lorem: 'ipsum' }), 2);
 		assert.strictEqual(len([{ hello: 1, world: 2 }, { lorem: 3 }]), 2);
+		done();
+	});
+
+	it('isEmail', (done) => {
+		assert.strictEqual(isEmail('1@1.com'), true);
+		assert.strictEqual(isEmail('abc@def.ghi'), true);
+		assert.strictEqual(isEmail('abc@sub.domain.com'), true);
+		assert.strictEqual(isEmail('a.bc@d.ef'), true);
+		assert.strictEqual(isEmail('a-12_34@b-12-34.net'), true);
+		assert.strictEqual(isEmail('@b1234.net'), false);
+		assert.strictEqual(isEmail('a1234@b1234'), false);
+		assert.strictEqual(isEmail('a_1234@b_1234.net'), false);
+		assert.strictEqual(isEmail('abc@@def.com'), false);
+		assert.strictEqual(isEmail('11.com'), false);
+		assert.strictEqual(isEmail('sub.domain.com'), false);
+		assert.strictEqual(isEmail('1@1@a.com'), false);
 		done();
 	});
 
