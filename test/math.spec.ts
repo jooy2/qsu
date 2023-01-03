@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { numRandom, sum, mul } from '../dist';
+import { numRandom, sum, mul, sub } from '../dist';
 
 describe('Math', () => {
 	it('numRandom', (done) => {
@@ -14,6 +14,7 @@ describe('Math', () => {
 	it('sum', (done) => {
 		assert.strictEqual(sum(1, 2, 3, 4), 10);
 		assert.strictEqual(sum([1, 2, 3]), 6);
+		assert.strictEqual(sum(1234), 1234);
 		done();
 	});
 
@@ -21,6 +22,15 @@ describe('Math', () => {
 		assert.strictEqual(mul(1, 2, 3, 4), 24);
 		assert.strictEqual(mul([1, 2, 3]), 6);
 		assert.strictEqual(mul(1, 5, 7, 0, 9), 0);
+		assert.strictEqual(mul(1234), 1234);
+		done();
+	});
+
+	it('sub', (done) => {
+		assert.strictEqual(sub(100, 10, 20, 30), 40);
+		assert.strictEqual(sub([10, 20, 30]), -40);
+		assert.strictEqual(sub(1, 3, 5, -7, -9), 9);
+		assert.strictEqual(sub(1234), 1234);
 		done();
 	});
 });

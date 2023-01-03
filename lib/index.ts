@@ -108,6 +108,23 @@ export default class Qsu {
 		return total;
 	}
 
+	static sub(...args: any[]): number;
+
+	static sub(...args: Array<number>): number;
+
+	static sub(...args: Array<number> | number[]): number {
+		const val = args.length > 0 && typeof args[0] === 'object' ? args[0] : args;
+		let total = val[0];
+
+		for (let i = 1, iLen = val.length; i < iLen; i += 1) {
+			if (typeof val[i] === 'number') {
+				total -= val[i];
+			}
+		}
+
+		return total;
+	}
+
 	/*
 	 * Date
 	 * */
@@ -759,6 +776,7 @@ export const {
 	numRandom,
 	sum,
 	mul,
+	sub,
 	dayDiff,
 	today,
 	isValidDate,

@@ -129,6 +129,17 @@ _.mul(1, 2, 3); // Returns 6
 _.mul([1, 2, 3, 4]); // Returns 24
 ```
 
+### `_.sub (number)`
+
+Returns after subtracting all n arguments of numbers or the values of a single array of numbers.
+
+- `numbers::...number[]`
+
+```javascript
+_.sub(10, 1, 5); // Returns 4
+_.sub([1, 2, 3, 4]); // Returns -8
+```
+
 ### `_.dayDiff (number)`
 
 Calculates the difference between two given dates and returns the number of days.
