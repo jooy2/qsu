@@ -140,6 +140,17 @@ _.sub(10, 1, 5); // Returns 4
 _.sub([1, 2, 3, 4]); // Returns -8
 ```
 
+### `_.div (number)`
+
+Returns after dividing all n arguments of numbers or the values of a single array of numbers.
+
+- `numbers::...number[]`
+
+```javascript
+_.div(10, 5, 2); // Returns 1
+_.div([100, 2, 2, 5]); // Returns 5
+```
+
 ### `_.dayDiff (number)`
 
 Calculates the difference between two given dates and returns the number of days.

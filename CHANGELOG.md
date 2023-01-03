@@ -4,6 +4,7 @@
 
 - `isEmail`: Add `isEmail` method
 - `sub`: Add `sub` method
+- `div`: Add `div` method
 
 ## 1.1.4 (2022-12-22)
 
