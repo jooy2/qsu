@@ -64,7 +64,7 @@
 		"eslint": "^8.30.0",
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-import": "^2.27.4",
 		"mocha": "^10.2.0",
 		"prettier": "^2.8.1",
 		"terser": "^5.16.1",
