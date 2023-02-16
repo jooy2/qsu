@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.6 (2023-02-)
+
+- `isValidDate`: Only the `yyyy-mm-dd` format can be verified
+
 ## 1.1.5 (2023-02-07)
 
 - `isEmail`: Add `isEmail` method

@@ -177,9 +177,9 @@ _.today('/', false); // Returns DD/MM/YYYY
 
 ### `_.isValidDate (boolean)`
 
-Checks if a given date actually exists. Check only in YYYY-MM-DD format.
+Checks if a given date actually exists. Check only in `YYYY-MM-DD` format.
 
-- `date::string|Date`
+- `date::string`
 
 ```javascript
 _.isValidDate('2021-01-01'); // Returns true
