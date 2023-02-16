@@ -4,6 +4,7 @@
 
 - `isValidDate`: Only the `yyyy-mm-dd` format can be verified
 - `dateToYYYYMMDD`: Add `dateToYYYYMMDD` method
+- `createDateListFromRange`: Add `createDateListFromRange` method
 
 ## 1.1.5 (2023-02-07)
 

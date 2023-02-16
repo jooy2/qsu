@@ -196,6 +196,29 @@ Returns the date data of a Date object in the format `YYYY-MM-DD`.
 ```javascript
 _.dateToYYYYMMDD(new Date(2023, 11, 31)); // Returns '2023-12-31'
 ```
+
+### `_.createDateListFromRange (string[])`
+
+Create an array list of all dates from `startDate` to `endDate` in the format `YYYY-MM-DD`.
+
+- `startDate::Date`
+- `endDate::Date`
+
+```javascript
+_.createDateListFromRange(new Date('2023-01-01T01:00:00Z'), new Date('2023-01-05T01:00:00Z'));
+
+/*
+	Returns:
+	 [
+		 '2023-01-01',
+		 '2023-01-02',
+		 '2023-01-03',
+		 '2023-01-04',
+		 '2023-01-05'
+	 ]
+ */
+```
+
 ### `_.arrShuffle (any[])`
 
 Shuffle the order of the given array and return.

@@ -190,9 +190,54 @@ export default class Qsu {
 			day < 10 ? `0${day}` : day
 		}`;
 	}
+
+	static createDateListFromRange(startDate: Date, endDate: Date): string[] {
+		if (
+			!Qsu.isValidDate(Qsu.dateToYYYYMMDD(startDate)) ||
+			!Qsu.isValidDate(Qsu.dateToYYYYMMDD(endDate))
+		) {
+			throw new Error('Either the start date or end date is an invalid date.');
 		}
 
-		return dateConverted.toISOString().slice(0, 10) === date;
+		const dateDiff = Math.floor(
+			(Date.parse(endDate.toString()) - Date.parse(startDate.toString())) / 86400000
+		);
+
+		if (dateDiff < 0) {
+			throw new Error('The start date is more recent than the end date.');
+		}
+
+		const endDateStr: string = Qsu.dateToYYYYMMDD(endDate);
+		const allDate: string[] = [];
+		let currentYear: number = startDate.getFullYear();
+		let currentMonth: number = startDate.getMonth() + 1;
+		let currentDay: number = startDate.getDate();
+		let currentDateStr = '';
+
+		const createNewDateStr = (year: number, month: number, day: number): string =>
+			`${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+
+		while (endDateStr !== currentDateStr) {
+			if (currentDateStr.indexOf('-12-31') !== -1) {
+				currentYear += 1;
+				currentMonth = 1;
+				currentDay = 1;
+			}
+
+			const currentNewDateStr = createNewDateStr(currentYear, currentMonth, currentDay);
+
+			if (Qsu.isValidDate(currentNewDateStr)) {
+				currentDay += 1;
+				allDate.push(currentNewDateStr);
+				currentDateStr = currentNewDateStr;
+			} else {
+				currentMonth += 1;
+				currentDay = 1;
+				currentDateStr = createNewDateStr(currentYear, currentMonth, currentDay);
+			}
+		}
+
+		return allDate;
 	}
 
 	/*
@@ -817,6 +862,7 @@ export const {
 	today,
 	isValidDate,
 	dateToYYYYMMDD,
+	createDateListFromRange,
 	arrShuffle,
 	arrWithDefault,
 	arrUnique,
