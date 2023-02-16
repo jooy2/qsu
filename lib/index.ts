@@ -181,6 +181,15 @@ export default class Qsu {
 			)}`
 		);
 	}
+
+	static dateToYYYYMMDD(date: Date, separator = '-'): string {
+		const month: number = date.getMonth() + 1;
+		const day: number = date.getDate();
+
+		return `${date.getFullYear()}${separator}${month < 10 ? `0${month}` : month}${separator}${
+			day < 10 ? `0${day}` : day
+		}`;
+	}
 		}
 
 		return dateConverted.toISOString().slice(0, 10) === date;
@@ -807,6 +816,7 @@ export const {
 	dayDiff,
 	today,
 	isValidDate,
+	dateToYYYYMMDD,
 	arrShuffle,
 	arrWithDefault,
 	arrUnique,

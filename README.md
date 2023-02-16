@@ -186,6 +186,16 @@ _.isValidDate('2021-01-01'); // Returns true
 _.isValidDate('2021-02-30'); // Returns false
 ```
 
+### `_.dateToYYYYMMDD (string)`
+
+Returns the date data of a Date object in the format `YYYY-MM-DD`.
+
+- `date::Date`
+- `separator:string`
+
+```javascript
+_.dateToYYYYMMDD(new Date(2023, 11, 31)); // Returns '2023-12-31'
+```
 ### `_.arrShuffle (any[])`
 
 Shuffle the order of the given array and return.
