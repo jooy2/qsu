@@ -16,6 +16,8 @@ declare type PositiveNumber<N extends number> = number extends N
 	? never
 	: N;
 
+declare type NumberValueObject = { [key: string]: number };
+
 export default class Qsu {
 	/*
 	 * Misc
@@ -343,6 +345,16 @@ export default class Qsu {
 				result.push(...array);
 			}
 		}
+
+		return result;
+	}
+
+	static arrCount(array: string[] | number[]): NumberValueObject {
+		const result: NumberValueObject = {};
+
+		array.forEach((x) => {
+			result[x] = (result[x] || 0) + 1;
+		});
 
 		return result;
 	}
@@ -868,6 +880,7 @@ export const {
 	arrUnique,
 	arrWithNumber,
 	arrRepeat,
+	arrCount,
 	average,
 	arrMove,
 	arrTo1dArray,

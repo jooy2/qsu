@@ -7,7 +7,8 @@ import {
 	average,
 	arrMove,
 	arrTo1dArray,
-	arrRepeat
+	arrRepeat,
+	arrCount
 } from '../dist';
 
 describe('Array', () => {
@@ -110,6 +111,24 @@ describe('Array', () => {
 			{ a: 1, b: 2 },
 			{ a: 1, b: 2 }
 		]);
+		done();
+	});
+
+	it('arrCount', (done) => {
+		assert.deepStrictEqual(arrCount([]), {});
+		assert.deepStrictEqual(arrCount([1, 2, 3, 3, 4, 5, 5, 5]), {
+			'1': 1,
+			'2': 1,
+			'3': 2,
+			'4': 1,
+			'5': 3
+		});
+		assert.deepStrictEqual(arrCount(['a', 'a', 'a', 'b', 'c', 'b', 'a', 'd']), {
+			a: 4,
+			b: 2,
+			c: 1,
+			d: 1
+		});
 		done();
 	});
 });

@@ -308,6 +308,17 @@ _.arrRepeat([1, 2, 3, 4], 3); // Returns [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
 _.arrRepeat({ a: 1, b: 2 }, 2); // Returns [{ a: 1, b: 2 }, { a: 1, b: 2 }]
 ```
 
+### `_.arrCount (object)`
+
+Returns the number of duplicates for each unique value in the given array. The array values can only be of type `String` or `Number`.
+
+- `array::string[]|number[]`
+- `count::number`
+
+```javascript
+_.arrCount(['a', 'a', 'a', 'b', 'c', 'b', 'a', 'd']); // Returns { a: 4, b: 2, c: 1, d: 1 }
+```
+
 ### `_.trim (string)`
 
 Removes leading and trailing spaces, and returns a value converted from two or more spaces between strings to one space. If the removeAllSpace value is true, all spaces including one space are removed.
