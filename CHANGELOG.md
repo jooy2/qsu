@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.7 (2023-03-)
+
+- NodeJS 12 version deprecation
+
 ## 1.1.6 (2023-02-28)
 
 - `isValidDate`: Only the `yyyy-mm-dd` format can be verified
