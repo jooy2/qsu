@@ -37,7 +37,8 @@ describe('String', () => {
 			removeSpecialChar('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'),
 			'ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'
 		);
-		assert.strictEqual(removeSpecialChar('Hello World', true), 'Hello World');
+		assert.strictEqual(removeSpecialChar('Hello World!', ' '), 'Hello World');
+		assert.strictEqual(removeSpecialChar('Hello-qsu & World!', '-&!'), 'Hello-qsu&World!');
 		done();
 	});
 

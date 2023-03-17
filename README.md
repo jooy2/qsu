@@ -333,13 +333,14 @@ _.trim('H e l l o     World', true); // Returns 'HelloWorld'
 
 ### `_.removeSpecialChar (string)`
 
-Returns after removing all special characters, including spaces.
+Returns after removing all special characters, including spaces. If you want to allow any special characters as exceptions, list them in the second argument value without delimiters. For example, if you want to allow spaces and the symbols `&` and `*`, the second argument value would be ' &\*'.
 
 - `str::string`
-- `withoutSpace::boolean`
+- `exceptionCharacters::string?`
 
 ```javascript
-_.removeSpecialChar('Hello, World!'); // Returns 'HelloWorld'
+_.removeSpecialChar('Hello-qsu, World!'); // Returns 'HelloqsuWorld'
+_.removeSpecialChar('Hello-qsu, World!', ' -'); // Returns 'Hello-qsu World'
 ```
 
 ### `_.removeNewLine (string)`
