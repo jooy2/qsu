@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.1.7 (2023-03-)
+## 1.1.7 (2023-03-17)
 
 - NodeJS 12 version deprecation
 - `removeSpecialChar`: Using `exceptionCharacters` instead of `withoutSpace`
