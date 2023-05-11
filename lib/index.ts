@@ -627,6 +627,14 @@ export default class Qsu {
 		return Buffer.from(encodedStr, 'base64').toString('utf8');
 	}
 
+	static strToAscii(str: string): number[] {
+		const arr = [];
+		for (let i = 0; i < str.length; i += 1) {
+			arr.push(str.charCodeAt(i));
+		}
+		return arr;
+	}
+
 	static strUnique(str: string): string {
 		if (!str) {
 			return '';
@@ -903,6 +911,7 @@ export const {
 	encodeBase64,
 	decodeBase64,
 	strUnique,
+	strToAscii,
 	isObject,
 	isEqual,
 	isEqualStrict,

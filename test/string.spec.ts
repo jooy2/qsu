@@ -18,7 +18,8 @@ import {
 	sha256,
 	encodeBase64,
 	decodeBase64,
-	strUnique
+	strUnique,
+	strToAscii
 } from '../dist';
 
 describe('String', () => {
@@ -172,6 +173,15 @@ st`),
 	it('strUnique', (done) => {
 		assert.strictEqual(strUnique('ababcdcd'), 'abcd');
 		assert.strictEqual(strUnique('abc--11111'), 'abc-1');
+		done();
+	});
+
+	it('strToAscii', (done) => {
+		assert.deepStrictEqual(
+			strToAscii('hello-world.'),
+			[104, 101, 108, 108, 111, 45, 119, 111, 114, 108, 100, 46]
+		);
+		assert.deepStrictEqual(strToAscii('1 2 3 4 5'), [49, 32, 50, 32, 51, 32, 52, 32, 53]);
 		done();
 	});
 });

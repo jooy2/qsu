@@ -532,6 +532,16 @@ Remove duplicate characters from a given string and output only one.
 _.strUnique('aaabbbcc'); // Returns 'abc'
 ```
 
+### `_.strToAscii (string)`
+
+Converts the given string to ascii code and returns it as an array.
+
+- `str::string`
+
+```javascript
+_.strToAscii('12345'); // Returns [49, 50, 51, 52, 53]
+```
+
 ### `_.isObject (boolean)`
 
 Check whether the given data is of type `Object`. Returns `false` for other data types including `Array`.
