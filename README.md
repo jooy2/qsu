@@ -433,6 +433,19 @@ _.truncate('hello', 3); // Returns 'hel'
 _.truncate('hello', 2, '...'); // Returns 'he...'
 ```
 
+### `_.truncateExpect (string)`
+
+The string ignores truncation until the ending character (`endStringChar`). If the expected length is reached, return the truncated string until after the ending character.
+
+- `str::string`
+- `expectLength::number`
+- `endStringChar::string || '.'`
+
+```javascript
+_.truncateExpect('hello. this is test string.', 10, '.'); // Returns 'hello. this is test string.'
+_.truncateExpect('hello-this-is-test-string-bye', 14, '-'); // Returns 'hello-this-is-'
+```
+
 ### `_.split (string[])`
 
 Splits a string based on the specified character and returns it as an Array. Unlike the existing split, it splits the values provided as multiple parameters (array or multiple arguments) at once.

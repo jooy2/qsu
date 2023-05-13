@@ -3,6 +3,7 @@
 ## 1.1.8 (2023-)
 
 - `strToAscii`: Add `strToAscii` method
+- `truncateExpect`: Add `truncateExpect` method
 
 ## 1.1.7 (2023-03-17)
 

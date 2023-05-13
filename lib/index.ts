@@ -530,6 +530,27 @@ export default class Qsu {
 		return convStr;
 	}
 
+	static truncateExpect<N extends number>(
+		str: string,
+		expectLength: PositiveNumber<N>,
+		endStringChar = '.'
+	): string {
+		if (!str) {
+			return '';
+		}
+
+		let convStr = '';
+		const splitStr = str.split(endStringChar);
+		let count = 0;
+
+		while (convStr.length < expectLength) {
+			convStr += `${splitStr[count]}${endStringChar}`;
+			count += 1;
+		}
+
+		return convStr;
+	}
+
 	static split(str: string, ...splitter: any[]): string[];
 
 	static split(str: string, ...splitter: Array<string>): string[];
@@ -902,6 +923,7 @@ export const {
 	strRandom,
 	strBlindRandom,
 	truncate,
+	truncateExpect,
 	split,
 	encrypt,
 	decrypt,

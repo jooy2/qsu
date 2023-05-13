@@ -10,6 +10,7 @@ import {
 	strRandom,
 	strBlindRandom,
 	truncate,
+	truncateExpect,
 	split,
 	encrypt,
 	decrypt,
@@ -103,6 +104,19 @@ st`),
 	it('truncate', (done) => {
 		assert.strictEqual(truncate('test', 2), 'te');
 		assert.strictEqual(truncate('test', 1, '...'), 't...');
+		done();
+	});
+
+	it('truncateExpect', (done) => {
+		assert.strictEqual(
+			truncateExpect('hello. this is test string.', 10, '.'),
+			'hello. this is test string.'
+		);
+		assert.strictEqual(
+			truncateExpect('hello. this is test. bye.', 20, '.'),
+			'hello. this is test.'
+		);
+		assert.strictEqual(truncateExpect('hello-this-is-test-string-bye', 14, '-'), 'hello-this-is-');
 		done();
 	});
 
