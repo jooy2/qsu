@@ -545,7 +545,7 @@ Remove duplicate characters from a given string and output only one.
 _.strUnique('aaabbbcc'); // Returns 'abc'
 ```
 
-### `_.strToAscii (string)`
+### `_.strToAscii (number[])`
 
 Converts the given string to ascii code and returns it as an array.
 
