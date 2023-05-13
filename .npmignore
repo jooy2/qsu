@@ -24,3 +24,4 @@ CODE_OF_CONDUCT.md
 .mocharc.json
 .editorconfig
 tsconfig.json
+tsconfig.prod.json
