@@ -10,6 +10,7 @@ Thumbs.db
 # Project files
 .github/
 lib/
+docs/
 test/
 CHANGELOG.md
 CODE_OF_CONDUCT.md
