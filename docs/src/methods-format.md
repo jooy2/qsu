@@ -70,19 +70,3 @@ Converts seconds to hours, minutes, seconds and returns. You can put any separat
 _.secToTime(3800); // Returns '01:03:20'
 _.secToTime(60, '-'); // Returns '00-01-00'
 ```
-
-## `_.license (string)`
-
-Returns text in a specific license format based on the author information of the given argument. The argument uses the Object type.
-
-- `options::LicenseOption{ author: string, email: string?, yearStart: string|number, yearEnd: string?, htmlBr: boolean?, type: 'mit' | 'apache20' }`
-
-```javascript
-_.license({
-	holder: 'example',
-	email: 'example@example.com',
-	yearStart: 2020,
-	yearEnd: 2021,
-	htmlBr: true
-});
-```

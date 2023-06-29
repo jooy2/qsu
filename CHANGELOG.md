@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.0 (2023-06-29)
+
+**BREAKING CHANGES**: The `isBotAgent`, `license` methods were separated from `qsu` to the `qsu-web` package. These methods are no longer available after version 1.2.0.
+
+- Also, I've split the documentation page into the following sites: https://qsu.jooy2.com
+
 ## 1.1.8 (2023-05-13)
 
 - `strToAscii`: Add `strToAscii` method
@@ -87,7 +93,7 @@
 
 ## 1.0.4 (2022-06-16)
 
-**NOTICE**: `convertDate` is no longer supported due to the removal of `moment` as a dependent module.
+**BREAKING CHANGES**: `convertDate` is no longer supported due to the removal of `moment` as a dependent module.
 
 The `today` method has changed its usage. We no longer support custom date formats.
 

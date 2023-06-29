@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { numberFormat, fileName, fileExt, fileSize, msToTime, secToTime, license } from '../dist';
+import { numberFormat, fileName, fileExt, fileSize, msToTime, secToTime } from '../dist';
 
 describe('Format', () => {
 	it('numberFormat', (done) => {
@@ -45,12 +45,6 @@ describe('Format', () => {
 		assert.strictEqual(secToTime(60), '00:01:00');
 		assert.strictEqual(secToTime(3800, false, '-'), '01-03-20');
 		assert.strictEqual(secToTime(360000), '100:00:00');
-		done();
-	});
-
-	it('license', (done) => {
-		assert(license({ type: 'mit', author: 'example', yearStart: 2021 }));
-		assert(license({ type: 'apache20', author: 'example', yearStart: 2021 }));
 		done();
 	});
 });
