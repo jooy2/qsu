@@ -68,6 +68,7 @@ st`),
 
 	it('capitalizeEverySentence', (done) => {
 		assert.strictEqual(capitalizeEverySentence('hello. world'), 'Hello. World');
+		assert.strictEqual(capitalizeEverySentence('hello. 1world'), 'Hello. 1World');
 		assert.strictEqual(capitalizeEverySentence('HeLLO,world'), 'HeLLO,world');
 		assert.strictEqual(capitalizeEverySentence('H. e. l. l. o.'), 'H. E. L. L. O.');
 		assert.strictEqual(capitalizeEverySentence('hello!world!', '!'), 'Hello!World!');
