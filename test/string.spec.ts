@@ -4,6 +4,7 @@ import {
 	removeSpecialChar,
 	removeNewLine,
 	capitalizeFirst,
+	capitalizeEverySentence,
 	capitalizeEachWords,
 	strCount,
 	strShuffle,
@@ -62,6 +63,14 @@ st`),
 		assert.strictEqual(capitalizeFirst('t'), 'T');
 		assert.strictEqual(capitalizeFirst('test'), 'Test');
 		assert.strictEqual(capitalizeFirst('tEST'), 'TEST');
+		done();
+	});
+
+	it('capitalizeEverySentence', (done) => {
+		assert.strictEqual(capitalizeEverySentence('hello. world'), 'Hello. World');
+		assert.strictEqual(capitalizeEverySentence('HeLLO,world'), 'HeLLO,world');
+		assert.strictEqual(capitalizeEverySentence('H. e. l. l. o.'), 'H. E. L. L. O.');
+		assert.strictEqual(capitalizeEverySentence('hello!world!', '!'), 'Hello!World!');
 		done();
 	});
 

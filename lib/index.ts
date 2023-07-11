@@ -389,6 +389,22 @@ export default class Qsu {
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 
+	static capitalizeEverySentence(str: string, splitChar?: string): string {
+		if (!str) {
+			return '';
+		}
+
+		let resultStr = '';
+		const splitter: string = splitChar || '.';
+		const splitStr = str.split(splitter);
+
+		for (let i = 0, iLen = splitStr.length; i < iLen; i += 1) {
+			resultStr += `${Qsu.capitalizeFirst(splitStr[i])}${i < iLen - 1 ? splitter : ''}`;
+		}
+
+		return resultStr;
+	}
+
 	static capitalizeEachWords(str: string, natural?: boolean): string {
 		if (!str) {
 			return '';
@@ -888,6 +904,7 @@ export const {
 	removeSpecialChar,
 	removeNewLine,
 	capitalizeFirst,
+	capitalizeEverySentence,
 	capitalizeEachWords,
 	strCount,
 	strShuffle,

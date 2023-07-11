@@ -1,9 +1,14 @@
 # Change Log
 
+## 1.2.x (2023-00-00)
+
+- `capitalizeEverySentence`: Add `capitalizeEverySentence` method
+
 ## 1.2.0 (2023-06-29)
 
 **BREAKING CHANGES**: The `isBotAgent`, `license` methods were separated from `qsu` to the `qsu-web` package. These methods are no longer available after version 1.2.0.
 
+- Explore the `qsu-web` package: https://github.com/jooy2/qsu-web
 - Also, I've split the documentation page into the following sites: https://qsu.jooy2.com
 
 ## 1.1.8 (2023-05-13)

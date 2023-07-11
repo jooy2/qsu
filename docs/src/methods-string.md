@@ -46,6 +46,18 @@ Converts the first letter of the entire string to uppercase and returns.
 _.capitalizeFirst('abcd'); // Returns 'Abcd'
 ```
 
+## `_.capitalizeEverySentence (string)`
+
+Capitalize the first letter of every sentence. Typically, the `. ` (period and one space) characters to separate sentences, but this can be customized via the value of the `splitChar` argument.
+
+- `str::string`
+- `splitChar::string`
+
+```javascript
+_.capitalizeEverySentence('hello. world. hi.'); // Returns 'Hello. World. Hi.'
+_.capitalizeEverySentence('hello!world', '!'); // Returns 'Hello!World'
+```
+
 ## `_.capitalizeEachWords (string)`
 
 Converts every word with spaces to uppercase. If the naturally argument is true, only some special cases (such as prepositions) are kept lowercase.
