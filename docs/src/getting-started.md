@@ -2,7 +2,7 @@
 
 ## Installation
 
-Qsu requires `Node.js 14.x` or higher, and the repository is serviced through **[NPM](https://npmjs.com)**.
+Qsu requires `Node.js 16.x` or higher, and the repository is serviced through **[NPM](https://npmjs.com)**.
 
 After configuring the node environment, you can simply run the following command.
 
