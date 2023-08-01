@@ -261,12 +261,7 @@ export default class Qsu {
 
 	static arrUnique(array: any[]): any[] {
 		if (Qsu.is2dArray(array)) {
-			return array
-				.map((x): string => JSON.stringify(x))
-				.reverse()
-				.filter((e, i, a) => a.indexOf(e, i + 1) === -1)
-				.reverse()
-				.map((x): object => JSON.parse(x));
+			return Array.from(new Set(array.map((x) => JSON.stringify(x))), (x) => JSON.parse(x));
 		}
 
 		return [...new Set(array)];

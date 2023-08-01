@@ -10,6 +10,7 @@ import {
 	arrRepeat,
 	arrCount
 } from '../dist';
+import { funcTimes } from '../lib';
 
 describe('Array', () => {
 	it('arrShuffle', (done) => {
@@ -34,6 +35,23 @@ describe('Array', () => {
 	});
 
 	it('arrUnique', (done) => {
+		const big2dArray = [
+			[10, 20, 30, 40, 50],
+			[1, 2, 3, 4, 5],
+			[6, 7, 8, 9, 0]
+		];
+		funcTimes(150000, () => big2dArray.push([1, 1, 1, 1, 1]));
+		funcTimes(150000, () => big2dArray.push([2, 2, 2, 2, 2]));
+		funcTimes(150000, () => big2dArray.push([3, 3, 3, 3, 3]));
+
+		assert.deepStrictEqual(arrUnique(big2dArray), [
+			[10, 20, 30, 40, 50],
+			[1, 2, 3, 4, 5],
+			[6, 7, 8, 9, 0],
+			[1, 1, 1, 1, 1],
+			[2, 2, 2, 2, 2],
+			[3, 3, 3, 3, 3]
+		]);
 		assert.deepStrictEqual(arrUnique([1, 1, 2, 2, 2, 2, 3]), [1, 2, 3]);
 		assert.deepStrictEqual(arrUnique(['1', '2', '3', '3', '4']), ['1', '2', '3', '4']);
 		assert.deepStrictEqual(arrUnique([1, '1', 1, 'a', 2, 'b']), [1, '1', 'a', 2, 'b']);
