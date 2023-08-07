@@ -33,6 +33,21 @@ export default class Qsu {
 		return results;
 	}
 
+	static debounce<N extends number>(
+		func: (...args: any[]) => void,
+		timeout: PositiveNumber<N>
+	): (...args: any[]) => void {
+		let timer: NodeJS.Timeout;
+
+		return (...args: any[]): void => {
+			clearTimeout(timer);
+
+			timer = setTimeout(() => {
+				func.apply(this, args);
+			}, timeout);
+		};
+	}
+
 	static getPlatform(): string {
 		switch (process.platform) {
 			case 'win32':
@@ -885,6 +900,7 @@ export { Qsu };
 export const {
 	sleep,
 	funcTimes,
+	debounce,
 	getPlatform,
 	numRandom,
 	sum,

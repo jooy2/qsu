@@ -1,8 +1,10 @@
 # Change Log
 
-## 1.2.x (2023-00-00)
+## 1.2.1 (2023-08-07)
 
 - `capitalizeEverySentence`: Add `capitalizeEverySentence` method
+- `arrUnique`: Use fast algorithm for 2d array unique
+- `debounce`: Add `debounce` method
 
 ## 1.2.0 (2023-06-29)
 
