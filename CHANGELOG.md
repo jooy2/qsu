@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.2.2 (2023-08-15)
+
+- `replaceBetween`: Add `replaceBetween` method
+
 ## 1.2.1 (2023-08-07)
 
 - `capitalizeEverySentence`: Add `capitalizeEverySentence` method

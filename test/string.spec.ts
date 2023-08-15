@@ -3,6 +3,7 @@ import {
 	trim,
 	removeSpecialChar,
 	removeNewLine,
+	replaceBetween,
 	capitalizeFirst,
 	capitalizeEverySentence,
 	capitalizeEachWords,
@@ -56,6 +57,16 @@ st`),
 		assert.strictEqual(removeNewLine('te\r\nst'), 'test');
 		assert.strictEqual(removeNewLine('te\r\nst', '|'), 'te|st');
 		assert.strictEqual(removeNewLine('t\ne\r\ns\rt', '-'), 't-e-s-t');
+		done();
+	});
+
+	it('replaceBetween', (done) => {
+		assert.strictEqual(replaceBetween('hello[world]', '[', ']'), 'hello');
+		assert.strictEqual(replaceBetween("hello'test'world'test2'!!", "'", "'"), 'helloworld!!');
+		assert.strictEqual(replaceBetween('hello[w]o[r][[l]][[d]]!!', '[', ']'), 'helloo]]!!');
+		assert.strictEqual(replaceBetween('abc[hello]def[world]g[!!!]', '[', ']'), 'abcdefg');
+		assert.strictEqual(replaceBetween('abc<<def>>ghi<<jkl>>mn', '<<', '>>'), 'abcghimn');
+		assert.strictEqual(replaceBetween('hell1o2~', '1', '2', 'o!'), 'hello!~');
 		done();
 	});
 

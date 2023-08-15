@@ -383,6 +383,18 @@ export default class Qsu {
 		);
 	}
 
+	static replaceBetween(str: string, startChar: string, endChar: string, replaceWith = ''): string {
+		if (!str) {
+			return '';
+		}
+
+		const specialCharacters = /[.*+?^${}()|[\]\\]/g;
+		const startCharRegExp = specialCharacters.test(startChar) ? `\\${startChar}` : startChar;
+		const endCharRegExp = specialCharacters.test(endChar) ? `\\${endChar}` : endChar;
+
+		return str.replace(new RegExp(`${startCharRegExp}.*?${endCharRegExp}`, 'g'), replaceWith);
+	}
+
 	static removeNewLine(str: string, replaceTo = ''): string {
 		if (!str) {
 			return '';
@@ -922,6 +934,7 @@ export const {
 	arrMove,
 	arrTo1dArray,
 	trim,
+	replaceBetween,
 	removeSpecialChar,
 	removeNewLine,
 	capitalizeFirst,
