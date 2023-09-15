@@ -40,7 +40,7 @@ For example, if you have a `func` variable written as `const func = debounce(() 
 - `timeout::number`
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<title>test</title>
