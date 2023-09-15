@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.2.3 (2023-09-15)
+
+- `truncateExpect`: do not add a closing character to the last character for sentences without a closing character
+
 ## 1.2.2 (2023-08-15)
 
 - `replaceBetween`: Add `replaceBetween` method

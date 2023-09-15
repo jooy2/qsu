@@ -137,6 +137,9 @@ st`),
 			truncateExpect('hello. this is test. bye.', 20, '.'),
 			'hello. this is test.'
 		);
+		assert.strictEqual(truncateExpect('hello.. this is test', 20, '.'), 'hello.. this is test');
+		assert.strictEqual(truncateExpect('hello.. this is test', 21, '.'), 'hello.. this is test');
+		assert.strictEqual(truncateExpect('hello.. this is test', 19, '.'), 'hello.. this is test');
 		assert.strictEqual(truncateExpect('hello-this-is-test-string-bye', 14, '-'), 'hello-this-is-');
 		done();
 	});

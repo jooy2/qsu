@@ -578,13 +578,21 @@ export default class Qsu {
 			return '';
 		}
 
-		let convStr = '';
+		const isEndStringCharLastSentence = str.slice(-1) === endStringChar;
 		const splitStr = str.split(endStringChar);
-		let count = 0;
+		const splitStrLength = splitStr.length;
+		let convStr = '';
+		let currentLength = 0;
 
-		while (convStr.length < expectLength) {
-			convStr += `${splitStr[count]}${endStringChar}`;
-			count += 1;
+		for (let i = 0; i < splitStrLength; i += 1) {
+			if (currentLength < expectLength) {
+				convStr += `${splitStr[i]}${
+					i !== splitStrLength - 1 || isEndStringCharLastSentence ? endStringChar : ''
+				}`;
+				currentLength += splitStr[i].length + endStringChar.length;
+			} else {
+				break;
+			}
 		}
 
 		return convStr;
