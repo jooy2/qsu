@@ -1,6 +1,6 @@
 {
 	"name": "qsu",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "QSU is a lightweight and simple module with a variety of built-in utility functions that you can utilize in your NodeJS projects.",
 	"author": "Jooy2 <jooy2.contact@gmail.com>",
 	"license": "MIT",
