@@ -18,7 +18,7 @@ export default {
 			documentRootPath: 'src',
 			collapsed: false,
 			useTitleFromFileHeading: true,
-			sortByFileName: ['getting-started.md']
+			sortMenusByName: ['getting-started.md']
 		}),
 		socialLinks: [{ icon: 'github', link: repository.url.replace('.git', '') }]
 	}
