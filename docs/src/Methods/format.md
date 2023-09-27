@@ -1,3 +1,8 @@
+---
+title: Format
+order: 5
+---
+
 # Methods: Format
 
 ## `_.numberFormat (string)`

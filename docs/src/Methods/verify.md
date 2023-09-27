@@ -1,3 +1,8 @@
+---
+title: Verify
+order: 6
+---
+
 # Methods: Verify
 
 ## `_.isObject (boolean)`

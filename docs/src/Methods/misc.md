@@ -1,3 +1,8 @@
+---
+title: Misc
+order: 7
+---
+
 # Methods: Misc
 
 ## `_.sleep (Promise:boolean)`

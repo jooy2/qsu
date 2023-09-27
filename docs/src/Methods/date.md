@@ -1,3 +1,8 @@
+---
+title: Date
+order: 3
+---
+
 # Methods: Date
 
 ## `_.dayDiff (number)`

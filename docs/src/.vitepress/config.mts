@@ -18,7 +18,8 @@ export default {
 			documentRootPath: 'src',
 			collapsed: false,
 			useTitleFromFileHeading: true,
-			manualSortFileNameByPriority: ['getting-started.md']
+			useTitleFromFrontmatter: true,
+			sortMenusByFrontmatterOrder: true
 		}),
 		socialLinks: [{ icon: 'github', link: repository.url.replace('.git', '') }]
 	}

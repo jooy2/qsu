@@ -1,3 +1,8 @@
+---
+title: String
+order: 2
+---
+
 # Methods: String
 
 ## `_.trim (string)`

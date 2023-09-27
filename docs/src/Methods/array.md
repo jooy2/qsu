@@ -1,3 +1,8 @@
+---
+title: Array
+order: 1
+---
+
 # Methods: Array
 
 ## `_.arrShuffle (any[])`

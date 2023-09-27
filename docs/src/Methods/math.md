@@ -1,3 +1,8 @@
+---
+title: Math
+order: 4
+---
+
 # Methods: Math
 
 ## `_.numRandom (number)`
