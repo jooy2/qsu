@@ -22,7 +22,8 @@ import {
 	encodeBase64,
 	decodeBase64,
 	strUnique,
-	strToAscii
+	strToAscii,
+	objectId
 } from '../dist';
 
 describe('String', () => {
@@ -220,6 +221,11 @@ st`),
 			[104, 101, 108, 108, 111, 45, 119, 111, 114, 108, 100, 46]
 		);
 		assert.deepStrictEqual(strToAscii('1 2 3 4 5'), [49, 32, 50, 32, 51, 32, 52, 32, 53]);
+		done();
+	});
+
+	it('objectId', (done) => {
+		assert.strictEqual(objectId().length, 24);
 		done();
 	});
 });

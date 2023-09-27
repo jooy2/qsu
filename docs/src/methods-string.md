@@ -194,6 +194,14 @@ Decrypt with the specified algorithm (default: `aes-256-cbc`) using a string and
 _.decrypt('61ba43b65fc...', 'secret-key');
 ```
 
+## `_.objectId (string)`
+
+Returns a random string hash of the ObjectId format (primarily utilized by MongoDB).
+
+```javascript
+_.objectId(); // Returns '651372605b49507aea707488'
+```
+
 ## `_.md5 (string)`
 
 Converts String data to md5 hash value and returns it.

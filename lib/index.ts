@@ -68,6 +68,13 @@ export default class Qsu {
 		}
 	}
 
+	static objectId(): string {
+		return (
+			Math.floor(Date.now() / 1000).toString(16) +
+			'x'.repeat(16).replace(/x/g, () => Math.floor(Math.random() * 16).toString(16))
+		);
+	}
+
 	/*
 	 * Math
 	 * */
@@ -924,6 +931,7 @@ export const {
 	funcTimes,
 	debounce,
 	getPlatform,
+	objectId,
 	numRandom,
 	sum,
 	mul,
