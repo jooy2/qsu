@@ -5,112 +5,192 @@ order: 1
 
 # Methods: Array
 
-## `_.arrShuffle (any[])`
+## `_.arrShuffle`
 
 Shuffle the order of the given array and return.
 
+### Parameters
+
 - `array::any[]`
+
+### Returns
+
+> any[]
+
+### Examples
 
 ```javascript
 _.arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
 ```
 
-## `_.arrWithDefault (any[])`
+## `_.arrWithDefault`
 
 Initialize an array with a default value of a specific length.
 
+### Parameters
+
 - `defaultValue::any`
 - `length::number || 0`
+
+### Returns
+
+> any[]
+
+### Examples
 
 ```javascript
 _.arrWithDefault('abc', 4); // Returns ['abc', 'abc', 'abc', 'abc']
 _.arrWithDefault(null, 3); // Returns [null, null, null]
 ```
 
-## `_.arrWithNumber (number[])`
+## `_.arrWithNumber`
 
 Creates and returns an Array in the order of start...end values.
 
+### Parameters
+
 - `start::number`
 - `end::number`
+
+### Returns
+
+> number[]
+
+### Examples
 
 ```javascript
 _.arrWithNumber(1, 3); // Returns [1, 2, 3]
 _.arrWithNumber(0, 3); // Returns [0, 1, 2, 3]
 ```
 
-## `_.arrUnique (any[])`
+## `_.arrUnique`
 
 Remove duplicate values from array and two-dimensional array data. In the case of 2d arrays, json type data duplication is not removed.
 
+### Parameters
+
 - `array::any[]`
+
+### Returns
+
+> any[]
+
+### Examples
 
 ```javascript
 _.arrUnique([1, 2, 2, 3]); // Returns [1, 2, 3]
 _.arrUnique([[1], [1], [2]]); // Returns [[1], [2]]
 ```
 
-## `_.average (number)`
+## `_.average`
 
 Returns the average of all numeric values in an array.
 
+### Parameters
+
 - `array::number[]`
+
+### Returns
+
+> number
+
+### Examples
 
 ```javascript
 _.average([1, 5, 15, 50]); // Returns 17.75
 ```
 
-## `_.arrMove (any[])`
+## `_.arrMove`
 
 Moves the position of a specific element in an array to the specified position. (Position starts from 0.)
+
+### Parameters
 
 - `array::any[]`
 - `from::number`
 - `to::number`
 
+### Returns
+
+> any[]
+
+### Examples
+
 ```javascript
 _.arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
 ```
 
-## `_.arrTo1dArray (any[])`
+## `_.arrTo1dArray`
 
 Merges all elements of a multidimensional array into a one-dimensional array.
 
+### Parameters
+
 - `array::any[]`
+
+### Returns
+
+> any[]
+
+### Examples
 
 ```javascript
 _.arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
 ```
 
-## `_.arrRepeat (any[])`
+## `_.arrRepeat`
 
 Repeats the data of an `Array` or `Object` a specific number of times and returns it as a 1d array.
 
+### Parameters
+
 - `array::any[]|object`
 - `count::number`
+
+### Returns
+
+> any[]
+
+### Examples
 
 ```javascript
 _.arrRepeat([1, 2, 3, 4], 3); // Returns [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
 _.arrRepeat({ a: 1, b: 2 }, 2); // Returns [{ a: 1, b: 2 }, { a: 1, b: 2 }]
 ```
 
-## `_.arrCount (object)`
+## `_.arrCount`
 
 Returns the number of duplicates for each unique value in the given array. The array values can only be of type `String` or `Number`.
 
+### Parameters
+
 - `array::string[]|number[]`
 - `count::number`
+
+### Returns
+
+> object
+
+### Examples
 
 ```javascript
 _.arrCount(['a', 'a', 'a', 'b', 'c', 'b', 'a', 'd']); // Returns { a: 4, b: 2, c: 1, d: 1 }
 ```
 
-## `_.sortNumeric (string[])`
+## `_.sortNumeric`
 
 When sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names. For example, given the array `['1-a', '100-a', '10-a', '2-a']`, it returns `['1-a', '2-a', '10-a', '100-a']` with the smaller numbers at the front.
 
+### Parameters
+
 - `array::string[]`
 - `descending::boolean`
+
+### Returns
+
+> string[]
+
+### Examples
 
 ```javascript
 _.sortNumeric(['a1a', 'b2a', 'aa1a', '1', 'a11a', 'a3a', 'a2a', '1a']);
