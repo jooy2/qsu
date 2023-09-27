@@ -353,7 +353,9 @@ export default class Qsu {
 	static arrCount(array: string[] | number[]): NumberValueObject {
 		const result: NumberValueObject = {};
 
-		for (const x of array) {
+		for (let i = 0; i < array.length; i += 1){
+			const x = array[i];
+
 			result[x] = (result[x] || 0) + 1;
 		}
 
