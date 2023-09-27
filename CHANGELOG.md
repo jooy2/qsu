@@ -1,10 +1,11 @@
 # Change Log
 
-## 1.2.4 (2023-09-)
+## 1.3.0 (2023-09-27)
 
 - `objectId`: Add `objectId` method
 - `sortByObjectKey`: Add `sortByObjectKey` method
 - `sortNumeric`: Add `sortNumeric` method
+- Documentation improvements
 
 ## 1.2.3 (2023-09-15)
 
