@@ -177,6 +177,77 @@ Returns the number of duplicates for each unique value in the given array. The a
 _.arrCount(['a', 'a', 'a', 'b', 'c', 'b', 'a', 'd']); // Returns { a: 4, b: 2, c: 1, d: 1 }
 ```
 
+## `_.sortByObjectKey`
+
+Sort array values by a specific key value in an array containing multiple objects. It does not affect the order or value of elements within an object.
+
+If the `numerically` option is `true`, when sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names.
+
+### Parameters
+
+- `array::any[]`
+- `key::string`
+- `descending::boolean`
+- `numerically::boolean`
+
+### Returns
+
+> any[]
+
+### Examples
+
+```javascript
+const obj = [
+	{
+		aa: 1,
+		bb: 'aaa',
+		cc: 'hi1'
+	},
+	{
+		aa: 4,
+		bb: 'ccc',
+		cc: 'hi10'
+	},
+	{
+		aa: 2,
+		bb: 'ddd',
+		cc: 'hi2'
+	},
+	{
+		aa: 3,
+		bb: 'bbb',
+		cc: 'hi11'
+	}
+];
+
+_.sortByObjectKey(obj, 'aa');
+
+/*
+[
+	{
+		aa: 1,
+		bb: 'aaa',
+		cc: 'hi1'
+	},
+	{
+		aa: 2,
+		bb: 'ddd',
+		cc: 'hi2'
+	},
+	{
+		aa: 3,
+		bb: 'bbb',
+		cc: 'hi11'
+	},
+	{
+		aa: 4,
+		bb: 'ccc',
+		cc: 'hi10'
+	}
+]
+*/
+```
+
 ## `_.sortNumeric`
 
 When sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names. For example, given the array `['1-a', '100-a', '10-a', '2-a']`, it returns `['1-a', '2-a', '10-a', '100-a']` with the smaller numbers at the front.

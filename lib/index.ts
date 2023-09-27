@@ -369,6 +369,34 @@ export default class Qsu {
 		return result;
 	}
 
+	static sortByObjectKey(
+		array: any[],
+		key: string,
+		descending = false,
+		numerically = false
+	): any[] {
+		if (numerically) {
+			const collator = new Intl.Collator([], { numeric: true });
+			const result = array.sort((a: any, b: any) => collator.compare(a[key], b[key]));
+
+			return descending ? result.reverse() : result;
+		}
+
+		return array.sort((a: any, b: any) => {
+			if (!descending) {
+				if (a[key] < b[key]) return -1;
+				if (a[key] > b[key]) return 1;
+
+				return 0;
+			}
+
+			if (a[key] > b[key]) return -1;
+			if (a[key] < b[key]) return 1;
+
+			return 0;
+		});
+	}
+
 	static sortNumeric(array: string[], descending = false): string[] {
 		const collator = new Intl.Collator([], { numeric: true });
 		const result = array.sort((a: any, b: any) => collator.compare(a, b));
@@ -958,6 +986,7 @@ export const {
 	average,
 	arrMove,
 	arrTo1dArray,
+	sortByObjectKey,
 	sortNumeric,
 	trim,
 	replaceBetween,

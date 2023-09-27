@@ -9,6 +9,7 @@ import {
 	arrTo1dArray,
 	arrRepeat,
 	arrCount,
+	sortByObjectKey,
 	sortNumeric
 } from '../dist';
 import { funcTimes } from '../lib';
@@ -148,6 +149,99 @@ describe('Array', () => {
 			c: 1,
 			d: 1
 		});
+		done();
+	});
+
+	it('sortByObjectKey', (done) => {
+		const obj = [
+			{
+				aa: 1,
+				bb: 'aaa',
+				cc: 'hi1'
+			},
+			{
+				aa: 4,
+				bb: 'ccc',
+				cc: 'hi10'
+			},
+			{
+				aa: 2,
+				bb: 'ddd',
+				cc: 'hi2'
+			},
+			{
+				aa: 3,
+				bb: 'bbb',
+				cc: 'hi11'
+			}
+		];
+
+		assert.deepStrictEqual(sortByObjectKey(obj, 'aa'), [
+			{
+				aa: 1,
+				bb: 'aaa',
+				cc: 'hi1'
+			},
+			{
+				aa: 2,
+				bb: 'ddd',
+				cc: 'hi2'
+			},
+			{
+				aa: 3,
+				bb: 'bbb',
+				cc: 'hi11'
+			},
+			{
+				aa: 4,
+				bb: 'ccc',
+				cc: 'hi10'
+			}
+		]);
+		assert.deepStrictEqual(sortByObjectKey(obj, 'bb', true), [
+			{
+				aa: 2,
+				bb: 'ddd',
+				cc: 'hi2'
+			},
+			{
+				aa: 4,
+				bb: 'ccc',
+				cc: 'hi10'
+			},
+			{
+				aa: 3,
+				bb: 'bbb',
+				cc: 'hi11'
+			},
+			{
+				aa: 1,
+				bb: 'aaa',
+				cc: 'hi1'
+			}
+		]);
+		assert.deepStrictEqual(sortByObjectKey(obj, 'cc', false, true), [
+			{
+				aa: 1,
+				bb: 'aaa',
+				cc: 'hi1'
+			},
+			{
+				aa: 2,
+				bb: 'ddd',
+				cc: 'hi2'
+			},
+			{
+				aa: 4,
+				bb: 'ccc',
+				cc: 'hi10'
+			},
+			{
+				aa: 3,
+				bb: 'bbb',
+				cc: 'hi11'
+			}
+		]);
 		done();
 	});
 
