@@ -17,6 +17,8 @@ export default {
 		sidebar: generateSidebar({
 			documentRootPath: 'src',
 			collapsed: false,
+			capitalizeFirst: true,
+			hyphenToSpace: true,
 			useTitleFromFileHeading: true,
 			useTitleFromFrontmatter: true,
 			sortMenusByFrontmatterOrder: true
