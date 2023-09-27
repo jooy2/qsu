@@ -360,13 +360,20 @@ export default class Qsu {
 	static arrCount(array: string[] | number[]): NumberValueObject {
 		const result: NumberValueObject = {};
 
-		for (let i = 0; i < array.length; i += 1){
+		for (let i = 0; i < array.length; i += 1) {
 			const x = array[i];
 
 			result[x] = (result[x] || 0) + 1;
 		}
 
 		return result;
+	}
+
+	static sortNumeric(array: string[], descending = false): string[] {
+		const collator = new Intl.Collator([], { numeric: true });
+		const result = array.sort((a: any, b: any) => collator.compare(a, b));
+
+		return descending ? result.reverse() : result;
 	}
 
 	/*
@@ -951,6 +958,7 @@ export const {
 	average,
 	arrMove,
 	arrTo1dArray,
+	sortNumeric,
 	trim,
 	replaceBetween,
 	removeSpecialChar,

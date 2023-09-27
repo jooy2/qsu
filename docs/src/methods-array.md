@@ -99,3 +99,15 @@ Returns the number of duplicates for each unique value in the given array. The a
 ```javascript
 _.arrCount(['a', 'a', 'a', 'b', 'c', 'b', 'a', 'd']); // Returns { a: 4, b: 2, c: 1, d: 1 }
 ```
+
+## `_.sortNumeric (string[])`
+
+When sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names. For example, given the array `['1-a', '100-a', '10-a', '2-a']`, it returns `['1-a', '2-a', '10-a', '100-a']` with the smaller numbers at the front.
+
+- `array::string[]`
+- `descending::boolean`
+
+```javascript
+_.sortNumeric(['a1a', 'b2a', 'aa1a', '1', 'a11a', 'a3a', 'a2a', '1a']);
+// Returns ['1', '1a', 'a1a', 'a2a', 'a3a', 'a11a', 'aa1a', 'b2a']
+```

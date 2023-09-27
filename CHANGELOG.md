@@ -3,6 +3,7 @@
 ## 1.2.4 (2023-09-)
 
 - `objectId`: Add `objectId` method
+- `sortNumeric`: Add `sortNumeric` method
 
 ## 1.2.3 (2023-09-15)
 

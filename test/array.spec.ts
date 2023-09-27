@@ -8,7 +8,8 @@ import {
 	arrMove,
 	arrTo1dArray,
 	arrRepeat,
-	arrCount
+	arrCount,
+	sortNumeric
 } from '../dist';
 import { funcTimes } from '../lib';
 
@@ -147,6 +148,31 @@ describe('Array', () => {
 			c: 1,
 			d: 1
 		});
+		done();
+	});
+
+	it('sortNumeric', (done) => {
+		assert.deepStrictEqual(sortNumeric([]), []);
+		assert.deepStrictEqual(sortNumeric(['a', 'd', 'c', 'b']), ['a', 'b', 'c', 'd']);
+		assert.deepStrictEqual(sortNumeric(['a1a', 'b2a', 'aa1a', '1', 'a11a', 'a3a', 'a2a', '1a']), [
+			'1',
+			'1a',
+			'a1a',
+			'a2a',
+			'a3a',
+			'a11a',
+			'aa1a',
+			'b2a'
+		]);
+		assert.deepStrictEqual(sortNumeric(['3', '1', '11', '100', '10', '2', '15']), [
+			'1',
+			'2',
+			'3',
+			'10',
+			'11',
+			'15',
+			'100'
+		]);
 		done();
 	});
 });
