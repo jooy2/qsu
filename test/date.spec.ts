@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { format } from 'date-fns';
+import dayjs from 'dayjs';
 import { dayDiff, today, isValidDate, dateToYYYYMMDD, createDateListFromRange } from '../dist';
 
 describe('Date', () => {
@@ -10,9 +10,9 @@ describe('Date', () => {
 	});
 
 	it('today', (done) => {
-		assert.strictEqual(today(), format(new Date(), 'yyyy-MM-dd'));
-		assert.strictEqual(today('/'), format(new Date(), 'yyyy/MM/dd'));
-		assert.strictEqual(today('/', false), format(new Date(), 'MM/dd/yyyy'));
+		assert.strictEqual(today(), dayjs().format('YYYY-MM-DD'));
+		assert.strictEqual(today('/'), dayjs().format('YYYY/MM/DD'));
+		assert.strictEqual(today('/', false), dayjs().format('MM/DD/YYYY'));
 		done();
 	});
 
