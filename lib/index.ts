@@ -61,8 +61,9 @@ export default class Qsu {
 			case 'openbsd':
 			case 'freebsd':
 			case 'cygwin':
-			case 'android':
 				return 'Linux';
+			case 'android':
+				return 'Android';
 			default:
 				return 'Unknown';
 		}
