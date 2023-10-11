@@ -234,7 +234,7 @@ export default class Qsu {
 			`${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
 
 		while (endDateStr !== currentDateStr) {
-			if (currentDateStr.indexOf('-12-31') !== -1) {
+			if (/[0-9]{4}-12-31/g.test(currentDateStr)) {
 				currentYear += 1;
 				currentMonth = 1;
 				currentDay = 1;
