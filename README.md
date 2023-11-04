@@ -11,9 +11,9 @@
 - 100% optimized for the latest NodeJS and ESM environments.
 - Useful features for websites and web applications
 
-## [Documentation (Getting Started & Method Reference)](https://qsu.jooy2.com/getting-started)
+## [Documentation (Getting Started & Method Reference)](https://qsu.jooy2.com/getting-started/installation)
 
-Installing and using the package and defining all the utility methods can be found on the documentation page below: https://qsu.jooy2.com/getting-started
+Installing and using the package and defining all the utility methods can be found on the documentation page below: https://qsu.jooy2.com/getting-started/installation
 
 ## Contribute
 
