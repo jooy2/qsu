@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.1 (2023-11-08)
+
+- `encrypt`, `decrypt`: Add toBase64 params for result string encoding
+- `createDateListFromRange`: Use regex instead of string check
+- `getPlatform`: Android is not linux os
+
 ## 1.3.0 (2023-09-27)
 
 - `objectId`: Add `objectId` method
