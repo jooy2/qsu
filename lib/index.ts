@@ -692,7 +692,13 @@ export default class Qsu {
 		return str.split(new RegExp(`${charPattern}${strPattern}+`, 'gi'));
 	}
 
-	static encrypt(str: string, secret: string, algorithm = 'aes-256-cbc', ivSize = 16): string {
+	static encrypt(
+		str: string,
+		secret: string,
+		algorithm = 'aes-256-cbc',
+		ivSize = 16,
+		toBase64 = false
+	): string {
 		if (!str || str.length < 1) {
 			return '';
 		}
@@ -703,17 +709,20 @@ export default class Qsu {
 
 		enc = Buffer.concat([enc, cipher.final()]);
 
-		return `${iv.toString('hex')}:${enc.toString('hex')}`;
+		const encoding: BufferEncoding = toBase64 ? 'base64' : 'hex';
+
+		return `${iv.toString(encoding)}:${enc.toString(encoding)}`;
 	}
 
-	static decrypt(str: string, secret: string, algorithm = 'aes-256-cbc'): string {
+	static decrypt(str: string, secret: string, algorithm = 'aes-256-cbc', toBase64 = false): string {
 		if (!str || str.length < 1) {
 			return '';
 		}
 
+		const encoding: BufferEncoding = toBase64 ? 'base64' : 'hex';
 		const arrStr: any[] = str.split(':');
-		const decipher = createDecipheriv(algorithm, secret, Buffer.from(arrStr.shift(), 'hex'));
-		let decrypted = decipher.update(Buffer.from(arrStr.join(':'), 'hex'));
+		const decipher = createDecipheriv(algorithm, secret, Buffer.from(arrStr.shift(), encoding));
+		let decrypted = decipher.update(Buffer.from(arrStr.join(':'), encoding));
 
 		decrypted = Buffer.concat([decrypted, decipher.final()]);
 
