@@ -17,10 +17,11 @@ export default {
 		sidebar: generateSidebar({
 			documentRootPath: 'src',
 			collapsed: false,
-			capitalizeFirst: true,
+			capitalizeEachWords: true,
 			hyphenToSpace: true,
 			useTitleFromFileHeading: true,
 			useTitleFromFrontmatter: true,
+			useFolderTitleFromIndexFile: true,
 			sortMenusByFrontmatterOrder: true
 		}),
 		socialLinks: [{ icon: 'github', link: repository.url.replace('.git', '') }]
