@@ -435,6 +435,26 @@ Decodes an encoded base64 string to a plain string.
 _.decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
 ```
 
+## `_.strToNumberHash`
+
+Returns the specified string as a hash value of type number. The return value can also be negative.
+
+### Parameters
+
+- `str::string`
+
+### Returns
+
+> number
+
+### Examples
+
+```javascript
+_.strToNumberHash('abc'); // Returns 96354
+_.strToNumberHash('Hello'); // Returns 69609650
+_.strToNumberHash('hello'); // Returns 99162322
+```
+
 ## `_.strUnique`
 
 Remove duplicate characters from a given string and output only one.

@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.2 (2023--)
+
+- `strToNumberHash`: Add `strToNumberHash` method
+
 ## 1.3.1 (2023-11-08)
 
 - `encrypt`, `decrypt`: Add toBase64 params for result string encoding

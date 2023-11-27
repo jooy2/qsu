@@ -21,6 +21,7 @@ import {
 	sha256,
 	encodeBase64,
 	decodeBase64,
+	strToNumberHash,
 	strUnique,
 	strToAscii,
 	objectId
@@ -207,6 +208,16 @@ st`),
 	it('decodeBase64', (done) => {
 		assert.strictEqual(decodeBase64('dGhpcyBpcyB0ZXN0'), 'this is test');
 		assert.strictEqual(decodeBase64('MTIzNDU2Nzg5MFRlc3Q='), '1234567890Test');
+		done();
+	});
+
+	it('strToNumberHash', (done) => {
+		assert.strictEqual(strToNumberHash(''), 0);
+		assert.strictEqual(strToNumberHash(' '), 32);
+		assert.strictEqual(strToNumberHash('abc'), 96354);
+		assert.strictEqual(strToNumberHash('Hello'), 69609650);
+		assert.strictEqual(strToNumberHash('hello'), 99162322);
+		assert.strictEqual(strToNumberHash('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.repeat(10000)), 285059024);
 		done();
 	});
 

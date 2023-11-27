@@ -749,6 +749,21 @@ export default class Qsu {
 		return Buffer.from(encodedStr, 'base64').toString('utf8');
 	}
 
+	static strToNumberHash(str: string): number {
+		if (!str) {
+			return 0;
+		}
+
+		let hash = 0;
+
+		for (let i = 0; i < str.length; i++) {
+			hash = (hash << 5) - hash + str.charCodeAt(i);
+			hash |= 0;
+		}
+
+		return hash;
+	}
+
 	static strToAscii(str: string): number[] {
 		const arr = [];
 		for (let i = 0; i < str.length; i += 1) {
@@ -1019,6 +1034,7 @@ export const {
 	sha256,
 	encodeBase64,
 	decodeBase64,
+	strToNumberHash,
 	strUnique,
 	strToAscii,
 	isObject,
