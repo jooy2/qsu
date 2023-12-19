@@ -3,6 +3,7 @@
 ## 1.3.2 (2023--)
 
 - `strToNumberHash`: Add `strToNumberHash` method
+- `objToQueryString`: Add `objToQueryString` method
 
 ## 1.3.1 (2023-11-08)
 

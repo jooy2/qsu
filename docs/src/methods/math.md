@@ -1,6 +1,6 @@
 ---
 title: Math
-order: 4
+order: 5
 ---
 
 # Methods: Math

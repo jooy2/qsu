@@ -9,6 +9,8 @@ declare type PositiveNumber<N extends number> = number extends N
 
 declare type NumberValueObject = { [key: string]: number };
 
+declare type AnyValueObject = { [key: string]: any };
+
 export default class Qsu {
 	/*
 	 * Misc
@@ -403,6 +405,23 @@ export default class Qsu {
 		const result = array.sort((a: any, b: any) => collator.compare(a, b));
 
 		return descending ? result.reverse() : result;
+	}
+
+	/*
+	 * Object
+	 * */
+	static objToQueryString(obj: AnyValueObject) {
+		return Object.keys(obj)
+			.map((key) => {
+				let value = obj[key];
+
+				if (typeof value === 'object') {
+					value = JSON.stringify(value);
+				}
+
+				return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+			})
+			.join('&');
 	}
 
 	/*
@@ -1013,6 +1032,7 @@ export const {
 	arrTo1dArray,
 	sortByObjectKey,
 	sortNumeric,
+	objToQueryString,
 	trim,
 	replaceBetween,
 	removeSpecialChar,

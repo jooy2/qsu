@@ -1,6 +1,6 @@
 ---
 title: String
-order: 2
+order: 3
 ---
 
 # Methods: String
