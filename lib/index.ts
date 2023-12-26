@@ -410,7 +410,7 @@ export default class Qsu {
 	/*
 	 * Object
 	 * */
-	static objToQueryString(obj: AnyValueObject) {
+	static objToQueryString(obj: AnyValueObject): string {
 		return Object.keys(obj)
 			.map((key) => {
 				let value = obj[key];
@@ -422,6 +422,10 @@ export default class Qsu {
 				return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
 			})
 			.join('&');
+	}
+
+	static objToPrettyStr(obj: AnyValueObject): string {
+		return JSON.stringify(obj, null, '\t');
 	}
 
 	/*
@@ -1033,6 +1037,7 @@ export const {
 	sortByObjectKey,
 	sortNumeric,
 	objToQueryString,
+	objToPrettyStr,
 	trim,
 	replaceBetween,
 	removeSpecialChar,

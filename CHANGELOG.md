@@ -4,6 +4,7 @@
 
 - `strToNumberHash`: Add `strToNumberHash` method
 - `objToQueryString`: Add `objToQueryString` method
+- `objToPrettyStr`: Add `objToPrettyStr` method
 
 ## 1.3.1 (2023-11-08)
 
