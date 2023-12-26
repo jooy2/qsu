@@ -4,8 +4,8 @@ import { randomBytes, createCipheriv, createDecipheriv, createHash } from 'crypt
 declare type PositiveNumber<N extends number> = number extends N
 	? N
 	: `${N}` extends `-${string}`
-	? never
-	: N;
+		? never
+		: N;
 
 declare type NumberValueObject = { [key: string]: number };
 
