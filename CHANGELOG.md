@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.3.2 (2023--)
+## 1.3.2 (2023-12-28)
 
 - `strToNumberHash`: Add `strToNumberHash` method
 - `objToQueryString`: Add `objToQueryString` method
