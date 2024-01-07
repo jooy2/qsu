@@ -1,7 +1,7 @@
 import { generateSidebar } from 'vitepress-sidebar';
 import { name, description, repository } from '../../../package.json';
 
-export default {
+export default defineConfig({
 	title: name.toUpperCase(),
 	description,
 	outDir: '../dist',
@@ -26,4 +26,4 @@ export default {
 		}),
 		socialLinks: [{ icon: 'github', link: repository.url.replace('.git', '') }]
 	}
-};
+});
