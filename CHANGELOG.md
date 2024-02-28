@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.3 (2024--)
+
+- `objFindItemRecursiveByKey`: Add `objFindItemRecursiveByKey` method
+
 ## 1.3.2 (2023-12-28)
 
 - `strToNumberHash`: Add `strToNumberHash` method

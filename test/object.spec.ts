@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { objToQueryString, objToPrettyStr } from '../dist';
+import { objToQueryString, objToPrettyStr, objFindItemRecursiveByKey } from '../dist';
 
 describe('Misc', () => {
 	it('funcTimes', (done) => {
@@ -34,6 +34,99 @@ describe('Misc', () => {
 		assert.deepStrictEqual(
 			objToPrettyStr({ a: 1, b: { c: 1, d: 2 } }),
 			'{\n\t"a": 1,\n\t"b": {\n\t\t"c": 1,\n\t\t"d": 2\n\t}\n}'
+		);
+		done();
+	});
+
+	it('objFindItemRecursiveByKey', (done) => {
+		assert.deepStrictEqual(
+			objFindItemRecursiveByKey(
+				{
+					a: 1,
+					b: 2,
+					c: 3
+				},
+				'a',
+				123,
+				'child'
+			),
+			null
+		);
+		assert.deepStrictEqual(
+			objFindItemRecursiveByKey(
+				[
+					{
+						a: 1,
+						b: 2,
+						c: 3
+					},
+					{
+						a: 2,
+						b: 3,
+						c: 4
+					},
+					{
+						a: 3,
+						b: 4,
+						c: 5
+					},
+					{
+						a: 4,
+						b: 5,
+						c: 6
+					}
+				],
+				'a',
+				3,
+				'a'
+			),
+			{
+				a: 3,
+				b: 4,
+				c: 5
+			}
+		);
+		assert.deepStrictEqual(
+			objFindItemRecursiveByKey(
+				{
+					a: {
+						a: {
+							a: 123
+						}
+					},
+					b: {
+						a: {}
+					},
+					c: 3
+				},
+				'a',
+				123,
+				'a'
+			),
+			{
+				a: 123
+			}
+		);
+		assert.deepStrictEqual(
+			objFindItemRecursiveByKey(
+				{
+					id: 123,
+					child: [
+						{
+							id: 456
+						},
+						{
+							id: 789
+						}
+					]
+				},
+				'id',
+				456,
+				'child'
+			),
+			{
+				id: 456
+			}
 		);
 		done();
 	});
