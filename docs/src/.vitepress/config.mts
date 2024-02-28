@@ -1,3 +1,4 @@
+import { defineConfig } from 'vitepress';
 import { generateSidebar } from 'vitepress-sidebar';
 import { name, description, repository } from '../../../package.json';
 
