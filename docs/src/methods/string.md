@@ -490,3 +490,21 @@ Converts the given string to ascii code and returns it as an array.
 ```javascript
 _.strToAscii('12345'); // Returns [49, 50, 51, 52, 53]
 ```
+
+## `_.urlJoin`
+
+Merges the given string argument with the first argument (the beginning of the URL), joining it so that the slash (`/`) symbol is correctly included.
+
+### Parameters
+
+- `args::string[]`
+
+### Returns
+
+> string
+
+### Examples
+
+```javascript
+_.urlJoin('https://example.com', 'hello', 'world'); // Returns 'https://example.com/hello/world'
+```

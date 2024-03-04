@@ -24,7 +24,8 @@ import {
 	strToNumberHash,
 	strUnique,
 	strToAscii,
-	objectId
+	objectId,
+	urlJoin
 } from '../dist';
 
 describe('String', () => {
@@ -238,6 +239,23 @@ st`),
 
 	it('objectId', (done) => {
 		assert.strictEqual(objectId().length, 24);
+		done();
+	});
+
+	it('urlJoin', (done) => {
+		assert.strictEqual(
+			urlJoin('https://example.com', 'hello', 'world'),
+			'https://example.com/hello/world'
+		);
+		assert.strictEqual(
+			urlJoin('https://example.com', '/hello', '/world', 'bye'),
+			'https://example.com/hello/world/bye'
+		);
+		assert.strictEqual(
+			urlJoin('example.com', '/hello', '/world', 'bye'),
+			'example.com/hello/world/bye'
+		);
+		assert.strictEqual(urlJoin('hello', '/world', 'bye'), 'hello/world/bye');
 		done();
 	});
 });
