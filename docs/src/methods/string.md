@@ -497,7 +497,7 @@ Merges the given string argument with the first argument (the beginning of the U
 
 ### Parameters
 
-- `args::string[]`
+- `args::any[]`
 
 ### Returns
 

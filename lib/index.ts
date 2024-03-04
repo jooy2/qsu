@@ -836,7 +836,7 @@ export default class Qsu {
 		return [...new Set(str)].join('');
 	}
 
-	static urlJoin(...args: string[]): string {
+	static urlJoin(...args: any[]): string {
 		if (!args) {
 			return '';
 		}
@@ -845,19 +845,21 @@ export default class Qsu {
 		let urlResult = '';
 
 		for (let i = 0; i < argLength; i += 1) {
-			if (
-				i === 0 ||
-				args[i].startsWith('/') ||
-				args[i].startsWith('?') ||
-				args[i].startsWith('&')
-			) {
-				urlResult += args[i];
-			} else {
-				urlResult += `/${args[i]}`;
+			if (args[i] !== null && args[i] !== undefined) {
+				if (
+					i === 0 ||
+					args[i].startsWith('/') ||
+					args[i].startsWith('?') ||
+					args[i].startsWith('&')
+				) {
+					urlResult += args[i];
+				} else {
+					urlResult += `/${args[i]}`;
+				}
 			}
 		}
 
-		return urlResult;
+		return urlResult.replace(/\/$/g, '');
 	}
 
 	/*
