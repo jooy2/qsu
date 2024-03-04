@@ -843,11 +843,12 @@ export default class Qsu {
 
 		const argLength = args.length;
 		let urlResult = '';
+		let joinCount = 0;
 
 		for (let i = 0; i < argLength; i += 1) {
 			if (args[i] !== null && args[i] !== undefined) {
 				if (
-					i === 0 ||
+					joinCount === 0 ||
 					args[i].startsWith('/') ||
 					args[i].startsWith('?') ||
 					args[i].startsWith('&')
@@ -856,6 +857,8 @@ export default class Qsu {
 				} else {
 					urlResult += `/${args[i]}`;
 				}
+
+				joinCount += 1;
 			}
 		}
 

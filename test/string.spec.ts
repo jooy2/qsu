@@ -245,6 +245,7 @@ st`),
 	it('urlJoin', (done) => {
 		assert.strictEqual(urlJoin('https://example.com'), 'https://example.com');
 		assert.strictEqual(urlJoin('https://example.com', null, 'world/'), 'https://example.com/world');
+		assert.strictEqual(urlJoin(null, 'https://example.com', 'world/'), 'https://example.com/world');
 		assert.strictEqual(
 			urlJoin('https://example.com', 'hello', 'world'),
 			'https://example.com/hello/world'
