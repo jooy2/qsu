@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.3.3 (2024--)
+## 1.3.3 (2024-03-05)
 
 - `objFindItemRecursiveByKey`: Add `objFindItemRecursiveByKey` method
 - `urlJoin`: Add `urlJoin` method
