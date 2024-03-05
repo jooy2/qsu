@@ -4,6 +4,7 @@
 
 - `objFindItemRecursiveByKey`: Add `objFindItemRecursiveByKey` method
 - `urlJoin`: Add `urlJoin` method
+- `objToArray`: Add `objToArray` method
 
 ## 1.3.2 (2023-12-28)
 

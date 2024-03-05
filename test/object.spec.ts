@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { objToQueryString, objToPrettyStr, objFindItemRecursiveByKey } from '../dist';
+import { objToQueryString, objToPrettyStr, objFindItemRecursiveByKey, objToArray } from '../dist';
 
 describe('Misc', () => {
 	it('funcTimes', (done) => {
@@ -127,6 +127,65 @@ describe('Misc', () => {
 			{
 				id: 456
 			}
+		);
+		done();
+	});
+
+	it('objToArray', (done) => {
+		assert.deepStrictEqual(objToArray({}), []);
+		assert.deepStrictEqual(
+			objToArray({
+				a: 1,
+				b: 2,
+				c: 3
+			}),
+			[
+				['a', 1],
+				['b', 2],
+				['c', 3]
+			]
+		);
+		assert.deepStrictEqual(
+			objToArray(
+				{
+					a: 1,
+					b: {
+						aa: 1,
+						bb: 2,
+						cc: {
+							aaa: 1
+						}
+					},
+					c: 3
+				},
+				true
+			),
+			[
+				['a', 1],
+				[
+					'b',
+					[
+						['aa', 1],
+						['bb', 2],
+						['cc', [['aaa', 1]]]
+					]
+				],
+				['c', 3]
+			]
+		);
+		assert.deepStrictEqual(
+			objToArray({
+				a: 1.234,
+				b: 'str',
+				c: [1, 2, 3],
+				d: { a: 1 }
+			}),
+			[
+				['a', 1.234],
+				['b', 'str'],
+				['c', [1, 2, 3]],
+				['d', { a: 1 }]
+			]
 		);
 		done();
 	});

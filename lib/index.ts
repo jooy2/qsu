@@ -461,6 +461,27 @@ export default class Qsu {
 		return JSON.stringify(obj, null, '\t');
 	}
 
+	static objToArray(obj: AnyValueObject, recursive = false): any[] {
+		const convertToArray = (o: AnyValueObject): any[] => {
+			const r = [];
+			const oLen = Object.keys(o).length;
+
+			for (let i = 0; i < oLen; i += 1) {
+				const key = Object.keys(o)[i];
+
+				if (recursive && typeof o[key] === 'object') {
+					r.push([key, convertToArray(o[key])]);
+				} else {
+					r.push([key, o[key]]);
+				}
+			}
+
+			return r;
+		};
+
+		return convertToArray(obj);
+	}
+
 	/*
 	 * String
 	 * */
@@ -1101,6 +1122,7 @@ export const {
 	objToQueryString,
 	objToPrettyStr,
 	objFindItemRecursiveByKey,
+	objToArray,
 	trim,
 	replaceBetween,
 	removeSpecialChar,
