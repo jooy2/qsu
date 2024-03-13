@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.4 (2024--)
+
+- `objDeleteKeyByValue`: Add `objDeleteKeyByValue` method
+
 ## 1.3.3 (2024-03-05)
 
 - `objFindItemRecursiveByKey`: Add `objFindItemRecursiveByKey` method

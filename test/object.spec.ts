@@ -1,5 +1,11 @@
 import assert from 'assert';
-import { objToQueryString, objToPrettyStr, objFindItemRecursiveByKey, objToArray } from '../dist';
+import {
+	objToQueryString,
+	objToPrettyStr,
+	objFindItemRecursiveByKey,
+	objToArray,
+	objDeleteKeyByValue
+} from '../dist';
 
 describe('Misc', () => {
 	it('funcTimes', (done) => {
@@ -187,6 +193,132 @@ describe('Misc', () => {
 				['d', { a: 1 }]
 			]
 		);
+		done();
+	});
+
+	it('objDeleteKeyByValue', (done) => {
+		assert.deepStrictEqual(objDeleteKeyByValue({}, 1), {});
+		assert.deepStrictEqual(
+			objDeleteKeyByValue(
+				{
+					a: 1,
+					b: 2,
+					c: 2,
+					d: 3,
+					e: 2,
+					f: '2'
+				},
+				2
+			),
+			{
+				a: 1,
+				d: 3,
+				f: '2'
+			}
+		);
+		assert.deepStrictEqual(
+			objDeleteKeyByValue(
+				{
+					a: 1,
+					b: 2,
+					c: {
+						aa: 2,
+						bb: {
+							aaa: 1,
+							bbb: 2,
+							ccc: 2
+						}
+					},
+					d: 3,
+					e: {
+						aa: 2
+					}
+				},
+				2,
+				true
+			),
+			{
+				a: 1,
+				c: {
+					bb: {
+						aaa: 1
+					}
+				},
+				d: 3,
+				e: {}
+			}
+		);
+		assert.deepStrictEqual(
+			objDeleteKeyByValue(
+				{
+					a: 1,
+					b: 2,
+					c: {
+						aa: 2,
+						bb: {
+							aaa: 1,
+							bbb: 2,
+							ccc: 2
+						}
+					},
+					d: 2,
+					e: {
+						aa: 2
+					}
+				},
+				2
+			),
+			{
+				a: 1,
+				c: {
+					aa: 2,
+					bb: {
+						aaa: 1,
+						bbb: 2,
+						ccc: 2
+					}
+				},
+				e: {
+					aa: 2
+				}
+			}
+		);
+
+		done();
+	});
+
+
+		assert.deepStrictEqual(obj1, {});
+		assert.deepStrictEqual(obj2, {
+			a: 1,
+			d: 3,
+			f: '2'
+		});
+		assert.deepStrictEqual(obj3, {
+			a: 1,
+			c: {
+				bb: {
+					aaa: 1
+				}
+			},
+			d: 3,
+			e: {}
+		});
+		assert.deepStrictEqual(obj4, {
+			a: 1,
+			c: {
+				aa: 2,
+				bb: {
+					aaa: 1,
+					bbb: 2,
+					ccc: 2
+				}
+			},
+			e: {
+				aa: 2
+			}
+		});
+
 		done();
 	});
 });

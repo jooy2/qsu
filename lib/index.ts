@@ -482,6 +482,45 @@ export default class Qsu {
 		return convertToArray(obj);
 	}
 
+	static objDeleteKeyByValue(
+		obj: AnyValueObject,
+		searchValue: string | number | null | undefined,
+		recursive = false
+	): AnyValueObject | null {
+		if (!obj || typeof obj !== 'object') {
+			return null;
+		}
+
+		const newObj = Object.assign(obj, {});
+
+		for (let i = Object.keys(newObj).length; i >= 0; i -= 1) {
+			const key = Object.keys(newObj)[i];
+
+			if (recursive && newObj[key] && typeof newObj[key] === 'object') {
+				Qsu.objDeleteKeyByValue(newObj[key], searchValue, recursive);
+			} else if (newObj[key] === searchValue) {
+				delete newObj[key];
+			}
+		}
+
+		return newObj;
+	}
+		if (!obj || typeof obj !== 'object') {
+			return;
+		}
+
+		for (let i = Object.keys(obj).length; i >= 0; i -= 1) {
+			const key = Object.keys(obj)[i];
+
+			if (recursive && obj[key] && typeof obj[key] === 'object') {
+				Qsu.objDeleteKeyByValue(obj[key], searchValue, recursive);
+			} else if (obj[key] === searchValue) {
+				// eslint-disable-next-line no-param-reassign
+				delete obj[key];
+			}
+		}
+	}
+
 	/*
 	 * String
 	 * */
@@ -1123,6 +1162,7 @@ export const {
 	objToPrettyStr,
 	objFindItemRecursiveByKey,
 	objToArray,
+	objDeleteKeyByValue,
 	trim,
 	replaceBetween,
 	removeSpecialChar,
