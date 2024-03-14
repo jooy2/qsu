@@ -505,20 +505,44 @@ export default class Qsu {
 
 		return newObj;
 	}
+
+	static objUpdate(
+		obj: AnyValueObject,
+		key: string,
+		value: any,
+		recursive = false,
+		upsert = false
+	): AnyValueObject | null {
 		if (!obj || typeof obj !== 'object') {
-			return;
+			return null;
 		}
 
-		for (let i = Object.keys(obj).length; i >= 0; i -= 1) {
-			const key = Object.keys(obj)[i];
+		const newObj = Object.assign(obj, {});
+		let hasUpdated = false;
 
-			if (recursive && obj[key] && typeof obj[key] === 'object') {
-				Qsu.objDeleteKeyByValue(obj[key], searchValue, recursive);
-			} else if (obj[key] === searchValue) {
-				// eslint-disable-next-line no-param-reassign
-				delete obj[key];
+		const checkObjectKey = (currentObj: AnyValueObject): void => {
+			for (let i = 0; i < Object.keys(currentObj).length; i += 1) {
+				const currentKey = Object.keys(currentObj)[i];
+
+				if (recursive && currentObj[currentKey] && typeof currentObj[currentKey] === 'object') {
+					checkObjectKey(currentObj[currentKey]);
+				}
+
+				if (Object.hasOwn(currentObj, key)) {
+					// eslint-disable-next-line no-param-reassign
+					currentObj[key] = value;
+					hasUpdated = true;
+				}
 			}
+		};
+
+		checkObjectKey(newObj);
+
+		if (!hasUpdated && upsert) {
+			newObj[key] = value;
 		}
+
+		return newObj;
 	}
 
 	/*
@@ -1163,6 +1187,7 @@ export const {
 	objFindItemRecursiveByKey,
 	objToArray,
 	objDeleteKeyByValue,
+	objUpdate,
 	trim,
 	replaceBetween,
 	removeSpecialChar,

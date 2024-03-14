@@ -4,7 +4,8 @@ import {
 	objToPrettyStr,
 	objFindItemRecursiveByKey,
 	objToArray,
-	objDeleteKeyByValue
+	objDeleteKeyByValue,
+	objUpdate
 } from '../dist';
 
 describe('Misc', () => {
@@ -287,36 +288,29 @@ describe('Misc', () => {
 		done();
 	});
 
-
-		assert.deepStrictEqual(obj1, {});
-		assert.deepStrictEqual(obj2, {
+	it('objUpdate', (done) => {
+		assert.deepStrictEqual(objUpdate({}, 'a', 'test'), {});
+		assert.deepStrictEqual(objUpdate({}, 'a', 'test', false, true), { a: 'test' });
+		assert.deepStrictEqual(objUpdate({ a: 1, b: 2, c: 3 }, 'c', 5), { a: 1, b: 2, c: 5 });
+		assert.deepStrictEqual(
+			objUpdate(
+				{ a: { a: 1, b: 1, c: 1 }, b: 2, c: 3, d: { a: { a: 0, b: 0, c: 1 }, b: 4, c: 6 } },
+				'c',
+				0,
+				true,
+				true
+			),
+			{ a: { a: 1, b: 1, c: 0 }, b: 2, c: 0, d: { a: { a: 0, b: 0, c: 0 }, b: 4, c: 0 } }
+		);
+		assert.deepStrictEqual(
+			objUpdate({ a: 1, b: { aa: 1, bb: { aaa: 1, bbb: 2 } }, c: 1 }, 'bbb', 3, true),
+			{ a: 1, b: { aa: 1, bb: { aaa: 1, bbb: 3 } }, c: 1 }
+		);
+		assert.deepStrictEqual(objUpdate({ a: 1, b: { a: 1, b: 2 }, c: 3 }, 'd', '1', true, true), {
 			a: 1,
-			d: 3,
-			f: '2'
-		});
-		assert.deepStrictEqual(obj3, {
-			a: 1,
-			c: {
-				bb: {
-					aaa: 1
-				}
-			},
-			d: 3,
-			e: {}
-		});
-		assert.deepStrictEqual(obj4, {
-			a: 1,
-			c: {
-				aa: 2,
-				bb: {
-					aaa: 1,
-					bbb: 2,
-					ccc: 2
-				}
-			},
-			e: {
-				aa: 2
-			}
+			b: { a: 1, b: 2 },
+			c: 3,
+			d: '1'
 		});
 
 		done();
