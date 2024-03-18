@@ -10,7 +10,8 @@ import {
 	arrRepeat,
 	arrCount,
 	sortByObjectKey,
-	sortNumeric
+	sortNumeric,
+	arrGroupByMaxCount
 } from '../dist';
 import { funcTimes } from '../lib';
 
@@ -266,6 +267,18 @@ describe('Array', () => {
 			'11',
 			'15',
 			'100'
+		]);
+		done();
+	});
+
+	it('arrGroupByMaxCount', (done) => {
+		assert.deepStrictEqual(arrGroupByMaxCount([1, 2, 3], 1), [[1], [2], [3]]);
+		assert.deepStrictEqual(arrGroupByMaxCount([1, 2, [], 4, [[]]], 2), [[1, 2], [[], 4], [[[]]]]);
+		assert.deepStrictEqual(arrGroupByMaxCount([1, 2, 3, 4], 5), [[1, 2, 3, 4]]);
+		assert.deepStrictEqual(arrGroupByMaxCount([1, 1, 1, 1, 1, 1], 2), [
+			[1, 1],
+			[1, 1],
+			[1, 1]
 		]);
 		done();
 	});

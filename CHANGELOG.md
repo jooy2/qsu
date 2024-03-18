@@ -4,6 +4,7 @@
 
 - `objDeleteKeyByValue`: Add `objDeleteKeyByValue` method
 - `objUpdate`: Add `objUpdate` method
+- `arrGroupByMaxCount`: Add `arrGroupByMaxCount` method
 
 ## 1.3.3 (2024-03-05)
 
