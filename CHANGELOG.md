@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.3.4 (2024--)
+## 1.3.4 (2024-03-19)
 
 - `objDeleteKeyByValue`: Add `objDeleteKeyByValue` method
 - `objUpdate`: Add `objUpdate` method
