@@ -6,6 +6,7 @@ on:
     branches: [master]
     paths:
       - docs/**
+      - .github/workflows/documents.yml
       - README.md
   # trigger deployment manually
   workflow_dispatch:
@@ -28,15 +29,9 @@ jobs:
         with:
           node-version: '20'
 
-      # copy and replace string index.md file
-      - name: Copy and replace string index.md file
-        run: cp ../README.md ./src/index.md
-      - name: Copy image asset (logo)
-        run: cp ../logo.webp ./src/public
-
       # cache node_modules
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: npm-cache
         with:
           path: |
@@ -44,6 +39,14 @@ jobs:
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-
+
+      # copy and replace string index.md file
+      - name: Copy and replace string index.md file
+        run: cp ../README.md ./src/index.md
+      - name: Copy image asset (logo)
+        run: cp ../logo.webp ./src/public
+      - name: Copy CHANGELOG.md file
+        run: cp CHANGELOG.md ./src/changelog.md
 
       # install dependencies if the cache did not hit
       - name: Install dependencies

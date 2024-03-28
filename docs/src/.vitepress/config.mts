@@ -15,6 +15,16 @@ export default defineConfig({
 		search: {
 			provider: 'local'
 		},
+		nav: [
+			{
+				text: 'Installation',
+				link: 'getting-started/installation'
+			},
+			{
+				text: 'Changelog',
+				link: 'changelog'
+			}
+		],
 		sidebar: generateSidebar({
 			documentRootPath: 'src',
 			collapsed: false,

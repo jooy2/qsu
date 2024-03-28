@@ -11,6 +11,7 @@ on:
       - '!CHANGELOG.md'
       - '!docs/**'
       - '!.github/**'
+      - '!.vscode/**'
   # trigger deployment manually
   workflow_dispatch:
 
@@ -40,7 +41,7 @@ jobs:
 
       # cache node_modules
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: npm-cache
         with:
           path: |
