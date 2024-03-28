@@ -46,7 +46,7 @@ jobs:
       - name: Copy image asset (logo)
         run: cp ../logo.webp ./src/public
       - name: Copy CHANGELOG.md file
-        run: cp CHANGELOG.md ./src/changelog.md
+        run: cp ../CHANGELOG.md ./src/changelog.md
 
       # install dependencies if the cache did not hit
       - name: Install dependencies
