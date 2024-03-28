@@ -217,3 +217,27 @@ Checks if the given argument value is a valid email.
 ```javascript
 _.isEmail('abc@def.com'); // Returns true
 ```
+
+## `_.isTrueMinimumNumberOfTimes`
+
+Returns `true` if the values given in the `conditions` array are true at least `minimumCount` times.
+
+### Parameters
+
+- `conditions::boolean[]`
+- `minimumCount::number`
+
+### Returns
+
+> boolean
+
+### Examples
+
+```javascript
+const left = 1;
+const right = 1 + 2;
+
+_.isTrueMinimumNumberOfTimes([true, true, false], 2); // Returns true
+_.isTrueMinimumNumberOfTimes([true, true, false], 3); // Returns false
+_.isTrueMinimumNumberOfTimes([true, true, left === right], 3); // Returns false
+```

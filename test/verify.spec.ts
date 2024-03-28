@@ -9,7 +9,8 @@ import {
 	is2dArray,
 	between,
 	len,
-	isEmail
+	isEmail,
+	isTrueMinimumNumberOfTimes
 } from '../dist';
 
 describe('Verify', () => {
@@ -126,6 +127,26 @@ describe('Verify', () => {
 		assert.strictEqual(isEmail('11.com'), false);
 		assert.strictEqual(isEmail('sub.domain.com'), false);
 		assert.strictEqual(isEmail('1@1@a.com'), false);
+		done();
+	});
+
+	it('isTrueMinimumNumberOfTimes', (done) => {
+		const left = 2;
+		const right1 = 1 + 1;
+		const right2 = 2 + 1;
+
+		assert.strictEqual(isTrueMinimumNumberOfTimes([true, false, false]), true);
+		assert.strictEqual(isTrueMinimumNumberOfTimes([true, true], 1), true);
+		assert.strictEqual(isTrueMinimumNumberOfTimes([true, false, true], 2), true);
+		assert.strictEqual(isTrueMinimumNumberOfTimes([true, false, true], 1), true);
+		assert.strictEqual(
+			isTrueMinimumNumberOfTimes([left === right1, false, true, true, false], 3),
+			true
+		);
+		assert.strictEqual(
+			isTrueMinimumNumberOfTimes([left === right2, false, true, true, false], 3),
+			false
+		);
 		done();
 	});
 });
