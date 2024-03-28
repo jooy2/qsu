@@ -1,17 +1,32 @@
 import { defineConfig } from 'vitepress';
 import { generateSidebar } from 'vitepress-sidebar';
-import { name, description, repository } from '../../../package.json';
+import { name, homepage, description, repository } from '../../../package.json';
 
 export default defineConfig({
 	title: name.toUpperCase(),
 	description,
 	outDir: '../dist',
+	cleanUrls: true,
 	head: [
-		['link', { rel: 'icon', href: '/logo.png' }],
+		['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/logo-32.png' }],
+		['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/logo-16.png' }],
 		['link', { rel: 'shortcut icon', href: '/favicon.ico' }]
 	],
-	cleanUrls: true,
+	sitemap: {
+		hostname: homepage
+	},
 	themeConfig: {
+		logo: { src: '/logo-32.png', width: 24, height: 24 },
+		sidebar: generateSidebar({
+			documentRootPath: 'src',
+			collapsed: false,
+			capitalizeEachWords: true,
+			hyphenToSpace: true,
+			useTitleFromFileHeading: true,
+			useTitleFromFrontmatter: true,
+			useFolderTitleFromIndexFile: true,
+			sortMenusByFrontmatterOrder: true
+		}),
 		search: {
 			provider: 'local'
 		},
@@ -25,16 +40,13 @@ export default defineConfig({
 				link: 'changelog'
 			}
 		],
-		sidebar: generateSidebar({
-			documentRootPath: 'src',
-			collapsed: false,
-			capitalizeEachWords: true,
-			hyphenToSpace: true,
-			useTitleFromFileHeading: true,
-			useTitleFromFrontmatter: true,
-			useFolderTitleFromIndexFile: true,
-			sortMenusByFrontmatterOrder: true
-		}),
-		socialLinks: [{ icon: 'github', link: repository.url.replace('.git', '') }]
+		socialLinks: [
+			{ icon: 'npm', link: 'https://www.npmjs.com/package/qsu' },
+			{ icon: 'github', link: repository.url.replace('.git', '') }
+		],
+		footer: {
+			message: 'Released under the MIT License',
+			copyright: '© <a href="https://jooy2.com">Jooy2</a>'
+		}
 	}
 });
