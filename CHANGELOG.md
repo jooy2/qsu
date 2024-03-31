@@ -1,8 +1,8 @@
 # Change Log
 
-## 1.3.5 (2024--)
+## 1.3.5 (2024-03-31)
 
-- `isTrueMinimumNumberOfTimes`: Add `isTrueMinimumNumberOfTimes` method
+- `numberFormat`: allow string type parameter
 
 ## 1.3.4 (2024-03-19)
 

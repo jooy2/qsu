@@ -1114,8 +1114,8 @@ export default class Qsu {
 	/*
 	 * Format
 	 * */
-	static numberFormat(number: number): string {
-		return new Intl.NumberFormat().format(number);
+	static numberFormat(number: number | string): string {
+		return new Intl.NumberFormat().format(number as number);
 	}
 
 	static fileName(filePath: string, withExtension = false): string {
