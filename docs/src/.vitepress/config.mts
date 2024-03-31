@@ -25,7 +25,8 @@ export default defineConfig({
 			useTitleFromFileHeading: true,
 			useTitleFromFrontmatter: true,
 			useFolderTitleFromIndexFile: true,
-			sortMenusByFrontmatterOrder: true
+			sortMenusByFrontmatterOrder: true,
+			excludeFiles: ['changelog.md']
 		}),
 		search: {
 			provider: 'local'
