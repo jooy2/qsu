@@ -3,6 +3,7 @@
 ## 1.3.5 (2024-03-31)
 
 - `numberFormat`: allow string type parameter
+- `isTrueMinimumNumberOfTimes`: Add `isTrueMinimumNumberOfTimes` method
 
 ## 1.3.4 (2024-03-19)
 
