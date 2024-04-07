@@ -30,6 +30,8 @@ import {
 
 describe('String', () => {
 	it('trim', (done) => {
+		assert.strictEqual(trim(null), null);
+		assert.strictEqual(trim(''), '');
 		assert.strictEqual(trim(' hello world '), 'hello world');
 		assert.strictEqual(trim(' h e l l o  wo     rld  '), 'h e l l o wo rld');
 		assert.strictEqual(trim(' H ello World'), 'H ello World');
