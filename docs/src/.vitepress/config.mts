@@ -25,7 +25,8 @@ export default defineConfig({
 			useTitleFromFileHeading: true,
 			useTitleFromFrontmatter: true,
 			sortMenusByFrontmatterOrder: true,
-			excludeFiles: ['changelog.md']
+			excludeFiles: ['changelog.md'],
+			manualSortFileNameByPriority: ['getting-started', 'api']
 		}),
 		search: {
 			provider: 'local'
