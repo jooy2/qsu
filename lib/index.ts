@@ -50,27 +50,6 @@ export default class Qsu {
 		};
 	}
 
-	static getPlatform(): string {
-		switch (process.platform) {
-			case 'win32':
-				return 'Windows';
-			case 'darwin':
-				return 'macOS';
-			case 'linux':
-			case 'aix':
-			case 'sunos':
-			case 'netbsd':
-			case 'openbsd':
-			case 'freebsd':
-			case 'cygwin':
-				return 'Linux';
-			case 'android':
-				return 'Android';
-			default:
-				return 'Unknown';
-		}
-	}
-
 	static objectId(): string {
 		return (
 			Math.floor(Date.now() / 1000).toString(16) +
@@ -1193,7 +1172,6 @@ export const {
 	sleep,
 	funcTimes,
 	debounce,
-	getPlatform,
 	objectId,
 	numRandom,
 	sum,

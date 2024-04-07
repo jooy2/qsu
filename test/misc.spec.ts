@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { setTimeout } from 'timers/promises';
-import { sleep, funcTimes, getPlatform, contains, debounce, arrWithDefault } from '../dist';
+import { sleep, funcTimes, debounce, arrWithDefault } from '../dist';
 
 describe('Misc', () => {
 	it('sleep', (done) => {
@@ -51,10 +51,5 @@ describe('Misc', () => {
 				done();
 			});
 		});
-	});
-
-	it('getPlatform', (done) => {
-		assert(contains(getPlatform(), ['Windows', 'macOS', 'Linux']));
-		done();
 	});
 });

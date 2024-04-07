@@ -90,21 +90,3 @@ No return values
 	}
 </script>
 ```
-
-## `_.getPlatform`
-
-Returns the operating system of the currently running process as a human-friendly string.
-
-### Parameters
-
-No parameters required
-
-### Returns
-
-> string
-
-### Examples
-
-```javascript
-_.getPlatform(); // Returns 'Windows'
-```

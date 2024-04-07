@@ -2,7 +2,8 @@
 
 ## 1.3.6 (2024-04-07)
 
-- **BREAKING CHANGES**: The `trim`, Now there is no second argument, and the default behavior is to remove leading and trailing spaces, and change spaces in more than two letters to spaces in the sentence.
+- **BREAKING CHANGES**: The `trim`, Now there is no second argument, and the default behavior is to remove leading and trailing spaces, and change spaces in more than two letters to spaces in the sentence
+- **BREAKING CHANGES**: The `getPlatform` method has been deleted
 
 ## 1.3.5 (2024-03-31)
 
@@ -31,7 +32,7 @@
 
 - `encrypt`, `decrypt`: Add toBase64 params for result string encoding
 - `createDateListFromRange`: Use regex instead of string check
-- `getPlatform`: Android is not linux os
+- `getPlatform`: Android is not linux os (This method has now been removed in version 1.3.6)
 
 ## 1.3.0 (2023-09-27)
 
@@ -94,7 +95,7 @@
 ## 1.1.3 (2022-10-23)
 
 - `funcTimes`: Add `funcTimes` method
-- `getPlatform`: Add `getPlatform` method
+- `getPlatform`: Add `getPlatform` method (This method has now been removed in version 1.3.6)
 - `sum`, `mul`, `split`: Fix type error
 - `arrUnique`, `capitalizeEachWords`, `strBlindRandom`: Fix correct use static method
 - Support named import
