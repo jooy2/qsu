@@ -569,8 +569,8 @@ export default class Qsu {
 	/*
 	 * String
 	 * */
-	static trim(str: string, removeAllSpace = false): string {
-		return str.trim().replace(removeAllSpace ? /\s+/g : /\s{2,}/g, '');
+	static trim(str: string): string {
+		return str.trim().replace(/\s{2,}/g, ' ');
 	}
 
 	static removeSpecialChar(str: string, exceptionCharacters?: string): string {

@@ -7,12 +7,11 @@ order: 3
 
 ## `_.trim`
 
-Removes leading and trailing spaces, and returns a value converted from two or more spaces between strings to one space. If the removeAllSpace value is true, all spaces including one space are removed.
+Removes all whitespace before and after a string. Unlike JavaScript's `trim` function, it converts two or more spaces between sentences into a single space.
 
 ### Parameters
 
 - `str::string`
-- `removeAllSpace::boolean`
 
 ### Returns
 
@@ -21,8 +20,8 @@ Removes leading and trailing spaces, and returns a value converted from two or m
 ### Examples
 
 ```javascript
-_.trim(' Hello Wor  ld '); // Returns 'Hello World'
-_.trim('H e l l o     World', true); // Returns 'HelloWorld'
+_.trim(' Hello Wor  ld  '); // Returns 'Hello Wor ld'
+_.trim('H e l l o     World'); // Returns 'H e l l o World'
 ```
 
 ## `_.removeSpecialChar`

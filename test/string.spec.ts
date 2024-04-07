@@ -31,8 +31,9 @@ import {
 describe('String', () => {
 	it('trim', (done) => {
 		assert.strictEqual(trim(' hello world '), 'hello world');
-		assert.strictEqual(trim(' h e l l o wo     rld  ', true), 'helloworld');
-		assert.strictEqual(trim(' H   e   l  l  o World'), 'Hello World');
+		assert.strictEqual(trim(' h e l l o  wo     rld  '), 'h e l l o wo rld');
+		assert.strictEqual(trim(' H ello World'), 'H ello World');
+		assert.strictEqual(trim('  Hell    o    World'), 'Hell o World');
 		done();
 	});
 

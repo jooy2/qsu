@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.6 (2024-04-07)
+
+- **BREAKING CHANGES**: The `trim`, Now there is no second argument, and the default behavior is to remove leading and trailing spaces, and change spaces in more than two letters to spaces in the sentence.
+
 ## 1.3.5 (2024-03-31)
 
 - `numberFormat`: allow string type parameter
