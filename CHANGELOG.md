@@ -2,7 +2,7 @@
 
 ## 1.3.7 (2024-04-07)
 
-- `trim`: handle error when value is null
+- `trim`: handle error when value is `null`
 
 ## 1.3.6 (2024-04-07)
 
