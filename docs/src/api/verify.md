@@ -3,7 +3,7 @@ title: Verify
 order: 7
 ---
 
-# Methods: Verify
+# API: Verify
 
 ## `_.isObject`
 

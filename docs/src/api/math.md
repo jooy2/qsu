@@ -3,7 +3,7 @@ title: Math
 order: 5
 ---
 
-# Methods: Math
+# API: Math
 
 ## `_.numRandom`
 

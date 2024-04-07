@@ -3,7 +3,7 @@ title: Misc
 order: 8
 ---
 
-# Methods: Misc
+# API: Misc
 
 ## `_.sleep`
 

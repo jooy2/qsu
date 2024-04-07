@@ -7,7 +7,8 @@ on:
     paths:
       - docs/**
       - .github/workflows/documents.yml
-      - README.md
+      - package.json
+      - CHANGELOG.md
   # trigger deployment manually
   workflow_dispatch:
 
@@ -41,10 +42,6 @@ jobs:
             ${{ runner.os }}-npm-
 
       # copy and replace string index.md file
-      - name: Copy and replace string index.md file
-        run: cp ../README.md ./src/index.md
-      - name: Copy image asset (logo)
-        run: cp ../logo.webp ./src/public
       - name: Copy CHANGELOG.md file
         run: cp ../CHANGELOG.md ./src/changelog.md
 
@@ -52,13 +49,6 @@ jobs:
       - name: Install dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm install
-
-      - name: Find and Replace (logo)
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "logo.webp"
-          replace: "public/logo.webp"
-          regex: false
 
       # run build script
       - name: Build VitePress site

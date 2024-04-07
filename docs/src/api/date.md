@@ -3,7 +3,7 @@ title: Date
 order: 4
 ---
 
-# Methods: Date
+# API: Date
 
 ## `_.dayDiff`
 

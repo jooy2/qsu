@@ -3,7 +3,7 @@ title: Array
 order: 1
 ---
 
-# Methods: Array
+# API: Array
 
 ## `_.arrShuffle`
 

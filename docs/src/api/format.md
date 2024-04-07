@@ -3,7 +3,7 @@ title: Format
 order: 6
 ---
 
-# Methods: Format
+# API: Format
 
 ## `_.numberFormat`
 

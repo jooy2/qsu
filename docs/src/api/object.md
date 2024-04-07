@@ -3,7 +3,7 @@ title: Object
 order: 2
 ---
 
-# Methods: Object
+# API: Object
 
 ## `_.objToQueryString`
 

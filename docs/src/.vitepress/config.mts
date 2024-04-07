@@ -24,7 +24,6 @@ export default defineConfig({
 			hyphenToSpace: true,
 			useTitleFromFileHeading: true,
 			useTitleFromFrontmatter: true,
-			useFolderTitleFromIndexFile: true,
 			sortMenusByFrontmatterOrder: true,
 			excludeFiles: ['changelog.md']
 		}),

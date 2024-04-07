@@ -3,7 +3,7 @@ title: String
 order: 3
 ---
 
-# Methods: String
+# API: String
 
 ## `_.trim`
 

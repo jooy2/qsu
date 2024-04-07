@@ -1,0 +1,35 @@
+---
+layout: home
+
+title: QSU
+titleTemplate: QSU is a lightweight and simple module with a variety of built-in utility functions that you can utilize in your NodeJS projects.
+
+hero:
+  name: QSU
+  text: Quick and Simple Utility for JavaScript
+  tagline: QSU is a lightweight and simple module with a variety of built-in utility functions that you can utilize in your NodeJS projects.
+  actions:
+    - theme: brand
+      text: Getting Started
+      link: getting-started/installation
+    - theme: alt
+      text: API
+      link: api/
+    - theme: alt
+      text: GitHub
+      link: https://github.com/jooy2/qsu
+  image:
+    src: /icon.png
+    alt: Utility
+
+features:
+  - icon: <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="96px" height="96px"><path fill="#35c1f1" d="M28.967,8.099c-0.607,0.41-1.176,0.878-1.7,1.402l-13.81,13.81	c-3.415,3.415-4.418,8.711-2.626,13.859h0c5.148,1.792,10.444,0.789,13.859-2.626l13.81-13.81c0.494-0.494,0.939-1.029,1.332-1.598	C41.86,16.199,31.89,6.125,28.967,8.099z"/><path fill="#199be2" d="M18.02,18.747l-4.564,4.564c-3.415,3.415-4.418,8.711-2.626,13.859l0,0l7.992-7.992L18.02,18.747z"/><path fill="#199be2" d="M29.253,29.98l-4.564,4.564c-3.415,3.415-8.711,4.418-13.859,2.626l0,0l7.992-7.992L29.253,29.98z"/><path fill="#50e6ff" d="M41.585,8.444l-0.319-1.339c-0.044-0.184-0.187-0.327-0.371-0.371l-1.339-0.319	c-4.178-0.995-8.281-0.177-11.283,2.193l0.794,10.325l10.325,0.794C41.762,16.726,42.58,12.622,41.585,8.444z"/><linearGradient id="brJTimU9iDLd5xgY1p0K7a" x1="35.718" x2="4.815" y1="13.389" y2="42.216" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0176d0"/><stop offset="1" stop-color="#16538c"/></linearGradient><path fill="url(#brJTimU9iDLd5xgY1p0K7a)" d="M33.174,14.826c-0.195-0.195-0.451-0.293-0.707-0.293s-0.512,0.098-0.707,0.293l-3.378,3.378	l-7.415,7.415l-4.88,4.88l-7.415,7.415l-3.378,3.378c-0.391,0.391-0.391,1.023,0,1.414C5.488,42.902,5.744,43,6,43	s0.512-0.098,0.707-0.293l3.378-3.378l7.415-7.415l4.88-4.88l7.415-7.415l3.378-3.378C33.564,15.85,33.564,15.217,33.174,14.826z"/></svg>
+    title: Lightweight and fast!
+    details: Aim for small footprint and fast performance. Ideal for modern NodeJS programming.
+  - icon: <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 120 120" width="240px" height="240px" baseProfile="basic"><polygon points="106,94 60,116 14,94 14,34 60,12 106,34" opacity=".35"/><polygon fill="#0075ff" points="106,90 60,112 14,90 14,30 60,8 106,30"/><polygon points="35,81.005 35,47.005 60,34.995 85,47.005 85,81.005 60,93.005" opacity=".35"/><polygon fill="#a4e2f1" points="35,77.005 35,43.005 60,30.995 85,43.005 85,77.005 60,89.005"/><polygon points="106,34.05 60,56.7 14,34.05 14,42.83 56,63.45 56,110.087 60,112 64,110.087 64,63.474 106,42.7" opacity=".35"/><polygon fill="#52afff" points="106,30.05 60,52.7 14,30.05 14,38.83 56,59.45 56,110.087 60,112 64,110.087 64,59.474 106,38.7"/></svg>
+    title: Speed up your programming with tons of utility functions.
+    details: Meet the functions available in QSU. Minimize repetitive utility writing.
+  - icon: <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 32 32" width="64px" height="64px"><circle cx="16" cy="17" r="5" fill="#ed0049"/><path fill="#ed0049" d="M23,31H9v0c0-3.866,3.134-7,7-7h0C19.866,24,23,27.134,23,31L23,31z"/><path fill="#0f518c" d="M19,4c0-1.657-1.343-3-3-3s-3,1.343-3,3c0,0.885,0.391,1.672,1,2.222V10h4V6.222 C18.609,5.672,19,4.885,19,4z"/><path fill="#0f518c" d="M7.061,8.318c-1.171-1.171-3.071-1.171-4.243,0s-1.171,3.071,0,4.243 c0.626,0.626,1.459,0.906,2.278,0.864l2.672,2.672l2.828-2.828l-2.672-2.672C7.967,9.777,7.686,8.944,7.061,8.318z"/><path fill="#0f518c" d="M24.879,8.318c1.171-1.171,3.071-1.171,4.243,0s1.171,3.071,0,4.243 c-0.626,0.626-1.459,0.906-2.278,0.864l-2.672,2.672l-2.828-2.828l2.672-2.672C23.972,9.777,24.253,8.944,24.879,8.318z"/><path fill="#0f518c" d="M24.879,27.218c1.171,1.171,3.071,1.171,4.243,0c1.171-1.171,1.171-3.071,0-4.243 c-0.626-0.626-1.459-0.906-2.278-0.864l-2.672-2.672l-2.828,2.828l2.672,2.672C23.972,25.759,24.253,26.592,24.879,27.218z"/><g><path fill="#0f518c" d="M7.061,27.218c-1.171,1.171-3.071,1.171-4.243,0c-1.171-1.171-1.171-3.071,0-4.243 c0.626-0.626,1.459-0.906,2.278-0.864l2.672-2.672l2.828,2.828L7.925,24.94C7.967,25.759,7.686,26.592,7.061,27.218z"/></g></svg>
+    title: Reliable maintenance support
+    details: There are many real-world use cases, and we have fast technical support.
+---
