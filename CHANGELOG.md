@@ -1,8 +1,9 @@
 # Change Log
 
-## 1.3.8 (2024--)
+## 1.3.8 (2024-04-12)
 
 - `objectTo1d`: Add `objectTo1d` method
+- Strictly check object types on some methods
 
 ## 1.3.7 (2024-04-07)
 
