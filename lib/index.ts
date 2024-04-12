@@ -469,7 +469,7 @@ export default class Qsu {
 			for (let i = 0; i < oLen; i += 1) {
 				const key = Object.keys(o)[i];
 
-				if (recursive && typeof o[key] === 'object') {
+				if (recursive && Qsu.isObject(o[key])) {
 					r.push([key, convertToArray(o[key])]);
 				} else {
 					r.push([key, o[key]]);
@@ -496,7 +496,7 @@ export default class Qsu {
 		for (let i = Object.keys(newObj).length; i >= 0; i -= 1) {
 			const key = Object.keys(newObj)[i];
 
-			if (recursive && newObj[key] && typeof newObj[key] === 'object') {
+			if (recursive && newObj[key] && Qsu.isObject(newObj[key])) {
 				Qsu.objDeleteKeyByValue(newObj[key], searchValue, recursive);
 			} else if (newObj[key] === searchValue) {
 				delete newObj[key];
@@ -524,7 +524,7 @@ export default class Qsu {
 			for (let i = 0; i < Object.keys(currentObj).length; i += 1) {
 				const currentKey = Object.keys(currentObj)[i];
 
-				if (recursive && currentObj[currentKey] && typeof currentObj[currentKey] === 'object') {
+				if (recursive && currentObj[currentKey] && Qsu.isObject(currentObj[currentKey])) {
 					checkObjectKey(currentObj[currentKey]);
 				}
 
