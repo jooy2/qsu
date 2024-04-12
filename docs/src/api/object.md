@@ -108,6 +108,42 @@ _.objToArray({
 }); // Returns [['a', 1.234], ['b', 'str'], ['c', [1, 2, 3]], ['d', { a: 1 }]]
 ```
 
+## `_.objTo1d`
+
+Merges objects from the given object to the top level of the child items and displays the key names in steps, using a delimiter (`.` by default) instead of the existing keys. For example, if an object `a` has keys `b`, `c`, and `d`, the `a` key is not displayed, and the keys and values `a.b`, `a.c`, and `a.d` are displayed in the parent step.
+
+### Parameters
+
+- `obj::object`
+- `separator::string`
+
+### Returns
+
+> object
+
+### Examples
+
+```javascript
+_.objToArray({
+	a: 1,
+	b: {
+		aa: 1,
+		bb: 2
+	},
+	c: 3
+});
+
+/*
+Returns:
+{
+	a: 1,
+	'b.aa': 1,
+	'b.bb': 2,
+	c: 3
+}
+ */
+```
+
 ## `_.objDeleteKeyByValue`
 
 Deletes keys equal to the given value from the object data. If the `recursive` option is `true`, also deletes all keys corresponding to the same value in the child items.

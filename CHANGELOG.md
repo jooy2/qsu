@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.8 (2024--)
+
+- `objectTo1d`: Add `objectTo1d` method
+
 ## 1.3.7 (2024-04-07)
 
 - `trim`: handle error when value is `null`

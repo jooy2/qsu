@@ -1,5 +1,6 @@
 import assert from 'assert';
 import {
+	objectTo1d,
 	objToQueryString,
 	objToPrettyStr,
 	objFindItemRecursiveByKey,
@@ -193,6 +194,80 @@ describe('Misc', () => {
 				['c', [1, 2, 3]],
 				['d', { a: 1 }]
 			]
+		);
+		done();
+	});
+
+	it('objectTo1d', (done) => {
+		assert.deepStrictEqual(objectTo1d({}), {});
+		assert.deepStrictEqual(
+			objectTo1d({
+				a: 1,
+				b: 2,
+				c: 3
+			}),
+			{
+				a: 1,
+				b: 2,
+				c: 3
+			}
+		);
+		assert.deepStrictEqual(
+			objectTo1d({
+				a: 1,
+				b: {
+					aa: 1,
+					bb: 2
+				},
+				c: 3
+			}),
+			{
+				a: 1,
+				'b.aa': 1,
+				'b.bb': 2,
+				c: 3
+			}
+		);
+		assert.deepStrictEqual(
+			objectTo1d(
+				{
+					a: 1,
+					b: {
+						aa: 1,
+						bb: 2
+					},
+					c: 3
+				},
+				'='
+			),
+			{
+				a: 1,
+				'b=aa': 1,
+				'b=bb': 2,
+				c: 3
+			}
+		);
+		assert.deepStrictEqual(
+			objectTo1d({
+				a: 1,
+				b: {
+					aa: {
+						aaa: {
+							aaaa: 1,
+							bbbb: null
+						}
+					},
+					bb: 2
+				},
+				c: 3
+			}),
+			{
+				a: 1,
+				'b.aa.aaa.aaaa': 1,
+				'b.aa.aaa.bbbb': null,
+				'b.bb': 2,
+				c: 3
+			}
 		);
 		done();
 	});
