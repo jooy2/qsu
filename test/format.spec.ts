@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { numberFormat, fileName, fileExt, fileSize, msToTime, secToTime } from '../dist';
+import { numberFormat, fileName, fileExt, fileSize, duration } from '../dist';
 
 describe('Format', () => {
 	it('numberFormat', (done) => {
@@ -34,18 +34,44 @@ describe('Format', () => {
 		done();
 	});
 
-	it('msToTime', (done) => {
-		assert.strictEqual(msToTime(100000), '00:01:40');
-		assert.strictEqual(msToTime(100000, true), '00:01:40.0');
-		assert.strictEqual(msToTime(100000, false, '-'), '00-01-40');
-		assert.strictEqual(msToTime(123456789), '34:17:36');
-		done();
-	});
-
-	it('secToTime', (done) => {
-		assert.strictEqual(secToTime(60), '00:01:00');
-		assert.strictEqual(secToTime(3800, false, '-'), '01-03-20');
-		assert.strictEqual(secToTime(360000), '100:00:00');
+	it('duration', (done) => {
+		assert.strictEqual(duration(0), '');
+		assert.strictEqual(duration(604800000), '7 Days');
+		assert.strictEqual(
+			duration(604800000, {
+				withZeroValue: true
+			}),
+			'7 Days 0 Hour 0 Minute 0 Second 0 Millisecond'
+		);
+		assert.strictEqual(
+			duration(604800000, {
+				useSpace: false
+			}),
+			'7Days'
+		);
+		assert.strictEqual(
+			duration(604800000, {
+				useShortString: true
+			}),
+			'7 D'
+		);
+		assert.strictEqual(
+			duration(604800001, {
+				separator: '-'
+			}),
+			'7 Days-1 Millisecond'
+		);
+		assert.strictEqual(
+			duration(1234567890, {
+				useSpace: true,
+				useShortString: true
+			}),
+			'14 D 6 H 56 M 7 S 890 ms'
+		);
+		assert.strictEqual(
+			duration(1234567890),
+			'14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
+		);
 		done();
 	});
 });

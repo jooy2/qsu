@@ -11,6 +11,13 @@ declare type NumberValueObject = { [key: string]: number };
 
 declare type AnyValueObject = { [key: string]: any };
 
+declare type DurationOptions = {
+	useShortString?: boolean;
+	useSpace?: boolean;
+	withZeroValue?: boolean;
+	separator?: string;
+};
+
 export default class Qsu {
 	/*
 	 * Misc
@@ -1173,29 +1180,41 @@ export default class Qsu {
 		return pSpl.length > 0 ? pSpl[pSpl.length - 1] : 'Unknown';
 	}
 
-	static msToTime(milliseconds = 0, withMilliseconds = false, separator = ':'): string {
-		const ms: number = Math.floor((milliseconds % 1000) / 100);
-		let sec: string | number = Math.floor((milliseconds / 1000) % 60);
-		let min: string | number = Math.floor((milliseconds / (1000 * 60)) % 60);
-		let hour: string | number = Math.floor(milliseconds / (1000 * 60 * 60));
+	static duration(milliseconds: number, options?: DurationOptions): string {
+		const {
+			useShortString = false,
+			useSpace = true,
+			withZeroValue = false,
+			separator = ' '
+		} = { ...options };
+		const units = [
+			{ name: 'Millisecond', short: 'ms', divider: 1000 },
+			{ name: 'Second', short: 'S', divider: 60 },
+			{ name: 'Minute', short: 'M', divider: 60 },
+			{ name: 'Hour', short: 'H', divider: 24 },
+			{ name: 'Day', short: 'D', divider: 31 }
+		];
+		const result = [];
+		let currentMilliseconds = milliseconds;
 
-		hour = hour < 10 ? `0${hour}` : hour;
-		min = min < 10 ? `0${min}` : min;
-		sec = sec < 10 ? `0${sec}` : sec;
+		for (let i = 0; i < units.length; i += 1) {
+			const unit = units[i];
+			let divideValue = currentMilliseconds % unit.divider;
 
-		return `${hour}${separator}${min}${separator}${sec}${withMilliseconds ? `.${ms}` : ''}`;
-	}
+			if (i === units.length - 1) {
+				divideValue = Math.trunc(currentMilliseconds);
+			} else {
+				currentMilliseconds = (currentMilliseconds - divideValue) / unit.divider;
+			}
 
-	static secToTime(seconds = 0, onlyHour = false, separator = ':'): string {
-		let sec: string | number = Math.floor(seconds % 60);
-		let min: string | number = Math.floor((seconds / 60) % 60);
-		let hour: string | number = Math.floor(seconds / (60 * 60));
+			if (withZeroValue || (!withZeroValue && divideValue !== 0)) {
+				result.push(
+					`${divideValue}${useSpace ? ' ' : ''}${useShortString ? unit.short : `${unit.name}${divideValue < 2 ? '' : 's'}`}`
+				);
+			}
+		}
 
-		hour = hour < 10 ? `0${hour}` : hour;
-		min = min < 10 ? `0${min}` : min;
-		sec = sec < 10 ? `0${sec}` : sec;
-
-		return onlyHour ? hour.toString() : `${hour}${separator}${min}${separator}${sec}`;
+		return result.reverse().join(separator);
 	}
 }
 
@@ -1275,6 +1294,5 @@ export const {
 	fileName,
 	fileSize,
 	fileExt,
-	msToTime,
-	secToTime
+	duration
 } = Qsu;

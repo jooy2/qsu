@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.4.0 (2024-04-14)
+
+- **BREAKING CHANGES**: Removed the `msToTime` and `secToTime` methods, which are unstable and have been replaced with the `duration` method to provide a more stable utility.
+- `duration`: Add `duration` method
+
 ## 1.3.8 (2024-04-12)
 
 - `objectTo1d`: Add `objectTo1d` method

@@ -82,37 +82,28 @@ _.fileExt('C:Temphello.txt'); // Returns 'txt'
 _.fileExt('this-is-file.mp3'); // Returns 'mp3'
 ```
 
-## `_.msToTime`
+## `_.duration`
 
-Converts milliseconds to hours, minutes, seconds, and milliseconds and returns. If the second argument is true, milliseconds are also printed. You can put any separator (String) between hours, minutes, and seconds in the third argument.
+Displays the given millisecond value in human-readable time. For example, the value of `604800000` (7 days) is displayed as `7 Days`.
 
 ### Parameters
 
 - `milliseconds::number`
-- `withMilliseconds::boolean || false`
-- `separator::string || ':'`
+- `options::DurationOptions | undefined`
 
-### Returns
-
-> string
-
-### Examples
-
-```javascript
-_.msToTime(100000); // 'Returns '00:01:40'
-_.msToTime(100000, true, '-'); // Returns '00-01-40.0'
+```typescript
+const {
+	// Converts to `Days` -> `D`, `Hours` -> `H`,  `Minutes` -> `M`, `Seconds` -> `S`, `Milliseconds` -> `ms`
+	useShortString = false,
+	// Use space (e.g. `1Days` -> `1 Days`)
+	useSpace = true,
+	// Do not include units with a value of 0.
+	withZeroValue = false,
+	// Use Separator (e.g. If separator value is `-`, result is: `1 Hour 10 Minutes` -> `1 Hour-10 Minutes`)
+	separator = ' '
+}: DurationOptions = options;
 ```
 
-## `_.secToTime`
-
-Converts seconds to hours, minutes, seconds and returns. You can put any separator (String) between hours, minutes, and seconds in the third argument.
-
-### Parameters
-
-- `seconds::number`
-- `onlyHour::boolean || false`
-- `separator::string || ':'`
-
 ### Returns
 
 > string
@@ -120,6 +111,8 @@ Converts seconds to hours, minutes, seconds and returns. You can put any separat
 ### Examples
 
 ```javascript
-_.secToTime(3800); // Returns '01:03:20'
-_.secToTime(60, '-'); // Returns '00-01-00'
+_.duration(1234567890); // 'Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
+_.duration(604800000, {
+	useSpace: false
+}); // Returns '7Days'
 ```
