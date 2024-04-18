@@ -1,6 +1,6 @@
 ---
 title: Verify
-order: 7
+order: 5
 ---
 
 # API: Verify
