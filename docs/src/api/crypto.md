@@ -3,6 +3,8 @@ title: Crypto
 order: 6
 ---
 
+# API: Crypto
+
 ## `_.encrypt`
 
 Encrypt with the algorithm of your choice (algorithm default: `aes-256-cbc`, ivSize default: `16`) using a string and a secret (secret).
