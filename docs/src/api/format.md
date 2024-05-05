@@ -116,3 +116,25 @@ _.duration(604800000, {
 	useSpace: false
 }); // Returns '7Days'
 ```
+
+## `_.safeJSONParse`
+
+Attempts to parse without returning an error, even if the argument value is of the wrong type or in `JSON` format. If parsing fails, it returns an empty object.
+
+### Parameters
+
+- `jsonString::any`
+
+### Returns
+
+> object
+
+### Examples
+
+```javascript
+const result1 = _.safeJSONParse('{"a":1,"b":2}');
+const result2 = _.safeJSONParse(null);
+
+console.log(result1); // Returns { a: 1, b: 2 }
+console.log(result2); // Returns {}
+```

@@ -1145,6 +1145,26 @@ export default class Qsu {
 		return result.reverse().join(separator);
 	}
 
+	static safeJSONParse(jsonString: any): AnyValueObject {
+		if (!jsonString) {
+			return {};
+		}
+
+		if (Array.isArray(jsonString) || typeof jsonString === 'object') {
+			try {
+				return JSON.parse(JSON.stringify(jsonString));
+			} catch (e) {
+				return {};
+			}
+		}
+
+		try {
+			return JSON.parse(jsonString);
+		} catch (e) {
+			return {};
+		}
+	}
+
 	/*
 	 * Crypto
 	 * */
@@ -1258,6 +1278,7 @@ export const {
 	objectTo1d,
 	objDeleteKeyByValue,
 	objUpdate,
+	safeJSONParse,
 	trim,
 	replaceBetween,
 	removeSpecialChar,

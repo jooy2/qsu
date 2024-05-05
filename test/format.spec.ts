@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { numberFormat, fileName, fileExt, fileSize, duration } from '../dist';
+import { numberFormat, fileName, fileExt, fileSize, duration, safeJSONParse } from '../dist';
 
 describe('Format', () => {
 	it('numberFormat', (done) => {
@@ -72,6 +72,17 @@ describe('Format', () => {
 			duration(1234567890),
 			'14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 		);
+		done();
+	});
+
+	it('safeJSONParse', (done) => {
+		assert.deepStrictEqual(safeJSONParse({}), {});
+		assert.deepStrictEqual(safeJSONParse('{}'), {});
+		assert.deepStrictEqual(safeJSONParse(''), {});
+		assert.deepStrictEqual(safeJSONParse(null), {});
+		assert.deepStrictEqual(safeJSONParse('{"a":1,"b":2}'), { a: 1, b: 2 });
+		assert.deepStrictEqual(safeJSONParse('{"a":{"aa":1},"b":null}'), { a: { aa: 1 }, b: null });
+
 		done();
 	});
 });

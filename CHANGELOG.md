@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.1 (2024-05-05)
+
+- `safeJSONParse`: Add `safeJSONParse` method
+
 ## 1.4.0 (2024-04-14)
 
 - **BREAKING CHANGES**: Removed the `msToTime` and `secToTime` methods, which are unstable and have been replaced with the `duration` method to provide a more stable utility.
