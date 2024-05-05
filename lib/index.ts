@@ -1145,23 +1145,35 @@ export default class Qsu {
 		return result.reverse().join(separator);
 	}
 
-	static safeJSONParse(jsonString: any): AnyValueObject {
+	static safeJSONParse(jsonString: any, fallback = {}): AnyValueObject {
 		if (!jsonString) {
-			return {};
+			return fallback;
 		}
 
 		if (Array.isArray(jsonString) || typeof jsonString === 'object') {
 			try {
 				return JSON.parse(JSON.stringify(jsonString));
 			} catch (e) {
-				return {};
+				return fallback;
 			}
 		}
 
 		try {
 			return JSON.parse(jsonString);
 		} catch (e) {
-			return {};
+			return fallback;
+		}
+	}
+
+	static safeParseInt(value: any, fallback = 0, radix = 10): number {
+		if (!value || value.toString().length < 1) {
+			return fallback;
+		}
+
+		try {
+			return parseInt(value.toString().split('.')[0], radix);
+		} catch (e) {
+			return fallback;
 		}
 	}
 
@@ -1278,7 +1290,6 @@ export const {
 	objectTo1d,
 	objDeleteKeyByValue,
 	objUpdate,
-	safeJSONParse,
 	trim,
 	replaceBetween,
 	removeSpecialChar,
@@ -1319,5 +1330,7 @@ export const {
 	fileName,
 	fileSize,
 	fileExt,
+	safeJSONParse,
+	safeParseInt,
 	duration
 } = Qsu;

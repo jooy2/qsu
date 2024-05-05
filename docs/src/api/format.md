@@ -119,11 +119,12 @@ _.duration(604800000, {
 
 ## `_.safeJSONParse`
 
-Attempts to parse without returning an error, even if the argument value is of the wrong type or in `JSON` format. If parsing fails, it returns an empty object.
+Attempts to parse without returning an error, even if the argument value is of the wrong type or in `JSON` format. If parsing fails, it will be replaced with the object set in `fallback`.`fallback`의 기본값은 빈 오브젝트입니다.
 
 ### Parameters
 
 - `jsonString::any`
+- `fallback::object`
 
 ### Returns
 
@@ -137,4 +138,30 @@ const result2 = _.safeJSONParse(null);
 
 console.log(result1); // Returns { a: 1, b: 2 }
 console.log(result2); // Returns {}
+```
+
+## `_.safeParseInt`
+
+Any argument value will be attempted to be parsed as a Number type without returning an error. If parsing fails, it is replaced by the number set in `fallback`. The default value for `fallback` is `0`. You can specify `radix` (default is decimal: `10`) in the third argument.
+
+### Parameters
+
+- `value::any`
+- `fallback::number`
+- `radix::number`
+
+### Returns
+
+> number
+
+### Examples
+
+```javascript
+const result1 = _.safeParseInt('00010');
+const result2 = _.safeParseInt('10.1234');
+const result3 = _.safeParseInt(null, -1);
+
+console.log(result1); // Returns 10
+console.log(result2); // Returns 10
+console.log(result3); // Returns -1
 ```

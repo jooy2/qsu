@@ -1,5 +1,13 @@
 import assert from 'assert';
-import { numberFormat, fileName, fileExt, fileSize, duration, safeJSONParse } from '../dist';
+import {
+	numberFormat,
+	fileName,
+	fileExt,
+	fileSize,
+	duration,
+	safeJSONParse,
+	safeParseInt
+} from '../dist';
 
 describe('Format', () => {
 	it('numberFormat', (done) => {
@@ -82,6 +90,17 @@ describe('Format', () => {
 		assert.deepStrictEqual(safeJSONParse(null), {});
 		assert.deepStrictEqual(safeJSONParse('{"a":1,"b":2}'), { a: 1, b: 2 });
 		assert.deepStrictEqual(safeJSONParse('{"a":{"aa":1},"b":null}'), { a: { aa: 1 }, b: null });
+
+		done();
+	});
+
+	it('safeParseInt', (done) => {
+		assert.deepStrictEqual(safeParseInt(null), 0);
+		assert.deepStrictEqual(safeParseInt('', -1), -1);
+		assert.deepStrictEqual(safeParseInt('0001234'), 1234);
+		assert.deepStrictEqual(safeParseInt('1.234.567'), 1);
+		assert.deepStrictEqual(safeParseInt('1234', 10), 1234);
+		assert.deepStrictEqual(safeParseInt('1234', 0, 16), 4660);
 
 		done();
 	});

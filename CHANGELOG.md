@@ -3,6 +3,7 @@
 ## 1.4.1 (2024-05-05)
 
 - `safeJSONParse`: Add `safeJSONParse` method
+- `safeParseInt`: Add `safeParseInt` method
 
 ## 1.4.0 (2024-04-14)
 
