@@ -921,7 +921,7 @@ export default class Qsu {
 	 * Verify
 	 * */
 	static isObject(data: any): boolean {
-		return typeof data === 'object' && !Array.isArray(data) && data !== null;
+		return data !== null && data !== undefined && Object.getPrototypeOf(data) === Object.prototype;
 	}
 
 	static isEqual(leftOperand: any, ...rightOperand: Array<any>): boolean {

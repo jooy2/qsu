@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.2 (2024--)
+
+- `isObject`: use more accurate detect logic
+
 ## 1.4.1 (2024-05-05)
 
 - `safeJSONParse`: Add `safeJSONParse` method
