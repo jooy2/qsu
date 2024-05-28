@@ -15,7 +15,18 @@ import {
 
 describe('Verify', () => {
 	it('isObject', (done) => {
+		assert.strictEqual(isObject('{}'), false);
+		assert.strictEqual(isObject(true), false);
+		assert.strictEqual(isObject(false), false);
+		assert.strictEqual(isObject(null), false);
+		assert.strictEqual(isObject(undefined), false);
 		assert.strictEqual(isObject(1), false);
+		assert.strictEqual(isObject([]), false);
+		assert.strictEqual(
+			isObject(() => '123'),
+			false
+		);
+		assert.strictEqual(isObject({}), true);
 		assert.strictEqual(isObject([1, 2]), false);
 		assert.strictEqual(isObject([{ a: 1, b: 2 }]), false);
 		assert.strictEqual(isObject({ a: 1, b: 2 }), true);

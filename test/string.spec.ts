@@ -180,6 +180,10 @@ st`),
 			'https://example.com/hello/world/bye'
 		);
 		assert.strictEqual(
+			urlJoin('https://example.com', '/hello', '/world', '?text=bye&a=b'),
+			'https://example.com/hello/world?text=bye&a=b'
+		);
+		assert.strictEqual(
 			urlJoin('example.com', '/hello', '/world', 'bye'),
 			'example.com/hello/world/bye'
 		);
