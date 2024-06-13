@@ -172,6 +172,10 @@ st`),
 		assert.strictEqual(urlJoin('https://example.com', null, 'world/'), 'https://example.com/world');
 		assert.strictEqual(urlJoin(null, 'https://example.com', 'world/'), 'https://example.com/world');
 		assert.strictEqual(
+			urlJoin('https://example.com', 'hello', '#fragment'),
+			'https://example.com/hello/#fragment'
+		);
+		assert.strictEqual(
 			urlJoin('https://example.com', 'hello', 'world'),
 			'https://example.com/hello/world'
 		);
