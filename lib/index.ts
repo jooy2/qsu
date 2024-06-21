@@ -57,13 +57,6 @@ export default class Qsu {
 		};
 	}
 
-	static objectId(): string {
-		return (
-			Math.floor(Date.now() / 1000).toString(16) +
-			'x'.repeat(16).replace(/x/g, () => Math.floor(Math.random() * 16).toString(16))
-		);
-	}
-
 	/*
 	 * Math
 	 * */
@@ -1216,6 +1209,13 @@ export default class Qsu {
 		decrypted = Buffer.concat([decrypted, decipher.final()]);
 
 		return decrypted.toString();
+	}
+
+	static objectId(): string {
+		return (
+			Math.floor(Date.now() / 1000).toString(16) +
+			'x'.repeat(16).replace(/x/g, () => Math.floor(Math.random() * 16).toString(16))
+		);
 	}
 
 	static md5(str: string): string {
