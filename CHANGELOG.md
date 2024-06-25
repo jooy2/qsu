@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.4.2 (2024--)
+## 1.4.2 (2024-06-25)
 
 - `isObject`: use more accurate detect logic
 
