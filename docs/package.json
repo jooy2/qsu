@@ -11,6 +11,6 @@
 	"dependencies": {
 		"vitepress": "^1.2.3",
 		"vitepress-sidebar": "^1.23.2",
-		"vue": "^3.4.29"
+		"vue": "^3.4.30"
 	}
 }
