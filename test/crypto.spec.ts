@@ -12,19 +12,18 @@ import {
 } from '../dist';
 
 describe('Crypto', () => {
+	const cryptoSecret = '12345678901234567890123456789012';
+
 	it('encrypt', (done) => {
-		assert(encrypt('test', '12345678901234567890123456789012'));
-		assert(encrypt('test', '12345678901234567890123456789012', 'aes-256-gcm', 16));
-		assert(encrypt('test', '12345678901234567890123456789012', 'aes-256-gcm', 16, true));
+		assert(encrypt('test', cryptoSecret));
+		assert(encrypt('test', cryptoSecret, 'aes-256-gcm', 16));
+		assert(encrypt('test', cryptoSecret, 'aes-256-gcm', 16, true));
 		done();
 	});
 
 	it('decrypt', (done) => {
 		assert.strictEqual(
-			decrypt(
-				'61ba43b65fc3fc2bdbd0d1ad8576344d:1831d7c37d12b3bf7ee73195d31af91b',
-				'12345678901234567890123456789012'
-			),
+			decrypt('61ba43b65fc3fc2bdbd0d1ad8576344d:1831d7c37d12b3bf7ee73195d31af91b', cryptoSecret),
 			'test'
 		);
 		done();
