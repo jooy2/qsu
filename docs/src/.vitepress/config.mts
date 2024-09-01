@@ -47,7 +47,7 @@ export default defineConfig({
 		],
 		footer: {
 			message: 'Released under the MIT License',
-			copyright: '© <a href="https://jooy2.com">Jooy2</a>'
+			copyright: '© <a href="https://cdget.com">CDGet</a>'
 		}
 	}
 });

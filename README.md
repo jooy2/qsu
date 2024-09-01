@@ -11,9 +11,9 @@
 - 100% optimized for the latest NodeJS and ESM environments.
 - Useful features for websites and web applications
 
-## [Documentation (Getting Started & Method Reference)](https://qsu.jooy2.com/getting-started/installation)
+## [Documentation (Getting Started & Method Reference)](https://qsu.cdget.com/getting-started/installation)
 
-Installing and using the package and defining all the utility methods can be found on the documentation page below: https://qsu.jooy2.com/getting-started/installation
+Installing and using the package and defining all the utility methods can be found on the documentation page below: https://qsu.cdget.com/getting-started/installation
 
 ## Contribute
 
@@ -21,4 +21,4 @@ You can report issues on [GitHub Issue Tracker](https://github.com/jooy2/qsu/iss
 
 ## License
 
-Copyright © 2021-2024 [Jooy2](https://jooy2.com) <[jooy2.contact@gmail.com](mailto:jooy2.contact@gmail.com)> Released under the MIT license.
+Copyright © 2021-2024 [CDGet](https://cdget.com) <[jooy2.contact@gmail.com](mailto:jooy2.contact@gmail.com)> Released under the MIT license.
