@@ -56,19 +56,19 @@
 		"file"
 	],
 	"devDependencies": {
-		"@types/mocha": "^10.0.7",
-		"@types/node": "^20.14.8",
-		"@typescript-eslint/eslint-plugin": "^7.14.1",
-		"@typescript-eslint/parser": "^7.14.1",
-		"dayjs": "^1.11.11",
-		"eslint": "^8.57.0",
-		"eslint-config-airbnb": "^19.0.4",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-import": "^2.29.1",
-		"mocha": "^10.5.1",
-		"prettier": "^3.3.2",
-		"terser": "^5.31.1",
+		"@types/mocha": "10.0.7",
+		"@types/node": "20.14.8",
+		"@typescript-eslint/eslint-plugin": "7.14.1",
+		"@typescript-eslint/parser": "7.14.1",
+		"dayjs": "^1.11.13",
+		"eslint": "8.57.0",
+		"eslint-config-airbnb": "19.0.4",
+		"eslint-config-prettier": "9.1.0",
+		"eslint-plugin-import": "2.29.1",
+		"mocha": "^10.7.3",
+		"prettier": "^3.3.3",
+		"terser": "^5.31.6",
 		"ts-node": "^10.9.2",
-		"typescript": "^5.5.2"
+		"typescript": "^5.5.4"
 	}
 }
