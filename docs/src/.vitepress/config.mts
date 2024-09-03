@@ -49,9 +49,6 @@ export default defineConfig({
 				};
 			})
 		]),
-		search: {
-			provider: 'local'
-		},
 		footer: {
 			message: 'Released under the MIT License',
 			copyright: '© <a href="https://cdget.com">CDGet</a>'
