@@ -1,4 +1,4 @@
-# `qsu-web` Installation
+# Installation
 
 Qsu has utilities organized into separate packages. Currently, there is a package called `qsu-web`.
 
