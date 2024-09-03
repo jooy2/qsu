@@ -29,4 +29,4 @@ You can import the following code manually or automatically to bring up the QSU 
 import 'package:qsu/qsu.dart';
 ```
 
-To learn more about utility functions, browse the [API](/dart/api) documentation.
+To learn more about utility functions, browse the [API](/dart/api/index.md) documentation.

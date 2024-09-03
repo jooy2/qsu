@@ -29,4 +29,4 @@ $flutter pub add qsu
 import 'package:qsu/qsu.dart';
 ```
 
-유틸리티 기능에 대해 자세히 알아보려면 [API](/ko/dart/api) 설명서를 참조하세요.
+유틸리티 기능에 대해 자세히 알아보려면 [API](/ko/dart/api/index.md) 설명서를 참조하세요.
