@@ -1,8 +1,10 @@
 import { defineConfig } from 'vitepress';
 import { generateSidebar, VitePressSidebarOptions } from 'vitepress-sidebar';
 import { name, homepage } from '../../../package.json';
+import { generateI18nLocale, generateI18nSearch } from 'vitepress-i18n';
 
 const defaultLocale: string = 'en';
+const editLinkPattern = 'https://github.com/jooy2/qsu/edit/master/docs/:path';
 
 const commonSidebarConfig: VitePressSidebarOptions = {
 	debugPrint: true,
@@ -19,6 +21,11 @@ const commonSidebarConfig: VitePressSidebarOptions = {
 	frontmatterOrderDefaultValue: 9, // For 'CHANGELOG.md'
 	sortMenusByFrontmatterOrder: true
 };
+
+const defineSupportLocales = [
+	{ label: defaultLocale, translateLocale: defaultLocale },
+	{ label: 'ko', translateLocale: 'ko' }
+];
 
 export default defineConfig({
 	title: name.toUpperCase(),
@@ -54,13 +61,37 @@ export default defineConfig({
 			copyright: '© <a href="https://cdget.com">CDGet</a>'
 		}
 	},
-	locales: {
-		root: {
-			label: 'English',
-			lang: 'en-US',
-			description:
-				'VitePress Sidebar is a VitePress plugin that automatically generates sidebar menus with one setup and no hassle. Save time by easily creating taxonomies for tons of articles.',
-			themeConfig: {
+
+	locales: generateI18nLocale({
+		defineLocales: defineSupportLocales,
+		rootLocale: defaultLocale,
+		editLinkPattern: editLinkPattern,
+		label: {
+			en: 'English',
+			ko: '한국어'
+		},
+		lang: {
+			en: 'en-US',
+			ko: 'ko-KR'
+		},
+		description: {
+			en: 'QSU is a package of utilities to energize your programming. It is available for JavaScript/Node.js and Dart/Flutter environments.',
+			ko: 'QSU는 프로그래밍에 활력을 주는 유틸리티를 모은 패키지입니다. JavaScript/Node.js와 Dart/Flutter 환경에서 사용할 수 있습니다.'
+		},
+		themeConfig: {
+			en: {
+				nav: [
+					{
+						text: 'JavaScript',
+						link: 'js/installation'
+					},
+					{
+						text: 'Dart',
+						link: 'dart/installation'
+					}
+				]
+			},
+			ko: {
 				nav: [
 					{
 						text: 'JavaScript',
@@ -72,70 +103,11 @@ export default defineConfig({
 					}
 				]
 			}
-		},
-		ko: {
-			label: '한국어',
-			lang: 'ko-KR',
-			description:
-				'VitePress Sidebar는 번거로운 작업 없이 한번의 설정만으로 사이드바 메뉴를 자동으로 생성하는 VitePress 플러그인입니다. 수많은 문서에 대한 분류를 손쉽게 만들어 시간을 절약하세요.',
-			themeConfig: {
-				nav: [
-					{
-						text: 'JavaScript',
-						link: 'js/installation'
-					},
-					{
-						text: 'Dart',
-						link: 'dart/installation'
-					}
-				],
-				docFooter: {
-					prev: '이전',
-					next: '다음'
-				},
-				outline: {
-					label: '이 페이지 콘텐츠'
-				},
-				lastUpdated: {
-					text: '업데이트 일자'
-				},
-				langMenuLabel: '언어 변경',
-				returnToTopLabel: '맨 위로',
-				sidebarMenuLabel: '사이드바 메뉴',
-				darkModeSwitchLabel: '다크 모드',
-				lightModeSwitchTitle: '라이트 모드로 변경',
-				darkModeSwitchTitle: '다크 모드로 변경'
-			}
 		}
-	},
-	search: {
-		provider: 'local',
-		options: {
-			locales: {
-				ko: {
-					translations: {
-						button: {
-							buttonText: '검색',
-							buttonAriaLabel: '검색'
-						},
-						modal: {
-							displayDetails: '상세 목록 표시',
-							resetButtonTitle: '검색 초기화',
-							backButtonTitle: '검색 닫기',
-							noResultsText: '결과를 찾을 수 없음',
-							footer: {
-								selectText: '선택',
-								selectKeyAriaLabel: '선택하기',
-								navigateText: '탐색',
-								navigateUpKeyAriaLabel: '위로',
-								navigateDownKeyAriaLabel: '아래로',
-								closeText: '닫기',
-								closeKeyAriaLabel: 'esc'
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+	}),
+	search: generateI18nSearch({
+		defineLocales: defineSupportLocales,
+		rootLocale: defaultLocale,
+		provider: 'local'
+	})
 });
