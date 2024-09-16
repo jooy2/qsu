@@ -46,6 +46,11 @@ export default defineConfig({
 	},
 	themeConfig: {
 		logo: { src: '/logo-32.png', width: 24, height: 24 },
+		search: generateI18nSearch({
+			defineLocales: defineSupportLocales,
+			rootLocale: defaultLocale,
+			provider: 'local'
+		}),
 		sidebar: generateSidebar([
 			...[defaultLocale, 'ko'].map((lang) => {
 				return {
@@ -61,19 +66,10 @@ export default defineConfig({
 			copyright: '© <a href="https://cdget.com">CDGet</a>'
 		}
 	},
-
 	locales: generateI18nLocale({
 		defineLocales: defineSupportLocales,
 		rootLocale: defaultLocale,
 		editLinkPattern: editLinkPattern,
-		label: {
-			en: 'English',
-			ko: '한국어'
-		},
-		lang: {
-			en: 'en-US',
-			ko: 'ko-KR'
-		},
 		description: {
 			en: 'QSU is a package of utilities to energize your programming. It is available for JavaScript/Node.js and Dart/Flutter environments.',
 			ko: 'QSU는 프로그래밍에 활력을 주는 유틸리티를 모은 패키지입니다. JavaScript/Node.js와 Dart/Flutter 환경에서 사용할 수 있습니다.'
@@ -104,10 +100,5 @@ export default defineConfig({
 				]
 			}
 		}
-	}),
-	search: generateI18nSearch({
-		defineLocales: defineSupportLocales,
-		rootLocale: defaultLocale,
-		provider: 'local'
 	})
 });
