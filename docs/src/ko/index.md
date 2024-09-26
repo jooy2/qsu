@@ -14,10 +14,10 @@ hero:
       link: ko/introduction
     - theme: alt
       text: JavaScript/NodeJS
-      link: ko/js/installation
+      link: ko/getting-started/installation-javascript
     - theme: alt
       text: Dart/Flutter
-      link: ko/dart/installation
+      link: ko/getting-started/installation-dart
   image:
     src: /icon.png
     alt: Utility
@@ -25,7 +25,7 @@ hero:
 features:
   - icon: <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="96px" height="96px"><path fill="#35c1f1" d="M28.967,8.099c-0.607,0.41-1.176,0.878-1.7,1.402l-13.81,13.81	c-3.415,3.415-4.418,8.711-2.626,13.859h0c5.148,1.792,10.444,0.789,13.859-2.626l13.81-13.81c0.494-0.494,0.939-1.029,1.332-1.598	C41.86,16.199,31.89,6.125,28.967,8.099z"/><path fill="#199be2" d="M18.02,18.747l-4.564,4.564c-3.415,3.415-4.418,8.711-2.626,13.859l0,0l7.992-7.992L18.02,18.747z"/><path fill="#199be2" d="M29.253,29.98l-4.564,4.564c-3.415,3.415-8.711,4.418-13.859,2.626l0,0l7.992-7.992L29.253,29.98z"/><path fill="#50e6ff" d="M41.585,8.444l-0.319-1.339c-0.044-0.184-0.187-0.327-0.371-0.371l-1.339-0.319	c-4.178-0.995-8.281-0.177-11.283,2.193l0.794,10.325l10.325,0.794C41.762,16.726,42.58,12.622,41.585,8.444z"/><linearGradient id="brJTimU9iDLd5xgY1p0K7a" x1="35.718" x2="4.815" y1="13.389" y2="42.216" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0176d0"/><stop offset="1" stop-color="#16538c"/></linearGradient><path fill="url(#brJTimU9iDLd5xgY1p0K7a)" d="M33.174,14.826c-0.195-0.195-0.451-0.293-0.707-0.293s-0.512,0.098-0.707,0.293l-3.378,3.378	l-7.415,7.415l-4.88,4.88l-7.415,7.415l-3.378,3.378c-0.391,0.391-0.391,1.023,0,1.414C5.488,42.902,5.744,43,6,43	s0.512-0.098,0.707-0.293l3.378-3.378l7.415-7.415l4.88-4.88l7.415-7.415l3.378-3.378C33.564,15.85,33.564,15.217,33.174,14.826z"/></svg>
     title: 가볍고 빠릅니다!
-    details: 작은 설치 공간과 빠른 성능을 목표로 합니다. 최신 Node.js 프로그래밍에 이상적입니다.
+    details: 작은 설치 공간과 빠른 성능을 목표로 합니다. 모던 프로그래밍에 이상적입니다.
   - icon: <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 120 120" width="240px" height="240px" baseProfile="basic"><polygon points="106,94 60,116 14,94 14,34 60,12 106,34" opacity=".35"/><polygon fill="#0075ff" points="106,90 60,112 14,90 14,30 60,8 106,30"/><polygon points="35,81.005 35,47.005 60,34.995 85,47.005 85,81.005 60,93.005" opacity=".35"/><polygon fill="#a4e2f1" points="35,77.005 35,43.005 60,30.995 85,43.005 85,77.005 60,89.005"/><polygon points="106,34.05 60,56.7 14,34.05 14,42.83 56,63.45 56,110.087 60,112 64,110.087 64,63.474 106,42.7" opacity=".35"/><polygon fill="#52afff" points="106,30.05 60,52.7 14,30.05 14,38.83 56,59.45 56,110.087 60,112 64,110.087 64,59.474 106,38.7"/></svg>
     title: 다양한 유틸리티 기능으로 프로그래밍 속도를 높일 수 있습니다.
     details: QSU에서 사용할 수 있는 기능을 만나보세요. 반복적인 유틸리티 작성을 최소화하세요.

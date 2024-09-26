@@ -80,11 +80,15 @@ export default defineConfig({
 				nav: [
 					{
 						text: 'JavaScript',
-						link: 'js/installation'
+						link: 'getting-started/installation-javascript'
 					},
 					{
 						text: 'Dart',
-						link: 'dart/installation'
+						link: 'getting-started/installation-dart'
+					},
+					{
+						text: 'API',
+						link: 'api'
 					}
 				]
 			},
@@ -92,11 +96,15 @@ export default defineConfig({
 				nav: [
 					{
 						text: 'JavaScript',
-						link: 'js/installation'
+						link: 'ko/getting-started/installation-javascript'
 					},
 					{
 						text: 'Dart',
-						link: 'dart/installation'
+						link: 'ko/getting-started/installation-dart'
+					},
+					{
+						text: 'API',
+						link: 'ko/api'
 					}
 				]
 			}
