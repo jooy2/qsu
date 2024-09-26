@@ -9,7 +9,8 @@ const editLinkPattern = 'https://github.com/jooy2/qsu/edit/master/docs/src/:path
 const commonSidebarConfig: VitePressSidebarOptions = {
 	debugPrint: true,
 	documentRootPath: 'src',
-	manualSortFileNameByPriority: ['introduction.md', 'js', 'dart', 'installation.md'],
+	manualSortFileNameByPriority: ['introduction.md', 'getting-started', 'installation.md'],
+	hyphenToSpace: true,
 	collapsed: false,
 	capitalizeFirst: true,
 	capitalizeEachWords: true,
