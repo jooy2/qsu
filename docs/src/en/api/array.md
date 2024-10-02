@@ -82,7 +82,7 @@ _.arrUnique([1, 2, 2, 3]); // Returns [1, 2, 3]
 _.arrUnique([[1], [1], [2]]); // Returns [[1], [2]]
 ```
 
-## `average` <Badge type="tip" text="JavaScript" />
+## `average` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Returns the average of all numeric values in an array.
 
@@ -100,7 +100,7 @@ Returns the average of all numeric values in an array.
 _.average([1, 5, 15, 50]); // Returns 17.75
 ```
 
-## `arrMove` <Badge type="tip" text="JavaScript" />
+## `arrMove` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Moves the position of a specific element in an array to the specified position. (Position starts from 0.)
 
@@ -120,7 +120,7 @@ Moves the position of a specific element in an array to the specified position. 
 _.arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
 ```
 
-## `arrTo1dArray` <Badge type="tip" text="JavaScript" />
+## `arrTo1dArray` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Merges all elements of a multidimensional array into a one-dimensional array.
 
@@ -138,7 +138,7 @@ Merges all elements of a multidimensional array into a one-dimensional array.
 _.arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
 ```
 
-## `arrRepeat` <Badge type="tip" text="JavaScript" />
+## `arrRepeat` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Repeats the data of an `Array` or `Object` a specific number of times and returns it as a 1d array.
 

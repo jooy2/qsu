@@ -375,7 +375,7 @@ _.strToAscii('12345'); // Returns [49, 50, 51, 52, 53]
 
 Merges the given string argument with the first argument (the beginning of the URL), joining it so that the slash (`/`) symbol is correctly included.
 
-Dart accepts only one argument, organized as an List.
+In Dart, accepts only one argument, organized as an List.
 
 ### Parameters
 
