@@ -23,7 +23,7 @@ Shuffle the order of the given array and return.
 _.arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
 ```
 
-## `arrWithDefault` <Badge type="tip" text="JavaScript" />
+## `arrWithDefault` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Initialize an array with a default value of a specific length.
 
@@ -43,7 +43,7 @@ _.arrWithDefault('abc', 4); // Returns ['abc', 'abc', 'abc', 'abc']
 _.arrWithDefault(null, 3); // Returns [null, null, null]
 ```
 
-## `arrWithNumber` <Badge type="tip" text="JavaScript" />
+## `arrWithNumber` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Creates and returns an Array in the order of start...end values.
 
@@ -63,7 +63,7 @@ _.arrWithNumber(1, 3); // Returns [1, 2, 3]
 _.arrWithNumber(0, 3); // Returns [0, 1, 2, 3]
 ```
 
-## `arrUnique` <Badge type="tip" text="JavaScript" />
+## `arrUnique` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Remove duplicate values from array and two-dimensional array data. In the case of 2d arrays, json type data duplication is not removed.
 

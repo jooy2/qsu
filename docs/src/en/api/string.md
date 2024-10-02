@@ -292,7 +292,7 @@ truncate('hello', 3); // Returns 'hel'
 truncate('hello', 2, ellipsis: '...'); // Returns 'he...'
 ```
 
-## `truncateExpect` <Badge type="tip" text="JavaScript" />
+## `truncateExpect` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 The string ignores truncation until the ending character (`endStringChar`). If the expected length is reached, return the truncated string until after the ending character.
 
@@ -300,7 +300,7 @@ The string ignores truncation until the ending character (`endStringChar`). If t
 
 - `str::string`
 - `expectLength::number`
-- `endStringChar::string || '.'`
+- `endStringChar::string || '.'` <span class="named">Dart:Named</span>
 
 ### Returns
 
@@ -335,7 +335,7 @@ _.split('hello%js,world', ',', '%'); // Returns ['hello', 'js', 'world']
 _.split('hello%js,world', [',', '%']); // Returns ['hello', 'js', 'world']
 ```
 
-## `strUnique` <Badge type="tip" text="JavaScript" />
+## `strUnique` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Remove duplicate characters from a given string and output only one.
 
@@ -353,7 +353,7 @@ Remove duplicate characters from a given string and output only one.
 _.strUnique('aaabbbcc'); // Returns 'abc'
 ```
 
-## `strToAscii` <Badge type="tip" text="JavaScript" />
+## `strToAscii` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Converts the given string to ascii code and returns it as an array.
 
@@ -371,13 +371,16 @@ Converts the given string to ascii code and returns it as an array.
 _.strToAscii('12345'); // Returns [49, 50, 51, 52, 53]
 ```
 
-## `urlJoin` <Badge type="tip" text="JavaScript" />
+## `urlJoin` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Merges the given string argument with the first argument (the beginning of the URL), joining it so that the slash (`/`) symbol is correctly included.
 
+Dart accepts only one argument, organized as an List.
+
 ### Parameters
 
-- `args::any[]`
+- `args::...any[]` (JavaScript)
+- `args::List<dynamic>` (Dart)
 
 ### Returns
 
@@ -387,4 +390,8 @@ Merges the given string argument with the first argument (the beginning of the U
 
 ```javascript
 _.urlJoin('https://example.com', 'hello', 'world'); // Returns 'https://example.com/hello/world'
+```
+
+```dart
+urlJoin(['https://example.com', 'hello', 'world']); // Returns 'https://example.com/hello/world'
 ```

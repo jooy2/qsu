@@ -1,5 +1,5 @@
 # API
 
-QSU에서 사용할 수 있는 유틸리티 메소드의 전체 목록입니다.
+A complete list of utility methods available in QSU.
 
-왼쪽 사이드바에서 목적에 맞는 API를 살펴보세요.
+Explore the APIs for your purpose in the left sidebar.

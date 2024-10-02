@@ -119,6 +119,25 @@ _.isUrl('google.com', true); // Returns true
 _.isUrl('https://google.com'); // Returns true
 ```
 
+## `is2dArray` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+
+Returns `true` if the given array is a two-dimensional array.
+
+### Parameters
+
+- `array::any[]`
+
+### Returns
+
+> boolean
+
+### Examples
+
+```javascript
+_.is2dArray([1]); // Returns false
+_.is2dArray([[1], [2]]); // Returns true
+```
+
 ## `contains` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Returns `true` if the first string argument contains the second argument "string" or "one or more of the strings listed in the array". If the exact value is `true`, it returns true only for an exact match.
@@ -139,25 +158,6 @@ Returns `true` if the first string argument contains the second argument "string
 _.contains('abc', 'a'); // Returns true
 _.contains('abc', 'd'); // Returns false
 _.contains('abc', ['a', 'd']); // Returns true
-```
-
-## `is2dArray` <Badge type="tip" text="JavaScript" />
-
-Returns `true` if the given array is a two-dimensional array.
-
-### Parameters
-
-- `array::any[]`
-
-### Returns
-
-> boolean
-
-### Examples
-
-```javascript
-_.is2dArray([1]); // Returns false
-_.is2dArray([[1], [2]]); // Returns true
 ```
 
 ## `between` <Badge type="tip" text="JavaScript" />
