@@ -123,7 +123,7 @@ _.duration(604800000, {
 
 ## `safeJSONParse` <Badge type="tip" text="JavaScript" />
 
-Attempts to parse without returning an error, even if the argument value is of the wrong type or in `JSON` format. If parsing fails, it will be replaced with the object set in `fallback`.`fallback`의 기본값은 빈 오브젝트입니다.
+Attempts to parse without returning an error, even if the argument value is of the wrong type or in `JSON` format. If parsing fails, it will be replaced with the object set in `fallback`. The default value for `fallback` is an empty object.
 
 ### Parameters
 
