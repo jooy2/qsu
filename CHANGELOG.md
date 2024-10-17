@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.5.0 (2024--)
+
+- **BREAKING CHANGES**: The `md5`, `sha1`, and `sha256` methods have been renamed to `md5Hash`, `sha1Hash`, and `sha256Hash`.
+
 ## 1.4.2 (2024-06-25)
 
 - `isObject`: use more accurate detect logic

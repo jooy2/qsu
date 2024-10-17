@@ -1218,15 +1218,15 @@ export default class Qsu {
 		);
 	}
 
-	static md5(str: string): string {
+	static md5Hash(str: string): string {
 		return createHash('md5').update(str).digest('hex');
 	}
 
-	static sha1(str: string): string {
+	static sha1Hash(str: string): string {
 		return createHash('sha1').update(str).digest('hex');
 	}
 
-	static sha256(str: string): string {
+	static sha256Hash(str: string): string {
 		return createHash('sha256').update(str).digest('hex');
 	}
 
@@ -1306,9 +1306,9 @@ export const {
 	split,
 	encrypt,
 	decrypt,
-	md5,
-	sha1,
-	sha256,
+	md5Hash,
+	sha1Hash,
+	sha256Hash,
 	encodeBase64,
 	decodeBase64,
 	strToNumberHash,

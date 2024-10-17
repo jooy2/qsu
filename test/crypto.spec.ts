@@ -2,9 +2,9 @@ import assert from 'assert';
 import {
 	encrypt,
 	decrypt,
-	md5,
-	sha1,
-	sha256,
+	md5Hash,
+	sha1Hash,
+	sha256Hash,
 	encodeBase64,
 	decodeBase64,
 	strToNumberHash,
@@ -29,25 +29,25 @@ describe('Crypto', () => {
 		done();
 	});
 
-	it('md5', (done) => {
-		assert.strictEqual(md5('test'), '098f6bcd4621d373cade4e832627b4f6');
-		assert.strictEqual(md5('qsu-md5'), '94af002364e42b514badb41b870ceb04');
+	it('md5Hash', (done) => {
+		assert.strictEqual(md5Hash('test'), '098f6bcd4621d373cade4e832627b4f6');
+		assert.strictEqual(md5Hash('qsu-md5'), '94af002364e42b514badb41b870ceb04');
 		done();
 	});
 
-	it('sha1', (done) => {
-		assert.strictEqual(sha1('test'), 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3');
-		assert.strictEqual(sha1('qsu-md5'), 'e5c5dc3b2be3542475671d460f906c3b176bb5bf');
+	it('sha1Hash', (done) => {
+		assert.strictEqual(sha1Hash('test'), 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3');
+		assert.strictEqual(sha1Hash('qsu-md5'), 'e5c5dc3b2be3542475671d460f906c3b176bb5bf');
 		done();
 	});
 
-	it('sha256', (done) => {
+	it('sha256Hash', (done) => {
 		assert.strictEqual(
-			sha256('test'),
+			sha256Hash('test'),
 			'9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
 		);
 		assert.strictEqual(
-			sha256('qsu-md5'),
+			sha256Hash('qsu-md5'),
 			'8c4cfec3ec79dc572958ea7f0e3cfd24b90d174969df9a4773b37b68498871ed'
 		);
 		done();

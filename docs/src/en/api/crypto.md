@@ -64,7 +64,7 @@ No parameters required
 _.objectId(); // Returns '651372605b49507aea707488'
 ```
 
-## `md5` <Badge type="tip" text="JavaScript" />
+## `md5Hash` <Badge type="tip" text="JavaScript" />
 
 Converts String data to md5 hash value and returns it.
 
@@ -79,10 +79,10 @@ Converts String data to md5 hash value and returns it.
 ### Examples
 
 ```javascript
-_.md5('test'); // Returns '098f6bcd4621d373cade4e832627b4f6'
+_.md5Hash('test'); // Returns '098f6bcd4621d373cade4e832627b4f6'
 ```
 
-## `sha1` <Badge type="tip" text="JavaScript" />
+## `sha1Hash` <Badge type="tip" text="JavaScript" />
 
 Converts String data to sha1 hash value and returns it.
 
@@ -97,10 +97,10 @@ Converts String data to sha1 hash value and returns it.
 ### Examples
 
 ```javascript
-_.sha1('test'); // Returns 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
+_.sha1Hash('test'); // Returns 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
 ```
 
-## `sha256` <Badge type="tip" text="JavaScript" />
+## `sha256Hash` <Badge type="tip" text="JavaScript" />
 
 Converts String data to sha256 hash value and returns it.
 
@@ -115,7 +115,7 @@ Converts String data to sha256 hash value and returns it.
 ### Examples
 
 ```javascript
-_.sha256('test'); // Returns '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
+_.sha256Hash('test'); // Returns '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
 ```
 
 ## `encodeBase64` <Badge type="tip" text="JavaScript" />

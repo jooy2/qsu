@@ -2,8 +2,8 @@
 	vertical-align: middle !important;
 }
 
-.VPBadge.info{
-	background: #06589C;
+.VPBadge.info {
+	background: #06589c;
 	color: white;
 	margin: 0 3px !important;
 	border-radius: 15px;
@@ -12,8 +12,8 @@
 	user-select: none;
 }
 
-.VPBadge.tip{
-	background: #EAD54C;
+.VPBadge.tip {
+	background: #ead54c;
 	color: #34231d;
 	margin: 0 3px !important;
 	border-radius: 15px;
@@ -23,7 +23,7 @@
 }
 
 .named {
-	background: #06589C;
+	background: #06589c;
 	color: white;
 	margin: 0 8px;
 	padding: 4px 5px;
