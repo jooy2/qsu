@@ -27,7 +27,7 @@ _.numberFormat(1234567); // Returns 1,234,567
 numberFormat(1234567); // Returns 1,234,567
 ```
 
-## `fileName` <Badge type="tip" text="JavaScript" />
+## `fileName` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Extract the file name from the path. Include the extension if withExtension is `true`.
 
@@ -47,7 +47,7 @@ _.fileName('C:Temphello.txt'); // Returns 'hello.txt'
 _.fileName('C:Temp\file.mp3', true); // Returns 'file.mp3'
 ```
 
-## `fileSize` <Badge type="tip" text="JavaScript" />
+## `fileSize` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Converts the file size in bytes to human-readable and returns it. The return value is a String and includes the file units (Bytes, MB, GB...). If the second optional argument value is included, you can display as many decimal places as you like.
 
@@ -67,7 +67,7 @@ _.fileSize(2000, 3); // Returns '1.953 KB'
 _.fileSize(250000000); // Returns '238.42 MB'
 ```
 
-## `fileExt` <Badge type="tip" text="JavaScript" />
+## `fileExt` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Returns only the extensions in the file path. If unknown, returns 'Unknown'.
 
@@ -121,7 +121,7 @@ _.duration(604800000, {
 }); // Returns '7Days'
 ```
 
-## `safeJSONParse` <Badge type="tip" text="JavaScript" />
+## `safeJSONParse` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Attempts to parse without returning an error, even if the argument value is of the wrong type or in `JSON` format. If parsing fails, it will be replaced with the object set in `fallback`. The default value for `fallback` is an empty object.
 
@@ -144,7 +144,7 @@ console.log(result1); // Returns { a: 1, b: 2 }
 console.log(result2); // Returns {}
 ```
 
-## `safeParseInt` <Badge type="tip" text="JavaScript" />
+## `safeParseInt` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Any argument value will be attempted to be parsed as a Number type without returning an error. If parsing fails, it is replaced by the number set in `fallback`. The default value for `fallback` is `0`. You can specify `radix` (default is decimal: `10`) in the third argument.
 

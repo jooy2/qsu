@@ -200,7 +200,7 @@ _.len('12345'); // Returns 5
 _.len([1, 2, 3]); // Returns 3
 ```
 
-## `isEmail` <Badge type="tip" text="JavaScript" />
+## `isEmail` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Checks if the given argument value is a valid email.
 
