@@ -220,3 +220,43 @@ const result = _.objUpdate(
 
 console.log(result); // Returns { a: 1, b: { a: 1, b: 2, c: 5 }, c: 5 }
 ```
+
+## `objMergeNewKey` <Badge type="tip" text="JavaScript" />
+
+Merge two object data into one object. The key to this method is to compare the two objects and add the newly added key data, if any.
+
+If the value is different from the existing key, it is replaced with the changed value, but not in the case of an array. However, if the arrays are the same length and the data type of the array is object, the new key is added by comparing the object keys again at the same array index for both objects.
+
+You must specify the original value for the first argument and the object value containing the newly added key for the second argument.
+
+### Parameters
+
+- `obj::object`
+- `obj2::object`
+
+### Returns
+
+> object|null
+
+### Examples
+
+```javascript
+const result = objMergeNewKey(
+	{
+		a: 1,
+		b: {
+			a: 1
+		},
+		c: [1, 2]
+	},
+	{
+		b: {
+			b: 2
+		},
+		c: [3],
+		d: 4
+	}
+);
+
+console.log(result); // Returns { a: 1, b: { a: 1, b: 2 }, c: [1, 2], d: 4
+```

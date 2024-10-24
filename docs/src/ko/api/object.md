@@ -220,3 +220,43 @@ const result = _.objUpdate(
 
 console.log(result); // Returns { a: 1, b: { a: 1, b: 2, c: 5 }, c: 5 }
 ```
+
+## `objMergeNewKey` <Badge type="tip" text="JavaScript" />
+
+두 object 데이터를 하나의 object로 병합합니다. 이 메소드의 핵심은 두 object를 비교하여 새로 추가된 키가 있으면 해당 키 데이터를 추가하는 것입니다.
+
+기존 키와 다른 값인 경우 변경된 값으로 교체되지만, 배열의 경우에는 교체되지 않습니다. 단 배열의 길이가 같고 해당 배열의 데이터 타입이 object인 경우에는 두 object의 같은 배열 인덱스에서 다시 object 키를 비교하여 새로운 키를 추가합니다.
+
+처음 인자값에는 원본 값을, 두번째 인자값은 새로 추가된 키가 포함된 object 값을 지정해야 합니다.
+
+### Parameters
+
+- `obj::object`
+- `obj2::object`
+
+### Returns
+
+> object|null
+
+### Examples
+
+```javascript
+const result = objMergeNewKey(
+	{
+		a: 1,
+		b: {
+			a: 1
+		},
+		c: [1, 2]
+	},
+	{
+		b: {
+			b: 2
+		},
+		c: [3],
+		d: 4
+	}
+);
+
+console.log(result); // Returns { a: 1, b: { a: 1, b: 2 }, c: [1, 2], d: 4
+```

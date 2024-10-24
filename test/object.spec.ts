@@ -6,7 +6,8 @@ import {
 	objFindItemRecursiveByKey,
 	objToArray,
 	objDeleteKeyByValue,
-	objUpdate
+	objUpdate,
+	objMergeNewKey
 } from '../dist';
 
 describe('Misc', () => {
@@ -387,6 +388,135 @@ describe('Misc', () => {
 			c: 3,
 			d: '1'
 		});
+
+		done();
+	});
+
+	it('objMergeNewKey', (done) => {
+		assert.deepStrictEqual(objMergeNewKey({ a: 1 }, {}), { a: 1 });
+		assert.deepStrictEqual(objMergeNewKey({ a: 1 }, { a: 2 }), { a: 2 });
+		assert.deepStrictEqual(objMergeNewKey({ a: 1 }, { b: 2 }), { a: 1, b: 2 });
+		assert.deepStrictEqual(objMergeNewKey({ a: 1, c: 3 }, { b: 2, d: '4' }), {
+			a: 1,
+			b: 2,
+			c: 3,
+			d: '4'
+		});
+		assert.deepStrictEqual(objMergeNewKey({ a: 1, c: 3 }, { b: [1, 2], d: null }), {
+			a: 1,
+			b: [1, 2],
+			c: 3,
+			d: null
+		});
+		assert.deepStrictEqual(
+			objMergeNewKey({ a: { aa: 1 }, b: 2 }, { a: { bb: 2, cc: 3 }, c: { dd: 1 } }),
+			{
+				a: { aa: 1, bb: 2, cc: 3 },
+				b: 2,
+				c: { dd: 1 }
+			}
+		);
+		assert.deepStrictEqual(
+			objMergeNewKey(
+				{
+					a: 1,
+					b: {
+						ba: 1,
+						bb: [1, 2]
+					}
+				},
+				{
+					b: {
+						bb: [3],
+						bc: 3
+					},
+					c: 1
+				}
+			),
+			{
+				a: 1,
+				b: {
+					ba: 1,
+					bb: [1, 2],
+					bc: 3
+				},
+				c: 1
+			}
+		);
+		assert.deepStrictEqual(
+			objMergeNewKey(
+				{
+					a: 1,
+					b: {
+						ba: 1,
+						bb: [
+							[1, 2],
+							[3, 4]
+						]
+					}
+				},
+				{
+					b: {
+						bb: [
+							[5, 6],
+							[7, 8]
+						],
+						bc: 3
+					},
+					c: 1
+				}
+			),
+			{
+				a: 1,
+				b: {
+					ba: 1,
+					bb: [
+						[1, 2],
+						[3, 4]
+					],
+					bc: 3
+				},
+				c: 1
+			}
+		);
+		assert.deepStrictEqual(
+			objMergeNewKey(
+				{
+					a: [
+						{ aa: 1, bb: 2, cc: null },
+						{ aa: 4, bb: 5, cc: null }
+					]
+				},
+				{
+					a: [{ cc: 3 }, { cc: 6 }]
+				}
+			),
+			{
+				a: [
+					{ aa: 1, bb: 2, cc: 3 },
+					{ aa: 4, bb: 5, cc: 6 }
+				]
+			}
+		);
+		assert.deepStrictEqual(
+			objMergeNewKey(
+				{
+					a: [
+						{ aa: 1, bb: 2 },
+						{ aa: 4, bb: 5 }
+					]
+				},
+				{
+					a: [{ cc: 3 }, { cc: 6 }]
+				}
+			),
+			{
+				a: [
+					{ aa: 1, bb: 2, cc: 3 },
+					{ aa: 4, bb: 5, cc: 6 }
+				]
+			}
+		);
 
 		done();
 	});

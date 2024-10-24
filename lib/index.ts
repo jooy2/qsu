@@ -574,6 +574,40 @@ export default class Qsu {
 		return newObj;
 	}
 
+	static objMergeNewKey(obj: AnyValueObject, obj2: AnyValueObject): AnyValueObject | null {
+		if (!obj || typeof obj !== 'object' || !obj2 || typeof obj2 !== 'object') {
+			return null;
+		}
+
+		const merged: AnyValueObject = { ...obj };
+
+		Object.keys(obj2).forEach((key: string) => {
+			const data = obj2[key];
+
+			if (Object.hasOwn(merged, key)) {
+				if (Array.isArray(merged[key]) && Array.isArray(data)) {
+					if (merged[key].length === data.length) {
+						for (let i = 0; i < merged[key].length; i += 1) {
+							const update = data[i];
+
+							if (Qsu.isObject(update)) {
+								merged[key][i] = Qsu.objMergeNewKey(merged[key][i], update);
+							}
+						}
+					}
+				} else if (Qsu.isObject(merged[key]) && Qsu.isObject(data)) {
+					merged[key] = Qsu.objMergeNewKey(merged[key], data);
+				} else {
+					merged[key] = data;
+				}
+			} else {
+				merged[key] = data;
+			}
+		});
+
+		return merged;
+	}
+
 	/*
 	 * String
 	 * */
@@ -1290,6 +1324,7 @@ export const {
 	objectTo1d,
 	objDeleteKeyByValue,
 	objUpdate,
+	objMergeNewKey,
 	trim,
 	replaceBetween,
 	removeSpecialChar,
