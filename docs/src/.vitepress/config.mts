@@ -18,7 +18,7 @@ const commonSidebarConfig: VitePressSidebarOptions = {
 	useTitleFromFrontmatter: true,
 	useFolderTitleFromIndexFile: true,
 	useFolderLinkFromIndexFile: true,
-	convertSameNameSubFileToGroupIndexPage: true,
+	useFolderLinkFromSameNameSubFile: true,
 	frontmatterOrderDefaultValue: 9, // For 'CHANGELOG.md'
 	sortMenusByFrontmatterOrder: true
 };
