@@ -11,9 +11,9 @@
 - 100% optimized for the latest Node.js and ESM environments.
 - Useful features for websites and web applications
 
-## [Documentation (Getting Started & Method Reference)](https://qsu.cdget.com/en/getting-started/installation-javascript)
+## [Documentation (Getting Started & Method Reference)](https://qsu.cdget.com/getting-started/installation-javascript)
 
-Installing and using the package and defining all the utility methods can be found on the documentation page below: https://qsu.cdget.com/en/getting-started/installation-javascript
+Installing and using the package and defining all the utility methods can be found on the documentation page below: https://qsu.cdget.com/getting-started/installation-javascript
 
 ## Contribute
 
