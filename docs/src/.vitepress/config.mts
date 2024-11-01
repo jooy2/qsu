@@ -1,5 +1,5 @@
 import { defineConfig, UserConfig } from 'vitepress';
-import { generateSidebar, VitePressSidebarOptions } from 'vitepress-sidebar';
+import { withSidebar, VitePressSidebarOptions } from 'vitepress-sidebar';
 import { name, homepage } from '../../../package.json';
 import { withI18n } from 'vitepress-i18n';
 import { VitePressI18nOptions } from 'vitepress-i18n/dist/types';
@@ -22,6 +22,17 @@ const commonSidebarConfig: VitePressSidebarOptions = {
 	frontmatterOrderDefaultValue: 9, // For 'CHANGELOG.md'
 	sortMenusByFrontmatterOrder: true
 };
+
+const vitePressSidebarConfigs: VitePressSidebarOptions[] = [
+	...[defaultLocale, 'ko'].map((lang) => {
+		return {
+			...commonSidebarConfig,
+			documentRootPath: `/src/${lang}`,
+			resolvePath: defaultLocale === lang ? '/' : `/${lang}/`,
+			...(defaultLocale === lang ? {} : { basePath: `/${lang}/` })
+		};
+	})
+];
 
 const vitePressI18nConfigs: VitePressI18nOptions = {
 	locales: [defaultLocale, 'ko'],
@@ -89,16 +100,6 @@ const vitePressConfigs: UserConfig = {
 		editLink: {
 			pattern: 'https://github.com/jooy2/qsu/edit/master/docs/src/:path'
 		},
-		sidebar: generateSidebar([
-			...[defaultLocale, 'ko'].map((lang) => {
-				return {
-					...commonSidebarConfig,
-					documentRootPath: `/src/${lang}`,
-					resolvePath: defaultLocale === lang ? '/' : `/${lang}/`,
-					...(defaultLocale === lang ? {} : { basePath: `/${lang}/` })
-				};
-			})
-		]),
 		footer: {
 			message: 'Released under the MIT License',
 			copyright: '© <a href="https://cdget.com">CDGet</a>'
@@ -106,4 +107,6 @@ const vitePressConfigs: UserConfig = {
 	}
 };
 
-export default defineConfig(withI18n(vitePressConfigs, vitePressI18nConfigs));
+export default defineConfig(
+	withSidebar(withI18n(vitePressConfigs, vitePressI18nConfigs), vitePressSidebarConfigs)
+);
