@@ -1,22 +1,21 @@
 import assert from 'assert';
+import { describe, it } from 'node:test';
 import dayjs from 'dayjs';
 import { dayDiff, today, isValidDate, dateToYYYYMMDD, createDateListFromRange } from '../dist';
 
 describe('Date', () => {
-	it('dayDiff', (done) => {
+	it('dayDiff', () => {
 		assert.strictEqual(dayDiff(new Date('2021-01-01'), new Date('2021-01-02')), 1);
 		assert.strictEqual(dayDiff(new Date('2021-01-01'), new Date('2021-02-28')), 58);
-		done();
 	});
 
-	it('today', (done) => {
+	it('today', () => {
 		assert.strictEqual(today(), dayjs().format('YYYY-MM-DD'));
 		assert.strictEqual(today('/'), dayjs().format('YYYY/MM/DD'));
 		assert.strictEqual(today('/', false), dayjs().format('MM/DD/YYYY'));
-		done();
 	});
 
-	it('isValidDate', (done) => {
+	it('isValidDate', () => {
 		assert.strictEqual(isValidDate('2021-01-01'), true);
 		assert.strictEqual(isValidDate('2021-02-28'), true);
 		assert.strictEqual(isValidDate('0024-01-01'), true);
@@ -26,16 +25,14 @@ describe('Date', () => {
 		assert.strictEqual(isValidDate('2021-03-32'), false);
 		assert.strictEqual(isValidDate('2021-13-01'), false);
 		assert.strictEqual(isValidDate('0000-01-01'), false);
-		done();
 	});
 
-	it('dateToYYYYMMDD', (done) => {
+	it('dateToYYYYMMDD', () => {
 		assert.strictEqual(dateToYYYYMMDD(new Date('2023-05-15T01:01:00Z')), '2023-05-15');
 		assert.strictEqual(dateToYYYYMMDD(new Date(2023, 11, 31), '/'), '2023/12/31');
-		done();
 	});
 
-	it('createDateListFromRange', (done) => {
+	it('createDateListFromRange', () => {
 		assert.deepStrictEqual(
 			createDateListFromRange(new Date('2023-01-01T01:00:00Z'), new Date('2023-01-05T01:00:00Z')),
 			['2023-01-01', '2023-01-02', '2023-01-03', '2023-01-04', '2023-01-05']
@@ -84,6 +81,5 @@ describe('Date', () => {
 				'2023-03-05'
 			]
 		);
-		done();
 	});
 });

@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { describe, it } from 'node:test';
 import {
 	objectTo1d,
 	objToQueryString,
@@ -11,7 +12,7 @@ import {
 } from '../dist';
 
 describe('Misc', () => {
-	it('funcTimes', (done) => {
+	it('funcTimes', () => {
 		assert.deepStrictEqual(objToQueryString({}), '');
 		assert.deepStrictEqual(
 			objToQueryString({
@@ -35,19 +36,17 @@ describe('Misc', () => {
 			}),
 			'a=%EA%B0%80%EB%82%98%EB%8B%A4'
 		);
-		done();
 	});
 
-	it('objToPrettyStr', (done) => {
+	it('objToPrettyStr', () => {
 		assert.deepStrictEqual(objToPrettyStr({}), '{}');
 		assert.deepStrictEqual(
 			objToPrettyStr({ a: 1, b: { c: 1, d: 2 } }),
 			'{\n\t"a": 1,\n\t"b": {\n\t\t"c": 1,\n\t\t"d": 2\n\t}\n}'
 		);
-		done();
 	});
 
-	it('objFindItemRecursiveByKey', (done) => {
+	it('objFindItemRecursiveByKey', () => {
 		assert.deepStrictEqual(
 			objFindItemRecursiveByKey(
 				{
@@ -137,10 +136,9 @@ describe('Misc', () => {
 				id: 456
 			}
 		);
-		done();
 	});
 
-	it('objToArray', (done) => {
+	it('objToArray', () => {
 		assert.deepStrictEqual(objToArray({}), []);
 		assert.deepStrictEqual(
 			objToArray({
@@ -196,10 +194,9 @@ describe('Misc', () => {
 				['d', { a: 1 }]
 			]
 		);
-		done();
 	});
 
-	it('objectTo1d', (done) => {
+	it('objectTo1d', () => {
 		assert.deepStrictEqual(objectTo1d({}), {});
 		assert.deepStrictEqual(
 			objectTo1d({
@@ -270,10 +267,9 @@ describe('Misc', () => {
 				c: 3
 			}
 		);
-		done();
 	});
 
-	it('objDeleteKeyByValue', (done) => {
+	it('objDeleteKeyByValue', () => {
 		assert.deepStrictEqual(objDeleteKeyByValue({}, 1), {});
 		assert.deepStrictEqual(
 			objDeleteKeyByValue(
@@ -360,11 +356,9 @@ describe('Misc', () => {
 				}
 			}
 		);
-
-		done();
 	});
 
-	it('objUpdate', (done) => {
+	it('objUpdate', () => {
 		assert.deepStrictEqual(objUpdate({}, 'a', 'test'), {});
 		assert.deepStrictEqual(objUpdate({}, 'a', 'test', false, true), { a: 'test' });
 		assert.deepStrictEqual(objUpdate({ a: 1, b: 2, c: 3 }, 'c', 5), { a: 1, b: 2, c: 5 });
@@ -388,11 +382,9 @@ describe('Misc', () => {
 			c: 3,
 			d: '1'
 		});
-
-		done();
 	});
 
-	it('objMergeNewKey', (done) => {
+	it('objMergeNewKey', () => {
 		assert.deepStrictEqual(objMergeNewKey({ a: 1 }, {}), { a: 1 });
 		assert.deepStrictEqual(objMergeNewKey({ a: 1 }, { a: 2 }), { a: 2 });
 		assert.deepStrictEqual(objMergeNewKey({ a: 1 }, { b: 2 }), { a: 1, b: 2 });
@@ -517,7 +509,5 @@ describe('Misc', () => {
 				]
 			}
 		);
-
-		done();
 	});
 });

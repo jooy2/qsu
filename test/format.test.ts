@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { describe, it } from 'node:test';
 import {
 	numberFormat,
 	fileName,
@@ -10,39 +11,35 @@ import {
 } from '../dist';
 
 describe('Format', () => {
-	it('numberFormat', (done) => {
+	it('numberFormat', () => {
 		assert.strictEqual(numberFormat(1234), '1,234');
 		assert.strictEqual(numberFormat(12345678), '12,345,678');
 		// @ts-ignore
 		assert.strictEqual(numberFormat(null), '0');
 		assert.strictEqual(numberFormat('123123'), '123,123');
-		done();
 	});
 
-	it('fileName', (done) => {
+	it('fileName', () => {
 		assert.strictEqual(fileName('C:\\Users\\test\\Desktop\\text.txt'), 'text');
 		assert.strictEqual(fileName('/home/user/Desktop/example.txt'), 'example');
 		assert.strictEqual(fileName('C:\\example.txt', true), 'example.txt');
-		done();
 	});
 
-	it('fileExt', (done) => {
+	it('fileExt', () => {
 		assert.strictEqual(fileExt('C:\\Users\\test\\Desktop\\text.txt'), 'txt');
 		assert.strictEqual(fileExt('hello.html'), 'html');
 		assert.strictEqual(fileExt('this.is.file.PNG'), 'png');
 		assert.strictEqual(fileExt('no-ext'), 'Unknown');
-		done();
 	});
 
-	it('fileSize', (done) => {
+	it('fileSize', () => {
 		assert.strictEqual(fileSize(1), '1 Bytes');
 		assert.strictEqual(fileSize(1000000), '976.56 KB');
 		assert.strictEqual(fileSize(2000, 3), '1.953 KB');
 		assert.strictEqual(fileSize(250000000), '238.42 MB');
-		done();
 	});
 
-	it('duration', (done) => {
+	it('duration', () => {
 		assert.strictEqual(duration(0), '');
 		assert.strictEqual(duration(604800000), '7 Days');
 		assert.strictEqual(
@@ -80,28 +77,23 @@ describe('Format', () => {
 			duration(1234567890),
 			'14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 		);
-		done();
 	});
 
-	it('safeJSONParse', (done) => {
+	it('safeJSONParse', () => {
 		assert.deepStrictEqual(safeJSONParse({}), {});
 		assert.deepStrictEqual(safeJSONParse('{}'), {});
 		assert.deepStrictEqual(safeJSONParse(''), {});
 		assert.deepStrictEqual(safeJSONParse(null), {});
 		assert.deepStrictEqual(safeJSONParse('{"a":1,"b":2}'), { a: 1, b: 2 });
 		assert.deepStrictEqual(safeJSONParse('{"a":{"aa":1},"b":null}'), { a: { aa: 1 }, b: null });
-
-		done();
 	});
 
-	it('safeParseInt', (done) => {
+	it('safeParseInt', () => {
 		assert.deepStrictEqual(safeParseInt(null), 0);
 		assert.deepStrictEqual(safeParseInt('', -1), -1);
 		assert.deepStrictEqual(safeParseInt('0001234'), 1234);
 		assert.deepStrictEqual(safeParseInt('1.234.567'), 1);
 		assert.deepStrictEqual(safeParseInt('1234', 10), 1234);
 		assert.deepStrictEqual(safeParseInt('1234', 0, 16), 4660);
-
-		done();
 	});
 });

@@ -1,13 +1,18 @@
 import assert from 'assert';
+import { describe, it } from 'node:test';
 import { setTimeout } from 'timers/promises';
 import { sleep, funcTimes, debounce, arrWithDefault } from '../dist';
 
 describe('Misc', () => {
-	it('sleep', (done) => {
-		assert(sleep(100).then(() => done()));
+	it('sleep', async () => {
+		let result = false;
+		await sleep(100).then(() => {
+			result = true;
+		});
+		assert.equal(result, true);
 	});
 
-	it('funcTimes', (done) => {
+	it('funcTimes', () => {
 		const sayHello = (str?: string): string => `Hello${str || ''}`;
 
 		assert.deepStrictEqual(funcTimes(2, sayHello), ['Hello', 'Hello']);
@@ -16,10 +21,9 @@ describe('Misc', () => {
 			funcTimes(4, () => sayHello('!')),
 			['Hello!', 'Hello!', 'Hello!', 'Hello!']
 		);
-		done();
 	});
 
-	it('debounce', (done) => {
+	it('debounce', () => {
 		const debounceResult: boolean[] = [];
 		const debounceFunc = debounce(() => {
 			debounceResult.push(true);
@@ -48,7 +52,6 @@ describe('Misc', () => {
 		Promise.all(runningFunctions).then(() => {
 			sleep(10).then(() => {
 				assert.deepStrictEqual(debounceResult, arrWithDefault(true, 4));
-				done();
 			});
 		});
 	});
