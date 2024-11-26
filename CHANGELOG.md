@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.5.1 (2024--)
+
+- **BREAKING CHANGES**: The `objectTo1d` method have been renamed to `objTo1d`
+
 ## 1.5.0 (2024-10-24)
 
 - **BREAKING CHANGES**: The `md5`, `sha1`, and `sha256` methods have been renamed to `md5Hash`, `sha1Hash`, and `sha256Hash`.

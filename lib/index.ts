@@ -482,7 +482,7 @@ export default class Qsu {
 		return convertToArray(obj);
 	}
 
-	static objectTo1d(obj: AnyValueObject, separator = '.'): AnyValueObject {
+	static objTo1d(obj: AnyValueObject, separator = '.'): AnyValueObject {
 		if (!separator || separator.length < 1) {
 			throw new Error('`separator` must have value at least 1 character.');
 		}
@@ -1321,7 +1321,7 @@ export const {
 	objToPrettyStr,
 	objFindItemRecursiveByKey,
 	objToArray,
-	objectTo1d,
+	objTo1d,
 	objDeleteKeyByValue,
 	objUpdate,
 	objMergeNewKey,

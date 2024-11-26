@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
 import {
-	objectTo1d,
+	objTo1d,
 	objToQueryString,
 	objToPrettyStr,
 	objFindItemRecursiveByKey,
@@ -196,10 +196,10 @@ describe('Misc', () => {
 		);
 	});
 
-	it('objectTo1d', () => {
-		assert.deepStrictEqual(objectTo1d({}), {});
+	it('objTo1d', () => {
+		assert.deepStrictEqual(objTo1d({}), {});
 		assert.deepStrictEqual(
-			objectTo1d({
+			objTo1d({
 				a: 1,
 				b: 2,
 				c: 3
@@ -211,7 +211,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objectTo1d({
+			objTo1d({
 				a: 1,
 				b: {
 					aa: 1,
@@ -227,7 +227,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objectTo1d(
+			objTo1d(
 				{
 					a: 1,
 					b: {
@@ -246,7 +246,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objectTo1d({
+			objTo1d({
 				a: 1,
 				b: {
 					aa: {
