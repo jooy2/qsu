@@ -5,7 +5,7 @@ order: 4
 
 # API: Math
 
-## `numRandom` <Badge type="tip" text="JavaScript" />
+## `numRandom` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Returns a random number (Between min and max).
 

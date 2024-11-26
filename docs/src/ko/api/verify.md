@@ -160,7 +160,7 @@ _.contains('abc', 'd'); // Returns false
 _.contains('abc', ['a', 'd']); // Returns true
 ```
 
-## `between` <Badge type="tip" text="JavaScript" />
+## `between` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Returns `true` if the first argument is in the range of the second argument (`[min, max]`). To allow the minimum and maximum values to be in the range, pass `true` for the third argument.
 
@@ -168,7 +168,7 @@ Returns `true` if the first argument is in the range of the second argument (`[m
 
 - `range::[number, number]`
 - `number::number`
-- `inclusive::boolean || false`
+- `inclusive::boolean || false` <span class="named">Dart:Named</span>
 
 ### Returns
 
@@ -181,7 +181,7 @@ _.between([10, 20], 10); // Returns false
 _.between([10, 20], 10, true); // Returns true
 ```
 
-## `len` <Badge type="tip" text="JavaScript" />
+## `len` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Returns the length of any type of data. If the argument value is `null` or `undefined`, `0` is returned.
 
@@ -200,7 +200,7 @@ _.len('12345'); // Returns 5
 _.len([1, 2, 3]); // Returns 3
 ```
 
-## `isEmail` <Badge type="tip" text="JavaScript" />
+## `isEmail` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Checks if the given argument value is a valid email.
 
@@ -218,14 +218,14 @@ Checks if the given argument value is a valid email.
 _.isEmail('abc@def.com'); // Returns true
 ```
 
-## `isTrueMinimumNumberOfTimes` <Badge type="tip" text="JavaScript" />
+## `isTrueMinimumNumberOfTimes` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Returns `true` if the values given in the `conditions` array are true at least `minimumCount` times.
 
 ### Parameters
 
 - `conditions::boolean[]`
-- `minimumCount::number`
+- `minimumCount::number` <span class="named">Dart:Named</span>
 
 ### Returns
 

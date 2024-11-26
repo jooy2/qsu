@@ -158,7 +158,7 @@ _.arrRepeat([1, 2, 3, 4], 3); // Returns [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
 _.arrRepeat({ a: 1, b: 2 }, 2); // Returns [{ a: 1, b: 2 }, { a: 1, b: 2 }]
 ```
 
-## `arrCount` <Badge type="tip" text="JavaScript" />
+## `arrCount` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Returns the number of duplicates for each unique value in the given array. The array values can only be of type `String` or `Number`.
 
@@ -268,7 +268,7 @@ _.sortNumeric(['a1a', 'b2a', 'aa1a', '1', 'a11a', 'a3a', 'a2a', '1a']);
 // Returns ['1', '1a', 'a1a', 'a2a', 'a3a', 'a11a', 'aa1a', 'b2a']
 ```
 
-## `arrGroupByMaxCount` <Badge type="tip" text="JavaScript" />
+## `arrGroupByMaxCount` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Separates the data in the given array into a two-dimensional array containing only the maximum number of elements. For example, if you have an array of 6 data in 2 groups, this function will create a 2-dimensional array with 3 lengths.
 

@@ -5,7 +5,7 @@ order: 2
 
 # API: Object
 
-## `objToQueryString` <Badge type="tip" text="JavaScript" />
+## `objToQueryString` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Converts the given object data to a URL query string.
 
@@ -84,7 +84,7 @@ _.objFindItemRecursiveByKey(
 ); // Returns '{ id: 456, name: 'childItemA' }'
 ```
 
-## `objToArray` <Badge type="tip" text="JavaScript" />
+## `objToArray` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Converts the given object to array format. The resulting array is a two-dimensional array with one key value stored as follows: `[key, value]`. If the `recursive` option is `true`, it will convert to a two-dimensional array again when the value is of type `object`.
 
@@ -108,14 +108,14 @@ _.objToArray({
 }); // Returns [['a', 1.234], ['b', 'str'], ['c', [1, 2, 3]], ['d', { a: 1 }]]
 ```
 
-## `objTo1d` <Badge type="tip" text="JavaScript" />
+## `objTo1d` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Merges objects from the given object to the top level of the child items and displays the key names in steps, using a delimiter (`.` by default) instead of the existing keys. For example, if an object `a` has keys `b`, `c`, and `d`, the `a` key is not displayed, and the keys and values `a.b`, `a.c`, and `a.d` are displayed in the parent step.
 
 ### Parameters
 
 - `obj::object`
-- `separator::string`
+- `separator::string` <span class="named">Dart:Named</span>
 
 ### Returns
 

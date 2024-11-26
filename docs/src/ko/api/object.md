@@ -5,7 +5,7 @@ order: 2
 
 # API: Object
 
-## `objToQueryString` <Badge type="tip" text="JavaScript" />
+## `objToQueryString` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Converts the given object data to a URL query string.
 
@@ -84,7 +84,7 @@ _.objFindItemRecursiveByKey(
 ); // Returns '{ id: 456, name: 'childItemA' }'
 ```
 
-## `objToArray` <Badge type="tip" text="JavaScript" />
+## `objToArray` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Converts the given object to array format. The resulting array is a two-dimensional array with one key value stored as follows: `[key, value]`. If the `recursive` option is `true`, it will convert to a two-dimensional array again when the value is of type `object`.
 
@@ -108,14 +108,14 @@ _.objToArray({
 }); // Returns [['a', 1.234], ['b', 'str'], ['c', [1, 2, 3]], ['d', { a: 1 }]]
 ```
 
-## `objTo1d` <Badge type="tip" text="JavaScript" />
+## `objTo1d` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Merges objects from the given object to the top level of the child items and displays the key names in steps, using a delimiter (`.` by default) instead of the existing keys. For example, if an object `a` has keys `b`, `c`, and `d`, the `a` key is not displayed, and the keys and values `a.b`, `a.c`, and `a.d` are displayed in the parent step.
 
 ### Parameters
 
 - `obj::object`
-- `separator::string`
+- `separator::string` <span class="named">Dart:Named</span>
 
 ### Returns
 
@@ -223,11 +223,11 @@ console.log(result); // Returns { a: 1, b: { a: 1, b: 2, c: 5 }, c: 5 }
 
 ## `objMergeNewKey` <Badge type="tip" text="JavaScript" />
 
-두 object 데이터를 하나의 object로 병합합니다. 이 메소드의 핵심은 두 object를 비교하여 새로 추가된 키가 있으면 해당 키 데이터를 추가하는 것입니다.
+Merge two object data into one object. The key to this method is to compare the two objects and add the newly added key data, if any.
 
-기존 키와 다른 값인 경우 변경된 값으로 교체되지만, 배열의 경우에는 교체되지 않습니다. 단 배열의 길이가 같고 해당 배열의 데이터 타입이 object인 경우에는 두 object의 같은 배열 인덱스에서 다시 object 키를 비교하여 새로운 키를 추가합니다.
+If the value is different from the existing key, it is replaced with the changed value, but not in the case of an array. However, if the arrays are the same length and the data type of the array is object, the new key is added by comparing the object keys again at the same array index for both objects.
 
-처음 인자값에는 원본 값을, 두번째 인자값은 새로 추가된 키가 포함된 object 값을 지정해야 합니다.
+You must specify the original value for the first argument and the object value containing the newly added key for the second argument.
 
 ### Parameters
 
