@@ -1,9 +1,9 @@
 ---
-title: Web
-order: 1
+title: Web <span class="VPBadge tip menu-badge">plugin:web</span>
+order: 100
 ---
 
-# Methods: Web
+# Methods: Web <Badge type="tip" text="Plugin:qsu-web" />
 
 This method is only available in the `qsu-web` package.
 

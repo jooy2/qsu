@@ -14,12 +14,15 @@ After configuring the node environment, you can simply run the following command
 ```bash
 # via npm
 $ npm install qsu
+$ npm install qsu-web # (Optional) When using the Add-on for Web
 
 # via yarn
 $ yarn add qsu
+$ yarn add qsu-web # (Optional) When using the Add-on for Web
 
 # via pnpm
 $ pnpm install qsu
+$ pnpm install qsu-web # (Optional) When using the Add-on for Web
 ```
 
 ## How to Use

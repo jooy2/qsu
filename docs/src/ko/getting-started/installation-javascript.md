@@ -14,12 +14,15 @@ Node.js 환경을 구성한 후 다음 명령을 실행하면 됩니다:
 ```bash
 # via npm
 $ npm install qsu
+$ npm install qsu-web # (선택적) Web용 추가 유틸을 사용할 때
 
 # via yarn
 $ yarn add qsu
+$ yarn add qsu-web # (선택적) Web용 추가 유틸을 사용할 때
 
 # via pnpm
 $ pnpm install qsu
+$ pnpm install qsu-web # (선택적) Web용 추가 유틸을 사용할 때
 ```
 
 ## 사용 방법
