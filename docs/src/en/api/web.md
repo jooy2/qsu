@@ -5,7 +5,7 @@ order: 100
 
 # Methods: Web <Badge type="tip" text="Plugin:qsu-web" />
 
-This method is only available in the `qsu-web` package.
+This method is only available in the `qsu-web` (JavaScript) package.
 
 ## `isBotAgent`
 

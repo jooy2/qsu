@@ -27,7 +27,7 @@ $ pnpm install qsu-web # (Optional) When using the Add-on for Web
 
 ## How to Use
 
-### Using named import (Multiple utilities in a single require) - Recommend
+일반적으로 각각의 함수를 아래와 같이 부분적으로 import하여 사용할 수 있습니다.
 
 ```javascript
 import { today, strCount } from 'qsu';
@@ -38,12 +38,13 @@ function main() {
 }
 ```
 
-### Using whole class (multiple utilities simultaneously with one object)
+코드와 모듈의 구분을 위해 아래처럼 언더스코어(`_`)기호 등을 사용하여 메소드를 사용할 수 있습니다. 특별한 경우가 아니면 부분 가져오기를 사용하는 것을 권장합니다.
 
 ```javascript
-import _ from 'qsu';
+import * as _ from 'qsu';
 
 function main() {
 	console.log(_.today()); // '20xx-xx-xx'
+	console.log(_.strCount('123412341234', '1')); // 3
 }
 ```
