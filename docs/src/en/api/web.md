@@ -7,6 +7,27 @@ order: 100
 
 This method is only available in the `qsu-web` (JavaScript) package.
 
+## `isMatchPathname`
+
+You can check if the URL path in the first argument value is matched against the second set of rules. The matching rules can take a string or an array of strings, where both arguments are paths that start with `/`. You can use wildcards (`*`) in the rules. For example, `user/*` would match all pages that start with `/user`.
+
+### Parameters
+
+- `pathname::string`
+- `matcher::string|string[]`
+
+### Returns
+
+> boolean
+
+### Examples
+
+```javascript
+_.isMatchPathname('/user/login', '/admin'); // Returns false
+_.isMatchPathname('/user/login', '/user*'); // Returns true
+_.isMatchPathname('/user/login', ['/test', '/home/hello', '/user/*']); // Returns true
+```
+
 ## `isBotAgent`
 
 Analyze the user agent value to determine if it's a bot for a search engine. Returns `true` if it's a bot.

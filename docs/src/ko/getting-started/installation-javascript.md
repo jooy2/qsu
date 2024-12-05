@@ -27,7 +27,7 @@ $ pnpm install qsu-web # (선택적) Web용 추가 유틸을 사용할 때
 
 ## 사용 방법
 
-In general, you can partially import and use each function as shown below.
+일반적으로 각각의 함수를 아래와 같이 부분적으로 import하여 사용할 수 있습니다.
 
 ```javascript
 import { today, strCount } from 'qsu';
@@ -38,7 +38,7 @@ function main() {
 }
 ```
 
-You can use methods with underscore (`_`) symbols to separate code and modules, as shown below. We recommend using partial imports unless there are special cases.
+코드와 모듈의 구분을 위해 아래처럼 언더스코어(`_`)기호 등을 사용하여 메소드를 사용할 수 있습니다. 특별한 경우가 아니면 부분 가져오기를 사용하는 것을 권장합니다.
 
 ```javascript
 import _ from 'qsu';
