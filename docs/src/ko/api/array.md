@@ -20,7 +20,7 @@ Shuffle the order of the given array and return.
 ### Examples
 
 ```javascript
-_.arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
+arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
 ```
 
 ## `arrWithDefault` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -39,8 +39,8 @@ Initialize an array with a default value of a specific length.
 ### Examples
 
 ```javascript
-_.arrWithDefault('abc', 4); // Returns ['abc', 'abc', 'abc', 'abc']
-_.arrWithDefault(null, 3); // Returns [null, null, null]
+arrWithDefault('abc', 4); // Returns ['abc', 'abc', 'abc', 'abc']
+arrWithDefault(null, 3); // Returns [null, null, null]
 ```
 
 ## `arrWithNumber` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -59,8 +59,8 @@ Creates and returns an Array in the order of start...end values.
 ### Examples
 
 ```javascript
-_.arrWithNumber(1, 3); // Returns [1, 2, 3]
-_.arrWithNumber(0, 3); // Returns [0, 1, 2, 3]
+arrWithNumber(1, 3); // Returns [1, 2, 3]
+arrWithNumber(0, 3); // Returns [0, 1, 2, 3]
 ```
 
 ## `arrUnique` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -78,8 +78,8 @@ Remove duplicate values from array and two-dimensional array data. In the case o
 ### Examples
 
 ```javascript
-_.arrUnique([1, 2, 2, 3]); // Returns [1, 2, 3]
-_.arrUnique([[1], [1], [2]]); // Returns [[1], [2]]
+arrUnique([1, 2, 2, 3]); // Returns [1, 2, 3]
+arrUnique([[1], [1], [2]]); // Returns [[1], [2]]
 ```
 
 ## `average` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -97,7 +97,7 @@ Returns the average of all numeric values in an array.
 ### Examples
 
 ```javascript
-_.average([1, 5, 15, 50]); // Returns 17.75
+average([1, 5, 15, 50]); // Returns 17.75
 ```
 
 ## `arrMove` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -117,7 +117,7 @@ Moves the position of a specific element in an array to the specified position. 
 ### Examples
 
 ```javascript
-_.arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
+arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
 ```
 
 ## `arrTo1dArray` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -135,7 +135,7 @@ Merges all elements of a multidimensional array into a one-dimensional array.
 ### Examples
 
 ```javascript
-_.arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
+arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
 ```
 
 ## `arrRepeat` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -154,8 +154,8 @@ Repeats the data of an `Array` or `Object` a specific number of times and return
 ### Examples
 
 ```javascript
-_.arrRepeat([1, 2, 3, 4], 3); // Returns [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
-_.arrRepeat({ a: 1, b: 2 }, 2); // Returns [{ a: 1, b: 2 }, { a: 1, b: 2 }]
+arrRepeat([1, 2, 3, 4], 3); // Returns [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
+arrRepeat({ a: 1, b: 2 }, 2); // Returns [{ a: 1, b: 2 }, { a: 1, b: 2 }]
 ```
 
 ## `arrCount` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -174,7 +174,7 @@ Returns the number of duplicates for each unique value in the given array. The a
 ### Examples
 
 ```javascript
-_.arrCount(['a', 'a', 'a', 'b', 'c', 'b', 'a', 'd']); // Returns { a: 4, b: 2, c: 1, d: 1 }
+arrCount(['a', 'a', 'a', 'b', 'c', 'b', 'a', 'd']); // Returns { a: 4, b: 2, c: 1, d: 1 }
 ```
 
 ## `sortByObjectKey` <Badge type="tip" text="JavaScript" />
@@ -220,7 +220,7 @@ const obj = [
 	}
 ];
 
-_.sortByObjectKey(obj, 'aa');
+sortByObjectKey(obj, 'aa');
 
 /*
 [
@@ -264,7 +264,7 @@ When sorting an array consisting of strings, it sorts first by the numbers conta
 ### Examples
 
 ```javascript
-_.sortNumeric(['a1a', 'b2a', 'aa1a', '1', 'a11a', 'a3a', 'a2a', '1a']);
+sortNumeric(['a1a', 'b2a', 'aa1a', '1', 'a11a', 'a3a', 'a2a', '1a']);
 // Returns ['1', '1a', 'a1a', 'a2a', 'a3a', 'a11a', 'aa1a', 'b2a']
 ```
 
@@ -284,6 +284,6 @@ Separates the data in the given array into a two-dimensional array containing on
 ### Examples
 
 ```javascript
-_.arrGroupByMaxCount(['a', 'b', 'c', 'd', 'e'], 2);
+arrGroupByMaxCount(['a', 'b', 'c', 'd', 'e'], 2);
 // Returns [['a', 'b'], ['c', 'd'], ['e']]
 ```

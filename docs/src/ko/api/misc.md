@@ -20,9 +20,9 @@ Sleep function using Promise.
 ### Examples
 
 ```javascript
-await _.sleep(1000); // 1s
+await sleep(1000); // 1s
 
-_.sleep(5000).then(() => {
+sleep(5000).then(() => {
 	// continue
 });
 ```
@@ -47,8 +47,8 @@ function sayHi(str) {
 	return `Hi${str || ''}`;
 }
 
-_.funcTimes(3, sayHi); // Returns ['Hi', 'Hi', 'Hi']
-_.funcTimes(4, () => sayHi('!')); // Returns ['Hi!', 'Hi!', 'Hi!', 'Hi!']
+funcTimes(3, sayHi); // Returns ['Hi', 'Hi', 'Hi']
+funcTimes(4, () => sayHi('!')); // Returns ['Hi!', 'Hi!', 'Hi!', 'Hi!']
 ```
 
 ## `debounce` <Badge type="tip" text="JavaScript" />
@@ -79,9 +79,9 @@ No return values
 	</body>
 </html>
 <script>
-	import _ from 'qsu';
+	import { debounce } from 'qsu';
 
-	const keyUpDebounce = _.debounce(() => {
+	const keyUpDebounce = debounce(() => {
 		console.log('handleKeyUp called.');
 	}, 100);
 

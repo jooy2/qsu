@@ -20,11 +20,6 @@ Removes all whitespace before and after a string. Unlike JavaScript's `trim` fun
 ### Examples
 
 ```javascript
-_.trim(' Hello Wor  ld  '); // Returns 'Hello Wor ld'
-_.trim('H e l l o     World'); // Returns 'H e l l o World'
-```
-
-```dart
 trim(' Hello Wor  ld  '); // Returns 'Hello Wor ld'
 trim('H e l l o     World'); // Returns 'H e l l o World'
 ```
@@ -45,8 +40,8 @@ Returns after removing all special characters, including spaces. If you want to 
 ### Examples
 
 ```javascript
-_.removeSpecialChar('Hello-qsu, World!'); // Returns 'HelloqsuWorld'
-_.removeSpecialChar('Hello-qsu, World!', ' -'); // Returns 'Hello-qsu World'
+removeSpecialChar('Hello-qsu, World!'); // Returns 'HelloqsuWorld'
+removeSpecialChar('Hello-qsu, World!', ' -'); // Returns 'Hello-qsu World'
 ```
 
 ```dart
@@ -70,8 +65,8 @@ Removes `\n`, `\r` characters or replaces them with specified characters.
 ### Examples
 
 ```javascript
-_.removeNewLine('ab\ncd'); // Returns 'abcd'
-_.removeNewLine('ab\r\ncd', '-'); // Returns 'ab-cd'
+removeNewLine('ab\ncd'); // Returns 'abcd'
+removeNewLine('ab\r\ncd', '-'); // Returns 'ab-cd'
 ```
 
 ```dart
@@ -99,11 +94,6 @@ Deletes strings in the range if `replaceWith` is not specified.
 ### Examples
 
 ```javascript
-_.replaceBetween('ab[c]d[e]f', '[', ']'); // Returns 'abdf'
-_.replaceBetween('abcd:replace:', ':', ':', 'e'); // Returns 'abcde'
-```
-
-```dart
 replaceBetween('ab[c]d[e]f', '[', ']'); // Returns 'abdf'
 replaceBetween('abcd:replace:', ':', ':', 'e'); // Returns 'abcde'
 ```
@@ -123,10 +113,6 @@ Converts the first letter of the entire string to uppercase and returns.
 ### Examples
 
 ```javascript
-_.capitalizeFirst('abcd'); // Returns 'Abcd'
-```
-
-```dart
 capitalizeFirst('abcd'); // Returns 'Abcd'
 ```
 
@@ -146,8 +132,8 @@ Capitalize the first letter of every sentence. Typically, the `.` characters to 
 ### Examples
 
 ```javascript
-_.capitalizeEverySentence('hello. world. hi.'); // Returns 'Hello. World. Hi.'
-_.capitalizeEverySentence('hello!world', '!'); // Returns 'Hello!World'
+capitalizeEverySentence('hello. world. hi.'); // Returns 'Hello. World. Hi.'
+capitalizeEverySentence('hello!world', '!'); // Returns 'Hello!World'
 ```
 
 ```dart
@@ -171,10 +157,6 @@ Converts every word with spaces to uppercase. If the naturally argument is true,
 ### Examples
 
 ```javascript
-_.capitalizeEachWords('abcd'); // Returns 'Abcd'
-```
-
-```dart
 capitalizeEachWords('abcd'); // Returns 'Abcd'
 ```
 
@@ -194,10 +176,6 @@ Returns the number of times the second String argument is contained in the first
 ### Examples
 
 ```javascript
-_.strCount('abcabc', 'a'); // Returns 2
-```
-
-```dart
 strCount('abcabc', 'a'); // Returns 2
 ```
 
@@ -216,10 +194,6 @@ Randomly shuffles the received string and returns it.
 ### Examples
 
 ```javascript
-_.strShuffle('abcdefg'); // Returns 'bgafced'
-```
-
-```dart
 strShuffle('abcdefg'); // Returns 'bgafced'
 ```
 
@@ -239,10 +213,6 @@ Returns a random String containing numbers or uppercase and lowercase letters of
 ### Examples
 
 ```javascript
-_.strRandom(5); // Returns 'CHy2M'
-```
-
-```dart
 strRandom(5); // Returns 'CHy2M'
 ```
 
@@ -263,7 +233,7 @@ Replace strings at random locations with a specified number of characters (defau
 ### Examples
 
 ```javascript
-_.strBlindRandom('hello', 2, '#'); // Returns '#el#o'
+strBlindRandom('hello', 2, '#'); // Returns '#el#o'
 ```
 
 ## `truncate` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -283,8 +253,8 @@ Truncates a long string to a specified length, optionally appending an ellipsis 
 ### Examples
 
 ```javascript
-_.truncate('hello', 3); // Returns 'hel'
-_.truncate('hello', 2, '...'); // Returns 'he...'
+truncate('hello', 3); // Returns 'hel'
+truncate('hello', 2, '...'); // Returns 'he...'
 ```
 
 ```dart
@@ -309,8 +279,8 @@ The string ignores truncation until the ending character (`endStringChar`). If t
 ### Examples
 
 ```javascript
-_.truncateExpect('hello. this is test string.', 10, '.'); // Returns 'hello. this is test string.'
-_.truncateExpect('hello-this-is-test-string-bye', 14, '-'); // Returns 'hello-this-is-'
+truncateExpect('hello. this is test string.', 10, '.'); // Returns 'hello. this is test string.'
+truncateExpect('hello-this-is-test-string-bye', 14, '-'); // Returns 'hello-this-is-'
 ```
 
 ## `split` <Badge type="tip" text="JavaScript" />
@@ -329,10 +299,10 @@ Splits a string based on the specified character and returns it as an Array. Unl
 ### Examples
 
 ```javascript
-_.split('hello% js world', '% '); // Returns ['hello', 'js world']
-_.split('hello,js,world', ','); // Returns ['hello', 'js', 'world']
-_.split('hello%js,world', ',', '%'); // Returns ['hello', 'js', 'world']
-_.split('hello%js,world', [',', '%']); // Returns ['hello', 'js', 'world']
+split('hello% js world', '% '); // Returns ['hello', 'js world']
+split('hello,js,world', ','); // Returns ['hello', 'js', 'world']
+split('hello%js,world', ',', '%'); // Returns ['hello', 'js', 'world']
+split('hello%js,world', [',', '%']); // Returns ['hello', 'js', 'world']
 ```
 
 ## `strUnique` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -350,7 +320,7 @@ Remove duplicate characters from a given string and output only one.
 ### Examples
 
 ```javascript
-_.strUnique('aaabbbcc'); // Returns 'abc'
+strUnique('aaabbbcc'); // Returns 'abc'
 ```
 
 ## `strToAscii` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -368,7 +338,7 @@ Converts the given string to ascii code and returns it as an array.
 ### Examples
 
 ```javascript
-_.strToAscii('12345'); // Returns [49, 50, 51, 52, 53]
+strToAscii('12345'); // Returns [49, 50, 51, 52, 53]
 ```
 
 ## `urlJoin` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -389,7 +359,7 @@ In Dart, accepts only one argument, organized as an List.
 ### Examples
 
 ```javascript
-_.urlJoin('https://example.com', 'hello', 'world'); // Returns 'https://example.com/hello/world'
+urlJoin('https://example.com', 'hello', 'world'); // Returns 'https://example.com/hello/world'
 ```
 
 ```dart

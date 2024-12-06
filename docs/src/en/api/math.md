@@ -21,8 +21,8 @@ Returns a random number (Between min and max).
 ### Examples
 
 ```javascript
-_.numRandom(1, 5); // Returns 1~5
-_.numRandom(10, 20); // Returns 10~20
+numRandom(1, 5); // Returns 1~5
+numRandom(10, 20); // Returns 10~20
 ```
 
 ## `sum` <Badge type="tip" text="JavaScript" />
@@ -40,8 +40,8 @@ Returns after adding up all the n arguments of numbers or the values of a single
 ### Examples
 
 ```javascript
-_.sum(1, 2, 3); // Returns 6
-_.sum([1, 2, 3, 4]); // Returns 10
+sum(1, 2, 3); // Returns 6
+sum([1, 2, 3, 4]); // Returns 10
 ```
 
 ## `mul` <Badge type="tip" text="JavaScript" />
@@ -59,8 +59,8 @@ Returns after multiplying all n arguments of numbers or the values of a single a
 ### Examples
 
 ```javascript
-_.mul(1, 2, 3); // Returns 6
-_.mul([1, 2, 3, 4]); // Returns 24
+mul(1, 2, 3); // Returns 6
+mul([1, 2, 3, 4]); // Returns 24
 ```
 
 ## `sub` <Badge type="tip" text="JavaScript" />
@@ -78,8 +78,8 @@ Returns after subtracting all n arguments of numbers or the values of a single a
 ### Examples
 
 ```javascript
-_.sub(10, 1, 5); // Returns 4
-_.sub([1, 2, 3, 4]); // Returns -8
+sub(10, 1, 5); // Returns 4
+sub([1, 2, 3, 4]); // Returns -8
 ```
 
 ## `div` <Badge type="tip" text="JavaScript" />
@@ -97,6 +97,6 @@ Returns after dividing all n arguments of numbers or the values of a single arra
 ### Examples
 
 ```javascript
-_.div(10, 5, 2); // Returns 1
-_.div([100, 2, 2, 5]); // Returns 5
+div(10, 5, 2); // Returns 1
+div([100, 2, 2, 5]); // Returns 5
 ```

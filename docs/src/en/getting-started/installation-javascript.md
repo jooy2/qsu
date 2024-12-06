@@ -14,14 +14,17 @@ After configuring the node environment, you can simply run the following command
 ```bash
 # via npm
 $ npm install qsu
+$ npm install qsu-fs # (Optional) When using the Add-on for File
 $ npm install qsu-web # (Optional) When using the Add-on for Web
 
 # via yarn
 $ yarn add qsu
+$ yarn add qsu-fs # (Optional) When using the Add-on for File
 $ yarn add qsu-web # (Optional) When using the Add-on for Web
 
 # via pnpm
 $ pnpm install qsu
+$ pnpm install qsu-fs # (Optional) When using the Add-on for File
 $ pnpm install qsu-web # (Optional) When using the Add-on for Web
 ```
 
@@ -48,3 +51,28 @@ function main() {
 	console.log(_.strCount('123412341234', '1')); // 3
 }
 ```
+
+## Using additional add-ons
+
+More feature-rich utilities are supported through additional add-on modules. You can install family packages of `qsu`.
+
+Each package is independent, so you don't necessarily need the `qsu` package. Add modules with the commands below as needed.
+
+Currently, this additional module is only supported in the JavaScript language.
+
+```bash
+# via npm
+$ npm install qsu-fs
+$ npm install qsu-web
+
+# via yarn
+$ yarn add qsu-fs
+$ yarn add qsu-web
+
+# via pnpm
+$ pnpm install qsu-fs
+$ pnpm install qsu-web
+```
+
+- `qsu-fs`: Utilities with enhancements for file processing ([API](/api/file))
+- `qsu-web`: Utilities with features to help your webpage or web server ([API](/api/web))

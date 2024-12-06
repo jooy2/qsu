@@ -20,8 +20,8 @@ Check whether the given data is of type `Object`. Returns `false` for other data
 ### Examples
 
 ```javascript
-_.isObject([1, 2, 3]); // Returns false
-_.isObject({ a: 1, b: 2 }); // Returns true
+isObject([1, 2, 3]); // Returns false
+isObject({ a: 1, b: 2 }); // Returns true
 ```
 
 ## `isEqual` <Badge type="tip" text="JavaScript" />
@@ -45,10 +45,10 @@ It compares the first argument value as the left operand and the argument values
 const val1 = 'Left';
 const val2 = 1;
 
-_.isEqual('Left', 'Left', val1); // Returns true
-_.isEqual(1, [1, '1', 1, val2]); // Returns true
-_.isEqual(val1, ['Right', 'Left', 1]); // Returns false
-_.isEqual(1, 1, 1, 1); // Returns true
+isEqual('Left', 'Left', val1); // Returns true
+isEqual(1, [1, '1', 1, val2]); // Returns true
+isEqual(val1, ['Right', 'Left', 1]); // Returns false
+isEqual(1, 1, 1, 1); // Returns true
 ```
 
 ## `isEqualStrict` <Badge type="tip" text="JavaScript" />
@@ -72,9 +72,9 @@ It compares the first argument value as the left operand and the argument values
 const val1 = 'Left';
 const val2 = 1;
 
-_.isEqualStrict('Left', 'Left', val1); // Returns true
-_.isEqualStrict(1, [1, '1', 1, val2]); // Returns false
-_.isEqualStrict(1, 1, '1', 1); // Returns false
+isEqualStrict('Left', 'Left', val1); // Returns true
+isEqualStrict(1, [1, '1', 1, val2]); // Returns false
+isEqualStrict(1, 1, '1', 1); // Returns false
 ```
 
 ## `isEmpty` <Badge type="tip" text="JavaScript" />
@@ -92,9 +92,9 @@ Returns true if the passed data is empty or has a length of 0.
 ### Examples
 
 ```javascript
-_.isEmpty([]); // Returns true
-_.isEmpty(''); // Returns true
-_.isEmpty('abc'); // Returns false
+isEmpty([]); // Returns true
+isEmpty(''); // Returns true
+isEmpty('abc'); // Returns false
 ```
 
 ## `isUrl` <Badge type="tip" text="JavaScript" />
@@ -114,9 +114,9 @@ Returns `true` if the given data is in the correct URL format. If withProtocol i
 ### Examples
 
 ```javascript
-_.isUrl('google.com'); // Returns false
-_.isUrl('google.com', true); // Returns true
-_.isUrl('https://google.com'); // Returns true
+isUrl('google.com'); // Returns false
+isUrl('google.com', true); // Returns true
+isUrl('https://google.com'); // Returns true
 ```
 
 ## `is2dArray` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -134,8 +134,8 @@ Returns `true` if the given array is a two-dimensional array.
 ### Examples
 
 ```javascript
-_.is2dArray([1]); // Returns false
-_.is2dArray([[1], [2]]); // Returns true
+is2dArray([1]); // Returns false
+is2dArray([[1], [2]]); // Returns true
 ```
 
 ## `contains` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -155,9 +155,9 @@ Returns `true` if the first string argument contains the second argument "string
 ### Examples
 
 ```javascript
-_.contains('abc', 'a'); // Returns true
-_.contains('abc', 'd'); // Returns false
-_.contains('abc', ['a', 'd']); // Returns true
+contains('abc', 'a'); // Returns true
+contains('abc', 'd'); // Returns false
+contains('abc', ['a', 'd']); // Returns true
 ```
 
 ## `between` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -177,8 +177,8 @@ Returns `true` if the first argument is in the range of the second argument (`[m
 ### Examples
 
 ```javascript
-_.between([10, 20], 10); // Returns false
-_.between([10, 20], 10, true); // Returns true
+between([10, 20], 10); // Returns false
+between([10, 20], 10, true); // Returns true
 ```
 
 ## `len` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -196,8 +196,8 @@ Returns the length of any type of data. If the argument value is `null` or `unde
 ### Examples
 
 ```javascript
-_.len('12345'); // Returns 5
-_.len([1, 2, 3]); // Returns 3
+len('12345'); // Returns 5
+len([1, 2, 3]); // Returns 3
 ```
 
 ## `isEmail` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -215,7 +215,7 @@ Checks if the given argument value is a valid email.
 ### Examples
 
 ```javascript
-_.isEmail('abc@def.com'); // Returns true
+isEmail('abc@def.com'); // Returns true
 ```
 
 ## `isTrueMinimumNumberOfTimes` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -237,7 +237,7 @@ Returns `true` if the values given in the `conditions` array are true at least `
 const left = 1;
 const right = 1 + 2;
 
-_.isTrueMinimumNumberOfTimes([true, true, false], 2); // Returns true
-_.isTrueMinimumNumberOfTimes([true, true, false], 3); // Returns false
-_.isTrueMinimumNumberOfTimes([true, true, left === right], 3); // Returns false
+isTrueMinimumNumberOfTimes([true, true, false], 2); // Returns true
+isTrueMinimumNumberOfTimes([true, true, false], 3); // Returns false
+isTrueMinimumNumberOfTimes([true, true, left === right], 3); // Returns false
 ```

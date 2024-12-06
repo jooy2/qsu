@@ -20,7 +20,7 @@ Return number format including comma symbol.
 ### Examples
 
 ```javascript
-_.numberFormat(1234567); // Returns 1,234,567
+numberFormat(1234567); // Returns 1,234,567
 ```
 
 ```dart
@@ -43,8 +43,8 @@ Extract the file name from the path. Include the extension if withExtension is `
 ### Examples
 
 ```javascript
-_.fileName('C:Temphello.txt'); // Returns 'hello.txt'
-_.fileName('C:Temp\file.mp3', true); // Returns 'file.mp3'
+fileName('C:Temphello.txt'); // Returns 'hello.txt'
+fileName('C:Temp\file.mp3', true); // Returns 'file.mp3'
 ```
 
 ## `fileSize` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -63,8 +63,8 @@ Converts the file size in bytes to human-readable and returns it. The return val
 ### Examples
 
 ```javascript
-_.fileSize(2000, 3); // Returns '1.953 KB'
-_.fileSize(250000000); // Returns '238.42 MB'
+fileSize(2000, 3); // Returns '1.953 KB'
+fileSize(250000000); // Returns '238.42 MB'
 ```
 
 ## `fileExt` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -82,8 +82,8 @@ Returns only the extensions in the file path. If unknown, returns 'Unknown'.
 ### Examples
 
 ```javascript
-_.fileExt('C:Temphello.txt'); // Returns 'txt'
-_.fileExt('this-is-file.mp3'); // Returns 'mp3'
+fileExt('C:Temphello.txt'); // Returns 'txt'
+fileExt('this-is-file.mp3'); // Returns 'mp3'
 ```
 
 ## `duration` <Badge type="tip" text="JavaScript" />
@@ -115,8 +115,8 @@ const {
 ### Examples
 
 ```javascript
-_.duration(1234567890); // 'Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
-_.duration(604800000, {
+duration(1234567890); // 'Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
+duration(604800000, {
 	useSpace: false
 }); // Returns '7Days'
 ```
@@ -137,8 +137,8 @@ Attempts to parse without returning an error, even if the argument value is of t
 ### Examples
 
 ```javascript
-const result1 = _.safeJSONParse('{"a":1,"b":2}');
-const result2 = _.safeJSONParse(null);
+const result1 = safeJSONParse('{"a":1,"b":2}');
+const result2 = safeJSONParse(null);
 
 console.log(result1); // Returns { a: 1, b: 2 }
 console.log(result2); // Returns {}
@@ -161,9 +161,9 @@ Any argument value will be attempted to be parsed as a Number type without retur
 ### Examples
 
 ```javascript
-const result1 = _.safeParseInt('00010');
-const result2 = _.safeParseInt('10.1234');
-const result3 = _.safeParseInt(null, -1);
+const result1 = safeParseInt('00010');
+const result2 = safeParseInt('10.1234');
+const result3 = safeParseInt(null, -1);
 
 console.log(result1); // Returns 10
 console.log(result2); // Returns 10

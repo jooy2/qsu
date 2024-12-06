@@ -1,6 +1,6 @@
 ---
 title: Web <span class="VPBadge tip menu-badge">plugin:web</span>
-order: 100
+order: 101
 ---
 
 # Methods: Web <Badge type="tip" text="Plugin:qsu-web" />
@@ -23,9 +23,9 @@ You can check if the URL path in the first argument value is matched against the
 ### Examples
 
 ```javascript
-_.isMatchPathname('/user/login', '/admin'); // Returns false
-_.isMatchPathname('/user/login', '/user*'); // Returns true
-_.isMatchPathname('/user/login', ['/test', '/home/hello', '/user/*']); // Returns true
+isMatchPathname('/user/login', '/admin'); // Returns false
+isMatchPathname('/user/login', '/user*'); // Returns true
+isMatchPathname('/user/login', ['/test', '/home/hello', '/user/*']); // Returns true
 ```
 
 ## `isBotAgent`
@@ -43,7 +43,7 @@ Analyze the user agent value to determine if it's a bot for a search engine. Ret
 ### Examples
 
 ```javascript
-_.isBotAgent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'); // Returns true
+isBotAgent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'); // Returns true
 ```
 
 ## `removeLocalePrefix`
@@ -64,8 +64,8 @@ The first argument can be a URL or a pathname. When using a URL, include the pro
 ### Examples
 
 ```javascript
-_.removeLocalePrefix('/ko/user/login', ['ko', 'en']); // Returns '/user/login'
-_.removeLocalePrefix('https://qsu.cdget.com/ko/user/login', ['ko', 'en']); // Returns 'https://qsu.cdget.com/user/login'
+removeLocalePrefix('/ko/user/login', ['ko', 'en']); // Returns '/user/login'
+removeLocalePrefix('https://qsu.cdget.com/ko/user/login', ['ko', 'en']); // Returns 'https://qsu.cdget.com/user/login'
 ```
 
 ## `license`
@@ -83,7 +83,7 @@ Returns text in a specific license format based on the author information of the
 ### Examples
 
 ```javascript
-_.license({
+license({
 	holder: 'example',
 	email: 'example@example.com',
 	yearStart: 2020,

@@ -21,7 +21,7 @@ Calculates the difference between two given dates and returns the number of days
 ### Examples
 
 ```javascript
-_.daydiff(new Date('2021-01-01'), new Date('2021-01-03')); // Returns 2
+daydiff(new Date('2021-01-01'), new Date('2021-01-03')); // Returns 2
 ```
 
 ## `today` <Badge type="tip" text="JavaScript" />
@@ -40,9 +40,9 @@ Returns today's date.
 ### Examples
 
 ```javascript
-_.today(); // Returns YYYY-MM-DD
-_.today('/'); // Returns YYYY/MM/DD
-_.today('/', false); // Returns DD/MM/YYYY
+today(); // Returns YYYY-MM-DD
+today('/'); // Returns YYYY/MM/DD
+today('/', false); // Returns DD/MM/YYYY
 ```
 
 ## `isValidDate` <Badge type="tip" text="JavaScript" />
@@ -60,8 +60,8 @@ Checks if a given date actually exists. Check only in `YYYY-MM-DD` format.
 ### Examples
 
 ```javascript
-_.isValidDate('2021-01-01'); // Returns true
-_.isValidDate('2021-02-30'); // Returns false
+isValidDate('2021-01-01'); // Returns true
+isValidDate('2021-02-30'); // Returns false
 ```
 
 ## `dateToYYYYMMDD` <Badge type="tip" text="JavaScript" />
@@ -80,7 +80,7 @@ Returns the date data of a Date object in the format `YYYY-MM-DD`.
 ### Examples
 
 ```javascript
-_.dateToYYYYMMDD(new Date(2023, 11, 31)); // Returns '2023-12-31'
+dateToYYYYMMDD(new Date(2023, 11, 31)); // Returns '2023-12-31'
 ```
 
 ## `createDateListFromRange` <Badge type="tip" text="JavaScript" />
@@ -99,7 +99,7 @@ Create an array list of all dates from `startDate` to `endDate` in the format `Y
 ### Examples
 
 ```javascript
-_.createDateListFromRange(new Date('2023-01-01T01:00:00Z'), new Date('2023-01-05T01:00:00Z'));
+createDateListFromRange(new Date('2023-01-01T01:00:00Z'), new Date('2023-01-05T01:00:00Z'));
 
 /*
 	 [

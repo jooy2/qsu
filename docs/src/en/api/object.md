@@ -20,7 +20,7 @@ Converts the given object data to a URL query string.
 ### Examples
 
 ```javascript
-_.objToQueryString({
+objToQueryString({
 	hello: 'world',
 	test: 1234,
 	arr: [1, 2, 3]
@@ -42,7 +42,7 @@ Recursively output all the steps of the JSON object (`JSON.stringify`) and then 
 ### Examples
 
 ```javascript
-_.objToPrettyStr({ a: 1, b: { c: 1, d: 2 } }); // Returns '{\n\t"a": 1,\n\t"b": {\n\t\t"c": 1,\n\t\t"d": 2\n\t}\n}'
+objToPrettyStr({ a: 1, b: { c: 1, d: 2 } }); // Returns '{\n\t"a": 1,\n\t"b": {\n\t\t"c": 1,\n\t\t"d": 2\n\t}\n}'
 ```
 
 ## `objFindItemRecursiveByKey` <Badge type="tip" text="JavaScript" />
@@ -63,7 +63,7 @@ Returns the object if the key of a specific piece of data in the object's datase
 ### Examples
 
 ```javascript
-_.objFindItemRecursiveByKey(
+objFindItemRecursiveByKey(
 	{
 		id: 123,
 		name: 'parent',
@@ -100,7 +100,7 @@ Converts the given object to array format. The resulting array is a two-dimensio
 ### Examples
 
 ```javascript
-_.objToArray({
+objToArray({
 	a: 1.234,
 	b: 'str',
 	c: [1, 2, 3],
@@ -124,7 +124,7 @@ Merges objects from the given object to the top level of the child items and dis
 ### Examples
 
 ```javascript
-_.objToArray({
+objToArray({
 	a: 1,
 	b: {
 		aa: 1,
@@ -161,7 +161,7 @@ Deletes keys equal to the given value from the object data. If the `recursive` o
 ### Examples
 
 ```javascript
-const result = _.objDeleteKeyByValue(
+const result = objDeleteKeyByValue(
 	{
 		a: 1,
 		b: 2,
@@ -202,7 +202,7 @@ Changes the value matching a specific key name in the given object. If the `recu
 ### Examples
 
 ```javascript
-const result = _.objUpdate(
+const result = objUpdate(
 	{
 		a: 1,
 		b: {

@@ -23,7 +23,7 @@ Encrypt with the algorithm of your choice (algorithm default: `aes-256-cbc`, ivS
 ### Examples
 
 ```javascript
-_.encrypt('test', 'secret-key');
+encrypt('test', 'secret-key');
 ```
 
 ## `decrypt` <Badge type="tip" text="JavaScript" />
@@ -43,7 +43,7 @@ Decrypt with the specified algorithm (default: `aes-256-cbc`) using a string and
 ### Examples
 
 ```javascript
-_.decrypt('61ba43b65fc...', 'secret-key');
+decrypt('61ba43b65fc...', 'secret-key');
 ```
 
 ## `objectId` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -61,7 +61,7 @@ No parameters required
 ### Examples
 
 ```javascript
-_.objectId(); // Returns '651372605b49507aea707488'
+objectId(); // Returns '651372605b49507aea707488'
 ```
 
 ## `md5Hash` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -79,7 +79,7 @@ Converts String data to md5 hash value and returns it.
 ### Examples
 
 ```javascript
-_.md5Hash('test'); // Returns '098f6bcd4621d373cade4e832627b4f6'
+md5Hash('test'); // Returns '098f6bcd4621d373cade4e832627b4f6'
 ```
 
 ## `sha1Hash` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -97,7 +97,7 @@ Converts String data to sha1 hash value and returns it.
 ### Examples
 
 ```javascript
-_.sha1Hash('test'); // Returns 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
+sha1Hash('test'); // Returns 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
 ```
 
 ## `sha256Hash` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -115,7 +115,7 @@ Converts String data to sha256 hash value and returns it.
 ### Examples
 
 ```javascript
-_.sha256Hash('test'); // Returns '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
+sha256Hash('test'); // Returns '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
 ```
 
 ## `encodeBase64` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -133,7 +133,7 @@ Base64-encode the given string.
 ### Examples
 
 ```javascript
-_.encodeBase64('this is test'); // Returns 'dGhpcyBpcyB0ZXN0'
+encodeBase64('this is test'); // Returns 'dGhpcyBpcyB0ZXN0'
 ```
 
 ## `decodeBase64` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -151,7 +151,7 @@ Decodes an encoded base64 string to a plain string.
 ### Examples
 
 ```javascript
-_.decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
+decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
 ```
 
 ## `strToNumberHash` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
@@ -169,7 +169,7 @@ Returns the specified string as a hash value of type number. The return value ca
 ### Examples
 
 ```javascript
-_.strToNumberHash('abc'); // Returns 96354
-_.strToNumberHash('Hello'); // Returns 69609650
-_.strToNumberHash('hello'); // Returns 99162322
+strToNumberHash('abc'); // Returns 96354
+strToNumberHash('Hello'); // Returns 69609650
+strToNumberHash('hello'); // Returns 99162322
 ```
