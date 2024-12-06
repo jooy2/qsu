@@ -1,8 +1,8 @@
 # Change Log
 
-## 1.6.0 (2024--)
+## 1.6.0 (2024-12-06)
 
-- **BREAKING CHANGES**: The `qsu` package no longer uses classes, so if you want to import the entire module at once, you must use something like `import * as _ from 'qsu''`. (`_` -> `* as _`)
+- **BREAKING CHANGES**: The `qsu` package no longer uses classes, so if you want to import the entire module at once, you must use something like `import * as _ from 'qsu'`. (`_` -> `* as _`)
 - **BREAKING CHANGES**: The `objectTo1d` method have been renamed to `objTo1d`
 - Separate files for each module purpose. Improved tree-shaking.
 
