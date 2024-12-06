@@ -74,5 +74,5 @@ $ pnpm install qsu-fs
 $ pnpm install qsu-web
 ```
 
-- `qsu-fs`: Utilities with enhancements for file processing ([API](/api/file))
-- `qsu-web`: Utilities with features to help your webpage or web server ([API](/api/web))
+- `qsu-fs`: Utilities with enhancements for file processing ([API](/api/file.md))
+- `qsu-web`: Utilities with features to help your webpage or web server ([API](/api/web.md))
