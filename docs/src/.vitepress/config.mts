@@ -1,8 +1,9 @@
 import { defineConfig, UserConfig } from 'vitepress';
-import { withSidebar, VitePressSidebarOptions } from 'vitepress-sidebar';
-import { name, homepage } from '../../../package.json';
+import { withSidebar } from 'vitepress-sidebar';
+import type { VitePressSidebarOptions } from 'vitepress-sidebar/types';
+import packageJson from '../../../package.json' with { type: 'json' };
 import { withI18n } from 'vitepress-i18n';
-import { VitePressI18nOptions } from 'vitepress-i18n/dist/types';
+import type { VitePressI18nOptions } from 'vitepress-i18n/types';
 
 const defaultLocale: string = 'en';
 
@@ -79,7 +80,7 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 };
 
 const vitePressConfigs: UserConfig = {
-	title: name.toUpperCase(),
+	title: packageJson.name.toUpperCase(),
 	lastUpdated: true,
 	outDir: '../dist',
 	cleanUrls: true,
@@ -90,7 +91,7 @@ const vitePressConfigs: UserConfig = {
 		['link', { rel: 'shortcut icon', href: '/favicon.ico' }]
 	],
 	sitemap: {
-		hostname: homepage
+		hostname: packageJson.homepage
 	},
 	rewrites: {
 		'en/:rest*': ':rest*'
