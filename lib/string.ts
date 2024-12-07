@@ -1,6 +1,6 @@
-import type { PositiveNumber } from './types/global';
-import { contains } from './verify';
-import { numRandom } from './math';
+import type { PositiveNumber } from './types/global.js';
+import { contains } from './verify.js';
+import { numRandom } from './math.js';
 
 export function trim(str?: string | null): string | null {
 	if (typeof str !== 'string' && !str) {

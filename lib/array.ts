@@ -1,5 +1,5 @@
-import type { NumberValueObject, PositiveNumber } from './types/global';
-import { is2dArray, isObject } from './verify';
+import type { NumberValueObject, PositiveNumber } from './types/global.js';
+import { is2dArray, isObject } from './verify.js';
 
 export function arrShuffle(array: any[]): any[] {
 	if (array.length === 1) {

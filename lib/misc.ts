@@ -1,4 +1,4 @@
-import type { PositiveNumber } from './types/global';
+import type { PositiveNumber } from './types/global.js';
 
 export function sleep<N extends number>(delay: PositiveNumber<N>): Promise<void> {
 	return new Promise<void>((resolve) => {

@@ -1,5 +1,5 @@
 import { basename, extname, win32 } from 'path';
-import type { AnyValueObject, DurationOptions, PositiveNumber } from './types/global';
+import type { AnyValueObject, DurationOptions, PositiveNumber } from './types/global.js';
 
 export function numberFormat(number: number | string): string {
 	return new Intl.NumberFormat().format(number as number);

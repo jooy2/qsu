@@ -1,6 +1,13 @@
 # Change Log
 
+## 1.6.1 (2024-12-07)
+
+- Fix import of type declaration files
+- Fix critical import issue
+
 ## 1.6.0 (2024-12-06)
+
+NOTE: This version is broken. Please use `1.6.1` or later.
 
 - **BREAKING CHANGES**: The `qsu` package no longer uses classes, so if you want to import the entire module at once, you must use something like `import * as _ from 'qsu'`. (`_` -> `* as _`)
 - **BREAKING CHANGES**: The `objectTo1d` method have been renamed to `objTo1d`

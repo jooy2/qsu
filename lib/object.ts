@@ -1,5 +1,5 @@
-import type { AnyValueObject } from './types/global';
-import { isEmpty, isObject } from './verify';
+import type { AnyValueObject } from './types/global.js';
+import { isEmpty, isObject } from './verify.js';
 
 export function objToQueryString(obj: AnyValueObject): string {
 	return Object.keys(obj)

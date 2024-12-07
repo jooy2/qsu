@@ -29,7 +29,16 @@
 	},
 	"main": "dist/index.js",
 	"exports": {
-		".": "./dist/index.js"
+		".": {
+			"types": "./dist/index.d.ts",
+			"module": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./types": {
+			"types": "./dist/types/global.d.ts",
+			"module": "./dist/types/global.js",
+			"default": "./dist/types/global.js"
+		}
 	},
 	"typesVersions": {
 		"*": {
