@@ -1,4 +1,4 @@
-import { randomBytes, createCipheriv, createDecipheriv, createHash } from 'node:crypto';
+import { randomBytes, createCipheriv, createDecipheriv, createHash } from 'crypto';
 
 export function encrypt(
 	str: string,

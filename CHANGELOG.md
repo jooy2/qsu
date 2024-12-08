@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.6.2 (2024-12-08)
+
+- Fix import crypto module
+
 ## 1.6.1 (2024-12-07)
 
 - Fix import of type declaration files

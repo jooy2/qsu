@@ -1,9 +1,9 @@
 ---
-title: Crypto
+title: Encrypt
 order: 6
 ---
 
-# API: Crypto
+# API: Encrypt
 
 ## `encrypt` <Badge type="tip" text="JavaScript" />
 

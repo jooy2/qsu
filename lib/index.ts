@@ -1,5 +1,5 @@
 export * from './array.js';
-export * from './crypto.js';
+export * from './encrypt.js';
 export * from './date.js';
 export * from './format.js';
 export * from './math.js';
