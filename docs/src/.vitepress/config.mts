@@ -99,7 +99,7 @@ const vitePressConfigs: UserConfig = {
 	themeConfig: {
 		logo: { src: '/logo-32.png', width: 24, height: 24 },
 		editLink: {
-			pattern: 'https://github.com/jooy2/qsu/edit/master/docs/src/:path'
+			pattern: 'https://github.com/jooy2/qsu/edit/main/docs/src/:path'
 		},
 		footer: {
 			message: 'Released under the MIT License',
