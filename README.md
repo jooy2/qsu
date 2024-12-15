@@ -15,10 +15,10 @@
 
 Installing and using the package and defining all the utility methods can be found on the documentation page below: https://qsu.cdget.com/getting-started/installation-javascript
 
-## Contribute
+## Contributing
 
-You can report issues on [GitHub Issue Tracker](https://github.com/jooy2/qsu/issues). You can also request a pull to fix bugs and add frequently used features.
+Anyone can contribute to the project by reporting new issues or submitting a pull request. For more information, please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-Copyright © 2021-2024 [CDGet](https://cdget.com) <[jooy2.contact@gmail.com](mailto:jooy2.contact@gmail.com)> Released under the MIT license.
+Please see the [LICENSE](LICENSE) file for more information about project owners, usage rights, and more.
