@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.6.4 (2024-12-20)
+
+- `isTrueMinimumNumberOfTimes`: use any type (fix build)
+
 ## 1.6.3 (2024-12-20)
 
 - `objMergeNewKey`: Added options to customize behavior for arrays
