@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.6.3 (20--)
+
+- `objMergeNewKey`: Added options to customize behavior for arrays
+
 ## 1.6.2 (2024-12-08)
 
 - Fix import crypto module

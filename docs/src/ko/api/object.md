@@ -225,7 +225,25 @@ console.log(result); // Returns { a: 1, b: { a: 1, b: 2, c: 5 }, c: 5 }
 
 Merge two object data into one object. The key to this method is to compare the two objects and add the newly added key data, if any.
 
-If the value is different from the existing key, it is replaced with the changed value, but not in the case of an array. However, if the arrays are the same length and the data type of the array is object, the new key is added by comparing the object keys again at the same array index for both objects.
+If the value is different from the existing key, it is replaced with the changed value, If the arrays are the same length and the data type of the array is object, the new key is added by comparing the object keys again at the same array index for both objects.
+
+일반적인 배열(배열 데이터가 객체가 아닌)의 경우 원본 값을 유지하도록 하지만, 세번째 인자 `options`에 다음과 같이 지정할 경우 배열의 처리 방법을 사용자 지정할 수 있습니다.
+
+```javascript
+const obj1 = {};
+const obj2 = {};
+const options = {
+	arrayAction: 'original' // option value: 'original' | 'replace' | 'append'
+};
+
+objMergeNewKey(obj1, obj2, options);
+```
+
+`arrayAction`을 지정하지 않을 경우 `original`이 기본 동작이 됩니다. 각 동작은 다음 역할을 합니다:
+
+- `original`: 기존 값을 사용
+- `replace`: 새 값을 사용
+- `append`: 기존 값에 새 값을 append (중복 허용)
 
 You must specify the original value for the first argument and the object value containing the newly added key for the second argument.
 
@@ -233,6 +251,7 @@ You must specify the original value for the first argument and the object value 
 
 - `obj::object`
 - `obj2::object`
+- `arrayAction::object?`: 'original' | 'replace' | 'append'
 
 ### Returns
 

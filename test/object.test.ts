@@ -441,6 +441,90 @@ describe('Misc', () => {
 					a: 1,
 					b: {
 						ba: 1,
+						bb: [1, 2, 3, 4]
+					}
+				},
+				{
+					b: {
+						bb: [5, 6, 7],
+						bc: 3
+					},
+					c: 1
+				},
+				{ arrayAction: 'append' }
+			),
+			{
+				a: 1,
+				b: {
+					ba: 1,
+					bb: [1, 2, 3, 4, 5, 6, 7],
+					bc: 3
+				},
+				c: 1
+			}
+		);
+		assert.deepStrictEqual(
+			objMergeNewKey(
+				{
+					a: 1,
+					b: {
+						ba: 1,
+						bb: [1, 2, 3, 4]
+					}
+				},
+				{
+					b: {
+						bb: [5, 6, 7],
+						bc: 3
+					},
+					c: 1
+				},
+				{ arrayAction: 'replace' }
+			),
+			{
+				a: 1,
+				b: {
+					ba: 1,
+					bb: [5, 6, 7],
+					bc: 3
+				},
+				c: 1
+			}
+		);
+		assert.deepStrictEqual(
+			objMergeNewKey(
+				{
+					a: 1,
+					b: {
+						ba: 1,
+						bb: [1, 2, 3, 4]
+					}
+				},
+				{
+					b: {
+						bb: [5, 6, 7],
+						bc: 3
+					},
+					c: 1
+				},
+				{ arrayAction: 'original' }
+			),
+			{
+				a: 1,
+				b: {
+					ba: 1,
+					bb: [1, 2, 3, 4],
+					bc: 3
+				},
+				c: 1
+			}
+		);
+		assert.deepStrictEqual(
+			objMergeNewKey(
+				{
+					a: 1,
+					b: {
+						ba: 1,
 						bb: [
 							[1, 2],
 							[3, 4]
