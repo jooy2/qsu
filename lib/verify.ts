@@ -119,7 +119,7 @@ export function isEmail(email: string): boolean {
 	);
 }
 
-export function isTrueMinimumNumberOfTimes(conditions: boolean[], minimumCount = 1): boolean {
+export function isTrueMinimumNumberOfTimes(conditions: any[], minimumCount = 1): boolean {
 	const conditionLength = conditions.length;
 	let trueCount = 0;
 

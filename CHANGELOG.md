@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.6.3 (20--)
+## 1.6.3 (2024-12-20)
 
 - `objMergeNewKey`: Added options to customize behavior for arrays
 
