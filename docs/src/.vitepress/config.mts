@@ -6,6 +6,7 @@ import { withI18n } from 'vitepress-i18n';
 import type { VitePressI18nOptions } from 'vitepress-i18n/types';
 
 const defaultLocale: string = 'en';
+const supportedLocale = [defaultLocale, 'ko'];
 
 const commonSidebarConfig: VitePressSidebarOptions = {
 	debugPrint: true,
@@ -25,7 +26,7 @@ const commonSidebarConfig: VitePressSidebarOptions = {
 };
 
 const vitePressSidebarConfigs: VitePressSidebarOptions[] = [
-	...[defaultLocale, 'ko'].map((lang) => {
+	...supportedLocale.map((lang) => {
 		return {
 			...commonSidebarConfig,
 			documentRootPath: `/src/${lang}`,
@@ -36,7 +37,7 @@ const vitePressSidebarConfigs: VitePressSidebarOptions[] = [
 ];
 
 const vitePressI18nConfigs: VitePressI18nOptions = {
-	locales: [defaultLocale, 'ko'],
+	locales: supportedLocale,
 	rootLocale: defaultLocale,
 	searchProvider: 'local',
 	description: {
