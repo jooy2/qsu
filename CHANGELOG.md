@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.6.x (2025--)
+
+- `numberFormat`: need to handle decimal points
+
 ## 1.6.4 (2024-12-20)
 
 - `isTrueMinimumNumberOfTimes`: use any type (fix build)

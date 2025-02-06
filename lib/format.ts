@@ -2,7 +2,9 @@ import { basename, extname, win32 } from 'path';
 import type { AnyValueObject, DurationOptions, PositiveNumber } from './types/global.js';
 
 export function numberFormat(number: number | string): string {
-	return new Intl.NumberFormat().format(number as number);
+	return new Intl.NumberFormat('en-US', {
+		roundingPriority: 'morePrecision'
+	}).format(number as number);
 }
 
 export function fileName(filePath: string, withExtension = false): string {
