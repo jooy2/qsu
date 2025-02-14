@@ -5,7 +5,7 @@ order: 5
 
 # API: Verify
 
-## `isObject` <Badge type="tip" text="JavaScript" />
+## `isObject` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Check whether the given data is of type `Object`. Returns `false` for other data types including `Array`.
 
@@ -24,7 +24,7 @@ isObject([1, 2, 3]); // Returns false
 isObject({ a: 1, b: 2 }); // Returns true
 ```
 
-## `isEqual` <Badge type="tip" text="JavaScript" />
+## `isEqual` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
 
@@ -34,6 +34,8 @@ It compares the first argument value as the left operand and the argument values
 
 - `leftOperand::any`
 - `rightOperand::any||any[]||...any`
+
+In Dart, rest parameters are not supported in `rightOperand`.
 
 ### Returns
 
@@ -51,7 +53,7 @@ isEqual(val1, ['Right', 'Left', 1]); // Returns false
 isEqual(1, 1, 1, 1); // Returns true
 ```
 
-## `isEqualStrict` <Badge type="tip" text="JavaScript" />
+## `isEqualStrict` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
 
@@ -61,6 +63,8 @@ It compares the first argument value as the left operand and the argument values
 
 - `leftOperand::any`
 - `rightOperand::any||any[]||...any`
+
+In Dart, rest parameters are not supported in `rightOperand`.
 
 ### Returns
 
@@ -77,7 +81,7 @@ isEqualStrict(1, [1, '1', 1, val2]); // Returns false
 isEqualStrict(1, 1, '1', 1); // Returns false
 ```
 
-## `isEmpty` <Badge type="tip" text="JavaScript" />
+## `isEmpty` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Returns true if the passed data is empty or has a length of 0.
 
@@ -97,15 +101,15 @@ isEmpty(''); // Returns true
 isEmpty('abc'); // Returns false
 ```
 
-## `isUrl` <Badge type="tip" text="JavaScript" />
+## `isUrl` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 Returns `true` if the given data is in the correct URL format. If withProtocol is `true`, it is automatically appended to the URL when the protocol does not exist. If strict is `true`, URLs without commas (`.`) return `false`.
 
 ### Parameters
 
 - `url::string`
-- `withProtocol::boolean || false`
-- `strict::boolean || false`
+- `withProtocol::boolean || false` <span class="named">Dart:Named</span>
+- `strict::boolean || false` <span class="named">Dart:Named</span>
 
 ### Returns
 

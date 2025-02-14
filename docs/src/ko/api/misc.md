@@ -51,7 +51,7 @@ funcTimes(3, sayHi); // Returns ['Hi', 'Hi', 'Hi']
 funcTimes(4, () => sayHi('!')); // Returns ['Hi!', 'Hi!', 'Hi!', 'Hi!']
 ```
 
-## `debounce` <Badge type="tip" text="JavaScript" />
+## `debounce` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
 When the given function is executed repeatedly, the function is called if it has not been called again within the specified timeout. This function is used when a small number of function calls are needed for repetitive input events.
 
