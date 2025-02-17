@@ -68,4 +68,4 @@ $ pnpm install qsu-web
 ```
 
 - `qsu-fs`: 파일 처리에 대한 향상된 기능이 포함된 유틸리티 ([API](/ko/api/file.md))
-- `qsu-web`: 웹페이지 또는 웹 서버에 도움이 되는 기능이 포함된 유틸리티 (API문서](/ko/api/web.md))
+- `qsu-web`: 웹페이지 또는 웹 서버에 도움이 되는 기능이 포함된 유틸리티 ([API문서](/ko/api/web.md))
