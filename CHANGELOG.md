@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.6.5 (2025--)
+## 1.6.5 (2025-02-23)
 
 - `numberFormat`: Need to handle decimal points
 - `truncateExpect`: Fix incorrect characters being added when all strings are displayed
