@@ -2,11 +2,12 @@
 
 ## 1.6.x (2025--)
 
-- `numberFormat`: need to handle decimal points
+- `numberFormat`: Need to handle decimal points
+- `truncateExpect`: Fix incorrect characters being added when all strings are displayed
 
 ## 1.6.4 (2024-12-20)
 
-- `isTrueMinimumNumberOfTimes`: use any type (fix build)
+- `isTrueMinimumNumberOfTimes`: Use any type (fix build)
 
 ## 1.6.3 (2024-12-20)
 

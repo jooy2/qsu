@@ -230,6 +230,10 @@ export function truncateExpect<N extends number>(
 		return '';
 	}
 
+	if (str.length <= expectLength) {
+		return str;
+	}
+
 	const isEndStringCharLastSentence = str.slice(-1) === endStringChar;
 	const splitStr = str.split(endStringChar);
 	const splitStrLength = splitStr.length;

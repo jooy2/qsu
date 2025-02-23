@@ -124,6 +124,8 @@ st`),
 			'hello. this is test.'
 		);
 		assert.strictEqual(truncateExpect('hello.. this is test', 20, '.'), 'hello.. this is test');
+		assert.strictEqual(truncateExpect('abc. def. ghi.', 6, '.'), 'abc. def.');
+		assert.strictEqual(truncateExpect('abc. def. ghi.', 20, '.'), 'abc. def. ghi.');
 		assert.strictEqual(truncateExpect('hello.. this is test', 21, '.'), 'hello.. this is test');
 		assert.strictEqual(truncateExpect('hello.. this is test', 19, '.'), 'hello.. this is test');
 		assert.strictEqual(truncateExpect('hello-this-is-test-string-bye', 14, '-'), 'hello-this-is-');
