@@ -13,7 +13,7 @@ hero:
       text: 소개
       link: ko/introduction
     - theme: alt
-      text: JavaScript/NodeJS
+      text: JavaScript/Node.js
       link: ko/getting-started/installation-javascript
     - theme: alt
       text: Dart/Flutter

@@ -1,7 +1,7 @@
 {
 	"name": "qsu",
 	"version": "1.6.5",
-	"description": "QSU is a lightweight and simple module with a variety of built-in utility functions that you can utilize in your NodeJS projects.",
+	"description": "QSU is a lightweight and simple module with a variety of built-in utility functions that you can utilize in your Node.js projects.",
 	"author": "CDGet <jooy2.contact@gmail.com>",
 	"license": "MIT",
 	"homepage": "https://qsu.cdget.com",

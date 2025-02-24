@@ -127,7 +127,7 @@ NOTE: This version is broken. Please use `1.6.1` or later.
 
 ## 1.1.7 (2023-03-17)
 
-- NodeJS 12 version deprecation
+- Node.js 12 version deprecation
 - `removeSpecialChar`: Using `exceptionCharacters` instead of `withoutSpace`
 
 ## 1.1.6 (2023-02-28)

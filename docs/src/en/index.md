@@ -13,7 +13,7 @@ hero:
       text: Introduction
       link: introduction
     - theme: alt
-      text: JavaScript/NodeJS
+      text: JavaScript/Node.js
       link: getting-started/installation-javascript
     - theme: alt
       text: Dart/Flutter
