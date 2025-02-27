@@ -1,0 +1,12 @@
+export { arrCount } from './arrCount.js';
+export { arrGroupByMaxCount } from './arrGroupByMaxCount.js';
+export { arrMove } from './arrMove.js';
+export { arrRepeat } from './arrRepeat.js';
+export { arrShuffle } from './arrShuffle.js';
+export { arrTo1dArray } from './arrTo1dArray.js';
+export { arrUnique } from './arrUnique.js';
+export { arrWithDefault } from './arrWithDefault.js';
+export { arrWithNumber } from './arrWithNumber.js';
+export { average } from './average.js';
+export { sortByObjectKey } from './sortByObjectKey.js';
+export { sortNumeric } from './sortNumeric.js';

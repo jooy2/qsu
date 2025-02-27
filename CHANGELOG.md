@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.7.0 (2025--)
+
+- Separate files by function to strengthen tree shaking
+
 ## 1.6.5 (2025-02-23)
 
 - `numberFormat`: Need to handle decimal points
