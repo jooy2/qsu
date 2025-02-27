@@ -3,7 +3,7 @@ title: File
 order: 100
 ---
 
-# Methods: File
+# API: File
 
 ## `createDirectory`
 

@@ -3,7 +3,7 @@ title: Web
 order: 101
 ---
 
-# Methods: Web
+# API: Web
 
 ## `generateLicense`
 

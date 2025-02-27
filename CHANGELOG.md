@@ -2,8 +2,9 @@
 
 ## 1.7.0 (2025--)
 
-- **BREAKING CHANGES**: 이제 `qsu-fs` 패키지와 `qsu-web`패키지는 `qsu` 패키지로 병합되었으며 해당 패밀리 패키지의 모든 함수들은 이제 `qsu`만 설치하여 사용할 수 있습니다. 자세한 내용은 문서를 참고해주세요.
-- `format`
+- **BREAKING CHANGES**: The `qsu-fs` and `qsu-web` packages have now been merged into the `qsu` package, and all functions in the family package can now be used by installing only `qsu`. For more information, please refer to the documentation.
+- **BREAKING CHANGES**: `fileExt`, `fileName`, and `fileSize` have been moved to the file category and renamed to `getFileExtension`, `getFileName`, and `getFileSize`, respectively.
+
 - Separate files by function to strengthen tree shaking
 
 ## 1.6.5 (2025-02-23)
