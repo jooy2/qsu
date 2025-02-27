@@ -1,10 +1,9 @@
 # Change Log
 
-## 1.7.0 (2025--)
+## 1.7.0 (2025-02-27)
 
 - **BREAKING CHANGES**: The `qsu-fs` and `qsu-web` packages have now been merged into the `qsu` package, and all functions in the family package can now be used by installing only `qsu`. For more information, please refer to the documentation.
 - **BREAKING CHANGES**: `fileExt`, `fileName`, and `fileSize` have been moved to the file category and renamed to `getFileExtension`, `getFileName`, and `getFileSize`, respectively.
-
 - Separate files by function to strengthen tree shaking
 
 ## 1.6.5 (2025-02-23)
