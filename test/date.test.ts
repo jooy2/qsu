@@ -21,6 +21,7 @@ describe('Date', () => {
 		assert.strictEqual(isValidDate('0024-01-01'), true);
 		assert.strictEqual(isValidDate('9999-12-12'), true);
 		assert.strictEqual(isValidDate('2024-02-29'), true);
+		assert.strictEqual(isValidDate('0001-01-01'), false); // does not support validation
 		assert.strictEqual(isValidDate('2021-02-29'), false);
 		assert.strictEqual(isValidDate('2021-03-32'), false);
 		assert.strictEqual(isValidDate('2021-13-01'), false);

@@ -49,6 +49,8 @@ today('/', false); // Returns DD/MM/YYYY
 
 Checks if a given date actually exists. Check only in `YYYY-MM-DD` format.
 
+The date can be checked only from `1600-01-01` to `9999-12-31` and all dates before `1600` are returned as `false`.
+
 ### Parameters
 
 - `date::string`
