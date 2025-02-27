@@ -1,14 +1,6 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import {
-	numberFormat,
-	fileName,
-	fileExt,
-	fileSize,
-	duration,
-	safeJSONParse,
-	safeParseInt
-} from '../dist';
+import { numberFormat, duration, safeJSONParse, safeParseInt } from '../dist';
 
 describe('Format', () => {
 	it('numberFormat', () => {
@@ -19,26 +11,6 @@ describe('Format', () => {
 		// @ts-ignore
 		assert.strictEqual(numberFormat(null), '0');
 		assert.strictEqual(numberFormat('123123'), '123,123');
-	});
-
-	it('fileName', () => {
-		assert.strictEqual(fileName('C:\\Users\\test\\Desktop\\text.txt'), 'text');
-		assert.strictEqual(fileName('/home/user/Desktop/example.txt'), 'example');
-		assert.strictEqual(fileName('C:\\example.txt', true), 'example.txt');
-	});
-
-	it('fileExt', () => {
-		assert.strictEqual(fileExt('C:\\Users\\test\\Desktop\\text.txt'), 'txt');
-		assert.strictEqual(fileExt('hello.html'), 'html');
-		assert.strictEqual(fileExt('this.is.file.PNG'), 'png');
-		assert.strictEqual(fileExt('no-ext'), 'Unknown');
-	});
-
-	it('fileSize', () => {
-		assert.strictEqual(fileSize(1), '1 Bytes');
-		assert.strictEqual(fileSize(1000000), '976.56 KB');
-		assert.strictEqual(fileSize(2000, 3), '1.953 KB');
-		assert.strictEqual(fileSize(250000000), '238.42 MB');
 	});
 
 	it('duration', () => {

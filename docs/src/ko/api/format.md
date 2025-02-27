@@ -27,65 +27,6 @@ numberFormat(1234567); // Returns 1,234,567
 numberFormat(1234567); // Returns 1,234,567
 ```
 
-## `fileName` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
-
-Extract the file name from the path. Include the extension if withExtension is `true`.
-
-### Parameters
-
-- `filePath::string`
-- `withExtension::boolean || false`
-
-### Returns
-
-> string
-
-### Examples
-
-```javascript
-fileName('C:Temphello.txt'); // Returns 'hello.txt'
-fileName('C:Temp\file.mp3', true); // Returns 'file.mp3'
-```
-
-## `fileSize` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
-
-Converts the file size in bytes to human-readable and returns it. The return value is a String and includes the file units (Bytes, MB, GB...). If the second optional argument value is included, you can display as many decimal places as you like.
-
-### Parameters
-
-- `bytes::number`
-- `decimals::number || 2`
-
-### Returns
-
-> string
-
-### Examples
-
-```javascript
-fileSize(2000, 3); // Returns '1.953 KB'
-fileSize(250000000); // Returns '238.42 MB'
-```
-
-## `fileExt` <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
-
-Returns only the extensions in the file path. If unknown, returns 'Unknown'.
-
-### Parameters
-
-- `filePath::string`
-
-### Returns
-
-> string
-
-### Examples
-
-```javascript
-fileExt('C:Temphello.txt'); // Returns 'txt'
-fileExt('this-is-file.mp3'); // Returns 'mp3'
-```
-
 ## `duration` <Badge type="tip" text="JavaScript" />
 
 Displays the given millisecond value in human-readable time. For example, the value of `604800000` (7 days) is displayed as `7 Days`.
