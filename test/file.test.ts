@@ -29,7 +29,7 @@ const IS_WINDOWS_OS = process.platform === 'win32';
 const LONG_PATH =
 	'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\115.0.1901.203\\Trust Protection Lists';
 
-describe('qsu-fs', () => {
+describe('File', () => {
 	it('isFileHidden', async () => {
 		assert.strictEqual(await isFileHidden('/home/user/Desktop/hello.txt'), false);
 		assert.strictEqual(await isFileHidden('~/.bash_profile'), true);

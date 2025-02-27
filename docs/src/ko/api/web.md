@@ -1,11 +1,51 @@
 ---
-title: Web <span class="VPBadge tip menu-badge">plugin:web</span>
+title: Web
 order: 101
 ---
 
-# Methods: Web <Badge type="tip" text="Plugin:qsu-web" />
+# Methods: Web
 
-This method is only available in the `qsu-web` (JavaScript) package.
+## `generateLicense`
+
+Returns text in a specific license format based on the author information of the given argument. The argument uses the Object type.
+
+### Parameters
+
+- `options::LicenseOption{ author: string, email: string?, yearStart: string|number, yearEnd: string?, htmlBr: boolean?, type: 'mit' | 'apache20' }`
+
+### Returns
+
+> string
+
+### Examples
+
+```javascript
+generateLicense({
+	holder: 'example',
+	email: 'example@example.com',
+	yearStart: 2020,
+	yearEnd: 2021,
+	htmlBr: true
+});
+```
+
+## `isBotAgent`
+
+Analyze the user agent value to determine if it's a bot for a search engine. Returns `true` if it's a bot.
+
+### Parameters
+
+- `userAgent::string`
+
+### Returns
+
+> boolean
+
+### Examples
+
+```javascript
+isBotAgent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'); // Returns true
+```
 
 ## `isMatchPathname`
 
@@ -28,9 +68,9 @@ isMatchPathname('/user/login', '/user*'); // Returns true
 isMatchPathname('/user/login', ['/test', '/home/hello', '/user/*']); // Returns true
 ```
 
-## `isBotAgent`
+## `isMobile`
 
-Analyze the user agent value to determine if it's a bot for a search engine. Returns `true` if it's a bot.
+Checks if the current user is accessing from a mobile device via the User Agent string. This function returns `false` for tablet users.
 
 ### Parameters
 
@@ -43,7 +83,12 @@ Analyze the user agent value to determine if it's a bot for a search engine. Ret
 ### Examples
 
 ```javascript
-isBotAgent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'); // Returns true
+isMobile(
+	'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36'
+); // Returns false
+isMobile(
+	'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36'
+); // Returns true
 ```
 
 ## `removeLocalePrefix`
@@ -66,28 +111,4 @@ URL 또는 pathname에서 1단계 경로를 제거합니다. 일반적으로 로
 ```javascript
 removeLocalePrefix('/ko/user/login', ['ko', 'en']); // Returns '/user/login'
 removeLocalePrefix('https://qsu.cdget.com/ko/user/login', ['ko', 'en']); // Returns 'https://qsu.cdget.com/user/login'
-```
-
-## `license`
-
-Returns text in a specific license format based on the author information of the given argument. The argument uses the Object type.
-
-### Parameters
-
-- `options::LicenseOption{ author: string, email: string?, yearStart: string|number, yearEnd: string?, htmlBr: boolean?, type: 'mit' | 'apache20' }`
-
-### Returns
-
-> string
-
-### Examples
-
-```javascript
-license({
-	holder: 'example',
-	email: 'example@example.com',
-	yearStart: 2020,
-	yearEnd: 2021,
-	htmlBr: true
-});
 ```
