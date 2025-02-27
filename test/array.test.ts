@@ -12,9 +12,9 @@ import {
 	arrCount,
 	sortByObjectKey,
 	sortNumeric,
-	arrGroupByMaxCount
+	arrGroupByMaxCount,
+	funcTimes
 } from '../dist';
-import { funcTimes } from '../lib';
 
 describe('Array', () => {
 	it('arrShuffle', () => {
