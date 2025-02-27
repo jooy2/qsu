@@ -2,6 +2,8 @@
 
 ## 1.7.0 (2025--)
 
+- **BREAKING CHANGES**: 이제 `qsu-fs` 패키지와 `qsu-web`패키지는 `qsu` 패키지로 병합되었으며 해당 패밀리 패키지의 모든 함수들은 이제 `qsu`만 설치하여 사용할 수 있습니다. 자세한 내용은 문서를 참고해주세요.
+- `format`
 - Separate files by function to strengthen tree shaking
 
 ## 1.6.5 (2025-02-23)
@@ -121,7 +123,7 @@ NOTE: This version is broken. Please use `1.6.1` or later.
 
 **BREAKING CHANGES**: The `isBotAgent`, `license` methods were separated from `qsu` to the `qsu-web` package. These methods are no longer available after version 1.2.0.
 
-- Explore the `qsu-web` package: https://github.com/jooy2/qsu-web
+- Explore the `qsu-web` package: %DEPRECATED%
 - Also, I've split the documentation page into the following sites: https://qsu.cdget.com
 
 ## 1.1.8 (2023-05-13)

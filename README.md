@@ -15,13 +15,6 @@
 
 Installing and using the package and defining all the utility methods can be found on the documentation page below: https://qsu.cdget.com/getting-started/installation-javascript
 
-## Family Packages
-
-As a family package of `qsu`, it can be installed and used independently of the `qsu` package.
-
-- **[qsu-fs](https://github.com/jooy2/qsu-fs)**: File listing and management utilities
-- **[qsu-web](https://github.com/jooy2/qsu-web)**: Utilities for website front-end & back-end services
-
 In addition, `qsu` is also available for the Dart language: https://github.com/jooy2/qsu-dart
 
 ## Contributing

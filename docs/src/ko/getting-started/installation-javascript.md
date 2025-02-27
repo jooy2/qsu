@@ -35,7 +35,7 @@ function main() {
 }
 ```
 
-코드와 모듈의 구분을 위해 아래처럼 언더스코어(`_`)기호 등을 사용하여 메소드를 사용할 수 있습니다. 특별한 경우가 아니면 부분 가져오기를 사용하는 것을 권장합니다.
+코드와 모듈의 구분을 위해 아래처럼 언더스코어(`_`) 기호 등을 사용하여 메소드를 사용할 수 있습니다. 특별한 경우가 아니면 부분 가져오기를 사용하는 것을 권장합니다.
 
 ```javascript
 import _ from 'qsu';
@@ -44,28 +44,3 @@ function main() {
 	console.log(_.today()); // '20xx-xx-xx'
 }
 ```
-
-## 추가 애드온 사용하기
-
-더 많은 기능의 유틸리티가 추가 애드온 모듈을 통해 지원됩니다. `qsu`의 패밀리 패키지를 설치할 수 있습니다.
-
-각 패키지는 독립적이므로 `qsu` 패키지가 반드시 필요하지 않습니다. 필요에 따라 아래 커맨드로 모듈을 추가하세요.
-
-현재 이 추가 모듈은 JavaScript 언어에서만 지원됩니다.
-
-```bash
-# via npm
-$ npm install qsu-fs
-$ npm install qsu-web
-
-# via yarn
-$ yarn add qsu-fs
-$ yarn add qsu-web
-
-# via pnpm
-$ pnpm install qsu-fs
-$ pnpm install qsu-web
-```
-
-- `qsu-fs`: 파일 처리에 대한 향상된 기능이 포함된 유틸리티 ([API](/ko/api/file.md))
-- `qsu-web`: 웹페이지 또는 웹 서버에 도움이 되는 기능이 포함된 유틸리티 ([API문서](/ko/api/web.md))
