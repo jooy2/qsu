@@ -15,7 +15,7 @@
 	"type": "module",
 	"types": "dist/index.d.ts",
 	"scripts": {
-		"build": "npm run format:fix && tsc --project tsconfig.prod.json && npm run minify",
+		"build": "tsc --project tsconfig.prod.json && npm run minify",
 		"test": "npm run build && glob -c \"tsx --test\" \"./test/**/*.test.ts\"",
 		"lint": "eslint .",
 		"lint:fix": "eslint --fix .",
