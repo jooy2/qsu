@@ -7,7 +7,6 @@ on:
     paths:
       - docs/**
       - .github/workflows/documents.yml
-      - package.json
       - CHANGELOG.md
   # trigger deployment manually
   workflow_dispatch:
