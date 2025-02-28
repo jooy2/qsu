@@ -13,14 +13,22 @@ export function sortByObjectKey(
 
 	return array.sort((a: any, b: any) => {
 		if (!descending) {
-			if (a[key] < b[key]) return -1;
-			if (a[key] > b[key]) return 1;
+			if (a[key] < b[key]) {
+				return -1;
+			}
+			if (a[key] > b[key]) {
+				return 1;
+			}
 
 			return 0;
 		}
 
-		if (a[key] > b[key]) return -1;
-		if (a[key] < b[key]) return 1;
+		if (a[key] > b[key]) {
+			return -1;
+		}
+		if (a[key] < b[key]) {
+			return 1;
+		}
 
 		return 0;
 	});
