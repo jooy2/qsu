@@ -1,6 +1,6 @@
 # numRandom <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns a random number (Between min and max).
+임의의 숫자(최소값과 최대값 사이)를 반환합니다.
 
 ## Parameters
 

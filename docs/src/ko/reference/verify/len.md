@@ -1,6 +1,6 @@
 # len <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns the length of any type of data. If the argument value is `null` or `undefined`, `0` is returned.
+모든 유형의 데이터 길이를 반환합니다. 인자 값이 `null` 또는 `undefined`이면, `0`이 반환됩니다.
 
 ## Parameters
 

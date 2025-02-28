@@ -1,6 +1,6 @@
 # isUrl <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns `true` if the given data is in the correct URL format. If withProtocol is `true`, it is automatically appended to the URL when the protocol does not exist. If strict is `true`, URLs without commas (`.`) return `false`.
+지정된 데이터가 올바른 URL 형식일 경우 `true`를 반환합니다. withProtocol이 `true`이면, 프로토콜이 존재하지 않을 때 URL에 자동으로 추가됩니다. strict가 `true`이면, 쉼표(`.`)가 없는 URL은 `false`를 반환합니다.
 
 ## Parameters
 

@@ -1,6 +1,6 @@
 # strShuffle <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Randomly shuffles the received string and returns it.
+받은 문자열을 무작위로 섞어서 반환합니다.
 
 ## Parameters
 

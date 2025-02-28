@@ -1,6 +1,6 @@
 # decodeBase64 <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Decodes an encoded base64 string to a plain string.
+인코딩된 base64 문자열을 일반 문자열로 디코딩합니다.
 
 ## Parameters
 

@@ -1,6 +1,6 @@
 # strCount <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns the number of times the second String argument is contained in the first String argument.
+첫 번째 String 인자에 두 번째 String 인자가 포함된 횟수를 반환합니다.
 
 ## Parameters
 

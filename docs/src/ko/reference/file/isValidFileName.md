@@ -1,6 +1,6 @@
 # isValidFileName <Badge type="tip" text="JavaScript" />
 
-Determines whether the passed path or filename is using a system-accepted string (Also check the valid file length). Returns false if the name is not available.
+전달된 경로 또는 파일 이름이 시스템에서 허용하는 문자열을 사용하는지 여부를 결정합니다(또한 유효한 파일 길이도 확인합니다). 이름을 사용할 수 없는 경우 false를 반환합니다.
 
 ## Parameters
 

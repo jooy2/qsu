@@ -1,6 +1,6 @@
 # isEmpty <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns true if the passed data is empty or has a length of 0.
+전달된 데이터가 비어 있거나 길이가 0이면 true를 반환합니다.
 
 ## Parameters
 

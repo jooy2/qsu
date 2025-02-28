@@ -1,6 +1,6 @@
 # trim <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Removes all whitespace before and after a string. Unlike JavaScript's `trim` function, it converts two or more spaces between sentences into a single space.
+문자열 앞뒤의 모든 공백을 제거합니다. JavaScript의 `trim` 함수와는 달리, 문장 사이에 있는 두 개 이상의 공백을 하나의 공백으로 변환합니다.
 
 ## Parameters
 

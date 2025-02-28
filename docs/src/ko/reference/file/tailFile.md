@@ -1,6 +1,6 @@
 # tailFile <Badge type="tip" text="JavaScript" />
 
-Returns the last line of the specified text file path. The `length` argument is the total number of lines to print. Default is `1`. The last line of newline characters is ignored.
+지정된 텍스트 파일 경로의 마지막 줄을 반환합니다. `length` 인수는 인쇄할 총 줄 수입니다. 기본값은 `1`입니다. 줄 바꿈 문자의 마지막 줄은 무시됩니다.
 
 ## Parameters
 

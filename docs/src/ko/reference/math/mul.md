@@ -1,6 +1,6 @@
 # mul <Badge type="tip" text="JavaScript" />
 
-Returns after multiplying all n arguments of numbers or the values of a single array of numbers.
+숫자의 인수 n을 모두 곱한 값 또는 숫자의 단일 배열 값을 곱한 값을 반환합니다.
 
 ## Parameters
 

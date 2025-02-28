@@ -1,6 +1,6 @@
 # sleep <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Sleep function using Promise.
+Promise를 이용한 수면 기능.
 
 ## Parameters
 

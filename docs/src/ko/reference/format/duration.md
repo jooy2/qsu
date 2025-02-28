@@ -1,6 +1,6 @@
 # duration <Badge type="tip" text="JavaScript" />
 
-Displays the given millisecond value in human-readable time. For example, the value of `604800000` (7 days) is displayed as `7 Days`.
+주어진 밀리초 값을 사람이 읽을 수 있는 시간으로 표시합니다. 예를 들어, `604800000`(7일)의 값은 `7 Days`로 표시됩니다.
 
 ## Parameters
 

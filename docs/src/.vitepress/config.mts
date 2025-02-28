@@ -11,11 +11,9 @@ const supportedLocale = [defaultLocale, 'ko'];
 const commonSidebarConfig: VitePressSidebarOptions = {
 	debugPrint: true,
 	documentRootPath: 'src',
-	manualSortFileNameByPriority: ['introduction.md', 'getting-started', 'installation.md'],
+	manualSortFileNameByPriority: ['introduction.md', 'installation'],
 	hyphenToSpace: true,
 	collapsed: false,
-	capitalizeFirst: true,
-	capitalizeEachWords: true,
 	useTitleFromFileHeading: true,
 	useTitleFromFrontmatter: true,
 	useFolderTitleFromIndexFile: true,
@@ -41,35 +39,27 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 	rootLocale: defaultLocale,
 	searchProvider: 'local',
 	description: {
-		en: 'QSU is a package of utilities to energize your programming. It is available for JavaScript/Node.js and Dart/Flutter environments.',
-		ko: 'QSU는 프로그래밍에 활력을 주는 유틸리티를 모은 패키지입니다. JavaScript/Node.js와 Dart/Flutter 환경에서 사용할 수 있습니다.'
+		en: 'qsu is a package of utilities to energize your programming. It is available for JavaScript/Node.js and Dart/Flutter environments.',
+		ko: 'qsu 라이브러리는 프로그래밍에 활력을 주는 유틸리티를 모은 패키지입니다. JavaScript/Node.js와 Dart/Flutter 환경에서 사용할 수 있습니다.'
 	},
 	themeConfig: {
 		en: {
 			nav: [
 				{
-					text: 'JavaScript',
-					link: 'getting-started/installation-javascript'
+					text: 'Getting Started',
+					link: 'installation/javascript'
 				},
 				{
-					text: 'Dart',
-					link: 'getting-started/installation-dart'
-				},
-				{
-					text: 'API',
-					link: 'api'
+					text: 'Reference',
+					link: 'reference'
 				}
 			]
 		},
 		ko: {
 			nav: [
 				{
-					text: 'JavaScript',
-					link: 'ko/getting-started/installation-javascript'
-				},
-				{
-					text: 'Dart',
-					link: 'ko/getting-started/installation-dart'
+					text: '시작하기',
+					link: 'installation/javascript'
 				},
 				{
 					text: 'Reference',

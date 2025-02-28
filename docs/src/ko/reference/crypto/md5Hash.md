@@ -1,6 +1,6 @@
 # md5Hash <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Converts String data to md5 hash value and returns it.
+문자열 데이터를 md5 해시 값으로 변환하여 반환합니다.
 
 ## Parameters
 

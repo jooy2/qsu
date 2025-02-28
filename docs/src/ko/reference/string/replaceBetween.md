@@ -1,8 +1,8 @@
 # replaceBetween <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Replaces text within a range starting and ending with a specific character in a given string with another string. For example, given the string `abc<DEF>ghi`, to change `<DEF>` to `def`, use `replaceBetween('abc<DEF>ghi', '<', '>', 'def')`. The result would be `abcdefghi`.
+지정된 문자열에서 특정 문자로 시작하고 끝나는 범위 내의 텍스트를 다른 문자열로 대체합니다. 예를 들어, `abc<DEF>ghi`라는 문자열이 주어졌을 때, `<DEF>`를 `def`로 바꾸려면, `replaceBetween('abc<DEF>ghi', '<', '>', 'def')`를 사용합니다. 결과는 `abcdefghi`가 됩니다.
 
-Deletes strings in the range if `replaceWith` is not specified.
+`replaceWith`가 지정되지 않은 경우, 범위 내의 문자열을 삭제합니다.
 
 ## Parameters
 

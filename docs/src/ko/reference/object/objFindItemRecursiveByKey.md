@@ -1,6 +1,6 @@
 # objFindItemRecursiveByKey <Badge type="tip" text="JavaScript" />
 
-Returns the object if the key of a specific piece of data in the object's dataset corresponds to a specific value. This function returns only one result, so it is used to search for unique IDs, including all of their children.
+객체의 데이터 세트에 있는 특정 데이터의 키가 특정 값에 해당하는 경우 객체를 반환합니다. 이 함수는 하나의 결과만 반환하므로, 모든 하위 항목을 포함하여 고유 ID를 검색하는 데 사용됩니다.
 
 ## Parameters
 

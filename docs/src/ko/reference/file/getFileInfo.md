@@ -1,6 +1,6 @@
 # getFileInfo <Badge type="tip" text="JavaScript" />
 
-Returns file or directory information as an easy-to-understand object.
+파일 또는 디렉토리 정보를 이해하기 쉬운 객체로 반환합니다.
 
 ## Parameters
 

@@ -1,6 +1,6 @@
 # strToAscii <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Converts the given string to ascii code and returns it as an array.
+지정된 문자열을 ASCII 코드로 변환하여 배열로 반환합니다.
 
 ## Parameters
 

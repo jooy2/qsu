@@ -1,6 +1,6 @@
 # deleteAllFileFromDirectory <Badge type="tip" text="JavaScript" />
 
-Deletes all files in the specified directory path. However, the directory is preserved.
+지정된 디렉토리 경로에 있는 모든 파일을 삭제합니다. 그러나 디렉토리는 보존됩니다.
 
 ## Parameters
 

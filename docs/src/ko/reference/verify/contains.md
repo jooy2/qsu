@@ -1,6 +1,6 @@
 # contains <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns `true` if the first string argument contains the second argument "string" or "one or more of the strings listed in the array". If the exact value is `true`, it returns true only for an exact match.
+첫 번째 문자열 인수가 두 번째 인수 `string` 또는 "배열에 나열된 문자열 중 하나 이상"을 포함하는 경우 `true`를 반환합니다. 정확한 값이 `true`인 경우, 정확히 일치하는 경우에만 true를 반환합니다.
 
 ## Parameters
 

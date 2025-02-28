@@ -1,6 +1,6 @@
 # objectId <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns a random string hash of the ObjectId format (primarily utilized by MongoDB).
+ObjectId 형식의 임의의 문자열 해시를 반환합니다(주로 MongoDB에서 사용됨).
 
 ## Parameters
 

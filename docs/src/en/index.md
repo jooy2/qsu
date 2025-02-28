@@ -7,17 +7,17 @@ titleTemplate: Lightweight and extensive utility helpers
 hero:
   name: QSU
   text: Lightweight and extensive utility helpers
-  tagline: QSU is a package of utilities to energize your programming. It is available for JavaScript/Node.js and Dart/Flutter environments.
+  tagline: qsu is a package of utilities to energize your programming. It is available for JavaScript/Node.js and Dart/Flutter environments.
   actions:
     - theme: brand
       text: Introduction
       link: introduction
     - theme: alt
       text: JavaScript/Node.js
-      link: getting-started/installation-javascript
+      link: installation/javascript
     - theme: alt
       text: Dart/Flutter
-      link: getting-started/installation-dart
+      link: installation/dart
   image:
     src: /icon.png
     alt: Utility
@@ -28,7 +28,7 @@ features:
     details: Aim for small footprint and fast performance. Ideal for modern programming.
   - icon: <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 120 120" width="240px" height="240px" baseProfile="basic"><polygon points="106,94 60,116 14,94 14,34 60,12 106,34" opacity=".35"/><polygon fill="#0075ff" points="106,90 60,112 14,90 14,30 60,8 106,30"/><polygon points="35,81.005 35,47.005 60,34.995 85,47.005 85,81.005 60,93.005" opacity=".35"/><polygon fill="#a4e2f1" points="35,77.005 35,43.005 60,30.995 85,43.005 85,77.005 60,89.005"/><polygon points="106,34.05 60,56.7 14,34.05 14,42.83 56,63.45 56,110.087 60,112 64,110.087 64,63.474 106,42.7" opacity=".35"/><polygon fill="#52afff" points="106,30.05 60,52.7 14,30.05 14,38.83 56,59.45 56,110.087 60,112 64,110.087 64,59.474 106,38.7"/></svg>
     title: Speed up your programming with tons of utility functions.
-    details: Meet the functions available in QSU. Minimize repetitive utility writing.
+    details: Meet the functions available in qsu. Minimize repetitive utility writing.
   - icon: <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 32 32" width="64px" height="64px"><circle cx="16" cy="17" r="5" fill="#ed0049"/><path fill="#ed0049" d="M23,31H9v0c0-3.866,3.134-7,7-7h0C19.866,24,23,27.134,23,31L23,31z"/><path fill="#0f518c" d="M19,4c0-1.657-1.343-3-3-3s-3,1.343-3,3c0,0.885,0.391,1.672,1,2.222V10h4V6.222 C18.609,5.672,19,4.885,19,4z"/><path fill="#0f518c" d="M7.061,8.318c-1.171-1.171-3.071-1.171-4.243,0s-1.171,3.071,0,4.243 c0.626,0.626,1.459,0.906,2.278,0.864l2.672,2.672l2.828-2.828l-2.672-2.672C7.967,9.777,7.686,8.944,7.061,8.318z"/><path fill="#0f518c" d="M24.879,8.318c1.171-1.171,3.071-1.171,4.243,0s1.171,3.071,0,4.243 c-0.626,0.626-1.459,0.906-2.278,0.864l-2.672,2.672l-2.828-2.828l2.672-2.672C23.972,9.777,24.253,8.944,24.879,8.318z"/><path fill="#0f518c" d="M24.879,27.218c1.171,1.171,3.071,1.171,4.243,0c1.171-1.171,1.171-3.071,0-4.243 c-0.626-0.626-1.459-0.906-2.278-0.864l-2.672-2.672l-2.828,2.828l2.672,2.672C23.972,25.759,24.253,26.592,24.879,27.218z"/><g><path fill="#0f518c" d="M7.061,27.218c-1.171,1.171-3.071,1.171-4.243,0c-1.171-1.171-1.171-3.071,0-4.243 c0.626-0.626,1.459-0.906,2.278-0.864l2.672-2.672l2.828,2.828L7.925,24.94C7.967,25.759,7.686,26.592,7.061,27.218z"/></g></svg>
     title: Reliable maintenance support
     details: There are many real-world use cases, and we have fast technical support.

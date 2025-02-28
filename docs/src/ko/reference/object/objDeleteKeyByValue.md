@@ -1,6 +1,6 @@
 # objDeleteKeyByValue <Badge type="tip" text="JavaScript" />
 
-Deletes keys equal to the given value from the object data. If the `recursive` option is `true`, also deletes all keys corresponding to the same value in the child items.
+지정된 값과 동일한 키를 객체 데이터에서 삭제합니다. `recursive` 옵션이 `true`인 경우, 하위 항목에서 동일한 값에 해당하는 모든 키도 삭제합니다.
 
 ## Parameters
 

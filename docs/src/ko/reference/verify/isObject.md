@@ -1,6 +1,6 @@
 # isObject <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Check whether the given data is of type `Object`. Returns `false` for other data types including `Array`.
+주어진 데이터가 `Object` 타입인지 확인합니다. `Array`를 포함한 다른 데이터 타입의 경우 `false`를 반환합니다.
 
 ## Parameters
 

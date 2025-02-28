@@ -1,8 +1,16 @@
 # 소개
 
-QSU는 프로그래밍에 활력을 주는 유틸리티를 모은 패키지입니다. JavaScript/Node.js와 Dart/Flutter 환경에서 사용할 수 있습니다.
+**qsu**는 웹사이트 또는 애플리케이션 코드를 작성할 때 자주 작성했거나 단축하여 사용하기 위해 정의한 유틸리티들을 모아 둔 함수 라이브러리입니다.
 
-원하는 언어로 시작하세요. 각 언어별로 제공되는 유틸리티 함수에는 차이가 있을 수 있습니다.
+프로젝트별로 관리해야 했던 반복적인 유틸리티 코드를 하나의 라이브러리 설치만으로 쉽게 접근할 수 있습니다.
 
-- [JavaScript/Node.js](/ko/getting-started/installation-javascript.md)
-- [Dart/Flutter](/ko/getting-started/installation-dart.md)
+**qsu**는 다른 유틸리티 함수와 비교하여 다음과 같은 이점을 가지고 있습니다:
+
+- 가벼움: 빌드 시 트리쉐이킹을 지원하며 최신 개발 환경에 최적화되어 있습니다.
+- 빠름: 동작에 대한 가장 유능하고 빠른 해결책을 가지고 있습니다.
+- 안전함: 변수 타입 체크, 적절한 에러 핸들링을 지원하며 보안 검사 및 엄격한 테스트를 통과하도록 검수하여 안전한 프로그래밍이 가능합니다.
+
+**qsu**는 공식적으로 다음 언어를 지원합니다 (일부 함수는 특정 언어에서 지원되지 않을 수 있습니다):
+
+- [JavaScript/Node.js](/ko/installation/javascript.md)
+- [Dart/Flutter](/ko/installation/dart.md)

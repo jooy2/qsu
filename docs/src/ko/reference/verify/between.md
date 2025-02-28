@@ -1,6 +1,6 @@
 # between <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns `true` if the first argument is in the range of the second argument (`[min, max]`). To allow the minimum and maximum values to be in the range, pass `true` for the third argument.
+첫 번째 인수가 두 번째 인수(`[min, max]`)의 범위 내에 있으면 `true`를 반환합니다. 최소값과 최대값이 범위 내에 있도록 하려면 세 번째 인수로 `true`를 전달합니다.
 
 ## Parameters
 

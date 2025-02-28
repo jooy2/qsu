@@ -1,6 +1,6 @@
 # getFilePathLevel <Badge type="tip" text="JavaScript" />
 
-Determine how many steps the current path is. The root path (`/` or `C:\`) begins with step 1.
+현재 경로가 몇 단계인지 결정합니다. 루트 경로(`/` 또는 `C:\`)는 1단계로 시작합니다.
 
 ## Parameters
 

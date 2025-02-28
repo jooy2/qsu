@@ -1,6 +1,6 @@
 # normalizeFile <Badge type="tip" text="JavaScript" />
 
-Returns the file name within the path.
+경로 내의 파일 이름을 반환합니다.
 
 ## Parameters
 

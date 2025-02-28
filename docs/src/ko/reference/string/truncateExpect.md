@@ -1,6 +1,6 @@
 # truncateExpect <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-The string ignores truncation until the ending character (`endStringChar`). If the expected length is reached, return the truncated string until after the ending character.
+이 문자열은 끝 문자(`endStringChar`)까지 잘림을 무시합니다. 예상 길이에 도달하면, 끝 문자 뒤의 잘린 문자열을 반환합니다.
 
 ## Parameters
 

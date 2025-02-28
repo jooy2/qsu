@@ -1,6 +1,6 @@
 # objToQueryString <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Converts the given object data to a URL query string.
+주어진 객체 데이터를 URL 쿼리 문자열로 변환합니다.
 
 ## Parameters
 

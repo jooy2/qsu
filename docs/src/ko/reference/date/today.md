@@ -1,6 +1,6 @@
 # today <Badge type="tip" text="JavaScript" />
 
-Returns today's date.
+오늘 날짜를 반환합니다.
 
 ## Parameters
 

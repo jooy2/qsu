@@ -1,8 +1,8 @@
 # debounce <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-When the given function is executed repeatedly, the function is called if it has not been called again within the specified timeout. This function is used when a small number of function calls are needed for repetitive input events.
+지정된 함수가 반복적으로 실행될 때, 지정된 시간 제한 내에 다시 호출되지 않으면 함수가 호출됩니다. 이 함수는 반복적인 입력 이벤트에 대해 소량의 함수 호출이 필요할 때 사용됩니다.
 
-For example, if you have a `func` variable written as `const func = debounce(() => console.log('hello'), 1000)` and you repeat the `func` function 100 times with a wait interval of 100ms, the function will only run once after 1000ms because the function was executed at 100ms intervals. However, if you increase the wait interval from 100ms to 1100ms or more and repeat it 100 times, the function will run all 100 times intended.
+예를 들어, `func` 변수가 `const func = debounce(() => console.log('hello'), 1000)`로 작성되어 있고, 100ms의 대기 간격으로 `func` 함수를 100번 반복하면, 함수는 1000ms 후에 한 번만 실행됩니다. 왜냐하면 함수가 100ms 간격으로 실행되었기 때문입니다. 그러나 대기 간격을 100ms에서 1100ms 이상으로 늘리고 100번 반복하면, 이 기능은 의도한 대로 100번 모두 실행됩니다.
 
 ## Parameters
 

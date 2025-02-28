@@ -1,5 +1,7 @@
-# Reference
+# 레퍼런스
 
-A complete list of utility methods available in QSU.
+여기에는 `qsu`의 모든 유틸리티 함수에 대한 설명이 있습니다.
 
-Explore the APIs for your purpose in the left sidebar.
+왼쪽 사이드바 메뉴에서 전체 목록을 확인하거나, 검색 기능을 활용하여 함수를 둘러보세요.
+
+일부 언어에서는 함수의 파라미터 사용 방법이 다르거나(예를 들어 **Dart**에서는 포지션 파라미터 대신 네임드 파라미터를 사용하고 있음), 지원하지 않는 함수가 있을 수 있습니다. 문서의 라벨을 확인하여 주의깊게 살펴보세요.

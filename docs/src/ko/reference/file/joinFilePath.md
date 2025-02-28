@@ -1,6 +1,6 @@
 # joinFilePath <Badge type="tip" text="JavaScript" />
 
-Combines paths for each operating system according to the given parameter values.
+지정된 매개 변수 값에 따라 각 운영 체제에 대한 경로를 결합합니다.
 
 ## Parameters
 

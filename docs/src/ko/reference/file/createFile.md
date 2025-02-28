@@ -1,6 +1,6 @@
 # createFile <Badge type="tip" text="JavaScript" />
 
-Create a file of empty data. If the same file already exists, it is ignored.
+빈 데이터로 된 파일을 만듭니다. 같은 파일이 이미 존재하는 경우, 그 파일은 무시됩니다.
 
 ## Parameters
 

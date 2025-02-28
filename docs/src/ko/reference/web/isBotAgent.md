@@ -1,6 +1,6 @@
 # isBotAgent <Badge type="tip" text="JavaScript" />
 
-Analyze the user agent value to determine if it's a bot for a search engine. Returns `true` if it's a bot.
+사용자 에이전트 값을 분석하여 검색 엔진의 봇인지 확인합니다. 봇인 경우 `true`를 반환합니다.
 
 ## Parameters
 

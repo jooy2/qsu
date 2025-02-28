@@ -1,6 +1,6 @@
 # moveFile <Badge type="tip" text="JavaScript" />
 
-Moves a file in the specified file path to another path.
+지정된 파일 경로에 있는 파일을 다른 경로로 이동합니다.
 
 ## Parameters
 

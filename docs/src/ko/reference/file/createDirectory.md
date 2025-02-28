@@ -1,6 +1,6 @@
 # createDirectory <Badge type="tip" text="JavaScript" />
 
-Creates a directory with the specified path. Ignores the operation if the directory already exists.
+지정된 경로로 디렉토리를 생성합니다. 디렉토리가 이미 존재하는 경우, 이 작업은 무시됩니다.
 
 ## Parameters
 

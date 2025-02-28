@@ -1,6 +1,6 @@
 # createFileWithDummy <Badge type="tip" text="JavaScript" />
 
-Creates a file with the specified size in bytes.
+지정된 크기의 파일을 바이트 단위로 만듭니다.
 
 ## Parameters
 

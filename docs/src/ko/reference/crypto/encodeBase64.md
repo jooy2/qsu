@@ -1,6 +1,6 @@
 # encodeBase64 <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Base64-encode the given string.
+지정된 문자열을 Base64로 인코딩합니다.
 
 ## Parameters
 

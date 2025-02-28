@@ -1,6 +1,6 @@
 # isTrueMinimumNumberOfTimes <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns `true` if the values given in the `conditions` array are true at least `minimumCount` times.
+`conditions` 배열에 있는 값이 최소 `minimumCount` 번 참이면 `true`를 반환합니다.
 
 ## Parameters
 

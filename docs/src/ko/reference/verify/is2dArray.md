@@ -1,6 +1,6 @@
 # is2dArray <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns `true` if the given array is a two-dimensional array.
+지정된 배열이 2차원 배열이면 `true`를 반환합니다.
 
 ## Parameters
 

@@ -1,6 +1,6 @@
 # createDateListFromRange <Badge type="tip" text="JavaScript" />
 
-Create an array list of all dates from `startDate` to `endDate` in the format `YYYY-MM-DD`.
+`YYYY-MM-DD` 형식으로 `시작일`부터 `종료일`까지의 모든 날짜의 배열 목록을 만듭니다.
 
 ## Parameters
 

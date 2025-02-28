@@ -1,6 +1,6 @@
 # arrRepeat <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Repeats the data of an `Array` or `Object` a specific number of times and returns it as a 1d array.
+`Array` 또는 `Object`의 데이터를 특정 횟수만큼 반복하고 1차원 배열로 반환합니다.
 
 ## Parameters
 

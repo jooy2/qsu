@@ -1,8 +1,8 @@
 # isValidDate <Badge type="tip" text="JavaScript" />
 
-Checks if a given date actually exists. Check only in `YYYY-MM-DD` format.
+지정된 날짜가 실제로 존재하는지 확인합니다. `YYYY-MM-DD` 형식으로만 확인합니다.
 
-The date can be checked only from `1600-01-01` to `9999-12-31` and all dates before `1600` are returned as `false`.
+날짜는 `1600-01-01`부터 `9999-12-31`까지만 확인할 수 있으며, `1600` 이전의 모든 날짜는 `false`로 반환됩니다.
 
 ## Parameters
 

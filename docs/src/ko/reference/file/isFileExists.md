@@ -1,6 +1,6 @@
 # isFileExists <Badge type="tip" text="JavaScript" />
 
-Returns `true` if the file at the given path exists.
+지정된 경로에 파일이 존재하면 `true`를 반환합니다.
 
 ## Parameters
 

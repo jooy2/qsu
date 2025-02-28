@@ -1,6 +1,6 @@
 # arrWithNumber <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Creates and returns an Array in the order of start...end values.
+시작...끝 값의 순서로 배열을 생성하고 반환합니다.
 
 ## Parameters
 

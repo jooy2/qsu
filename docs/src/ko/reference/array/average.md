@@ -1,6 +1,6 @@
 # average <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns the average of all numeric values in an array.
+배열에 있는 모든 숫자 값의 평균을 반환합니다.
 
 ## Parameters
 

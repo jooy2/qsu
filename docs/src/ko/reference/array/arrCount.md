@@ -1,6 +1,6 @@
 # arrCount <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Returns the number of duplicates for each unique value in the given array. The array values can only be of type `String` or `Number`.
+지정된 배열의 각 고유 값에 대한 중복 횟수를 반환합니다. 배열 값은 `String` 또는 `Number` 유형만 가능합니다.
 
 ## Parameters
 

@@ -1,6 +1,6 @@
 # arrWithDefault <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Initialize an array with a default value of a specific length.
+특정 길이의 기본값으로 배열을 초기화합니다.
 
 ## Parameters
 

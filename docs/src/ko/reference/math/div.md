@@ -1,6 +1,6 @@
 # div <Badge type="tip" text="JavaScript" />
 
-Returns after dividing all n arguments of numbers or the values of a single array of numbers.
+숫자의 인수 n 개를 모두 나눈 값 또는 숫자로 이루어진 단일 배열의 값을 반환합니다.
 
 ## Parameters
 

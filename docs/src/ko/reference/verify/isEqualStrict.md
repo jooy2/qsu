@@ -1,8 +1,8 @@
 # isEqualStrict <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
+첫 번째 인수의 값을 왼쪽 피연산자로, 그 다음에 주어진 인수의 값을 오른쪽 피연산자로 비교하고, 값이 모두 같으면 `true`를 반환합니다.
 
-`isEqual` returns `true` even if the data types do not match, but `isEqualStrict` returns `true` only when the data types of all argument values match.
+`isEqual`은 데이터 유형이 일치하지 않더라도 `true`를 반환하지만, `isEqualStrict`는 모든 인수의 데이터 유형이 일치할 때만 `true`를 반환합니다.
 
 ## Parameters
 

@@ -1,6 +1,6 @@
 # arrShuffle <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
-Shuffle the order of the given array and return.
+주어진 배열의 순서를 섞어서 반환합니다.
 
 ## Parameters
 
