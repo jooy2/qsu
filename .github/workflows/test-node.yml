@@ -41,16 +41,20 @@ jobs:
           cache: npm
           cache-dependency-path: '**/package-lock.json'
 
-      # cache node_modules
+      # get cache from npm cache directory
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
       - name: Cache dependencies
         uses: actions/cache@v4
         id: npm-cache
         with:
-          path: |
-            **/node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
+            ${{ runner.os }}-node-
 
       # install dependencies if the cache did not hit
       - name: Install dependencies
