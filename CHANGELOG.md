@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.7.1 (2025-02-28)
+
+- Update documentations
+
 ## 1.7.0 (2025-02-27)
 
 - **BREAKING CHANGES**: The `qsu-fs` and `qsu-web` packages have now been merged into the `qsu` package, and all functions in the family package can now be used by installing only `qsu`. For more information, please refer to the documentation.
