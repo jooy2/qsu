@@ -3,7 +3,7 @@
 ## 1.7.2 (2025--)
 
 - `numberFormat`: Fix decimal point format
-- `tailFile`: Correct line-break detection in Windows OS
+- `tailFile`, `headFile`: Correct line-break detection in Windows OS
 
 ## 1.7.1 (2025-02-28)
 
