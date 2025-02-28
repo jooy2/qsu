@@ -9,13 +9,13 @@ Qsu에는 `Dart 3.x` 이상이 필요합니다. Flutter를 사용 중인 경우 
 
 Dart 환경을 구성한 후 다음 명령을 실행하면 됩니다:
 
-### Dart를 사용
+### Dart 사용
 
 ```bash
 $ dart pub add qsu
 ```
 
-### Flutter를 사용
+### Flutter 사용
 
 ```bash
 $ flutter pub add qsu
@@ -29,4 +29,4 @@ $ flutter pub add qsu
 import 'package:qsu/qsu.dart';
 ```
 
-유틸리티 기능에 대해 자세히 알아보려면 [API](/ko/api/index.md) 설명서를 참조하세요.
+유틸리티 기능에 대해 자세히 알아보려면 [Reference](/ko/reference/index.md) 설명서를 참조하세요.

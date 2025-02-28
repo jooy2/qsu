@@ -1,0 +1,24 @@
+# capitalizeEverySentence <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+
+Capitalize the first letter of every sentence. Typically, the `.` characters to separate sentences, but this can be customized via the value of the `splitChar` argument.
+
+## Parameters
+
+- `str::string`
+- `splitChar::string` <span class="named">Dart:Named</span>
+
+## Returns
+
+> string
+
+## Examples
+
+```javascript
+capitalizeEverySentence('hello. world. hi.'); // Returns 'Hello. World. Hi.'
+capitalizeEverySentence('hello!world', '!'); // Returns 'Hello!World'
+```
+
+```dart
+capitalizeEverySentence('hello. world. hi.'); // Returns 'Hello. World. Hi.'
+capitalizeEverySentence('hello!world', splitChar: '!'); // Returns 'Hello!World'
+```

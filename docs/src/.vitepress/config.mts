@@ -72,8 +72,8 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 					link: 'ko/getting-started/installation-dart'
 				},
 				{
-					text: 'API',
-					link: 'ko/api'
+					text: 'Reference',
+					link: 'ko/reference'
 				}
 			]
 		}
