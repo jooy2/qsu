@@ -7,14 +7,10 @@ on:
   push:
     branches: [main]
     paths:
-      - '**'
-      - '!LICENSE'
-      - '!CODE_OF_CONDUCT.md'
-      - '!CHANGELOG.md'
-      - '!docs/**'
-      - '!.github/**'
-      - '!.vscode/**'
-      - './github/workflows/run-test-javascript.yml'
+      - test/**
+      - lib/**
+      - package.json
+      - ./github/workflows/run-test-javascript.yml
   # trigger deployment manually
   workflow_dispatch:
 
