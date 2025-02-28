@@ -1,4 +1,4 @@
-name: test-nodejs
+name: run-test-javascript
 
 on:
   pull_request:
@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - '**'
+      - ./github/workflows/run-test-javascript.yml
       - '!LICENSE'
       - '!CODE_OF_CONDUCT.md'
       - '!CHANGELOG.md'
@@ -18,7 +19,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-nodejs:
+  run-test-javascript:
     runs-on: ${{ matrix.os }}
     name: Test Node.js ${{ matrix.node_version }} on ${{ matrix.os }}
     strategy:
