@@ -1,5 +1,5 @@
 ---
-title: JavaScript <span class="VPBadge tip menu-badge">JavaScript</span>
+title: JavaScript
 order: 1
 ---
 

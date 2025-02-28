@@ -1,5 +1,5 @@
 ---
-title: Dart <span class="VPBadge info menu-badge">Dart</span>
+title: Dart
 order: 2
 ---
 

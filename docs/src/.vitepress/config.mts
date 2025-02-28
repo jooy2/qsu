@@ -62,7 +62,7 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 					link: 'installation/javascript'
 				},
 				{
-					text: 'Reference',
+					text: '레퍼런스',
 					link: 'ko/reference'
 				}
 			]
@@ -89,6 +89,11 @@ const vitePressConfigs: UserConfig = {
 	},
 	themeConfig: {
 		logo: { src: '/logo-32.png', width: 24, height: 24 },
+		socialLinks: [
+			{ icon: 'github', link: packageJson.repository.url.replace('.git', '') },
+			{ icon: 'npm', link: 'https://npmjs.com/package/qsu' },
+			{ icon: 'dart', link: 'https://pub.dev/packages/qsu' }
+		],
 		editLink: {
 			pattern: 'https://github.com/jooy2/qsu/edit/main/docs/src/:path'
 		},
