@@ -130,6 +130,7 @@ describe('Verify', () => {
 		assert.strictEqual(isEmail('11.com'), false);
 		assert.strictEqual(isEmail('sub.domain.com'), false);
 		assert.strictEqual(isEmail('1@1@a.com'), false);
+		assert.strictEqual(isEmail('a.com@a'), false);
 	});
 
 	it('isTrueMinimumNumberOfTimes', () => {
