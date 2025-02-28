@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.7.2 (2025--)
+
+- `numberFormat`: Fix decimal point format
+
 ## 1.7.1 (2025-02-28)
 
 - Update documentations
