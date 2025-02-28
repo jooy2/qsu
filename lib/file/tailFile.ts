@@ -3,7 +3,7 @@ import { readFile } from 'fs/promises';
 export async function tailFile(filePath: string, length = 1): Promise<string | null> {
 	try {
 		const content = await readFile(filePath, 'utf-8');
-		const contentByLine = content.split(/\r?\n/);
+		const contentByLine = content.split(/[\r\n]+/g);
 		let result = '';
 
 		if (contentByLine[contentByLine.length - 1].length < 1) {
