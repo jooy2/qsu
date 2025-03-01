@@ -1,18 +1,23 @@
 # Change Log
 
-## 1.8.3 (2025-03-01)
+## 1.9.0 (2025-03-01)
+
+- **BREAKING CHANGES**: The utility functions related to `file`, `crypto` that use Node.js modules have been separated out and should use `import * from 'qsu/node'` instead of `import * from 'qsu'` to use them. These modules do not need to be installed separately.
+- Rename export name `server` to `node`
+
+## 1.8.3 (2025-03-01) - DEPRECATED
 
 - Fix import issue
 
-## 1.8.2 (2025-03-01)
+## 1.8.2 (2025-03-01) - DEPRECATED
 
 - Fix import issue
 
-## 1.8.1 (2025-03-01)
+## 1.8.1 (2025-03-01) - DEPRECATED
 
 - Fix import issue
 
-## 1.8.0 (2025-03-01)
+## 1.8.0 (2025-03-01) - DEPRECATED
 
 - **BREAKING CHANGES**: The utility functions related to `file`, `crypto` that use Node.js modules have been separated out and should use `import * from 'qsu/server'` instead of `import * from 'qsu'` to use them. These modules do not need to be installed separately.
 
