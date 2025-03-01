@@ -1,10 +1,10 @@
 import { Stats } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import { dirname, resolve as pathResolve } from 'path';
-import { getFileExtension } from './getFileExtension.js';
-import { getFileSize } from './getFileSize.js';
-import { getFileName } from './getFileName.js';
-import { FileInfo } from '../_types/global';
+import { getFileExtension } from './getFileExtension';
+import { getFileSize } from './getFileSize';
+import { getFileName } from './getFileName';
+import { FileInfo } from '../../_types/global';
 
 export async function getFileInfo(filePath: string): Promise<FileInfo> {
 	const dateToUnixTime = (date: Date): number => Math.floor(new Date(date).getTime() / 1000);

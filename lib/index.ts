@@ -1,7 +1,5 @@
 export * from './array/index.js';
-export * from './encrypt/index.js';
 export * from './date/index.js';
-export * from './file/index.js';
 export * from './format/index.js';
 export * from './math/index.js';
 export * from './misc/index.js';

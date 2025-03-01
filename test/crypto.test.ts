@@ -10,7 +10,7 @@ import {
 	decodeBase64,
 	strToNumberHash,
 	objectId
-} from '../dist';
+} from '../dist/server';
 
 describe('Encrypt', () => {
 	const cryptoSecret = '12345678901234567890123456789012';

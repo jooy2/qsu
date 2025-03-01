@@ -1,4 +1,4 @@
-import { getFileName } from './getFileName.js';
+import { getFileName } from './getFileName';
 
 export function isValidFileName(filePath: string, unixType?: boolean): boolean {
 	let fileNameRegex;
