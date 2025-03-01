@@ -15,10 +15,14 @@ Dart에서는 하나의 인자만 받아들이며, 인자는 List로 구성됩�
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 urlJoin('https://example.com', 'hello', 'world'); // Returns 'https://example.com/hello/world'
 ```
 
-```dart
+```dart [Dart]
 urlJoin(['https://example.com', 'hello', 'world']); // Returns 'https://example.com/hello/world'
 ```
+
+:::

@@ -13,12 +13,16 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 removeSpecialChar('Hello-qsu, World!'); // Returns 'HelloqsuWorld'
 removeSpecialChar('Hello-qsu, World!', ' -'); // Returns 'Hello-qsu World'
 ```
 
-```dart
+```dart [Dart]
 removeSpecialChar('Hello-qsu, World!'); // Returns 'HelloqsuWorld'
 removeSpecialChar('Hello-qsu, World!', exceptionCharacters: ' -'); // Returns 'Hello-qsu World'
 ```
+
+:::

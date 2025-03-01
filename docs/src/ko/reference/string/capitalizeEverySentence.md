@@ -13,12 +13,16 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 capitalizeEverySentence('hello. world. hi.'); // Returns 'Hello. World. Hi.'
 capitalizeEverySentence('hello!world', '!'); // Returns 'Hello!World'
 ```
 
-```dart
+```dart [Dart]
 capitalizeEverySentence('hello. world. hi.'); // Returns 'Hello. World. Hi.'
 capitalizeEverySentence('hello!world', splitChar: '!'); // Returns 'Hello!World'
 ```
+
+:::

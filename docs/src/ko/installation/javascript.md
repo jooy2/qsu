@@ -15,16 +15,21 @@ JavaScript 언어로 **qsu**를 설치하기 위해 몇가지 간단한 절차�
 
 Node.js 환경을 구성한 후 다음 명령을 실행하여 라이브러리를 설치합니다:
 
-```bash
-# via npm
+::: code-group
+
+```bash [npm]
 $ npm install qsu
+```
 
-# via yarn
-$ yarn add qsu
-
-# via pnpm
+```bash [pnpm]
 $ pnpm install qsu
 ```
+
+```bash [yarn]
+$ yarn add qsu
+```
+
+:::
 
 ## 사용 방법
 

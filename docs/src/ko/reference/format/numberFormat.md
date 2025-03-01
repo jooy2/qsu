@@ -12,10 +12,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 numberFormat(1234567); // Returns 1,234,567
 ```
 
-```dart
+```dart [Dart]
 numberFormat(1234567); // Returns 1,234,567
 ```
+
+:::

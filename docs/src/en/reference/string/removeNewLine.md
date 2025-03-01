@@ -13,12 +13,16 @@ Removes `\n`, `\r` characters or replaces them with specified characters.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 removeNewLine('ab\ncd'); // Returns 'abcd'
 removeNewLine('ab\r\ncd', '-'); // Returns 'ab-cd'
 ```
 
-```dart
+```dart [Dart]
 removeNewLine('ab\ncd'); // Returns 'abcd'
 removeNewLine('ab\r\ncd', replaceTo: '-'); // Returns 'ab-cd'
 ```
+
+:::

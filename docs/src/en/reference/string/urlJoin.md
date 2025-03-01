@@ -15,10 +15,14 @@ In Dart, accepts only one argument, organized as an List.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 urlJoin('https://example.com', 'hello', 'world'); // Returns 'https://example.com/hello/world'
 ```
 
-```dart
+```dart [Dart]
 urlJoin(['https://example.com', 'hello', 'world']); // Returns 'https://example.com/hello/world'
 ```
+
+:::

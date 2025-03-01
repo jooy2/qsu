@@ -15,16 +15,21 @@ In addition, some functions use APIs supported by Node.js (e.g. `node:crypto`, `
 
 After configuring the Node.js environment, run the following command to install the library:
 
-```bash
-# via npm
+::: code-group
+
+```bash [npm]
 $ npm install qsu
+```
 
-# via yarn
-$ yarn add qsu
-
-# via pnpm
+```bash [pnpm]
 $ pnpm install qsu
 ```
+
+```bash [yarn]
+$ yarn add qsu
+```
+
+:::
 
 ## How to use
 
