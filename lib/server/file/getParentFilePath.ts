@@ -1,4 +1,4 @@
-import { toValidFilePath } from './toValidFilePath';
+import { toValidFilePath } from './toValidFilePath.js';
 
 export function getParentFilePath(filePath: string, isWindows?: boolean): string {
 	const listPathItem = filePath.split(isWindows ? '\\' : '/');

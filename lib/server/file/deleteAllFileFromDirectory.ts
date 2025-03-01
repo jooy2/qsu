@@ -1,6 +1,6 @@
 import { readdir } from 'node:fs/promises';
 import { join } from 'path';
-import { deleteFile } from './deleteFile';
+import { deleteFile } from './deleteFile.js';
 
 export async function deleteAllFileFromDirectory(directoryPath: string): Promise<void> {
 	let fileItems: Array<string> = [];

@@ -1,5 +1,5 @@
 import { open } from 'node:fs/promises';
-import { createFile } from './createFile';
+import { createFile } from './createFile.js';
 
 export async function createFileWithDummy(filePath: string, size: number): Promise<boolean> {
 	if (!size || size < 0) {
