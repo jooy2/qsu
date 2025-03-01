@@ -41,7 +41,7 @@ function main() {
 
 Instead of the function name, you can use a delimiter such as an underscore (`_`) to call the function.
 
-This is a good way to distinguish which function is a utility function being used by `qsu`, but it is not recommended because it loads all functions at once, making it impossible to reduce capacity through trichaging. Therefore, you should choose the appropriate method depending on the size of the project.
+This is a good way to distinguish which function is a utility function being used by `qsu`, but it is not recommended because it loads all functions at once, making it impossible to reduce capacity through tree-shaking. Therefore, you should choose the appropriate method depending on the size of the project.
 
 ```javascript
 import _ from 'qsu';
