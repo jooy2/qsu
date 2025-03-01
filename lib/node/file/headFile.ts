@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile } from 'fs/promises';
 import { EOL } from 'os';
 
 export async function headFile(filePath: string, length = 1): Promise<string | null> {

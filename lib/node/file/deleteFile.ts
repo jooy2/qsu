@@ -1,4 +1,4 @@
-import { rm } from 'node:fs/promises';
+import { rm } from 'fs/promises';
 
 export async function deleteFile(filePath: string): Promise<void> {
 	if (!filePath) {

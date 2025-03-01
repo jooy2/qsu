@@ -1,4 +1,4 @@
-import { createDecipheriv } from 'node:crypto';
+import { createDecipheriv } from 'crypto';
 
 export function decrypt(
 	str: string,
