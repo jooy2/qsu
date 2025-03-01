@@ -22,7 +22,7 @@ import {
 	tailFile,
 	toPosixFilePath,
 	toValidFilePath
-} from '../dist/server';
+} from '../dist/node';
 
 const TARGET_PATH = 'test/res/files';
 const IS_WINDOWS_OS = process.platform === 'win32';
