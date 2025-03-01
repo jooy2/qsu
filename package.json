@@ -39,10 +39,10 @@
 			"module": "./dist/types/global.js",
 			"default": "./dist/types/global.js"
 		},
-		"./server": {
-			"types": "./dist/server/index.d.ts",
-			"module": "./dist/server/index.js",
-			"default": "./dist/server/index.js"
+		"./node": {
+			"types": "./dist/node/index.d.ts",
+			"module": "./dist/node/index.js",
+			"default": "./dist/node/index.js"
 		}
 	},
 	"typesVersions": {
