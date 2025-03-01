@@ -59,7 +59,7 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 			nav: [
 				{
 					text: '시작하기',
-					link: 'installation/javascript'
+					link: 'ko/installation/javascript'
 				},
 				{
 					text: '레퍼런스',
