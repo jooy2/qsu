@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises';
+import { readFile } from 'node:fs/promises';
 import { EOL } from 'os';
 
 export async function tailFile(filePath: string, length = 1): Promise<string | null> {

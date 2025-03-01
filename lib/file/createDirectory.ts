@@ -1,4 +1,4 @@
-import { mkdir } from 'fs/promises';
+import { mkdir } from 'node:fs/promises';
 import { isFileExists } from './isFileExists.js';
 
 export async function createDirectory(filePath: string, recursive = true): Promise<void> {

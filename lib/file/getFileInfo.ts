@@ -1,5 +1,5 @@
 import { Stats } from 'node:fs';
-import { stat } from 'fs/promises';
+import { stat } from 'node:fs/promises';
 import { dirname, resolve as pathResolve } from 'path';
 import { getFileExtension } from './getFileExtension.js';
 import { getFileSize } from './getFileSize.js';

@@ -1,4 +1,4 @@
-import { readdir } from 'fs/promises';
+import { readdir } from 'node:fs/promises';
 import { join } from 'path';
 import { deleteFile } from './deleteFile.js';
 

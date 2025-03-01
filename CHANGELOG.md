@@ -1,9 +1,10 @@
 # Change Log
 
-## 1.7.2 (2025--)
+## 1.7.2 (2025-03-01)
 
 - `numberFormat`: Fix decimal point format
 - `tailFile`, `headFile`: Correct line-break detection in Windows OS
+- Clarify node module descriptions
 
 ## 1.7.1 (2025-02-28)
 

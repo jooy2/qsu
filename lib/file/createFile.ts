@@ -1,4 +1,4 @@
-import { open, utimes } from 'fs/promises';
+import { open, utimes } from 'node:fs/promises';
 
 export async function createFile(filePath: string): Promise<void> {
 	if (!filePath) {
