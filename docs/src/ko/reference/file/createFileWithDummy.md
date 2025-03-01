@@ -1,5 +1,7 @@
 # createFileWithDummy <Badge type="tip" text="JavaScript" />
 
+<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+
 지정된 크기의 파일을 바이트 단위로 만듭니다.
 
 ## Parameters

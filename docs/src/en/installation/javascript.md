@@ -52,4 +52,22 @@ function main() {
 }
 ```
 
-To learn more about the functions supported, refer to the [Reference](/reference/index.md) documentation.
+Certain utility functions related to files, encryption, etc. are not available in the browser environment because they require **Node.js** modules. To use them, you can import them in the Node.js runtime environment (primarily on the server) as follows
+
+```javascript
+import { createFile, md5Hash } from 'qsu/node';
+
+async function main() {
+	console.log(md5Hash('abc'));
+
+	await createFile('/home/user/Hello.txt');
+}
+
+main();
+```
+
+Functions that should use `qsu/node` are listed at the top of each document in the reference entry as follows:
+
+<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+
+For more information on all other supported functions, see the [Reference](/reference/index.md) documentation.

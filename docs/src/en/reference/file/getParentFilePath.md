@@ -1,5 +1,7 @@
 # getParentFilePath <Badge type="tip" text="JavaScript" />
 
+<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+
 Returns the parent path one level above the given path.
 
 ## Parameters

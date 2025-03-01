@@ -1,5 +1,7 @@
 # getFileSize <Badge type="tip" text="JavaScript" />
 
+<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+
 주어진 바이트 인수를 사람이 읽기 쉬운 문자열로 반환합니다.
 
 ## Parameters

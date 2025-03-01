@@ -39,3 +39,12 @@
 	display: inline-flex;
 	align-items: center;
 }
+
+.node-required {
+	font-size: 0.75em !important;
+	font-weight: bold;
+	border-radius: 9px;
+	padding: 4px 10px;
+	background: #347e28;
+	color: #bcf6b0;
+}

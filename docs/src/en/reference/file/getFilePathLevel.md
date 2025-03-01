@@ -1,5 +1,7 @@
 # getFilePathLevel <Badge type="tip" text="JavaScript" />
 
+<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+
 Determine how many steps the current path is. The root path (`/` or `C:\`) begins with step 1.
 
 ## Parameters

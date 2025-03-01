@@ -1,5 +1,7 @@
 # sha256Hash <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
 
+<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+
 Converts String data to sha256 hash value and returns it.
 
 ## Parameters
