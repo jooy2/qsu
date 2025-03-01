@@ -38,6 +38,11 @@
 			"types": "./dist/types/global.d.ts",
 			"module": "./dist/types/global.js",
 			"default": "./dist/types/global.js"
+		},
+		"./server": {
+			"types": "./dist/server/index.d.ts",
+			"module": "./dist/server/index.js",
+			"default": "./dist/server/index.js"
 		}
 	},
 	"typesVersions": {
