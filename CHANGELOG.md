@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.9.1 (2025-03-01)
+
+- Fix import issue
+
 ## 1.9.0 (2025-03-01)
 
 - **BREAKING CHANGES**: The utility functions related to `file`, `crypto` that use Node.js modules have been separated out and should use `import * from 'qsu/node'` instead of `import * from 'qsu'` to use them. These modules do not need to be installed separately.
