@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.8.2 (2025-03-01)
+
+- Fix import issue
+
 ## 1.8.1 (2025-03-01)
 
 - Fix import issue
