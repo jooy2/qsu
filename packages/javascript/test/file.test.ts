@@ -24,7 +24,7 @@ import {
 	toValidFilePath
 } from '../dist/node';
 
-const TARGET_PATH = 'test/res/files';
+const TARGET_PATH = 'test/_resources/files';
 const IS_WINDOWS_OS = process.platform === 'win32';
 const LONG_PATH =
 	'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\115.0.1901.203\\Trust Protection Lists';

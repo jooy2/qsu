@@ -1,7 +1,7 @@
 import { defineConfig, UserConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
 import type { VitePressSidebarOptions } from 'vitepress-sidebar/types';
-import packageJson from '../../../package.json' with { type: 'json' };
+import packageJson from '../../../packages/javascript/package.json' with { type: 'json' };
 import { withI18n } from 'vitepress-i18n';
 import type { VitePressI18nOptions } from 'vitepress-i18n/types';
 

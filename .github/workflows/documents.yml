@@ -7,7 +7,7 @@ on:
     paths:
       - docs/**
       - .github/workflows/documents.yml
-      - CHANGELOG.md
+      - packages/javascript/CHANGELOG.md
   # trigger deployment manually
   workflow_dispatch:
 
@@ -42,7 +42,7 @@ jobs:
 
       # copy and replace string index.md file
       - name: Copy CHANGELOG.md file
-        run: cp ../CHANGELOG.md ./src/changelog.md
+        run: cp packages/javascript/CHANGELOG.md ./src/changelog.md
 
       # install dependencies if the cache did not hit
       - name: Install dependencies

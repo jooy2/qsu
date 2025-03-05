@@ -7,9 +7,9 @@ on:
   push:
     branches: [main]
     paths:
-      - test/**
-      - lib/**
-      - package.json
+      - packages/javascript/test/**
+      - packages/javascript/lib/**
+      - packages/javascript/package.json
       - ./github/workflows/run-test-javascript.yml
   # trigger deployment manually
   workflow_dispatch:
@@ -18,6 +18,8 @@ jobs:
   run-test-javascript:
     runs-on: ${{ matrix.os }}
     name: Test Node.js ${{ matrix.node_version }} on ${{ matrix.os }}
+    env:
+      working-directory: ./packages/javascript
     strategy:
       fail-fast: false
       matrix:

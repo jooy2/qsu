@@ -1,9 +1,6 @@
 # .gitignore for Node.js Projects
 # ---------- Start of common ignore files
 
-# Node artifact files
-node_modules/
-
 # Log files
 *.log
 
@@ -56,5 +53,8 @@ $RECYCLE.BIN/
 
 # ---------- End of common ignore files
 
+# Node artifact files
+**/node_modules/
+
 # Project files
-dist
+**/dist/
