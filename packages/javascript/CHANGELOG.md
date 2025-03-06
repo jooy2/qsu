@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.9.2 (2025-03-06)
+
+- Update `README.md`
+
 ## 1.9.1 (2025-03-01)
 
 - Fix import issue
