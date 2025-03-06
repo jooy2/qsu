@@ -13,7 +13,16 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 arrGroupByMaxCount(['a', 'b', 'c', 'd', 'e'], 2);
 // Returns [['a', 'b'], ['c', 'd'], ['e']]
 ```
+
+```dart [Dart]
+arrGroupByMaxCount(['a', 'b', 'c', 'd', 'e'], 2);
+// Returns [['a', 'b'], ['c', 'd'], ['e']]
+```
+
+:::

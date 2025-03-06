@@ -13,7 +13,16 @@ Separates the data in the given array into a two-dimensional array containing on
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 arrGroupByMaxCount(['a', 'b', 'c', 'd', 'e'], 2);
 // Returns [['a', 'b'], ['c', 'd'], ['e']]
 ```
+
+```dart [Dart]
+arrGroupByMaxCount(['a', 'b', 'c', 'd', 'e'], 2);
+// Returns [['a', 'b'], ['c', 'd'], ['e']]
+```
+
+:::

@@ -14,6 +14,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
 ```
+
+```dart [Dart]
+arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
+```
+
+:::

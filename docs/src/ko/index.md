@@ -2,22 +2,22 @@
 layout: home
 
 title: QSU
-titleTemplate: 가벼우면서 광범위한 유틸리티 도우미
+titleTemplate: 강력한 유틸리티 라이브러리
 
 hero:
   name: QSU
-  text: 가벼우면서 광범위한 유틸리티 도우미
-  tagline: qsu는 프로그래밍에 활력을 주는 유틸리티를 모은 패키지입니다. JavaScript/Node.js와 Dart/Flutter 환경에서 사용할 수 있습니다.
+  text: 강력한 유틸 라이브러리
+  tagline: qsu는 유용하고 자주 쓰는 함수를 모아둔 유틸리티 라이브러리입니다. array, object, string 데이터 처리 등의 유용한 함수들이 있습니다. 원하는 프로그래밍 언어와 최신 개발 환경에서 시작하세요.
   actions:
     - theme: brand
       text: 소개
       link: ko/introduction
     - theme: alt
-      text: JavaScript/Node.js
-      link: ko/installation/javascript
+      text: 설치하기
+      link: ko/installation
     - theme: alt
-      text: Dart/Flutter
-      link: ko/installation/dart
+      text: 레퍼런스
+      link: ko/reference
   image:
     src: /icon.png
     alt: Utility

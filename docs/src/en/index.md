@@ -2,22 +2,22 @@
 layout: home
 
 title: QSU
-titleTemplate: Lightweight and extensive utility helpers
+titleTemplate: Powerful utility library
 
 hero:
   name: QSU
-  text: Lightweight and extensive utility helpers
-  tagline: qsu is a package of utilities to energize your programming. It is available for JavaScript/Node.js and Dart/Flutter environments.
+  text: Powerful utility library
+  tagline: qsu is a utility library that contains useful and frequently used functions. It contains useful functions for processing array, object, and string data. Start with your preferred programming language and the latest development environment.
   actions:
     - theme: brand
       text: Introduction
       link: introduction
     - theme: alt
-      text: JavaScript/Node.js
-      link: installation/javascript
+      text: Installation
+      link: installation
     - theme: alt
-      text: Dart/Flutter
-      link: installation/dart
+      text: Reference
+      link: reference
   image:
     src: /icon.png
     alt: Utility
