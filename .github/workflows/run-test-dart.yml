@@ -1,4 +1,4 @@
-name: Module test
+name: run-test-dart
 
 on:
   pull_request:
@@ -10,6 +10,7 @@ on:
       - packages/dart/lib/**
       - packages/dart/pubspec.yaml
       - .github/workflows/run-test-dart.yml
+  workflow_dispatch:
 
 jobs:
   run-test-dart:
