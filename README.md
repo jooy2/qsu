@@ -1,24 +1,33 @@
 ![logo](https://raw.githubusercontent.com/jooy2/qsu/main/.github/resources/logo.webp)
 
-# qsu: Quick & Simple Utility for Node.js
+# qsu - Quick & Simple Utility
 
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jooy2/qsu/blob/main/LICENSE) ![Programming Language Usage](https://img.shields.io/github/languages/top/jooy2/qsu) ![Commit Count](https://img.shields.io/github/commit-activity/y/jooy2/qsu) [![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu) [![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu) ![npm maintenance](https://img.shields.io/npms-io/maintenance-score/qsu) ![npm quality](https://img.shields.io/npms-io/quality-score/qsu) ![minified size](https://img.shields.io/bundlephobia/min/qsu) [![Followers](https://img.shields.io/github/followers/jooy2?style=social)](https://github.com/jooy2) ![Stars](https://img.shields.io/github/stars/jooy2/qsu?style=social)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jooy2/qsu/blob/main/LICENSE) ![Commit Count](https://img.shields.io/github/commit-activity/y/jooy2/qsu) [![Followers](https://img.shields.io/github/followers/jooy2?style=social)](https://github.com/jooy2) ![Stars](https://img.shields.io/github/stars/jooy2/qsu?style=social)
 
+**qsu** is a library that collects frequently used utility functions. Streamline repetitive code with useful functions. Optimized for modern development environments, it supports various programming languages.
 
-![Pub Version](https://img.shields.io/pub/v/qsu) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jooy2/qsu-dart/blob/main/LICENSE) ![Programming Language Usage](https://img.shields.io/github/languages/top/jooy2/qsu-dart) ![Commit Count](https://img.shields.io/github/commit-activity/y/jooy2/qsu-dart) ![Pub Likes](https://img.shields.io/pub/likes/qsu) ![Pub Points](https://img.shields.io/pub/points/qsu) [![Followers](https://img.shields.io/github/followers/jooy2?style=social)](https://github.com/jooy2) ![Stars](https://img.shields.io/github/stars/jooy2/qsu-dart?style=social)
+The following are the advantages of the qsu:
 
-**qsu** is an underscore-based utility library optimized for the **[Node.js](https://nodejs.org)** development environment. It is supported in one module without the need to separately write frequently used methods for each project.
+- Fast, lightweight bundle size
+- Install and use easily.
+- It is suitable for use on websites or applications.
+- Documents, prepared for secure data types.
+- Reduce defects through fast maintenance and various test cases.
+- Support for multiple programming languages for the same operation. (JavaScript, Dart)
 
-- Lightweight and fast!
-- Easy to install and use.
-- 100% optimized for the latest Node.js and ESM environments.
-- Useful features for websites and web applications
+## Documentation (Installation & Reference)
 
-## [Documentation (Getting Started & Method Reference)](https://qsu.cdget.com/installation/javascript)
+### JavaScript/Node.js
 
-Installing and using the package and defining all the utility methods can be found on the documentation page below: https://qsu.cdget.com/installation/javascript
+[![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu) [![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu) ![npm maintenance](https://img.shields.io/npms-io/maintenance-score/qsu) ![npm quality](https://img.shields.io/npms-io/quality-score/qsu) ![minified size](https://img.shields.io/bundlephobia/min/qsu)
 
-In addition, `qsu` is also available for the Dart language: https://github.com/jooy2/qsu-dart
+- Documentation: https://qsu.cdget.com/installation/javascript
+
+### Dart/Flutter
+
+![Pub Version](https://img.shields.io/pub/v/qsu) ![Pub Likes](https://img.shields.io/pub/likes/qsu) ![Pub Points](https://img.shields.io/pub/points/qsu)
+
+- Documentation: https://qsu.cdget.com/installation/dart
 
 ## Contributing
 

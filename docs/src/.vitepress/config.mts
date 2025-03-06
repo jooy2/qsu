@@ -39,8 +39,8 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 	rootLocale: defaultLocale,
 	searchProvider: 'local',
 	description: {
-		en: 'qsu is a package of utilities to energize your programming. It is available for JavaScript/Node.js and Dart/Flutter environments.',
-		ko: 'qsu 라이브러리는 프로그래밍에 활력을 주는 유틸리티를 모은 패키지입니다. JavaScript/Node.js와 Dart/Flutter 환경에서 사용할 수 있습니다.'
+		en: 'qsu is a utility library that contains useful and frequently used functions. It contains useful functions for processing array, object, and string data. Start with your preferred programming language and the latest development environment.',
+		ko: 'qsu는 유용하고 자주 쓰는 함수를 모아둔 유틸리티 라이브러리입니다. array, object, string 데이터 처리 등의 유용한 함수들이 있습니다. 원하는 프로그래밍 언어와 최신 개발 환경에서 시작하세요.'
 	},
 	themeConfig: {
 		en: {

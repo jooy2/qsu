@@ -1,19 +1,26 @@
 ![logo](https://raw.githubusercontent.com/jooy2/qsu/main/.github/resources/logo.webp)
 
-# qsu: Quick & Simple Utility for Node.js
+# qsu - Quick & Simple Utility
 
-**qsu** is an underscore-based utility library optimized for the **[Node.js](https://nodejs.org)** development environment. It is supported in one module without the need to separately write frequently used methods for each project.
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jooy2/qsu/blob/main/LICENSE) ![Commit Count](https://img.shields.io/github/commit-activity/y/jooy2/qsu) [![Followers](https://img.shields.io/github/followers/jooy2?style=social)](https://github.com/jooy2) ![Stars](https://img.shields.io/github/stars/jooy2/qsu?style=social)
 
-- Lightweight and fast!
-- Easy to install and use.
-- 100% optimized for the latest Node.js and ESM environments.
-- Useful features for websites and web applications
+**qsu** is a library that collects frequently used utility functions. Streamline repetitive code with useful functions. Optimized for modern development environments, it supports various programming languages.
 
-## [Documentation (Getting Started & Method Reference)](https://qsu.cdget.com/installation/javascript)
+The following are the advantages of the qsu:
 
-Installing and using the package and defining all the utility methods can be found on the documentation page below: https://qsu.cdget.com/installation/javascript
+- Fast, lightweight bundle size
+- Install and use easily.
+- It is suitable for use on websites or applications.
+- Documents, prepared for secure data types.
+- Reduce defects through fast maintenance and various test cases.
+- Support for multiple programming languages for the same operation. (JavaScript, Dart)
 
-In addition, `qsu` is also available for the Dart language: https://github.com/jooy2/qsu-dart
+## Documentation
+
+Installing and using the package and defining all the utility methods can be found on the documentation page below.
+
+- [Installation](https://qsu.cdget.com/installation/javascript)
+- [Reference](https://qsu.cdget.com/reference)
 
 ## Contributing
 
