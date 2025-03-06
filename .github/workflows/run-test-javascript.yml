@@ -17,7 +17,7 @@ on:
 jobs:
   run-test-javascript:
     runs-on: ${{ matrix.os }}
-    name: Test Node.js ${{ matrix.node_version }} on ${{ matrix.os }}
+    name: Test JavaScript ${{ matrix.node_version }} on ${{ matrix.os }}
     env:
       working-directory: ./packages/javascript
     strategy:

@@ -7,8 +7,11 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  run-test-dart:
     runs-on: ${{ matrix.os }}
+    name: Test Dart ${{ matrix.node_version }} on ${{ matrix.os }}
+    env:
+      working-directory: ./packages/dart
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
