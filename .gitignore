@@ -2,22 +2,22 @@
 # ---------- Start of common ignore files
 
 # Log files
-*.log
+**/*.log
 
 # dotenv environment variables file
-.env
+**/.env
 
 # JetBrains IDEs
-.idea/
-*.iml
+**/.idea/
+**/*.iml
 
 # Visual Studio Code IDE
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
+**/.vscode/*
+!**/.vscode/settings.json
+!**/.vscode/tasks.json
+!**/.vscode/launch.json
+!**/.vscode/extensions.json
+!**/.vscode/*.code-snippets
 
 # Local History for Visual Studio Code
 .history/
@@ -53,8 +53,18 @@ $RECYCLE.BIN/
 
 # ---------- End of common ignore files
 
+#### [JavaScript] ####
 # Node artifact files
 **/node_modules/
 
 # Project files
 **/dist/
+
+#### [Dart] ####
+# https://dart.dev/guides/libraries/private-files
+# Created by `dart pub`
+**/.dart_tool/
+
+# Avoid committing pubspec.lock for library packages; see
+# https://dart.dev/guides/libraries/private-files#pubspeclock.
+**/pubspec.lock
