@@ -3,15 +3,13 @@ name: run-test-javascript
 on:
   pull_request:
     branches: [main]
-  # trigger deployment on every push to main branch
   push:
     branches: [main]
     paths:
       - packages/javascript/test/**
       - packages/javascript/lib/**
       - packages/javascript/package.json
-      - ./github/workflows/run-test-javascript.yml
-  # trigger deployment manually
+      - .github/workflows/run-test-javascript.yml
   workflow_dispatch:
 
 jobs:
