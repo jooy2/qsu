@@ -9,7 +9,7 @@ on:
 jobs:
   run-test-dart:
     runs-on: ${{ matrix.os }}
-    name: Test Dart ${{ matrix.node_version }} on ${{ matrix.os }}
+    name: Test Dart ${{ matrix.sdk }} on ${{ matrix.os }}
     env:
       working-directory: ./packages/dart
     strategy:
@@ -24,6 +24,8 @@ jobs:
 
       - name: Install dependencies
         run: dart pub get
+        working-directory: ${{ env.working-directory }}
 
       - name: Run tests
         run: dart test
+        working-directory: ${{ env.working-directory }}

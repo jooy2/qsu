@@ -39,7 +39,9 @@ jobs:
           cache: npm
           cache-dependency-path: '**/package-lock.json'
       - run: npm ci
+        working-directory: ${{ env.working-directory }}
 
       # run test
       - name: Test module script
         run: npm run test
+        working-directory: ${{ env.working-directory }}
