@@ -1,4 +1,8 @@
-# Change Log
+# Changelog (Dart)
+
+## 1.1.5 (2025-03-06)
+
+- Update `README.md`
 
 ## 1.1.4 (2025-02-28)
 
