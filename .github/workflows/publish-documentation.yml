@@ -1,4 +1,4 @@
-name: documents
+name: publish-documentation
 
 on:
   # run every time a push occurs in the docs folder
@@ -6,14 +6,14 @@ on:
     branches: [main]
     paths:
       - docs/**
-      - .github/workflows/documents.yml
+      - .github/workflows/publish-documentation.yml
       - packages/javascript/CHANGELOG.md
       - packages/dart/CHANGELOG.md
   # trigger deployment manually
   workflow_dispatch:
 
 jobs:
-  build-documentation-pages:
+  publish-documentation:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -44,8 +44,8 @@ jobs:
       # copy and replace string index.md file
       - name: Copy CHANGELOG.md file
         run: |
-          cp packages/javascript/CHANGELOG.md ./src/changelog/javascript.md
-          cp packages/dart/CHANGELOG.md ./src/changelog/dart.md
+          cp ../packages/javascript/CHANGELOG.md ./src/changelog/javascript.md
+          cp ../packages/dart/CHANGELOG.md ./src/changelog/dart.md
 
       # install dependencies if the cache did not hit
       - name: Install dependencies
