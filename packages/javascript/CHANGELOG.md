@@ -1,4 +1,4 @@
-# Change Log
+# Changelog (JavaScript)
 
 ## 1.9.2 (2025-03-06)
 

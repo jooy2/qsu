@@ -19,7 +19,7 @@ The following are the advantages of the qsu:
 
 ### JavaScript/Node.js
 
-[![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu) [![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu) ![npm maintenance](https://img.shields.io/npms-io/maintenance-score/qsu) ![npm quality](https://img.shields.io/npms-io/quality-score/qsu) ![minified size](https://img.shields.io/bundlephobia/min/qsu)
+[![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu) [![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu) ![npm maintenance](https://img.shields.io/npms-io/maintenance-score/qsu) ![npm quality](https://img.shields.io/npms-io/quality-score/qsu) ![minified size](https://img.shields.io/bundlephobia/min/qsu)
 
 - Documentation: https://qsu.cdget.com/installation/javascript
 
