@@ -1,7 +1,7 @@
 {
 	"name": "qsu",
 	"version": "1.9.1",
-	"description": "qsu is a lightweight and simple module with a variety of built-in utility functions that you can utilize in your Node.js projects.",
+	"description": "qsu is a utility library that contains useful and frequently used functions. It contains useful functions for processing array, object, and string data. Start with your preferred programming language and the latest development environment.",
 	"author": "CDGet <jooy2.contact@gmail.com>",
 	"license": "MIT",
 	"homepage": "https://qsu.cdget.com",
@@ -58,6 +58,7 @@
 		"tool",
 		"toolkit",
 		"underscore",
+		"web",
 		"website",
 		"helper",
 		"array",
@@ -68,6 +69,7 @@
 		"encrypt",
 		"decrypt",
 		"format",
+		"crypto",
 		"file"
 	],
 	"devDependencies": {
