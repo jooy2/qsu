@@ -34,5 +34,5 @@ export interface LicenseOption {
 	yearStart: string | number;
 	yearEnd?: string;
 	htmlBr?: boolean;
-	type: 'mit' | 'apache20';
+	type: 'mit' | 'apache20' | 'bsd3';
 }

@@ -4,7 +4,7 @@ Returns text in a specific license format based on the author information of the
 
 ## Parameters
 
-- `options::LicenseOption{ author: string, email: string?, yearStart: string|number, yearEnd: string?, htmlBr: boolean?, type: 'mit' | 'apache20' }`
+- `options::LicenseOption{ author: string, email: string?, yearStart: string|number, yearEnd: string?, htmlBr: boolean?, type: 'mit' | 'apache20 | 'bsd3' }`
 
 ## Returns
 
@@ -14,6 +14,7 @@ Returns text in a specific license format based on the author information of the
 
 ```javascript
 generateLicense({
+	type: 'mit',
 	holder: 'example',
 	email: 'example@example.com',
 	yearStart: 2020,

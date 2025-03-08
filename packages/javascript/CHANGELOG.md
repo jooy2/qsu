@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.9.3 (2025-03-08)
+
+- `generateLicense`: Add bsd3 license
+
 ## 1.9.2 (2025-03-06)
 
 - Update `README.md`
