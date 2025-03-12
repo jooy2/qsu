@@ -1,6 +1,6 @@
 # Changelog (JavaScript)
 
-## 1.9.4 (2025-03-12)
+## 1.10.0 (2025-03-12)
 
 - The `machini` packages have now been merged into the `qsu` package
 
