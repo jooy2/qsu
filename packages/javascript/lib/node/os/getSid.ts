@@ -11,6 +11,10 @@ export async function getSid(): Promise<string> {
 				`REG QUERY "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\ProfileList" /s`
 			);
 
+			if (!profileLists) {
+				throw new Error('Failed to get machine id');
+			}
+
 			const profiles: AnyValueObject = {};
 			const sections = profileLists.split('HKEY_LOCAL_MACHINE\\');
 

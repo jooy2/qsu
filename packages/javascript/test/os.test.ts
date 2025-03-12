@@ -4,8 +4,8 @@ import { runCommand, getMachineId, getSid } from '../dist/node';
 
 describe('OS', () => {
 	it('runCommand', async () => {
-		assert.strictEqual(await runCommand('echo a'), 'a\n');
-		assert.strictEqual(await runCommand('echo b'), 'b\n');
+		assert.strictEqual(await runCommand('echo a'), 'a');
+		assert.strictEqual(await runCommand('echo b'), 'b');
 	});
 
 	/*

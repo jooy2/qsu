@@ -10,10 +10,10 @@
 
 ## Returns
 
-> string
+> string | null
 
 ## Examples
 
 ```javascript
-console.log(await runCommand('echo a')); // Returns 'a\n'
+console.log(await runCommand('echo a')); // Returns 'a'
 ```

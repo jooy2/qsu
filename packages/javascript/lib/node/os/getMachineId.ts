@@ -18,7 +18,11 @@ export async function getMachineId(): Promise<string> {
 	}
 
 	try {
-		return await runCommand(command);
+		const response = await runCommand(command);
+
+		if (response) {
+			return response;
+		}
 	} catch (error) {
 		if (error instanceof Error) {
 			throw new Error(error?.message);

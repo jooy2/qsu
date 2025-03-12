@@ -1,7 +1,7 @@
 import { exec as processExec } from 'child_process';
-import { platform } from 'os';
+import { EOL } from 'os';
 
-export function runCommand(command: string): Promise<string> {
+export function runCommand(command: string): Promise<string | null> {
 	return new Promise((resolve, reject) => {
 		const execCommandProcess = processExec(
 			command,
@@ -12,16 +12,11 @@ export function runCommand(command: string): Promise<string> {
 					return;
 				}
 
-				const output = platform() === 'win32' ? stdout : stdout.split('\r\n')?.[0] || '';
+				const output = stdout.split(EOL)?.[0];
 
 				execCommandProcess?.stdin?.end();
 
-				if (output) {
-					resolve(output);
-					return;
-				}
-
-				reject(new Error(`Command failed`));
+				resolve(output);
 			}
 		);
 	});
