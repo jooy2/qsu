@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.9.4 (2025-03-12)
+
+- The `machini` packages have now been merged into the `qsu` package
+
 ## 1.9.3 (2025-03-08)
 
 - `generateLicense`: Add bsd3 license

@@ -12,11 +12,9 @@ export function runCommand(command: string): Promise<string | null> {
 					return;
 				}
 
-				const output = stdout.split(EOL)?.[0];
-
 				execCommandProcess?.stdin?.end();
 
-				resolve(output);
+				resolve(stdout.replace(new RegExp(`${EOL}$`), ''));
 			}
 		);
 	});
