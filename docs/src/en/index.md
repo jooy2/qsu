@@ -7,7 +7,7 @@ titleTemplate: Powerful utility library
 hero:
   name: QSU
   text: Powerful utility library
-  tagline: qsu is a utility library that contains useful and frequently used functions. It contains useful functions for processing array, object, and string data. Start with your preferred programming language and the latest development environment.
+  tagline: qsu is a utility library that contains useful and frequently used functions. Start with your preferred programming language and the modern development environment.
   actions:
     - theme: brand
       text: Introduction

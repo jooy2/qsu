@@ -6,7 +6,7 @@ Repeated utility codes that had to be managed for each project can be easily acc
 
 **qsu** has the following advantages compared to other utility functions:
 
-- Lightweight: It supports tree-shaking during build and is optimized for the latest development environment.
+- Lightweight: It supports tree-shaking during build and is optimized for the modern development environment.
 - Fast: It has the most competent and fastest solution for operations.
 - Safe: It supports variable type checking, proper error handling, and is inspected to pass security checks and rigorous testing, enabling safe programming.
 

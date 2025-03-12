@@ -39,8 +39,8 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 	rootLocale: defaultLocale,
 	searchProvider: 'local',
 	description: {
-		en: 'qsu is a utility library that contains useful and frequently used functions. It contains useful functions for processing array, object, and string data. Start with your preferred programming language and the latest development environment.',
-		ko: 'qsu는 유용하고 자주 쓰는 함수를 모아둔 유틸리티 라이브러리입니다. array, object, string 데이터 처리 등의 유용한 함수들이 있습니다. 원하는 프로그래밍 언어와 최신 개발 환경에서 시작하세요.'
+		en: 'qsu is a utility library that contains useful and frequently used functions. Start with your preferred programming language and the modern development environment.',
+		ko: 'qsu는 유용하고 자주 쓰는 함수를 모아둔 유틸리티 라이브러리입니다. 원하는 프로그래밍 언어와 최신 개발 환경에서 시작하세요.'
 	},
 	themeConfig: {
 		en: {
