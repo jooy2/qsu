@@ -15,19 +15,14 @@ The following are the advantages of the qsu:
 - Reduce defects through fast maintenance and various test cases.
 - Support for multiple programming languages for the same operation. (JavaScript, Dart)
 
-## Documentation (Installation & Reference)
+## Getting Started
 
-### JavaScript/Node.js
+Start `qsu` in your preferred programming language:
 
-[![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu) [![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu) ![npm maintenance](https://img.shields.io/npms-io/maintenance-score/qsu) ![npm quality](https://img.shields.io/npms-io/quality-score/qsu) ![minified size](https://img.shields.io/bundlephobia/min/qsu)
-
-- Documentation: https://qsu.cdget.com/installation/javascript
-
-### Dart/Flutter
-
-![Pub Version](https://img.shields.io/pub/v/qsu) ![Pub Likes](https://img.shields.io/pub/likes/qsu) ![Pub Points](https://img.shields.io/pub/points/qsu)
-
-- Documentation: https://qsu.cdget.com/installation/dart
+| Language             | Links                                                                                                                                            | Stat                                                                                                                                                                                                                                                               |
+|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| JavaScript / Node.js | <li> **[Documentation](https://qsu.cdget.com/installation/javascript)** </li> <li> [Changelog](https://qsu.cdget.com/changelog/javascript) </li> | [![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu) [![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu) ![minified size](https://img.shields.io/bundlephobia/min/qsu) |
+| Dart / Flutter       | <li> **[Documentation](https://qsu.cdget.com/installation/dart)** </li> <li> [Changelog](https://qsu.cdget.com/changelog/dart) </li>             | ![Pub Version](https://img.shields.io/pub/v/qsu) ![Pub Likes](https://img.shields.io/pub/likes/qsu) ![Pub Points](https://img.shields.io/pub/points/qsu)                                                                                                           |
 
 ## Contributing
 
