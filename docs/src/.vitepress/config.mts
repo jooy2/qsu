@@ -5,8 +5,8 @@ import packageJson from '../../../packages/javascript/package.json' with { type:
 import { withI18n } from 'vitepress-i18n';
 import type { VitePressI18nOptions } from 'vitepress-i18n/types';
 
-const defaultLocale: string = 'en';
-const supportedLocale = [defaultLocale, 'ko'];
+const supportedLocale = ['en', 'ko'];
+const defaultLocale: string = supportedLocale[0];
 
 const commonSidebarConfig: VitePressSidebarOptions = {
 	debugPrint: true,
