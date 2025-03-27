@@ -12,7 +12,16 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 arrUnique([1, 2, 2, 3]); // Returns [1, 2, 3]
 arrUnique([[1], [1], [2]]); // Returns [[1], [2]]
 ```
+
+```dart [Dart]
+arrUnique([1, 2, 2, 3]); // Returns [1, 2, 3]
+arrUnique([[1], [1], [2]]); // Returns [[1], [2]]
+```
+
+:::

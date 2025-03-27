@@ -12,6 +12,14 @@ Merges all elements of a multidimensional array into a one-dimensional array.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
 ```
+
+```dart [Dart]
+arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
+```
+
+:::

@@ -12,6 +12,14 @@ Shuffle the order of the given array and return.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
 ```
+
+```dart [Dart]
+arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
+```
+
+:::

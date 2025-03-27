@@ -13,7 +13,16 @@ Initialize an array with a default value of a specific length.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 arrWithDefault('abc', 4); // Returns ['abc', 'abc', 'abc', 'abc']
 arrWithDefault(null, 3); // Returns [null, null, null]
 ```
+
+```dart [Dart]
+arrWithDefault('abc', 4); // Returns ['abc', 'abc', 'abc', 'abc']
+arrWithDefault(null, 3); // Returns [null, null, null]
+```
+
+:::
