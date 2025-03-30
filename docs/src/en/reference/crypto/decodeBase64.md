@@ -14,6 +14,14 @@ Decodes an encoded base64 string to a plain string.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
 ```
+
+```dart [Dart]
+decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
+```
+
+:::

@@ -14,6 +14,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
 ```
+
+```dart [Dart]
+decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
+```
+
+:::

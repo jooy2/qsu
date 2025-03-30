@@ -16,6 +16,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 decrypt('61ba43b65fc...', 'secret-key');
 ```
+
+```dart [Dart]
+decrypt('61ba43b65fc...', 'secret-key');
+```
+
+:::
