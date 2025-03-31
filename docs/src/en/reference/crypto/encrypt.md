@@ -17,6 +17,14 @@ Encrypt with the algorithm of your choice (algorithm default: `aes-256-cbc`, ivS
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 encrypt('test', 'secret-key');
 ```
+
+```dart [Dart]
+encrypt('test', 'secret-key');
+```
+
+:::

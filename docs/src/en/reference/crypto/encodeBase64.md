@@ -14,6 +14,14 @@ Base64-encode the given string.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 encodeBase64('this is test'); // Returns 'dGhpcyBpcyB0ZXN0'
 ```
+
+```dart [Dart]
+encodeBase64('this is test'); // Returns 'dGhpcyBpcyB0ZXN0'
+```
+
+:::

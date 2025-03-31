@@ -17,6 +17,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 encrypt('test', 'secret-key');
 ```
+
+```dart [Dart]
+encrypt('test', 'secret-key');
+```
+
+:::
