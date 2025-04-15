@@ -73,7 +73,7 @@
 		"file"
 	],
 	"devDependencies": {
-		"@types/node": "22.13.12",
+		"@types/node": "22.14.1",
 		"@typescript-eslint/eslint-plugin": "7.14.1",
 		"@typescript-eslint/parser": "7.14.1",
 		"dayjs": "^1.11.13",
@@ -85,6 +85,6 @@
 		"prettier": "^3.5.3",
 		"terser-glob": "^1.1.0",
 		"tsx": "^4.19.3",
-		"typescript": "^5.8.2"
+		"typescript": "^5.8.3"
 	}
 }
