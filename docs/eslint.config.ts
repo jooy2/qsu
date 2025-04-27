@@ -16,6 +16,7 @@ export default pluginTypeScriptESLint.config(
 		'**/.vscode',
 		'**/node_modules',
 		'**/dist',
+		'**/src/.vitepress/cache',
 		'**/package-lock.json'
 	]),
 	{

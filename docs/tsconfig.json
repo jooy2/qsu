@@ -1,10 +1,17 @@
 {
 	"compilerOptions": {
 		"target": "esnext",
-		"module": "NodeNext",
-		"moduleResolution": "NodeNext",
+		"module": "Preserve",
+		"moduleDetection": "force",
+		"esModuleInterop": true,
+		"isolatedModules": true,
 		"resolveJsonModule": true,
-		"allowSyntheticDefaultImports": true
+		"allowJs": true,
+		"skipLibCheck": true,
+		"declaration": true,
+		"allowSyntheticDefaultImports": true,
+		"newLine": "lf"
 	},
-	"include": ["src/.vitepress/config.mts", "package.json"]
+	"include": ["src/.vitepress/config.mts", "package.json", "eslint.config.ts"],
+	"exclude": ["node_modules"]
 }
