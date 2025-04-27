@@ -2,17 +2,20 @@
 	"compilerOptions": {
 		"baseUrl": "lib",
 		"target": "esnext",
-		"module": "esnext",
-		"moduleResolution": "node",
+		"module": "Preserve",
+		"moduleDetection": "force",
 		"lib": ["esnext"],
 		"esModuleInterop": true,
+		"isolatedModules": true,
 		"resolveJsonModule": true,
+		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
 		"declaration": true,
 		"outDir": "./dist",
 		"strict": true,
 		"newLine": "lf"
 	},
-	"include": ["lib/**/*.ts", "lib/**/*.d.ts", "test/**/*.test.ts"],
+	"include": ["lib/**/*.ts", "lib/**/*.d.ts", "test/**/*.test.ts", "eslint.config.ts"],
 	"exclude": ["node_modules"]
 }

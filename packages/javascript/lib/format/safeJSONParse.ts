@@ -8,14 +8,14 @@ export function safeJSONParse(jsonString: any, fallback = {}): AnyValueObject {
 	if (Array.isArray(jsonString) || typeof jsonString === 'object') {
 		try {
 			return JSON.parse(JSON.stringify(jsonString));
-		} catch (e) {
+		} catch {
 			return fallback;
 		}
 	}
 
 	try {
 		return JSON.parse(jsonString);
-	} catch (e) {
+	} catch {
 		return fallback;
 	}
 }

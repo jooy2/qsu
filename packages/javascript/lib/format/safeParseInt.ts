@@ -5,7 +5,7 @@ export function safeParseInt(value: any, fallback = 0, radix = 10): number {
 
 	try {
 		return parseInt(value.toString().split('.')[0], radix);
-	} catch (e) {
+	} catch {
 		return fallback;
 	}
 }

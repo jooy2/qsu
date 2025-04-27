@@ -5,7 +5,7 @@ export function isUrl(url: string, withProtocol = false, strict = false): boolea
 
 	try {
 		new URL(`${withProtocol && url.indexOf('://') === -1 ? 'https://' : ''}${url}`).toString();
-	} catch (e) {
+	} catch {
 		return false;
 	}
 

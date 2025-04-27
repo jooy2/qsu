@@ -8,7 +8,7 @@ describe('Format', () => {
 		assert.strictEqual(numberFormat(1234.5678), '1,234.5678');
 		assert.strictEqual(numberFormat(1234.0), '1,234');
 		assert.strictEqual(numberFormat(12345678), '12,345,678');
-		// @ts-ignore
+		// @ts-expect-error number is null
 		assert.strictEqual(numberFormat(null), '0');
 		assert.strictEqual(numberFormat('123123'), '123,123');
 	});

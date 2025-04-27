@@ -18,7 +18,7 @@ export async function createFileWithDummy(filePath: string, size: number): Promi
 		await data.close();
 
 		return true;
-	} catch (err) {
+	} catch {
 		return false;
 	}
 }

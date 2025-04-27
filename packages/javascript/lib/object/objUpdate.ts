@@ -24,7 +24,7 @@ export function objUpdate(
 			}
 
 			if (Object.hasOwn(currentObj, key)) {
-				// eslint-disable-next-line no-param-reassign
+				 
 				currentObj[key] = value;
 				hasUpdated = true;
 			}

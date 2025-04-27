@@ -9,7 +9,7 @@ export async function createFile(filePath: string): Promise<void> {
 
 	try {
 		await utimes(filePath, date, date);
-	} catch (err) {
+	} catch {
 		const data = await open(filePath, 'a');
 
 		await data.close();
