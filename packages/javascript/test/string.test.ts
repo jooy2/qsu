@@ -111,6 +111,7 @@ st`),
 
 	it('truncate', () => {
 		assert.strictEqual(truncate('test', 2), 'te');
+		assert.strictEqual(truncate('hello', 5, '...'), 'hello');
 		assert.strictEqual(truncate('test', 1, '...'), 't...');
 	});
 

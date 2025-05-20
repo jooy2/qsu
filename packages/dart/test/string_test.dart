@@ -71,6 +71,7 @@ st'''), 'test');
 
     test('truncate', () {
       expect(truncate('test', 2), 'te');
+      expect(truncate('hello', 5), 'hello');
       expect(truncate('test', 1, ellipsis: '...'), 't...');
     });
 
