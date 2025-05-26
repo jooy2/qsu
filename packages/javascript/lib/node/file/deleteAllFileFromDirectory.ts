@@ -14,7 +14,6 @@ export async function deleteAllFileFromDirectory(directoryPath: string): Promise
 	const fileItemLength: number = fileItems.length;
 
 	for (let i = 0; i < fileItemLength; i += 1) {
-		 
 		await deleteFile(join(directoryPath, fileItems[i]));
 	}
 }
