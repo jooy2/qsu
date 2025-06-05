@@ -5,6 +5,7 @@
 ## Parameters
 
 - `email::string`
+- `onlyLowerCase::boolean || false` <span class="named">Dart:Named</span>
 
 ## Returns
 
@@ -14,4 +15,5 @@
 
 ```javascript
 isEmail('abc@def.com'); // Returns true
+isEmail('ABC@def.com', true); // Returns false
 ```

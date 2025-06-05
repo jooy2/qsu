@@ -58,8 +58,7 @@ bool isEqualStrict(dynamic leftOperand, [dynamic right1, dynamic right2]) {
   for (var item in rightOperands) {
     if (leftOperand == item) {
       continue;
-    } else if (leftOperand is num && item is String ||
-        leftOperand is String && item is num) {
+    } else if (leftOperand is num && item is String || leftOperand is String && item is num) {
       return false;
     } else {
       return false;
@@ -113,8 +112,7 @@ bool isUrl(String url, {bool withProtocol = false, bool strict = false}) {
     return false;
   }
 
-  final formattedUrl =
-      (withProtocol && !url.contains('://')) ? 'https://$url' : url;
+  final formattedUrl = (withProtocol && !url.contains('://')) ? 'https://$url' : url;
 
   try {
     final uri = Uri.parse(formattedUrl);
@@ -135,10 +133,15 @@ bool is2dArray(List<dynamic> array) {
 }
 
 /// Checks if the given argument value is a valid email.
-bool isEmail(String email) {
-  return RegExp(
-          r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
-      .hasMatch(email);
+bool isEmail(String email, {bool onlyLowerCase = false}) {
+  final String char = onlyLowerCase == true ? 'a-z' : 'a-zA-Z';
+  final String pattern = '^[${char}0-9!#\$%&\'*+/=?^_`{|}~-]+'
+      '(?:\\.[${char}0-9!#\$%&\'*+/=?^_`{|}~-]+)*'
+      '@'
+      '(?:[${char}0-9](?:[${char}0-9-]*[${char}0-9])?\\.)+'
+      '[${char}0-9](?:[${char}0-9-]*[${char}0-9])?';
+
+  return RegExp(pattern).hasMatch(email);
 }
 
 /// Returns `true` if the first argument is in the range of the second argument (`[min, max]`).
@@ -147,9 +150,7 @@ bool between(List<num> range, num number, {bool inclusive = false}) {
   final minM = range.reduce((a, b) => a < b ? a : b);
   final maxM = range.reduce((a, b) => a > b ? a : b);
 
-  return inclusive
-      ? (number >= minM && number <= maxM)
-      : (number > minM && number < maxM);
+  return inclusive ? (number >= minM && number <= maxM) : (number > minM && number < maxM);
 }
 
 /// Returns the length of any type of data. If the argument value is `null` or `undefined`, `0` is returned.

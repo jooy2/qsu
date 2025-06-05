@@ -120,6 +120,11 @@ describe('Verify', () => {
 	it('isEmail', () => {
 		assert.strictEqual(isEmail('1@1.com'), true);
 		assert.strictEqual(isEmail('abc@def.ghi'), true);
+		assert.strictEqual(isEmail('Abc@def.ghi', true), false); // Case-sensitive
+		assert.strictEqual(isEmail('Abc@def.ghi'), true);
+		assert.strictEqual(isEmail('abc@Def.ghi'), true);
+		assert.strictEqual(isEmail('abc@def.Ghi'), true);
+		assert.strictEqual(isEmail('ABC@DEF.GHI'), true);
 		assert.strictEqual(isEmail('abc@sub.domain.com'), true);
 		assert.strictEqual(isEmail('a.bc@d.ef'), true);
 		assert.strictEqual(isEmail('a-12_34@b-12-34.net'), true);

@@ -101,6 +101,11 @@ void main() {
     test('isEmail', () {
       expect(isEmail('1@1.com'), true);
       expect(isEmail('abc@def.ghi'), true);
+      expect(isEmail('Abc@def.ghi', onlyLowerCase: true), false);
+      expect(isEmail('Abc@def.ghi'), true);
+      expect(isEmail('abc@Def.ghi'), true);
+      expect(isEmail('abc@def.Ghi'), true);
+      expect(isEmail('ABC@DEF.GHI'), true);
       expect(isEmail('abc@sub.domain.com'), true);
       expect(isEmail('a.bc@d.ef'), true);
       expect(isEmail('a-12_34@b-12-34.net'), true);
@@ -140,17 +145,13 @@ void main() {
 
       expect(isTrueMinimumNumberOfTimes([true, false, false]), true);
       expect(isTrueMinimumNumberOfTimes([true, true], minimumCount: 1), true);
-      expect(isTrueMinimumNumberOfTimes([true, false, true], minimumCount: 2),
-          true);
-      expect(isTrueMinimumNumberOfTimes([true, false, true], minimumCount: 1),
+      expect(isTrueMinimumNumberOfTimes([true, false, true], minimumCount: 2), true);
+      expect(isTrueMinimumNumberOfTimes([true, false, true], minimumCount: 1), true);
+      expect(
+          isTrueMinimumNumberOfTimes([left == right1, false, true, true, false], minimumCount: 3),
           true);
       expect(
-          isTrueMinimumNumberOfTimes([left == right1, false, true, true, false],
-              minimumCount: 3),
-          true);
-      expect(
-          isTrueMinimumNumberOfTimes([left == right2, false, true, true, false],
-              minimumCount: 3),
+          isTrueMinimumNumberOfTimes([left == right2, false, true, true, false], minimumCount: 3),
           false);
     });
   });

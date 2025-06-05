@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.10.1 (2025--)
+
+- `isEmail`: add `onlyLowerCase` parameter
+
 ## 1.10.0 (2025-03-12)
 
 - The `machini` packages have now been merged into the `qsu` package
