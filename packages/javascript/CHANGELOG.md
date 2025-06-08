@@ -1,8 +1,9 @@
 # Changelog (JavaScript)
 
-## 1.10.1 (2025--)
+## 1.10.1 (2025-06-08)
 
 - `isEmail`: add `onlyLowerCase` parameter
+- `getFileHash`: This function has been renamed to `getFileHashFromPath`. Also, `getFileHashFromStream` has been added, which can take a ReadableStream and hash it.
 
 ## 1.10.0 (2025-03-12)
 

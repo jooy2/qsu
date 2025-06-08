@@ -1,4 +1,4 @@
-# getFileHash <Badge type="tip" text="JavaScript" />
+# getFileHashFromPath <Badge type="tip" text="JavaScript" />
 
 <span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
 
@@ -16,5 +16,5 @@ Returns the file in the specified path as a value hashed by a specific algorithm
 ## Examples
 
 ```javascript
-await getFileHash('/home/user/text.txt', 'sha1'); // '38851813f75627d581c593f3ccfb7061dd013fbd'
+await getFileHashFromPath('/home/user/text.txt', 'sha1'); // '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```

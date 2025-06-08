@@ -1,7 +1,7 @@
 import { createHash } from 'crypto';
 import { createReadStream } from 'fs';
 
-export async function getFileHash(
+export async function getFileHashFromPath(
 	filePath: string,
 	algorithm: 'md5' | 'sha1' | 'sha256' | 'sha512' = 'md5'
 ): Promise<string> {

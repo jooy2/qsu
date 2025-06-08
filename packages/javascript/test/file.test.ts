@@ -6,7 +6,8 @@ import {
 	deleteAllFileFromDirectory,
 	deleteFile,
 	getFileExtension,
-	getFileHash,
+	getFileHashFromPath,
+	getFileHashFromStream,
 	getFileInfo,
 	getFileName,
 	getFilePathLevel,
@@ -23,6 +24,7 @@ import {
 	toPosixFilePath,
 	toValidFilePath
 } from '../dist/node';
+import { createReadStream } from 'fs';
 
 const TARGET_PATH = 'test/_resources/files';
 const IS_WINDOWS_OS = process.platform === 'win32';
@@ -146,31 +148,42 @@ describe('File', () => {
 		); // 255
 	});
 
-	it('getFileHash', async () => {
-		const hashTable = IS_WINDOWS_OS
-			? {
-					md5: '239884dde2b4354613a228001b22d9b9',
-					sha1: '38851813f75627d581c593f3ccfb7061dd013fbd',
-					sha256: 'db42a58ad98348dc8647ef27054ffcab994a2359fe9e0daeeffe8cbfe2409583',
-					sha512:
-						'c0be4b1ff1aba7be9b02d619dd10e0bdfa4149cf0f241320fe237336aea286ff68c3f42fae4d707a1a59dc6a269e730d3bc4b9891347647bb5acb82b5792a503'
-				}
-			: {
-					md5: '192ef428bd3e3413262df05679cee825',
-					sha1: '2accd3e31a50c5ed9c6786ef34669bbda55d7156',
-					sha256: '568770a759ef55df5c2a5d3cbfc5c62e2ade6a353c391037d91a97212dec9e88',
-					sha512:
-						'b03187c2962c947de2d5d3cdaa2f25e5e1df31c5190cccf42d03759d042dd5f5a2773ca9903e122b6faaf4a53b45c419d605464abb83cbe578ed249cb558844a'
-				};
+	const hashTable = IS_WINDOWS_OS
+		? {
+				md5: '239884dde2b4354613a228001b22d9b9',
+				sha1: '38851813f75627d581c593f3ccfb7061dd013fbd',
+				sha256: 'db42a58ad98348dc8647ef27054ffcab994a2359fe9e0daeeffe8cbfe2409583',
+				sha512:
+					'c0be4b1ff1aba7be9b02d619dd10e0bdfa4149cf0f241320fe237336aea286ff68c3f42fae4d707a1a59dc6a269e730d3bc4b9891347647bb5acb82b5792a503'
+			}
+		: {
+				md5: '192ef428bd3e3413262df05679cee825',
+				sha1: '2accd3e31a50c5ed9c6786ef34669bbda55d7156',
+				sha256: '568770a759ef55df5c2a5d3cbfc5c62e2ade6a353c391037d91a97212dec9e88',
+				sha512:
+					'b03187c2962c947de2d5d3cdaa2f25e5e1df31c5190cccf42d03759d042dd5f5a2773ca9903e122b6faaf4a53b45c419d605464abb83cbe578ed249cb558844a'
+			};
 
-		assert.strictEqual(await getFileHash(`${TARGET_PATH}/STATIC_FILE.txt`), hashTable.md5);
-		assert.strictEqual(await getFileHash(`${TARGET_PATH}/STATIC_FILE.txt`, 'sha1'), hashTable.sha1);
+	it('getFileHashFromPath', async () => {
+		const path = `${TARGET_PATH}/STATIC_FILE.txt`;
+
+		assert.strictEqual(await getFileHashFromPath(path), hashTable.md5);
+		assert.strictEqual(await getFileHashFromPath(path, 'sha1'), hashTable.sha1);
+		assert.strictEqual(await getFileHashFromPath(path, 'sha256'), hashTable.sha256);
+		assert.strictEqual(await getFileHashFromPath(path, 'sha512'), hashTable.sha512);
+	});
+
+	it('getFileHashFromStream', async () => {
+		const path = `${TARGET_PATH}/STATIC_FILE.txt`;
+
+		assert.strictEqual(await getFileHashFromStream(createReadStream(path)), hashTable.md5);
+		assert.strictEqual(await getFileHashFromStream(createReadStream(path), 'sha1'), hashTable.sha1);
 		assert.strictEqual(
-			await getFileHash(`${TARGET_PATH}/STATIC_FILE.txt`, 'sha256'),
+			await getFileHashFromStream(createReadStream(path), 'sha256'),
 			hashTable.sha256
 		);
 		assert.strictEqual(
-			await getFileHash(`${TARGET_PATH}/STATIC_FILE.txt`, 'sha512'),
+			await getFileHashFromStream(createReadStream(path), 'sha512'),
 			hashTable.sha512
 		);
 	});
