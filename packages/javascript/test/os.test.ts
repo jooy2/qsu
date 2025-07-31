@@ -1,11 +1,17 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { runCommand, getMachineId, getSid } from '../dist/node';
+import { runCommand, getHostname, getMachineId, getSid } from '../dist/node';
 
 describe('OS', () => {
 	it('runCommand', async () => {
 		assert.strictEqual(await runCommand('echo a'), 'a');
 		assert.strictEqual(await runCommand('echo b'), 'b');
+	});
+
+	it('getHostname', async () => {
+		const hostname = await getHostname();
+
+		assert.match(hostname, /a-zA-Z/);
 	});
 
 	/*
