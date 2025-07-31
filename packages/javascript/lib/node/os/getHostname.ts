@@ -10,7 +10,7 @@ export async function getHostname(): Promise<string> {
 	} else if (platformName === 'darwin') {
 		command = 'scutil --get ComputerName';
 	} else if (platformName === 'linux' || platformName === 'freebsd') {
-		command = 'hostnamectl --pretty';
+		command = 'hostnamectl hostname';
 	} else {
 		return hostname() || 'Unknown';
 	}
@@ -27,5 +27,5 @@ export async function getHostname(): Promise<string> {
 		}
 	}
 
-	throw new Error('Failed to get hostname');
+	return 'Unknown';
 }
