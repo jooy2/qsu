@@ -11,7 +11,7 @@ describe('OS', () => {
 	it('getHostname', async () => {
 		const hostname = await getHostname();
 
-		assert.match(hostname, /a-zA-Z/);
+		assert.match(hostname, /[a-zA-Z0-9]+/);
 	});
 
 	/*
