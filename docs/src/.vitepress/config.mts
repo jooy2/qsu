@@ -88,7 +88,8 @@ const vitePressConfigs: UserConfig = {
 		'en/:rest*': ':rest*'
 	},
 	themeConfig: {
-		logo: { src: '/logo-32.png', width: 24, height: 24 },
+		siteTitle: false,
+		logo: { src: '/logo-text.webp' },
 		socialLinks: [
 			{ icon: 'github', link: packageJson.repository.url.replace('.git', '') },
 			{ icon: 'npm', link: 'https://npmjs.com/package/qsu' },
