@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/jooy2/qsu/refs/heads/main/.github/resources/logo.webp)
+![logo](https://raw.githubusercontent.com/jooy2/qsu/refs/heads/main/.github/resources/qsu-logo.webp)
 
 # qsu - Quick & Simple Utility
 
