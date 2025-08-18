@@ -11,13 +11,7 @@ export default pluginTypeScriptESLint.config(
 	pluginJs.configs.recommended,
 	pluginTypeScriptESLint.configs.recommended,
 	pluginNode.configs['flat/recommended-script'],
-	globalIgnores([
-		'**/.idea',
-		'**/.vscode',
-		'**/node_modules',
-		'**/dist',
-		'**/package-lock.json'
-	]),
+	globalIgnores(['**/.idea', '**/.vscode', '**/node_modules', '**/dist', '**/package-lock.json']),
 	{
 		files: ['**/*.{js,mjs,cjs,ts}'],
 		languageOptions: {
@@ -34,14 +28,15 @@ export default pluginTypeScriptESLint.config(
 		},
 		rules: {
 			eqeqeq: 'error',
-			'no-unused-vars': 'off',
 			'no-case-declarations': 'off',
 			'no-trailing-spaces': 'error',
 			'no-unsafe-optional-chaining': 'off',
 			'no-control-regex': 'off',
+			'no-unused-vars': 'off',
 			'n/no-missing-import': 'off',
 			'n/no-unpublished-import': 'off',
 			'n/no-unsupported-features/node-builtins': 'off',
+			'@typescript-eslint/no-unused-vars': 'error',
 			'@typescript-eslint/no-explicit-any': 'off'
 		}
 	},
