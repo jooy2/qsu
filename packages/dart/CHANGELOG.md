@@ -3,6 +3,7 @@
 ## 1.1.6 (2025--)
 
 - `isEmail`: add `onlyLowerCase` parameter
+- Add `console` method
 
 ## 1.1.5 (2025-03-06)
 

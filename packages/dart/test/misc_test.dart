@@ -14,8 +14,7 @@ void main() {
 
       expect(funcTimes(2, sayHello), ['Hello', 'Hello']);
       expect(funcTimes(3, sayHello()), ['Hello', 'Hello', 'Hello']);
-      expect(funcTimes(4, () => sayHello('!')),
-          ['Hello!', 'Hello!', 'Hello!', 'Hello!']);
+      expect(funcTimes(4, () => sayHello('!')), ['Hello!', 'Hello!', 'Hello!', 'Hello!']);
     });
 
     test('debounce', () async {
@@ -46,6 +45,11 @@ void main() {
       await Future.delayed(Duration(milliseconds: 10));
 
       expect(debounceResult, equals(List.filled(4, true)));
+    });
+
+    test('console', () {
+      console('text');
+      console('123' * 100000);
     });
   });
 }

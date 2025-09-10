@@ -33,3 +33,13 @@ Function debounce(Function func, int timeout) {
     });
   };
 }
+
+/// Ensure that text is displayed in full without being truncated in Dart's `print`.
+void console(String? text) {
+  if (text == null) {
+    print('');
+    return;
+  }
+
+  RegExp('.{1,800}').allMatches(text).forEach((match) => print(match.group(0)));
+}
