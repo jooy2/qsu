@@ -43,6 +43,14 @@ export default pluginTypeScriptESLint.config(
 			'n/no-missing-import': 'off',
 			'n/no-unpublished-import': 'off',
 			'n/no-unsupported-features/node-builtins': 'off',
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				{
+					argsIgnorePattern: '^_',
+					varsIgnorePattern: '^_',
+					caughtErrorsIgnorePattern: '^_'
+				}
+			],
 			'@typescript-eslint/no-explicit-any': 'off'
 		}
 	},
