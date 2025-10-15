@@ -4,6 +4,7 @@
 
 - `isEmail`: add `onlyLowerCase` parameter
 - Add `console` method
+- Add `getStrBytes` method
 
 ## 1.1.5 (2025-03-06)
 

@@ -149,5 +149,16 @@ st'''), 'test');
           'example.com/hello/world/bye');
       expect(urlJoin(['hello', '/world', 'bye']), 'hello/world/bye');
     });
+
+    test('getStrBytes', () {
+      expect(getStrBytes(''), 0);
+      expect(getStrBytes('abcde'), 5);
+      expect(getStrBytes('a1b2c3 d4e5f6'), 13);
+      expect(getStrBytes('ㄱㄴㄷ'), 9);
+      expect(getStrBytes('가나다123'), 12);
+      expect(getStrBytes('😀😀😀'), 12);
+      expect(getStrBytes('😀'), 4);
+      expect(getStrBytes('123 ABcd 가나다😀'), 22);
+    });
   });
 }

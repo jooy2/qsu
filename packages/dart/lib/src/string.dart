@@ -235,3 +235,36 @@ String urlJoin(List<String?> args) {
 
   return urlResult.replaceAll(RegExp(r'/$'), '');
 }
+
+/// Returns the number of bytes in the given string.
+int getStrBytes(String? str) {
+  if (str == null || str.isEmpty) {
+    return 0;
+  }
+
+  int bytes = 0;
+
+  for (int i = 0; i < str.length; i++) {
+    int codeUnit = str.codeUnitAt(i);
+
+    if (codeUnit >= 0xD800 && codeUnit <= 0xDBFF && i + 1 < str.length) {
+      int next = str.codeUnitAt(i + 1);
+
+      if (next >= 0xDC00 && next <= 0xDFFF) {
+        bytes += 4;
+        i++;
+        continue;
+      }
+    }
+
+    if (codeUnit <= 0x7F) {
+      bytes += 1;
+    } else if (codeUnit <= 0x7FF) {
+      bytes += 2;
+    } else {
+      bytes += 3;
+    }
+  }
+
+  return bytes;
+}
