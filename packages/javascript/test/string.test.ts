@@ -8,6 +8,7 @@ import {
 	capitalizeFirst,
 	capitalizeEverySentence,
 	capitalizeEachWords,
+	getStrBytes,
 	strCount,
 	strShuffle,
 	strRandom,
@@ -180,5 +181,16 @@ st`),
 			'example.com/hello/world/bye'
 		);
 		assert.strictEqual(urlJoin('hello', '/world', 'bye'), 'hello/world/bye');
+	});
+
+	it('getStrBytes', () => {
+		assert.strictEqual(getStrBytes(''), 0);
+		assert.strictEqual(getStrBytes('abcde'), 5);
+		assert.strictEqual(getStrBytes('a1b2c3 d4e5f6'), 13);
+		assert.strictEqual(getStrBytes('ㄱㄴㄷ'), 9);
+		assert.strictEqual(getStrBytes('가나다123'), 12);
+		assert.strictEqual(getStrBytes('😀😀😀'), 12);
+		assert.strictEqual(getStrBytes('😀'), 4);
+		assert.strictEqual(getStrBytes('123 ABcd 가나다😀'), 22);
 	});
 });

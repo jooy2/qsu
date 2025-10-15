@@ -3,6 +3,7 @@
 ## 1.10.2 (2025--)
 
 - `getHostname`: Add `getHostname` method
+- `getStrBytes`: Add `getStrBytes` method
 
 ## 1.10.1 (2025-06-08)
 
