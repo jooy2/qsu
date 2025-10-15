@@ -145,13 +145,17 @@ void main() {
 
       expect(isTrueMinimumNumberOfTimes([true, false, false]), true);
       expect(isTrueMinimumNumberOfTimes([true, true], minimumCount: 1), true);
-      expect(isTrueMinimumNumberOfTimes([true, false, true], minimumCount: 2), true);
-      expect(isTrueMinimumNumberOfTimes([true, false, true], minimumCount: 1), true);
-      expect(
-          isTrueMinimumNumberOfTimes([left == right1, false, true, true, false], minimumCount: 3),
+      expect(isTrueMinimumNumberOfTimes([true, false, true], minimumCount: 2),
+          true);
+      expect(isTrueMinimumNumberOfTimes([true, false, true], minimumCount: 1),
           true);
       expect(
-          isTrueMinimumNumberOfTimes([left == right2, false, true, true, false], minimumCount: 3),
+          isTrueMinimumNumberOfTimes([left == right1, false, true, true, false],
+              minimumCount: 3),
+          true);
+      expect(
+          isTrueMinimumNumberOfTimes([left == right2, false, true, true, false],
+              minimumCount: 3),
           false);
     });
   });
