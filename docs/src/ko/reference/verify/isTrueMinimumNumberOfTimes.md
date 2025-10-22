@@ -13,6 +13,8 @@
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 const left = 1;
 const right = 1 + 2;

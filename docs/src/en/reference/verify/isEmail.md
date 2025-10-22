@@ -13,6 +13,8 @@ Checks if the given argument value is a valid email.
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 isEmail('abc@def.com'); // Returns true
 isEmail('ABC@def.com', true); // Returns false

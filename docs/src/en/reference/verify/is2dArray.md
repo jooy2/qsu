@@ -12,6 +12,8 @@ Returns `true` if the given array is a two-dimensional array.
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 is2dArray([1]); // Returns false
 is2dArray([[1], [2]]); // Returns true

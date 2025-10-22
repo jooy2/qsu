@@ -14,6 +14,8 @@
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 truncateExpect('hello. this is test string.', 10, '.'); // Returns 'hello. this is test string.'
 truncateExpect('hello-this-is-test-string-bye', 14, '-'); // Returns 'hello-this-is-'

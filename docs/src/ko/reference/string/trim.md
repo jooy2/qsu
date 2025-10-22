@@ -12,6 +12,8 @@
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 trim(' Hello Wor  ld  '); // Returns 'Hello Wor ld'
 trim('H e l l o     World'); // Returns 'H e l l o World'

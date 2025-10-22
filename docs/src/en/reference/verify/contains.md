@@ -14,6 +14,8 @@ Returns `true` if the first string argument contains the second argument "string
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 contains('abc', 'a'); // Returns true
 contains('abc', 'd'); // Returns false

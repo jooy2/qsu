@@ -12,6 +12,8 @@
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 len('12345'); // Returns 5
 len([1, 2, 3]); // Returns 3

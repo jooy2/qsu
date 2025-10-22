@@ -13,6 +13,8 @@
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 isEmail('abc@def.com'); // Returns true
 isEmail('ABC@def.com', true); // Returns false

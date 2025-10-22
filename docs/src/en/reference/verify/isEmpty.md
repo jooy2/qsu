@@ -12,6 +12,8 @@ Returns true if the passed data is empty or has a length of 0.
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 isEmpty([]); // Returns true
 isEmpty(''); // Returns true

@@ -12,6 +12,8 @@
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 isObject([1, 2, 3]); // Returns false
 isObject({ a: 1, b: 2 }); // Returns true

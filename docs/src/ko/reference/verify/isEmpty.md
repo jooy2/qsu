@@ -12,6 +12,8 @@
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 isEmpty([]); // Returns true
 isEmpty(''); // Returns true

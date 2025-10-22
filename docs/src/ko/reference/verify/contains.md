@@ -14,6 +14,8 @@
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 contains('abc', 'a'); // Returns true
 contains('abc', 'd'); // Returns false

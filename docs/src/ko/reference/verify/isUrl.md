@@ -14,6 +14,8 @@
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 isUrl('google.com'); // Returns false
 isUrl('google.com', true); // Returns true

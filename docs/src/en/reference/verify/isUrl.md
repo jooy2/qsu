@@ -14,6 +14,8 @@ Returns `true` if the given data is in the correct URL format. If withProtocol i
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 isUrl('google.com'); // Returns false
 isUrl('google.com', true); // Returns true

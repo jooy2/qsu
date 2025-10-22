@@ -17,6 +17,8 @@ In Dart, rest parameters are not supported in `rightOperand`.
 
 ## Examples
 
+::: code-group
+
 ```javascript [JavaScript]
 const val1 = 'Left';
 const val2 = 1;
