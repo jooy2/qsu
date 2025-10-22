@@ -1,4 +1,4 @@
-# isEmail <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# isEmail <Lang dart js />
 
 Checks if the given argument value is a valid email.
 

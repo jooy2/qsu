@@ -1,6 +1,6 @@
-# createDirectory <Badge type="tip" text="JavaScript" />
+# createDirectory <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Creates a directory with the specified path. Ignores the operation if the directory already exists.
 

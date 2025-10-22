@@ -1,4 +1,4 @@
-# removeNewLine <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# removeNewLine <Lang dart js />
 
 `\n`, `\r` 문자를 제거하거나 지정된 문자로 대체합니다.
 

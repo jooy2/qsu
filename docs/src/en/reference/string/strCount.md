@@ -1,4 +1,4 @@
-# strCount <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# strCount <Lang dart js />
 
 Returns the number of times the second String argument is contained in the first String argument.
 

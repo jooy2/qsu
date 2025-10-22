@@ -1,4 +1,4 @@
-# isEqual <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# isEqual <Lang dart js />
 
 It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
 

@@ -1,4 +1,4 @@
-# is2dArray <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# is2dArray <Lang dart js />
 
 Returns `true` if the given array is a two-dimensional array.
 

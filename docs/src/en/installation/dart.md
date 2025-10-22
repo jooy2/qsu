@@ -3,7 +3,7 @@ title: Dart
 order: 2
 ---
 
-# Installation for Dart <Badge type="info" text="Dart" />
+# Installation for Dart <Lang dart />
 
 There are a few simple steps to install **qsu** in Dart.
 

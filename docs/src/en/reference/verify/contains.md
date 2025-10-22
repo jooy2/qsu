@@ -1,4 +1,4 @@
-# contains <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# contains <Lang dart js />
 
 Returns `true` if the first string argument contains the second argument "string" or "one or more of the strings listed in the array". If the exact value is `true`, it returns true only for an exact match.
 

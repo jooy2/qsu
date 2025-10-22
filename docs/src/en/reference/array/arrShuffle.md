@@ -1,4 +1,4 @@
-# arrShuffle <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# arrShuffle <Lang dart js />
 
 Shuffle the order of the given array and return.
 

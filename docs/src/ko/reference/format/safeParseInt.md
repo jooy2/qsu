@@ -1,4 +1,4 @@
-# safeParseInt <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# safeParseInt <Lang dart js />
 
 어떤 인수 값이든 오류 없이 숫자 유형으로 구문 분석하려고 시도합니다. 구문 분석에 실패하면 `fallback`에 설정된 숫자로 대체됩니다. `fallback`의 기본값은 `0`입니다. 세 번째 인수에 `radix`(기본값은 십진수: `10`)를 지정할 수 있습니다.
 

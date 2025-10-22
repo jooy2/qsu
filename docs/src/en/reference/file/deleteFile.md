@@ -1,6 +1,6 @@
-# deleteFile <Badge type="tip" text="JavaScript" />
+# deleteFile <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Delete files or directory in the specified path. If the file does not exist in the path, it is ignored.
 

@@ -1,4 +1,4 @@
-# createDateListFromRange <Badge type="tip" text="JavaScript" />
+# createDateListFromRange <Lang js />
 
 Create an array list of all dates from `startDate` to `endDate` in the format `YYYY-MM-DD`.
 

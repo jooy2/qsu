@@ -1,6 +1,6 @@
-# decrypt <Badge type="tip" text="JavaScript" />
+# decrypt <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Decrypt with the specified algorithm (default: `aes-256-cbc`) using a string and a secret (secret).
 

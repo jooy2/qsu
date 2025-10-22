@@ -1,4 +1,4 @@
-# sum <Badge type="tip" text="JavaScript" />
+# sum <Lang js />
 
 Returns after adding up all the n arguments of numbers or the values of a single array of numbers.
 

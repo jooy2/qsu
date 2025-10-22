@@ -1,4 +1,4 @@
-# sum <Badge type="tip" text="JavaScript" />
+# sum <Lang js />
 
 숫자의 n개의 인수를 모두 더한 값이나 숫자의 단일 배열 값을 반환합니다.
 

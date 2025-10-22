@@ -1,4 +1,4 @@
-# truncate <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# truncate <Lang dart js />
 
 긴 문자열을 지정된 길이로 잘라내고, 문자열 뒤에 선택적으로 줄임표를 추가합니다.
 

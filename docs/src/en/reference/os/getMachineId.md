@@ -1,6 +1,6 @@
-# getMachineId <Badge type="tip" text="JavaScript" />
+# getMachineId <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Gets the unique UUID of the current device. Throws an error if the value is not retrieved. Returns a `Promise` object, so use `await` or `.then()` to wait for the operation to complete and get the correct value.
 

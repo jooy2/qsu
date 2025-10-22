@@ -1,4 +1,4 @@
-# average <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# average <Lang dart js />
 
 Returns the average of all numeric values in an array.
 

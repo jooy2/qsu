@@ -1,4 +1,4 @@
-# objToQueryString <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# objToQueryString <Lang dart js />
 
 주어진 객체 데이터를 URL 쿼리 문자열로 변환합니다.
 

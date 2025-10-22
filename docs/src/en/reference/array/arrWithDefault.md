@@ -1,4 +1,4 @@
-# arrWithDefault <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# arrWithDefault <Lang dart js />
 
 Initialize an array with a default value of a specific length.
 

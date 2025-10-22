@@ -1,6 +1,6 @@
-# getFileSize <Badge type="tip" text="JavaScript" />
+# getFileSize <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Returns the given byte argument as a human-friendly string.
 

@@ -1,4 +1,4 @@
-# objToPrettyStr <Badge type="tip" text="JavaScript" />
+# objToPrettyStr <Lang js />
 
 Recursively output all the steps of the JSON object (`JSON.stringify`) and then output the JSON object with newlines and tab characters to make it easier to read in a `console` function, for example.
 

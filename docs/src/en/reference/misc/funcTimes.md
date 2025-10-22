@@ -1,4 +1,4 @@
-# funcTimes <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# funcTimes <Lang dart js />
 
 Repeat iteratee n (times argument value) times. After the return result of each function is stored in the array in order, the final array is returned.
 

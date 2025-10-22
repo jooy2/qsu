@@ -1,6 +1,6 @@
-# sha256Hash <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# sha256Hash <Lang dart js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Converts String data to sha256 hash value and returns it.
 

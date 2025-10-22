@@ -1,4 +1,4 @@
-# generateLicense <Badge type="tip" text="JavaScript" />
+# generateLicense <Lang js />
 
 Returns text in a specific license format based on the author information of the given argument. The argument uses the Object type.
 

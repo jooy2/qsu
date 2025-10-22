@@ -1,4 +1,4 @@
-# truncateExpect <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# truncateExpect <Lang dart js />
 
 The string ignores truncation until the ending character (`endStringChar`). If the expected length is reached, return the truncated string until after the ending character.
 

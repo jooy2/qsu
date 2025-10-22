@@ -1,4 +1,4 @@
-# sub <Badge type="tip" text="JavaScript" />
+# sub <Lang js />
 
 Returns after subtracting all n arguments of numbers or the values of a single array of numbers.
 

@@ -1,4 +1,4 @@
-# strToAscii <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# strToAscii <Lang dart js />
 
 Converts the given string to ascii code and returns it as an array.
 

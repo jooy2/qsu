@@ -1,4 +1,4 @@
-# arrWithNumber <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# arrWithNumber <Lang dart js />
 
 Creates and returns an Array in the order of start...end values.
 

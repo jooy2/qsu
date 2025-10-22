@@ -1,6 +1,6 @@
-# joinFilePath <Badge type="tip" text="JavaScript" />
+# joinFilePath <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Combines paths for each operating system according to the given parameter values.
 

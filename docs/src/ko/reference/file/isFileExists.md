@@ -1,6 +1,6 @@
-# isFileExists <Badge type="tip" text="JavaScript" />
+# isFileExists <Lang js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 지정된 경로에 파일이 존재하면 `true`를 반환합니다.
 

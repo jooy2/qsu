@@ -1,4 +1,4 @@
-# numberFormat <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# numberFormat <Lang dart js />
 
 Return number format including comma symbol.
 

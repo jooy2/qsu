@@ -1,6 +1,6 @@
-# encodeBase64 <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# encodeBase64 <Lang dart js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Base64-encode the given string.
 

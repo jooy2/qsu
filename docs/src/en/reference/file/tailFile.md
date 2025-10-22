@@ -1,6 +1,6 @@
-# tailFile <Badge type="tip" text="JavaScript" />
+# tailFile <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Returns the last line of the specified text file path. The `length` argument is the total number of lines to print. Default is `1`. The last line of newline characters is ignored.
 

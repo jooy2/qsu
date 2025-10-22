@@ -1,6 +1,6 @@
-# deleteAllFileFromDirectory <Badge type="tip" text="JavaScript" />
+# deleteAllFileFromDirectory <Lang js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 지정된 디렉토리 경로에 있는 모든 파일을 삭제합니다. 그러나 디렉토리는 보존됩니다.
 

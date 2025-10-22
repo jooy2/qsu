@@ -1,6 +1,6 @@
-# objectId <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# objectId <Lang dart js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 ObjectId 형식의 임의의 문자열 해시를 반환합니다(주로 MongoDB에서 사용됨).
 

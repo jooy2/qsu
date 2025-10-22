@@ -1,4 +1,4 @@
-# isObject <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# isObject <Lang dart js />
 
 Check whether the given data is of type `Object`. Returns `false` for other data types including `Array`.
 

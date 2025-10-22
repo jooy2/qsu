@@ -1,6 +1,6 @@
-# runCommand <Badge type="tip" text="JavaScript" />
+# runCommand <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 It returns the result that is output after entering and executing the command prompt command.
 

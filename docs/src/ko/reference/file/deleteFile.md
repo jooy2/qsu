@@ -1,6 +1,6 @@
-# deleteFile <Badge type="tip" text="JavaScript" />
+# deleteFile <Lang js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 지정된 경로에 있는 파일 또는 디렉터리를 삭제합니다. 파일이 경로에 존재하지 않으면 무시됩니다.
 

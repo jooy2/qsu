@@ -1,4 +1,4 @@
-# mul <Badge type="tip" text="JavaScript" />
+# mul <Lang js />
 
 Returns after multiplying all n arguments of numbers or the values of a single array of numbers.
 

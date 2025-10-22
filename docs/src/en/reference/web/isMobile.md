@@ -1,4 +1,4 @@
-# isMobile <Badge type="tip" text="JavaScript" />
+# isMobile <Lang js />
 
 Checks if the current user is accessing from a mobile device via the User Agent string. This function returns `false` for tablet users.
 

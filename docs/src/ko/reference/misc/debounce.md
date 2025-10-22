@@ -1,4 +1,4 @@
-# debounce <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# debounce <Lang dart js />
 
 지정된 함수가 반복적으로 실행될 때, 지정된 시간 제한 내에 다시 호출되지 않으면 함수가 호출됩니다. 이 함수는 반복적인 입력 이벤트에 대해 소량의 함수 호출이 필요할 때 사용됩니다.
 

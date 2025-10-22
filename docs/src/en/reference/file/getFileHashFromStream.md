@@ -1,6 +1,6 @@
-# getFileHashFromStream <Badge type="tip" text="JavaScript" />
+# getFileHashFromStream <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Returns a file in a Node.js ReadableStream object as a value hashed with a specific algorithm. The default algorithm is `md5`. This method uses `Promise` to return a valid hash value.
 

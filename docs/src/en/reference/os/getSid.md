@@ -1,6 +1,6 @@
-# getSid <Badge type="tip" text="JavaScript" />
+# getSid <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Gets the Security Identifier (SID) value for the current user on the device. Throws an error if the value is not obtained.
 

@@ -1,4 +1,4 @@
-# sleep <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# sleep <Lang dart js />
 
 Sleep function using Promise.
 

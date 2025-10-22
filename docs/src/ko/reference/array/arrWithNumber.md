@@ -1,4 +1,4 @@
-# arrWithNumber <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# arrWithNumber <Lang dart js />
 
 시작...끝 값의 순서로 배열을 생성하고 반환합니다.
 

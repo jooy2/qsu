@@ -1,4 +1,4 @@
-# arrWithDefault <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# arrWithDefault <Lang dart js />
 
 특정 길이의 기본값으로 배열을 초기화합니다.
 

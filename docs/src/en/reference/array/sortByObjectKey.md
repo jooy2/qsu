@@ -1,4 +1,4 @@
-# sortByObjectKey <Badge type="tip" text="JavaScript" />
+# sortByObjectKey <Lang js />
 
 Sort array values by a specific key value in an array containing multiple objects. It does not affect the order or value of elements within an object.
 

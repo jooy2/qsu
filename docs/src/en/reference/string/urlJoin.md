@@ -1,4 +1,4 @@
-# urlJoin <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# urlJoin <Lang dart js />
 
 Merges the given string argument with the first argument (the beginning of the URL), joining it so that the slash (`/`) symbol is correctly included.
 

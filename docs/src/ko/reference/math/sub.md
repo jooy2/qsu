@@ -1,4 +1,4 @@
-# sub <Badge type="tip" text="JavaScript" />
+# sub <Lang js />
 
 숫자의 인수 n 개 또는 숫자의 단일 배열 값을 모두 뺀 값을 반환합니다.
 

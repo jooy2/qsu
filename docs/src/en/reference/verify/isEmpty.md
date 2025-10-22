@@ -1,4 +1,4 @@
-# isEmpty <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# isEmpty <Lang dart js />
 
 Returns true if the passed data is empty or has a length of 0.
 

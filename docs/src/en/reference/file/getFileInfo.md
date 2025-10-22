@@ -1,6 +1,6 @@
-# getFileInfo <Badge type="tip" text="JavaScript" />
+# getFileInfo <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Returns file or directory information as an easy-to-understand object.
 

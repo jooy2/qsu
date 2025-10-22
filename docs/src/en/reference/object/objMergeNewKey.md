@@ -1,4 +1,4 @@
-# objMergeNewKey <Badge type="tip" text="JavaScript" />
+# objMergeNewKey <Lang js />
 
 Merge two object data into one object. The key to this method is to compare the two objects and add the newly added key data, if any.
 

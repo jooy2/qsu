@@ -1,4 +1,4 @@
-# isUrl <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# isUrl <Lang dart js />
 
 Returns `true` if the given data is in the correct URL format. If withProtocol is `true`, it is automatically appended to the URL when the protocol does not exist. If strict is `true`, URLs without commas (`.`) return `false`.
 

@@ -1,6 +1,6 @@
-# sha1Hash <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# sha1Hash <Lang dart js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Converts String data to sha1 hash value and returns it.
 

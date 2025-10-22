@@ -1,4 +1,4 @@
-# strShuffle <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# strShuffle <Lang dart js />
 
 Randomly shuffles the received string and returns it.
 

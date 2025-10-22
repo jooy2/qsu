@@ -1,4 +1,4 @@
-# today <Badge type="tip" text="JavaScript" />
+# today <Lang js />
 
 Returns today's date.
 

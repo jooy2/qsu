@@ -1,4 +1,4 @@
-# strToAscii <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# strToAscii <Lang dart js />
 
 지정된 문자열을 ASCII 코드로 변환하여 배열로 반환합니다.
 

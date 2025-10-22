@@ -1,4 +1,4 @@
-# arrTo1dArray <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# arrTo1dArray <Lang dart js />
 
 Merges all elements of a multidimensional array into a one-dimensional array.
 

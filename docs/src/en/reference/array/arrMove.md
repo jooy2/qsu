@@ -1,4 +1,4 @@
-# arrMove <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# arrMove <Lang dart js />
 
 Moves the position of a specific element in an array to the specified position. (Position starts from 0.)
 

@@ -1,4 +1,4 @@
-# isTrueMinimumNumberOfTimes <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# isTrueMinimumNumberOfTimes <Lang dart js />
 
 Returns `true` if the values given in the `conditions` array are true at least `minimumCount` times.
 

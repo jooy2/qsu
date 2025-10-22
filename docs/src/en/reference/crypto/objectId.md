@@ -1,6 +1,6 @@
-# objectId <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# objectId <Lang dart js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Returns a random string hash of the ObjectId format (primarily utilized by MongoDB).
 

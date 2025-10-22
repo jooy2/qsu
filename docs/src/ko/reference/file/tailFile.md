@@ -1,6 +1,6 @@
-# tailFile <Badge type="tip" text="JavaScript" />
+# tailFile <Lang js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 지정된 텍스트 파일 경로의 마지막 줄을 반환합니다. `length` 인수는 인쇄할 총 줄 수입니다. 기본값은 `1`입니다. 줄 바꿈 문자의 마지막 줄은 무시됩니다.
 

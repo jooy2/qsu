@@ -1,6 +1,6 @@
-# joinFilePath <Badge type="tip" text="JavaScript" />
+# joinFilePath <Lang js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 지정된 매개 변수 값에 따라 각 운영 체제에 대한 경로를 결합합니다.
 

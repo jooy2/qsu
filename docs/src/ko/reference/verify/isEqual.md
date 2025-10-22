@@ -1,4 +1,4 @@
-# isEqual <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# isEqual <Lang dart js />
 
 첫 번째 인수의 값을 왼쪽 피연산자로, 그 다음에 주어진 인수의 값을 오른쪽 피연산자로 비교하고, 값이 모두 같으면 `true`를 반환합니다.
 

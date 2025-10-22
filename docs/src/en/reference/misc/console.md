@@ -1,4 +1,4 @@
-# console <Badge type="info" text="Dart" />
+# console <Lang dart />
 
 Ensure that text is displayed in full without being truncated in Dart's `print`.
 

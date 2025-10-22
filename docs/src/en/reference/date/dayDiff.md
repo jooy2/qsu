@@ -1,4 +1,4 @@
-# dayDiff <Badge type="tip" text="JavaScript" />
+# dayDiff <Lang js />
 
 Calculates the difference between two given dates and returns the number of days.
 

@@ -1,4 +1,4 @@
-# dateToYYYYMMDD <Badge type="tip" text="JavaScript" />
+# dateToYYYYMMDD <Lang js />
 
 Returns the date data of a Date object in the format `YYYY-MM-DD`.
 

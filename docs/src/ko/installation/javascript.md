@@ -3,7 +3,7 @@ title: JavaScript
 order: 1
 ---
 
-# JavaScript에서 설치 <Badge type="tip" text="JavaScript" />
+# JavaScript에서 설치 <Lang js />
 
 JavaScript 언어로 **qsu**를 설치하기 위해 몇가지 간단한 절차가 필요합니다.
 
@@ -73,6 +73,6 @@ main();
 
 `qsu/node`를 사용해야 하는 함수는 레퍼런스 항목의 각 문서 상단에 다음과 같이 기재되어 있습니다:
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 이외에도 지원하는 모든 함수에 대해 자세히 알아보려면 [Reference](/ko/reference/index.md) 설명서를 참조하세요.

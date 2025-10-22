@@ -1,6 +1,6 @@
-# getFileName <Badge type="tip" text="JavaScript" />
+# getFileName <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Returns the file name within the path.
 

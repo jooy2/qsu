@@ -1,4 +1,4 @@
-# duration <Badge type="tip" text="JavaScript" />
+# duration <Lang js />
 
 Displays the given millisecond value in human-readable time. For example, the value of `604800000` (7 days) is displayed as `7 Days`.
 

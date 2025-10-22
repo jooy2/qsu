@@ -1,6 +1,6 @@
-# isFileExists <Badge type="tip" text="JavaScript" />
+# isFileExists <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Returns `true` if the file at the given path exists.
 

@@ -1,6 +1,6 @@
-# deleteAllFileFromDirectory <Badge type="tip" text="JavaScript" />
+# deleteAllFileFromDirectory <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Deletes all files in the specified directory path. However, the directory is preserved.
 

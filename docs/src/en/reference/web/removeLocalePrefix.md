@@ -1,4 +1,4 @@
-# removeLocalePrefix <Badge type="tip" text="JavaScript" />
+# removeLocalePrefix <Lang js />
 
 Removes the first-level path from a URL or pathname. Use this when you need a locale-free path in special cases in a URL that normally uses locale prefixes. For example, `/en/hello` is converted to `/hello`.
 

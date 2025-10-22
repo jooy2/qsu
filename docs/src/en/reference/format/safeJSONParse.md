@@ -1,4 +1,4 @@
-# safeJSONParse <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# safeJSONParse <Lang dart js />
 
 Attempts to parse without returning an error, even if the argument value is of the wrong type or in `JSON` format. If parsing fails, it will be replaced with the object set in `fallback`. The default value for `fallback` is an empty object.
 

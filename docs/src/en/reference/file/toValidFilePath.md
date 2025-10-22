@@ -1,6 +1,6 @@
-# toValidFilePath <Badge type="tip" text="JavaScript" />
+# toValidFilePath <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Remove invalid or unnecessary characters in the path.
 

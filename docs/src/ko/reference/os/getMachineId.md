@@ -1,6 +1,6 @@
-# getMachineId <Badge type="tip" text="JavaScript" />
+# getMachineId <Lang js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 현재 장치의 고유 UUID를 가져옵니다. 값을 가져오지 못하면 에러를 발생시킵니다. `Promise` 객체를 반환하므로, `await` 또는 `.then()`을 사용하여 작업이 완료될 때까지 기다렸다가 올바른 값을 얻으십시오.
 

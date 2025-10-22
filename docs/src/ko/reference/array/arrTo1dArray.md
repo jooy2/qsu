@@ -1,4 +1,4 @@
-# arrTo1dArray <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# arrTo1dArray <Lang dart js />
 
 다차원 배열의 모든 요소를 1차원 배열로 병합합니다.
 

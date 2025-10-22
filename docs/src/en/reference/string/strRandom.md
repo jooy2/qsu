@@ -1,4 +1,4 @@
-# strRandom <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# strRandom <Lang dart js />
 
 Returns a random String containing numbers or uppercase and lowercase letters of the given length. The default return length is 12.
 

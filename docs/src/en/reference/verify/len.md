@@ -1,4 +1,4 @@
-# len <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# len <Lang dart js />
 
 Returns the length of any type of data. If the argument value is `null` or `undefined`, `0` is returned.
 

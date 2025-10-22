@@ -1,4 +1,4 @@
-# mul <Badge type="tip" text="JavaScript" />
+# mul <Lang js />
 
 숫자의 인수 n을 모두 곱한 값 또는 숫자의 단일 배열 값을 곱한 값을 반환합니다.
 

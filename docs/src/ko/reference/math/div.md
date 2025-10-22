@@ -1,4 +1,4 @@
-# div <Badge type="tip" text="JavaScript" />
+# div <Lang js />
 
 숫자의 인수 n 개를 모두 나눈 값 또는 숫자로 이루어진 단일 배열의 값을 반환합니다.
 

@@ -1,6 +1,6 @@
-# normalizeFile <Badge type="tip" text="JavaScript" />
+# normalizeFile <Lang js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 경로 내의 파일 이름을 반환합니다.
 

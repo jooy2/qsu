@@ -3,7 +3,7 @@ title: JavaScript
 order: 1
 ---
 
-# Installation for JavaScript <Badge type="tip" text="JavaScript" />
+# Installation for JavaScript <Lang js />
 
 A few simple steps are required to install **qsu** in the JavaScript language.
 
@@ -73,6 +73,6 @@ main();
 
 Functions that should use `qsu/node` are listed at the top of each document in the reference entry as follows:
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 For more information on all other supported functions, see the [Reference](/reference/index.md) documentation.

@@ -1,4 +1,4 @@
-# getStrBytes <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# getStrBytes <Lang dart js />
 
 Returns the number of bytes in the given string.
 

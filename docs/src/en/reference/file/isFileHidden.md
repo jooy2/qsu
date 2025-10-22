@@ -1,6 +1,6 @@
-# isFileHidden <Badge type="tip" text="JavaScript" />
+# isFileHidden <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Checks whether a file or folder in the specified path is a hidden file. Determines system hidden files for Windows and the presence or absence of a `.`(dot) for Linux and macOS or other operating systems.
 

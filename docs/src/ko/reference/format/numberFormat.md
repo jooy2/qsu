@@ -1,4 +1,4 @@
-# numberFormat <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# numberFormat <Lang dart js />
 
 쉼표 기호를 포함한 반환 숫자 형식.
 

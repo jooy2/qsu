@@ -1,4 +1,4 @@
-# numRandom <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# numRandom <Lang dart js />
 
 Returns a random number (Between min and max).
 

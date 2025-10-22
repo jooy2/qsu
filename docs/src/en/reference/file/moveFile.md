@@ -1,6 +1,6 @@
-# moveFile <Badge type="tip" text="JavaScript" />
+# moveFile <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Moves a file in the specified file path to another path.
 

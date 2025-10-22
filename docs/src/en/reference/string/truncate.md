@@ -1,4 +1,4 @@
-# truncate <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# truncate <Lang dart js />
 
 Truncates a long string to a specified length, optionally appending an ellipsis after the string.
 

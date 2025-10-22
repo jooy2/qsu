@@ -1,6 +1,6 @@
-# encodeBase64 <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# encodeBase64 <Lang dart js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 지정된 문자열을 Base64로 인코딩합니다.
 

@@ -1,6 +1,6 @@
-# moveFile <Badge type="tip" text="JavaScript" />
+# moveFile <Lang js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 지정된 파일 경로에 있는 파일을 다른 경로로 이동합니다.
 

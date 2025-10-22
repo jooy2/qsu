@@ -1,6 +1,6 @@
-# createFileWithDummy <Badge type="tip" text="JavaScript" />
+# createFileWithDummy <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Creates a file with the specified size in bytes.
 

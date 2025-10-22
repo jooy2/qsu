@@ -1,4 +1,4 @@
-# isValidDate <Badge type="tip" text="JavaScript" />
+# isValidDate <Lang js />
 
 지정된 날짜가 실제로 존재하는지 확인합니다. `YYYY-MM-DD` 형식으로만 확인합니다.
 

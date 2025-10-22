@@ -1,6 +1,6 @@
-# strToNumberHash <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# strToNumberHash <Lang dart js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Returns the specified string as a hash value of type number. The return value can also be negative.
 

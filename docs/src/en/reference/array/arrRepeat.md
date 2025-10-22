@@ -1,4 +1,4 @@
-# arrRepeat <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# arrRepeat <Lang dart js />
 
 Repeats the data of an `Array` or `Object` a specific number of times and returns it as a 1d array.
 

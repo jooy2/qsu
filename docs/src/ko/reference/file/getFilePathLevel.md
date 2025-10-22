@@ -1,6 +1,6 @@
-# getFilePathLevel <Badge type="tip" text="JavaScript" />
+# getFilePathLevel <Lang js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 현재 경로가 몇 단계인지 결정합니다. 루트 경로(`/` 또는 `C:\`)는 1단계로 시작합니다.
 

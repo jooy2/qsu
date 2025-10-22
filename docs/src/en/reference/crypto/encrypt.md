@@ -1,6 +1,6 @@
-# encrypt <Badge type="tip" text="JavaScript" />
+# encrypt <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Encrypt with the algorithm of your choice (algorithm default: `aes-256-cbc`, ivSize default: `16`) using a string and a secret (secret).
 

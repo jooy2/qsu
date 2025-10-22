@@ -1,4 +1,4 @@
-# arrUnique <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# arrUnique <Lang dart js />
 
 Remove duplicate values from array and two-dimensional array data. In the case of 2d arrays, json type data duplication is not removed.
 

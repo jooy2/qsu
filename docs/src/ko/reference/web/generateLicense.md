@@ -1,4 +1,4 @@
-# generateLicense <Badge type="tip" text="JavaScript" />
+# generateLicense <Lang js />
 
 지정된 인수의 저자 정보를 기반으로 특정 라이선스 형식으로 텍스트를 반환합니다. 인수는 Object 유형을 사용합니다.
 

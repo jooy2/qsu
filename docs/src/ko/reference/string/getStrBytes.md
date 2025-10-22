@@ -1,4 +1,4 @@
-# getStrBytes <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# getStrBytes <Lang dart js />
 
 주어진 문자열의 바이트 수를 계산하여 리턴합니다.
 

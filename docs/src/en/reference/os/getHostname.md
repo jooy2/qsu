@@ -1,6 +1,6 @@
-# getHostname <Badge type="tip" text="JavaScript" />
+# getHostname <Lang js />
 
-<span class="node-required">Requires a Node.js runtime ('qsu/node')</span>
+<NodeRequired en />
 
 Retrieves the host name of the current device. This is usually the name of the system that was automatically set on the desktop or changed by the user.
 

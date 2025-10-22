@@ -1,4 +1,4 @@
-# capitalizeFirst <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# capitalizeFirst <Lang dart js />
 
 Converts the first letter of the entire string to uppercase and returns.
 

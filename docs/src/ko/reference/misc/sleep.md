@@ -1,4 +1,4 @@
-# sleep <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# sleep <Lang dart js />
 
 Promise를 이용한 수면 기능.
 

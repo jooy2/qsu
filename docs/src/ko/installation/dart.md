@@ -3,7 +3,7 @@ title: Dart
 order: 2
 ---
 
-# Dart에서 설치 <Badge type="info" text="Dart" />
+# Dart에서 설치 <Lang dart />
 
 Dart 언어로 **qsu**를 설치하기 위해 몇가지 간단한 절차가 필요합니다.
 

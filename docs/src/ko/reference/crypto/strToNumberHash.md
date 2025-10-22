@@ -1,6 +1,6 @@
-# strToNumberHash <Badge type="tip" text="JavaScript" /><Badge type="info" text="Dart" />
+# strToNumberHash <Lang dart js />
 
-<span class="node-required">Node.js 런타임 필요 ('qsu/node')</span>
+<NodeRequired ko />
 
 지정된 문자열을 숫자형 해시값으로 반환합니다. 반환값은 음수일 수도 있습니다.
 
