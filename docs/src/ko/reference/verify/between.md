@@ -6,7 +6,7 @@
 
 - `range::[number, number]`
 - `number::number`
-- `inclusive::boolean || false` <span class="named">Dart:Named</span>
+- `inclusive::boolean || false` <DartNamed />
 
 ## Returns
 

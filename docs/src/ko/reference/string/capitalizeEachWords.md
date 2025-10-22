@@ -5,7 +5,7 @@
 ## Parameters
 
 - `str::string`
-- `natural::boolean || false` <span class="named">Dart:Named</span>
+- `natural::boolean || false` <DartNamed />
 
 ## Returns
 

@@ -5,7 +5,7 @@ Returns after removing all special characters, including spaces. If you want to 
 ## Parameters
 
 - `str::string`
-- `exceptionCharacters::string?` <span class="named">Dart:Named</span>
+- `exceptionCharacters::string?` <DartNamed />
 
 ## Returns
 

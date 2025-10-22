@@ -5,7 +5,7 @@
 ## Parameters
 
 - `str::string`
-- `exceptionCharacters::string?` <span class="named">Dart:Named</span>
+- `exceptionCharacters::string?` <DartNamed />
 
 ## Returns
 

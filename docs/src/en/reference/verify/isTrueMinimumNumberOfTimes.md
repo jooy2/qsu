@@ -5,7 +5,7 @@ Returns `true` if the values given in the `conditions` array are true at least `
 ## Parameters
 
 - `conditions::boolean[]`
-- `minimumCount::number` <span class="named">Dart:Named</span>
+- `minimumCount::number` <DartNamed />
 
 ## Returns
 

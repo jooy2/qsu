@@ -6,7 +6,7 @@
 
 - `str::any[]|string`
 - `search::any[]|string`
-- `exact::boolean || false` <span class="named">Dart:Named</span>
+- `exact::boolean || false` <DartNamed />
 
 ## Returns
 

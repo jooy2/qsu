@@ -5,8 +5,8 @@
 ## Parameters
 
 - `url::string`
-- `withProtocol::boolean || false` <span class="named">Dart:Named</span>
-- `strict::boolean || false` <span class="named">Dart:Named</span>
+- `withProtocol::boolean || false` <DartNamed />
+- `strict::boolean || false` <DartNamed />
 
 ## Returns
 

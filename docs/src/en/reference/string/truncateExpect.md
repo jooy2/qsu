@@ -6,7 +6,7 @@ The string ignores truncation until the ending character (`endStringChar`). If t
 
 - `str::string`
 - `expectLength::number`
-- `endStringChar::string || '.'` <span class="named">Dart:Named</span>
+- `endStringChar::string || '.'` <DartNamed />
 
 ## Returns
 

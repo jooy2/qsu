@@ -6,7 +6,7 @@ Returns `true` if the first string argument contains the second argument "string
 
 - `str::any[]|string`
 - `search::any[]|string`
-- `exact::boolean || false` <span class="named">Dart:Named</span>
+- `exact::boolean || false` <DartNamed />
 
 ## Returns
 

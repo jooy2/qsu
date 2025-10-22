@@ -6,7 +6,7 @@
 
 - `str::string`
 - `expectLength::number`
-- `endStringChar::string || '.'` <span class="named">Dart:Named</span>
+- `endStringChar::string || '.'` <DartNamed />
 
 ## Returns
 

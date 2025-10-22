@@ -5,7 +5,7 @@ Capitalize the first letter of every sentence. Typically, the `.` characters to 
 ## Parameters
 
 - `str::string`
-- `splitChar::string` <span class="named">Dart:Named</span>
+- `splitChar::string` <DartNamed />
 
 ## Returns
 

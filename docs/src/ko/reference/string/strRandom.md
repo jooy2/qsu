@@ -5,7 +5,7 @@
 ## Parameters
 
 - `length::number`
-- `additionalCharacters::string?` <span class="named">Dart:Named</span>
+- `additionalCharacters::string?` <DartNamed />
 
 ## Returns
 

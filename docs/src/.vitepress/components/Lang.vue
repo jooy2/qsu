@@ -1,10 +1,21 @@
 <script setup>
+import LangLogo from './LangLogo.vue';
+
 defineProps({
 	dart: Boolean,
 	js: Boolean
 });
 </script>
 <template>
-	<Badge v-if="dart" type="info" text="Dart" />
-	<Badge v-if="js" type="tip" text="JavaScript" />
+	<span v-if="dart"><LangLogo name="dart" :width="28" /></span>
+	<span v-if="js"><LangLogo name="javascript" :width="28" /></span>
 </template>
+<style scoped>
+span {
+	display: inline-block;
+	border-radius: 15px;
+	font-size: 0.45em;
+	vertical-align: middle;
+	user-select: none;
+}
+</style>

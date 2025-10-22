@@ -5,7 +5,7 @@
 ## Parameters
 
 - `obj::object`
-- `separator::string` <span class="named">Dart:Named</span>
+- `separator::string` <DartNamed />
 
 ## Returns
 

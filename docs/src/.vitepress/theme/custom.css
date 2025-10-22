@@ -1,38 +1,3 @@
-.VPBadge {
-	vertical-align: middle !important;
-}
-
-.VPBadge.info {
-	background: #06589c;
-	color: white;
-	margin: 0 3px !important;
-	border-radius: 15px;
-	font-size: 0.45em;
-	vertical-align: middle;
-	user-select: none;
-}
-
-.VPBadge.tip {
-	background: #ead54c;
-	color: #34231d;
-	margin: 0 3px !important;
-	border-radius: 15px;
-	font-size: 0.45em;
-	vertical-align: middle;
-	user-select: none;
-}
-
-.named {
-	background: #06589c;
-	color: white;
-	margin: 0 8px;
-	padding: 4px 5px;
-	border-radius: 5px;
-	font-size: 0.65em;
-	vertical-align: middle;
-	user-select: none;
-}
-
 .menu-badge {
 	font-size: 0.65em !important;
 	height: 18px;

@@ -5,7 +5,7 @@ Returns a random String containing numbers or uppercase and lowercase letters of
 ## Parameters
 
 - `length::number`
-- `additionalCharacters::string?` <span class="named">Dart:Named</span>
+- `additionalCharacters::string?` <DartNamed />
 
 ## Returns
 

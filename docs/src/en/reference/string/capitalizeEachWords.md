@@ -5,7 +5,7 @@ Converts every word with spaces to uppercase. If the naturally argument is true,
 ## Parameters
 
 - `str::string`
-- `natural::boolean || false` <span class="named">Dart:Named</span>
+- `natural::boolean || false` <DartNamed />
 
 ## Returns
 

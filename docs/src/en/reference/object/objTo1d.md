@@ -5,7 +5,7 @@ Merges objects from the given object to the top level of the child items and dis
 ## Parameters
 
 - `obj::object`
-- `separator::string` <span class="named">Dart:Named</span>
+- `separator::string` <DartNamed />
 
 ## Returns
 

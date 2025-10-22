@@ -6,7 +6,7 @@
 
 - `str::string`
 - `length::number`
-- `ellipsis::string || ''` <span class="named">Dart:Named</span>
+- `ellipsis::string || ''` <DartNamed />
 
 ## Returns
 

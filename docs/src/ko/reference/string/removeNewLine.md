@@ -5,7 +5,7 @@
 ## Parameters
 
 - `str::string`
-- `replaceTo::string || ''` <span class="named">Dart:Named</span>
+- `replaceTo::string || ''` <DartNamed />
 
 ## Returns
 

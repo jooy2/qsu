@@ -5,7 +5,7 @@
 ## Parameters
 
 - `email::string`
-- `onlyLowerCase::boolean || false` <span class="named">Dart:Named</span>
+- `onlyLowerCase::boolean || false` <DartNamed />
 
 ## Returns
 

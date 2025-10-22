@@ -5,7 +5,7 @@
 ## Parameters
 
 - `str::string`
-- `splitChar::string` <span class="named">Dart:Named</span>
+- `splitChar::string` <DartNamed />
 
 ## Returns
 

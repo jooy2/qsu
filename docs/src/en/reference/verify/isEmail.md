@@ -5,7 +5,7 @@ Checks if the given argument value is a valid email.
 ## Parameters
 
 - `email::string`
-- `onlyLowerCase::boolean || false` <span class="named">Dart:Named</span>
+- `onlyLowerCase::boolean || false` <DartNamed />
 
 ## Returns
 
