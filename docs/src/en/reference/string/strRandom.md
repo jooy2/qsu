@@ -13,6 +13,14 @@ Returns a random String containing numbers or uppercase and lowercase letters of
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 strRandom(5); // Returns 'CHy2M'
 ```
+
+```dart [Dart]
+strRandom(5); // Returns 'CHy2M'
+```
+
+:::

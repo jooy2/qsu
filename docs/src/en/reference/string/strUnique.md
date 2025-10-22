@@ -12,6 +12,14 @@ Remove duplicate characters from a given string and output only one.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 strUnique('aaabbbcc'); // Returns 'abc'
 ```
+
+```dart [Dart]
+strUnique('aaabbbcc'); // Returns 'abc'
+```
+
+:::

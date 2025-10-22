@@ -12,7 +12,14 @@
 
 ## Examples
 
-```javascript
+```javascript [JavaScript]
 len('12345'); // Returns 5
 len([1, 2, 3]); // Returns 3
 ```
+
+```dart [Dart]
+len('12345'); // Returns 5
+len([1, 2, 3]); // Returns 3
+```
+
+:::

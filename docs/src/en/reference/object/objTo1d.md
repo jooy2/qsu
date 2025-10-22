@@ -13,7 +13,9 @@ Merges objects from the given object to the top level of the child items and dis
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 objTo1d({
 	a: 1,
 	b: {
@@ -33,3 +35,26 @@ Returns:
 }
  */
 ```
+
+```dart [Dart]
+objTo1d({
+  'a': 1,
+  'b': {
+    'aa': 1,
+		'bb': 2
+  },
+  'c': 3
+});
+
+/*
+Returns:
+{
+	'a': 1,
+	'b.aa': 1,
+	'b.bb': 2,
+	'c': 3
+}
+ */
+```
+
+:::

@@ -14,8 +14,16 @@
 
 ## Examples
 
-```javascript
+```javascript [JavaScript]
 isUrl('google.com'); // Returns false
 isUrl('google.com', true); // Returns true
 isUrl('https://google.com'); // Returns true
 ```
+
+```dart [Dart]
+isUrl('google.com'); // Returns false
+isUrl('google.com', withProtocol: true); // Returns true
+isUrl('https://google.com'); // Returns true
+```
+
+:::

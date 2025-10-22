@@ -14,7 +14,14 @@
 
 ## Examples
 
-```javascript
+```javascript [JavaScript]
 between([10, 20], 10); // Returns false
 between([10, 20], 10, true); // Returns true
 ```
+
+```dart [Dart]
+between([10, 20], 10); // Returns false
+between([10, 20], 10, inclusive: true); // Returns true
+```
+
+:::

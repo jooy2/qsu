@@ -12,6 +12,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 strUnique('aaabbbcc'); // Returns 'abc'
 ```
+
+```dart [Dart]
+strUnique('aaabbbcc'); // Returns 'abc'
+```
+
+:::

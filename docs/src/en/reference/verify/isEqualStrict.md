@@ -17,7 +17,7 @@ In Dart, rest parameters are not supported in `rightOperand`.
 
 ## Examples
 
-```javascript
+```javascript [JavaScript]
 const val1 = 'Left';
 const val2 = 1;
 
@@ -25,3 +25,14 @@ isEqualStrict('Left', 'Left', val1); // Returns true
 isEqualStrict(1, [1, '1', 1, val2]); // Returns false
 isEqualStrict(1, 1, '1', 1); // Returns false
 ```
+
+```dart [Dart]
+final String val1 = 'Left';
+final int val2 = 1;
+
+isEqualStrict('Left', 'Left'); // Returns true
+isEqualStrict(1, [1, '1', 1, val2]); // Returns false
+isEqualStrict(1, '1'); // Returns false
+```
+
+:::

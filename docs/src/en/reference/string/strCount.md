@@ -13,6 +13,14 @@ Returns the number of times the second String argument is contained in the first
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 strCount('abcabc', 'a'); // Returns 2
 ```
+
+```dart [Dart]
+strCount('abcabc', 'a'); // Returns 2
+```
+
+:::

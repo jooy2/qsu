@@ -13,6 +13,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 capitalizeEachWords('abcd'); // Returns 'Abcd'
 ```
+
+```dart [Dart]
+capitalizeEachWords('abcd'); // Returns 'Abcd'
+```
+
+:::

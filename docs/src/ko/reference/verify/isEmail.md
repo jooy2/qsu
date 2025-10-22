@@ -13,7 +13,14 @@
 
 ## Examples
 
-```javascript
+```javascript [JavaScript]
 isEmail('abc@def.com'); // Returns true
 isEmail('ABC@def.com', true); // Returns false
 ```
+
+```dart [Dart]
+isEmail('abc@def.com'); // Returns true
+isEmail('ABC@def.com', true); // Returns false
+```
+
+:::

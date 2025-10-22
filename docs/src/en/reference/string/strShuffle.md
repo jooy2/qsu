@@ -12,6 +12,14 @@ Randomly shuffles the received string and returns it.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 strShuffle('abcdefg'); // Returns 'bgafced'
 ```
+
+```dart [Dart]
+strShuffle('abcdefg'); // Returns 'bgafced'
+```
+
+:::

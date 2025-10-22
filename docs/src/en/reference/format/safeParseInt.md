@@ -14,7 +14,9 @@ Any argument value will be attempted to be parsed as a Number type without retur
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 const result1 = safeParseInt('00010');
 const result2 = safeParseInt('10.1234');
 const result3 = safeParseInt(null, -1);
@@ -23,3 +25,15 @@ console.log(result1); // Returns 10
 console.log(result2); // Returns 10
 console.log(result3); // Returns -1
 ```
+
+```dart [Dart]
+final result1 = safeParseInt('00010');
+final result2 = safeParseInt('10.1234');
+final result3 = safeParseInt(null, -1);
+
+print(result1); // Returns 10
+print(result2); // Returns 10
+print(result3); // Returns -1
+```
+
+:::

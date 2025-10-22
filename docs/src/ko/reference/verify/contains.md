@@ -14,8 +14,16 @@
 
 ## Examples
 
-```javascript
+```javascript [JavaScript]
 contains('abc', 'a'); // Returns true
 contains('abc', 'd'); // Returns false
 contains('abc', ['a', 'd']); // Returns true
 ```
+
+```dart [Dart]
+contains('abc', 'a'); // Returns true
+contains('abc', 'd'); // Returns false
+contains('abc', ['a', 'd']); // Returns true
+```
+
+:::

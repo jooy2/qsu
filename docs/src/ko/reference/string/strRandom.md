@@ -13,6 +13,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 strRandom(5); // Returns 'CHy2M'
 ```
+
+```dart [Dart]
+strRandom(5); // Returns 'CHy2M'
+```
+
+:::

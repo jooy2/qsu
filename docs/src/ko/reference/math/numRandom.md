@@ -13,7 +13,16 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 numRandom(1, 5); // Returns 1~5
 numRandom(10, 20); // Returns 10~20
 ```
+
+```dart [Dart]
+numRandom(1, 5); // Returns 1~5
+numRandom(10, 20); // Returns 10~20
+```
+
+:::

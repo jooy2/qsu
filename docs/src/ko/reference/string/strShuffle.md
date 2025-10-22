@@ -12,6 +12,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 strShuffle('abcdefg'); // Returns 'bgafced'
 ```
+
+```dart [Dart]
+strShuffle('abcdefg'); // Returns 'bgafced'
+```
+
+:::

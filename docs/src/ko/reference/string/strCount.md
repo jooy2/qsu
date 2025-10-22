@@ -13,6 +13,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 strCount('abcabc', 'a'); // Returns 2
 ```
+
+```dart [Dart]
+strCount('abcabc', 'a'); // Returns 2
+```
+
+:::

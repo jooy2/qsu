@@ -12,7 +12,14 @@ Returns `true` if the given array is a two-dimensional array.
 
 ## Examples
 
-```javascript
+```javascript [JavaScript]
 is2dArray([1]); // Returns false
 is2dArray([[1], [2]]); // Returns true
 ```
+
+```dart [Dart]
+is2dArray([1]); // Returns false
+is2dArray([[1], [2]]); // Returns true
+```
+
+:::

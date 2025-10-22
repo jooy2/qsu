@@ -12,10 +12,22 @@ Sleep function using Promise.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await sleep(1000); // 1s
 
 sleep(5000).then(() => {
 	// continue
 });
 ```
+
+```dart [Dart]
+await sleep(1000); // 1s
+
+sleep(5000).then(() => {
+// continue
+});
+```
+
+:::

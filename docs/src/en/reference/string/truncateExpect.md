@@ -14,7 +14,14 @@ The string ignores truncation until the ending character (`endStringChar`). If t
 
 ## Examples
 
-```javascript
+```javascript [JavaScript]
 truncateExpect('hello. this is test string.', 10, '.'); // Returns 'hello. this is test string.'
 truncateExpect('hello-this-is-test-string-bye', 14, '-'); // Returns 'hello-this-is-'
 ```
+
+```dart [Dart]
+truncateExpect('hello. this is test string.', 10, endStringChar: '.'); // Returns 'hello. this is test string.'
+truncateExpect('hello-this-is-test-string-bye', 14, endStringChar: '-'); // Returns 'hello-this-is-'
+```
+
+:::

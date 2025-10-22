@@ -12,7 +12,16 @@ Removes all whitespace before and after a string. Unlike JavaScript's `trim` fun
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 trim(' Hello Wor  ld  '); // Returns 'Hello Wor ld'
 trim('H e l l o     World'); // Returns 'H e l l o World'
 ```
+
+```dart [Dart]
+trim(' Hello Wor  ld  '); // Returns 'Hello Wor ld'
+trim('H e l l o     World'); // Returns 'H e l l o World'
+```
+
+:::

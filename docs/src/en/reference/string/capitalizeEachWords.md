@@ -13,6 +13,14 @@ Converts every word with spaces to uppercase. If the naturally argument is true,
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 capitalizeEachWords('abcd'); // Returns 'Abcd'
 ```
+
+```dart [Dart]
+capitalizeEachWords('abcd'); // Returns 'Abcd'
+```
+
+:::

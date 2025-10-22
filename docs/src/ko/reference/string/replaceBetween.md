@@ -17,7 +17,16 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 replaceBetween('ab[c]d[e]f', '[', ']'); // Returns 'abdf'
 replaceBetween('abcd:replace:', ':', ':', 'e'); // Returns 'abcde'
 ```
+
+```dart [Dart]
+replaceBetween('ab[c]d[e]f', '[', ']'); // Returns 'abdf'
+replaceBetween('abcd:replace:', ':', ':', 'e'); // Returns 'abcde'
+```
+
+:::

@@ -14,6 +14,14 @@ No parameters required
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 objectId(); // Returns '651372605b49507aea707488'
 ```
+
+```dart [Dart]
+objectId(); // Returns '651372605b49507aea707488'
+```
+
+:::

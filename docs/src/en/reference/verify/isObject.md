@@ -12,7 +12,14 @@ Check whether the given data is of type `Object`. Returns `false` for other data
 
 ## Examples
 
-```javascript
+```javascript [JavaScript]
 isObject([1, 2, 3]); // Returns false
 isObject({ a: 1, b: 2 }); // Returns true
 ```
+
+```dart [Dart]
+isObject([1, 2, 3]); // Returns false
+isObject({ 'a': 1, 'b': 2 }); // Returns true
+```
+
+:::

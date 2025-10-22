@@ -13,7 +13,9 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 objToArray({
 	a: 1.234,
 	b: 'str',
@@ -21,3 +23,14 @@ objToArray({
 	d: { a: 1 }
 }); // Returns [['a', 1.234], ['b', 'str'], ['c', [1, 2, 3]], ['d', { a: 1 }]]
 ```
+
+```dart [Dart]
+objToArray({
+  'a': 1.234,
+  'b': 'str',
+  'c': [1, 2, 3],
+  'd': { 'a': 1 }
+}); // Returns [['a', 1.234], ['b', 'str'], ['c', [1, 2, 3]], ['d', { 'a': 1 }]]
+```
+
+:::

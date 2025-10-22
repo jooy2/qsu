@@ -12,6 +12,14 @@ Converts the first letter of the entire string to uppercase and returns.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 capitalizeFirst('abcd'); // Returns 'Abcd'
 ```
+
+```dart [Dart]
+capitalizeFirst('abcd'); // Returns 'Abcd'
+```
+
+:::

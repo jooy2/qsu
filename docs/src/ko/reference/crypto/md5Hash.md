@@ -14,6 +14,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 md5Hash('test'); // Returns '098f6bcd4621d373cade4e832627b4f6'
 ```
+
+```dart [Dart]
+md5Hash('test'); // Returns '098f6bcd4621d373cade4e832627b4f6'
+```
+
+:::

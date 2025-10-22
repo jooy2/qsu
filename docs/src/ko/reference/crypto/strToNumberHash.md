@@ -14,8 +14,18 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 strToNumberHash('abc'); // Returns 96354
 strToNumberHash('Hello'); // Returns 69609650
 strToNumberHash('hello'); // Returns 99162322
 ```
+
+```dart [Dart]
+strToNumberHash('abc'); // Returns 96354
+strToNumberHash('Hello'); // Returns 69609650
+strToNumberHash('hello'); // Returns 99162322
+```
+
+:::
