@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { numberFormat, duration, safeJSONParse, safeParseInt } from '../dist';
+import { numberFormat, fileSizeFormat, duration, safeJSONParse, safeParseInt } from '../dist';
 
 describe('Format', () => {
 	it('numberFormat', () => {
@@ -11,6 +11,13 @@ describe('Format', () => {
 		// @ts-expect-error number is null
 		assert.strictEqual(numberFormat(null), '0');
 		assert.strictEqual(numberFormat('123123'), '123,123');
+	});
+
+	it('fileSizeFormat', () => {
+		assert.strictEqual(fileSizeFormat(0), '0 Bytes');
+		assert.strictEqual(fileSizeFormat(1), '1 Bytes');
+		assert.strictEqual(fileSizeFormat(1000000), '976.56 KB');
+		assert.strictEqual(fileSizeFormat(100000000, 3), '95.367 MB');
 	});
 
 	it('duration', () => {

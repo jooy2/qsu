@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.10.3 (2025--)
+
+- `getFileSize` has renamed to `fileSizeFormat`
+
 ## 1.10.2 (2025-10-15)
 
 - `getHostname`: Add `getHostname` method

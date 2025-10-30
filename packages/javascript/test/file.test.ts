@@ -11,7 +11,6 @@ import {
 	getFileInfo,
 	getFileName,
 	getFilePathLevel,
-	getFileSize,
 	getParentFilePath,
 	headFile,
 	isFileExists,
@@ -50,13 +49,6 @@ describe('File', () => {
 		assert.strictEqual(await isFileExists(`${TARGET_PATH}`), true);
 		assert.strictEqual(await isFileExists(`${TARGET_PATH}/MV_TEST.txt`), true);
 		assert.strictEqual(await isFileExists(`${TARGET_PATH}/not-exists.txt`), false);
-	});
-
-	it('getFileSize', () => {
-		assert.strictEqual(getFileSize(0), '0 Bytes');
-		assert.strictEqual(getFileSize(1), '1 Bytes');
-		assert.strictEqual(getFileSize(1000000), '976.56 KB');
-		assert.strictEqual(getFileSize(100000000, 3), '95.367 MB');
 	});
 
 	it('toValidFilePath', () => {

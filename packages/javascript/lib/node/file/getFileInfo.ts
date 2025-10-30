@@ -2,7 +2,7 @@ import { Stats } from 'fs';
 import { stat } from 'fs/promises';
 import { dirname, resolve as pathResolve } from 'path';
 import { getFileExtension } from './getFileExtension.js';
-import { getFileSize } from './getFileSize.js';
+import { fileSizeFormat } from '../../format/fileSizeFormat.js';
 import { getFileName } from './getFileName.js';
 import { FileInfo } from '../../_types/global';
 
@@ -17,7 +17,7 @@ export async function getFileInfo(filePath: string): Promise<FileInfo> {
 			isDirectory: fileItem.isDirectory(),
 			ext: getFileExtension(filePath),
 			size: fileItem.size,
-			sizeHumanized: getFileSize(fileItem.size),
+			sizeHumanized: fileSizeFormat(fileItem.size),
 			name: getFileName(filePath),
 			dirname: dirname(filePath),
 			path: pathResolve(filePath),

@@ -9,7 +9,6 @@ export { getFileHashFromStream } from './getFileHashFromStream.js';
 export { getFileInfo } from './getFileInfo.js';
 export { getFileName } from './getFileName.js';
 export { getFilePathLevel } from './getFilePathLevel.js';
-export { getFileSize } from './getFileSize.js';
 export { getParentFilePath } from './getParentFilePath.js';
 export { headFile } from './headFile.js';
 export { isFileExists } from './isFileExists.js';
