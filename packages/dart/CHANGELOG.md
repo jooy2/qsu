@@ -1,5 +1,9 @@
 # Changelog (Dart)
 
+## 1.1.7 (2025--)
+
+- `getFileSize` has renamed to `fileSizeFormat`
+
 ## 1.1.6 (2025-10-15)
 
 - `isEmail`: add `onlyLowerCase` parameter

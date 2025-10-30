@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-import 'package:path/path.dart';
 
 /// Return number format including comma symbol.
 String numberFormat(dynamic number) {
@@ -14,33 +13,10 @@ String numberFormat(dynamic number) {
   return formattedIntegerPart + decimalPart;
 }
 
-/// Extract the file name from the path. Include the extension if withExtension is `true`.
-String fileName(String filePath, [bool withExtension = false]) {
-  if (filePath.isEmpty) {
-    return '';
-  }
-
-  final String normalizedPath = filePath.replaceAll('\\', '/');
-
-  if (!normalizedPath.contains('/')) {
-    if (withExtension) {
-      return normalizedPath;
-    } else {
-      return basenameWithoutExtension(normalizedPath);
-    }
-  }
-
-  if (withExtension) {
-    return basename(normalizedPath);
-  } else {
-    return basenameWithoutExtension(normalizedPath);
-  }
-}
-
 /// Converts the file size in bytes to human-readable and returns it.
 /// The return value is a String and includes the file units (Bytes, MB, GB...).
 /// If the second optional argument value is included, you can display as many decimal places as you like.
-String fileSize(int bytes, {int? decimals}) {
+String fileSizeFormat(int bytes, {int? decimals}) {
   if (bytes <= 0) {
     return '0 Bytes';
   }
@@ -68,17 +44,6 @@ String fileSize(int bytes, {int? decimals}) {
   ];
 
   return '$sizeStr ${units[byteCalc]}';
-}
-
-/// Returns only the extensions in the file path. If unknown, returns 'Unknown'.
-String fileExt(String filePath) {
-  if (!filePath.contains('.')) {
-    return 'Unknown';
-  }
-
-  final List<String> pSpl = filePath.trim().toLowerCase().split('.');
-
-  return pSpl.isNotEmpty ? pSpl.last : 'Unknown';
 }
 
 /// Any argument value will be attempted to be parsed as a Number type without returning an error.

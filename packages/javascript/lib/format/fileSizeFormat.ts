@@ -1,6 +1,6 @@
-import type { PositiveNumber } from '../../_types/global';
+import type { PositiveNumber } from '../_types/global';
 
-export function getFileSize<N extends number>(bytes: PositiveNumber<N>, decimals = 2): string {
+export function fileSizeFormat<N extends number>(bytes: PositiveNumber<N>, decimals = 2): string {
 	const sizeUnits = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
 	if (bytes < 1) {

@@ -15,24 +15,12 @@ void main() {
       expect(numberFormat(-123456), '-123,456');
     });
 
-    test('fileName', () {
-      expect(fileName('C:\\Users\\test\\Desktop\\text.txt'), 'text');
-      expect(fileName('/home/user/Desktop/example.txt'), 'example');
-      expect(fileName('C:\\example.txt', true), 'example.txt');
-    });
-
-    test('fileSize', () {
-      expect(fileSize(1), '1 Bytes');
-      expect(fileSize(1000000), '976.56 KB');
-      expect(fileSize(2000, decimals: 3), '1.953 KB');
-      expect(fileSize(250000000), '238.42 MB');
-    });
-
-    test('fileExt', () {
-      expect(fileExt('C:\\Users\\test\\Desktop\\text.txt'), 'txt');
-      expect(fileExt('hello.html'), 'html');
-      expect(fileExt('this.is.file.PNG'), 'png');
-      expect(fileExt('no-ext'), 'Unknown');
+    test('fileSizeFormat', () {
+      expect(fileSizeFormat(0), '0 Bytes');
+      expect(fileSizeFormat(1), '1 Bytes');
+      expect(fileSizeFormat(1000000), '976.56 KB');
+      expect(fileSizeFormat(2000, decimals: 3), '1.953 KB');
+      expect(fileSizeFormat(250000000), '238.42 MB');
     });
 
     test('safeParseInt', () {
