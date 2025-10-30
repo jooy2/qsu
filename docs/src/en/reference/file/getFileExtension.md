@@ -7,7 +7,7 @@ Returns the file extension from the given file path. An empty string value is re
 ## Parameters
 
 - `filePath::string`: File or directory path
-- `isWindows::boolean`: Whether the target operating system to be checked is Windows
+- `isWindows::boolean` <DartNamed />: Whether the target operating system to be checked is Windows
 
 ## Returns
 

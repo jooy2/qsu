@@ -2,7 +2,8 @@
 
 ## 1.1.7 (2025--)
 
-- `getFileSize` has renamed to `fileSizeFormat`
+- **BREAKING CHANGES**: `getFileSize` has renamed to `fileSizeFormat`
+- Add `getFileName` and `getFileExtension`
 
 ## 1.1.6 (2025-10-15)
 

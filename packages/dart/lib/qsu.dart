@@ -2,6 +2,7 @@ library;
 
 export 'src/array.dart';
 export 'src/crypto.dart';
+export 'src/file.dart';
 export 'src/format.dart';
 export 'src/math.dart';
 export 'src/misc.dart';
