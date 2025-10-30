@@ -15,7 +15,16 @@ Returns the file name within the path.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 getFileName('/home/user/test.txt'); // 'test'
 getFileName('/home/user/test.txt', true); // 'test.txt'
 ```
+
+```dart [Dart]
+getFileName('/home/user/test.txt'); // 'test'
+getFileName('/home/user/test.txt', true); // 'test.txt'
+```
+
+:::

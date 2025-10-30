@@ -15,7 +15,18 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 getFileExtension('/home/user/test.txt'); // 'txt'
 getFileExtension('/home/user/test.txt.sample'); // 'sample'
+getFileExtension('C:\\test\\txt.png', true); // 'png'
 ```
+
+```dart [Dart]
+getFileExtension('/home/user/test.txt'); // 'txt'
+getFileExtension('/home/user/test.txt.sample'); // 'sample'
+getFileExtension('C:\\test\\txt.png', isWindows: true); // 'png'
+```
+
+:::
