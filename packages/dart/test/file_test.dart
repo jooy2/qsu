@@ -1,6 +1,8 @@
 import 'package:qsu/qsu.dart';
 import 'package:test/test.dart';
 
+const testTargetPath = 'test/_resources/files';
+
 void main() {
   group('File', () {
     test('getFileName', () {
@@ -30,6 +32,14 @@ void main() {
       expect(
           getFileExtension('C:\\test.hello.sample\\txt.txt', isWindows: true),
           'txt');
+    });
+
+    test('isFileExists', () async {
+      expect(await isFileExists('$testTargetPath/hello.md'), true);
+      expect(await isFileExists('$testTargetPath/not-exists'), false);
+      expect(await isFileExists(testTargetPath), true);
+      expect(await isFileExists('$testTargetPath/MV_TEST.txt'), true);
+      expect(await isFileExists('$testTargetPath/not-exists.txt'), false);
     });
   });
 }

@@ -1,4 +1,4 @@
-# fileSizeFormat <Lang js />
+# fileSizeFormat <Lang js dart />
 
 Returns the given file size (in bytes) as a human-readable string.
 

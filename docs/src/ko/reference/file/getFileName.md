@@ -1,4 +1,4 @@
-# getFileName <Lang js />
+# getFileName <Lang js dart />
 
 <NodeRequired ko />
 

@@ -1,4 +1,4 @@
-# getFileExtension <Lang js />
+# getFileExtension <Lang js dart />
 
 <NodeRequired ko />
 

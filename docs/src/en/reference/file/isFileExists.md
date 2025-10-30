@@ -1,8 +1,8 @@
-# isFileExists <Lang js />
+# isFileExists <Lang js dart />
 
 <NodeRequired en />
 
-Returns `true` if the file at the given path exists.
+If a file or directory exists at the specified path, it returns `true`.
 
 ## Parameters
 

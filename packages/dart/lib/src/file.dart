@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:path/path.dart';
 
 /// Extract the file name from the path. Include the extension if withExtension is `true`.
@@ -38,4 +40,25 @@ String? getFileExtension(String filePath, {bool isWindows = false}) {
   }
 
   return strPath.split('.').last.toLowerCase();
+}
+
+/// If a file or directory exists at the specified path, it returns `true`.
+Future<bool> isFileExists(String filePath) async {
+  try {
+    final file = File(filePath);
+
+    if (await file.exists()) {
+      return true;
+    }
+
+    final directory = Directory(filePath);
+
+    if (await directory.exists()) {
+      return true;
+    }
+
+    return false;
+  } catch (e) {
+    return false;
+  }
 }

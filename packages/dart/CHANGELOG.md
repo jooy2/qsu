@@ -3,7 +3,8 @@
 ## 1.1.7 (2025--)
 
 - **BREAKING CHANGES**: `getFileSize` has renamed to `fileSizeFormat`
-- Add `getFileName` and `getFileExtension`
+- Add `getFileName` and `getFileExtension` methods
+- Add `isFileExists` method
 
 ## 1.1.6 (2025-10-15)
 
