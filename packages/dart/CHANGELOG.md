@@ -3,6 +3,7 @@
 ## 1.1.7 (2025--)
 
 - **BREAKING CHANGES**: `getFileSize` has renamed to `fileSizeFormat`
+- **BREAKING CHANGES**: `safeJSONParse`: fallback parameters has changed to named parameter
 - Add `getFileName` and `getFileExtension` methods
 - Add `isFileExists` method
 

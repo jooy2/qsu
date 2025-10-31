@@ -37,6 +37,7 @@ void main() {
       expect(safeJSONParse('{}'), {});
       expect(safeJSONParse(''), {});
       expect(safeJSONParse(null), {});
+      expect(safeJSONParse(null, fallback: {'a': 1}), {'a': 1});
       expect(safeJSONParse('{"a":1,"b":2}'), {'a': 1, 'b': 2});
       expect(safeJSONParse('{"a":{"aa":1},"b":null}'), {
         'a': {'aa': 1},

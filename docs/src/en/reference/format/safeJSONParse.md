@@ -5,7 +5,7 @@ Attempts to parse without returning an error, even if the argument value is of t
 ## Parameters
 
 - `jsonString::any`
-- `fallback::object`
+- `fallback::object` <DartNamed />
 
 ## Returns
 

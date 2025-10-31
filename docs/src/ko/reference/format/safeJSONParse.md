@@ -5,7 +5,7 @@
 ## Parameters
 
 - `jsonString::any`
-- `fallback::object`
+- `fallback::object` <DartNamed />
 
 ## Returns
 
