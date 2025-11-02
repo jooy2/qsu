@@ -5,7 +5,7 @@
 ## Parameters
 
 - `obj::object`
-- `recursive::boolean`
+- `recursive::boolean` <DartNamed />
 
 ## Returns
 

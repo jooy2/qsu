@@ -33,7 +33,7 @@ void main() {
               'cc': {'aaa': 1}
             },
             'c': 3
-          }, true),
+          }, recursive: true),
           [
             ['a', 1],
             [

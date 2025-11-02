@@ -5,7 +5,7 @@ Converts the given object to array format. The resulting array is a two-dimensio
 ## Parameters
 
 - `obj::object`
-- `recursive::boolean`
+- `recursive::boolean` <DartNamed />
 
 ## Returns
 

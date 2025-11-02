@@ -5,8 +5,8 @@ Any argument value will be attempted to be parsed as a Number type without retur
 ## Parameters
 
 - `value::any`
-- `fallback::number`
-- `radix::number`
+- `fallback::number` <DartNamed />
+- `radix::number` <DartNamed />
 
 ## Returns
 

@@ -26,8 +26,8 @@ String getFileName(String filePath, {bool? withExtension = false}) {
 }
 
 /// Returns only the extensions in the file path. If unknown, returns null'.
-String? getFileExtension(String filePath, {bool isWindows = false}) {
-  String strPath = filePath.split(isWindows ? '\\' : '/').last;
+String? getFileExtension(String filePath, {bool? isWindows = false}) {
+  String strPath = filePath.split(isWindows == true ? '\\' : '/').last;
 
   if (strPath.isEmpty) {
     return null;
