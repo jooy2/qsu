@@ -41,5 +41,38 @@ void main() {
       expect(await isFileExists('$testTargetPath/MV_TEST.txt'), true);
       expect(await isFileExists('$testTargetPath/not-exists.txt'), false);
     });
+
+    test('isValidFileName', () {
+      expect(isValidFileName('System32'), true);
+      expect(isValidFileName('.example', unixType: true), true);
+      expect(isValidFileName('hello.:txt', unixType: true), true);
+      expect(isValidFileName('C:\\Windows\\System32'), true);
+      expect(isValidFileName('C:\\Users\\test\\Desktop\\hello.txt'), true);
+      expect(isValidFileName('C:\\Users\\test\\Desktop\\hello*'), false);
+      expect(isValidFileName('C:\\Users\\test\\Desktop\\hello!@#\$%^&*()_+-:='),
+          false);
+      expect(isValidFileName('hello!@#\$%^&*()_+-:=', unixType: true), false);
+      expect(
+          isValidFileName('/home/test/Desktop/test/.example', unixType: true),
+          true);
+      expect(
+          isValidFileName('/home/test/Desktop/test/text.txt', unixType: true),
+          true);
+      expect(
+          isValidFileName('/home/test/Desktop/test/hi!@#\$%^&*()_+-=',
+              unixType: true),
+          true);
+      expect(
+          isValidFileName('/home/test/Desktop/test/*hi', unixType: true), true);
+      expect(
+          isValidFileName(
+              '/home/test/Desktop/test/0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345'),
+          false); // 256
+      expect(
+          isValidFileName(
+              '/home/test/Desktop/test/012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234',
+              unixType: true),
+          true); // 255
+    });
   });
 }

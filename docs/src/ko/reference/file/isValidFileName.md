@@ -1,4 +1,4 @@
-# isValidFileName <Lang js />
+# isValidFileName <Lang js dart />
 
 <NodeRequired ko />
 
@@ -7,7 +7,7 @@
 ## Parameters
 
 - `filePath::string`: File or directory path
-- `unixType::boolean?`: Passes true if the file type is unix type.
+- `unixType::boolean?` <DartNamed />: Passes true if the file type is unix type.
 
 ## Returns
 
@@ -15,7 +15,16 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 isValidFileName('C:\\Windows\\System32*'); // false
 isValidFileName('/home/user/.bashrc', true); // true
 ```
+
+```dart [Dart]
+isValidFileName('C:\\Windows\\System32*'); // false
+isValidFileName('/home/user/.bashrc', unixType: true); // true
+```
+
+:::

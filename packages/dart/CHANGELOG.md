@@ -7,6 +7,7 @@
 - **BREAKING CHANGES**: `objToArray`: 'recursive' parameters has changed to named parameter
 - Add `getFileName` and `getFileExtension` methods
 - Add `isFileExists` method
+- Add `isValidFileName` method
 
 ## 1.1.6 (2025-10-15)
 

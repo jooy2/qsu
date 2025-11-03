@@ -62,3 +62,13 @@ Future<bool> isFileExists(String filePath) async {
     return false;
   }
 }
+
+/// Determines whether the passed path or filename is using a system-accepted string (Also check the valid file length). Returns false if the name is not available.
+bool isValidFileName(String filePath, {bool? unixType = false}) {
+  final fileName = getFileName(filePath);
+  final RegExp fileNameRegex = unixType == true
+      ? RegExp(r'(^\s+$)|(^\.+$)|([:/]+)')
+      : RegExp(r'(^\s+$)|(^\.+$)|([<>:"/\\|?*]+)');
+
+  return !fileNameRegex.hasMatch(fileName) && fileName.length <= 255;
+}
