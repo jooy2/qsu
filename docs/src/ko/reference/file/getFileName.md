@@ -24,7 +24,7 @@ getFileName('/home/user/test.txt', true); // 'test.txt'
 
 ```dart [Dart]
 getFileName('/home/user/test.txt'); // 'test'
-getFileName('/home/user/test.txt', true); // 'test.txt'
+getFileName('/home/user/test.txt', withExtension: true); // 'test.txt'
 ```
 
 :::
