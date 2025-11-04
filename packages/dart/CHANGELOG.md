@@ -8,6 +8,7 @@
 - Add `getFileName` and `getFileExtension` methods
 - Add `isFileExists` method
 - Add `isValidFileName` method
+- Add `toPosixFilePath` method
 
 ## 1.1.6 (2025-10-15)
 

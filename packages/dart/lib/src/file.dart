@@ -72,3 +72,11 @@ bool isValidFileName(String filePath, {bool? unixType = false}) {
 
   return !fileNameRegex.hasMatch(fileName) && fileName.length <= 255;
 }
+
+/// Returns the given path as a path in POSIX format (usually used by Linux). For example, a Windows path will be converted to `/` instead of `\\`.
+String toPosixFilePath(String filePath) {
+  return filePath
+      .replaceFirst(RegExp(r'^\\\\\?\\'), '')
+      .replaceAll('\\', '/')
+      .replaceAll(RegExp(r'//+'), '/');
+}

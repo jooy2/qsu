@@ -1,4 +1,4 @@
-# toPosixFilePath <Lang js />
+# toPosixFilePath <Lang js dart />
 
 <NodeRequired ko />
 

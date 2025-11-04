@@ -1,6 +1,8 @@
 import 'package:qsu/qsu.dart';
 import 'package:test/test.dart';
 
+const LONG_PATH =
+    'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\115.0.1901.203\\Trust Protection Lists';
 const testTargetPath = 'test/_resources/files';
 
 void main() {
@@ -73,6 +75,17 @@ void main() {
               '/home/test/Desktop/test/012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234',
               unixType: true),
           true); // 255
+    });
+
+    test('toPosixFilePath', () {
+      expect(toPosixFilePath('\\\\Shared'), '/Shared');
+      expect(toPosixFilePath('C:\\'), 'C:/');
+      expect(toPosixFilePath('C:\\Windows\\System32'), 'C:/Windows/System32');
+      expect(toPosixFilePath('Windows\\System32'), 'Windows/System32');
+      expect(toPosixFilePath(LONG_PATH),
+          'C:/Program Files (x86)/Microsoft/Edge/Application/115.0.1901.203/Trust Protection Lists');
+      expect(toPosixFilePath('/home/user/Test file.txt'),
+          '/home/user/Test file.txt');
     });
   });
 }
