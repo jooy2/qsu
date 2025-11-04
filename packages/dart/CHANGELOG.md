@@ -1,6 +1,6 @@
 # Changelog (Dart)
 
-## 1.1.7 (2025--)
+## 1.1.7 (2025-11-03)
 
 - **BREAKING CHANGES**: `getFileSize` has renamed to `fileSizeFormat`
 - **BREAKING CHANGES**: `safeJSONParse`: 'fallback' parameters has changed to named parameter
