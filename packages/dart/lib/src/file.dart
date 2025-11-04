@@ -95,3 +95,40 @@ String toPosixFilePath(String filePath) {
       .replaceAll('\\', '/')
       .replaceAll(RegExp(r'//+'), '/');
 }
+
+/// Remove invalid or unnecessary characters in the path.
+String toValidFilePath(String filePath, {bool? isWindows = false}) {
+  if (isWindows == true) {
+    String windowsPath = filePath;
+
+    if (windowsPath.length > 2 &&
+        !RegExp(r'^[a-zA-Z]:').hasMatch(windowsPath)) {
+      windowsPath = '\\$windowsPath';
+    }
+
+    if (RegExp(r'\\$').hasMatch(windowsPath) &&
+        RegExp(r'\\').allMatches(windowsPath).length > 1) {
+      windowsPath = windowsPath.replaceFirst(RegExp(r'\\$'), '');
+    }
+
+    if (RegExp(r'^[a-zA-Z]:$').hasMatch(windowsPath)) {
+      windowsPath = '$windowsPath\\';
+    }
+
+    return windowsPath.replaceAll(RegExp(r'\\{2,}'), '\\');
+  }
+
+  String unixPath = filePath;
+
+  if (!RegExp(r'^/').hasMatch(unixPath)) {
+    unixPath = '/$unixPath';
+  }
+
+  unixPath = unixPath.replaceAll(RegExp(r'/+'), '/');
+
+  if (unixPath.length > 1) {
+    unixPath = unixPath.replaceFirst(RegExp(r'/$'), '');
+  }
+
+  return unixPath;
+}

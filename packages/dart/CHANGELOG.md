@@ -10,6 +10,7 @@
 - Add `isValidFileName` method
 - Add `toPosixFilePath` method
 - Add `getFilePathLevel` method
+- Add `toValidFilePath` method
 
 ## 1.1.6 (2025-10-15)
 

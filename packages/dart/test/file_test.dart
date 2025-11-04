@@ -97,5 +97,23 @@ void main() {
       expect(getFilePathLevel('/home/user'), 3);
       expect(getFilePathLevel('/home/user/.ssh/test file.txt'), 5);
     });
+
+    test('toValidFilePath', () {
+      expect(toValidFilePath('home'), '/home');
+      expect(toValidFilePath('/home//test/'), '/home/test');
+      expect(toValidFilePath('home/test/.conf'), '/home/test/.conf');
+      expect(toValidFilePath('/'), '/');
+      expect(toValidFilePath('C:\\\\Users\\test\\', isWindows: true),
+          'C:\\Users\\test');
+      expect(toValidFilePath('C:\\Users\\test\\.config', isWindows: true),
+          'C:\\Users\\test\\.config');
+      expect(toValidFilePath('\\Users\\test\\.config', isWindows: true),
+          '\\Users\\test\\.config');
+      expect(toValidFilePath('Users\\test\\.config', isWindows: true),
+          '\\Users\\test\\.config');
+      expect(toValidFilePath('C:', isWindows: true), 'C:\\');
+      expect(toValidFilePath('C:\\\\', isWindows: true), 'C:\\');
+      expect(toValidFilePath('C:\\Users\\', isWindows: true), 'C:\\Users');
+    });
   });
 }
