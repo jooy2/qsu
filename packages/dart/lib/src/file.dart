@@ -73,6 +73,21 @@ bool isValidFileName(String filePath, {bool? unixType = false}) {
   return !fileNameRegex.hasMatch(fileName) && fileName.length <= 255;
 }
 
+/// Determine how many steps the current path is. The root path (`/` or `C:\`) begins with step 1.
+int getFilePathLevel(String? filePath) {
+  if (filePath == null || filePath.isEmpty) {
+    return -1;
+  }
+
+  if (filePath == '/') {
+    return 1;
+  }
+
+  return toPosixFilePath(filePath.replaceAll(RegExp(r'\\+$'), ''))
+      .split(posix.separator)
+      .length;
+}
+
 /// Returns the given path as a path in POSIX format (usually used by Linux). For example, a Windows path will be converted to `/` instead of `\\`.
 String toPosixFilePath(String filePath) {
   return filePath

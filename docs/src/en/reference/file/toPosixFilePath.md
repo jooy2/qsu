@@ -14,6 +14,14 @@ Returns the given path as a path in POSIX format (usually used by Linux). For ex
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 toPosixFilePath('C:\\Windows\\System32'); // 'C:/Windows/System32'
 ```
+
+```dart [Dart]
+toPosixFilePath('C:\\Windows\\System32'); // 'C:/Windows/System32'
+```
+
+:::

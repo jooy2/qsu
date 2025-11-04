@@ -1,4 +1,4 @@
-# getFilePathLevel <Lang js />
+# getFilePathLevel <Lang js dart />
 
 <NodeRequired ko />
 
@@ -14,9 +14,20 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 // Include 'C:\' root path
 getFilePathLevel('C:\\Windows\\System32'); // 3
 // Include '/' root path
 getFilePathLevel('/home/user'); // 3
 ```
+
+```dart [Dart]
+// Include 'C:\' root path
+getFilePathLevel('C:\\Windows\\System32'); // 3
+// Include '/' root path
+getFilePathLevel('/home/user'); // 3
+```
+
+:::

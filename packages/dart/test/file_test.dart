@@ -1,7 +1,7 @@
 import 'package:qsu/qsu.dart';
 import 'package:test/test.dart';
 
-const LONG_PATH =
+const longFilePath =
     'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\115.0.1901.203\\Trust Protection Lists';
 const testTargetPath = 'test/_resources/files';
 
@@ -82,10 +82,20 @@ void main() {
       expect(toPosixFilePath('C:\\'), 'C:/');
       expect(toPosixFilePath('C:\\Windows\\System32'), 'C:/Windows/System32');
       expect(toPosixFilePath('Windows\\System32'), 'Windows/System32');
-      expect(toPosixFilePath(LONG_PATH),
+      expect(toPosixFilePath(longFilePath),
           'C:/Program Files (x86)/Microsoft/Edge/Application/115.0.1901.203/Trust Protection Lists');
       expect(toPosixFilePath('/home/user/Test file.txt'),
           '/home/user/Test file.txt');
+    });
+
+    test('getFilePathLevel', () {
+      expect(getFilePathLevel('C:'), 1);
+      expect(getFilePathLevel('C:\\'), 1);
+      expect(getFilePathLevel('C:\\Windows\\System32'), 3);
+      expect(getFilePathLevel(longFilePath), 7);
+      expect(getFilePathLevel('/'), 1);
+      expect(getFilePathLevel('/home/user'), 3);
+      expect(getFilePathLevel('/home/user/.ssh/test file.txt'), 5);
     });
   });
 }
