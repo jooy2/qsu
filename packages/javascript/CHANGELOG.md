@@ -1,6 +1,6 @@
 # Changelog (JavaScript)
 
-## 1.10.3 (2025--)
+## 1.10.3 (2025-11-04)
 
 - **BREAKING CHANGES**: `getFileSize` has renamed to `fileSizeFormat`
 
