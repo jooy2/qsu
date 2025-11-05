@@ -2,6 +2,21 @@ import 'dart:io';
 
 import 'package:path/path.dart';
 
+/// Creates a directory with the specified path. Ignores the operation if the directory already exists.
+Future<void> createDirectory(String filePath, {bool? recursive = true}) async {
+  try {
+    final Directory directory = Directory(filePath);
+
+    if (!await directory.exists()) {
+      await directory.create(recursive: recursive == true);
+    }
+  } catch (error) {
+    if (error is Error) {
+      throw Exception(error.toString());
+    }
+  }
+}
+
 /// Extract the file name from the path. Include the extension if withExtension is `true`.
 String getFileName(String filePath, {bool? withExtension = false}) {
   if (filePath.isEmpty) {

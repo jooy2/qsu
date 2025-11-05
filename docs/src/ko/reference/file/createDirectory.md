@@ -1,4 +1,4 @@
-# createDirectory <Lang js />
+# createDirectory <Lang js dart />
 
 <NodeRequired ko />
 
@@ -7,7 +7,7 @@
 ## Parameters
 
 - `filePath::string`: File or directory path
-- `recursive::boolean?|true`: Recursively creates all directories in the given path.
+- `recursive::boolean?|true` <DartNamed />: Recursively creates all directories in the given path.
 
 ## Returns
 
@@ -15,6 +15,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 createDirectory('/home/user/a/b/c');
 ```
+
+```dart [Dart]
+createDirectory('/home/user/a/b/c');
+```
+
+:::

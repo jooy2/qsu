@@ -7,6 +7,11 @@ const testTargetPath = 'test/_resources/files';
 
 void main() {
   group('File', () {
+    /*test('createDirectory', () async {
+      await createDirectory('$testTargetPath/abc');
+      await createDirectory('$testTargetPath/abc/def');
+    });*/
+
     test('getFileName', () {
       expect(getFileName('C:\\Users\\test\\Desktop\\text.txt'), 'text');
       expect(getFileName('/home/user/Desktop/example.txt'), 'example');
