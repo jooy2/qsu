@@ -41,6 +41,15 @@ void main() {
           'txt');
     });
 
+    test('getParentFilePath', () {
+      expect(getParentFilePath('/home/user/test.txt'), '/home/user');
+      expect(getParentFilePath('/home'), '/');
+      expect(getParentFilePath('/'), '/');
+      expect(getParentFilePath('C:\\', isWindows: true), 'C:\\');
+      expect(getParentFilePath('C:\\Users', isWindows: true), 'C:\\');
+      expect(getParentFilePath('C:\\Users\\my', isWindows: true), 'C:\\Users');
+    });
+
     test('isFileExists', () async {
       expect(await isFileExists('$testTargetPath/hello.md'), true);
       expect(await isFileExists('$testTargetPath/not-exists'), false);

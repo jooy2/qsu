@@ -57,6 +57,26 @@ String? getFileExtension(String filePath, {bool? isWindows = false}) {
   return strPath.split('.').last.toLowerCase();
 }
 
+/// Returns the parent path one level above the given path.
+String getParentFilePath(String filePath, {bool? isWindows = false}) {
+  final separator = isWindows == true ? '\\' : '/';
+  final listPathItem = filePath.split(separator);
+
+  if (listPathItem.isNotEmpty) {
+    listPathItem.removeLast();
+  }
+
+  String currentPath;
+
+  if (listPathItem.length == 1) {
+    currentPath = isWindows == true ? 'C:\\' : '/';
+  } else {
+    currentPath = listPathItem.join(separator);
+  }
+
+  return toValidFilePath(currentPath, isWindows: isWindows);
+}
+
 /// If a file or directory exists at the specified path, it returns `true`.
 Future<bool> isFileExists(String filePath) async {
   try {

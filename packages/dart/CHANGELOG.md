@@ -3,6 +3,7 @@
 ## 1.1.8 (2025--)
 
 - Add `createDirectory` method
+- Add `getParentFilePath` method
 
 ## 1.1.7 (2025-11-03)
 
