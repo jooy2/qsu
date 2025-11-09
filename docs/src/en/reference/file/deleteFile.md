@@ -1,4 +1,4 @@
-# deleteFile <Lang js />
+# deleteFile <Lang js dart />
 
 <NodeRequired en />
 
@@ -16,6 +16,14 @@ This method also supports deleting directory paths. If files exist within the di
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await deleteFile('/home/user/text.txt');
 ```
+
+```dart [Dart]
+await deleteFile('/home/user/text.txt');
+```
+
+:::

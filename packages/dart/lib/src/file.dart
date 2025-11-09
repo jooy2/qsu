@@ -17,6 +17,34 @@ Future<void> createDirectory(String filePath, {bool? recursive = true}) async {
   }
 }
 
+/// Delete files or directory in the specified path. If the file does not exist in the path, it is ignored.
+Future<void> deleteFile(String filePath) async {
+  if (filePath.trim().isEmpty) {
+    return;
+  }
+
+  try {
+    final type = await FileSystemEntity.type(filePath, followLinks: false);
+
+    switch (type) {
+      case FileSystemEntityType.file:
+        await File(filePath).delete();
+        break;
+      case FileSystemEntityType.directory:
+        await Directory(filePath).delete(recursive: true);
+        break;
+      case FileSystemEntityType.link:
+        await Link(filePath).delete();
+        break;
+      case FileSystemEntityType.notFound:
+      default:
+        break;
+    }
+  } catch (_) {
+    // Do nothing
+  }
+}
+
 /// Extract the file name from the path. Include the extension if withExtension is `true`.
 String getFileName(String filePath, {bool? withExtension = false}) {
   if (filePath.isEmpty) {

@@ -12,6 +12,9 @@ void main() {
       await createDirectory('$testTargetPath/abc/def');
     });*/
 
+    /*test('deleteFile', () async {
+    });*/
+
     test('getFileName', () {
       expect(getFileName('C:\\Users\\test\\Desktop\\text.txt'), 'text');
       expect(getFileName('/home/user/Desktop/example.txt'), 'example');

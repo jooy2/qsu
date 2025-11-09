@@ -1,4 +1,4 @@
-# deleteFile <Lang js />
+# deleteFile <Lang js dart />
 
 <NodeRequired ko />
 
@@ -16,6 +16,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await deleteFile('/home/user/text.txt');
 ```
+
+```dart [Dart]
+await deleteFile('/home/user/text.txt');
+```
+
+:::
