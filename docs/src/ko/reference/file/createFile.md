@@ -1,4 +1,4 @@
-# createFile <Lang js />
+# createFile <Lang js dart />
 
 <NodeRequired ko />
 
@@ -14,6 +14,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await createFile('/home/user/test.txt');
 ```
+
+```dart [Dart]
+await createFile('/home/user/test.txt');
+```
+
+:::

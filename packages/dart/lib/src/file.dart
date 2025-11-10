@@ -17,6 +17,27 @@ Future<void> createDirectory(String filePath, {bool? recursive = true}) async {
   }
 }
 
+/// Create a file of empty data. If the same file already exists, it is ignored.
+Future<void> createFile(String filePath) async {
+  if (filePath.trim().isEmpty) {
+    return;
+  }
+
+  final File file = File(filePath);
+  final DateTime now = DateTime.now();
+
+  try {
+    await file.setLastAccessed(now);
+    await file.setLastModified(now);
+  } catch (_) {
+    try {
+      await file.create(recursive: true);
+    } catch (_) {
+      // Do nothing
+    }
+  }
+}
+
 /// Delete files or directory in the specified path. If the file does not exist in the path, it is ignored.
 Future<void> deleteFile(String filePath) async {
   if (filePath.trim().isEmpty) {

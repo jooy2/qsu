@@ -5,6 +5,7 @@
 - Add `createDirectory` method
 - Add `getParentFilePath` method
 - Add `deleteFile` method
+- Add `createFile` method
 
 ## 1.1.7 (2025-11-03)
 

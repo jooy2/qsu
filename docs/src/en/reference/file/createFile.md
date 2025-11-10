@@ -1,4 +1,4 @@
-# createFile <Lang js />
+# createFile <Lang js dart />
 
 <NodeRequired en />
 
@@ -14,6 +14,14 @@ Create a file of empty data. If the same file already exists, it is ignored.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await createFile('/home/user/test.txt');
 ```
+
+```dart [Dart]
+await createFile('/home/user/test.txt');
+```
+
+:::

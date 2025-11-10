@@ -4,16 +4,26 @@ import 'package:test/test.dart';
 const longFilePath =
     'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\115.0.1901.203\\Trust Protection Lists';
 const testTargetPath = 'test/_resources/files';
+const testFilePath = '$testTargetPath/__TEST_TOUCH_FILE.txt';
 
 void main() {
   group('File', () {
-    /*test('createDirectory', () async {
+    test('createDirectory', () async {
       await createDirectory('$testTargetPath/abc');
       await createDirectory('$testTargetPath/abc/def');
-    });*/
+      expect(await isFileExists('$testTargetPath/abc/def'), true);
+      await deleteFile('$testTargetPath/abc');
+    });
 
-    /*test('deleteFile', () async {
-    });*/
+    test('createFile', () async {
+      await createFile(testFilePath);
+      expect(await isFileExists(testFilePath), true);
+    });
+
+    test('deleteFile', () async {
+      await deleteFile(testFilePath);
+      expect(await isFileExists(testFilePath), false);
+    });
 
     test('getFileName', () {
       expect(getFileName('C:\\Users\\test\\Desktop\\text.txt'), 'text');
