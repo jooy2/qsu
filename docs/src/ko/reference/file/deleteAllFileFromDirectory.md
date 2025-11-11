@@ -1,4 +1,4 @@
-# deleteAllFileFromDirectory <Lang js />
+# deleteAllFileFromDirectory <Lang js dart />
 
 <NodeRequired ko />
 
@@ -14,6 +14,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await deleteAllFileFromDirectory('/home/user/Downloads');
 ```
+
+```dart [Dart]
+await deleteAllFileFromDirectory('/home/user/Downloads');
+```
+
+:::

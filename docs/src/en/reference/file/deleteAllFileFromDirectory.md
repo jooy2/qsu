@@ -1,4 +1,4 @@
-# deleteAllFileFromDirectory <Lang js />
+# deleteAllFileFromDirectory <Lang js dart />
 
 <NodeRequired en />
 
@@ -14,6 +14,14 @@ Deletes all files in the specified directory path. However, the directory is pre
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await deleteAllFileFromDirectory('/home/user/Downloads');
 ```
+
+```dart [Dart]
+await deleteAllFileFromDirectory('/home/user/Downloads');
+```
+
+:::

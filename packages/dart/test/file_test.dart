@@ -25,6 +25,10 @@ void main() {
       expect(await isFileExists(testFilePath), false);
     });
 
+    test('deleteAllFileFromDirectory', () async {
+      await deleteAllFileFromDirectory('$testTargetPath/EMPTY');
+    });
+
     test('getFileName', () {
       expect(getFileName('C:\\Users\\test\\Desktop\\text.txt'), 'text');
       expect(getFileName('/home/user/Desktop/example.txt'), 'example');

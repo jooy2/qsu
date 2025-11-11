@@ -6,6 +6,7 @@
 - Add `getParentFilePath` method
 - Add `deleteFile` method
 - Add `createFile` method
+- Add `deleteAllFileFromDirectory` method
 
 ## 1.1.7 (2025-11-03)
 

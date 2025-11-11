@@ -66,6 +66,27 @@ Future<void> deleteFile(String filePath) async {
   }
 }
 
+/// Deletes all files in the specified directory path. However, the directory is preserved.
+Future<void> deleteAllFileFromDirectory(String directoryPath) async {
+  final List<String> fileItems = [];
+
+  try {
+    final Directory directory = Directory(directoryPath);
+
+    if (await directory.exists()) {
+      await for (final entity in directory.list(followLinks: false)) {
+        fileItems.add(entity.path);
+      }
+    }
+  } catch (_) {
+    // Do nothing
+  }
+
+  for (final filePath in fileItems) {
+    await deleteFile(filePath);
+  }
+}
+
 /// Extract the file name from the path. Include the extension if withExtension is `true`.
 String getFileName(String filePath, {bool? withExtension = false}) {
   if (filePath.isEmpty) {
