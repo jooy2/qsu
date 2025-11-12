@@ -129,6 +129,15 @@ void main() {
       expect(getFilePathLevel('/home/user/.ssh/test file.txt'), 5);
     });
 
+    test('getFilePathLevel', () async {
+      await moveFile(
+          '$testTargetPath/MV_TEST.txt', '$testTargetPath/MV_TEST_1.txt');
+      expect(await isFileExists('$testTargetPath/MV_TEST_1.txt'), true);
+      await moveFile(
+          '$testTargetPath/MV_TEST_1.txt', '$testTargetPath/MV_TEST.txt');
+      expect(await isFileExists('$testTargetPath/MV_TEST.txt'), true);
+    });
+
     test('toValidFilePath', () {
       expect(toValidFilePath('home'), '/home');
       expect(toValidFilePath('/home//test/'), '/home/test');

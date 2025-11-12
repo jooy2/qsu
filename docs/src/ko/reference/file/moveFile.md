@@ -1,4 +1,4 @@
-# moveFile <Lang js />
+# moveFile <Lang js dart />
 
 <NodeRequired ko />
 
@@ -15,6 +15,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await moveFile('/home/user/text.txt', '/home/user/text2.txt');
 ```
+
+```dart [Dart]
+await moveFile('/home/user/text.txt', '/home/user/text2.txt');
+```
+
+:::

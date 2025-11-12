@@ -1,4 +1,4 @@
-# moveFile <Lang js />
+# moveFile <Lang js dart />
 
 <NodeRequired en />
 
@@ -15,6 +15,14 @@ Moves a file in the specified file path to another path.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await moveFile('/home/user/text.txt', '/home/user/text2.txt');
 ```
+
+```dart [Dart]
+await moveFile('/home/user/text.txt', '/home/user/text2.txt');
+```
+
+:::

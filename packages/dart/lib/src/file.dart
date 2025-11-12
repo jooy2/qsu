@@ -193,6 +193,19 @@ int getFilePathLevel(String? filePath) {
       .length;
 }
 
+/// Moves a file in the specified file path to another path.
+Future<void> moveFile(String filePath, String targetFilePath) async {
+  if (filePath.trim().isEmpty || targetFilePath.trim().isEmpty) {
+    return;
+  }
+
+  try {
+    await File(filePath).rename(targetFilePath);
+  } catch (_) {
+    // Do nothing
+  }
+}
+
 /// Returns the given path as a path in POSIX format (usually used by Linux). For example, a Windows path will be converted to `/` instead of `\\`.
 String toPosixFilePath(String filePath) {
   return filePath
