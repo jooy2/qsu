@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:path/path.dart';
 
@@ -35,6 +36,30 @@ Future<void> createFile(String filePath) async {
     } catch (_) {
       // Do nothing
     }
+  }
+}
+
+/// Creates a file with the specified size in bytes.
+Future<bool> createFileWithDummy(String filePath, {int? size}) async {
+  try {
+    if (size == 0 || size == null) {
+      await createFile(filePath);
+      return true;
+    }
+
+    final File file = File(filePath);
+    final RandomAccessFile randomAccessFile =
+        await file.open(mode: FileMode.write);
+
+    final Uint8List oneByte = Uint8List(1);
+
+    await randomAccessFile.setPosition(size - 1);
+    await randomAccessFile.writeFrom(oneByte);
+    await randomAccessFile.close();
+
+    return true;
+  } catch (_) {
+    return false;
   }
 }
 

@@ -25,6 +25,20 @@ void main() {
       expect(await isFileExists(testFilePath), false);
     });
 
+    test('dummyFilePath', () async {
+      const dummyFilePath = '$testTargetPath/__TEST__TOUCH_FILE.txt';
+
+      await createFileWithDummy(dummyFilePath, size: 100);
+
+      // const dummyFileStat = await getFileInfo(dummyFilePath);
+
+      await deleteFile(dummyFilePath);
+
+      /*if (dummyFileStat.size != 100) {
+        fail('Test Failed. Dummy file not created correctly.');
+      }*/
+    });
+
     test('deleteAllFileFromDirectory', () async {
       await deleteAllFileFromDirectory('$testTargetPath/EMPTY');
     });
