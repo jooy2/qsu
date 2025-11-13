@@ -11,6 +11,7 @@
 - Add `createFileWithDummy` method
 - Add `getFileInfo` method
 - Add `joinFilePath` method
+- Add `getFileHashFromPath` method
 
 ## 1.1.7 (2025-11-03)
 

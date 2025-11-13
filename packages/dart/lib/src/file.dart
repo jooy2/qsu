@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:crypto/crypto.dart';
 import 'package:path/path.dart';
 import 'package:qsu/src/format.dart';
 
@@ -182,6 +183,41 @@ String? getFileExtension(String filePath, {bool? isWindows = false}) {
   }
 
   return strPath.split('.').last.toLowerCase();
+}
+
+/// Returns the file in the specified path as a value hashed by a specific algorithm. The default algorithm is `md5`. This method uses a `Promise` to return a valid hash value.
+Future<String> getFileHashFromPath(String filePath,
+    {String? algorithm = 'md5' // 'md5' | 'sha1' | 'sha256' | 'sha512'
+    }) async {
+  if (filePath.isEmpty) {
+    throw ArgumentError('Invalid file path');
+  }
+
+  Hash hashAlgorithm;
+
+  switch (algorithm) {
+    case 'md5':
+      hashAlgorithm = md5;
+      break;
+    case 'sha1':
+      hashAlgorithm = sha1;
+      break;
+    case 'sha256':
+      hashAlgorithm = sha256;
+      break;
+    case 'sha512':
+      hashAlgorithm = sha512;
+      break;
+    default:
+      throw ArgumentError('Invalid hash algorithm: $algorithm');
+  }
+
+  final File file = File(filePath);
+  final Stream<List<int>> inputStream = file.openRead();
+
+  final Digest digest = await inputStream.transform(hashAlgorithm).first;
+
+  return digest.toString();
 }
 
 /// Returns the parent path one level above the given path.

@@ -1,4 +1,4 @@
-# getFileHashFromPath <Lang js />
+# getFileHashFromPath <Lang js dart />
 
 <NodeRequired ko />
 
@@ -7,7 +7,7 @@
 ## Parameters
 
 - `filePath::string`: File path
-- `algorithm::'md5'|'sha1'|'sha256'|'sha512'`: OpenSSL algorithm to be used for file hashing
+- `algorithm::'md5'|'sha1'|'sha256'|'sha512'` <DartNamed />: OpenSSL algorithm to be used for file hashing
 
 ## Returns
 
@@ -15,6 +15,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await getFileHashFromPath('/home/user/text.txt', 'sha1'); // '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```
+
+```dart [Dart]
+await getFileHashFromPath('/home/user/text.txt', algorithm: 'sha1'); // '38851813f75627d581c593f3ccfb7061dd013fbd'
+```
+
+:::

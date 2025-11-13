@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:qsu/qsu.dart';
 import 'package:test/test.dart';
 
@@ -132,6 +134,36 @@ void main() {
               '/home/test/Desktop/test/012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234',
               unixType: true),
           true); // 255
+    });
+
+    final Map<String, String> hashTable = Platform.isWindows
+        ? {
+            'md5': '239884dde2b4354613a228001b22d9b9',
+            'sha1': '38851813f75627d581c593f3ccfb7061dd013fbd',
+            'sha256':
+                'db42a58ad98348dc8647ef27054ffcab994a2359fe9e0daeeffe8cbfe2409583',
+            'sha512':
+                'c0be4b1ff1aba7be9b02d619dd10e0bdfa4149cf0f241320fe237336aea286ff68c3f42fae4d707a1a59dc6a269e730d3bc4b9891347647bb5acb82b5792a503'
+          }
+        : {
+            'md5': '192ef428bd3e3413262df05679cee825',
+            'sha1': '2accd3e31a50c5ed9c6786ef34669bbda55d7156',
+            'sha256':
+                '568770a759ef55df5c2a5d3cbfc5c62e2ade6a353c391037d91a97212dec9e88',
+            'sha512':
+                'b03187c2962c947de2d5d3cdaa2f25e5e1df31c5190cccf42d03759d042dd5f5a2773ca9903e122b6faaf4a53b45c419d605464abb83cbe578ed249cb558844a'
+          };
+
+    test('getFileHashFromPath', () async {
+      final String path = '$testTargetPath/STATIC_FILE.txt';
+
+      expect(await getFileHashFromPath(path), hashTable['md5']);
+      expect(await getFileHashFromPath(path, algorithm: 'sha1'),
+          hashTable['sha1']);
+      expect(await getFileHashFromPath(path, algorithm: 'sha256'),
+          hashTable['sha256']);
+      expect(await getFileHashFromPath(path, algorithm: 'sha512'),
+          hashTable['sha512']);
     });
 
     test('toPosixFilePath', () {
