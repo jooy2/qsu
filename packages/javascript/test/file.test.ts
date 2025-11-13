@@ -11,6 +11,7 @@ import {
 	getFileInfo,
 	getFileName,
 	getFilePathLevel,
+	getFileSize,
 	getParentFilePath,
 	headFile,
 	isFileExists,
@@ -79,6 +80,11 @@ describe('File', () => {
 		assert.strictEqual(joinFilePath(false, '/home', 'user', 'Desktop'), '/home/user/Desktop');
 		assert.strictEqual(joinFilePath(false, 'home', '/user', '.bashrc'), '/home/user/.bashrc');
 		assert.strictEqual(joinFilePath(false, 'home', '/user', '..', '.bashrc'), '/home/.bashrc');
+	});
+
+	it('getFileSize', async () => {
+		assert.strictEqual(await getFileSize(`${TARGET_PATH}/hello.md`), IS_WINDOWS_OS ? 83 : 82);
+		assert.strictEqual(await getFileSize(`${TARGET_PATH}/MV_TEST.txt`), IS_WINDOWS_OS ? 14 : 13);
 	});
 
 	it('getFilePathLevel', () => {
