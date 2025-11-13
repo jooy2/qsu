@@ -1,6 +1,6 @@
 # getFileSize <Lang js dart />
 
-<NodeRequired ko />
+<NodeRequired en />
 
 Calculates the size of the file at the given path.
 
