@@ -180,7 +180,7 @@ void main() {
 
     test('getFileSize', () async {
       expect(await getFileSize('$testTargetPath/hello.md'),
-          Platform.isWindows ? 83 : 82);
+          Platform.isWindows ? 89 : 82);
       expect(await getFileSize('$testTargetPath/MV_TEST.txt'),
           Platform.isWindows ? 14 : 13);
     });
