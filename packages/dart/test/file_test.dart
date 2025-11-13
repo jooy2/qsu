@@ -54,7 +54,8 @@ void main() {
       expect(fileInfo1.name, 'STATIC_FILE');
       expect(fileInfo1.ext, 'txt');
       expect(fileInfo1.isDirectory, false);
-      expect(fileInfo2.size, 384);
+      expect(fileInfo2.name, 'test');
+      expect(fileInfo2.isDirectory, true);
     });
 
     test('getFileName', () {
