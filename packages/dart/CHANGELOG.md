@@ -1,6 +1,6 @@
 # Changelog (Dart)
 
-## 1.1.8 (2025--)
+## 1.1.8 (2025-11-13)
 
 - Add `createDirectory` method
 - Add `getParentFilePath` method

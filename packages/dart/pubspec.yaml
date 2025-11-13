@@ -1,7 +1,7 @@
 name: qsu
 description: >-
   qsu is a utility library that contains useful and frequently used functions. Start with your preferred language and the modern development environment.
-version: 1.1.7
+version: 1.1.8
 repository: https://github.com/jooy2/qsu
 homepage: https://qsu.cdget.com
 
