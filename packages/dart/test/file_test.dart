@@ -178,6 +178,13 @@ void main() {
           '/home/user/Test file.txt');
     });
 
+    test('getFileSize', () async {
+      expect(await getFileSize('$testTargetPath/hello.md'),
+          Platform.isWindows ? 83 : 82);
+      expect(await getFileSize('$testTargetPath/MV_TEST.txt'),
+          Platform.isWindows ? 14 : 13);
+    });
+
     test('getFilePathLevel', () {
       expect(getFilePathLevel('C:'), 1);
       expect(getFilePathLevel('C:\\'), 1);

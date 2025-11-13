@@ -220,6 +220,21 @@ Future<String> getFileHashFromPath(String filePath,
   return digest.toString();
 }
 
+/// Calculates the size of the file at the given path.
+Future<int> getFileSize(String filePath) async {
+  try {
+    final FileStat stat = await FileStat.stat(filePath);
+
+    if (stat.type == FileSystemEntityType.notFound) {
+      throw Exception("File not found");
+    }
+
+    return stat.size;
+  } catch (err) {
+    throw Exception(err.toString());
+  }
+}
+
 /// Returns the parent path one level above the given path.
 String getParentFilePath(String filePath, {bool? isWindows = false}) {
   final separator = isWindows == true ? '\\' : '/';
