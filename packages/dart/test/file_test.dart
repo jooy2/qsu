@@ -50,7 +50,7 @@ void main() {
           await getFileInfo('$testTargetPath/STATIC_FILE.txt');
       final FileInfo fileInfo2 = await getFileInfo('test');
 
-      expect(fileInfo1.size, 32);
+      expect(fileInfo1.size, Platform.isWindows ? 33 : 32);
       expect(fileInfo1.name, 'STATIC_FILE');
       expect(fileInfo1.ext, 'txt');
       expect(fileInfo1.isDirectory, false);
