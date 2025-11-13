@@ -155,13 +155,28 @@ void main() {
       expect(getFilePathLevel('/home/user/.ssh/test file.txt'), 5);
     });
 
-    test('getFilePathLevel', () async {
+    test('moveFile', () async {
       await moveFile(
           '$testTargetPath/MV_TEST.txt', '$testTargetPath/MV_TEST_1.txt');
       expect(await isFileExists('$testTargetPath/MV_TEST_1.txt'), true);
       await moveFile(
           '$testTargetPath/MV_TEST_1.txt', '$testTargetPath/MV_TEST.txt');
       expect(await isFileExists('$testTargetPath/MV_TEST.txt'), true);
+    });
+
+    test('joinFilePath', () {
+      expect(joinFilePath(['C:\\', 'Windows', 'System32'], isWindows: true),
+          'C:\\Windows\\System32');
+      expect(
+          joinFilePath(['C:\\', 'Windows', '..', 'System32', 'Test.txt'],
+              isWindows: true),
+          'C:\\System32\\Test.txt');
+      expect(joinFilePath(['Users', 'test'], isWindows: true), '\\Users\\test');
+      expect(joinFilePath(['C:\\Users\\test'], isWindows: true),
+          'C:\\Users\\test');
+      expect(joinFilePath(['/home', 'user', 'Desktop']), '/home/user/Desktop');
+      expect(joinFilePath(['home', '/user', '.bashrc']), '/home/user/.bashrc');
+      expect(joinFilePath(['home', '/user', '..', '.bashrc']), '/home/.bashrc');
     });
 
     test('toValidFilePath', () {

@@ -250,6 +250,34 @@ int getFilePathLevel(String? filePath) {
       .length;
 }
 
+/// Combines paths for each operating system according to the given parameter values.
+String joinFilePath(List<String> paths, {bool? isWindows}) {
+  final List<String> normalized = [];
+
+  for (var i = 0; i < paths.length; i++) {
+    String part = paths[i];
+
+    if (i > 0) {
+      if (isWindows == true) {
+        part = part.replaceFirst(RegExp(r'^[\\/]+'), '');
+      } else {
+        part = part.replaceFirst(RegExp(r'^/+'), '');
+      }
+    }
+
+    normalized.add(part);
+  }
+
+  final String joined = isWindows == true
+      ? windows.joinAll(normalized)
+      : posix.joinAll(normalized);
+
+  return toValidFilePath(
+    isWindows == true ? windows.normalize(joined) : posix.normalize(joined),
+    isWindows: isWindows,
+  );
+}
+
 /// Moves a file in the specified file path to another path.
 Future<void> moveFile(String filePath, String targetFilePath) async {
   if (filePath.trim().isEmpty || targetFilePath.trim().isEmpty) {

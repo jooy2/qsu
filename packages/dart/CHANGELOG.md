@@ -10,6 +10,7 @@
 - Add `moveFile` method
 - Add `createFileWithDummy` method
 - Add `getFileInfo` method
+- Add `joinFilePath` method
 
 ## 1.1.7 (2025-11-03)
 
