@@ -1,4 +1,4 @@
-# getFileInfo <Lang js />
+# getFileInfo <Lang js dart />
 
 <NodeRequired en />
 
@@ -14,9 +14,17 @@ Returns file or directory information as an easy-to-understand object.
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await getFileInfo('/home/user/test.txt');
 ```
+
+```dart [Dart]
+await getFileInfo('/home/user/test.txt');
+```
+
+:::
 
 Examples of returned values:
 

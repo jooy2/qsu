@@ -30,17 +30,29 @@ void main() {
 
       await createFileWithDummy(dummyFilePath, size: 100);
 
-      // const dummyFileStat = await getFileInfo(dummyFilePath);
+      final dummyFileStat = await getFileInfo(dummyFilePath);
 
       await deleteFile(dummyFilePath);
 
-      /*if (dummyFileStat.size != 100) {
+      if (dummyFileStat.size != 100) {
         fail('Test Failed. Dummy file not created correctly.');
-      }*/
+      }
     });
 
     test('deleteAllFileFromDirectory', () async {
       await deleteAllFileFromDirectory('$testTargetPath/EMPTY');
+    });
+
+    test('getFileInfo', () async {
+      final FileInfo fileInfo1 =
+          await getFileInfo('$testTargetPath/STATIC_FILE.txt');
+      final FileInfo fileInfo2 = await getFileInfo('test');
+
+      expect(fileInfo1.size, 32);
+      expect(fileInfo1.name, 'STATIC_FILE');
+      expect(fileInfo1.ext, 'txt');
+      expect(fileInfo1.isDirectory, false);
+      expect(fileInfo2.size, 384);
     });
 
     test('getFileName', () {

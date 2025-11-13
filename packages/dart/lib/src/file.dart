@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:path/path.dart';
+import 'package:qsu/src/format.dart';
 
 /// Creates a directory with the specified path. Ignores the operation if the directory already exists.
 Future<void> createDirectory(String filePath, {bool? recursive = true}) async {
@@ -109,6 +110,37 @@ Future<void> deleteAllFileFromDirectory(String directoryPath) async {
 
   for (final filePath in fileItems) {
     await deleteFile(filePath);
+  }
+}
+
+/// Returns file or directory information as an easy-to-understand object.
+Future<FileInfo> getFileInfo(String filePath) async {
+  int dateToUnixTime(DateTime date) =>
+      (date.millisecondsSinceEpoch / 1000).floor();
+
+  try {
+    final FileStat stat = await FileStat.stat(filePath);
+
+    if (stat.type == FileSystemEntityType.notFound) {
+      throw Exception("File not found");
+    }
+
+    final bool isDirectory = stat.type == FileSystemEntityType.directory;
+
+    return FileInfo(
+      success: true,
+      isDirectory: isDirectory,
+      ext: getFileExtension(filePath),
+      size: stat.size,
+      sizeHumanized: fileSizeFormat(stat.size),
+      name: getFileName(filePath),
+      dirname: dirname(filePath),
+      path: normalize(absolute(filePath)),
+      created: dateToUnixTime(stat.changed),
+      modified: dateToUnixTime(stat.modified),
+    );
+  } catch (err) {
+    throw Exception(err.toString());
   }
 }
 
@@ -274,4 +306,30 @@ String toValidFilePath(String filePath, {bool? isWindows = false}) {
   }
 
   return unixPath;
+}
+
+class FileInfo {
+  final bool success;
+  final bool isDirectory;
+  final int size;
+  final String sizeHumanized;
+  final String name;
+  final String dirname;
+  final String path;
+  final String? ext;
+  final int created;
+  final int modified;
+
+  FileInfo({
+    required this.success,
+    required this.isDirectory,
+    required this.size,
+    required this.sizeHumanized,
+    required this.name,
+    required this.dirname,
+    required this.path,
+    required this.ext,
+    required this.created,
+    required this.modified,
+  });
 }

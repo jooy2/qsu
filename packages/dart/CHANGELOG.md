@@ -9,6 +9,7 @@
 - Add `deleteAllFileFromDirectory` method
 - Add `moveFile` method
 - Add `createFileWithDummy` method
+- Add `getFileInfo` method
 
 ## 1.1.7 (2025-11-03)
 

@@ -1,4 +1,4 @@
-# getFileInfo <Lang js />
+# getFileInfo <Lang js dart />
 
 <NodeRequired ko />
 
@@ -14,9 +14,17 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await getFileInfo('/home/user/test.txt');
 ```
+
+```dart [Dart]
+await getFileInfo('/home/user/test.txt');
+```
+
+:::
 
 Examples of returned values:
 
