@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:qsu/qsu.dart';
 import 'package:test/test.dart';
+import 'package:unorm_dart/unorm_dart.dart';
 
 const longFilePath =
     'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\115.0.1901.203\\Trust Protection Lists';
@@ -217,6 +218,14 @@ void main() {
       expect(joinFilePath(['/home', 'user', 'Desktop']), '/home/user/Desktop');
       expect(joinFilePath(['home', '/user', '.bashrc']), '/home/user/.bashrc');
       expect(joinFilePath(['home', '/user', '..', '.bashrc']), '/home/.bashrc');
+    });
+
+    test('normalizeFile', () {
+      final String nfdStr = nfd('안녕하세요_12345-ABCDE'); // macOS
+      final String nfcStr = nfc('안녕하세요_12345-ABCDE'); // Windows
+
+      expect(normalizeFile(nfdStr, normalizationForm: 'NFC'), nfcStr);
+      expect(normalizeFile(nfcStr, normalizationForm: 'NFD'), nfdStr);
     });
 
     test('toValidFilePath', () {

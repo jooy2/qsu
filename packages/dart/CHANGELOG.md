@@ -3,6 +3,7 @@
 ## 1.1.9 (2025--)
 
 - Add `getFileSize` method
+- Add `normalizeFile` method
 
 ## 1.1.8 (2025-11-13)
 

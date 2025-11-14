@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 import 'package:path/path.dart';
 import 'package:qsu/src/format.dart';
+import 'package:unorm_dart/unorm_dart.dart';
 
 /// Creates a directory with the specified path. Ignores the operation if the directory already exists.
 Future<void> createDirectory(String filePath, {bool? recursive = true}) async {
@@ -339,6 +340,27 @@ Future<void> moveFile(String filePath, String targetFilePath) async {
     await File(filePath).rename(targetFilePath);
   } catch (_) {
     // Do nothing
+  }
+}
+
+/// Returns the file name within the path.
+String normalizeFile(String filePath, {String? normalizationForm}) {
+  if (filePath.isEmpty) {
+    return '';
+  }
+
+  switch (normalizationForm) {
+    case null:
+    case 'NFC':
+      return nfc(filePath);
+    case 'NFD':
+      return nfd(filePath);
+    case 'NFKC':
+      return nfkc(filePath);
+    case 'NFKD':
+      return nfkd(filePath);
+    default:
+      throw RangeError('Invalid normalization form: $normalizationForm');
   }
 }
 
