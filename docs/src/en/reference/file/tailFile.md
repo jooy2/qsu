@@ -1,4 +1,4 @@
-# tailFile <Lang js />
+# tailFile <Lang js dart />
 
 <NodeRequired en />
 
@@ -7,7 +7,7 @@ Returns the last line of the specified text file path. The `length` argument is 
 ## Parameters
 
 - `filePath::string`: File or directory path
-- `length::number`: Number of lines of text to return
+- `length::number` <DartNamed />: Number of lines of text to return
 
 ## Returns
 
@@ -15,6 +15,14 @@ Returns the last line of the specified text file path. The `length` argument is 
 
 ## Examples
 
-```javascript
-await tailFile('/home/targets/hello.md'); // '--- Hello End ---'
+::: code-group
+
+```javascript [JavaScript]
+await tailFile('/home/targets/hello.md', 2); // 'Good bye\n--- Hello End ---'
 ```
+
+```dart [Dart]
+await tailFile('/home/targets/hello.md', length: 2); // 'Good bye\n--- Hello End ---'
+```
+
+:::

@@ -293,6 +293,48 @@ Future<String?> headFile(String filePath, {int length = 1}) async {
   }
 }
 
+/// Returns the last line of the specified text file path. The `length` argument is the total number of lines to print. Default is `1`. The last line of newline characters is ignored.
+Future<String?> tailFile(
+  String filePath, {
+  int length = 1,
+}) async {
+  if (length <= 0) {
+    return null;
+  }
+
+  final File file = File(filePath);
+
+  try {
+    final Stream<String> stream =
+        file.openRead().transform(utf8.decoder).transform(const LineSplitter());
+    final ListQueue<String> buffer = ListQueue<String>(length);
+
+    await for (final String line in stream) {
+      if (buffer.length == length) {
+        buffer.removeFirst();
+      }
+
+      buffer.addLast(line);
+    }
+
+    if (buffer.isEmpty) {
+      return null;
+    }
+
+    if (buffer.isNotEmpty && buffer.last.isEmpty) {
+      buffer.removeLast();
+    }
+
+    if (buffer.isEmpty) {
+      return null;
+    }
+
+    return buffer.join('\n');
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
 /// If a file or directory exists at the specified path, it returns `true`.
 Future<bool> isFileExists(String filePath) async {
   try {

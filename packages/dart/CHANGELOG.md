@@ -5,6 +5,7 @@
 - Add `getFileSize` method
 - Add `normalizeFile` method
 - Add `headFile` method
+- Add `tailFile` method
 
 ## 1.1.8 (2025-11-13)
 

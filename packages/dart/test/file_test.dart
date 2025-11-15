@@ -248,11 +248,18 @@ void main() {
 
     test('headFile', () async {
       expect(await headFile('$testTargetPath/hello.md'), '# Hello, World!');
-      expect(await headFile('$testTargetPath/hello.md', length: 1), '# Hello, World!');
-      expect(
-          await headFile('$testTargetPath/hello.md', length: 4),
-      '# Hello, World!\n\nThis is Hello File.\n'
-      );
+      expect(await headFile('$testTargetPath/hello.md', length: 1),
+          '# Hello, World!');
+      expect(await headFile('$testTargetPath/hello.md', length: 4),
+          '# Hello, World!\n\nThis is Hello File.\n');
+    });
+
+    test('tailFile', () async {
+      expect(await tailFile('$testTargetPath/hello.md'), '--- Hello End ---');
+      expect(await tailFile('$testTargetPath/hello.md', length: 1),
+          '--- Hello End ---');
+      expect(await tailFile('$testTargetPath/hello.md', length: 4),
+          '\nDo not modify this file.\n\n--- Hello End ---');
     });
   });
 }
