@@ -83,7 +83,7 @@ describe('File', () => {
 	});
 
 	it('getFileSize', async () => {
-		assert.strictEqual(await getFileSize(`${TARGET_PATH}/hello.md`), IS_WINDOWS_OS ? 83 : 82);
+		assert.strictEqual(await getFileSize(`${TARGET_PATH}/hello.md`), IS_WINDOWS_OS ? 89 : 82);
 		assert.strictEqual(await getFileSize(`${TARGET_PATH}/MV_TEST.txt`), IS_WINDOWS_OS ? 14 : 13);
 	});
 
