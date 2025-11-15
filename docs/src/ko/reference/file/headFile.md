@@ -18,12 +18,11 @@
 ::: code-group
 
 ```javascript [JavaScript]
-await headFile('/home/targets/hello.md'); // '# Hello, World!'
+await headFile('/home/targets/hello.md', 2); // '# Hello, World!\nSecond line'
 ```
 
 ```dart [Dart]
-
-await headFile('/home/targets/hello.md'); // '# Hello, World!'
+await headFile('/home/targets/hello.md', length: 2); // '# Hello, World!\nSecond line'
 ```
 
 :::

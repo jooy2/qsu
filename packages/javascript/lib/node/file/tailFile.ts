@@ -1,25 +1,43 @@
-import { readFile } from 'fs/promises';
-import { EOL } from 'os';
+import { createReadStream } from 'fs';
+import { createInterface } from 'node:readline';
 
 export async function tailFile(filePath: string, length = 1): Promise<string | null> {
-	try {
-		const content = await readFile(filePath, 'utf-8');
-		const contentByLine = content.split(EOL);
-		let result = '';
-
-		if (contentByLine[contentByLine.length - 1].length < 1) {
-			contentByLine.pop();
-		}
-
-		for (let i = contentByLine.length, len = contentByLine.length - length; i > len; i -= 1) {
-			result = `${contentByLine[i - 1]}${result.length < 1 || i - 1 === len ? '' : '\n'}${result}`;
-		}
-
-		return result.length < 1 ? null : result;
-	} catch (err) {
-		if (err instanceof Error) {
-			throw new Error(err.message);
-		}
+	if (length <= 0) {
+		return null;
 	}
-	return null;
+
+	return new Promise((resolve, reject) => {
+		const stream = createReadStream(filePath, { encoding: 'utf-8' });
+		const rl = createInterface({ input: stream, crlfDelay: Infinity });
+
+		const buffer: string[] = [];
+
+		rl.on('line', (line) => {
+			if (buffer.length === length) {
+				buffer.shift();
+			}
+			buffer.push(line);
+		});
+
+		rl.on('close', () => {
+			if (buffer.length === 0) {
+				resolve(null);
+				return;
+			}
+
+			if (buffer[buffer.length - 1] === '') {
+				buffer.pop();
+			}
+
+			if (buffer.length === 0) {
+				resolve(null);
+				return;
+			}
+
+			resolve(buffer.join('\n'));
+		});
+
+		rl.on('error', (err) => reject(err));
+		stream.on('error', (err) => reject(err));
+	});
 }

@@ -2,7 +2,8 @@
 
 ## 1.10.4 (2025--)
 
-- `getFileSize`: add `getFileSize` method
+- `getFileSize`: Add `getFileSize` method
+- `headFile`, `tailFile`: Use better head/tail logic
 
 ## 1.10.3 (2025-11-04)
 
@@ -15,7 +16,7 @@
 
 ## 1.10.1 (2025-06-08)
 
-- `isEmail`: add `onlyLowerCase` parameter
+- `isEmail`: Add `onlyLowerCase` parameter
 - `getFileHash`: This function has been renamed to `getFileHashFromPath`. Also, `getFileHashFromStream` has been added, which can take a ReadableStream and hash it.
 
 ## 1.10.0 (2025-03-12)

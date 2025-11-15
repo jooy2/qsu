@@ -241,7 +241,7 @@ describe('File', () => {
 		assert.strictEqual(await tailFile(`${TARGET_PATH}/hello.md`, 1), '--- Hello End ---');
 		assert.strictEqual(
 			await tailFile(`${TARGET_PATH}/hello.md`, 4),
-			'Do not modify this file.\n\n--- Hello End ---'
+			'\nDo not modify this file.\n\n--- Hello End ---'
 		);
 	});
 
