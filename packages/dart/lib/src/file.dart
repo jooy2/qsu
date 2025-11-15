@@ -1,3 +1,5 @@
+import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -258,36 +260,30 @@ String getParentFilePath(String filePath, {bool? isWindows = false}) {
 
 /// Returns the first line of the specified text file path. The `length` argument is the total number of lines to print. Default is `1`.
 Future<String?> headFile(String filePath, {int length = 1}) async {
+  if (length <= 0) {
+    return null;
+  }
+
+  final File file = File(filePath);
+
   try {
-    final File file = File(filePath);
-    final String content = await file.readAsString();
+    final Stream<String> stream =
+        file.openRead().transform(utf8.decoder).transform(const LineSplitter());
+    final List<String> lines = <String>[];
 
-    if (content.isEmpty) {
-      return null;
-    }
+    await for (final String line in stream) {
+      lines.add(line);
 
-    final String eol = Platform.isWindows ? '\r\n' : '\n';
-    final List<String> lines = content.split(eol);
-
-    final int maxLines = length < lines.length ? length : lines.length;
-
-    if (maxLines == 0) {
-      return null;
-    }
-
-    final StringBuffer buffer = StringBuffer();
-
-    for (int i = 0; i < maxLines; i++) {
-      buffer.write(lines[i]);
-
-      if (!(length < 2 || i == maxLines - 1)) {
-        buffer.write('\n');
+      if (lines.length >= length) {
+        break;
       }
     }
 
-    final result = buffer.toString();
+    if (lines.isEmpty) {
+      return null;
+    }
 
-    return result.isEmpty ? null : result;
+    return lines.join('\n');
   } catch (e) {
     throw Exception(e.toString());
   }
