@@ -1,4 +1,4 @@
-# headFile <Lang js />
+# headFile <Lang js dart />
 
 <NodeRequired ko />
 
@@ -7,7 +7,7 @@
 ## Parameters
 
 - `filePath::string`: File or directory path
-- `length::number`: Number of lines of text to return
+- `length::number` <DartNamed />: Number of lines of text to return
 
 ## Returns
 
@@ -15,6 +15,15 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 await headFile('/home/targets/hello.md'); // '# Hello, World!'
 ```
+
+```dart [Dart]
+
+await headFile('/home/targets/hello.md'); // '# Hello, World!'
+```
+
+:::

@@ -245,5 +245,14 @@ void main() {
       expect(toValidFilePath('C:\\\\', isWindows: true), 'C:\\');
       expect(toValidFilePath('C:\\Users\\', isWindows: true), 'C:\\Users');
     });
+
+    test('headFile', () async {
+      expect(await headFile('$testTargetPath/hello.md'), '# Hello, World!');
+      expect(await headFile('$testTargetPath/hello.md', length: 1), '# Hello, World!');
+      expect(
+          await headFile('$testTargetPath/hello.md', length: 4),
+      '# Hello, World!\n\nThis is Hello File.\n'
+      );
+    });
   });
 }

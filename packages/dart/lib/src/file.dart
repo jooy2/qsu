@@ -256,6 +256,43 @@ String getParentFilePath(String filePath, {bool? isWindows = false}) {
   return toValidFilePath(currentPath, isWindows: isWindows);
 }
 
+/// Returns the first line of the specified text file path. The `length` argument is the total number of lines to print. Default is `1`.
+Future<String?> headFile(String filePath, {int length = 1}) async {
+  try {
+    final File file = File(filePath);
+    final String content = await file.readAsString();
+
+    if (content.isEmpty) {
+      return null;
+    }
+
+    final String eol = Platform.isWindows ? '\r\n' : '\n';
+    final List<String> lines = content.split(eol);
+
+    final int maxLines = length < lines.length ? length : lines.length;
+
+    if (maxLines == 0) {
+      return null;
+    }
+
+    final StringBuffer buffer = StringBuffer();
+
+    for (int i = 0; i < maxLines; i++) {
+      buffer.write(lines[i]);
+
+      if (!(length < 2 || i == maxLines - 1)) {
+        buffer.write('\n');
+      }
+    }
+
+    final result = buffer.toString();
+
+    return result.isEmpty ? null : result;
+  } catch (e) {
+    throw Exception(e.toString());
+  }
+}
+
 /// If a file or directory exists at the specified path, it returns `true`.
 Future<bool> isFileExists(String filePath) async {
   try {
