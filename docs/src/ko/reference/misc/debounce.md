@@ -16,7 +16,7 @@ No return values
 ## Examples
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<title>test</title>
