@@ -7,12 +7,11 @@ defineProps({
 });
 </script>
 <template>
-	<span v-if="en" class="node-required"
-		><LangLogo name="javascript" :width="18" />Requires a Node.js runtime ('qsu/node')</span
-	>
-	<span v-if="ko" class="node-required"
-		><LangLogo name="javascript" :width="18" />Node.js 런타임 필요 ('qsu/node')</span
-	>
+	<span class="node-required">
+		<LangLogo name="javascript" :width="18" />
+		<span v-if="en">Requires a Node.js runtime ('qsu/node')</span>
+		<span v-else-if="ko">Node.js 런타임 필요 ('qsu/node')</span>
+	</span>
 </template>
 <style scoped>
 .node-required {
