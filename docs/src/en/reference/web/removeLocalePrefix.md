@@ -1,4 +1,4 @@
-# removeLocalePrefix <Lang js />
+# removeLocalePrefix <Lang js dart />
 
 Removes the first-level path from a URL or pathname. Use this when you need a locale-free path in special cases in a URL that normally uses locale prefixes. For example, `/en/hello` is converted to `/hello`.
 
@@ -15,7 +15,16 @@ The first argument can be a URL or a pathname. When using a URL, include the pro
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 removeLocalePrefix('/ko/user/login', ['ko', 'en']); // Returns '/user/login'
 removeLocalePrefix('https://qsu.cdget.com/ko/user/login', ['ko', 'en']); // Returns 'https://qsu.cdget.com/user/login'
 ```
+
+```dart [Dart]
+removeLocalePrefix('/ko/user/login', ['ko', 'en']); // Returns '/user/login'
+removeLocalePrefix('https://qsu.cdget.com/ko/user/login', ['ko', 'en']); // Returns 'https://qsu.cdget.com/user/login'
+```
+
+:::

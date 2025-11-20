@@ -9,3 +9,4 @@ export 'src/misc.dart';
 export 'src/object.dart';
 export 'src/string.dart';
 export 'src/verify.dart';
+export 'src/web.dart';
