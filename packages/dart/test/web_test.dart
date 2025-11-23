@@ -5,6 +5,27 @@ void main() {
   final String homepage = 'https://qsu.cdget.com';
 
   group('Web', () {
+    test('isMatchPathname', () {
+      expect(isMatchPathname('/user/login', '/admin'), false);
+      expect(isMatchPathname('/user/login', '/user'), false);
+      expect(isMatchPathname('/user/login', '/user/*'), true);
+      expect(isMatchPathname('/user/login', '/user/login/*'), false);
+      expect(isMatchPathname('/user/login', '/user/login*'), true);
+      expect(isMatchPathname('/user/login/hello', '/user/login*'), true);
+      expect(
+          isMatchPathname('/user/login', ['/test', '/home/hello', '/user/*']),
+          true);
+      expect(
+          isMatchPathname(
+              '/user/login', ['/test', '/home/hello', '/user/login']),
+          true);
+      expect(isMatchPathname('/admin/hello/world', ['/admin/hello/']), false);
+      expect(
+          isMatchPathname('/admin/hello/world', ['/admin/hello/world']), true);
+      expect(isMatchPathname('/admin/hello/world', ['/admin/*']), true);
+      expect(isMatchPathname('/admin/hello/world', ['*']), true);
+    });
+
     test('removeLocalePrefix', () {
       expect(removeLocalePrefix('/', ['ko', 'en']), '/');
       expect(removeLocalePrefix('', ['ko', 'en']), '');
