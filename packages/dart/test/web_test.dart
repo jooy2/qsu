@@ -3,8 +3,26 @@ import 'package:test/test.dart' hide contains, isEmpty;
 
 void main() {
   final String homepage = 'https://qsu.cdget.com';
+  final String userAgentBot =
+      'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html';
+  final String userAgentDesktop =
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36';
+  final String userAgentMobileIOS =
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1';
+  final String userAgentMobileAndroid =
+      'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36';
+  final String userAgentTablet =
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15';
 
   group('Web', () {
+    test('isBotAgent', () {
+      expect(isBotAgent(userAgentBot), true);
+      expect(isBotAgent(userAgentDesktop), false);
+      expect(isBotAgent(userAgentMobileIOS), false);
+      expect(isBotAgent(userAgentMobileAndroid), false);
+      expect(isBotAgent(userAgentTablet), false);
+    });
+
     test('isMatchPathname', () {
       expect(isMatchPathname('/user/login', '/admin'), false);
       expect(isMatchPathname('/user/login', '/user'), false);
