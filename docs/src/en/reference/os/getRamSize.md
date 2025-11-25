@@ -1,6 +1,6 @@
 # getRamSize <Lang js />
 
-<NodeRequired ko />
+<NodeRequired en />
 
 Retrieves the total RAM size of the current device. Returns it as readable text including the unit. Decimal places are rounded up.
 
