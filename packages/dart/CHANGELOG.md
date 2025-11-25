@@ -1,5 +1,9 @@
 # Changelog (Dart)
 
+## 1.1.10 (2025-11-25)
+
+- Fix package dependencies
+
 ## 1.1.9 (2025-11-25)
 
 - Add `getFileSize` method
