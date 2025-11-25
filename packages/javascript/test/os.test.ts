@@ -44,7 +44,7 @@ describe('OS', () => {
 		const ramSize = getRamSize();
 
 		assert.strictEqual(ramSize.endsWith('GB'), true);
-		assert.strictEqual(contains(ramSize, ['1', '2', '4', '8', '16', '32']), true);
+		assert.strictEqual(contains(ramSize, ['1', '2', '4', '7', '8', '14', '16', '32']), true);
 	});
 
 	// Example: S-1-5-21-406418252-5582013529-1321253100-2001
