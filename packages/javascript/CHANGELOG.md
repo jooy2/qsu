@@ -1,6 +1,6 @@
 # Changelog (JavaScript)
 
-## 1.10.4 (2025--)
+## 1.10.4 (2025-11-25)
 
 - `getFileSize`: Add `getFileSize` method
 - `getRamSize`: Add `getRamSize` method
