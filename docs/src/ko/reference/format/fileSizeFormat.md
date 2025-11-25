@@ -6,6 +6,7 @@
 
 - `bytes::number`: Converts it to a human-friendly string via the bytes provided here.
 - `decimals::number (Default: 2)` <DartNamed />: Specifies the number of decimal places to represent.
+- `ceil::boolean` <DartNamed />: If this value is `true`, the decimal point is removed and the number is rounded up.
 
 ## Returns
 
@@ -18,11 +19,13 @@
 ```javascript [JavaScript]
 fileSizeFormat(1000000); // '976.56 KB'
 fileSizeFormat(100000000, 3); // '95.367 MB'
+fileSizeFormat(100000000, 0, true); // '96 MB'
 ```
 
 ```dart [Dart]
 fileSizeFormat(1000000); // '976.56 KB'
 fileSizeFormat(100000000, decimals: 3); // '95.367 MB'
+fileSizeFormat(100000000, ceil: true); // '96 MB'
 ```
 
 :::

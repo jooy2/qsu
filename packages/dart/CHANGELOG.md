@@ -9,6 +9,7 @@
 - Add `removeLocalePrefix` method
 - Add `isMatchPathname` method
 - Add `isBotAgent` method
+- Add `ceil` argument to the `fileSizeFormat` method
 
 ## 1.1.8 (2025-11-13)
 

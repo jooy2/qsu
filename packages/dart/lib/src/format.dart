@@ -16,14 +16,18 @@ String numberFormat(dynamic number) {
 /// Converts the file size in bytes to human-readable and returns it.
 /// The return value is a String and includes the file units (Bytes, MB, GB...).
 /// If the second optional argument value is included, you can display as many decimal places as you like.
-String fileSizeFormat(int bytes, {int? decimals}) {
+String fileSizeFormat(int bytes, {int? decimals, bool? ceil}) {
   if (bytes <= 0) {
     return '0 Bytes';
   }
 
   final int byteCalc = (log(bytes) / log(1024)).floor();
-  final double size = bytes / pow(1024, byteCalc);
   final String sizeStr;
+  double size = bytes / pow(1024, byteCalc);
+
+  if (ceil == true) {
+    size = size.ceil().toDouble();
+  }
 
   if (size % 1 == 0) {
     sizeStr = size.toInt().toString();

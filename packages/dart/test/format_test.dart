@@ -17,10 +17,13 @@ void main() {
 
     test('fileSizeFormat', () {
       expect(fileSizeFormat(0), '0 Bytes');
+      expect(fileSizeFormat(0, ceil: true), '0 Bytes');
       expect(fileSizeFormat(1), '1 Bytes');
       expect(fileSizeFormat(1000000), '976.56 KB');
       expect(fileSizeFormat(2000, decimals: 3), '1.953 KB');
       expect(fileSizeFormat(250000000), '238.42 MB');
+      expect(fileSizeFormat(100000000, decimals: 3, ceil: true), '96 MB');
+      expect(fileSizeFormat(123456789012, decimals: 0, ceil: true), '115 GB');
     });
 
     test('safeParseInt', () {
