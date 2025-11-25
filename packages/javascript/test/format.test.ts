@@ -15,9 +15,12 @@ describe('Format', () => {
 
 	it('fileSizeFormat', () => {
 		assert.strictEqual(fileSizeFormat(0), '0 Bytes');
+		assert.strictEqual(fileSizeFormat(0.0, 0, true), '0 Bytes');
 		assert.strictEqual(fileSizeFormat(1), '1 Bytes');
 		assert.strictEqual(fileSizeFormat(1000000), '976.56 KB');
 		assert.strictEqual(fileSizeFormat(100000000, 3), '95.367 MB');
+		assert.strictEqual(fileSizeFormat(100000000, 3, true), '96 MB');
+		assert.strictEqual(fileSizeFormat(123456789012, 0, true), '115 GB');
 	});
 
 	it('duration', () => {

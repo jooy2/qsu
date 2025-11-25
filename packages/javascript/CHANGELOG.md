@@ -4,6 +4,7 @@
 
 - `getFileSize`: Add `getFileSize` method
 - `headFile`, `tailFile`: Use better head/tail logic
+- `fileSizeFormat`: Add `ceil` argument to the `fileSizeFormat` method
 
 ## 1.10.3 (2025-11-04)
 
