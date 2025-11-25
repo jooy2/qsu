@@ -1,6 +1,6 @@
 # Changelog (Dart)
 
-## 1.1.9 (2025--)
+## 1.1.9 (2025-11-25)
 
 - Add `getFileSize` method
 - Add `normalizeFile` method
