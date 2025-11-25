@@ -1,6 +1,7 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { runCommand, getHostname, getMachineId, getSid } from '../dist/node';
+import { runCommand, getHostname, getMachineId, getSid, getRamSize } from '../dist/node';
+import { contains } from '../lib';
 
 describe('OS', () => {
 	it('runCommand', async () => {
@@ -37,6 +38,13 @@ describe('OS', () => {
 		}
 
 		assert.match(mId, regex);
+	});
+
+	it('getRamSize', async () => {
+		const ramSize = getRamSize();
+
+		assert.strictEqual(ramSize.endsWith('GB'), true);
+		assert.strictEqual(contains(ramSize, ['1', '2', '4', '8', '16', '32']), true);
 	});
 
 	// Example: S-1-5-21-406418252-5582013529-1321253100-2001

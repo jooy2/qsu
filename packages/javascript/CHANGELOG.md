@@ -3,6 +3,7 @@
 ## 1.10.4 (2025--)
 
 - `getFileSize`: Add `getFileSize` method
+- `getRamSize`: Add `getRamSize` method
 - `headFile`, `tailFile`: Use better head/tail logic
 - `fileSizeFormat`: Add `ceil` argument to the `fileSizeFormat` method
 
