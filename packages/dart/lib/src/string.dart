@@ -34,6 +34,58 @@ String replaceBetween(
       RegExp('$startCharRegExp.*?$endCharRegExp'), replaceWith);
 }
 
+/// Splits a string based on the specified character and returns it as an Array. Unlike the existing split, it splits the values provided as multiple parameters (array or multiple arguments) at once.
+List<String> split(String str, [List<String>? splitter]) {
+  if (str.isEmpty) {
+    return [];
+  }
+
+  final List<String> splitters =
+      (splitter != null && splitter.isNotEmpty) ? splitter : [];
+
+  if (splitters.isEmpty) {
+    return [str];
+  }
+
+  final int splitterLength = splitters.length;
+  String charPattern = '';
+  String strPattern = '';
+
+  for (var i = 0; i < splitterLength; i++) {
+    final String spl = splitters[i];
+
+    if (spl.length > 1) {
+      final String escaped = spl
+          .replaceAll(r'\', r'\\')
+          .replaceAll('[', r'\[')
+          .replaceAll(']', r'\]')
+          .replaceAll('?', r'\?')
+          .replaceAll('.', r'\.')
+          .replaceAll('{', r'\{')
+          .replaceAll('}', r'\}')
+          .replaceAll('+', r'\+');
+      strPattern += '${strPattern.isEmpty ? '' : '|'}$escaped';
+    } else if (spl == '-' || spl == '[' || spl == ']') {
+      charPattern += r'\' + spl;
+    } else {
+      charPattern += spl;
+    }
+  }
+
+  if (charPattern.isEmpty && strPattern.isEmpty) {
+    return [str];
+  }
+
+  if (charPattern.isNotEmpty) {
+    charPattern = '[$charPattern]';
+    if (strPattern.isNotEmpty) {
+      strPattern = '|$strPattern';
+    }
+  }
+
+  return str.split(RegExp('$charPattern$strPattern+', caseSensitive: false));
+}
+
 /// Removes `\n`, `\r` characters or replaces them with specified characters.
 String removeNewLine(String str, {String replaceTo = ''}) {
   return str

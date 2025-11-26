@@ -1,5 +1,9 @@
 # Changelog (Dart)
 
+## 1.1.11 (2025--)
+
+- Add `split` method
+
 ## 1.1.10 (2025-11-25)
 
 - Fix package dependencies

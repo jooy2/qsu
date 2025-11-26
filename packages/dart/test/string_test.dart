@@ -36,6 +36,17 @@ void main() {
       expect(replaceBetween('hell1o2~', '1', '2', 'o!'), 'hello!~');
     });
 
+    test('split', () {
+      expect(split('hello,js world', ['']), ['hello,js world']);
+      expect(split('hello,js world', [',', ' ']), ['hello', 'js', 'world']);
+      expect(split('hello, js world', [', ']), ['hello', 'js world']);
+      expect(split('hello, js world', ['hello', ' js ', 'w']),
+          ['', ',', '', 'orld']);
+      expect(split('hello+js.world', ['+', '.']), ['hello', 'js', 'world']);
+      expect(split('hello+?js world', ['+?']), ['hello', 'js world']);
+      expect(split('hello j\\s world', ['\\s']), ['hello j', ' world']);
+    });
+
     test('removeNewLine', () {
       expect(removeNewLine('''te
 

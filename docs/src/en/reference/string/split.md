@@ -1,4 +1,4 @@
-# split <Lang js />
+# split <Lang js dart />
 
 Splits a string based on the specified character and returns it as an Array. Unlike the existing split, it splits the values provided as multiple parameters (array or multiple arguments) at once.
 
@@ -13,9 +13,19 @@ Splits a string based on the specified character and returns it as an Array. Unl
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 split('hello% js world', '% '); // Returns ['hello', 'js world']
 split('hello,js,world', ','); // Returns ['hello', 'js', 'world']
 split('hello%js,world', ',', '%'); // Returns ['hello', 'js', 'world']
 split('hello%js,world', [',', '%']); // Returns ['hello', 'js', 'world']
 ```
+
+```dart [Dart]
+split('hello% js world', ['% ']); // Returns ['hello', 'js world']
+split('hello,js,world', [',']); // Returns ['hello', 'js', 'world']
+split('hello%js,world', [',', '%']); // Returns ['hello', 'js', 'world']
+```
+
+:::
