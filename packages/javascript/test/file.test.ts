@@ -1,6 +1,7 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
 import {
+	createDirectory,
 	createFile,
 	createFileWithDummy,
 	deleteAllFileFromDirectory,
@@ -245,12 +246,33 @@ describe('File', () => {
 		);
 	});
 
+	it('createDirectory', async () => {
+		await createDirectory(`${TARGET_PATH}/abc`);
+		await createDirectory(`${TARGET_PATH}/abc/def`);
+
+		assert.strictEqual(await isFileExists(`${TARGET_PATH}/abc`), true);
+		assert.strictEqual(await isFileExists(`${TARGET_PATH}/abc/def`), true);
+
+		await deleteFile(`${TARGET_PATH}/abc`);
+
+		assert.strictEqual(await isFileExists(`${TARGET_PATH}/abc`), false);
+		assert.strictEqual(await isFileExists(`${TARGET_PATH}/abc/def`), false);
+	});
+
 	it('createFile', async () => {
-		await createFile(`${TARGET_PATH}/__TEST__TOUCH_FILE.txt`);
+		const testFilePath = `${TARGET_PATH}/__TEST__TOUCH_FILE.txt`;
+
+		await createFile(testFilePath);
+
+		assert.strictEqual(await isFileExists(testFilePath), true);
 	});
 
 	it('deleteFile', async () => {
-		await deleteFile(`${TARGET_PATH}/__TEST__TOUCH_FILE.txt`);
+		const testFilePath = `${TARGET_PATH}/__TEST__TOUCH_FILE.txt`;
+
+		await deleteFile(testFilePath);
+
+		assert.strictEqual(await isFileExists(testFilePath), false);
 	});
 
 	it('createFileWithDummy', async () => {

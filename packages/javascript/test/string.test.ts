@@ -134,6 +134,7 @@ st`),
 	});
 
 	it('split', () => {
+		assert.deepStrictEqual(split('hello,js world', ['']), ['hello,js world']);
 		assert.deepStrictEqual(split('hello,js world', [',', ' ']), ['hello', 'js', 'world']);
 		assert.deepStrictEqual(split('hello,js world', ',', ' '), ['hello', 'js', 'world']);
 		assert.deepStrictEqual(split('hello, js world', ', '), ['hello', 'js world']);
