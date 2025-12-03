@@ -44,6 +44,14 @@ void main() {
       expect(isMatchPathname('/admin/hello/world', ['*']), true);
     });
 
+    test('isMobile', () {
+      expect(isMobile(userAgentBot), false);
+      expect(isMobile(userAgentDesktop), false);
+      expect(isMobile(userAgentMobileIOS), true);
+      expect(isMobile(userAgentMobileAndroid), true);
+      expect(isMobile(userAgentTablet), false);
+    });
+
     test('removeLocalePrefix', () {
       expect(removeLocalePrefix('/', ['ko', 'en']), '/');
       expect(removeLocalePrefix('', ['ko', 'en']), '');

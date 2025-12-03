@@ -3,6 +3,7 @@
 ## 1.1.11 (2025--)
 
 - Add `split` method
+- Add `isMobile` method
 
 ## 1.1.10 (2025-11-25)
 
