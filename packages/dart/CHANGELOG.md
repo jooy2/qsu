@@ -4,6 +4,7 @@
 
 - Add `split` method
 - Add `isMobile` method
+- Add `objDeleteKeyByValue` method
 
 ## 1.1.10 (2025-11-25)
 

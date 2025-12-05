@@ -1,5 +1,40 @@
 import 'dart:convert';
 
+import 'package:qsu/src/verify.dart';
+
+/// Deletes keys equal to the given value from the object data.
+Map<String, dynamic>? objDeleteKeyByValue(
+  Map<String, dynamic>? obj,
+  dynamic searchValue, {
+  bool recursive = false,
+}) {
+  if (obj == null) {
+    return null;
+  }
+
+  final newObj = Map<String, dynamic>.from(obj);
+  final keys = newObj.keys.toList();
+
+  for (int i = keys.length - 1; i >= 0; i--) {
+    final key = keys[i];
+    final value = newObj[key];
+
+    if (recursive && value != null && isObject(value)) {
+      final updated = objDeleteKeyByValue(
+        value as Map<String, dynamic>,
+        searchValue,
+        recursive: recursive,
+      );
+
+      newObj[key] = updated!;
+    } else if (value == searchValue) {
+      newObj.remove(key);
+    }
+  }
+
+  return newObj;
+}
+
 /// Converts the given object data to a URL query string.
 String objToQueryString(Map<String, dynamic> obj) {
   return obj.keys.map((key) {

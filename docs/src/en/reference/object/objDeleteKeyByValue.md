@@ -1,4 +1,4 @@
-# objDeleteKeyByValue <Lang js />
+# objDeleteKeyByValue <Lang js dart />
 
 Deletes keys equal to the given value from the object data. If the `recursive` option is `true`, also deletes all keys corresponding to the same value in the child items.
 
@@ -6,7 +6,7 @@ Deletes keys equal to the given value from the object data. If the `recursive` o
 
 - `obj::object`
 - `searchValue::string|number|null|undefined`
-- `recursive::boolean`
+- `recursive::boolean` <DartNamed />
 
 ## Returns
 
@@ -14,7 +14,9 @@ Deletes keys equal to the given value from the object data. If the `recursive` o
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 const result = objDeleteKeyByValue(
 	{
 		a: 1,
@@ -36,3 +38,27 @@ const result = objDeleteKeyByValue(
 
 console.log(result); // Returns { a: 1, c: { bb: { aaa: 1 } }, d: {} }
 ```
+
+```dart [Dart]
+print(objDeleteKeyByValue(
+    {
+      'a': 1,
+      'b': 2,
+      'c': {
+        'aa': 2,
+        'bb': {
+          'aaa': 1,
+          'bbb': 2
+        }
+      },
+      'd': {
+        'aa': 2
+      }
+    },
+    2,
+    recursive: true
+));
+// Returns { 'a': 1, 'c': { 'bb': { 'aaa': 1 } }, 'd': {} }
+```
+
+:::

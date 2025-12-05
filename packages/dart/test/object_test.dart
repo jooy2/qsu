@@ -4,6 +4,52 @@ import 'package:test/test.dart';
 void main() {
   group('Object', () {
     test('objToQueryString', () {
+      expect(objDeleteKeyByValue({}, 1), {});
+      expect(
+          objDeleteKeyByValue(
+              {'a': 1, 'b': 2, 'c': 2, 'd': 3, 'e': 2, 'f': '2'}, 2),
+          {'a': 1, 'd': 3, 'f': '2'});
+      expect(
+          objDeleteKeyByValue({
+            'a': 1,
+            'b': 2,
+            'c': {
+              'aa': 2,
+              'bb': {'aaa': 1, 'bbb': 2, 'ccc': 2}
+            },
+            'd': 3,
+            'e': {'aa': 2}
+          }, 2, recursive: true),
+          {
+            'a': 1,
+            'c': {
+              'bb': {'aaa': 1}
+            },
+            'd': 3,
+            'e': {}
+          });
+      expect(
+          objDeleteKeyByValue({
+            'a': 1,
+            'b': 2,
+            'c': {
+              'aa': 2,
+              'bb': {'aaa': 1, 'bbb': 2, 'ccc': 2}
+            },
+            'd': 2,
+            'e': {'aa': 2}
+          }, 2),
+          {
+            'a': 1,
+            'c': {
+              'aa': 2,
+              'bb': {'aaa': 1, 'bbb': 2, 'ccc': 2}
+            },
+            'e': {'aa': 2}
+          });
+    });
+
+    test('objToQueryString', () {
       expect(objToQueryString({}), '');
       expect(
           objToQueryString({
