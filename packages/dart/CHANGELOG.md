@@ -1,6 +1,6 @@
 # Changelog (Dart)
 
-## 1.1.11 (2025--)
+## 1.1.11 (2025-12-10)
 
 - Add `split` method
 - Add `isMobile` method
