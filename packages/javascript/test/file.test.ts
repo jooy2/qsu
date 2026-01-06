@@ -197,13 +197,13 @@ describe('File', () => {
 		assert.strictEqual(getFileExtension('test'), null);
 		assert.strictEqual(getFileExtension('TEST.FILE.TXT'), 'txt');
 		assert.strictEqual(getFileExtension('test..txt..png'), 'png');
-		assert.strictEqual(getFileExtension('txt', true), null);
-		assert.strictEqual(getFileExtension('txt.png', true), 'png');
+		assert.strictEqual(getFileExtension('txt'), null);
+		assert.strictEqual(getFileExtension('txt.png'), 'png');
 		assert.strictEqual(getFileExtension('/home/txt.txt'), 'txt');
 		assert.strictEqual(getFileExtension('/home/txt.abc.png'), 'png');
-		assert.strictEqual(getFileExtension('C:\\test\\txt.png', true), 'png');
-		assert.strictEqual(getFileExtension('C:\\test.hello.sample\\txt', true), null);
-		assert.strictEqual(getFileExtension('C:\\test.hello.sample\\txt.txt', true), 'txt');
+		assert.strictEqual(getFileExtension('C:\\test\\txt.png'), 'png');
+		assert.strictEqual(getFileExtension('C:\\test.hello.sample\\txt'), null);
+		assert.strictEqual(getFileExtension('C:\\test.hello.sample\\txt.txt'), 'txt');
 	});
 
 	it('getFileName', () => {
