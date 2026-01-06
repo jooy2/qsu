@@ -172,20 +172,12 @@ String getFileName(String filePath, {bool? withExtension = false}) {
 }
 
 /// Returns only the extensions in the file path. If unknown, returns null'.
-String? getFileExtension(String filePath, {bool? isWindows = false}) {
-  String strPath = filePath.split(isWindows == true ? '\\' : '/').last;
+String? getFileExtension(String filePath) {
+  String ext = extension(getFileName(filePath, withExtension: true))
+      .replaceAll('.', '')
+      .toLowerCase();
 
-  if (strPath.isEmpty) {
-    return null;
-  }
-
-  strPath = extension(strPath).isNotEmpty ? extension(strPath) : strPath;
-
-  if (!strPath.contains('.')) {
-    return null;
-  }
-
-  return strPath.split('.').last.toLowerCase();
+  return ext.isNotEmpty ? ext : null;
 }
 
 /// Returns the file in the specified path as a value hashed by a specific algorithm. The default algorithm is `md5`. This method uses a `Promise` to return a valid hash value.

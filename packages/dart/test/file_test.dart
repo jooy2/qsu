@@ -76,16 +76,13 @@ void main() {
       expect(getFileExtension('test'), null);
       expect(getFileExtension('TEST.FILE.TXT'), 'txt');
       expect(getFileExtension('test..txt..png'), 'png');
-      expect(getFileExtension('txt', isWindows: true), null);
-      expect(getFileExtension('txt.png', isWindows: true), 'png');
+      expect(getFileExtension('txt'), null);
+      expect(getFileExtension('txt.png'), 'png');
       expect(getFileExtension('/home/txt.txt'), 'txt');
       expect(getFileExtension('/home/txt.abc.png'), 'png');
-      expect(getFileExtension('C:\\test\\txt.png', isWindows: true), 'png');
-      expect(getFileExtension('C:\\test.hello.sample\\txt', isWindows: true),
-          null);
-      expect(
-          getFileExtension('C:\\test.hello.sample\\txt.txt', isWindows: true),
-          'txt');
+      expect(getFileExtension('C:\\test\\txt.png'), 'png');
+      expect(getFileExtension('C:\\test.hello.sample\\txt'), null);
+      expect(getFileExtension('C:\\test.hello.sample\\txt.txt'), 'txt');
     });
 
     test('getParentFilePath', () {
