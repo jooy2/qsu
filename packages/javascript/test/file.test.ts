@@ -76,15 +76,41 @@ describe('File', () => {
 
 	it('joinFilePath', () => {
 		assert.strictEqual(joinFilePath(true, 'C:\\', 'Windows', 'System32'), 'C:\\Windows\\System32');
+		assert.strictEqual(joinFilePath(true, 'D:\\'), 'D:\\');
+		assert.strictEqual(joinFilePath(true, 'C:\\', 'Windows', '..', 'text.txt'), 'C:\\text.txt');
 		assert.strictEqual(
-			joinFilePath(true, 'C:\\', 'Windows', '..', 'System32', 'Test.txt'),
-			'C:\\System32\\Test.txt'
+			joinFilePath(true, 'C:\\', 'Windows', '\\System32', 'text.txt'),
+			'C:\\Windows\\System32\\text.txt'
 		);
-		assert.strictEqual(joinFilePath(true, 'Users', 'test'), '\\Users\\test');
-		assert.strictEqual(joinFilePath(true, 'C:\\Users\\test'), 'C:\\Users\\test');
-		assert.strictEqual(joinFilePath(false, '/home', 'user', 'Desktop'), '/home/user/Desktop');
-		assert.strictEqual(joinFilePath(false, 'home', '/user', '.bashrc'), '/home/user/.bashrc');
-		assert.strictEqual(joinFilePath(false, 'home', '/user', '..', '.bashrc'), '/home/.bashrc');
+		assert.strictEqual(
+			joinFilePath(true, 'C:\\', 'Windows', '\\System32', '.text.txt'),
+			'C:\\Windows\\System32\\.text.txt'
+		);
+		assert.strictEqual(joinFilePath(true, 'Users', 'test\\'), '\\Users\\test');
+		assert.strictEqual(joinFilePath(true, 'Users'), '\\Users');
+		assert.strictEqual(joinFilePath(true, '\\\\net', '\\home'), '\\\\net\\home');
+		assert.strictEqual(
+			joinFilePath(true, '\\\\net', 'home', 'text.txt'),
+			'\\\\net\\home\\text.txt'
+		);
+		assert.strictEqual(
+			joinFilePath(true, '\\\\net', 'home', '.abc.txt'),
+			'\\\\net\\home\\.abc.txt'
+		);
+		assert.strictEqual(
+			joinFilePath(false, '/C:/', 'Users', 'test', 'text.txt'),
+			'/C:/Users/test/text.txt'
+		);
+		assert.strictEqual(joinFilePath(false, '/'), '/');
+		assert.strictEqual(joinFilePath(false, '/home/'), '/home');
+		assert.strictEqual(joinFilePath(false, '/home//user/'), '/home/user');
+		assert.strictEqual(
+			joinFilePath(false, 'home', 'user', 'hello.world', 'text.txt'),
+			'/home/user/hello.world/text.txt'
+		);
+		assert.strictEqual(joinFilePath(false, '/home', '/user', 'Desktop/'), '/home/user/Desktop');
+		assert.strictEqual(joinFilePath(false, 'home', 'user', '.bashrc'), '/home/user/.bashrc');
+		assert.strictEqual(joinFilePath(false, 'home', 'user', '..', '.bashrc'), '/home/.bashrc');
 	});
 
 	it('getFileSize', async () => {
