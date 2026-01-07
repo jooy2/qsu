@@ -103,12 +103,15 @@ describe('File', () => {
 	});
 
 	it('getParentFilePath', () => {
+		assert.strictEqual(getParentFilePath('/'), '/');
 		assert.strictEqual(getParentFilePath('/home/user/test.txt'), '/home/user');
+		assert.strictEqual(getParentFilePath('/home/user/abc'), '/home/user');
 		assert.strictEqual(getParentFilePath('/home'), '/');
 		assert.strictEqual(getParentFilePath('/'), '/');
 		assert.strictEqual(getParentFilePath('C:\\', true), 'C:\\');
 		assert.strictEqual(getParentFilePath('C:\\Users', true), 'C:\\');
-		assert.strictEqual(getParentFilePath('C:\\Users\\my', true), 'C:\\Users');
+		assert.strictEqual(getParentFilePath('C:\\Users\\user', true), 'C:\\Users');
+		assert.strictEqual(getParentFilePath('C:\\Users\\user\\text.txt', true), 'C:\\Users\\user');
 	});
 
 	it('toPosixFilePath', () => {

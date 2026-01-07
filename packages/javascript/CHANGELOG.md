@@ -6,6 +6,7 @@
 - `getFileExtension`: Performance improvements and cleanups
 - `getFileName`: Performance improvements and cleanups
 - `toValidFilePath`: Performance improvements and cleanups
+- `getParentFilePath`: Performance improvements and cleanups
 
 ## 1.10.4 (2025-11-25)
 
