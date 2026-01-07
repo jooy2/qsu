@@ -58,16 +58,20 @@ describe('File', () => {
 		assert.strictEqual(toValidFilePath('/home//test/'), '/home/test');
 		assert.strictEqual(toValidFilePath('home/test/.conf'), '/home/test/.conf');
 		assert.strictEqual(toValidFilePath('/'), '/');
-		assert.strictEqual(toValidFilePath('C:\\\\Users\\test\\', true), 'C:\\Users\\test');
+		assert.strictEqual(toValidFilePath(''), '/');
+		assert.strictEqual(toValidFilePath('', true), '\\');
+		assert.strictEqual(toValidFilePath('\\', true), '\\');
+		assert.strictEqual(toValidFilePath('\\Users', true), '\\Users');
+		assert.strictEqual(toValidFilePath('\\\\net\\work', true), '\\\\net\\work');
 		assert.strictEqual(
-			toValidFilePath('C:\\Users\\test\\.config', true),
-			'C:\\Users\\test\\.config'
+			toValidFilePath('\\\\net\\work\\\\file.json', true),
+			'\\\\net\\work\\file.json'
 		);
+		assert.strictEqual(toValidFilePath('C:', true), 'C:\\');
+		assert.strictEqual(toValidFilePath('C:\\Users\\', true), 'C:\\Users');
+		assert.strictEqual(toValidFilePath('C:\\\\\\Users\\test\\', true), 'C:\\Users\\test');
 		assert.strictEqual(toValidFilePath('\\Users\\test\\.config', true), '\\Users\\test\\.config');
 		assert.strictEqual(toValidFilePath('Users\\test\\.config', true), '\\Users\\test\\.config');
-		assert.strictEqual(toValidFilePath('C:', true), 'C:\\');
-		assert.strictEqual(toValidFilePath('C:\\\\', true), 'C:\\');
-		assert.strictEqual(toValidFilePath('C:\\Users\\', true), 'C:\\Users');
 	});
 
 	it('joinFilePath', () => {

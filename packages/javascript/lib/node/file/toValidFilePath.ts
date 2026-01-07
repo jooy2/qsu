@@ -1,33 +1,37 @@
+import { posix, win32 } from 'path';
+
 export function toValidFilePath(filePath: string, isWindows?: boolean): string {
+	if (filePath?.length < 1) {
+		return isWindows ? '\\' : '/';
+	}
 	if (isWindows) {
-		let windowsPath = filePath;
+		let p = filePath;
 
-		if (windowsPath.length > 2 && !/^[a-zA-Z]:/.test(windowsPath)) {
-			windowsPath = `\\${windowsPath}`;
+		p = win32.normalize(p).replace(/\.$/g, '');
+
+		if (p.endsWith('\\') && p.length > 1) {
+			p = p.replace(/\\+$/, '');
+		}
+		if (p.endsWith(':')) {
+			p = `${p}\\`;
+		}
+		if (!p.startsWith('\\') && p.indexOf(':') === -1) {
+			p = `\\${p}`;
 		}
 
-		if ((windowsPath.match(/\\/g) || []).length > 1 && /\\$/.test(windowsPath)) {
-			windowsPath = windowsPath.replace(/\\$/, '');
+		return p;
+	} else {
+		let p = filePath;
+
+		p = posix.normalize(p);
+
+		if (!posix.isAbsolute(p)) {
+			p = `/${p}`;
+		}
+		if (p.endsWith('/') && p.length > 1) {
+			p = p.slice(0, -1);
 		}
 
-		if (/^[a-zA-Z]:$/.test(windowsPath)) {
-			windowsPath = `${windowsPath}\\`;
-		}
-
-		return windowsPath.replace(/\\{2,}/g, '\\');
+		return p;
 	}
-
-	let unixPath: string = filePath;
-
-	if (!/^\//.test(unixPath)) {
-		unixPath = `/${unixPath}`;
-	}
-
-	unixPath = unixPath.replace(/\/{2,}/g, '/');
-
-	if (unixPath.length > 1) {
-		unixPath = unixPath.replace(/\/$/, '');
-	}
-
-	return unixPath;
 }
