@@ -3,7 +3,8 @@
 ## 1.10.5 (2026--)
 
 - **BREAKING CHANGES**: The `isWindows` argument is no longer used in `getFileExtension`.
-- `getFileExtension`: Performance improvement
+- `getFileExtension`: Performance improvements and cleanups
+- `getFileName`: Performance improvements and cleanups
 
 ## 1.10.4 (2025-11-25)
 
