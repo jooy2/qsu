@@ -1,6 +1,6 @@
 # Changelog (JavaScript)
 
-## 1.10.5 (2026--)
+## 1.11.0 (2026-01-09)
 
 - **BREAKING CHANGES**: The `isWindows` argument is no longer used in `getFileExtension`.
 - `getFileExtension`: Performance improvements and cleanups
