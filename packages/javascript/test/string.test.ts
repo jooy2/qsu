@@ -9,6 +9,7 @@ import {
 	capitalizeEverySentence,
 	capitalizeEachWords,
 	getStrBytes,
+	getGroupKeys,
 	strCount,
 	strShuffle,
 	strRandom,
@@ -193,5 +194,48 @@ st`),
 		assert.strictEqual(getStrBytes('😀😀😀'), 12);
 		assert.strictEqual(getStrBytes('😀'), 4);
 		assert.strictEqual(getStrBytes('123 ABcd 가나다😀'), 22);
+	});
+
+	it('getGroupKeys', () => {
+		assert.deepStrictEqual(getGroupKeys('', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('{', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('{  }', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('{  }', '{', '}', true), ['  ']);
+		assert.deepStrictEqual(getGroupKeys('}{}', '{', '}'), ['']);
+		assert.deepStrictEqual(getGroupKeys('{a}', '{', '}'), ['a']);
+		assert.deepStrictEqual(getGroupKeys('{a-b_c$d$}', '{', '}'), ['a-b_c$d$']);
+		assert.deepStrictEqual(getGroupKeys('{a-b_ c$d$}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('{a] [b} [c] {d}', '{', ']'), ['a']);
+		assert.deepStrictEqual(getGroupKeys('{{a}}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('{{a}}', '{{', '}}'), ['a']);
+		assert.deepStrictEqual(getGroupKeys('{{aaa}} {bbb}', '{', '}'), ['bbb']);
+		assert.deepStrictEqual(getGroupKeys('{a{a{a}}}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('{a{a{a} }}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('{a}}}}}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('{{{a}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('{{}{{}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('{{aaa}} {{bbb}} {{}}', '{{', '}}'), ['aaa', 'bbb', '']);
+		assert.deepStrictEqual(getGroupKeys('abc {def} ghi', '{', '}'), ['def']);
+		assert.deepStrictEqual(getGroupKeys('abc {def}{def} ghi\n\n{def}{{def}}', '{', '}'), [
+			'def',
+			'def',
+			'def'
+		]);
+		assert.deepStrictEqual(getGroupKeys('abc {} {} {def} ghi', '{', '}'), ['', '', 'def']);
+		assert.deepStrictEqual(getGroupKeys('abc {def}{g}{hi}jk', '{', '}'), ['def', 'g', 'hi']);
+		assert.deepStrictEqual(getGroupKeys('abc \\{def} {ghi\\}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('abc \\{def}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('abc {d{ef}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('abc {{def}}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('abcdefghi', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('abc[def][ghi] [] [] []', '[', ']'), [
+			'def',
+			'ghi',
+			'',
+			'',
+			''
+		]);
+		assert.deepStrictEqual(getGroupKeys('abc {d\nef}', '{', '}'), []);
+		assert.deepStrictEqual(getGroupKeys('abc {def}\n\n{ghi}\n\n{a\n}', '{', '}'), ['def', 'ghi']);
 	});
 });

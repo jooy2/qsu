@@ -1,6 +1,7 @@
 export { capitalizeEachWords } from './capitalizeEachWords.js';
 export { capitalizeEverySentence } from './capitalizeEverySentence.js';
 export { capitalizeFirst } from './capitalizeFirst.js';
+export { getGroupKeys } from './getGroupKeys.js';
 export { getStrBytes } from './getStrBytes.js';
 export { removeNewLine } from './removeNewLine.js';
 export { removeSpecialChar } from './removeSpecialChar.js';

@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.11.1 (2026-01-18)
+
+- `getGroupKeys`: Add `getGroupKeys` method
+
 ## 1.11.0 (2026-01-09)
 
 - **BREAKING CHANGES**: The `isWindows` argument is no longer used in `getFileExtension`.
