@@ -1,3 +1,6 @@
+<script setup lang="ts">
+import LangLogo from './LangLogo.vue';
+</script>
 <template>
 	<div class="named">
 		<LangLogo name="dart" :width="18" />
@@ -23,6 +26,3 @@
 	margin-left: 5px;
 }
 </style>
-<script setup lang="ts">
-import LangLogo from './LangLogo.vue';
-</script>
