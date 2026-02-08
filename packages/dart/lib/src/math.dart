@@ -1,7 +1,7 @@
 import 'dart:math';
 
-/// Returns a random number (Between min and max).
-int numRandom(int? min, int? max) {
+/// Returns a randomly selected number between the min and max values.
+int numPick(int? min, int? max) {
   if (min == null && max == null) {
     return Random().nextBool() ? 1 : 0;
   }

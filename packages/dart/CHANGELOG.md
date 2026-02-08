@@ -1,5 +1,9 @@
 # Changelog (Dart)
 
+## 1.1.12 (2026--)
+
+- **BREAKING CHANGES**: `numRandom` has renamed to `numPick`
+
 ## 1.1.11 (2025-12-10)
 
 - Add `split` method
@@ -82,7 +86,7 @@
 - Add `arrCount` method
 - Add `between` method
 - Add `arrGroupByMaxCount` method
-- Add `numRandom` method
+- Add `numPick` method
 - Add `len` method
 - Add `isTrueMinimumNumberOfTimes` method
 - Add `objToQueryString` method
