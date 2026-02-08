@@ -1,6 +1,6 @@
-# numRandom <Lang dart js />
+# numPick <Lang dart js />
 
-Returns a random number (Between min and max).
+Returns a randomly selected number between the min and max values.
 
 ## Parameters
 
@@ -16,13 +16,13 @@ Returns a random number (Between min and max).
 ::: code-group
 
 ```javascript [JavaScript]
-numRandom(1, 5); // Returns 1~5
-numRandom(10, 20); // Returns 10~20
+numPick(1, 5); // Returns 1~5
+numPick(10, 20); // Returns 10~20
 ```
 
 ```dart [Dart]
-numRandom(1, 5); // Returns 1~5
-numRandom(10, 20); // Returns 10~20
+numPick(1, 5); // Returns 1~5
+numPick(10, 20); // Returns 10~20
 ```
 
 :::

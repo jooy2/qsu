@@ -1,12 +1,12 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { numRandom, sum, mul, sub, div } from '../dist';
+import { numPick, sum, mul, sub, div } from '../dist';
 
 describe('Math', () => {
-	it('numRandom', () => {
-		assert(typeof numRandom(1, 2) === 'number');
+	it('numPick', () => {
+		assert(typeof numPick(1, 2) === 'number');
 		for (let i = 0; i < 50; i += 1) {
-			const offsetTest: number = numRandom(5, 10);
+			const offsetTest: number = numPick(5, 10);
 			assert(offsetTest >= 5 && offsetTest <= 10);
 		}
 	});

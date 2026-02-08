@@ -1,5 +1,5 @@
 import type { PositiveNumber } from '../_types/global';
-import { numRandom } from '../math/numRandom.js';
+import { numPick } from '../math/numPick.js';
 
 export function strBlindRandom<N extends number>(
 	str: string,
@@ -18,7 +18,7 @@ export function strBlindRandom<N extends number>(
 	const totalStrLength = currentStr.length;
 
 	while (hideCount < blindLength && currentStrLength < totalStrLength) {
-		tempIdx = numRandom(0, totalStrLength);
+		tempIdx = numPick(0, totalStrLength);
 
 		if (/[a-zA-Z가-힣]/.test(currentStr.substring(tempIdx, tempIdx + 1))) {
 			currentStr = `${currentStr.substring(0, tempIdx + 1)}${blindStr}${currentStr.substring(

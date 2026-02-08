@@ -1,6 +1,6 @@
-# numRandom <Lang dart js />
+# numPick <Lang dart js />
 
-임의의 숫자(최소값과 최대값 사이)를 반환합니다.
+min과 max값 사이 중 임의의 숫자를 선택하여 리턴합니다.
 
 ## Parameters
 
@@ -16,13 +16,13 @@
 ::: code-group
 
 ```javascript [JavaScript]
-numRandom(1, 5); // Returns 1~5
-numRandom(10, 20); // Returns 10~20
+numPick(1, 5); // Returns 1~5
+numPick(10, 20); // Returns 10~20
 ```
 
 ```dart [Dart]
-numRandom(1, 5); // Returns 1~5
-numRandom(10, 20); // Returns 10~20
+numPick(1, 5); // Returns 1~5
+numPick(10, 20); // Returns 10~20
 ```
 
 :::

@@ -1,4 +1,4 @@
-export function numRandom(min: number, max: number): number {
+export function numPick(min: number, max: number): number {
 	if (!min && !max) {
 		return Math.random() > 0.5 ? 1 : 0;
 	}
