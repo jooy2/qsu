@@ -1,13 +1,29 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { numPick, sum, mul, sub, div } from '../dist';
+import { numPick, numUnique, sum, mul, sub, div } from '../dist';
 
 describe('Math', () => {
 	it('numPick', () => {
-		assert(typeof numPick(1, 2) === 'number');
+		assert.strictEqual(typeof numPick(1, 60) === 'number', true);
 		for (let i = 0; i < 50; i += 1) {
 			const offsetTest: number = numPick(5, 10);
 			assert(offsetTest >= 5 && offsetTest <= 10);
+		}
+	});
+
+	it('numUnique', () => {
+		assert.strictEqual(typeof numUnique() === 'number', true);
+
+		const uniqSets = new Set();
+
+		for (let i = 0; i < 100; i += 1) {
+			const uniq = numUnique();
+
+			if (uniqSets.has(uniq)) {
+				throw new Error('Duplicate number generated');
+			} else {
+				uniqSets.add(uniq);
+			}
 		}
 	});
 
