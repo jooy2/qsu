@@ -9,5 +9,19 @@ void main() {
         assert(offsetTest >= 5 && offsetTest <= 10);
       }
     });
+
+    test('numUnique', () {
+      final uniqSet = <int>{};
+
+      for (int i = 0; i < 100; i++) {
+        final uniq = numUnique();
+
+        if (uniqSet.contains(uniq)) {
+          fail('Duplicate number generated');
+        } else {
+          uniqSet.add(uniq);
+        }
+      }
+    });
   });
 }
