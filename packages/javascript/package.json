@@ -74,19 +74,19 @@
 	],
 	"devDependencies": {
 		"@eslint/js": "^9.39.2",
-		"@types/node": "^25.0.9",
-		"@typescript-eslint/parser": "^8.53.0",
+		"@types/node": "^25.3.0",
+		"@typescript-eslint/parser": "^8.56.1",
 		"dayjs": "^1.11.19",
 		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
-		"eslint-plugin-n": "^17.23.2",
-		"glob-bin": "^1.0.0",
-		"globals": "^17.0.0",
+		"eslint-plugin-n": "^17.24.0",
+		"glob-bin": "^1.1.0",
+		"globals": "^17.3.0",
 		"jiti": "^2.6.1",
-		"prettier": "^3.8.0",
+		"prettier": "^3.8.1",
 		"terser-glob": "^1.1.0",
 		"tsx": "^4.21.0",
 		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.53.0"
+		"typescript-eslint": "^8.56.1"
 	}
 }
