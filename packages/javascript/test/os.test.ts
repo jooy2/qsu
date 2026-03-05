@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { runCommand, getHostname, getMachineId, getSid, getRamSize } from '../dist/node';
+import { runCommand, getCpu, getHostname, getMachineId, getSid, getRamSize } from '../dist/node';
 import { contains } from '../lib';
 
 describe('OS', () => {
@@ -9,10 +9,20 @@ describe('OS', () => {
 		assert.strictEqual(await runCommand('echo b'), 'b');
 	});
 
+	it('getCpu', () => {
+		const cpuName = getCpu();
+
+		assert.strictEqual(cpuName.length > 0, true);
+		assert.match(cpuName, /[a-zA-Z0-9]+/);
+		assert.notEqual(cpuName, 'Unknown');
+	});
+
 	it('getHostname', async () => {
 		const hostname = await getHostname();
 
+		assert.strictEqual(hostname.length > 0, true);
 		assert.match(hostname, /[a-zA-Z0-9]+/);
+		assert.notEqual(hostname, 'Unknown');
 	});
 
 	/*

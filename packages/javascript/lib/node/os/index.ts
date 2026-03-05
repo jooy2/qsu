@@ -1,3 +1,4 @@
+export { getCpu } from './getCpu.js';
 export { getHostname } from './getHostname.js';
 export { getMachineId } from './getMachineId.js';
 export { getRamSize } from './getRamSize.js';

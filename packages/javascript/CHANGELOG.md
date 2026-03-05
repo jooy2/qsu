@@ -4,6 +4,7 @@
 
 - **BREAKING CHANGES**: `numRandom` has renamed to `numPick`
 - `numUnique`: Add `numUnique` method
+- `getCpu`: Add `getCpu` method
 
 ## 1.11.1 (2026-01-18)
 
