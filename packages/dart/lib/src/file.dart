@@ -155,19 +155,21 @@ String getFileName(String filePath, {bool? withExtension = false}) {
   }
 
   final String normalizedPath = filePath.replaceAll('\\', '/');
+  final removeExtension =
+      withExtension != true && !normalizedPath.endsWith('/');
 
   if (!normalizedPath.contains('/')) {
-    if (withExtension == true) {
-      return normalizedPath;
-    } else {
+    if (removeExtension == true) {
       return basenameWithoutExtension(normalizedPath);
+    } else {
+      return normalizedPath;
     }
   }
 
-  if (withExtension == true) {
-    return basename(normalizedPath);
-  } else {
+  if (removeExtension == true) {
     return basenameWithoutExtension(normalizedPath);
+  } else {
+    return basename(normalizedPath);
   }
 }
 

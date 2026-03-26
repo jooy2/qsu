@@ -3,6 +3,7 @@
 ## 1.1.12 (2026--)
 
 - **BREAKING CHANGES**: `numRandom` has renamed to `numPick`
+- `getFileName`: Fix incorrect directory name with include dot character
 
 ## 1.1.11 (2025-12-10)
 

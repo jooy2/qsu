@@ -60,8 +60,15 @@ void main() {
     });
 
     test('getFileName', () {
+      expect(getFileName('C:\\Users\\test\\Desktop\\'), 'Desktop');
+      expect(getFileName('C:\\Users\\test\\Desktop'), 'Desktop');
+      expect(getFileName('C:\\Users\\test\\Desktop\\text'), 'text');
       expect(getFileName('C:\\Users\\test\\Desktop\\text.txt'), 'text');
+      expect(getFileName('C:\\Users\\test\\Desktop\\a.b.c.txt'), 'a.b.c');
       expect(getFileName('/home/user/Desktop/example.txt'), 'example');
+      expect(getFileName('/home/user/Desktop/example'), 'example');
+      expect(getFileName('/home/user/Desktop/example/'), 'example');
+      expect(getFileName('/home/user/Desktop/example.a/'), 'example.a');
       expect(
           getFileName('C:\\example.txt', withExtension: true), 'example.txt');
     });
