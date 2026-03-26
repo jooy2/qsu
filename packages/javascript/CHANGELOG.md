@@ -2,6 +2,10 @@
 
 ## 1.11.2 (2026-03-26)
 
+- `numberFormat`: Fix zero value
+
+## 1.11.2 (2026-03-26)
+
 - **BREAKING CHANGES**: `numRandom` has renamed to `numPick`
 - `numUnique`: Add `numUnique` method
 - `getCpu`: Add `getCpu` method

@@ -83,7 +83,7 @@
 		"globals": "^17.4.0",
 		"jiti": "^2.6.1",
 		"prettier": "^3.8.1",
-		"terser-glob": "^1.1.0",
+		"terser-glob": "^1.2.1",
 		"tsx": "^4.21.0",
 		"typescript": "5.9.3",
 		"typescript-eslint": "^8.57.2"

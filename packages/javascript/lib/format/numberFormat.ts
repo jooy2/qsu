@@ -1,5 +1,5 @@
 export function numberFormat(number: number | string): string {
-	if (!number) {
+	if (number === null || number === undefined) {
 		return '';
 	}
 

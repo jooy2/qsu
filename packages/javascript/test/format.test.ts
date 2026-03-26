@@ -4,6 +4,7 @@ import { numberFormat, fileSizeFormat, duration, safeJSONParse, safeParseInt } f
 
 describe('Format', () => {
 	it('numberFormat', () => {
+		assert.strictEqual(numberFormat(0), '0');
 		assert.strictEqual(numberFormat(1234), '1,234');
 		assert.strictEqual(numberFormat(1234.5678), '1,234.5678');
 		assert.strictEqual(numberFormat(1234.0), '1,234');
