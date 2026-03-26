@@ -5,6 +5,7 @@
 - **BREAKING CHANGES**: `numRandom` has renamed to `numPick`
 - `numUnique`: Add `numUnique` method
 - `getCpu`: Add `getCpu` method
+- `getFileName`: Fix incorrect directory name with include dot character
 
 ## 1.11.1 (2026-01-18)
 

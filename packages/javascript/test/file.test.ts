@@ -241,10 +241,17 @@ describe('File', () => {
 
 	it('getFileName', () => {
 		assert.strictEqual(getFileName('test/sample.txt'), 'sample');
+		assert.strictEqual(getFileName('test/sample'), 'sample');
+		assert.strictEqual(getFileName('test/sample/'), 'sample');
+		assert.strictEqual(getFileName('test/'), 'test');
+		assert.strictEqual(getFileName('test/sample', true), 'sample');
 		assert.strictEqual(getFileName('test/sample.txt.sample'), 'sample.txt');
 		assert.strictEqual(getFileName('test/sample.txt', true), 'sample.txt');
+		assert.strictEqual(getFileName('test/sample.a/'), 'sample.a');
 		assert.strictEqual(getFileName('C:\\Users\\user\\Desktop\\hello.txt'), 'hello');
 		assert.strictEqual(getFileName('C:\\Users\\user\\Desktop\\hello.txt', true), 'hello.txt');
+		assert.strictEqual(getFileName('C:\\Users\\user\\Desktop'), 'Desktop');
+		assert.strictEqual(getFileName('C:\\Users\\user\\Desktop\\'), 'Desktop');
 		assert.strictEqual(getFileName('test'), 'test');
 	});
 
