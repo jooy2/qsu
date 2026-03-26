@@ -1,6 +1,6 @@
 # Changelog (JavaScript)
 
-## 1.11.2 (2026-03-26)
+## 1.11.3 (2026-03-26)
 
 - `numberFormat`: Fix zero value
 
