@@ -1,10 +1,18 @@
 export function numberFormat(number: number | string): string {
-	const numberParts =
-		typeof number === 'string' ? number.split('.') : Math.abs(number).toString().split('.');
+	if (!number) {
+		return '';
+	}
+
+	const str = typeof number === 'string' ? number : number.toString();
+	const isNegative = str.startsWith('-');
+	const abs = isNegative ? str.slice(1) : str;
+
+	const numberParts = abs.split('.');
 
 	const numberFormatted = new Intl.NumberFormat('en-US', {
 		roundingPriority: 'morePrecision'
 	}).format(parseInt(numberParts[0], 10));
 
-	return `${numberFormatted}${numberParts.length > 1 ? `.${numberParts[1]}` : ''}`;
+	const result = `${numberFormatted}${numberParts.length > 1 ? `.${numberParts[1]}` : ''}`;
+	return isNegative ? `-${result}` : result;
 }

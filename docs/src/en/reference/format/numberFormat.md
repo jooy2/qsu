@@ -1,6 +1,6 @@
 # numberFormat <Lang dart js />
 
-Return number format including comma symbol.
+Returns the given number formatted for easy reading, including commas.
 
 ## Parameters
 

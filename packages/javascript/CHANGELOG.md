@@ -6,6 +6,7 @@
 - `numUnique`: Add `numUnique` method
 - `getCpu`: Add `getCpu` method
 - `getFileName`: Fix incorrect directory name with include dot character
+- `numberFormat`: Fix where negative numbers were not handled properly, and now return an empty string instead of 0 when the value is null
 
 ## 1.11.1 (2026-01-18)
 
