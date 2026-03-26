@@ -1,6 +1,6 @@
 # Changelog (JavaScript)
 
-## 1.11.2 (2026--)
+## 1.11.2 (2026-03-26)
 
 - **BREAKING CHANGES**: `numRandom` has renamed to `numPick`
 - `numUnique`: Add `numUnique` method
