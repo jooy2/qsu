@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.11.4 ()
+
+- `net.fetchData`: Add `fetchData` method
+
 ## 1.11.3 (2026-03-26)
 
 - `numberFormat`: Fix zero value

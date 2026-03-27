@@ -36,3 +36,22 @@ export interface LicenseOption {
 	htmlBr?: boolean;
 	type: 'mit' | 'apache20' | 'bsd3';
 }
+
+export interface HTTPRequestOption {
+	auth?: {
+		apiKey?: string;
+		bearer?: string;
+	};
+	get?: boolean;
+	post?: boolean;
+	put?: boolean;
+	delete?: boolean;
+	patch?: boolean;
+	method?: 'get' | 'post' | 'put' | 'delete' | 'patch';
+	host?: string;
+	queryParameters?: object;
+	body?: AnyValueObject | string | undefined | null | FormData;
+	bodyType?: 'text' | 'json' | 'form-data' | 'x-www-form-urlencoded';
+	headers?: AnyValueObject | undefined | null;
+	onError?: (error: any) => void;
+}
