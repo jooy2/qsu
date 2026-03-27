@@ -6,6 +6,7 @@ import {
 	createFileWithDummy,
 	deleteAllFileFromDirectory,
 	deleteFile,
+	getCopyFileName,
 	getFileExtension,
 	getFileHashFromPath,
 	getFileHashFromStream,
@@ -116,6 +117,41 @@ describe('File', () => {
 	it('getFileSize', async () => {
 		assert.strictEqual(await getFileSize(`${TARGET_PATH}/hello.md`), IS_WINDOWS_OS ? 89 : 82);
 		assert.strictEqual(await getFileSize(`${TARGET_PATH}/MV_TEST.txt`), IS_WINDOWS_OS ? 14 : 13);
+	});
+
+	it('getCopyFileName', () => {
+		const fileNameLists = [
+			'123',
+			'456 (1)',
+			'aaa.txt',
+			'bbb.txt',
+			'bbb (1).txt',
+			'ccc.txt',
+			'ccc (1).txt',
+			'ccc (1) (1).txt',
+			'ccc (2).txt',
+			'ccc (3).txt',
+			'ccc (4).txt',
+			'ddd.aaa.txt',
+			'ddd.bbb.txt',
+			'ddd.bbb (1).txt',
+			'ddd.aaa.aaa (1).txt'
+		];
+
+		assert.strictEqual(getCopyFileName('abc', fileNameLists), 'abc');
+		assert.strictEqual(getCopyFileName('abc.txt', fileNameLists), 'abc.txt');
+		assert.strictEqual(getCopyFileName('123', fileNameLists), '123 (1)');
+		assert.strictEqual(getCopyFileName('456 (1)', fileNameLists), '456 (1) (1)');
+		assert.strictEqual(getCopyFileName('aaa.txt', fileNameLists), 'aaa (1).txt');
+		assert.strictEqual(getCopyFileName('aaa (1).txt', fileNameLists), 'aaa (1).txt');
+		assert.strictEqual(getCopyFileName('bbb.txt', fileNameLists), 'bbb (2).txt');
+		assert.strictEqual(getCopyFileName('bbb (1).txt', fileNameLists), 'bbb (1) (1).txt');
+		assert.strictEqual(getCopyFileName('ccc.txt', fileNameLists), 'ccc (5).txt');
+		assert.strictEqual(getCopyFileName('ddd.aaa.txt', fileNameLists), 'ddd.aaa (1).txt');
+		assert.strictEqual(
+			getCopyFileName('ddd.aaa.aaa (1).txt', fileNameLists),
+			'ddd.aaa.aaa (1) (1).txt'
+		);
 	});
 
 	it('getFilePathLevel', () => {

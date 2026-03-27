@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.11.5 (2026-03-27)
+
+- `getCopyFileName`: Add `getCopyFileName` method
+
 ## 1.11.4 (2026-03-27)
 
 - `net.fetchData`: Add `fetchData` method

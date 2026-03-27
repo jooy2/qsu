@@ -3,6 +3,7 @@ export { createFile } from './createFile.js';
 export { createFileWithDummy } from './createFileWithDummy.js';
 export { deleteAllFileFromDirectory } from './deleteAllFileFromDirectory.js';
 export { deleteFile } from './deleteFile.js';
+export { getCopyFileName } from './getCopyFileName.js';
 export { getFileExtension } from './getFileExtension.js';
 export { getFileHashFromPath } from './getFileHashFromPath.js';
 export { getFileHashFromStream } from './getFileHashFromStream.js';
