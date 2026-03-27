@@ -1,6 +1,6 @@
 # Changelog (JavaScript)
 
-## 1.11.4 ()
+## 1.11.4 (2026-03-27)
 
 - `net.fetchData`: Add `fetchData` method
 
