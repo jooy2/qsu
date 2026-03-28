@@ -1,4 +1,4 @@
-# getFileExtension <Lang js />
+# getCopyFileName <Lang js />
 
 <NodeRequired en />
 
