@@ -184,8 +184,7 @@ String? getFileExtension(String filePath) {
 
 /// Returns the file in the specified path as a value hashed by a specific algorithm. The default algorithm is `md5`. This method uses a `Promise` to return a valid hash value.
 Future<String> getFileHashFromPath(String filePath,
-    {String? algorithm = 'md5' // 'md5' | 'sha1' | 'sha256' | 'sha512'
-    }) async {
+    {String? algorithm = 'md5'}) async {
   if (filePath.isEmpty) {
     throw ArgumentError('Invalid file path');
   }
