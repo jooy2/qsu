@@ -1,4 +1,4 @@
-# createDateListFromRange <Lang js />
+# createDateListFromRange <Lang js dart />
 
 Create an array list of all dates from `startDate` to `endDate` in the format `YYYY-MM-DD`.
 
@@ -13,7 +13,9 @@ Create an array list of all dates from `startDate` to `endDate` in the format `Y
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 createDateListFromRange(new Date('2023-01-01T01:00:00Z'), new Date('2023-01-05T01:00:00Z'));
 
 /*
@@ -26,3 +28,19 @@ createDateListFromRange(new Date('2023-01-01T01:00:00Z'), new Date('2023-01-05T0
 	 ]
  */
 ```
+
+```dart [Dart]
+createDateListFromRange(DateTime.utc(2023, 1, 1, 1, 0, 0), DateTime.utc(2023, 1, 5, 1, 0, 0));
+
+/*
+	 [
+		 '2023-01-01',
+		 '2023-01-02',
+		 '2023-01-03',
+		 '2023-01-04',
+		 '2023-01-05'
+	 ]
+ */
+```
+
+:::

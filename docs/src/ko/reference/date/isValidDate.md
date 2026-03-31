@@ -14,7 +14,16 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 isValidDate('2021-01-01'); // Returns true
 isValidDate('2021-02-30'); // Returns false
 ```
+
+```dart [Dart]
+isValidDate('2021-01-01'); // Returns true
+isValidDate('2021-02-30'); // Returns false
+```
+
+:::

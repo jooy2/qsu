@@ -9,6 +9,9 @@
 - Add `mul` method
 - Add `sub` method
 - Add `sum` method
+- Add `createDateListFromRange` method
+- Add `dateToYYYYMMDD` method
+- Add `isValidDate` method
 
 ## 1.1.11 (2025-12-10)
 
