@@ -1,3 +1,10 @@
+/// Calculates the difference between two given dates and returns the number of days.
+int dayDiff(DateTime date1, [DateTime? date2]) {
+  final DateTime date2c = date2 ?? DateTime.now();
+
+  return (date2c.difference(date1).inHours / 24).ceil();
+}
+
 /// Checks if a given date actually exists. Check only in `YYYY-MM-DD` format.
 bool isValidDate(String dateYYYYMMDD) {
   if (!RegExp(r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$').hasMatch(dateYYYYMMDD)) {

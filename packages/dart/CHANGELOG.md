@@ -11,6 +11,7 @@
 - Add `sum` method
 - Add `createDateListFromRange` method
 - Add `dateToYYYYMMDD` method
+- Add `dayDiff` method
 - Add `isValidDate` method
 
 ## 1.1.11 (2025-12-10)
