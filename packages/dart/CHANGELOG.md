@@ -5,6 +5,8 @@
 - **BREAKING CHANGES**: `numRandom` has renamed to `numPick`
 - `getFileName`: Fix incorrect directory name with include dot character
 - Add `getCopyFileName` method
+- Add `div` method
+- Add `mul` method
 
 ## 1.1.11 (2025-12-10)
 

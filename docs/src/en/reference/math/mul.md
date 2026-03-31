@@ -1,4 +1,4 @@
-# mul <Lang js />
+# mul <Lang js dart />
 
 Returns after multiplying all n arguments of numbers or the values of a single array of numbers.
 

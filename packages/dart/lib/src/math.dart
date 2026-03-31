@@ -30,3 +30,15 @@ double div(List<num> args) {
 
   return total;
 }
+
+/// Returns after multiplying all n arguments of numbers or the values of a single array of numbers.
+num mul(List<num> args) {
+  num total = args[0];
+
+  for (var i = 1; i < args.length; i++) {
+    total *= args[i];
+  }
+
+  return total;
+}
+

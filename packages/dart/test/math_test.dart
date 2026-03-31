@@ -30,5 +30,14 @@ void main() {
       expect(div([10, 2, 5]), equals(1));
       expect(div([1234]), equals(1234));
     });
+
+    test('mul', () {
+      expect(mul([0]), equals(0));
+      expect(mul([1, 2, 3, 4]), equals(24));
+      expect(mul([1, 2, 3]), equals(6));
+      expect(mul([1, 5, 7, 0, 9]), equals(0));
+      expect(mul([1234]), equals(1234));
+    });
+
   });
 }
