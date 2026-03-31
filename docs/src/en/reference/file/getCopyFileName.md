@@ -1,4 +1,4 @@
-# getCopyFileName <Lang js />
+# getCopyFileName <Lang js dart />
 
 <NodeRequired en />
 

@@ -173,6 +173,26 @@ String getFileName(String filePath, {bool? withExtension = false}) {
   }
 }
 
+/// Scans an array containing a list of names and displays an alternative name if any duplicates are found. If no duplicates are found, the names are returned as is.
+String getCopyFileName(String fileName, List<String> fileNameList) {
+  final String fName = getFileName(fileName);
+  final String? fExt = getFileExtension(fileName);
+  final Set<String> existingSet = fileNameList.toSet();
+
+  if (!existingSet.contains(fileName)) {
+    return fileName;
+  }
+
+  for (var i = 1;; i++) {
+    final candidate =
+        '$fName ($i)${fExt != null && fExt.isNotEmpty ? '.$fExt' : ''}';
+
+    if (!existingSet.contains(candidate)) {
+      return candidate;
+    }
+  }
+}
+
 /// Returns only the extensions in the file path. If unknown, returns null'.
 String? getFileExtension(String filePath) {
   String ext = extension(getFileName(filePath, withExtension: true))

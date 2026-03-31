@@ -73,6 +73,44 @@ void main() {
           getFileName('C:\\example.txt', withExtension: true), 'example.txt');
     });
 
+    test('getCopyFileName', () {
+      final List<String> fileNameList = [
+        '123',
+        '456 (1)',
+        'aaa.txt',
+        'bbb.txt',
+        'bbb (1).txt',
+        'ccc.txt',
+        'ccc (1).txt',
+        'ccc (1) (1).txt',
+        'ccc (2).txt',
+        'ccc (3).txt',
+        'ccc (4).txt',
+        'ddd.aaa.txt',
+        'ddd.bbb.txt',
+        'ddd.bbb (1).txt',
+        'ddd.aaa.aaa (1).txt',
+      ];
+
+      expect(getCopyFileName('abc', fileNameList), equals('abc'));
+      expect(getCopyFileName('abc.txt', fileNameList), equals('abc.txt'));
+      expect(getCopyFileName('123', fileNameList), equals('123 (1)'));
+      expect(getCopyFileName('456 (1)', fileNameList), equals('456 (1) (1)'));
+      expect(getCopyFileName('aaa.txt', fileNameList), equals('aaa (1).txt'));
+      expect(
+          getCopyFileName('aaa (1).txt', fileNameList), equals('aaa (1).txt'));
+      expect(getCopyFileName('bbb.txt', fileNameList), equals('bbb (2).txt'));
+      expect(getCopyFileName('bbb (1).txt', fileNameList),
+          equals('bbb (1) (1).txt'));
+      expect(getCopyFileName('ccc.txt', fileNameList), equals('ccc (5).txt'));
+      expect(getCopyFileName('ddd.aaa.txt', fileNameList),
+          equals('ddd.aaa (1).txt'));
+      expect(
+        getCopyFileName('ddd.aaa.aaa (1).txt', fileNameList),
+        equals('ddd.aaa.aaa (1) (1).txt'),
+      );
+    });
+
     test('getFileExtension', () {
       expect(getFileExtension('test.123/sample.txt'), 'txt');
       expect(getFileExtension('test.123/sample'), null);
