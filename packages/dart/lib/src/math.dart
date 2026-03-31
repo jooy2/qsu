@@ -52,3 +52,14 @@ num sub(List<num> args) {
 
   return total;
 }
+
+/// Returns after adding up all the n arguments of numbers or the values of a single array of numbers.
+num sum(List<num> args) {
+  num total = 0;
+
+  for (var i = 0; i < args.length; i++) {
+    total += args[i];
+  }
+
+  return total;
+}

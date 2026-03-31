@@ -8,6 +8,7 @@
 - Add `div` method
 - Add `mul` method
 - Add `sub` method
+- Add `sum` method
 
 ## 1.1.11 (2025-12-10)
 

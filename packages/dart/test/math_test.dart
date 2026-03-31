@@ -46,5 +46,12 @@ void main() {
       expect(sub([1, 3, 5, -7, -9]), equals(9));
       expect(sub([1234]), equals(1234));
     });
+
+    test('sum', () {
+      expect(sum([0]), equals(0));
+      expect(sum([1, 2, 3, 4]), equals(10));
+      expect(sum([1, 2, 3]), equals(6));
+      expect(sum([1234]), equals(1234));
+    });
   });
 }
