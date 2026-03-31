@@ -1,4 +1,4 @@
-# div <Lang js />
+# div <Lang js dart />
 
 Returns after dividing all n arguments of numbers or the values of a single array of numbers.
 

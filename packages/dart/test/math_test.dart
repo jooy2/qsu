@@ -23,5 +23,12 @@ void main() {
         }
       }
     });
+
+    test('div', () {
+      expect(div([0]), equals(0));
+      expect(div([100, 2, 2, 5]), equals(5));
+      expect(div([10, 2, 5]), equals(1));
+      expect(div([1234]), equals(1234));
+    });
   });
 }
