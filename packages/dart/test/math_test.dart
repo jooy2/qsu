@@ -39,5 +39,12 @@ void main() {
       expect(mul([1234]), equals(1234));
     });
 
+    test('sub', () {
+      expect(sub([0]), equals(0));
+      expect(sub([100, 10, 20, 30]), equals(40));
+      expect(sub([10, 20, 30]), equals(-40));
+      expect(sub([1, 3, 5, -7, -9]), equals(9));
+      expect(sub([1234]), equals(1234));
+    });
   });
 }

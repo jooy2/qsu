@@ -7,6 +7,7 @@
 - Add `getCopyFileName` method
 - Add `div` method
 - Add `mul` method
+- Add `sub` method
 
 ## 1.1.11 (2025-12-10)
 
