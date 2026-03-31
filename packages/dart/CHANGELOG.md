@@ -13,6 +13,7 @@
 - Add `dateToYYYYMMDD` method
 - Add `dayDiff` method
 - Add `isValidDate` method
+- Add `today` method
 
 ## 1.1.11 (2025-12-10)
 

@@ -8,6 +8,17 @@ void main() {
       expect(dayDiff(DateTime(2021, 1, 1), DateTime(2021, 2, 28)), 58);
     });
 
+    test('today', () {
+      final now = DateTime.now();
+      final month = now.month.toString().padLeft(2, '0');
+      final day = now.day.toString().padLeft(2, '0');
+      final year = now.year.toString();
+
+      expect(today(), '$year-$month-$day');
+      expect(today(separator: '/'), '$year/$month/$day');
+      expect(today(separator: '/', yearFirst: false), '$month/$day/$year');
+    });
+
     test('isValidDate', () {
       expect(isValidDate('2021-01-01'), true);
       expect(isValidDate('2021-02-28'), true);

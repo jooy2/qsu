@@ -5,6 +5,22 @@ int dayDiff(DateTime date1, [DateTime? date2]) {
   return (date2c.difference(date1).inHours / 24).ceil();
 }
 
+/// Returns today's date.
+String today({String separator = '-', bool yearFirst = true}) {
+  final DateTime date = DateTime.now();
+  final int month = date.month;
+  final int day = date.day;
+
+  final String monthStr = '${month < 10 ? '0' : ''}$month';
+  final String dayStr = '${day < 10 ? '0' : ''}$day';
+
+  if (yearFirst) {
+    return '${date.year}$separator$monthStr$separator$dayStr';
+  } else {
+    return '$monthStr$separator$dayStr$separator${date.year}';
+  }
+}
+
 /// Checks if a given date actually exists. Check only in `YYYY-MM-DD` format.
 bool isValidDate(String dateYYYYMMDD) {
   if (!RegExp(r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$').hasMatch(dateYYYYMMDD)) {
