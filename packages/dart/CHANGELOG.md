@@ -1,5 +1,9 @@
 # Changelog (Dart)
 
+## 1.1.13 (2026--)
+
+- Add `sortNumeric` method
+
 ## 1.1.12 (2026-03-31)
 
 - **BREAKING CHANGES**: `numRandom` has renamed to `numPick`

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:collection/collection.dart';
 import 'package:qsu/src/verify.dart';
 
 /// Shuffle the order of the given array and return.
@@ -152,4 +153,11 @@ List<List<T>> arrGroupByMaxCount<T>(List<T> array, int maxLengthPerGroup) {
   }
 
   return result;
+}
+
+/// When sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names. For example, given the array `['1-a', '100-a', '10-a', '2-a']`, it returns `['1-a', '2-a', '10-a', '100-a']` with the smaller numbers at the front.
+List<String> sortNumeric(List<String> array, {bool descending = false}) {
+  final List<String> result = List<String>.from(array)..sort(compareNatural);
+
+  return descending ? result.reversed.toList() : result;
 }
