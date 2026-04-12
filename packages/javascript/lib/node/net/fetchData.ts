@@ -39,10 +39,10 @@ function generateDefaultRequestHeader(httpRequestOption?: HTTPRequestOption) {
 
 	return {
 		...authHeaders,
-		...httpRequestOption?.headers,
 		...(contentType ? { 'Content-Type': contentType } : {}),
 		'Accept-Encoding': 'gzip, deflate, br',
-		Charset: 'utf-8'
+		Charset: 'utf-8',
+		...httpRequestOption?.headers
 	};
 }
 
@@ -144,7 +144,7 @@ export async function fetchData(url: string, options?: HTTPRequestOption): Promi
 			...(opt.timeout ? { signal: AbortSignal.timeout(opt.timeout) } : {}),
 			method,
 			body: bodyData,
-			headers: opt.headers || generateDefaultRequestHeader(opt)
+			headers: generateDefaultRequestHeader(opt)
 		});
 
 		if (!response.ok || !response.body) {
