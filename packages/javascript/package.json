@@ -16,7 +16,7 @@
 	"types": "dist/index.d.ts",
 	"scripts": {
 		"build": "tsc --project tsconfig.prod.json && npm run minify",
-		"test": "npm run build && glob-bin -c \"tsx --test\" \"./test/**/*.test.ts\"",
+		"test": "npm run build && node --import tsx --test \"./test/**/*.test.ts\"",
 		"lint": "eslint . --ext .js,.ts .",
 		"lint:fix": "eslint . --ext .js,.ts --fix .",
 		"minify": "terser-glob 'dist/**/*.js' --config-file terser.config.json",
@@ -79,7 +79,6 @@
 		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-n": "^17.24.0",
-		"glob-bin": "^1.1.0",
 		"globals": "^17.4.0",
 		"jiti": "^2.6.1",
 		"prettier": "^3.8.2",
