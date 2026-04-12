@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.11.7 (2026--)
+
+- `fetchData`: Minor improvements
+
 ## 1.11.6 (2026-04-12)
 
 - `fetchData`: Minor improvements
