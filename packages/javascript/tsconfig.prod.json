@@ -1,4 +1,7 @@
 {
 	"extends": "./tsconfig.json",
-	"exclude": ["test/**/*.test.ts", "eslint.config.ts"]
+	"exclude": ["test/**/*.test.ts", "eslint.config.ts"],
+	"compilerOptions": {
+		"rootDir": "./lib"
+	}
 }
