@@ -1,6 +1,7 @@
 import type { AnyValueObject, HTTPRequestOption } from '../../_types/global';
 import { objToQueryString } from '../../object/objToQueryString.js';
 import { urlJoin } from '../../string/urlJoin.js';
+import { Readable } from 'node:stream';
 
 function generateDefaultRequestHeader(httpRequestOption?: HTTPRequestOption) {
 	let contentType;
@@ -43,6 +44,38 @@ function generateDefaultRequestHeader(httpRequestOption?: HTTPRequestOption) {
 		'Accept-Encoding': 'gzip, deflate, br',
 		Charset: 'utf-8'
 	};
+}
+
+function isFileResponse(contentType: string, contentDisposition: string) {
+	if (/attachment|filename=/i.test(contentDisposition)) {
+		return true;
+	}
+
+	const mime = contentType.split(';')?.[0]?.trim()?.toLowerCase() || '';
+
+	if (
+		[
+			'text/html',
+			'text/css',
+			'text/javascript',
+			'application/json',
+			'application/ld+json',
+			'application/xml',
+			'text/xml',
+			'text/plain'
+		].some((t) => mime === t) ||
+		mime.startsWith('text/')
+	) {
+		return false;
+	}
+
+	return (
+		mime.startsWith('application/') ||
+		mime.startsWith('image/') ||
+		mime.startsWith('video/') ||
+		mime.startsWith('audio/') ||
+		mime.startsWith('font/')
+	);
 }
 
 export async function fetchData(url: string, options?: HTTPRequestOption): Promise<any> {
@@ -108,6 +141,7 @@ export async function fetchData(url: string, options?: HTTPRequestOption): Promi
 	try {
 		const response = await fetch(urlJoin(fullRequestUrl, queryString), {
 			...(opt.auth ? { credentials: 'include' } : {}),
+			...(opt.timeout ? { signal: AbortSignal.timeout(opt.timeout) } : {}),
 			method,
 			body: bodyData,
 			headers: opt.headers || generateDefaultRequestHeader(opt)
@@ -117,9 +151,17 @@ export async function fetchData(url: string, options?: HTTPRequestOption): Promi
 			return null;
 		}
 
-		const responseContentType = response.headers.get('content-type');
+		const responseContentType = response.headers.get('content-type') || '';
+		const isFile = isFileResponse(
+			responseContentType,
+			response.headers.get('content-disposition') || ''
+		);
 
-		if (!responseContentType) {
+		if (opt.toStream) {
+			return Readable.fromWeb(response.body);
+		} else if (isFile) {
+			return Buffer.from(await response.arrayBuffer());
+		} else if (responseContentType.length < 1) {
 			return await response.text();
 		} else if (responseContentType.includes('application/json')) {
 			return await response.json();

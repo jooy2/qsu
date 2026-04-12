@@ -47,6 +47,8 @@ export interface HTTPRequestOption {
 	put?: boolean;
 	delete?: boolean;
 	patch?: boolean;
+	toStream?: boolean;
+	timeout?: number;
 	method?: 'get' | 'post' | 'put' | 'delete' | 'patch';
 	host?: string;
 	queryParameters?: object;
