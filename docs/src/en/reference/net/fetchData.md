@@ -26,6 +26,8 @@ interface HTTPRequestOption {
 	put?: boolean; // Same as `method: 'put'`
 	delete?: boolean; // Same as `method: 'delete'`
 	patch?: boolean; // Same as `method: 'patch'`
+	toStream?: boolean;
+	timeout?: number;
 	method?: 'get' | 'post' | 'put' | 'delete' | 'patch';
 	host?: string; // If this value is not specified, the URL must be a full path.
 	queryParameters?: object;
