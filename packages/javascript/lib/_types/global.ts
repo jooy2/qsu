@@ -57,3 +57,8 @@ export interface HTTPRequestOption {
 	headers?: AnyValueObject | undefined | null;
 	onError?: (error: any) => void;
 }
+
+export interface GetUptimeOption {
+	format?: boolean;
+	floor?: boolean;
+}

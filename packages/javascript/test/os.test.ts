@@ -1,7 +1,15 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { runCommand, getCpu, getHostname, getMachineId, getSid, getRamSize } from '../dist/node';
-import { contains } from '../lib';
+import {
+	runCommand,
+	getCpu,
+	getHostname,
+	getMachineId,
+	getSid,
+	getRamSize,
+	getUptime
+} from '../dist/node';
+import { contains } from '../dist/verify';
 
 describe('OS', () => {
 	it('runCommand', async () => {
@@ -68,5 +76,12 @@ describe('OS', () => {
 		const sidResult = await getSid();
 
 		assert.match(sidResult, /^S-1-[0-59]-\d{2}-\d{8,10}-\d{8,10}-\d{8,10}-[1-9]\d{1,9}/);
+	});
+
+	it('getUptime', () => {
+		assert.strictEqual(typeof getUptime() === 'number', true);
+		assert.strictEqual(typeof getUptime({ format: true }) === 'string', true);
+		assert.strictEqual(getUptime({ floor: true }).toString().indexOf('.') === -1, true);
+		assert.strictEqual((getUptime() as number) >= 0, true);
 	});
 });
