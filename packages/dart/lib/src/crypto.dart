@@ -3,6 +3,22 @@ import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 
+/// (Private) convert digest to specify encoding
+String _convertDigestTo(Digest digest, BinaryToTextEncoding? encoding) {
+  switch (encoding) {
+    case BinaryToTextEncoding.hex:
+      return digest.toString(); // 기본값: hex 문자열
+    case BinaryToTextEncoding.base64:
+      return base64.encode(digest.bytes);
+    case BinaryToTextEncoding.base64url:
+      return base64Url.encode(digest.bytes);
+    case BinaryToTextEncoding.binary:
+      return digest.bytes.map((b) => b.toRadixString(2).padLeft(8, '0')).join();
+    default:
+      throw ArgumentError('Unsupported encoding: $encoding');
+  }
+}
+
 /// Returns a random string hash of the ObjectId format (primarily utilized by MongoDB).
 String objectId() {
   return (DateTime.now().millisecondsSinceEpoch ~/ 1000).toRadixString(16) +
@@ -12,18 +28,21 @@ String objectId() {
 }
 
 /// Converts String data to md5 hash value and returns it.
-String md5Hash(String str) {
-  return md5.convert(utf8.encode(str)).toString();
+String md5Hash(String str,
+    {BinaryToTextEncoding? format = BinaryToTextEncoding.hex}) {
+  return _convertDigestTo(md5.convert(utf8.encode(str)), format);
 }
 
 /// Converts String data to sha1 hash value and returns it.
-String sha1Hash(String str) {
-  return sha1.convert(utf8.encode(str)).toString();
+String sha1Hash(String str,
+    {BinaryToTextEncoding? format = BinaryToTextEncoding.hex}) {
+  return _convertDigestTo(sha1.convert(utf8.encode(str)), format);
 }
 
 /// Converts String data to sha256 hash value and returns it.
-String sha256Hash(String str) {
-  return sha256.convert(utf8.encode(str)).toString();
+String sha256Hash(String str,
+    {BinaryToTextEncoding? format = BinaryToTextEncoding.hex}) {
+  return _convertDigestTo(sha256.convert(utf8.encode(str)), format);
 }
 
 /// Base64-encode the given string.
@@ -52,3 +71,5 @@ int numberHash(String str) {
 
   return hash;
 }
+
+enum BinaryToTextEncoding { hex, base64, base64url, binary }
