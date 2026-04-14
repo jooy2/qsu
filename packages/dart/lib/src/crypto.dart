@@ -45,6 +45,12 @@ String sha256Hash(String str,
   return _convertDigestTo(sha256.convert(utf8.encode(str)), encoding);
 }
 
+/// Converts String data to sha512 hash value and returns it.
+String sha512Hash(String str,
+    {BinaryToTextEncoding? encoding = BinaryToTextEncoding.hex}) {
+  return _convertDigestTo(sha512.convert(utf8.encode(str)), encoding);
+}
+
 /// Base64-encode the given string.
 String encodeBase64(String str) {
   return base64Encode(utf8.encode(str));
