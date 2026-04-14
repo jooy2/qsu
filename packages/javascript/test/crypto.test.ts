@@ -6,6 +6,7 @@ import {
 	md5Hash,
 	sha1Hash,
 	sha256Hash,
+	sha512Hash,
 	encodeBase64,
 	decodeBase64,
 	numberHash,
@@ -40,7 +41,7 @@ describe('Encrypt', () => {
 	it('sha1Hash', () => {
 		assert.strictEqual(sha1Hash('test'), 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3');
 		assert.strictEqual(sha1Hash('test', 'base64'), 'qUqP5cyxm6YcTAhz05Hph5gvu9M=');
-		assert.strictEqual(sha1Hash('qsu-md5'), 'e5c5dc3b2be3542475671d460f906c3b176bb5bf');
+		assert.strictEqual(sha1Hash('qsu-sha1'), 'd81bc7ffbaed53cc8094dd2fe70cd5d4588aa0b1');
 	});
 
 	it('sha256Hash', () => {
@@ -53,8 +54,23 @@ describe('Encrypt', () => {
 			'n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg='
 		);
 		assert.strictEqual(
-			sha256Hash('qsu-md5'),
-			'8c4cfec3ec79dc572958ea7f0e3cfd24b90d174969df9a4773b37b68498871ed'
+			sha256Hash('qsu-sha256'),
+			'c921e2216a342bad0a1b0dbe94027d69b3913f653a3878e3d5188a2c8551b51f'
+		);
+	});
+
+	it('sha512Hash', () => {
+		assert.strictEqual(
+			sha512Hash('test'),
+			'ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff'
+		);
+		assert.strictEqual(
+			sha512Hash('test', 'base64'),
+			'7iaw3Ur350mqGo7jwQrpkj9hiYB3Lkc/iBml1JQODbJ6wYX4oOHV+E+IvIh/1nsUNzLDBMxfqa2Ob1f1ACio/w=='
+		);
+		assert.strictEqual(
+			sha512Hash('qsu-sha512'),
+			'22629d4da181d299e28abe986b55b066a3e2c062ccaab0f5d6f31be823f8f6b443d3d2a530ea2caf97cde89aacd1b5cbdddfd09758d05f1314414c6617ed5dc3'
 		);
 	});
 

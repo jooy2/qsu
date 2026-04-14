@@ -6,6 +6,7 @@
 - `md5Hash`, `sha1Hash`, `sha256Hash`: Add an encoding option for hash functions
 - `fetchData`: Minor improvements
 - `getUptime`: Add `getUptime` method
+- `sha512Hash`: Add `sha512Hash` method
 
 ## 1.11.6 (2026-04-12)
 
