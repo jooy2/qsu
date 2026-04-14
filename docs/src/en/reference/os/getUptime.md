@@ -17,7 +17,7 @@ interface GetUptimeOption {
 
 ## Returns
 
-> string
+> number | string
 
 ## Examples
 
