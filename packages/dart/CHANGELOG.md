@@ -1,6 +1,6 @@
 # Changelog (Dart)
 
-## 1.1.13 (2026--)
+## 1.2.0 (2026-04-14)
 
 - **BREAKING CHANGES**: `strToNumberHash` has renamed to `numberHash`
 - `md5Hash`, `sha1Hash`, `sha256Hash`: Add an encoding option for hash functions
