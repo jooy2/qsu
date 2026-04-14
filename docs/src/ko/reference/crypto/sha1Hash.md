@@ -7,6 +7,7 @@
 ## Parameters
 
 - `str::string`
+- `encoding?::'hex'(Default)|'base64'|'base64url'|'binary'` <DartNamed />
 
 ## Returns
 

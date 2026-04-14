@@ -7,6 +7,7 @@ Converts String data to sha1 hash value and returns it.
 ## Parameters
 
 - `str::string`
+- `encoding?::'hex'(Default)|'base64'|'base64url'|'binary'` <DartNamed />
 
 ## Returns
 
