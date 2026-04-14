@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:qsu/qsu.dart';
 import 'package:test/test.dart';
 
@@ -49,8 +51,17 @@ void main() {
     });
 
     test('console', () {
-      console('text');
-      console('123' * 100000);
+      runZoned(
+        () {
+          console('text');
+          console('123' * 100000);
+        },
+        zoneSpecification: ZoneSpecification(
+          print: (self, parent, zone, message) {
+            // Ignore
+          },
+        ),
+      );
     });
   });
 }

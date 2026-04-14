@@ -17,11 +17,11 @@ No parameters required
 ::: code-group
 
 ```javascript [JavaScript]
-numUnique(); // Returns `177052123219057200`
+numUnique(); // Returns 177052123219057200
 ```
 
 ```dart [Dart]
-numUnique(); // Returns `177052123219057200`
+numUnique(); // Returns 177052123219057200
 ```
 
 :::

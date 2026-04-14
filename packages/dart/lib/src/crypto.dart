@@ -29,20 +29,20 @@ String objectId() {
 
 /// Converts String data to md5 hash value and returns it.
 String md5Hash(String str,
-    {BinaryToTextEncoding? format = BinaryToTextEncoding.hex}) {
-  return _convertDigestTo(md5.convert(utf8.encode(str)), format);
+    {BinaryToTextEncoding? encoding = BinaryToTextEncoding.hex}) {
+  return _convertDigestTo(md5.convert(utf8.encode(str)), encoding);
 }
 
 /// Converts String data to sha1 hash value and returns it.
 String sha1Hash(String str,
-    {BinaryToTextEncoding? format = BinaryToTextEncoding.hex}) {
-  return _convertDigestTo(sha1.convert(utf8.encode(str)), format);
+    {BinaryToTextEncoding? encoding = BinaryToTextEncoding.hex}) {
+  return _convertDigestTo(sha1.convert(utf8.encode(str)), encoding);
 }
 
 /// Converts String data to sha256 hash value and returns it.
 String sha256Hash(String str,
-    {BinaryToTextEncoding? format = BinaryToTextEncoding.hex}) {
-  return _convertDigestTo(sha256.convert(utf8.encode(str)), format);
+    {BinaryToTextEncoding? encoding = BinaryToTextEncoding.hex}) {
+  return _convertDigestTo(sha256.convert(utf8.encode(str)), encoding);
 }
 
 /// Base64-encode the given string.

@@ -30,11 +30,16 @@ describe('Encrypt', () => {
 
 	it('md5Hash', () => {
 		assert.strictEqual(md5Hash('test'), '098f6bcd4621d373cade4e832627b4f6');
+		assert.strictEqual(md5Hash('test', 'hex'), '098f6bcd4621d373cade4e832627b4f6');
+		assert.strictEqual(md5Hash('test', 'base64'), 'CY9rzUYh03PK3k6DJie09g==');
+		assert.strictEqual(md5Hash('test', 'base64url'), 'CY9rzUYh03PK3k6DJie09g');
+		assert.strictEqual(md5Hash('test', 'binary'), "\t\x8FkÍF!ÓsÊÞN\x83&'´ö");
 		assert.strictEqual(md5Hash('qsu-md5'), '94af002364e42b514badb41b870ceb04');
 	});
 
 	it('sha1Hash', () => {
 		assert.strictEqual(sha1Hash('test'), 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3');
+		assert.strictEqual(sha1Hash('test', 'base64'), 'qUqP5cyxm6YcTAhz05Hph5gvu9M=');
 		assert.strictEqual(sha1Hash('qsu-md5'), 'e5c5dc3b2be3542475671d460f906c3b176bb5bf');
 	});
 
@@ -42,6 +47,10 @@ describe('Encrypt', () => {
 		assert.strictEqual(
 			sha256Hash('test'),
 			'9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
+		);
+		assert.strictEqual(
+			sha256Hash('test', 'base64'),
+			'n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg='
 		);
 		assert.strictEqual(
 			sha256Hash('qsu-md5'),
