@@ -38,7 +38,7 @@ String decodeBase64(String encodedStr) {
 
 /// Returns the specified string as a hash value of type number.
 /// The return value can also be negative.
-int strToNumberHash(String str) {
+int numberHash(String str) {
   if (str.isEmpty) {
     return 0;
   }

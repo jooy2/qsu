@@ -1,4 +1,4 @@
-export function strToNumberHash(str: string): number {
+export function numberHash(str: string): number {
 	if (!str) {
 		return 0;
 	}

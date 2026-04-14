@@ -2,6 +2,7 @@
 
 ## 1.1.13 (2026--)
 
+- **BREAKING CHANGES**: `strToNumberHash` has renamed to `numberHash`
 - Add `sortNumeric` method
 
 ## 1.1.12 (2026-03-31)

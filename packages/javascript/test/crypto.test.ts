@@ -8,7 +8,7 @@ import {
 	sha256Hash,
 	encodeBase64,
 	decodeBase64,
-	strToNumberHash,
+	numberHash,
 	objectId
 } from '../dist/node';
 
@@ -59,13 +59,13 @@ describe('Encrypt', () => {
 		assert.strictEqual(decodeBase64('MTIzNDU2Nzg5MFRlc3Q='), '1234567890Test');
 	});
 
-	it('strToNumberHash', () => {
-		assert.strictEqual(strToNumberHash(''), 0);
-		assert.strictEqual(strToNumberHash(' '), 32);
-		assert.strictEqual(strToNumberHash('abc'), 96354);
-		assert.strictEqual(strToNumberHash('Hello'), 69609650);
-		assert.strictEqual(strToNumberHash('hello'), 99162322);
-		assert.strictEqual(strToNumberHash('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.repeat(10000)), 285059024);
+	it('numberHash', () => {
+		assert.strictEqual(numberHash(''), 0);
+		assert.strictEqual(numberHash(' '), 32);
+		assert.strictEqual(numberHash('abc'), 96354);
+		assert.strictEqual(numberHash('Hello'), 69609650);
+		assert.strictEqual(numberHash('hello'), 99162322);
+		assert.strictEqual(numberHash('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.repeat(10000)), 285059024);
 	});
 
 	it('objectId', () => {

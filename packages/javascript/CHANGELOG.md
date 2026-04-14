@@ -2,6 +2,7 @@
 
 ## 1.11.7 (2026--)
 
+- **BREAKING CHANGES**: `strToNumberHash` has renamed to `numberHash`
 - `fetchData`: Minor improvements
 - `getUptime`: Add `getUptime` method
 
@@ -303,7 +304,7 @@ NOTE: This version is broken. Please use `1.6.1` or later.
 
 - Add GitHub workflows
 - `truncate`: Return empty string when str is null
-- `fileName`: Resolves windows path regardless of system environment
+- `fileName`: Resolves Windows's path regardless of system environment
 
 ## 1.0.7 (2022-07-24)
 
@@ -319,7 +320,7 @@ NOTE: This version is broken. Please use `1.6.1` or later.
 
 ## 1.0.5 (2022-06-23)
 
-- `contains`: When the length of the str parameter value of string type is 0, no error is thrown and false is returned
+- `contains`: When the length of the str parameter value of a string type is 0, no error is thrown and false is returned
 
 ## 1.0.4 (2022-06-16)
 
