@@ -1,6 +1,6 @@
 # sha512Hash <Lang dart js />
 
-<NodeRequired ko />
+<NodeRequired en />
 
 Converts String data to sha512 hash value and returns it.
 
