@@ -1,6 +1,6 @@
 # Changelog (JavaScript)
 
-## 1.11.7 (2026--)
+## 1.12.0 (2026-04-14)
 
 - **BREAKING CHANGES**: `strToNumberHash` has renamed to `numberHash`
 - `md5Hash`, `sha1Hash`, `sha256Hash`: Add an encoding option for hash functions
