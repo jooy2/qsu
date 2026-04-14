@@ -3,6 +3,7 @@
 ## 1.11.7 (2026--)
 
 - **BREAKING CHANGES**: `strToNumberHash` has renamed to `numberHash`
+- `md5Hash`, `sha1Hash`, `sha256Hash`: Add an encoding option for hash functions
 - `fetchData`: Minor improvements
 - `getUptime`: Add `getUptime` method
 
