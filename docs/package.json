@@ -8,8 +8,7 @@
 		"serve": "vitepress serve src",
 		"lint": "eslint . --ext .js,.ts .",
 		"lint:fix": "eslint . --ext .js,.ts --fix .",
-		"format": "prettier .",
-		"format:fix": "prettier . --write"
+		"format": "prettier . --write"
 	},
 	"author": "CDGet <jooy2.contact@gmail.com>",
 	"license": "MIT",
