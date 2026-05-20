@@ -6,7 +6,13 @@ export function capitalizeEachWords(str: string, natural?: boolean): string {
 		return '';
 	}
 
-	const splitStr = str.trim().toLowerCase().split(' ');
+	let tempStr: string = str.trim();
+
+	if (natural) {
+		tempStr = tempStr.toLowerCase();
+	}
+
+	const splitStr = tempStr.split(' ');
 
 	for (let i = 0, iLen = splitStr.length; i < iLen; i += 1) {
 		if (

@@ -83,6 +83,8 @@ st`),
 	it('capitalizeEachWords', () => {
 		assert.strictEqual(capitalizeEachWords('hello, world!'), 'Hello, World!');
 		assert.strictEqual(capitalizeEachWords('test'), 'Test');
+		assert.strictEqual(capitalizeEachWords('testWords'), 'TestWords');
+		assert.strictEqual(capitalizeEachWords('testWords', true), 'Testwords');
 		assert.strictEqual(
 			capitalizeEachWords('this is the test sentence.', true),
 			'This is the Test Sentence.'

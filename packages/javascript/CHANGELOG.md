@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.12.1 (2026-05-21)
+
+- `capitalizeEachWords`: If the `natural` option is not enabled, characters that are already uppercase will not be converted to lowercase.
+
 ## 1.12.0 (2026-04-14)
 
 - **BREAKING CHANGES**: `strToNumberHash` has renamed to `numberHash`
