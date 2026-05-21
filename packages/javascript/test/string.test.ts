@@ -70,6 +70,7 @@ st`),
 		assert.strictEqual(capitalizeFirst('t'), 'T');
 		assert.strictEqual(capitalizeFirst('test'), 'Test');
 		assert.strictEqual(capitalizeFirst('tEST'), 'TEST');
+		assert.strictEqual(capitalizeFirst('testWords'), 'TestWords');
 	});
 
 	it('capitalizeEverySentence', () => {
