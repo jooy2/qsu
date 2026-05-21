@@ -1,5 +1,9 @@
 # Changelog (Dart)
 
+## 1.2.1 (2026--)
+
+- `capitalizeEachWords`: If the `natural` option is not enabled, characters that are already uppercase will not be converted to lowercase.
+
 ## 1.2.0 (2026-04-14)
 
 - **BREAKING CHANGES**: `strToNumberHash` has renamed to `numberHash`

@@ -76,6 +76,8 @@ st'''), 'test');
     test('capitalizeEachWords', () {
       expect(capitalizeEachWords('hello, world!'), 'Hello, World!');
       expect(capitalizeEachWords('test'), 'Test');
+      expect(capitalizeEachWords('testWords'), 'TestWords');
+      expect(capitalizeEachWords('testWords', natural: true), 'Testwords');
       expect(capitalizeEachWords('this is the test sentence.', natural: true),
           'This is the Test Sentence.');
     });

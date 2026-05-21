@@ -123,7 +123,13 @@ String capitalizeEverySentence(String str, {String? splitChar}) {
 
 /// Converts every word with spaces to uppercase. If the naturally argument is true, only some special cases (such as prepositions) are kept lowercase.
 String capitalizeEachWords(String str, {bool natural = false}) {
-  final List<String> splitStr = str.trim().toLowerCase().split(' ');
+  String tempStr = str.trim();
+
+  if (natural == true) {
+    tempStr = tempStr.toLowerCase();
+  }
+
+  final List<String> splitStr = tempStr.split(' ');
 
   for (int i = 0, iLen = splitStr.length; i < iLen; i += 1) {
     if (!natural ||
