@@ -11,6 +11,10 @@
 **/.idea/
 **/*.iml
 
+# AI
+.claude/worktree
+.claude/*.local.json
+
 # Visual Studio Code IDE
 **/.vscode/*
 !**/.vscode/settings.json
