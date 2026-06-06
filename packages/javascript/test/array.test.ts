@@ -13,7 +13,8 @@ import {
 	sortByObjectKey,
 	sortNumeric,
 	arrGroupByMaxCount,
-	funcTimes
+	funcTimes,
+	arrPick
 } from '../dist';
 
 describe('Array', () => {
@@ -91,6 +92,16 @@ describe('Array', () => {
 		assert.deepStrictEqual(arrMove([1, 3, 5, 7, 9], 0, 3), [3, 5, 7, 1, 9]);
 		assert.deepStrictEqual(arrMove([5, 10, 15], 1, 2), [5, 15, 10]);
 		assert.deepStrictEqual(arrMove([5, 10, 15], 1, 1), [5, 10, 15]);
+	});
+
+	it('arrPick', () => {
+		assert.deepStrictEqual(arrPick([1]), 1);
+
+		const pickResult = arrPick([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+
+		assert.deepStrictEqual(pickResult < 10, true);
+		assert.deepStrictEqual(typeof pickResult === 'number', true);
+		assert.deepStrictEqual(arrPick([]), null);
 	});
 
 	it('arrTo1dArray', () => {

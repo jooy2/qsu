@@ -1,6 +1,7 @@
 export { arrCount } from './arrCount.js';
 export { arrGroupByMaxCount } from './arrGroupByMaxCount.js';
 export { arrMove } from './arrMove.js';
+export { arrPick } from './arrPick.js';
 export { arrRepeat } from './arrRepeat.js';
 export { arrShuffle } from './arrShuffle.js';
 export { arrTo1dArray } from './arrTo1dArray.js';
