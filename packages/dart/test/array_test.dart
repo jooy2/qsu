@@ -40,6 +40,17 @@ void main() {
       expect(arrWithNumber(1, 1), [1]);
     });
 
+    test('arrPick', () {
+      expect(arrPick([1]), 1);
+
+      final pickResult = arrPick([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+
+      expect(pickResult! < 10, true);
+      expect(pickResult.runtimeType, int);
+
+      expect(arrPick<int>([]), null);
+    });
+
     test('arrUnique', () {
       List<List<int>> big2dArray = [
         [10, 20, 30, 40, 50],

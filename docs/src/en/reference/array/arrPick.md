@@ -1,4 +1,4 @@
-# arrPick <Lang js />
+# arrPick <Lang js dart />
 
 Returns a random item from the given array. If the array is empty or is not an array, it returns `null`.
 
@@ -15,6 +15,11 @@ Returns a random item from the given array. If the array is empty or is not an a
 ::: code-group
 
 ```javascript [JavaScript]
+arrPick([1, 2, 3, 4, 5]); // Returns 1 or 2 or 3 or 4 or 5
+arrPick([]); // Returns null
+```
+
+```dart [Dart]
 arrPick([1, 2, 3, 4, 5]); // Returns 1 or 2 or 3 or 4 or 5
 arrPick([]); // Returns null
 ```

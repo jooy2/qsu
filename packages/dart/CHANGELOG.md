@@ -1,5 +1,9 @@
 # Changelog (Dart)
 
+## 1.2.2 (2026--)
+
+- `arrPick`: Add `arrPick` method
+
 ## 1.2.1 (2026--)
 
 - `capitalizeEachWords`: If the `natural` option is not enabled, characters that are already uppercase will not be converted to lowercase.

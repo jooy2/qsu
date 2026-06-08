@@ -120,6 +120,15 @@ List<dynamic> arrRepeat(dynamic array, int count) {
   return result;
 }
 
+/// Returns a random item from the given array. If the array is empty or is not an array, it returns `null`.
+T? arrPick<T>(List<T>? array) {
+  if (array == null || array.isEmpty) {
+    return null;
+  }
+
+  return array[Random().nextInt(array.length)];
+}
+
 /// Returns the number of duplicates for each unique value in the given array.
 /// The array values can only be of type `String` or `Number`.
 Map<String, int> arrCount(List<dynamic> array) {
