@@ -27,8 +27,4 @@ def main():
     print(strCount('123412341234', '1'))  # 3
 ```
 
-::: tip
-The Python package currently implements the `string` utilities (and the `verify` / `math` helpers they rely on). More modules are being ported to match the JavaScript reference implementation.
-:::
-
 To learn more about the functions supported, refer to the [Reference](/reference/index.md) documentation.

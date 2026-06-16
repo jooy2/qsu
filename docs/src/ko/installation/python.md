@@ -27,8 +27,4 @@ def main():
     print(strCount('123412341234', '1'))  # 3
 ```
 
-::: tip
-Python 패키지는 현재 `string` 유틸리티(그리고 이들이 의존하는 `verify` / `math` 헬퍼)를 제공합니다. JavaScript 기준 구현과 동일하도록 나머지 모듈도 순차적으로 이식될 예정입니다.
-:::
-
 지원되는 함수에 대한 자세한 내용은 [레퍼런스](/ko/reference/index.md) 문서를 참고하세요.

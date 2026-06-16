@@ -29,27 +29,28 @@ def test_funcTimes():
 def test_debounce():
 	debounceResult = []
 
-	debounceFunc = debounce(lambda: debounceResult.append(True), 5)
+	debounceFunc = debounce(lambda: debounceResult.append(True), 30)
 
-	# Repeatedly call within the wait window; only the final call after each
-	# quiet period should fire. Three 10ms gaps create separate fire windows.
-	for i in range(100):
-		if i in (25, 50, 75):
-			waitDelay = 10
-		else:
-			waitDelay = 1
+	for _ in range(4):
+		for _ in range(25):
+			debounceFunc()
 
-		debounceFunc()
-		time.sleep((waitDelay / 1000))
+		time.sleep(0.08)
 
-	# Wait for the last pending timer to fire.
-	time.sleep(0.05)
-
-	# Within the burst we get one fire per quiet gap that exceeds the timeout
-	# plus the final trailing call. The exact count is timing-dependent, but it
-	# must be far fewer than the 100 invocations and at least one.
-	assert 1 <= len(debounceResult) <= 10
+	assert debounceResult == [True, True, True, True]
 	assert all(x is True for x in debounceResult)
+
+
+def test_debounce_uses_latest_arguments():
+	debounceResult = []
+
+	debounceFunc = debounce(lambda *args, **kwargs: debounceResult.append((args, kwargs)), 10)
+
+	debounceFunc('first', value=1)
+	debounceFunc('second', value=2)
+	time.sleep(0.03)
+
+	assert debounceResult == [(('second',), {'value': 2})]
 
 
 def test_logBox(capsys):
