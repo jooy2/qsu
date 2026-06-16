@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
 import { setTimeout } from 'timers/promises';
-import { sleep, funcTimes, debounce, arrWithDefault } from '../dist';
+import { sleep, funcTimes, debounce, arrWithDefault, logBox } from '../dist';
 
 describe('Misc', () => {
 	it('sleep', async () => {
@@ -10,6 +10,10 @@ describe('Misc', () => {
 			result = true;
 		});
 		assert.equal(result, true);
+	});
+
+	it('logBox', async () => {
+		logBox([1, 2, 3, 4, 5]);
 	});
 
 	it('funcTimes', () => {

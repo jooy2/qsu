@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.12.3 (2026--)
+
+- `logBox`: Add `logBox` method
+
 ## 1.12.2 (2026-06-06)
 
 - `arrPick`: Add `arrPick` method
