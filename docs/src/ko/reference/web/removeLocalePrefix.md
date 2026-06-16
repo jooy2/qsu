@@ -1,4 +1,4 @@
-# removeLocalePrefix <Lang js dart />
+# removeLocalePrefix <Lang js dart python />
 
 URL 또는 pathname에서 1단계 경로를 제거합니다. 일반적으로 로캐일 프리픽스를 사용하는 URL에서 특수한 경우 로캐일 없는 경로가 필요할 때 사용합니다. 예를 들어, `/en/hello`는 `/hello`와 같이 변환됩니다.
 
@@ -25,6 +25,11 @@ removeLocalePrefix('https://qsu.cdget.com/ko/user/login', ['ko', 'en']); // Retu
 ```dart [Dart]
 removeLocalePrefix('/ko/user/login', ['ko', 'en']); // Returns '/user/login'
 removeLocalePrefix('https://qsu.cdget.com/ko/user/login', ['ko', 'en']); // Returns 'https://qsu.cdget.com/user/login'
+```
+
+```python [Python]
+removeLocalePrefix('/ko/user/login', ['ko', 'en'])  # Returns '/user/login'
+removeLocalePrefix('https://qsu.cdget.com/ko/user/login', ['ko', 'en'])  # Returns 'https://qsu.cdget.com/user/login'
 ```
 
 :::

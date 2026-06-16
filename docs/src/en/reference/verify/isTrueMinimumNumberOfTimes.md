@@ -1,4 +1,4 @@
-# isTrueMinimumNumberOfTimes <Lang dart js />
+# isTrueMinimumNumberOfTimes <Lang dart js python />
 
 Returns `true` if the values given in the `conditions` array are true at least `minimumCount` times.
 
@@ -31,6 +31,15 @@ final int right = 1 + 2;
 isTrueMinimumNumberOfTimes([true, true, false], minimumCount: 2); // Returns true
 isTrueMinimumNumberOfTimes([true, true, false], minimumCount: 3); // Returns false
 isTrueMinimumNumberOfTimes([true, true, left === right], minimumCount: 3); // Returns false
+```
+
+```python [Python]
+left = 1
+right = 1 + 2
+
+isTrueMinimumNumberOfTimes([True, True, False], 2)  # Returns True
+isTrueMinimumNumberOfTimes([True, True, False], 3)  # Returns False
+isTrueMinimumNumberOfTimes([True, True, left == right], 3)  # Returns False
 ```
 
 :::

@@ -1,4 +1,4 @@
-# objFindItemRecursiveByKey <Lang js />
+# objFindItemRecursiveByKey <Lang js python />
 
 Returns the object if the key of a specific piece of data in the object's dataset corresponds to a specific value. This function returns only one result, so it is used to search for unique IDs, including all of their children.
 
@@ -15,7 +15,9 @@ Returns the object if the key of a specific piece of data in the object's datase
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 objFindItemRecursiveByKey(
 	{
 		id: 123,
@@ -36,3 +38,27 @@ objFindItemRecursiveByKey(
 	'child' // childKey
 ); // Returns '{ id: 456, name: 'childItemA' }'
 ```
+
+```python [Python]
+objFindItemRecursiveByKey(
+	{
+		'id': 123,
+		'name': 'parent',
+		'child': [
+			{
+				'id': 456,
+				'name': 'childItemA'
+			},
+			{
+				'id': 789,
+				'name': 'childItemB'
+			}
+		]
+	},  # obj
+	'id',  # searchKey
+	456,  # searchValue
+	'child'  # childKey
+)  # Returns { 'id': 456, 'name': 'childItemA' }
+```
+
+:::

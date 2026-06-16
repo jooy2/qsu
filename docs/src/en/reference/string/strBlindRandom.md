@@ -1,4 +1,4 @@
-# strBlindRandom <Lang js />
+# strBlindRandom <Lang js python />
 
 Replace strings at random locations with a specified number of characters (default 1) with characters (default \*).
 

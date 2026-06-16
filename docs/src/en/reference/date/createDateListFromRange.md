@@ -1,4 +1,4 @@
-# createDateListFromRange <Lang js dart />
+# createDateListFromRange <Lang js dart python />
 
 Create an array list of all dates from `startDate` to `endDate` in the format `YYYY-MM-DD`.
 
@@ -41,6 +41,20 @@ createDateListFromRange(DateTime.utc(2023, 1, 1, 1, 0, 0), DateTime.utc(2023, 1,
 		 '2023-01-05'
 	 ]
  */
+```
+
+```python [Python]
+from datetime import datetime
+
+createDateListFromRange(datetime(2023, 1, 1, 1, 0, 0), datetime(2023, 1, 5, 1, 0, 0))
+
+#  [
+#      '2023-01-01',
+#      '2023-01-02',
+#      '2023-01-03',
+#      '2023-01-04',
+#      '2023-01-05'
+#  ]
 ```
 
 :::

@@ -1,4 +1,4 @@
-# getUptime <Lang js />
+# getUptime <Lang js python />
 
 <NodeRequired en />
 
@@ -21,8 +21,18 @@ interface GetUptimeOption {
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 console.log(getUptime()); // Returns 1234
 console.log(getUptime({ floor: true })); // Returns 1234.123456789
 console.log(getUptime({ format: true })); // Returns '1,234'
 ```
+
+```python [Python]
+print(getUptime())  # Returns 1234
+print(getUptime({ 'floor': True }))  # Returns 1234.123456789
+print(getUptime({ 'format': True }))  # Returns '1,234'
+```
+
+:::

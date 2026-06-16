@@ -1,4 +1,4 @@
-# moveFile <Lang js dart />
+# moveFile <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -23,6 +23,10 @@ await moveFile('/home/user/text.txt', '/home/user/text2.txt');
 
 ```dart [Dart]
 await moveFile('/home/user/text.txt', '/home/user/text2.txt');
+```
+
+```python [Python]
+moveFile('/home/user/text.txt', '/home/user/text2.txt')
 ```
 
 :::

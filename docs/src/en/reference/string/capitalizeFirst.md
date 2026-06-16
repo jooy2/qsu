@@ -1,4 +1,4 @@
-# capitalizeFirst <Lang dart js />
+# capitalizeFirst <Lang dart js python />
 
 Converts the first letter of the entire string to uppercase and returns.
 
@@ -20,6 +20,10 @@ capitalizeFirst('abcd'); // Returns 'Abcd'
 
 ```dart [Dart]
 capitalizeFirst('abcd'); // Returns 'Abcd'
+```
+
+```python [Python]
+capitalizeFirst('abcd')  # Returns 'Abcd'
 ```
 
 :::

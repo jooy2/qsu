@@ -1,4 +1,4 @@
-# getFileHashFromStream <Lang js />
+# getFileHashFromStream <Lang js python />
 
 <NodeRequired en />
 
@@ -17,4 +17,8 @@ Returns a file in a Node.js ReadableStream object as a value hashed with a speci
 
 ```javascript
 await getFileHashFromStream('/home/user/text.txt', 'sha1'); // '38851813f75627d581c593f3ccfb7061dd013fbd'
+```
+
+```python
+getFileHashFromStream('/home/user/text.txt', 'sha1') # '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```

@@ -1,4 +1,4 @@
-# numUnique <Lang dart js />
+# numUnique <Lang dart js python />
 
 타임스탬프와 난수를 결합한 고유의 숫자를 반환합니다.
 
@@ -22,6 +22,10 @@ numUnique(); // Returns 177052123219057200
 
 ```dart [Dart]
 numUnique(); // Returns 177052123219057200
+```
+
+```python [Python]
+numUnique() # Returns 177052123219057200
 ```
 
 :::

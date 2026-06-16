@@ -1,4 +1,4 @@
-# joinFilePath <Lang js dart />
+# joinFilePath <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -27,6 +27,11 @@ joinFilePath(false, 'home', '/user', '.bashrc'); // '/home/user/.bashrc'
 ```dart [Dart]
 joinFilePath(['C:\\', 'Windows', 'System32'], isWindows: true); // 'C:\Windows\System32'
 joinFilePath(['home', '/user', '.bashrc']); // '/home/user/.bashrc'
+```
+
+```python [Python]
+joinFilePath(True, 'C:\\', 'Windows', 'System32') # 'C:\Windows\System32'
+joinFilePath(False, 'home', '/user', '.bashrc') # '/home/user/.bashrc'
 ```
 
 :::

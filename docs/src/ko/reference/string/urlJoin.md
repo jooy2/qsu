@@ -1,4 +1,4 @@
-# urlJoin <Lang dart js />
+# urlJoin <Lang dart js python />
 
 주어진 문자열 인수를 첫 번째 인수(URL의 시작)와 합쳐서 슬래시(/) 기호가 올바르게 포함되도록 연결합니다.
 
@@ -23,6 +23,10 @@ urlJoin('https://example.com', 'hello', 'world'); // Returns 'https://example.co
 
 ```dart [Dart]
 urlJoin(['https://example.com', 'hello', 'world']); // Returns 'https://example.com/hello/world'
+```
+
+```python [Python]
+urlJoin('https://example.com', 'hello', 'world')  # Returns 'https://example.com/hello/world'
 ```
 
 :::

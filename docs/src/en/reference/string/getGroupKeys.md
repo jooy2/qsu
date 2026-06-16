@@ -1,4 +1,4 @@
-# getGroupKeys <Lang js />
+# getGroupKeys <Lang js python />
 
 Returns a text key enclosed between the start and end characters in the given string. This can be useful for identifying template string keys in strings that follow i18n syntax.
 
@@ -31,6 +31,14 @@ getGroupKeys('abc {{def}} ghi {jkl}', '{{', '}}'); // Returns ['def']
 getGroupKeys('abc {} {}', '{', '}'); // Returns ['', '']
 getGroupKeys('abc [[def] [ghi] [jkl ', '[', ']'); // Returns ['ghi']
 getGroupKeys('abc {d#e  f}', '{', '}', true); // Returns ['d#e  f']
+```
+
+```python [Python]
+getGroupKeys('abc {def} ghi {{jkl}}', '{', '}')  # Returns ['def']
+getGroupKeys('abc {{def}} ghi {jkl}', '{{', '}}')  # Returns ['def']
+getGroupKeys('abc {} {}', '{', '}')  # Returns ['', '']
+getGroupKeys('abc [[def] [ghi] [jkl ', '[', ']')  # Returns ['ghi']
+getGroupKeys('abc {d#e  f}', '{', '}', True)  # Returns ['d#e  f']
 ```
 
 :::

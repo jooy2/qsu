@@ -1,4 +1,4 @@
-# isFileHidden <Lang js />
+# isFileHidden <Lang js python />
 
 <NodeRequired en />
 
@@ -21,4 +21,10 @@ If Windows fails to get the file properties, it assumes the file is not hidden.
 await isFileHidden('text.txt'); // false
 await isFileHidden('.hiddenFile'); // true
 await isFileHidden('.hiddenFile', true); // false (Files with no hidden attribute applied in Windows)
+```
+
+```python
+isFileHidden('text.txt') # False
+isFileHidden('.hiddenFile') # True
+isFileHidden('.hiddenFile', True) # False (Files with no hidden attribute applied in Windows)
 ```

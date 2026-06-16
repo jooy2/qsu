@@ -1,4 +1,4 @@
-# duration <Lang js />
+# duration <Lang js python />
 
 Displays the given millisecond value in human-readable time. For example, the value of `604800000` (7 days) is displayed as `7 Days`.
 
@@ -26,9 +26,20 @@ const {
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 duration(1234567890); // 'Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 duration(604800000, {
 	useSpace: false
 }); // Returns '7Days'
 ```
+
+```python [Python]
+duration(1234567890)  # 'Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
+duration(604800000, {
+	'useSpace': False
+})  # Returns '7Days'
+```
+
+:::

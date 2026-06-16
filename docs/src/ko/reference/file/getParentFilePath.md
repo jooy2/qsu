@@ -1,4 +1,4 @@
-# getParentFilePath <Lang js dart />
+# getParentFilePath <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -25,6 +25,11 @@ getParentFilePath('/home/user/text.txt'); // '/home/user'
 ```dart [Dart]
 getParentFilePath('C:\\Windows\\System32', isWindows: true); // 'C:\Windows'
 getParentFilePath('/home/user/text.txt'); // '/home/user'
+```
+
+```python [Python]
+getParentFilePath('C:\\Windows\\System32', True) # 'C:\Windows'
+getParentFilePath('/home/user/text.txt') # '/home/user'
 ```
 
 :::

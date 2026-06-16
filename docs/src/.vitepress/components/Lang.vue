@@ -3,12 +3,14 @@ import LangLogo from './LangLogo.vue';
 
 defineProps({
 	js: Boolean,
-	dart: Boolean
+	dart: Boolean,
+	python: Boolean
 });
 </script>
 <template>
 	<span v-if="js"><LangLogo name="javascript" :width="28" /></span>
 	<span v-if="dart"><LangLogo name="dart" :width="28" /></span>
+	<span v-if="python"><LangLogo name="python" :width="28" /></span>
 </template>
 <style scoped>
 span {

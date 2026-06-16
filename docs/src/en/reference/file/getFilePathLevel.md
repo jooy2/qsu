@@ -1,4 +1,4 @@
-# getFilePathLevel <Lang js dart />
+# getFilePathLevel <Lang js dart python />
 
 <NodeRequired en />
 
@@ -28,6 +28,13 @@ getFilePathLevel('/home/user'); // 3
 getFilePathLevel('C:\\Windows\\System32'); // 3
 // Include '/' root path
 getFilePathLevel('/home/user'); // 3
+```
+
+```python [Python]
+# Include 'C:\' root path
+getFilePathLevel('C:\\Windows\\System32') # 3
+# Include '/' root path
+getFilePathLevel('/home/user') # 3
 ```
 
 :::

@@ -1,4 +1,4 @@
-# duration <Lang js />
+# duration <Lang js python />
 
 주어진 밀리초 값을 사람이 읽을 수 있는 시간으로 표시합니다. 예를 들어, `604800000`(7일)의 값은 `7 Days`로 표시됩니다.
 
@@ -26,9 +26,20 @@ const {
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 duration(1234567890); // 'Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 duration(604800000, {
 	useSpace: false
 }); // Returns '7Days'
 ```
+
+```python [Python]
+duration(1234567890)  # 'Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
+duration(604800000, {
+	'useSpace': False
+})  # Returns '7Days'
+```
+
+:::

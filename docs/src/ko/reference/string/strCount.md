@@ -1,4 +1,4 @@
-# strCount <Lang dart js />
+# strCount <Lang dart js python />
 
 첫 번째 String 인자에 두 번째 String 인자가 포함된 횟수를 반환합니다.
 
@@ -21,6 +21,10 @@ strCount('abcabc', 'a'); // Returns 2
 
 ```dart [Dart]
 strCount('abcabc', 'a'); // Returns 2
+```
+
+```python [Python]
+strCount('abcabc', 'a')  # Returns 2
 ```
 
 :::

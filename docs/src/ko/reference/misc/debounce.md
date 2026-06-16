@@ -1,4 +1,4 @@
-# debounce <Lang dart js />
+# debounce <Lang dart js python />
 
 지정된 함수가 반복적으로 실행될 때, 지정된 시간 제한 내에 다시 호출되지 않으면 함수가 호출됩니다. 이 함수는 반복적인 입력 이벤트에 대해 소량의 함수 호출이 필요할 때 사용됩니다.
 
@@ -36,4 +36,17 @@ No return values
 		keyUpDebounce();
 	}
 </script>
+```
+
+```python [Python]
+from qsu.misc import debounce
+
+# debounce는 래퍼 함수를 반환합니다. 타임아웃(밀리초) 안에 반복 호출하면
+# 타이머가 초기화되어, 호출이 멈춘 뒤에야 func가 한 번 실행됩니다.
+def on_key_up():
+	print('handleKeyUp called.')
+
+key_up_debounce = debounce(on_key_up, 100)
+
+key_up_debounce()  # 100ms 윈도우 안에서는 마지막 호출만 실행됩니다
 ```

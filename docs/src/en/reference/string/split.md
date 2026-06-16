@@ -1,4 +1,4 @@
-# split <Lang js dart />
+# split <Lang js dart python />
 
 Splits a string based on the specified character and returns it as an Array. Unlike the existing split, it splits the values provided as multiple parameters (array or multiple arguments) at once.
 
@@ -26,6 +26,13 @@ split('hello%js,world', [',', '%']); // Returns ['hello', 'js', 'world']
 split('hello% js world', ['% ']); // Returns ['hello', 'js world']
 split('hello,js,world', [',']); // Returns ['hello', 'js', 'world']
 split('hello%js,world', [',', '%']); // Returns ['hello', 'js', 'world']
+```
+
+```python [Python]
+split('hello% js world', '% ')  # Returns ['hello', 'js world']
+split('hello,js,world', ',')  # Returns ['hello', 'js', 'world']
+split('hello%js,world', ',', '%')  # Returns ['hello', 'js', 'world']
+split('hello%js,world', [',', '%'])  # Returns ['hello', 'js', 'world']
 ```
 
 :::

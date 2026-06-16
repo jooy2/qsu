@@ -1,4 +1,4 @@
-# urlJoin <Lang dart js />
+# urlJoin <Lang dart js python />
 
 Merges the given string argument with the first argument (the beginning of the URL), joining it so that the slash (`/`) symbol is correctly included.
 
@@ -23,6 +23,10 @@ urlJoin('https://example.com', 'hello', 'world'); // Returns 'https://example.co
 
 ```dart [Dart]
 urlJoin(['https://example.com', 'hello', 'world']); // Returns 'https://example.com/hello/world'
+```
+
+```python [Python]
+urlJoin('https://example.com', 'hello', 'world')  # Returns 'https://example.com/hello/world'
 ```
 
 :::

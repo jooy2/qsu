@@ -1,4 +1,4 @@
-# getFileExtension <Lang js dart />
+# getFileExtension <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -26,6 +26,12 @@ getFileExtension('C:\\test\\txt.png'); // 'png'
 getFileExtension('/home/user/test.txt'); // 'txt'
 getFileExtension('/home/user/test.txt.sample'); // 'sample'
 getFileExtension('C:\\test\\txt.png'); // 'png'
+```
+
+```python [Python]
+getFileExtension('/home/user/test.txt') # 'txt'
+getFileExtension('/home/user/test.txt.sample') # 'sample'
+getFileExtension('C:\\test\\txt.png') # 'png'
 ```
 
 :::

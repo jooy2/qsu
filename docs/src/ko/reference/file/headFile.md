@@ -1,4 +1,4 @@
-# headFile <Lang js dart />
+# headFile <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -23,6 +23,10 @@ await headFile('/home/targets/hello.md', 2); // '# Hello, World!\nSecond line'
 
 ```dart [Dart]
 await headFile('/home/targets/hello.md', length: 2); // '# Hello, World!\nSecond line'
+```
+
+```python [Python]
+headFile('/home/targets/hello.md', 2) # '# Hello, World!\nSecond line'
 ```
 
 :::

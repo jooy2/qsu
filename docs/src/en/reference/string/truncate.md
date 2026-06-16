@@ -1,4 +1,4 @@
-# truncate <Lang dart js />
+# truncate <Lang dart js python />
 
 Truncates a long string to a specified length, optionally appending an ellipsis after the string.
 
@@ -24,6 +24,11 @@ truncate('hello', 2, '...'); // Returns 'he...'
 ```dart [Dart]
 truncate('hello', 3); // Returns 'hel'
 truncate('hello', 2, ellipsis: '...'); // Returns 'he...'
+```
+
+```python [Python]
+truncate('hello', 3)  # Returns 'hel'
+truncate('hello', 2, '...')  # Returns 'he...'
 ```
 
 :::

@@ -1,4 +1,4 @@
-# encrypt <Lang js />
+# encrypt <Lang js python />
 
 <NodeRequired ko />
 
@@ -25,6 +25,10 @@ encrypt('test', 'secret-key');
 
 ```dart [Dart]
 encrypt('test', 'secret-key');
+```
+
+```python [Python]
+encrypt('test', 'secret-key')
 ```
 
 :::

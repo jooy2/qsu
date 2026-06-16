@@ -9,6 +9,7 @@ on:
       - .github/workflows/publish-documentation.yml
       - packages/javascript/CHANGELOG.md
       - packages/dart/CHANGELOG.md
+      - packages/python/CHANGELOG.md
   # trigger deployment manually
   workflow_dispatch:
 
@@ -46,6 +47,7 @@ jobs:
         run: |
           cp ../packages/javascript/CHANGELOG.md ./src/changelog/javascript.md
           cp ../packages/dart/CHANGELOG.md ./src/changelog/dart.md
+          cp ../packages/python/CHANGELOG.md ./src/changelog/python.md
 
       # install dependencies if the cache did not hit
       - name: Install dependencies

@@ -1,4 +1,4 @@
-# debounce <Lang dart js />
+# debounce <Lang dart js python />
 
 When the given function is executed repeatedly, the function is called if it has not been called again within the specified timeout. This function is used when a small number of function calls are needed for repetitive input events.
 
@@ -36,4 +36,17 @@ No return values
 		keyUpDebounce();
 	}
 </script>
+```
+
+```python [Python]
+from qsu.misc import debounce
+
+# debounce returns a wrapper. Repeated calls within the timeout window
+# (in milliseconds) reset the timer, so func only runs once the calls stop.
+def on_key_up():
+	print('handleKeyUp called.')
+
+key_up_debounce = debounce(on_key_up, 100)
+
+key_up_debounce()  # only the final call within the 100ms window fires
 ```

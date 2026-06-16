@@ -1,4 +1,4 @@
-# isEqualStrict <Lang dart js />
+# isEqualStrict <Lang dart js python />
 
 It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
 
@@ -35,6 +35,15 @@ final int val2 = 1;
 isEqualStrict('Left', 'Left'); // Returns true
 isEqualStrict(1, [1, '1', 1, val2]); // Returns false
 isEqualStrict(1, '1'); // Returns false
+```
+
+```python [Python]
+val1 = 'Left'
+val2 = 1
+
+isEqualStrict('Left', 'Left', val1)  # Returns True
+isEqualStrict(1, [1, '1', 1, val2])  # Returns False
+isEqualStrict(1, 1, '1', 1)  # Returns False
 ```
 
 :::

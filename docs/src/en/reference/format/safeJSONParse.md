@@ -1,4 +1,4 @@
-# safeJSONParse <Lang dart js />
+# safeJSONParse <Lang dart js python />
 
 Attempts to parse without returning an error, even if the argument value is of the wrong type or in `JSON` format. If parsing fails, it will be replaced with the object set in `fallback`. The default value for `fallback` is an empty object.
 
@@ -29,6 +29,14 @@ final result2 = safeJSONParse(null);
 
 print(result1); // Returns { a: 1, b: 2 }
 print(result2); // Returns {}
+```
+
+```python [Python]
+result1 = safeJSONParse('{"a":1,"b":2}')
+result2 = safeJSONParse(None)
+
+print(result1)  # Returns { a: 1, b: 2 }
+print(result2)  # Returns {}
 ```
 
 :::

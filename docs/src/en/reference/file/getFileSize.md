@@ -1,4 +1,4 @@
-# getFileSize <Lang js dart />
+# getFileSize <Lang js dart python />
 
 <NodeRequired en />
 
@@ -23,6 +23,10 @@ getFileSize('/home/user/test.txt'); // 300
 ```dart [Dart]
 
 getFileSize('/home/user/test.txt'); // 300
+```
+
+```python [Python]
+getFileSize('/home/user/test.txt') # 300
 ```
 
 :::

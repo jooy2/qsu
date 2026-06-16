@@ -1,4 +1,4 @@
-# getGroupKeys <Lang js />
+# getGroupKeys <Lang js python />
 
 주어진 문자열에서 시작 문자와 끝 문자로 묶여진 텍스트 키를 리턴합니다. 이는 i18n 문법을 따르는 문자열 텍스트에서 템플릿 문자열 키를 파악하는데 유용하게 쓰일 수 있습니다.
 
@@ -31,6 +31,14 @@ getGroupKeys('abc {{def}} ghi {jkl}', '{{', '}}'); // Returns ['def']
 getGroupKeys('abc {} {}', '{', '}'); // Returns ['', '']
 getGroupKeys('abc [[def] [ghi] [jkl ', '[', ']'); // Returns ['ghi']
 getGroupKeys('abc {d#e  f}', '{', '}', true); // Returns ['d#e  f']
+```
+
+```python [Python]
+getGroupKeys('abc {def} ghi {{jkl}}', '{', '}')  # Returns ['def']
+getGroupKeys('abc {{def}} ghi {jkl}', '{{', '}}')  # Returns ['def']
+getGroupKeys('abc {} {}', '{', '}')  # Returns ['', '']
+getGroupKeys('abc [[def] [ghi] [jkl ', '[', ']')  # Returns ['ghi']
+getGroupKeys('abc {d#e  f}', '{', '}', True)  # Returns ['d#e  f']
 ```
 
 :::

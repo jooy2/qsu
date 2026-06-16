@@ -1,4 +1,4 @@
-# average <Lang dart js />
+# average <Lang dart js python />
 
 Returns the average of all numeric values in an array.
 
@@ -20,6 +20,10 @@ average([1, 5, 15, 50]); // Returns 17.75
 
 ```dart [Dart]
 average([1, 5, 15, 50]); // Returns 17.75
+```
+
+```python [Python]
+average([1, 5, 15, 50])  # Returns 17.75
 ```
 
 :::

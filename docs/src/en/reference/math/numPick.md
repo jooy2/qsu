@@ -1,4 +1,4 @@
-# numPick <Lang dart js />
+# numPick <Lang dart js python />
 
 Returns a randomly selected number between the min and max values.
 
@@ -23,6 +23,11 @@ numPick(10, 20); // Returns 10~20
 ```dart [Dart]
 numPick(1, 5); // Returns 1~5
 numPick(10, 20); // Returns 10~20
+```
+
+```python [Python]
+numPick(1, 5)  # Returns 1~5
+numPick(10, 20)  # Returns 10~20
 ```
 
 :::

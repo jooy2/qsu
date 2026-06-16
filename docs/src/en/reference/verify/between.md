@@ -1,4 +1,4 @@
-# between <Lang dart js />
+# between <Lang dart js python />
 
 Returns `true` if the first argument is in the range of the second argument (`[min, max]`). To allow the minimum and maximum values to be in the range, pass `true` for the third argument.
 
@@ -24,6 +24,11 @@ between([10, 20], 10, true); // Returns true
 ```dart [Dart]
 between([10, 20], 10); // Returns false
 between([10, 20], 10, inclusive: true); // Returns true
+```
+
+```python [Python]
+between([10, 20], 10)  # Returns False
+between([10, 20], 10, True)  # Returns True
 ```
 
 :::

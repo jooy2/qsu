@@ -6,3 +6,4 @@ Select the language you want below to see the installation instructions for each
 
 - [JavaScript/Node.js](/installation/javascript.md)
 - [Dart/Flutter](/installation/dart.md)
+- [Python](/installation/python.md)

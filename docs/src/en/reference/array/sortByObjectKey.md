@@ -1,4 +1,4 @@
-# sortByObjectKey <Lang js />
+# sortByObjectKey <Lang js python />
 
 Sort array values by a specific key value in an array containing multiple objects. It does not affect the order or value of elements within an object.
 
@@ -69,6 +69,56 @@ sortByObjectKey(obj, 'aa');
 	}
 ]
 */
+```
+
+```python [Python]
+obj = [
+	{
+		'aa': 1,
+		'bb': 'aaa',
+		'cc': 'hi1'
+	},
+	{
+		'aa': 4,
+		'bb': 'ccc',
+		'cc': 'hi10'
+	},
+	{
+		'aa': 2,
+		'bb': 'ddd',
+		'cc': 'hi2'
+	},
+	{
+		'aa': 3,
+		'bb': 'bbb',
+		'cc': 'hi11'
+	}
+]
+
+sortByObjectKey(obj, 'aa')
+
+# [
+# 	{
+# 		'aa': 1,
+# 		'bb': 'aaa',
+# 		'cc': 'hi1'
+# 	},
+# 	{
+# 		'aa': 2,
+# 		'bb': 'ddd',
+# 		'cc': 'hi2'
+# 	},
+# 	{
+# 		'aa': 3,
+# 		'bb': 'bbb',
+# 		'cc': 'hi11'
+# 	},
+# 	{
+# 		'aa': 4,
+# 		'bb': 'ccc',
+# 		'cc': 'hi10'
+# 	}
+# ]
 ```
 
 :::

@@ -1,4 +1,4 @@
-# objMergeNewKey <Lang js />
+# objMergeNewKey <Lang js python />
 
 두 개의 객체 데이터를 하나의 객체로 병합합니다. 이 방법의 핵심은 두 객체를 비교하고 새로 추가된 키 데이터가 있다면 추가하는 것입니다.
 
@@ -36,7 +36,9 @@ objMergeNewKey(obj1, obj2, options);
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 const result = objMergeNewKey(
 	{
 		a: 1,
@@ -56,3 +58,26 @@ const result = objMergeNewKey(
 
 console.log(result); // Returns { a: 1, b: { a: 1, b: 2 }, c: [1, 2], d: 4
 ```
+
+```python [Python]
+result = objMergeNewKey(
+	{
+		'a': 1,
+		'b': {
+			'a': 1
+		},
+		'c': [1, 2]
+	},
+	{
+		'b': {
+			'b': 2
+		},
+		'c': [3],
+		'd': 4
+	}
+)
+
+print(result)  # Returns { 'a': 1, 'b': { 'a': 1, 'b': 2 }, 'c': [1, 2], 'd': 4 }
+```
+
+:::

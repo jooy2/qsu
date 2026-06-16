@@ -1,4 +1,4 @@
-# strToAscii <Lang dart js />
+# strToAscii <Lang dart js python />
 
 Converts the given string to ascii code and returns it as an array.
 
@@ -20,6 +20,10 @@ strToAscii('12345'); // Returns [49, 50, 51, 52, 53]
 
 ```dart [Dart]
 strToAscii('12345'); // Returns [49, 50, 51, 52, 53]
+```
+
+```python [Python]
+strToAscii('12345')  # Returns [49, 50, 51, 52, 53]
 ```
 
 :::

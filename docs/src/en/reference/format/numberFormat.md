@@ -1,4 +1,4 @@
-# numberFormat <Lang dart js />
+# numberFormat <Lang dart js python />
 
 Returns the given number formatted for easy reading, including commas.
 
@@ -20,6 +20,10 @@ numberFormat(1234567); // Returns 1,234,567
 
 ```dart [Dart]
 numberFormat(1234567); // Returns 1,234,567
+```
+
+```python [Python]
+numberFormat(1234567)  # Returns 1,234,567
 ```
 
 :::

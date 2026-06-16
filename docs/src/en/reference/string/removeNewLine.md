@@ -1,4 +1,4 @@
-# removeNewLine <Lang dart js />
+# removeNewLine <Lang dart js python />
 
 Removes `\n`, `\r` characters or replaces them with specified characters.
 
@@ -23,6 +23,11 @@ removeNewLine('ab\r\ncd', '-'); // Returns 'ab-cd'
 ```dart [Dart]
 removeNewLine('ab\ncd'); // Returns 'abcd'
 removeNewLine('ab\r\ncd', replaceTo: '-'); // Returns 'ab-cd'
+```
+
+```python [Python]
+removeNewLine('ab\ncd')  # Returns 'abcd'
+removeNewLine('ab\r\ncd', '-')  # Returns 'ab-cd'
 ```
 
 :::

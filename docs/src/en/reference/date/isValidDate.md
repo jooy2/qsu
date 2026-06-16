@@ -1,4 +1,4 @@
-# isValidDate <Lang js dart />
+# isValidDate <Lang js dart python />
 
 Checks if a given date actually exists. Check only in `YYYY-MM-DD` format.
 
@@ -24,6 +24,11 @@ isValidDate('2021-02-30'); // Returns false
 ```dart [Dart]
 isValidDate('2021-01-01'); // Returns true
 isValidDate('2021-02-30'); // Returns false
+```
+
+```python [Python]
+isValidDate('2021-01-01')  # Returns True
+isValidDate('2021-02-30')  # Returns False
 ```
 
 :::

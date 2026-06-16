@@ -1,4 +1,4 @@
-# strRandom <Lang dart js />
+# strRandom <Lang dart js python />
 
 Returns a random String containing numbers or uppercase and lowercase letters of the given length. The default return length is 12.
 
@@ -23,6 +23,10 @@ strRandom(5); // Returns 'CHy2M'
 
 ```dart [Dart]
 strRandom(5); // Returns 'CHy2M'
+```
+
+```python [Python]
+strRandom(5)  # Returns 'CHy2M'
 ```
 
 :::

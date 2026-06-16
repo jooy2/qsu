@@ -1,4 +1,4 @@
-# toValidFilePath <Lang js dart />
+# toValidFilePath <Lang js dart python />
 
 <NodeRequired en />
 
@@ -25,6 +25,11 @@ toValidFilePath('home/user/.bashrc'); // '/home/user/.bashrc'
 ```dart [Dart]
 toValidFilePath('C:\\Windows\\System32\\', isWindows: true); // 'C:\Windows\System32'
 toValidFilePath('home/user/.bashrc'); // '/home/user/.bashrc'
+```
+
+```python [Python]
+toValidFilePath('C:\\Windows\\System32\\', True) # 'C:\Windows\System32'
+toValidFilePath('home/user/.bashrc') # '/home/user/.bashrc'
 ```
 
 :::

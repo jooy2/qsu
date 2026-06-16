@@ -1,4 +1,4 @@
-# arrMove <Lang dart js />
+# arrMove <Lang dart js python />
 
 배열의 특정 요소의 위치를 지정된 위치로 이동합니다. (위치는 0부터 시작합니다.)
 
@@ -22,6 +22,10 @@ arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
 
 ```dart [Dart]
 arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
+```
+
+```python [Python]
+arrMove([1, 2, 3, 4], 1, 0)  # Returns [2, 1, 3, 4]
 ```
 
 :::

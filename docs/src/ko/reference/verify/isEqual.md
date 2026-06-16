@@ -1,4 +1,4 @@
-# isEqual <Lang dart js />
+# isEqual <Lang dart js python />
 
 첫 번째 인수의 값을 왼쪽 피연산자로, 그 다음에 주어진 인수의 값을 오른쪽 피연산자로 비교하고, 값이 모두 같으면 `true`를 반환합니다.
 
@@ -37,6 +37,16 @@ isEqual('Left', 'Left'); // Returns true
 isEqual(1, [1, '1', 1, val2]); // Returns true
 isEqual(val1, ['Right', 'Left', 1]); // Returns false
 isEqual(1, 1); // Returns true
+```
+
+```python [Python]
+val1 = 'Left'
+val2 = 1
+
+isEqual('Left', 'Left', val1)  # Returns True
+isEqual(1, [1, '1', 1, val2])  # Returns True
+isEqual(val1, ['Right', 'Left', 1])  # Returns False
+isEqual(1, 1, 1, 1)  # Returns True
 ```
 
 :::

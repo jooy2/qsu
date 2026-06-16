@@ -1,4 +1,4 @@
-# strShuffle <Lang dart js />
+# strShuffle <Lang dart js python />
 
 받은 문자열을 무작위로 섞어서 반환합니다.
 
@@ -20,6 +20,10 @@ strShuffle('abcdefg'); // Returns 'bgafced'
 
 ```dart [Dart]
 strShuffle('abcdefg'); // Returns 'bgafced'
+```
+
+```python [Python]
+strShuffle('abcdefg')  # Returns 'bgafced'
 ```
 
 :::

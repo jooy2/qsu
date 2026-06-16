@@ -1,0 +1,40 @@
+name: run-test-python
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - packages/python/tests/**
+      - packages/python/qsu/**
+      - packages/python/pyproject.toml
+      - .github/workflows/run-test-python.yml
+  workflow_dispatch:
+
+jobs:
+  run-test-python:
+    runs-on: ${{ matrix.os }}
+    name: Test Python ${{ matrix.python_version }} on ${{ matrix.os }}
+    env:
+      working-directory: ./packages/python
+    strategy:
+      fail-fast: false
+      matrix:
+        python_version: ['3.9', '3.11', '3.13']
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v5
+      - name: Setup Python ${{ matrix.python_version }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python_version }}
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+        working-directory: ${{ env.working-directory }}
+
+      - name: Run tests
+        run: pytest
+        working-directory: ${{ env.working-directory }}

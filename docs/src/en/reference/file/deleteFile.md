@@ -1,4 +1,4 @@
-# deleteFile <Lang js dart />
+# deleteFile <Lang js dart python />
 
 <NodeRequired en />
 
@@ -24,6 +24,10 @@ await deleteFile('/home/user/text.txt');
 
 ```dart [Dart]
 await deleteFile('/home/user/text.txt');
+```
+
+```python [Python]
+deleteFile('/home/user/text.txt')
 ```
 
 :::

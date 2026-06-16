@@ -1,4 +1,4 @@
-# fetchData <Lang js />
+# fetchData <Lang js python />
 
 <NodeRequired ko />
 
@@ -44,6 +44,14 @@ interface HTTPRequestOption {
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 console.log(await fetchData('https://github.com'), { get: true });
 ```
+
+```python [Python]
+print(fetchData('https://github.com'), { 'get': True })
+```
+
+:::

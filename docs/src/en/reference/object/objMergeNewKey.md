@@ -1,4 +1,4 @@
-# objMergeNewKey <Lang js />
+# objMergeNewKey <Lang js python />
 
 Merge two object data into one object. The key to this method is to compare the two objects and add the newly added key data, if any.
 
@@ -36,7 +36,9 @@ You must specify the original value for the first argument and the object value 
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 const result = objMergeNewKey(
 	{
 		a: 1,
@@ -56,3 +58,26 @@ const result = objMergeNewKey(
 
 console.log(result); // Returns { a: 1, b: { a: 1, b: 2 }, c: [1, 2], d: 4
 ```
+
+```python [Python]
+result = objMergeNewKey(
+	{
+		'a': 1,
+		'b': {
+			'a': 1
+		},
+		'c': [1, 2]
+	},
+	{
+		'b': {
+			'b': 2
+		},
+		'c': [3],
+		'd': 4
+	}
+)
+
+print(result)  # Returns { 'a': 1, 'b': { 'a': 1, 'b': 2 }, 'c': [1, 2], 'd': 4 }
+```
+
+:::

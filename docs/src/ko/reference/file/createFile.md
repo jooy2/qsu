@@ -1,4 +1,4 @@
-# createFile <Lang js dart />
+# createFile <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -22,6 +22,10 @@ await createFile('/home/user/test.txt');
 
 ```dart [Dart]
 await createFile('/home/user/test.txt');
+```
+
+```python [Python]
+createFile('/home/user/test.txt')
 ```
 
 :::

@@ -1,4 +1,4 @@
-# runCommand <Lang js />
+# runCommand <Lang js python />
 
 <NodeRequired en />
 
@@ -14,6 +14,14 @@ It returns the result that is output after entering and executing the command pr
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 console.log(await runCommand('echo a')); // Returns 'a'
 ```
+
+```python [Python]
+print(runCommand('echo a'))  # Returns 'a'
+```
+
+:::

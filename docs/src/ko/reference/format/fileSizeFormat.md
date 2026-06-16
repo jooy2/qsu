@@ -1,4 +1,4 @@
-# fileSizeFormat <Lang js dart />
+# fileSizeFormat <Lang js dart python />
 
 주어진 파일 크기(바이트)를 사람이 읽기 쉬운 문자열로 반환합니다.
 
@@ -26,6 +26,12 @@ fileSizeFormat(100000000, 0, true); // '96 MB'
 fileSizeFormat(1000000); // '976.56 KB'
 fileSizeFormat(100000000, decimals: 3); // '95.367 MB'
 fileSizeFormat(100000000, ceil: true); // '96 MB'
+```
+
+```python [Python]
+fileSizeFormat(1000000)  # '976.56 KB'
+fileSizeFormat(100000000, 3)  # '95.367 MB'
+fileSizeFormat(100000000, 0, True)  # '96 MB'
 ```
 
 :::

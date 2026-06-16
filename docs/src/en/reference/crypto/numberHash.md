@@ -1,4 +1,4 @@
-# numberHash <Lang dart js />
+# numberHash <Lang dart js python />
 
 <NodeRequired en />
 
@@ -26,6 +26,12 @@ numberHash('hello'); // Returns 99162322
 numberHash('abc'); // Returns 96354
 numberHash('Hello'); // Returns 69609650
 numberHash('hello'); // Returns 99162322
+```
+
+```python [Python]
+numberHash('abc')  # Returns 96354
+numberHash('Hello')  # Returns 69609650
+numberHash('hello')  # Returns 99162322
 ```
 
 :::

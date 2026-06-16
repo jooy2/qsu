@@ -1,4 +1,4 @@
-# decrypt <Lang js />
+# decrypt <Lang js python />
 
 <NodeRequired en />
 
@@ -24,6 +24,10 @@ decrypt('61ba43b65fc...', 'secret-key');
 
 ```dart [Dart]
 decrypt('61ba43b65fc...', 'secret-key');
+```
+
+```python [Python]
+decrypt('61ba43b65fc...', 'secret-key')
 ```
 
 :::

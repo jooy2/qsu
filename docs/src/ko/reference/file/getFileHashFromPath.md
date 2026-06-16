@@ -1,4 +1,4 @@
-# getFileHashFromPath <Lang js dart />
+# getFileHashFromPath <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -23,6 +23,10 @@ await getFileHashFromPath('/home/user/text.txt', 'sha1'); // '38851813f75627d581
 
 ```dart [Dart]
 await getFileHashFromPath('/home/user/text.txt', algorithm: 'sha1'); // '38851813f75627d581c593f3ccfb7061dd013fbd'
+```
+
+```python [Python]
+getFileHashFromPath('/home/user/text.txt', 'sha1') # '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```
 
 :::

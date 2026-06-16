@@ -1,4 +1,4 @@
-# isFileExists <Lang js dart />
+# isFileExists <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -17,4 +17,9 @@
 ```javascript
 await isFileExists('text.txt'); // true
 await isFileExists('not-exist.txt'); // false
+```
+
+```python
+isFileExists('text.txt') # True
+isFileExists('not-exist.txt') # False
 ```

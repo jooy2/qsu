@@ -1,4 +1,4 @@
-# truncateExpect <Lang dart js />
+# truncateExpect <Lang dart js python />
 
 The string ignores truncation until the ending character (`endStringChar`). If the expected length is reached, return the truncated string until after the ending character.
 
@@ -24,6 +24,11 @@ truncateExpect('hello-this-is-test-string-bye', 14, '-'); // Returns 'hello-this
 ```dart [Dart]
 truncateExpect('hello. this is test string.', 10, endStringChar: '.'); // Returns 'hello. this is test string.'
 truncateExpect('hello-this-is-test-string-bye', 14, endStringChar: '-'); // Returns 'hello-this-is-'
+```
+
+```python [Python]
+truncateExpect('hello. this is test string.', 10, '.')  # Returns 'hello. this is test string.'
+truncateExpect('hello-this-is-test-string-bye', 14, '-')  # Returns 'hello-this-is-'
 ```
 
 :::

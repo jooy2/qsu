@@ -1,4 +1,4 @@
-# arrTo1dArray <Lang dart js />
+# arrTo1dArray <Lang dart js python />
 
 Merges all elements of a multidimensional array into a one-dimensional array.
 
@@ -20,6 +20,10 @@ arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
 
 ```dart [Dart]
 arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
+```
+
+```python [Python]
+arrTo1dArray([1, 2, [3, 4]], 5)  # Returns [1, 2, 3, 4, 5]
 ```
 
 :::

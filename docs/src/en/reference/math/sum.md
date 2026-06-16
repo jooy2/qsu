@@ -1,4 +1,4 @@
-# sum <Lang js dart />
+# sum <Lang js dart python />
 
 Returns after adding up all the n arguments of numbers or the values of a single array of numbers.
 
@@ -12,7 +12,16 @@ Returns after adding up all the n arguments of numbers or the values of a single
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 sum(1, 2, 3); // Returns 6
 sum([1, 2, 3, 4]); // Returns 10
 ```
+
+```python [Python]
+sum(1, 2, 3) # Returns 6
+sum([1, 2, 3, 4]) # Returns 10
+```
+
+:::

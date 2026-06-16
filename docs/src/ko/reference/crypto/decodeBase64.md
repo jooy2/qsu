@@ -1,4 +1,4 @@
-# decodeBase64 <Lang dart js />
+# decodeBase64 <Lang dart js python />
 
 <NodeRequired ko />
 
@@ -22,6 +22,10 @@ decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
 
 ```dart [Dart]
 decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
+```
+
+```python [Python]
+decodeBase64('dGhpcyBpcyB0ZXN0')  # Returns 'this is test'
 ```
 
 :::

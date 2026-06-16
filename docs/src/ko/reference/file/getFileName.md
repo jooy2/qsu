@@ -1,4 +1,4 @@
-# getFileName <Lang js dart />
+# getFileName <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -25,6 +25,11 @@ getFileName('/home/user/test.txt', true); // 'test.txt'
 ```dart [Dart]
 getFileName('/home/user/test.txt'); // 'test'
 getFileName('/home/user/test.txt', withExtension: true); // 'test.txt'
+```
+
+```python [Python]
+getFileName('/home/user/test.txt') # 'test'
+getFileName('/home/user/test.txt', True) # 'test.txt'
 ```
 
 :::

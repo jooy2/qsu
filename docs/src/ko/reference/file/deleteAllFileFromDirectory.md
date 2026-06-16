@@ -1,4 +1,4 @@
-# deleteAllFileFromDirectory <Lang js dart />
+# deleteAllFileFromDirectory <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -22,6 +22,10 @@ await deleteAllFileFromDirectory('/home/user/Downloads');
 
 ```dart [Dart]
 await deleteAllFileFromDirectory('/home/user/Downloads');
+```
+
+```python [Python]
+deleteAllFileFromDirectory('/home/user/Downloads')
 ```
 
 :::

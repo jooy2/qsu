@@ -1,4 +1,4 @@
-# getSid <Lang js />
+# getSid <Lang js python />
 
 <NodeRequired en />
 
@@ -20,6 +20,14 @@ No required parameters
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 console.log(await sid()); // Returns 'S-1-5-21-406418252-5582013529-1321253100-2001'
 ```
+
+```python [Python]
+print(getSid())  # Returns 'S-1-5-21-406418252-5582013529-1321253100-2001'
+```
+
+:::

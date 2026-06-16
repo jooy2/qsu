@@ -1,4 +1,4 @@
-# isValidFileName <Lang js dart />
+# isValidFileName <Lang js dart python />
 
 <NodeRequired en />
 
@@ -25,6 +25,11 @@ isValidFileName('/home/user/.bashrc', true); // true
 ```dart [Dart]
 isValidFileName('C:\\Windows\\System32*'); // false
 isValidFileName('/home/user/.bashrc', unixType: true); // true
+```
+
+```python [Python]
+isValidFileName('C:\\Windows\\System32*') # False
+isValidFileName('/home/user/.bashrc', True) # True
 ```
 
 :::

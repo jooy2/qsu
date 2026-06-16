@@ -1,4 +1,4 @@
-# toPosixFilePath <Lang js dart />
+# toPosixFilePath <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -22,6 +22,10 @@ toPosixFilePath('C:\\Windows\\System32'); // 'C:/Windows/System32'
 
 ```dart [Dart]
 toPosixFilePath('C:\\Windows\\System32'); // 'C:/Windows/System32'
+```
+
+```python [Python]
+toPosixFilePath('C:\\Windows\\System32') # 'C:/Windows/System32'
 ```
 
 :::

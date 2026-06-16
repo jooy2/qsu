@@ -1,4 +1,4 @@
-# getHostname <Lang js />
+# getHostname <Lang js python />
 
 <NodeRequired ko />
 
@@ -14,6 +14,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 console.log(await getHostname()); // e.g. 'My PC', 'DESKTOP-ABCDEFG'...
 ```
+
+```python [Python]
+print(getHostname())  # e.g. 'My PC', 'DESKTOP-ABCDEFG'...
+```
+
+:::

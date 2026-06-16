@@ -1,4 +1,4 @@
-# isEqualStrict <Lang dart js />
+# isEqualStrict <Lang dart js python />
 
 첫 번째 인수의 값을 왼쪽 피연산자로, 그 다음에 주어진 인수의 값을 오른쪽 피연산자로 비교하고, 값이 모두 같으면 `true`를 반환합니다.
 
@@ -35,6 +35,15 @@ final int val2 = 1;
 isEqualStrict('Left', 'Left'); // Returns true
 isEqualStrict(1, [1, '1', 1, val2]); // Returns false
 isEqualStrict(1, '1'); // Returns false
+```
+
+```python [Python]
+val1 = 'Left'
+val2 = 1
+
+isEqualStrict('Left', 'Left', val1)  # Returns True
+isEqualStrict(1, [1, '1', 1, val2])  # Returns False
+isEqualStrict(1, 1, '1', 1)  # Returns False
 ```
 
 :::

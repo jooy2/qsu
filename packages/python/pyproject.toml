@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "qsu"
+version = "0.1.0"
+description = "qsu is a utility library that contains useful and frequently used functions. Start with your preferred language and the modern development environment."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "CDGet", email = "jooy2.contact@gmail.com" }]
+requires-python = ">=3.8"
+dependencies = ["cryptography>=42.0"]
+keywords = [
+    "util",
+    "utility",
+    "tool",
+    "toolkit",
+    "helper",
+    "array",
+    "string",
+    "date",
+    "math",
+    "verify",
+    "format",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://qsu.cdget.com"
+Repository = "https://github.com/jooy2/qsu"
+"Bug Tracker" = "https://github.com/jooy2/qsu/issues"
+Changelog = "https://qsu.cdget.com/changelog/python"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["qsu"]
+
+[tool.hatch.build.targets.sdist]
+include = ["qsu", "README.md", "LICENSE"]

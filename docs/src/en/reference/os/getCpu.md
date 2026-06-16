@@ -1,4 +1,4 @@
-# getCpu <Lang js />
+# getCpu <Lang js python />
 
 <NodeRequired en />
 
@@ -14,6 +14,14 @@ No required parameters
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 console.log(await getCpu()); // e.g. 'Apple M1'...
 ```
+
+```python [Python]
+print(getCpu())  # e.g. 'Apple M1'...
+```
+
+:::

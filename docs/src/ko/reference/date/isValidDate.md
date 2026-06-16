@@ -1,4 +1,4 @@
-# isValidDate <Lang js />
+# isValidDate <Lang js python />
 
 지정된 날짜가 실제로 존재하는지 확인합니다. `YYYY-MM-DD` 형식으로만 확인합니다.
 
@@ -24,6 +24,11 @@ isValidDate('2021-02-30'); // Returns false
 ```dart [Dart]
 isValidDate('2021-01-01'); // Returns true
 isValidDate('2021-02-30'); // Returns false
+```
+
+```python [Python]
+isValidDate('2021-01-01')  # Returns True
+isValidDate('2021-02-30')  # Returns False
 ```
 
 :::

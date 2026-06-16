@@ -1,4 +1,4 @@
-# tailFile <Lang js dart />
+# tailFile <Lang js dart python />
 
 <NodeRequired ko />
 
@@ -23,6 +23,10 @@ await tailFile('/home/targets/hello.md', 2); // 'Good bye\n--- Hello End ---'
 
 ```dart [Dart]
 await tailFile('/home/targets/hello.md', length: 2); // 'Good bye\n--- Hello End ---'
+```
+
+```python [Python]
+tailFile('/home/targets/hello.md', 2) # 'Good bye\n--- Hello End ---'
 ```
 
 :::

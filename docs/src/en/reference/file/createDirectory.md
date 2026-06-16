@@ -1,4 +1,4 @@
-# createDirectory <Lang js dart />
+# createDirectory <Lang js dart python />
 
 <NodeRequired en />
 
@@ -23,6 +23,10 @@ createDirectory('/home/user/a/b/c');
 
 ```dart [Dart]
 createDirectory('/home/user/a/b/c');
+```
+
+```python [Python]
+createDirectory('/home/user/a/b/c')
 ```
 
 :::

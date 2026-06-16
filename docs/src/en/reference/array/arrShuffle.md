@@ -1,4 +1,4 @@
-# arrShuffle <Lang dart js />
+# arrShuffle <Lang dart js python />
 
 Shuffle the order of the given array and return.
 
@@ -20,6 +20,10 @@ arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
 
 ```dart [Dart]
 arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
+```
+
+```python [Python]
+arrShuffle([1, 2, 3, 4])  # Returns [4, 2, 3, 1]
 ```
 
 :::

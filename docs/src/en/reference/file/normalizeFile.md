@@ -1,4 +1,4 @@
-# normalizeFile <Lang js dart />
+# normalizeFile <Lang js dart python />
 
 <NodeRequired en />
 
@@ -25,6 +25,11 @@ normalizeFile('안녕하세요Hello.txt', 'NFD'); // '안녕하세요Hello.txt'
 ```dart [Dart]
 normalizeFile('안녕하세요Hello.txt', normalizationForm: 'NFC'); // '안녕하세요Hello.txt'
 normalizeFile('안녕하세요Hello.txt', normalizationForm: 'NFD'); // '안녕하세요Hello.txt'
+```
+
+```python [Python]
+normalizeFile('안녕하세요Hello.txt', 'NFC') # '안녕하세요Hello.txt'
+normalizeFile('안녕하세요Hello.txt', 'NFD') # '안녕하세요Hello.txt'
 ```
 
 :::

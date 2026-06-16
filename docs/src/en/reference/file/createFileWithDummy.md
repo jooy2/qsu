@@ -1,4 +1,4 @@
-# createFileWithDummy <Lang js dart />
+# createFileWithDummy <Lang js dart python />
 
 <NodeRequired en />
 
@@ -23,6 +23,10 @@ await createFileWithDummy('/home/user/test.txt', 100000);
 
 ```dart [Dart]
 await createFileWithDummy('/home/user/test.txt', size: 100000);
+```
+
+```python [Python]
+createFileWithDummy('/home/user/test.txt', 100000)
 ```
 
 :::

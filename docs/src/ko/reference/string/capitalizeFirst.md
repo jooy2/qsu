@@ -1,4 +1,4 @@
-# capitalizeFirst <Lang dart js />
+# capitalizeFirst <Lang dart js python />
 
 전체 문자열의 첫 글자를 대문자로 변환하고 반환합니다.
 
@@ -20,6 +20,10 @@ capitalizeFirst('abcd'); // Returns 'Abcd'
 
 ```dart [Dart]
 capitalizeFirst('abcd'); // Returns 'Abcd'
+```
+
+```python [Python]
+capitalizeFirst('abcd')  # Returns 'Abcd'
 ```
 
 :::

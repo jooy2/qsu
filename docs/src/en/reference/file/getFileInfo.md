@@ -1,4 +1,4 @@
-# getFileInfo <Lang js dart />
+# getFileInfo <Lang js dart python />
 
 <NodeRequired en />
 
@@ -22,6 +22,10 @@ await getFileInfo('/home/user/test.txt');
 
 ```dart [Dart]
 await getFileInfo('/home/user/test.txt');
+```
+
+```python [Python]
+getFileInfo('/home/user/test.txt')
 ```
 
 :::

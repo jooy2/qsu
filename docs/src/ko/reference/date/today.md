@@ -1,4 +1,4 @@
-# today <Lang js />
+# today <Lang js python />
 
 오늘 날짜를 반환합니다.
 
@@ -25,6 +25,12 @@ today('/', false); // Returns DD/MM/YYYY
 today(); // Returns YYYY-MM-DD
 today(separator: '/'); // Returns YYYY/MM/DD
 today(separator: '/', yearFirst: false); // Returns DD/MM/YYYY
+```
+
+```python [Python]
+today()  # Returns YYYY-MM-DD
+today('/')  # Returns YYYY/MM/DD
+today('/', False)  # Returns MM/DD/YYYY
 ```
 
 :::

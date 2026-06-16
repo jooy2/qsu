@@ -1,4 +1,4 @@
-# numUnique <Lang dart js />
+# numUnique <Lang dart js python />
 
 Returns a unique number combining a timestamp and a random number.
 
@@ -22,6 +22,10 @@ numUnique(); // Returns 177052123219057200
 
 ```dart [Dart]
 numUnique(); // Returns 177052123219057200
+```
+
+```python [Python]
+numUnique() # Returns 177052123219057200
 ```
 
 :::

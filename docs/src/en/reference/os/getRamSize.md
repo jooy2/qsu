@@ -1,4 +1,4 @@
-# getRamSize <Lang js />
+# getRamSize <Lang js python />
 
 <NodeRequired en />
 
@@ -14,6 +14,14 @@ No required parameters
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 console.log(getRamSize()); // Returns '8 GB'
 ```
+
+```python [Python]
+print(getRamSize())  # Returns '8 GB'
+```
+
+:::

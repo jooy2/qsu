@@ -1,4 +1,4 @@
-# sortByObjectKey <Lang js />
+# sortByObjectKey <Lang js python />
 
 여러 개체가 포함된 배열의 특정 키 값을 기준으로 배열 값을 정렬합니다. 개체 내의 요소의 순서나 값에는 영향을 미치지 않습니다.
 
@@ -69,6 +69,56 @@ sortByObjectKey(obj, 'aa');
 	}
 ]
 */
+```
+
+```python [Python]
+obj = [
+	{
+		'aa': 1,
+		'bb': 'aaa',
+		'cc': 'hi1'
+	},
+	{
+		'aa': 4,
+		'bb': 'ccc',
+		'cc': 'hi10'
+	},
+	{
+		'aa': 2,
+		'bb': 'ddd',
+		'cc': 'hi2'
+	},
+	{
+		'aa': 3,
+		'bb': 'bbb',
+		'cc': 'hi11'
+	}
+]
+
+sortByObjectKey(obj, 'aa')
+
+# [
+# 	{
+# 		'aa': 1,
+# 		'bb': 'aaa',
+# 		'cc': 'hi1'
+# 	},
+# 	{
+# 		'aa': 2,
+# 		'bb': 'ddd',
+# 		'cc': 'hi2'
+# 	},
+# 	{
+# 		'aa': 3,
+# 		'bb': 'bbb',
+# 		'cc': 'hi11'
+# 	},
+# 	{
+# 		'aa': 4,
+# 		'bb': 'ccc',
+# 		'cc': 'hi10'
+# 	}
+# ]
 ```
 
 :::

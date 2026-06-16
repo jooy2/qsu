@@ -1,4 +1,4 @@
-# strUnique <Lang dart js />
+# strUnique <Lang dart js python />
 
 Remove duplicate characters from a given string and output only one.
 
@@ -20,6 +20,10 @@ strUnique('aaabbbcc'); // Returns 'abc'
 
 ```dart [Dart]
 strUnique('aaabbbcc'); // Returns 'abc'
+```
+
+```python [Python]
+strUnique('aaabbbcc')  # Returns 'abc'
 ```
 
 :::

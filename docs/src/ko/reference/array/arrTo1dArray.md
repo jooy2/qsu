@@ -1,4 +1,4 @@
-# arrTo1dArray <Lang dart js />
+# arrTo1dArray <Lang dart js python />
 
 다차원 배열의 모든 요소를 1차원 배열로 병합합니다.
 
@@ -20,6 +20,10 @@ arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
 
 ```dart [Dart]
 arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
+```
+
+```python [Python]
+arrTo1dArray([1, 2, [3, 4]], 5)  # Returns [1, 2, 3, 4, 5]
 ```
 
 :::

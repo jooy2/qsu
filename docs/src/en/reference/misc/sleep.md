@@ -1,4 +1,4 @@
-# sleep <Lang dart js />
+# sleep <Lang dart js python />
 
 Sleep function using Promise.
 
@@ -28,6 +28,13 @@ await sleep(1000); // 1s
 sleep(5000).then(() => {
 // continue
 });
+```
+
+```python [Python]
+sleep(1000)  # 1s (blocks synchronously)
+
+sleep(5000)
+# continue
 ```
 
 :::

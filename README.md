@@ -13,7 +13,7 @@ The following are the advantages of the qsu:
 - It is suitable for use on websites or applications.
 - Documents, prepared for secure data types.
 - Reduce defects through fast maintenance and various test cases.
-- Support for multiple programming languages for the same operation. (JavaScript, Dart)
+- Support for multiple programming languages for the same operation. (JavaScript, Dart, Python)
 
 ## Getting Started
 
@@ -23,6 +23,7 @@ Start `qsu` in your preferred programming language:
 |----------------------|----------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | JavaScript / Node.js | **[Documentation](https://qsu.cdget.com/installation/javascript)** <br/> [Changelog](https://qsu.cdget.com/changelog/javascript) | [![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu) [![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu) ![minified size](https://img.shields.io/bundlephobia/min/qsu) |
 | Dart / Flutter       | **[Documentation](https://qsu.cdget.com/installation/dart)** <br/> [Changelog](https://qsu.cdget.com/changelog/dart)             | ![Pub Version](https://img.shields.io/pub/v/qsu) ![Pub Monthly Downloads](https://img.shields.io/pub/dm/qsu) ![Pub Likes](https://img.shields.io/pub/likes/qsu) ![Pub Points](https://img.shields.io/pub/points/qsu)                                                                                                           |
+| Python               | **[Documentation](https://qsu.cdget.com/installation/python)** <br/> [Changelog](https://qsu.cdget.com/changelog/python)         | [![PyPI version](https://img.shields.io/pypi/v/qsu)](https://pypi.org/project/qsu/) [![PyPI downloads](https://img.shields.io/pypi/dm/qsu)](https://pypi.org/project/qsu/) ![PyPI python versions](https://img.shields.io/pypi/pyversions/qsu)                                                                                  |
 
 ## Contributing
 

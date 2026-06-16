@@ -1,4 +1,4 @@
-# safeParseInt <Lang dart js />
+# safeParseInt <Lang dart js python />
 
 Any argument value will be attempted to be parsed as a Number type without returning an error. If parsing fails, it is replaced by the number set in `fallback`. The default value for `fallback` is `0`. You can specify `radix` (default is decimal: `10`) in the third argument.
 
@@ -34,6 +34,16 @@ final result3 = safeParseInt(null, -1);
 print(result1); // Returns 10
 print(result2); // Returns 10
 print(result3); // Returns -1
+```
+
+```python [Python]
+result1 = safeParseInt('00010')
+result2 = safeParseInt('10.1234')
+result3 = safeParseInt(None, -1)
+
+print(result1)  # Returns 10
+print(result2)  # Returns 10
+print(result3)  # Returns -1
 ```
 
 :::

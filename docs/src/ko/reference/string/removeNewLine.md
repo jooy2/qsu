@@ -1,4 +1,4 @@
-# removeNewLine <Lang dart js />
+# removeNewLine <Lang dart js python />
 
 `\n`, `\r` 문자를 제거하거나 지정된 문자로 대체합니다.
 
@@ -23,6 +23,11 @@ removeNewLine('ab\r\ncd', '-'); // Returns 'ab-cd'
 ```dart [Dart]
 removeNewLine('ab\ncd'); // Returns 'abcd'
 removeNewLine('ab\r\ncd', replaceTo: '-'); // Returns 'ab-cd'
+```
+
+```python [Python]
+removeNewLine('ab\ncd')  # Returns 'abcd'
+removeNewLine('ab\r\ncd', '-')  # Returns 'ab-cd'
 ```
 
 :::

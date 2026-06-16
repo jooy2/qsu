@@ -1,4 +1,4 @@
-# strShuffle <Lang dart js />
+# strShuffle <Lang dart js python />
 
 Randomly shuffles the received string and returns it.
 
@@ -20,6 +20,10 @@ strShuffle('abcdefg'); // Returns 'bgafced'
 
 ```dart [Dart]
 strShuffle('abcdefg'); // Returns 'bgafced'
+```
+
+```python [Python]
+strShuffle('abcdefg')  # Returns 'bgafced'
 ```
 
 :::

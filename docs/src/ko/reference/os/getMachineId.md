@@ -1,4 +1,4 @@
-# getMachineId <Lang js />
+# getMachineId <Lang js python />
 
 <NodeRequired ko />
 
@@ -18,6 +18,14 @@ UUID는 시스템을 재설치하거나 가상 머신의 환경이 변경될 때
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 console.log(await getMachineId()); // Returns 'a642d9e1-6063-4da7-8ea8-2298f989d01d'
 ```
+
+```python [Python]
+print(getMachineId())  # Returns 'a642d9e1-6063-4da7-8ea8-2298f989d01d'
+```
+
+:::

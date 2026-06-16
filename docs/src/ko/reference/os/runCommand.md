@@ -1,4 +1,4 @@
-# runCommand <Lang js />
+# runCommand <Lang js python />
 
 <NodeRequired ko />
 
@@ -14,6 +14,14 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 console.log(await runCommand('echo a')); // Returns 'a'
 ```
+
+```python [Python]
+print(runCommand('echo a'))  # Returns 'a'
+```
+
+:::
