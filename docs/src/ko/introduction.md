@@ -14,3 +14,4 @@
 
 - [JavaScript/Node.js](/ko/installation/javascript.md)
 - [Dart/Flutter](/ko/installation/dart.md)
+- [Python](/ko/installation/python.md)

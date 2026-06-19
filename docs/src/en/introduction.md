@@ -14,3 +14,4 @@ Repeated utility codes that had to be managed for each project can be easily acc
 
 - [JavaScript/Node.js](/installation/javascript.md)
 - [Dart/Flutter](/installation/dart.md)
+- [Python](/installation/python.md)
