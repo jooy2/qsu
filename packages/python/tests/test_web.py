@@ -2,6 +2,7 @@ import pytest
 
 from qsu.web import (
 	generateLicense,
+	getParsedInfoFromAddress,
 	isBotAgent,
 	isMatchPathname,
 	isMobile,
@@ -110,3 +111,66 @@ def test_removeLocalePrefix():
 def test_generateLicense():
 	assert generateLicense(type='mit', author='example', yearStart=2021)
 	assert generateLicense(type='apache20', author='example', yearStart=2021)
+
+
+def test_getParsedInfoFromAddress():
+	# Each case: 'url' plus only the fields that differ from the defaults
+	# (error: False, everything else None).
+	cases = [
+		# Full form: scheme, user, password and port.
+		{'url': 'ssh://test:pass@host:1234', 'protocol': 'SSH', 'host': 'host', 'port': 1234, 'user': 'test', 'pass': 'pass'},
+		# Web URL. Missing values stay None, not an error.
+		{'url': 'https://google.com', 'protocol': 'HTTPS', 'host': 'google.com'},
+		# No scheme -> protocol is None (no SSH default).
+		{'url': 'user:test@host', 'host': 'host', 'user': 'user', 'pass': 'test'},
+		{'url': 'host:1234', 'host': 'host', 'port': 1234},
+		{'url': '192.168.1.123:1234', 'host': '192.168.1.123', 'port': 1234},
+		{'url': 'hostname', 'host': 'hostname'},
+		{'url': 'ssh://test@hostname', 'protocol': 'SSH', 'host': 'hostname', 'user': 'test'},
+		# IPv6 without brackets keeps the raw address and cannot carry a port.
+		{'url': 'ssh://::1', 'protocol': 'SSH', 'host': '::1'},
+		{'url': '::1', 'host': '::1'},
+		{'url': 'ssh://fe80::f9e9:1d57:9f2d:fb87', 'protocol': 'SSH', 'host': 'fe80::f9e9:1d57:9f2d:fb87'},
+		# IPv6 with brackets keeps the brackets and may carry a port.
+		{'url': 'ssh://[fe80::f9e9:1d57:9f2d:fb87]', 'protocol': 'SSH', 'host': '[fe80::f9e9:1d57:9f2d:fb87]'},
+		{'url': '[fe80::f9e9:1d57:9f2d:fb87]:1234', 'host': '[fe80::f9e9:1d57:9f2d:fb87]', 'port': 1234},
+		{'url': 'test:pass@[fe80::f9e9:1d57:9f2d:fb87]:1234', 'host': '[fe80::f9e9:1d57:9f2d:fb87]', 'port': 1234, 'user': 'test', 'pass': 'pass'},
+		{'url': '[::1]', 'host': '[::1]'},
+		{'url': '192.168.1.1', 'host': '192.168.1.1'},
+		# Unknown scheme is parsed as-is (generic parser, no error).
+		{'url': 'asd://192.168.1.1', 'protocol': 'ASD', 'host': '192.168.1.1'},
+		# Scheme only: empty host is None, not an error.
+		{'url': 'ssh://', 'protocol': 'SSH'},
+		{'url': 'sftp://test@localhost', 'protocol': 'SFTP', 'host': 'localhost', 'user': 'test'},
+		{'url': 'test@localhost', 'host': 'localhost', 'user': 'test'},
+		{'url': 'test@192.168.1.1:1234', 'host': '192.168.1.1', 'port': 1234, 'user': 'test'},
+		{'url': 'test@fe80::f9e9:1d57:9f2d:fb87', 'host': 'fe80::f9e9:1d57:9f2d:fb87', 'user': 'test'},
+		# The host is split by the last `@`; the password may keep `@` and `:`.
+		{'url': 'test:hell@test@192.168.1.1', 'host': '192.168.1.1', 'user': 'test', 'pass': 'hell@test'},
+		{'url': 'ssh://test:he::@test@192.168.1.1:1234', 'protocol': 'SSH', 'host': '192.168.1.1', 'port': 1234, 'user': 'test', 'pass': 'he::@test'},
+		{'url': 'test@test:pass@host', 'host': 'host', 'user': 'test@test', 'pass': 'pass'},
+		{'url': 'test:test@test@host:1234', 'host': 'host', 'port': 1234, 'user': 'test', 'pass': 'test@test'},
+		{'url': 'kara', 'host': 'kara'},
+		# Empty user and password become None.
+		{'url': ':@test', 'host': 'test'},
+		# Path/query/fragment are dropped, only the authority is analyzed.
+		{'url': 'https://user:pw@example.com:8080/path?q=1#frag', 'protocol': 'HTTPS', 'host': 'example.com', 'port': 8080, 'user': 'user', 'pass': 'pw'},
+		{'url': 'file:///etc/hosts', 'protocol': 'FILE'},
+		# Invalid inputs -> error: True.
+		{'url': '', 'error': True},
+		{'url': '   ', 'error': True},
+		{'url': 'host:abc', 'error': True, 'host': 'host'},
+		{'url': 'host:70000', 'error': True, 'host': 'host'},
+		{'url': '[fe80::1', 'error': True},
+	]
+
+	for case in cases:
+		url = case['url']
+		result = getParsedInfoFromAddress(url)
+
+		assert result['error'] == case.get('error', False), url
+		assert result['protocol'] == case.get('protocol'), url
+		assert result['host'] == case.get('host'), url
+		assert result['port'] == case.get('port'), url
+		assert result['user'] == case.get('user'), url
+		assert result['pass'] == case.get('pass'), url

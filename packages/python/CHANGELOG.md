@@ -1,6 +1,10 @@
 # Changelog (Python)
 
-## 0.1.0 (--)
+## 0.2.0 (--)
+
+- `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method
+
+## 0.1.0 (2026-06-16)
 
 - Initial release of the Python package
 - Add `string` utilities: `capitalizeEachWords`, `capitalizeEverySentence`, `capitalizeFirst`, `getGroupKeys`, `getStrBytes`, `removeNewLine`, `removeSpecialChar`, `replaceBetween`, `split`, `strBlindRandom`, `strCount`, `strRandom`, `strShuffle`, `strToAscii`, `strUnique`, `trim`, `truncate`, `truncateExpect`, `urlJoin`
