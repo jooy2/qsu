@@ -62,3 +62,12 @@ export interface GetUptimeOption {
 	format?: boolean;
 	floor?: boolean;
 }
+
+export interface ParsedAddress {
+	error: boolean;
+	protocol?: string;
+	host?: string;
+	port?: number;
+	user?: string;
+	pass?: string;
+}

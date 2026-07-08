@@ -5,7 +5,8 @@ import {
 	isMatchPathname,
 	generateLicense,
 	removeLocalePrefix,
-	isMobile
+	isMobile,
+	getParsedInfoFromAddress
 } from '../dist';
 import { homepage } from '../package.json';
 
@@ -107,5 +108,92 @@ describe('Web', () => {
 	it('generateLicense', () => {
 		assert(generateLicense({ type: 'mit', author: 'example', yearStart: 2021 }));
 		assert(generateLicense({ type: 'apache20', author: 'example', yearStart: 2021 }));
+	});
+
+	it('getParsedInfoFromAddress', () => {
+		type Expected = {
+			error: boolean;
+			protocol?: string;
+			host?: string;
+			port?: number;
+			user?: string;
+			pass?: string;
+		};
+		const base: Expected = {
+			error: false,
+			protocol: undefined,
+			host: undefined,
+			port: undefined,
+			user: undefined,
+			pass: undefined
+		};
+
+		// [input, only the fields that differ from `base`]
+		const cases: Array<[string, Partial<Expected>]> = [
+			// Full form: scheme, user, password and port.
+			[
+				'ssh://test:pass@host:1234',
+				{ protocol: 'SSH', host: 'host', port: 1234, user: 'test', pass: 'pass' }
+			],
+			// Web URL. Missing values stay `undefined`, not an error.
+			['https://google.com', { protocol: 'HTTPS', host: 'google.com' }],
+			// No scheme -> protocol is `undefined` (no SSH default).
+			['user:test@host', { host: 'host', user: 'user', pass: 'test' }],
+			['host:1234', { host: 'host', port: 1234 }],
+			['192.168.1.123:1234', { host: '192.168.1.123', port: 1234 }],
+			['hostname', { host: 'hostname' }],
+			['ssh://test@hostname', { protocol: 'SSH', host: 'hostname', user: 'test' }],
+			// IPv6 without brackets keeps the raw address and cannot carry a port.
+			['ssh://::1', { protocol: 'SSH', host: '::1' }],
+			['::1', { host: '::1' }],
+			['ssh://fe80::f9e9:1d57:9f2d:fb87', { protocol: 'SSH', host: 'fe80::f9e9:1d57:9f2d:fb87' }],
+			// IPv6 with brackets keeps the brackets and may carry a port.
+			[
+				'ssh://[fe80::f9e9:1d57:9f2d:fb87]',
+				{ protocol: 'SSH', host: '[fe80::f9e9:1d57:9f2d:fb87]' }
+			],
+			['[fe80::f9e9:1d57:9f2d:fb87]:1234', { host: '[fe80::f9e9:1d57:9f2d:fb87]', port: 1234 }],
+			[
+				'test:pass@[fe80::f9e9:1d57:9f2d:fb87]:1234',
+				{ host: '[fe80::f9e9:1d57:9f2d:fb87]', port: 1234, user: 'test', pass: 'pass' }
+			],
+			['[::1]', { host: '[::1]' }],
+			['192.168.1.1', { host: '192.168.1.1' }],
+			// Unknown scheme is parsed as-is (generic parser, no error).
+			['asd://192.168.1.1', { protocol: 'ASD', host: '192.168.1.1' }],
+			// Scheme only: empty host is `undefined`, not an error.
+			['ssh://', { protocol: 'SSH' }],
+			['sftp://test@localhost', { protocol: 'SFTP', host: 'localhost', user: 'test' }],
+			['test@localhost', { host: 'localhost', user: 'test' }],
+			['test@192.168.1.1:1234', { host: '192.168.1.1', port: 1234, user: 'test' }],
+			['test@fe80::f9e9:1d57:9f2d:fb87', { host: 'fe80::f9e9:1d57:9f2d:fb87', user: 'test' }],
+			// The host is split by the last `@`; the password may keep `@` and `:`.
+			['test:hell@test@192.168.1.1', { host: '192.168.1.1', user: 'test', pass: 'hell@test' }],
+			[
+				'ssh://test:he::@test@192.168.1.1:1234',
+				{ protocol: 'SSH', host: '192.168.1.1', port: 1234, user: 'test', pass: 'he::@test' }
+			],
+			['test@test:pass@host', { host: 'host', user: 'test@test', pass: 'pass' }],
+			['test:test@test@host:1234', { host: 'host', port: 1234, user: 'test', pass: 'test@test' }],
+			['kara', { host: 'kara' }],
+			// Empty user and password become `undefined`.
+			[':@test', { host: 'test' }],
+			// Path/query/fragment are dropped, only the authority is analyzed.
+			[
+				'https://user:pw@example.com:8080/path?q=1#frag',
+				{ protocol: 'HTTPS', host: 'example.com', port: 8080, user: 'user', pass: 'pw' }
+			],
+			['file:///etc/hosts', { protocol: 'FILE' }],
+			// Invalid inputs -> `error: true`.
+			['', { error: true }],
+			['   ', { error: true }],
+			['host:abc', { error: true, host: 'host' }],
+			['host:70000', { error: true, host: 'host' }],
+			['[fe80::1', { error: true }]
+		];
+
+		for (const [url, expected] of cases) {
+			assert.deepStrictEqual(getParsedInfoFromAddress(url), { ...base, ...expected }, url);
+		}
 	});
 });

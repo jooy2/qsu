@@ -3,6 +3,7 @@
 ## 1.12.3 (2026--)
 
 - `logBox`: Add `logBox` method
+- `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method
 
 ## 1.12.2 (2026-06-06)
 
