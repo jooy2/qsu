@@ -100,3 +100,145 @@ String removeLocalePrefix(String urlOrPathname, dynamic locales) {
     return realPath.replaceFirst(RegExp('^/($joinLocaleLists)/'), '/');
   }
 }
+
+/// The result of [getParsedInfoFromAddress]. Missing values are `null`. [error] is `true`
+/// only when the input cannot be parsed, not when a value is simply absent.
+class ParsedAddress {
+  final bool error;
+  final String? protocol;
+  final String? host;
+  final int? port;
+  final String? user;
+  final String? pass;
+
+  ParsedAddress({
+    required this.error,
+    this.protocol,
+    this.host,
+    this.port,
+    this.user,
+    this.pass,
+  });
+}
+
+/// Parses an address string (URL / host / SSH-style connection string) into its
+/// parts. Handles an optional `scheme://`, `user:pass@` userinfo, IPv4, bare or
+/// bracketed IPv6, and a port. Absent parts are `null`; the protocol is not
+/// defaulted and ports are not inferred from the protocol.
+ParsedAddress getParsedInfoFromAddress(String url) {
+  if (url.trim().isEmpty) {
+    return ParsedAddress(error: true);
+  }
+
+  bool error = false;
+  String? protocol;
+  String? host;
+  int? port;
+  String? user;
+  String? pass;
+
+  String rest = url.trim();
+
+  // Extract the scheme only when it is followed by `://` (e.g. `ssh://`,
+  // `https://`). A bare `host:1234` must not be treated as a `host` scheme.
+  final RegExpMatch? schemeMatch =
+      RegExp(r'^([a-zA-Z][a-zA-Z0-9+.-]*):\/\/').firstMatch(rest);
+
+  if (schemeMatch != null) {
+    protocol = schemeMatch.group(1)!.toUpperCase();
+    rest = rest.substring(schemeMatch.group(0)!.length);
+  }
+
+  // Drop the path/query/fragment. Only the authority part is analyzed.
+  final String authority = rest.split(RegExp(r'[/?#]')).first;
+
+  if (authority.isEmpty) {
+    return ParsedAddress(error: error, protocol: protocol);
+  }
+
+  // Split userinfo from host by the last `@` so `@` inside the password stays.
+  String hostPort = authority;
+  final int atIndex = authority.lastIndexOf('@');
+
+  if (atIndex != -1) {
+    final String userInfo = authority.substring(0, atIndex);
+
+    hostPort = authority.substring(atIndex + 1);
+
+    // Split user from password by the first `:` so `:` inside the password stays.
+    final int colonIndex = userInfo.indexOf(':');
+    final String u =
+        colonIndex != -1 ? userInfo.substring(0, colonIndex) : userInfo;
+    final String p = colonIndex != -1 ? userInfo.substring(colonIndex + 1) : '';
+
+    user = u.isEmpty ? null : u;
+    pass = p.isEmpty ? null : p;
+  }
+
+  void parsePort(String portString) {
+    if (portString.isEmpty) {
+      return;
+    }
+
+    final int? parsed = int.tryParse(portString);
+
+    if (!RegExp(r'^\d+$').hasMatch(portString) ||
+        parsed == null ||
+        parsed > 65535) {
+      error = true;
+
+      return;
+    }
+
+    port = parsed;
+  }
+
+  if (hostPort.startsWith('[')) {
+    // Bracketed IPv6. Keep the brackets as part of the host.
+    final int closeIndex = hostPort.indexOf(']');
+
+    if (closeIndex == -1) {
+      return ParsedAddress(
+        error: true,
+        protocol: protocol,
+        user: user,
+        pass: pass,
+      );
+    }
+
+    host = hostPort.substring(0, closeIndex + 1);
+
+    final String after = hostPort.substring(closeIndex + 1);
+
+    if (after.isEmpty) {
+      // No port.
+    } else if (after.startsWith(':')) {
+      parsePort(after.substring(1));
+    } else {
+      error = true;
+    }
+  } else {
+    final int colonCount = ':'.allMatches(hostPort).length;
+
+    if (colonCount >= 2) {
+      // Bare IPv6 without brackets (e.g. `::1`). It cannot carry a port.
+      host = hostPort;
+    } else if (colonCount == 1) {
+      final List<String> parts = hostPort.split(':');
+
+      host = parts[0].isEmpty ? null : parts[0];
+      parsePort(parts[1]);
+    } else {
+      host = hostPort.isEmpty ? null : hostPort;
+    }
+  }
+
+  return ParsedAddress(
+    error: error,
+    protocol: protocol,
+    host: host,
+    port: port,
+    user: user,
+    pass: pass,
+  );
+}

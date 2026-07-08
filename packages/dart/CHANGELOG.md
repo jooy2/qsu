@@ -3,6 +3,7 @@
 ## 1.2.2 (2026--)
 
 - `arrPick`: Add `arrPick` method
+- `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method
 
 ## 1.2.1 (2026--)
 
