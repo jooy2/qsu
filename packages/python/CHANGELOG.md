@@ -3,6 +3,7 @@
 ## 0.2.0 (--)
 
 - `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method
+- `getSlug`: Add `getSlug` method
 
 ## 0.1.0 (2026-06-16)
 

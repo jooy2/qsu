@@ -3,6 +3,7 @@ import pytest
 from qsu.web import (
 	generateLicense,
 	getParsedInfoFromAddress,
+	getSlug,
 	isBotAgent,
 	isMatchPathname,
 	isMobile,
@@ -174,3 +175,51 @@ def test_getParsedInfoFromAddress():
 		assert result['port'] == case.get('port'), url
 		assert result['user'] == case.get('user'), url
 		assert result['pass'] == case.get('pass'), url
+
+
+def test_getSlug():
+	# Basics: lowercased, spaces become the separator.
+	assert getSlug('Hello World') == 'hello-world'
+	# Leading/trailing whitespace is trimmed.
+	assert getSlug('  Hello World  ') == 'hello-world'
+	# Non-Latin letters (Korean) are kept as-is by default.
+	assert getSlug('안녕 하세요 반갑습니다') == '안녕-하세요-반갑습니다'
+	assert getSlug('Hello 안녕') == 'hello-안녕'
+	# Numbers are included by default and dropped when disabled.
+	assert getSlug('Product 123') == 'product-123'
+	assert getSlug('Product 123', includeNumbers=False) == 'product'
+	# Special characters are dropped by default.
+	assert getSlug('My First Blog Post!') == 'my-first-blog-post'
+	assert getSlug('100% Pure & Natural') == '100-pure-natural'
+	assert getSlug('React.js + Next.js Guide') == 'reactjs-nextjs-guide'
+	# Special characters are percent-encoded when enabled.
+	assert getSlug('a & b', includeSpecial=True) == 'a-%26-b'
+	assert getSlug('a&b', uppercase=True, includeSpecial=True) == 'A%26B'
+	# Uppercase option.
+	assert getSlug('Hello World', uppercase=True) == 'HELLO-WORLD'
+	# Custom separators.
+	assert getSlug('Hello World', separator='_') == 'hello_world'
+	assert getSlug('Hello World', separator='::') == 'hello::world'
+	assert getSlug('Hello World', separator='') == 'helloworld'
+	# Existing `-`/`_` in the source also act as word boundaries; `@`/`.` do not,
+	# so their surrounding characters merge into one word.
+	assert getSlug('a - b _ c') == 'a-b-c'
+	assert getSlug('user_name@example.com') == 'user-nameexamplecom'
+	# includeNonLatin gates non-ASCII letters (Korean, accents).
+	assert getSlug('Hello 안녕 World', includeNonLatin=False) == 'hello-world'
+	assert getSlug('Café', includeNonLatin=False) == 'caf'
+	assert getSlug('Café & Restaurant', includeSpecial=True) == 'café-%26-restaurant'
+	# baseUrl builds a full URL; a trailing slash is normalized away.
+	assert (
+		getSlug('Hello World', baseUrl='https://example.com/blog')
+		== 'https://example.com/blog/hello-world'
+	)
+	assert (
+		getSlug('Hello World', baseUrl='https://example.com/')
+		== 'https://example.com/hello-world'
+	)
+	# Empty results stay empty, even with a baseUrl.
+	assert getSlug('') == ''
+	assert getSlug('   ') == ''
+	assert getSlug('!!!') == ''
+	assert getSlug('', baseUrl='https://example.com') == ''
