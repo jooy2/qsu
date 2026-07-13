@@ -235,5 +235,50 @@ void main() {
         expect(result.pass, c['pass'], reason: 'pass for "$url"');
       }
     });
+
+    test('getSlug', () {
+      // Basics: lowercased, spaces become the separator.
+      expect(getSlug('Hello World'), 'hello-world');
+      // Leading/trailing whitespace is trimmed.
+      expect(getSlug('  Hello World  '), 'hello-world');
+      // Non-Latin letters (Korean) are kept as-is by default.
+      expect(getSlug('안녕 하세요 반갑습니다'), '안녕-하세요-반갑습니다');
+      expect(getSlug('Hello 안녕'), 'hello-안녕');
+      // Numbers are included by default and dropped when disabled.
+      expect(getSlug('Product 123'), 'product-123');
+      expect(getSlug('Product 123', includeNumbers: false), 'product');
+      // Special characters are dropped by default.
+      expect(getSlug('My First Blog Post!'), 'my-first-blog-post');
+      expect(getSlug('100% Pure & Natural'), '100-pure-natural');
+      expect(getSlug('React.js + Next.js Guide'), 'reactjs-nextjs-guide');
+      // Special characters are percent-encoded when enabled.
+      expect(getSlug('a & b', includeSpecial: true), 'a-%26-b');
+      expect(getSlug('a&b', uppercase: true, includeSpecial: true), 'A%26B');
+      // Uppercase option.
+      expect(getSlug('Hello World', uppercase: true), 'HELLO-WORLD');
+      // Custom separators.
+      expect(getSlug('Hello World', separator: '_'), 'hello_world');
+      expect(getSlug('Hello World', separator: '::'), 'hello::world');
+      expect(getSlug('Hello World', separator: ''), 'helloworld');
+      // Existing `-`/`_` in the source also act as word boundaries; `@`/`.` do
+      // not, so their surrounding characters merge into one word.
+      expect(getSlug('a - b _ c'), 'a-b-c');
+      expect(getSlug('user_name@example.com'), 'user-nameexamplecom');
+      // includeNonLatin gates non-ASCII letters (Korean, accents).
+      expect(getSlug('Hello 안녕 World', includeNonLatin: false), 'hello-world');
+      expect(getSlug('Café', includeNonLatin: false), 'caf');
+      expect(getSlug('Café & Restaurant', includeSpecial: true),
+          'café-%26-restaurant');
+      // baseUrl builds a full URL; a trailing slash is normalized away.
+      expect(getSlug('Hello World', baseUrl: 'https://example.com/blog'),
+          'https://example.com/blog/hello-world');
+      expect(getSlug('Hello World', baseUrl: 'https://example.com/'),
+          'https://example.com/hello-world');
+      // Empty results stay empty, even with a baseUrl.
+      expect(getSlug(''), '');
+      expect(getSlug('   '), '');
+      expect(getSlug('!!!'), '');
+      expect(getSlug('', baseUrl: 'https://example.com'), '');
+    });
   });
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 /// Analyze the user agent value to determine if it's a bot for a search engine. Returns `true` if it's a bot.
 bool isBotAgent(String userAgent) {
   final RegExp botPattern = RegExp(
@@ -99,6 +101,85 @@ String removeLocalePrefix(String urlOrPathname, dynamic locales) {
 
     return realPath.replaceFirst(RegExp('^/($joinLocaleLists)/'), '/');
   }
+}
+
+/// Converts the given [text] into a URL slug. Whitespace and existing `-`/`_`
+/// characters act as word boundaries, letters are kept, and non-Latin letters,
+/// digits and special characters are gated by the named options. The result is
+/// trimmed and lowercased (or uppercased). When [baseUrl] is set and the slug is
+/// not empty, the slug is joined onto it to form a full URL.
+String getSlug(
+  String text, {
+  String separator = '-',
+  bool includeNumbers = true,
+  bool includeSpecial = false,
+  bool uppercase = false,
+  bool includeNonLatin = true,
+  String baseUrl = '',
+}) {
+  if (text.trim().isEmpty) {
+    return '';
+  }
+
+  final String trimmed = text.trim();
+  final String source =
+      uppercase ? trimmed.toUpperCase() : trimmed.toLowerCase();
+
+  // Both the chosen separator and any separator-like char in the source act as
+  // a word boundary, so "hello-world" stays "hello-world" instead of doubling.
+  bool isBoundary(String ch) =>
+      RegExp(r'\s').hasMatch(ch) || ch == '-' || ch == '_';
+  bool isAsciiLetter(String ch) => RegExp(r'^[a-zA-Z]$').hasMatch(ch);
+  bool isLetter(String ch) => RegExp(r'\p{L}', unicode: true).hasMatch(ch);
+  bool isDigit(String ch) =>
+      ch.codeUnitAt(0) >= 0x30 && ch.codeUnitAt(0) <= 0x39;
+
+  // Encode every special character as its uppercase UTF-8 percent sequence.
+  String percentEncode(String ch) => utf8
+      .encode(ch)
+      .map((b) => '%${b.toRadixString(16).toUpperCase().padLeft(2, '0')}')
+      .join();
+
+  final List<String> words = [];
+  String current = '';
+  void flush() {
+    if (current.isNotEmpty) {
+      words.add(current);
+      current = '';
+    }
+  }
+
+  for (final int rune in source.runes) {
+    final String ch = String.fromCharCode(rune);
+
+    if (isBoundary(ch)) {
+      flush();
+    } else if (isAsciiLetter(ch)) {
+      current += ch;
+    } else if (isLetter(ch)) {
+      if (includeNonLatin) current += ch;
+    } else if (isDigit(ch)) {
+      if (includeNumbers) current += ch;
+    } else if (includeSpecial) {
+      current += percentEncode(ch);
+    }
+  }
+  flush();
+
+  final String slug = words.join(separator);
+
+  if (slug.isEmpty) {
+    return '';
+  }
+
+  // Prepend the base URL as-is (no protocol required) when one is provided.
+  final String base = baseUrl.trim();
+
+  if (base.isEmpty) {
+    return slug;
+  }
+
+  return '${base.replaceAll(RegExp(r'/+$'), '')}/$slug';
 }
 
 /// The result of [getParsedInfoFromAddress]. Missing values are `null`. [error] is `true`
