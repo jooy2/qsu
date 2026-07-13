@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `str::string`
-- `splitter::string||string[]||...string`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'splitter', type: 'string | string[] | ...string', required: true }
+]" />
 
 ## Returns
 

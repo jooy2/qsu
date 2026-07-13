@@ -4,7 +4,9 @@ Ensure that text is displayed in full without being truncated in Dart's `print`.
 
 ## Parameters
 
-- `text::string`
+<ParamsTable :rows="[
+	{ name: 'text', type: 'string', required: true }
+]" />
 
 ## Returns
 

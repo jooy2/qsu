@@ -4,7 +4,9 @@ Converts the given string to ascii code and returns it as an array.
 
 ## Parameters
 
-- `str::string`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true }
+]" />
 
 ## Returns
 

@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `obj::object`
-- `recursive::boolean` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'obj', type: 'object', required: true },
+	{ name: 'recursive', type: 'boolean', named: true, default: 'false' }
+]" />
 
 ## Returns
 

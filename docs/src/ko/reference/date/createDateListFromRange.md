@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `startDate::Date`
-- `endDate::Date`
+<ParamsTable :rows="[
+	{ name: 'startDate', type: 'Date', required: true },
+	{ name: 'endDate', type: 'Date', required: true }
+]" />
 
 ## Returns
 

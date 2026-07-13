@@ -4,9 +4,11 @@ Returns `true` if the first argument is in the range of the second argument (`[m
 
 ## Parameters
 
-- `range::[number, number]`
-- `number::number`
-- `inclusive::boolean || false` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'range', type: '[number, number]', required: true },
+	{ name: 'number', type: 'number', required: true },
+	{ name: 'inclusive', type: 'boolean', default: 'false', named: true }
+]" />
 
 ## Returns
 

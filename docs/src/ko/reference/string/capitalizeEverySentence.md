@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `str::string`
-- `splitChar::string` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'splitChar', type: 'string', named: true }
+]" />
 
 ## Returns
 

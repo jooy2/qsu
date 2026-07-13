@@ -4,8 +4,10 @@ Creates and returns an Array in the order of start...end values.
 
 ## Parameters
 
-- `start::number`
-- `end::number`
+<ParamsTable :rows="[
+	{ name: 'start', type: 'number', required: true },
+	{ name: 'end', type: 'number', required: true }
+]" />
 
 ## Returns
 

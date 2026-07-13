@@ -6,7 +6,9 @@ The date can be checked only from `1600-01-01` to `9999-12-31` and all dates bef
 
 ## Parameters
 
-- `date::string`
+<ParamsTable :rows="[
+	{ name: 'date', type: 'string', required: true }
+]" />
 
 ## Returns
 

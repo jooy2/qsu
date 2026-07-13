@@ -6,8 +6,10 @@
 
 ## Parameters
 
-- `filePath::string`: File or directory path
-- `length::number` <DartNamed />: Number of lines of text to return
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' },
+	{ name: 'length', type: 'number', named: true, default: '1', desc: 'Number of lines of text to return' }
+]" />
 
 ## Returns
 

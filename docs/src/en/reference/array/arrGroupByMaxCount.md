@@ -4,8 +4,10 @@ Separates the data in the given array into a two-dimensional array containing on
 
 ## Parameters
 
-- `array::any[]`
-- `maxLengthPerGroup::number`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[]', required: true },
+	{ name: 'maxLengthPerGroup', type: 'number', default: '1' }
+]" />
 
 ## Returns
 

@@ -13,16 +13,19 @@ The behavior is intentionally simple and predictable:
 
 ## Parameters
 
-- `text::string`
-- `options::object` (optional)
-  - `separator::string` - The word separator. Default: `-`
-  - `includeNumbers::boolean` - Keep digits. Default: `true`
-  - `includeSpecial::boolean` - Percent-encode and keep special characters. Default: `false`
-  - `uppercase::boolean` - Output in uppercase instead of lowercase. Default: `false`
-  - `includeNonLatin::boolean` - Keep non-Latin letters such as Korean. Default: `true`
-  - `baseUrl::string` - When set, prepend this base URL to build a full URL. Default: `''`
+<ParamsTable :rows="[
+	{ name: 'text', type: 'string', required: true },
+	{ name: 'options', type: 'object', named: true }
+]" />
 
-In Dart, the options are named parameters. In Python, they are keyword arguments.
+<ParamsTable name="options" :rows="[
+	{ name: 'separator', type: 'string', default: `'-'`, desc: 'The word separator.' },
+	{ name: 'includeNumbers', type: 'boolean', default: 'true', desc: 'Keep digits.' },
+	{ name: 'includeSpecial', type: 'boolean', default: 'false', desc: 'Percent-encode and keep special characters.' },
+	{ name: 'uppercase', type: 'boolean', default: 'false', desc: 'Output in uppercase instead of lowercase.' },
+	{ name: 'includeNonLatin', type: 'boolean', default: 'true', desc: 'Keep non-Latin letters such as Korean.' },
+	{ name: 'baseUrl', type: 'string', default: `''`, desc: 'When set, prepend this base URL to build a full URL.' }
+]" />
 
 ## Returns
 

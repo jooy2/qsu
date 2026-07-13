@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `start::number`
-- `end::number`
+<ParamsTable :rows="[
+	{ name: 'start', type: 'number', required: true },
+	{ name: 'end', type: 'number', required: true }
+]" />
 
 ## Returns
 

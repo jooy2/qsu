@@ -6,8 +6,10 @@ Converts String data to sha256 hash value and returns it.
 
 ## Parameters
 
-- `str::string`
-- `encoding?::'hex'(Default)|'base64'|'base64url'|'binary'` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'encoding', type: `'hex' | 'base64' | 'base64url' | 'binary'`, named: true, default: `'hex'` }
+]" />
 
 ## Returns
 

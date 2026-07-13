@@ -4,7 +4,9 @@ Check whether the given data is of type `Object`. Returns `false` for other data
 
 ## Parameters
 
-- `data::any`
+<ParamsTable :rows="[
+	{ name: 'data', type: 'any', required: true }
+]" />
 
 ## Returns
 

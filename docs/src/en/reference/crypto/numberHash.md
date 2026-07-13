@@ -6,7 +6,9 @@ Returns the specified string as a hash value of type number. The return value ca
 
 ## Parameters
 
-- `str::string`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true }
+]" />
 
 ## Returns
 

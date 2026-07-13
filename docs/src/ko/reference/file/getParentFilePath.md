@@ -6,8 +6,10 @@
 
 ## Parameters
 
-- `filePath::string`
-- `isWindows::boolean` <DartNamed />: Whether the target operating system to be checked is Windows
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true },
+	{ name: 'isWindows', type: 'boolean', named: true, desc: 'Whether the target operating system to be checked is Windows' }
+]" />
 
 ## Returns
 

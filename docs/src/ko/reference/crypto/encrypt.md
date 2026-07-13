@@ -6,10 +6,13 @@
 
 ## Parameters
 
-- `str::string`
-- `secret::string`
-- `algorithm::string || 'aes-256-cbc'`
-- `ivSize::number || 16`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'secret', type: 'string', required: true },
+	{ name: 'algorithm', type: 'string', default: `'aes-256-cbc'` },
+	{ name: 'ivSize', type: 'number', default: '16' },
+	{ name: 'toBase64', type: 'boolean', default: 'false' }
+]" />
 
 ## Returns
 

@@ -6,7 +6,9 @@ Create a file of empty data. If the same file already exists, it is ignored.
 
 ## Parameters
 
-- `filePath::string`: File or directory path
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' }
+]" />
 
 ## Returns
 

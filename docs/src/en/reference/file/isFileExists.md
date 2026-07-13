@@ -6,7 +6,9 @@ If a file or directory exists at the specified path, it returns `true`.
 
 ## Parameters
 
-- `filePath::string`
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true }
+]" />
 
 ## Returns
 

@@ -4,8 +4,10 @@ Returns the date data of a Date object in the format `YYYY-MM-DD`.
 
 ## Parameters
 
-- `date::Date`
-- `separator:string`
+<ParamsTable :rows="[
+	{ name: 'date', type: 'Date', required: true },
+	{ name: 'separator', type: 'string', default: `'-'` }
+]" />
 
 ## Returns
 

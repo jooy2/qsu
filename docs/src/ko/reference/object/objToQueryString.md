@@ -4,7 +4,9 @@
 
 ## Parameters
 
-- `obj::object`
+<ParamsTable :rows="[
+	{ name: 'obj', type: 'object', required: true }
+]" />
 
 ## Returns
 

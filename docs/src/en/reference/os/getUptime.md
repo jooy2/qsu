@@ -6,14 +6,14 @@ Returns the number of seconds the Node.js process has been running.
 
 ## Parameters
 
-- `GetUptimeOption::object`
+<ParamsTable :rows="[
+	{ name: 'opt', type: 'GetUptimeOption' }
+]" />
 
-```typescript
-interface GetUptimeOption {
-	format?: boolean;
-	floor?: boolean;
-}
-```
+<ParamsTable name="GetUptimeOption" :rows="[
+	{ name: 'format', type: 'boolean' },
+	{ name: 'floor', type: 'boolean' }
+]" />
 
 ## Returns
 

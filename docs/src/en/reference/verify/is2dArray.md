@@ -4,7 +4,9 @@ Returns `true` if the given array is a two-dimensional array.
 
 ## Parameters
 
-- `array::any[]`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[]', required: true }
+]" />
 
 ## Returns
 

@@ -6,8 +6,10 @@
 
 ## Parameters
 
-- `filePath::string`: File path
-- `algorithm::'md5'|'sha1'|'sha256'|'sha512'` <DartNamed />: OpenSSL algorithm to be used for file hashing
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true, desc: 'File path' },
+	{ name: 'algorithm', type: `'md5' | 'sha1' | 'sha256' | 'sha512'`, named: true, default: `'md5'`, desc: 'OpenSSL algorithm to be used for file hashing' }
+]" />
 
 ## Returns
 

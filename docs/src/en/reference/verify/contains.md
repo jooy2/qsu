@@ -4,9 +4,11 @@ Returns `true` if the first string argument contains the second argument "string
 
 ## Parameters
 
-- `str::any[]|string`
-- `search::any[]|string`
-- `exact::boolean || false` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'str', type: 'any[] | string', required: true },
+	{ name: 'search', type: 'any[] | string', required: true },
+	{ name: 'exact', type: 'boolean', default: 'false', named: true }
+]" />
 
 ## Returns
 

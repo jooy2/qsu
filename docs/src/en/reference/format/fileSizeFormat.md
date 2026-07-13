@@ -4,9 +4,11 @@ Returns the given file size (in bytes) as a human-readable string.
 
 ## Parameters
 
-- `bytes::number`: Converts it to a human-friendly string via the bytes provided here.
-- `decimals::number (Default: 2)` <DartNamed />: Specifies the number of decimal places to represent.
-- `ceil::boolean` <DartNamed />: If this value is `true`, the decimal point is removed and the number is rounded up.
+<ParamsTable :rows="[
+	{ name: 'bytes', type: 'number', required: true, desc: 'Converts it to a human-friendly string via the bytes provided here.' },
+	{ name: 'decimals', type: 'number', default: '2', named: true, desc: 'Specifies the number of decimal places to represent.' },
+	{ name: 'ceil', type: 'boolean', default: 'false', named: true, desc: 'If this value is `true`, the decimal point is removed and the number is rounded up.' }
+]" />
 
 ## Returns
 

@@ -4,9 +4,11 @@ Returns `true` if the given data is in the correct URL format. If withProtocol i
 
 ## Parameters
 
-- `url::string`
-- `withProtocol::boolean || false` <DartNamed />
-- `strict::boolean || false` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'url', type: 'string', required: true },
+	{ name: 'withProtocol', type: 'boolean', default: 'false', named: true },
+	{ name: 'strict', type: 'boolean', default: 'false', named: true }
+]" />
 
 ## Returns
 

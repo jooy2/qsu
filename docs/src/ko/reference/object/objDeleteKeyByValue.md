@@ -4,9 +4,11 @@
 
 ## Parameters
 
-- `obj::object`
-- `searchValue::string|number|null|undefined`
-- `recursive::boolean` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'obj', type: 'object', required: true },
+	{ name: 'searchValue', type: 'string | number | null' },
+	{ name: 'recursive', type: 'boolean', named: true, default: 'false' }
+]" />
 
 ## Returns
 

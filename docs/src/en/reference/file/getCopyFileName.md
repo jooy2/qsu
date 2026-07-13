@@ -12,8 +12,10 @@ This function does not handle file paths.
 
 ## Parameters
 
-- `fileName::string`: File name to rename
-- `fileNameList::string[]`: An array containing the names of files to check for duplicates
+<ParamsTable :rows="[
+	{ name: 'fileName', type: 'string', required: true, desc: 'File name to rename' },
+	{ name: 'fileNameList', type: 'string[]', required: true, desc: 'An array containing the names of files to check for duplicates' }
+]" />
 
 ## Returns
 

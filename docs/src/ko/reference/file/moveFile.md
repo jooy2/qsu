@@ -6,8 +6,10 @@
 
 ## Parameters
 
-- `filePath::string`: File or directory path
-- `targetFilePath::string`: Path of file to move
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' },
+	{ name: 'targetFilePath', type: 'string', required: true, desc: 'Path of file to move' }
+]" />
 
 ## Returns
 

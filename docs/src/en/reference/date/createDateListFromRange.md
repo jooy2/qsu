@@ -4,8 +4,10 @@ Create an array list of all dates from `startDate` to `endDate` in the format `Y
 
 ## Parameters
 
-- `startDate::Date`
-- `endDate::Date`
+<ParamsTable :rows="[
+	{ name: 'startDate', type: 'Date', required: true },
+	{ name: 'endDate', type: 'Date', required: true }
+]" />
 
 ## Returns
 

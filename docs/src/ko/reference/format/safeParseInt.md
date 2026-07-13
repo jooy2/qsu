@@ -4,9 +4,11 @@
 
 ## Parameters
 
-- `value::any`
-- `fallback::number` <DartNamed />
-- `radix::number` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'value', type: 'any', required: true },
+	{ name: 'fallback', type: 'number', named: true, default: '0' },
+	{ name: 'radix', type: 'number', named: true, default: '10' }
+]" />
 
 ## Returns
 

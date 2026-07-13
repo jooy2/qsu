@@ -4,7 +4,9 @@ Removes all whitespace before and after a string. Unlike JavaScript's `trim` fun
 
 ## Parameters
 
-- `str::string`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true }
+]" />
 
 ## Returns
 

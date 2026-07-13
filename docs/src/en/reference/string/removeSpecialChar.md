@@ -4,8 +4,10 @@ Returns after removing all special characters, including spaces. If you want to 
 
 ## Parameters
 
-- `str::string`
-- `exceptionCharacters::string?` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'exceptionCharacters', type: 'string', named: true }
+]" />
 
 ## Returns
 

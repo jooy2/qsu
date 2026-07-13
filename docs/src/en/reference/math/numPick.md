@@ -4,8 +4,10 @@ Returns a randomly selected number between the min and max values.
 
 ## Parameters
 
-- `min::number`
-- `max::number`
+<ParamsTable :rows="[
+	{ name: 'min', type: 'number', required: true },
+	{ name: 'max', type: 'number', required: true }
+]" />
 
 ## Returns
 

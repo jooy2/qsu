@@ -6,8 +6,10 @@ Determines whether the passed path or filename is using a system-accepted string
 
 ## Parameters
 
-- `filePath::string`: File or directory path
-- `unixType::boolean?` <DartNamed />: Passes true if the file type is unix type.
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' },
+	{ name: 'unixType', type: 'boolean', named: true, desc: 'Passes true if the file type is unix type.' }
+]" />
 
 ## Returns
 

@@ -26,9 +26,11 @@ You must specify the original value for the first argument and the object value 
 
 ## Parameters
 
-- `obj::object`
-- `obj2::object`
-- `arrayAction::object?`: 'original' | 'replace' | 'append'
+<ParamsTable :rows="[
+	{ name: 'obj', type: 'object', required: true },
+	{ name: 'obj2', type: 'object', required: true },
+	{ name: 'arrayAction', type: `'original' | 'replace' | 'append'` }
+]" />
 
 ## Returns
 

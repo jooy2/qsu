@@ -8,8 +8,10 @@ If Windows fails to get the file properties, it assumes the file is not hidden.
 
 ## Parameters
 
-- `filePath::string`
-- `isWindows::boolean`: Whether the target operating system to be checked is Windows
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true },
+	{ name: 'isWindows', type: 'boolean', default: 'false', desc: 'Whether the target operating system to be checked is Windows' }
+]" />
 
 ## Returns
 

@@ -4,7 +4,9 @@ Shuffle the order of the given array and return.
 
 ## Parameters
 
-- `array::any[]`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[]', required: true }
+]" />
 
 ## Returns
 

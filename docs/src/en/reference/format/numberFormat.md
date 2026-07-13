@@ -4,7 +4,9 @@ Returns the given number formatted for easy reading, including commas.
 
 ## Parameters
 
-- `number::number`
+<ParamsTable :rows="[
+	{ name: 'number', type: 'number', required: true }
+]" />
 
 ## Returns
 

@@ -4,8 +4,10 @@ Checks if the given argument value is a valid email.
 
 ## Parameters
 
-- `email::string`
-- `onlyLowerCase::boolean || false` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'email', type: 'string', required: true },
+	{ name: 'onlyLowerCase', type: 'boolean', default: 'false', named: true }
+]" />
 
 ## Returns
 

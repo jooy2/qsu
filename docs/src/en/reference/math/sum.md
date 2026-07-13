@@ -4,7 +4,9 @@ Returns after adding up all the n arguments of numbers or the values of a single
 
 ## Parameters
 
-- `numbers::...number[]`
+<ParamsTable :rows="[
+	{ name: 'numbers', type: '...number[]', required: true }
+]" />
 
 ## Returns
 

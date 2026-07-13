@@ -4,7 +4,9 @@ Sleep function using Promise.
 
 ## Parameters
 
-- `milliseconds::number`
+<ParamsTable :rows="[
+	{ name: 'milliseconds', type: 'number', required: true }
+]" />
 
 ## Returns
 

@@ -6,7 +6,9 @@
 
 ## Parameters
 
-- `encodedStr::string`
+<ParamsTable :rows="[
+	{ name: 'encodedStr', type: 'string', required: true }
+]" />
 
 ## Returns
 

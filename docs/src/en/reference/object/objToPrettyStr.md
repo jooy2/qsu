@@ -4,7 +4,9 @@ Recursively output all the steps of the JSON object (`JSON.stringify`) and then 
 
 ## Parameters
 
-- `obj::object`
+<ParamsTable :rows="[
+	{ name: 'obj', type: 'object', required: true }
+]" />
 
 ## Returns
 

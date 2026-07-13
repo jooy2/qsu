@@ -13,16 +13,19 @@
 
 ## Parameters
 
-- `text::string`
-- `options::object` (선택)
-  - `separator::string` - 단어 구분 기호. 기본값: `-`
-  - `includeNumbers::boolean` - 숫자 포함. 기본값: `true`
-  - `includeSpecial::boolean` - 특수문자를 퍼센트 인코딩하여 포함. 기본값: `false`
-  - `uppercase::boolean` - 소문자 대신 대문자로 출력. 기본값: `false`
-  - `includeNonLatin::boolean` - 한글 등 영문 외 문자 포함. 기본값: `true`
-  - `baseUrl::string` - 설정 시 이 베이스 URL을 앞에 붙여 전체 URL을 생성. 기본값: `''`
+<ParamsTable :rows="[
+	{ name: 'text', type: 'string', required: true },
+	{ name: 'options', type: 'object', named: true }
+]" />
 
-Dart에서는 옵션이 명명된 매개변수(named parameter)이고, Python에서는 키워드 인자입니다.
+<ParamsTable name="options" :rows="[
+	{ name: 'separator', type: 'string', default: `'-'`, desc: '단어 구분 기호.' },
+	{ name: 'includeNumbers', type: 'boolean', default: 'true', desc: '숫자 포함.' },
+	{ name: 'includeSpecial', type: 'boolean', default: 'false', desc: '특수문자를 퍼센트 인코딩하여 포함.' },
+	{ name: 'uppercase', type: 'boolean', default: 'false', desc: '소문자 대신 대문자로 출력.' },
+	{ name: 'includeNonLatin', type: 'boolean', default: 'true', desc: '한글 등 영문 외 문자 포함.' },
+	{ name: 'baseUrl', type: 'string', default: `''`, desc: '설정 시 이 베이스 URL을 앞에 붙여 전체 URL을 생성.' }
+]" />
 
 ## Returns
 

@@ -6,8 +6,10 @@ Creates a directory with the specified path. Ignores the operation if the direct
 
 ## Parameters
 
-- `filePath::string`: File or directory path
-- `recursive::boolean?|true` <DartNamed />: Recursively creates all directories in the given path.
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' },
+	{ name: 'recursive', type: 'boolean', named: true, default: 'true', desc: 'Recursively creates all directories in the given path.' }
+]" />
 
 ## Returns
 

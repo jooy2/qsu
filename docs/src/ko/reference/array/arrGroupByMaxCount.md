@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `array::any[]`
-- `maxLengthPerGroup::number`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[]', required: true },
+	{ name: 'maxLengthPerGroup', type: 'number', default: '1' }
+]" />
 
 ## Returns
 

@@ -2,6 +2,8 @@
 
 ## 0.2.0 (--)
 
+- **BREAKING CHANGES**: `duration` now hides milliseconds by default (enable with `withMilliSeconds`) and uses grammatically correct plurals (e.g. `0 Hours`, `1 Hour`)
+- `duration`: Support `Month` (30 days) and `Year` (365 days) units, and add `withMilliSeconds`, `maxUnitCount`, and `unit` (single-unit) options
 - `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method
 - `getSlug`: Add `getSlug` method
 

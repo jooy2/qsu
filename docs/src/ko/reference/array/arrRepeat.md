@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `array::any[]|object`
-- `count::number`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[] | object', required: true },
+	{ name: 'count', type: 'number', required: true }
+]" />
 
 ## Returns
 

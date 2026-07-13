@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `pathname::string`
-- `matcher::string|string[]`
+<ParamsTable :rows="[
+	{ name: 'pathname', type: 'string', required: true },
+	{ name: 'matcher', type: 'string | string[]', required: true }
+]" />
 
 ## Returns
 

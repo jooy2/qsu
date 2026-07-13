@@ -6,7 +6,9 @@
 
 ## Parameters
 
-- `directoryPath::string`: Directory path
+<ParamsTable :rows="[
+	{ name: 'directoryPath', type: 'string', required: true, desc: 'Directory path' }
+]" />
 
 ## Returns
 

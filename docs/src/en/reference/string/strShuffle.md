@@ -4,7 +4,9 @@ Randomly shuffles the received string and returns it.
 
 ## Parameters
 
-- `str::string`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true }
+]" />
 
 ## Returns
 

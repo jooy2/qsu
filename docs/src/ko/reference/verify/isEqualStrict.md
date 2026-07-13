@@ -6,8 +6,10 @@
 
 ## Parameters
 
-- `leftOperand::any`
-- `rightOperand::any||any[]||...any`
+<ParamsTable :rows="[
+	{ name: 'leftOperand', type: 'any', required: true },
+	{ name: 'rightOperand', type: 'any | any[] | ...any', required: true }
+]" />
 
 In Dart, rest parameters are not supported in `rightOperand`.
 

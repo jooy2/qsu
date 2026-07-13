@@ -4,7 +4,9 @@ Returns the number of bytes in the given string.
 
 ## Parameters
 
-- `str::string`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true }
+]" />
 
 ## Returns
 

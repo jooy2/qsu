@@ -6,10 +6,12 @@ If the `numerically` option is `true`, when sorting an array consisting of strin
 
 ## Parameters
 
-- `array::any[]`
-- `key::string`
-- `descending::boolean`
-- `numerically::boolean`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[]', required: true },
+	{ name: 'key', type: 'string', required: true },
+	{ name: 'descending', type: 'boolean', default: 'false' },
+	{ name: 'numerically', type: 'boolean', default: 'false' }
+]" />
 
 ## Returns
 

@@ -4,11 +4,13 @@ Changes the value matching a specific key name in the given object. If the `recu
 
 ## Parameters
 
-- `obj::object`
-- `searchKey::string`
-- `value::any`
-- `recursive::boolean`
-- `upsert::boolean`
+<ParamsTable :rows="[
+	{ name: 'obj', type: 'object', required: true },
+	{ name: 'searchKey', type: 'string', required: true },
+	{ name: 'value', type: 'any', required: true },
+	{ name: 'recursive', type: 'boolean', default: 'false' },
+	{ name: 'upsert', type: 'boolean', default: 'false' }
+]" />
 
 ## Returns
 

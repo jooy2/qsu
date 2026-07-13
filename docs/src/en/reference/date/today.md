@@ -4,8 +4,10 @@ Returns today's date.
 
 ## Parameters
 
-- `separator::string = '-'` <DartNamed />
-- `yearFirst::boolean = false` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'separator', type: 'string', named: true, default: `'-'` },
+	{ name: 'yearFirst', type: 'boolean', named: true, default: 'true' }
+]" />
 
 ## Returns
 

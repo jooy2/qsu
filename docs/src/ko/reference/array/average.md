@@ -4,7 +4,9 @@
 
 ## Parameters
 
-- `array::number[]`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'number[]', required: true }
+]" />
 
 ## Returns
 

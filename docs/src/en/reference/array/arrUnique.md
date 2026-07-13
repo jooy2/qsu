@@ -4,7 +4,9 @@ Remove duplicate values from array and two-dimensional array data. In the case o
 
 ## Parameters
 
-- `array::any[]`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[]', required: true }
+]" />
 
 ## Returns
 

@@ -12,31 +12,33 @@ However, you can receive error details via the `onError` event.
 
 ## Parameters
 
-- `url::string`
-- `httpRequestOptions::object`
+<ParamsTable :rows="[
+	{ name: 'url', type: 'string', required: true },
+	{ name: 'httpRequestOptions', type: 'HTTPRequestOption', desc: 'Request options. See the table below.' }
+]" />
 
-```typescript
-interface HTTPRequestOption {
-	auth?: {
-		apiKey?: string; // 'x-API-key' header
-		bearer?: string; // 'Authorization Bearer' header
-	};
-	get?: boolean; // Same as `method: 'get'`
-	post?: boolean; // Same as `method: 'post'`
-	put?: boolean; // Same as `method: 'put'`
-	delete?: boolean; // Same as `method: 'delete'`
-	patch?: boolean; // Same as `method: 'patch'`
-	toStream?: boolean;
-	timeout?: number;
-	method?: 'get' | 'post' | 'put' | 'delete' | 'patch';
-	host?: string; // If this value is not specified, the URL must be a full path.
-	queryParameters?: object;
-	body?: AnyValueObject | string | undefined | null | FormData;
-	bodyType?: 'text' | 'json' | 'form-data' | 'x-www-form-urlencoded';
-	headers?: AnyValueObject | undefined | null;
-	onError?: (error: any) => void;
-}
-```
+<ParamsTable name="HTTPRequestOption" :rows="[
+	{ name: 'auth', type: 'object', desc: 'Authentication credentials. See the table below.' },
+	{ name: 'get', type: 'boolean', desc: `Same as \`method: 'get'\`` },
+	{ name: 'post', type: 'boolean', desc: `Same as \`method: 'post'\`` },
+	{ name: 'put', type: 'boolean', desc: `Same as \`method: 'put'\`` },
+	{ name: 'delete', type: 'boolean', desc: `Same as \`method: 'delete'\`` },
+	{ name: 'patch', type: 'boolean', desc: `Same as \`method: 'patch'\`` },
+	{ name: 'toStream', type: 'boolean' },
+	{ name: 'timeout', type: 'number' },
+	{ name: 'method', type: `'get' | 'post' | 'put' | 'delete' | 'patch'` },
+	{ name: 'host', type: 'string', desc: 'If this value is not specified, the URL must be a full path.' },
+	{ name: 'queryParameters', type: 'object' },
+	{ name: 'body', type: 'object | string | FormData | null' },
+	{ name: 'bodyType', type: `'text' | 'json' | 'form-data' | 'x-www-form-urlencoded'` },
+	{ name: 'headers', type: 'object | null' },
+	{ name: 'onError', type: 'function', desc: '(error) => void' }
+]" />
+
+<ParamsTable name="auth" :rows="[
+	{ name: 'apiKey', type: 'string', desc: `'x-API-key' header` },
+	{ name: 'bearer', type: 'string', desc: `'Authorization Bearer' header` }
+]" />
 
 ## Returns
 

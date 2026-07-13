@@ -4,7 +4,9 @@ Checks if the current user is accessing from a mobile device via the User Agent 
 
 ## Parameters
 
-- `userAgent::string`
+<ParamsTable :rows="[
+	{ name: 'userAgent', type: 'string', required: true }
+]" />
 
 ## Returns
 

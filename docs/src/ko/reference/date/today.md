@@ -1,11 +1,13 @@
-# today <Lang js python />
+# today <Lang js dart python />
 
 오늘 날짜를 반환합니다.
 
 ## Parameters
 
-- `separator::string = '-'` <DartNamed />
-- `yearFirst::boolean = false` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'separator', type: 'string', named: true, default: `'-'` },
+	{ name: 'yearFirst', type: 'boolean', named: true, default: 'true' }
+]" />
 
 ## Returns
 

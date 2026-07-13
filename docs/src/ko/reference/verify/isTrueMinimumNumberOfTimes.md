@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `conditions::boolean[]`
-- `minimumCount::number` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'conditions', type: 'boolean[]', required: true },
+	{ name: 'minimumCount', type: 'number', named: true, default: '1' }
+]" />
 
 ## Returns
 

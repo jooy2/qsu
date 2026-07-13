@@ -4,8 +4,10 @@ Repeats the data of an `Array` or `Object` a specific number of times and return
 
 ## Parameters
 
-- `array::any[]|object`
-- `count::number`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[] | object', required: true },
+	{ name: 'count', type: 'number', required: true }
+]" />
 
 ## Returns
 

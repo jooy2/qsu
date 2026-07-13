@@ -4,7 +4,9 @@
 
 ## Parameters
 
-- `userAgent::string`
+<ParamsTable :rows="[
+	{ name: 'userAgent', type: 'string', required: true }
+]" />
 
 ## Returns
 

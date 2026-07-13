@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `obj::object`
-- `separator::string` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'obj', type: 'object', required: true },
+	{ name: 'separator', type: 'string', named: true, default: `'.'` }
+]" />
 
 ## Returns
 

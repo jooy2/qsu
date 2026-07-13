@@ -4,8 +4,10 @@ Returns the number of duplicates for each unique value in the given array. The a
 
 ## Parameters
 
-- `array::string[]|number[]`
-- `count::number`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'string[] | number[]', required: true },
+	{ name: 'count', type: 'number', required: true }
+]" />
 
 ## Returns
 

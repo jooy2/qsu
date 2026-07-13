@@ -6,9 +6,12 @@ Decrypt with the specified algorithm (default: `aes-256-cbc`) using a string and
 
 ## Parameters
 
-- `str::string`
-- `secret::string`
-- `algorithm::string || 'aes-256-cbc'`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'secret', type: 'string', required: true },
+	{ name: 'algorithm', type: 'string', default: `'aes-256-cbc'` },
+	{ name: 'toBase64', type: 'boolean', default: 'false' }
+]" />
 
 ## Returns
 

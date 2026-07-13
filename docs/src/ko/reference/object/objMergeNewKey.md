@@ -26,9 +26,11 @@ objMergeNewKey(obj1, obj2, options);
 
 ## Parameters
 
-- `obj::object`
-- `obj2::object`
-- `arrayAction::object?`: 'original' | 'replace' | 'append'
+<ParamsTable :rows="[
+	{ name: 'obj', type: 'object', required: true },
+	{ name: 'obj2', type: 'object', required: true },
+	{ name: 'arrayAction', type: `'original' | 'replace' | 'append'` }
+]" />
 
 ## Returns
 

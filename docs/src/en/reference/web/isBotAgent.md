@@ -4,7 +4,9 @@ Analyze the user agent value to determine if it's a bot for a search engine. Ret
 
 ## Parameters
 
-- `userAgent::string`
+<ParamsTable :rows="[
+	{ name: 'userAgent', type: 'string', required: true }
+]" />
 
 ## Returns
 

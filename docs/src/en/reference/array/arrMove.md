@@ -4,9 +4,11 @@ Moves the position of a specific element in an array to the specified position. 
 
 ## Parameters
 
-- `array::any[]`
-- `from::number`
-- `to::number`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[]', required: true },
+	{ name: 'from', type: 'number', required: true },
+	{ name: 'to', type: 'number', required: true }
+]" />
 
 ## Returns
 

@@ -6,8 +6,10 @@
 
 ## Parameters
 
-- `length::number`
-- `additionalCharacters::string?` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'length', type: 'number', required: true },
+	{ name: 'additionalCharacters', type: 'string', named: true }
+]" />
 
 ## Returns
 

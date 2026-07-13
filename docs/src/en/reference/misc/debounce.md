@@ -6,8 +6,10 @@ For example, if you have a `func` variable written as `const func = debounce(() 
 
 ## Parameters
 
-- `func::function`
-- `timeout::number`
+<ParamsTable :rows="[
+	{ name: 'func', type: 'function', required: true },
+	{ name: 'timeout', type: 'number', required: true }
+]" />
 
 ## Returns
 

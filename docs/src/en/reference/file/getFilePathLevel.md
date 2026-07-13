@@ -6,7 +6,9 @@ Determine how many steps the current path is. The root path (`/` or `C:\`) begin
 
 ## Parameters
 
-- `filePath::string`
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true }
+]" />
 
 ## Returns
 

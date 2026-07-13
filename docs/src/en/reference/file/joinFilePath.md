@@ -8,8 +8,10 @@ In Dart, the `paths` parameter accepts only one argument, which is a List.
 
 ## Parameters
 
-- `isWindows::boolean` <DartNamed />: Whether the target operating system to be checked is Windows
-- `paths::string[]`: A path value consisting of one or more strings. Omit the path separator and put it in the parameter.
+<ParamsTable :rows="[
+	{ name: 'isWindows', type: 'boolean', required: true, named: true, desc: 'Whether the target operating system to be checked is Windows' },
+	{ name: 'paths', type: 'string[]', required: true, desc: 'A path value consisting of one or more strings. Omit the path separator and put it in the parameter.' }
+]" />
 
 ## Returns
 

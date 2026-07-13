@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `array::string[]|number[]`
-- `count::number`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'string[] | number[]', required: true },
+	{ name: 'count', type: 'number', required: true }
+]" />
 
 ## Returns
 

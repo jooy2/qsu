@@ -6,7 +6,9 @@ Returns the given path as a path in POSIX format (usually used by Linux). For ex
 
 ## Parameters
 
-- `filePath::string`
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true }
+]" />
 
 ## Returns
 

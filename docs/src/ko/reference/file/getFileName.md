@@ -6,8 +6,10 @@
 
 ## Parameters
 
-- `filePath::string`: File or directory path
-- `withExtension:boolean?|false` <DartNamed />: Returns the name with extension.
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' },
+	{ name: 'withExtension', type: 'boolean', named: true, default: 'false', desc: 'Returns the name with extension.' }
+]" />
 
 ## Returns
 

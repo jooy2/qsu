@@ -4,8 +4,10 @@ Repeat iteratee n (times argument value) times. After the return result of each 
 
 ## Parameters
 
-- `times::number`
-- `iteratee::function`
+<ParamsTable :rows="[
+	{ name: 'times', type: 'number', required: true },
+	{ name: 'iteratee', type: 'function', required: true }
+]" />
 
 ## Returns
 

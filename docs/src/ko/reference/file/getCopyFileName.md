@@ -12,8 +12,10 @@
 
 ## Parameters
 
-- `fileName::string`: 변경할 파일 이름
-- `fileNameList::string[]`: 중복을 확인 할 파일 이름이 담긴 배열
+<ParamsTable :rows="[
+	{ name: 'fileName', type: 'string', required: true, desc: '변경할 파일 이름' },
+	{ name: 'fileNameList', type: 'string[]', required: true, desc: '중복을 확인 할 파일 이름이 담긴 배열' }
+]" />
 
 ## Returns
 

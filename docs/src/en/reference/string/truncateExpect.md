@@ -4,9 +4,11 @@ The string ignores truncation until the ending character (`endStringChar`). If t
 
 ## Parameters
 
-- `str::string`
-- `expectLength::number`
-- `endStringChar::string || '.'` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'expectLength', type: 'number', required: true },
+	{ name: 'endStringChar', type: 'string', named: true, default: `'.'` }
+]" />
 
 ## Returns
 

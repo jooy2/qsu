@@ -6,7 +6,9 @@ Decodes an encoded base64 string to a plain string.
 
 ## Parameters
 
-- `encodedStr::string`
+<ParamsTable :rows="[
+	{ name: 'encodedStr', type: 'string', required: true }
+]" />
 
 ## Returns
 

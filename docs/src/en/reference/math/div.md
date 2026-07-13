@@ -4,7 +4,9 @@ Returns after dividing all n arguments of numbers or the values of a single arra
 
 ## Parameters
 
-- `numbers::...number[]`
+<ParamsTable :rows="[
+	{ name: 'numbers', type: '...number[]', required: true }
+]" />
 
 ## Returns
 

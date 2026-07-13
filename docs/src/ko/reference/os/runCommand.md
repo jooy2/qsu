@@ -6,7 +6,9 @@
 
 ## Parameters
 
-- `command::string`
+<ParamsTable :rows="[
+	{ name: 'command', type: 'string', required: true }
+]" />
 
 ## Returns
 

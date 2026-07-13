@@ -4,7 +4,9 @@
 
 ## Parameters
 
-- `data::any`
+<ParamsTable :rows="[
+	{ name: 'data', type: 'any', required: true }
+]" />
 
 ## Returns
 

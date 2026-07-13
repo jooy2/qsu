@@ -4,7 +4,9 @@ Returns the average of all numeric values in an array.
 
 ## Parameters
 
-- `array::number[]`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'number[]', required: true }
+]" />
 
 ## Returns
 

@@ -4,7 +4,9 @@ Merges all elements of a multidimensional array into a one-dimensional array.
 
 ## Parameters
 
-- `array::any[]`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[]', required: true }
+]" />
 
 ## Returns
 

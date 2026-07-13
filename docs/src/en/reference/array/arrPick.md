@@ -4,7 +4,9 @@ Returns a random item from the given array. If the array is empty or is not an a
 
 ## Parameters
 
-- `array::any[]`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[]', required: true }
+]" />
 
 ## Returns
 

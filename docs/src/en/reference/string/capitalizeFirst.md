@@ -4,7 +4,9 @@ Converts the first letter of the entire string to uppercase and returns.
 
 ## Parameters
 
-- `str::string`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true }
+]" />
 
 ## Returns
 

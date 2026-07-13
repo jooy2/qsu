@@ -6,8 +6,10 @@
 
 ## Parameters
 
-- `filePath::string`: File or directory path
-- `normalizationForm::'NFC'|'NFD'|'NFKC'|'NFKD'|undefined` <DartNamed />: Normalization method (If value is `undefined`, `NFC` is used.)
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' },
+	{ name: 'normalizationForm', type: `'NFC' | 'NFD' | 'NFKC' | 'NFKD'`, named: true, desc: 'Normalization method (If value is `undefined`, `NFC` is used.)' }
+]" />
 
 ## Returns
 

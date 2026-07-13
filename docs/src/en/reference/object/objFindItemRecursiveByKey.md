@@ -4,10 +4,12 @@ Returns the object if the key of a specific piece of data in the object's datase
 
 ## Parameters
 
-- `obj::object`
-- `searchKey::string`
-- `searchValue::any`
-- `childKey::string`
+<ParamsTable :rows="[
+	{ name: 'obj', type: 'object', required: true },
+	{ name: 'searchKey', type: 'string', required: true },
+	{ name: 'searchValue', type: 'any', required: true },
+	{ name: 'childKey', type: 'string', required: true }
+]" />
 
 ## Returns
 

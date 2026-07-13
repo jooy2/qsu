@@ -6,10 +6,12 @@ Deletes strings in the range if `replaceWith` is not specified.
 
 ## Parameters
 
-- `str::string`
-- `startChar::string`
-- `endChar::string`
-- `replaceWith::string || ''`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'startChar', type: 'string', required: true },
+	{ name: 'endChar', type: 'string', required: true },
+	{ name: 'replaceWith', type: 'string', default: `''` }
+]" />
 
 ## Returns
 

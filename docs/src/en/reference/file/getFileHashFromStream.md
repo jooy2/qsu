@@ -6,8 +6,10 @@ Returns a file in a Node.js ReadableStream object as a value hashed with a speci
 
 ## Parameters
 
-- `fileStream::string`: Node.js Readable file stream
-- `algorithm::'md5'|'sha1'|'sha256'|'sha512'`: OpenSSL algorithm to be used for file hashing
+<ParamsTable :rows="[
+	{ name: 'fileStream', type: 'string', required: true, desc: 'Node.js Readable file stream' },
+	{ name: 'algorithm', type: `'md5' | 'sha1' | 'sha256' | 'sha512'`, default: `'md5'`, desc: 'OpenSSL algorithm to be used for file hashing' }
+]" />
 
 ## Returns
 

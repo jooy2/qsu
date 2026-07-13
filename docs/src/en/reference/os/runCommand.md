@@ -6,7 +6,9 @@ It returns the result that is output after entering and executing the command pr
 
 ## Parameters
 
-- `command::string`
+<ParamsTable :rows="[
+	{ name: 'command', type: 'string', required: true }
+]" />
 
 ## Returns
 

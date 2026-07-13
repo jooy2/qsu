@@ -4,7 +4,9 @@ Returns the length of any type of data. If the argument value is `null` or `unde
 
 ## Parameters
 
-- `data::any`
+<ParamsTable :rows="[
+	{ name: 'data', type: 'any', required: true }
+]" />
 
 ## Returns
 

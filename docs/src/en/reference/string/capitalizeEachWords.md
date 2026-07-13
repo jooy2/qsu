@@ -4,8 +4,10 @@ Converts every word with spaces to uppercase. If the naturally argument is true,
 
 ## Parameters
 
-- `str::string`
-- `natural::boolean || false` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'natural', type: 'boolean', named: true, default: 'false' }
+]" />
 
 ## Returns
 

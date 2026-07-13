@@ -4,9 +4,11 @@ Truncates a long string to a specified length, optionally appending an ellipsis 
 
 ## Parameters
 
-- `str::string`
-- `length::number`
-- `ellipsis::string || ''` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'length', type: 'number', required: true },
+	{ name: 'ellipsis', type: 'string', named: true, default: `''` }
+]" />
 
 ## Returns
 

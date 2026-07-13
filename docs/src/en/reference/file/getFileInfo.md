@@ -6,7 +6,9 @@ Returns file or directory information as an easy-to-understand object.
 
 ## Parameters
 
-- `filePath::string`: File or directory path
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' }
+]" />
 
 ## Returns
 

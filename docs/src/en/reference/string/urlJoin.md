@@ -6,8 +6,9 @@ In Dart, accepts only one argument, organized as an List.
 
 ## Parameters
 
-- `args::...any[]` (JavaScript)
-- `args::List<dynamic>` (Dart)
+<ParamsTable :rows="[
+	{ name: 'args', type: '...any[]', required: true, desc: 'URL segments to join (rest parameter). In Dart, pass a single `List<dynamic>`.' }
+]" />
 
 ## Returns
 

@@ -4,8 +4,10 @@ Initialize an array with a default value of a specific length.
 
 ## Parameters
 
-- `defaultValue::any`
-- `length::number || 0`
+<ParamsTable :rows="[
+	{ name: 'defaultValue', type: 'any', required: true },
+	{ name: 'length', type: 'number', default: '0' }
+]" />
 
 ## Returns
 

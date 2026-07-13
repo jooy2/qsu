@@ -4,7 +4,9 @@ Promise를 이용한 수면 기능.
 
 ## Parameters
 
-- `milliseconds::number`
+<ParamsTable :rows="[
+	{ name: 'milliseconds', type: 'number', required: true }
+]" />
 
 ## Returns
 

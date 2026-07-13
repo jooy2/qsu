@@ -6,7 +6,9 @@
 
 ## Parameters
 
-- `date::string`
+<ParamsTable :rows="[
+	{ name: 'date', type: 'string', required: true }
+]" />
 
 ## Returns
 

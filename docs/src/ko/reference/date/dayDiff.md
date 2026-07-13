@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `date1::Date`
-- `date2::Date?`
+<ParamsTable :rows="[
+	{ name: 'date1', type: 'Date', required: true },
+	{ name: 'date2', type: 'Date' }
+]" />
 
 ## Returns
 

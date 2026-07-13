@@ -8,7 +8,9 @@ This method also supports deleting directory paths. If files exist within the di
 
 ## Parameters
 
-- `filePath::string`: File or directory path
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' }
+]" />
 
 ## Returns
 

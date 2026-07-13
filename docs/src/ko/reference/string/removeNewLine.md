@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `str::string`
-- `replaceTo::string || ''` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'replaceTo', type: 'string', named: true, default: `''` }
+]" />
 
 ## Returns
 

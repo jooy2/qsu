@@ -6,10 +6,12 @@
 
 ## Parameters
 
-- `array::any[]`
-- `key::string`
-- `descending::boolean`
-- `numerically::boolean`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[]', required: true },
+	{ name: 'key', type: 'string', required: true },
+	{ name: 'descending', type: 'boolean', default: 'false' },
+	{ name: 'numerically', type: 'boolean', default: 'false' }
+]" />
 
 ## Returns
 

@@ -12,10 +12,12 @@
 
 ## Parameters
 
-- `str::string`
-- `groupStart::string`
-- `groupEnd::string`
-- `ignoreValidation::boolean`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'groupStart', type: 'string', required: true },
+	{ name: 'groupEnd', type: 'string', required: true },
+	{ name: 'ignoreValidation', type: 'boolean', default: 'false' }
+]" />
 
 ## Returns
 

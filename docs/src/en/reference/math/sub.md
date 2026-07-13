@@ -4,7 +4,9 @@ Returns after subtracting all n arguments of numbers or the values of a single a
 
 ## Parameters
 
-- `numbers::...number[]`
+<ParamsTable :rows="[
+	{ name: 'numbers', type: '...number[]', required: true }
+]" />
 
 ## Returns
 

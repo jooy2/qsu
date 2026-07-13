@@ -13,7 +13,9 @@ The rules are intentionally generic:
 
 ## Parameters
 
-- `url::string`
+<ParamsTable :rows="[
+	{ name: 'url', type: 'string', required: true }
+]" />
 
 ## Returns
 

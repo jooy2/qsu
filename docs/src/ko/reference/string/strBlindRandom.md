@@ -4,9 +4,11 @@
 
 ## Parameters
 
-- `str::string`
-- `blindLength::number`
-- `blindStr::string || '*'`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'blindLength', type: 'number', required: true },
+	{ name: 'blindStr', type: 'string', default: `'*'` }
+]" />
 
 ## Returns
 

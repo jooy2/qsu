@@ -6,8 +6,10 @@ Creates a file with the specified size in bytes.
 
 ## Parameters
 
-- `filePath::string`: File or directory path
-- `size::number` <DartNamed />: Size of the file to be created (Dummy data is filled as much as the given size)
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' },
+	{ name: 'size', type: 'number', required: true, named: true, desc: 'Size of the file to be created (Dummy data is filled as much as the given size)' }
+]" />
 
 ## Returns
 

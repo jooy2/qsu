@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `defaultValue::any`
-- `length::number || 0`
+<ParamsTable :rows="[
+	{ name: 'defaultValue', type: 'any', required: true },
+	{ name: 'length', type: 'number', default: '0' }
+]" />
 
 ## Returns
 

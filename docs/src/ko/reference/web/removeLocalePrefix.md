@@ -6,8 +6,10 @@ URL 또는 pathname에서 1단계 경로를 제거합니다. 일반적으로 로
 
 ## Parameters
 
-- `pathname::string`
-- `matcher::string|string[]`
+<ParamsTable :rows="[
+	{ name: 'pathname', type: 'string', required: true },
+	{ name: 'matcher', type: 'string | string[]', required: true }
+]" />
 
 ## Returns
 

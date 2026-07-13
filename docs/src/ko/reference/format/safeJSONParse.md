@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `jsonString::any`
-- `fallback::object` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'jsonString', type: 'any', required: true },
+	{ name: 'fallback', type: 'object', named: true, default: '{}' }
+]" />
 
 ## Returns
 

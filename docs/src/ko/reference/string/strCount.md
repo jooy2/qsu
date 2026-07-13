@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `str::string`
-- `search::string`
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'search', type: 'string', required: true }
+]" />
 
 ## Returns
 

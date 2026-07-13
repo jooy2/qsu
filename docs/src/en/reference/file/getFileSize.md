@@ -6,7 +6,9 @@ Calculates the size of the file at the given path.
 
 ## Parameters
 
-- `filePath::string`
+<ParamsTable :rows="[
+	{ name: 'filePath', type: 'string', required: true }
+]" />
 
 ## Returns
 

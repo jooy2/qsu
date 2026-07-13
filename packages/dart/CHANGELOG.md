@@ -2,6 +2,7 @@
 
 ## 1.2.2 (2026--)
 
+- `duration`: Add `duration` method
 - `arrPick`: Add `arrPick` method
 - `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method
 - `getSlug`: Add `getSlug` method

@@ -4,8 +4,10 @@ Removes `\n`, `\r` characters or replaces them with specified characters.
 
 ## Parameters
 
-- `str::string`
-- `replaceTo::string || ''` <DartNamed />
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'replaceTo', type: 'string', named: true, default: `''` }
+]" />
 
 ## Returns
 

@@ -4,8 +4,10 @@
 
 ## Parameters
 
-- `array::string[]`
-- `descending::boolean`
+<ParamsTable :rows="[
+	{ name: 'array', type: 'string[]', required: true },
+	{ name: 'descending', type: 'boolean', default: 'false', named: true }
+]" />
 
 ## Returns
 

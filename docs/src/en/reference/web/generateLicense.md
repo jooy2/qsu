@@ -4,7 +4,18 @@ Returns text in a specific license format based on the author information of the
 
 ## Parameters
 
-- `options::LicenseOption{ author: string, email: string?, yearStart: string|number, yearEnd: string?, htmlBr: boolean?, type: 'mit' | 'apache20 | 'bsd3' }`
+<ParamsTable :rows="[
+	{ name: 'options', type: 'LicenseOption', required: true }
+]" />
+
+<ParamsTable name="LicenseOption" :rows="[
+	{ name: 'author', type: 'string', required: true },
+	{ name: 'email', type: 'string' },
+	{ name: 'yearStart', type: 'string | number', required: true },
+	{ name: 'yearEnd', type: 'string' },
+	{ name: 'htmlBr', type: 'boolean' },
+	{ name: 'type', type: `'mit' | 'apache20' | 'bsd3'`, required: true }
+]" />
 
 ## Returns
 
