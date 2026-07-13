@@ -8,11 +8,17 @@ export type NumberValueObject = { [key: string]: number };
 
 export type AnyValueObject = { [key: string]: any };
 
+export type DurationUnitName =
+	'Year' | 'Month' | 'Day' | 'Hour' | 'Minute' | 'Second' | 'Millisecond';
+
 export type DurationOptions = {
 	useShortString?: boolean;
 	useSpace?: boolean;
 	withZeroValue?: boolean;
 	separator?: string;
+	withMilliSeconds?: boolean;
+	maxUnitCount?: number;
+	unit?: DurationUnitName;
 };
 
 export interface FileInfo {

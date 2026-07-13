@@ -29,12 +29,18 @@ describe('Format', () => {
 	it('duration', () => {
 		assert.strictEqual(duration(0), '');
 		assert.strictEqual(duration(604800000), '7 Days');
+		// Milliseconds are hidden by default (withMilliSeconds defaults to false).
+		assert.strictEqual(duration(1234567890), '14 Days 6 Hours 56 Minutes 7 Seconds');
+		// Grammatically correct plurals: 0 -> plural, 1 -> singular.
 		assert.strictEqual(
 			duration(604800000, {
 				withZeroValue: true
 			}),
-			'7 Days 0 Hour 0 Minute 0 Second 0 Millisecond'
+			'7 Days 0 Hours 0 Minutes 0 Seconds'
 		);
+		assert.strictEqual(duration(90000000), '1 Day 1 Hour');
+		// Interior zero units are dropped unless withZeroValue is set.
+		assert.strictEqual(duration(86700000), '1 Day 5 Minutes');
 		assert.strictEqual(
 			duration(604800000, {
 				useSpace: false
@@ -47,23 +53,71 @@ describe('Format', () => {
 			}),
 			'7 D'
 		);
+	});
+
+	it('duration - months and years', () => {
+		// A month is 30 days, a year is 365 days.
+		assert.strictEqual(duration(2592000000), '1 Month');
+		assert.strictEqual(duration(3456000000), '1 Month 10 Days');
+		assert.strictEqual(duration(31536000000), '1 Year');
+		assert.strictEqual(duration(34560000000), '1 Year 1 Month 5 Days');
+		// Month short is `Mo` to avoid clashing with Minute (`M`).
+		assert.strictEqual(duration(34560000000, { useShortString: true }), '1 Y 1 Mo 5 D');
+	});
+
+	it('duration - withMilliSeconds', () => {
 		assert.strictEqual(
-			duration(604800001, {
-				separator: '-'
+			duration(1234567890, {
+				withMilliSeconds: true
 			}),
-			'7 Days-1 Millisecond'
+			'14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 		);
 		assert.strictEqual(
 			duration(1234567890, {
+				withMilliSeconds: true,
 				useSpace: true,
 				useShortString: true
 			}),
 			'14 D 6 H 56 M 7 S 890 ms'
 		);
 		assert.strictEqual(
-			duration(1234567890),
-			'14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
+			duration(604800001, {
+				withMilliSeconds: true,
+				separator: '-'
+			}),
+			'7 Days-1 Millisecond'
 		);
+	});
+
+	it('duration - maxUnitCount', () => {
+		assert.strictEqual(
+			duration(34560000000, {
+				maxUnitCount: 2
+			}),
+			'1 Year 1 Month'
+		);
+		assert.strictEqual(
+			duration(1234567890, {
+				maxUnitCount: 1
+			}),
+			'14 Days'
+		);
+		assert.strictEqual(
+			duration(1234567890, {
+				withMilliSeconds: true,
+				maxUnitCount: 3
+			}),
+			'14 Days 6 Hours 56 Minutes'
+		);
+	});
+
+	it('duration - single unit', () => {
+		assert.strictEqual(duration(172800000, { unit: 'Hour' }), '48 Hours');
+		assert.strictEqual(duration(1800000, { unit: 'Hour' }), '0.5 Hours');
+		assert.strictEqual(duration(3600000, { unit: 'Hour' }), '1 Hour');
+		assert.strictEqual(duration(86400000, { unit: 'Minute' }), '1440 Minutes');
+		assert.strictEqual(duration(86400000, { unit: 'Day' }), '1 Day');
+		assert.strictEqual(duration(172800000, { unit: 'Hour', useShortString: true }), '48 H');
 	});
 
 	it('safeJSONParse', () => {
