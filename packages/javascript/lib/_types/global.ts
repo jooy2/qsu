@@ -71,3 +71,12 @@ export interface ParsedAddress {
 	user?: string;
 	pass?: string;
 }
+
+export interface SlugOptions {
+	separator?: string;
+	includeNumbers?: boolean;
+	includeSpecial?: boolean;
+	uppercase?: boolean;
+	includeNonLatin?: boolean;
+	baseUrl?: string;
+}

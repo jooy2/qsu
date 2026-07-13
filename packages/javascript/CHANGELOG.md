@@ -4,6 +4,7 @@
 
 - `logBox`: Add `logBox` method
 - `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method
+- `getSlug`: Add `getSlug` method
 
 ## 1.12.2 (2026-06-06)
 

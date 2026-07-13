@@ -6,7 +6,8 @@ import {
 	generateLicense,
 	removeLocalePrefix,
 	isMobile,
-	getParsedInfoFromAddress
+	getParsedInfoFromAddress,
+	getSlug
 } from '../dist';
 import { homepage } from '../package.json';
 
@@ -194,6 +195,61 @@ describe('Web', () => {
 
 		for (const [url, expected] of cases) {
 			assert.deepStrictEqual(getParsedInfoFromAddress(url), { ...base, ...expected }, url);
+		}
+	});
+
+	it('getSlug', () => {
+		// Each case: [text, options, expected].
+		const cases: [string, Parameters<typeof getSlug>[1], string][] = [
+			// Basics: lowercased, spaces become the separator.
+			['Hello World', undefined, 'hello-world'],
+			// Leading/trailing whitespace is trimmed.
+			['  Hello World  ', undefined, 'hello-world'],
+			// Non-Latin letters (Korean) are kept as-is by default.
+			['안녕 하세요 반갑습니다', undefined, '안녕-하세요-반갑습니다'],
+			['Hello 안녕', undefined, 'hello-안녕'],
+			// Numbers are included by default and dropped when disabled.
+			['Product 123', undefined, 'product-123'],
+			['Product 123', { includeNumbers: false }, 'product'],
+			// Special characters are dropped by default.
+			['My First Blog Post!', undefined, 'my-first-blog-post'],
+			['100% Pure & Natural', undefined, '100-pure-natural'],
+			['React.js + Next.js Guide', undefined, 'reactjs-nextjs-guide'],
+			// Special characters are percent-encoded when enabled.
+			['a & b', { includeSpecial: true }, 'a-%26-b'],
+			['a&b', { uppercase: true, includeSpecial: true }, 'A%26B'],
+			// Uppercase option.
+			['Hello World', { uppercase: true }, 'HELLO-WORLD'],
+			// Custom separators.
+			['Hello World', { separator: '_' }, 'hello_world'],
+			['Hello World', { separator: '::' }, 'hello::world'],
+			['Hello World', { separator: '' }, 'helloworld'],
+			// Existing `-`/`_` in the source also act as word boundaries.
+			['a - b _ c', undefined, 'a-b-c'],
+			// Only whitespace and `-`/`_` are boundaries; `@`/`.` just get dropped,
+			// so the surrounding characters merge into one word.
+			['user_name@example.com', undefined, 'user-nameexamplecom'],
+			// includeNonLatin gates non-ASCII letters (Korean, accents).
+			['Hello 안녕 World', { includeNonLatin: false }, 'hello-world'],
+			['Café', { includeNonLatin: false }, 'caf'],
+			['Café & Restaurant', { includeSpecial: true }, 'café-%26-restaurant'],
+			// baseUrl builds a full URL; a trailing slash is normalized away.
+			[
+				'Hello World',
+				{ baseUrl: 'https://example.com/blog' },
+				'https://example.com/blog/hello-world'
+			],
+			['Hello World', { baseUrl: 'https://example.com/' }, 'https://example.com/hello-world'],
+			// Empty results stay empty, even with a baseUrl.
+			['', undefined, ''],
+			['   ', undefined, ''],
+			['!!!', undefined, ''],
+			['Hello', { baseUrl: '' }, 'hello'],
+			['', { baseUrl: 'https://example.com' }, '']
+		];
+
+		for (const [text, options, expected] of cases) {
+			assert.strictEqual(getSlug(text, options), expected, `${text} :: ${JSON.stringify(options)}`);
 		}
 	});
 });
