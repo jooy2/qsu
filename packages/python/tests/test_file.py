@@ -1,3 +1,4 @@
+import os
 import unicodedata
 
 import pytest
@@ -391,3 +392,364 @@ def test_deleteAllFileFromDirectory(resources):
 
 	assert isFileExists(str(resources / 'EMPTY' / 'a.txt')) is False
 	assert isFileExists(str(resources / 'EMPTY' / 'b.txt')) is False
+
+
+# ---------------------------------------------------------------------------
+# Edge cases that the base suite does not cover: line-ending handling, empty
+# and blank-line-only files, symlinks, Unicode / space-bearing file names,
+# missing-path error behavior and the exact shape of `getFileInfo`.
+#
+# Fixtures are built at runtime rather than committed to a resources directory,
+# so the CRLF fixture cannot be rewritten by git's end-of-line normalization on
+# checkout (which would silently make the CRLF test vacuous).
+# ---------------------------------------------------------------------------
+
+UNICODE_FILE_NAME = '한글 파일 (1).txt'
+EMPTY_MD5 = 'd41d8cd98f00b204e9800998ecf8427e'
+
+
+@pytest.fixture
+def edge(tmp_path):
+	"""Build the edge-case fixture tree in a temp directory."""
+	(tmp_path / 'empty.txt').write_bytes(b'')
+	(tmp_path / 'crlf.txt').write_bytes(b'line1\r\nline2\r\nline3\r\n')
+	(tmp_path / 'no-trailing-newline.txt').write_bytes(b'a\nb')
+	(tmp_path / 'blank-lines.txt').write_bytes(b'\n\n\n')
+	(tmp_path / UNICODE_FILE_NAME).write_bytes(b'hi')
+
+	os.symlink(str(tmp_path / 'ghost.txt'), str(tmp_path / 'broken.link'))
+	os.symlink(str(tmp_path / 'empty.txt'), str(tmp_path / 'good.link'))
+
+	return tmp_path
+
+
+def test_getFileName_additional_path_shapes():
+	# Only the last extension is stripped.
+	assert getFileName('a/b/c.tar.gz') == 'c.tar'
+	assert getFileName('a/b/c.tar.gz', True) == 'c.tar.gz'
+	assert getFileName('a.b.c.d.e') == 'a.b.c.d'
+	# A leading dot is part of the name, not an extension.
+	assert getFileName('.gitignore') == '.gitignore'
+	assert getFileName('x/.env.local') == '.env'
+	assert getFileName('x/.env.local', True) == '.env.local'
+	# Dots in a *directory* segment must not be mistaken for an extension.
+	assert getFileName('dir.with.dot/file') == 'file'
+	# A path containing '/' takes the POSIX branch even with a drive letter.
+	assert getFileName('C:/mixed\\sep/file.txt') == 'file'
+	assert getFileName('file with spaces.txt') == 'file with spaces'
+	assert getFileName('  padded .txt') == '  padded '
+	assert getFileName('a/b/c.TXT') == 'c'
+	assert getFileName('/single') == 'single'
+	assert getFileName('/a/b/파일.txt') == '파일'
+	assert getFileName('/a/b/파일.txt', True) == '파일.txt'
+	assert getFileName('emoji🎉.txt') == 'emoji🎉'
+
+
+def test_getFileExtension_additional_path_shapes():
+	assert getFileExtension('archive.tar.gz') == 'gz'
+	assert getFileExtension('a.b.c.d.e') == 'e'
+	assert getFileExtension('x/.env.local') == 'local'
+	# A dotfile with no second dot has no extension.
+	assert getFileExtension('no_ext/.hidden') is None
+	# A trailing dot is not an extension.
+	assert getFileExtension('/a/b/c.') is None
+	# Extensions are always lower-cased.
+	assert getFileExtension('UPPER.PNG') == 'png'
+	assert getFileExtension('a b.c d.TXT') == 'txt'
+	# Dots in a Windows directory segment are not an extension.
+	assert getFileExtension('C:\\a.b\\c') is None
+	assert getFileExtension('file.a') == 'a'
+	assert getFileExtension('x.123') == '123'
+	assert getFileExtension('파일.한글') == '한글'
+
+
+def test_getFilePathLevel_additional_path_shapes():
+	assert getFilePathLevel('/a/b') == 3
+	assert getFilePathLevel('/a/b/c/d/e') == 6
+	# A relative path has no leading empty segment, so it counts one lower.
+	assert getFilePathLevel('a') == 1
+	assert getFilePathLevel('.') == 1
+	assert getFilePathLevel('./a/b') == 3
+	# A trailing backslash is stripped before counting.
+	assert getFilePathLevel('C:\\Windows\\System32\\') == 3
+	# A UNC prefix collapses to a single separator.
+	assert getFilePathLevel('\\\\server\\share') == 3
+
+
+def test_toPosixFilePath_additional_path_shapes():
+	assert toPosixFilePath('') == ''
+	assert toPosixFilePath('\\') == '/'
+	assert toPosixFilePath('/already/posix') == '/already/posix'
+	assert toPosixFilePath('mixed/win\\path') == 'mixed/win/path'
+	# Runs of separators collapse to one.
+	assert toPosixFilePath('C:\\a\\\\\\b') == 'C:/a/b'
+	assert toPosixFilePath('C:\\파일\\한글.txt') == 'C:/파일/한글.txt'
+
+
+def test_isValidFileName_reserved_characters_and_edge_names():
+	# Characters Windows reserves.
+	assert isValidFileName('file<name>') is False
+	assert isValidFileName('file|name') is False
+	assert isValidFileName('file?name') is False
+	assert isValidFileName('file"name') is False
+	assert isValidFileName('file*') is False
+	# Dot-only names are never valid.
+	assert isValidFileName('.') is False
+	assert isValidFileName('..') is False
+	assert isValidFileName('...') is False
+	# Leading/trailing spaces are accepted (only all-whitespace is rejected).
+	assert isValidFileName(' leading') is True
+	assert isValidFileName('trailing ') is True
+	assert isValidFileName('한글파일.txt') is True
+	assert isValidFileName('한글파일.txt', True) is True
+	# Unix only rejects ':' and '/', so Windows-reserved chars pass.
+	assert isValidFileName('a:b', True) is False
+	assert isValidFileName('a|b', True) is True
+	assert isValidFileName('a<b>c', True) is True
+	# Windows *device* names are not detected; documents current behavior.
+	assert isValidFileName('nul.txt') is True
+
+
+def test_getCopyFileName_additional_collision_shapes():
+	assert getCopyFileName('a.txt', []) == 'a.txt'
+	# Only an exact match collides, so a pre-existing "(1)" is irrelevant.
+	assert getCopyFileName('a.txt', ['a (1).txt']) == 'a.txt'
+	# The first free index wins, gaps included.
+	assert getCopyFileName('a.txt', ['a.txt', 'a (1).txt', 'a (3).txt']) == 'a (2).txt'
+	assert getCopyFileName('a', ['a', 'a (1)', 'a (2)']) == 'a (3)'
+	assert getCopyFileName('한글.txt', ['한글.txt']) == '한글 (1).txt'
+	# NOTE: the extension is rebuilt from getFileExtension, which lower-cases it,
+	# so the copy does not preserve the original casing.
+	assert getCopyFileName('a.TXT', ['a.TXT']) == 'a (1).txt'
+
+
+def test_toValidFilePath_redundant_separators():
+	assert toValidFilePath('/a/b/c') == '/a/b/c'
+	assert toValidFilePath('a/b/c') == '/a/b/c'
+	assert toValidFilePath('/a//b///c') == '/a/b/c'
+	assert toValidFilePath('/a/b/c/') == '/a/b/c'
+	assert toValidFilePath('/한글/파일') == '/한글/파일'
+
+
+def test_normalizeFile_compatibility_forms():
+	# NFKC/NFKD fold compatibility characters; NFC/NFD do not.
+	assert normalizeFile('ﬁle', 'NFKC') == 'file'
+	assert normalizeFile('①', 'NFKC') == '1'
+	assert normalizeFile('ＡＢ', 'NFKD') == 'AB'
+	# Composed Hangul is one code point, decomposed is two.
+	assert len(normalizeFile('가', 'NFD')) == 2
+	assert len(normalizeFile('가', 'NFC')) == 1
+	# The default form is NFC.
+	assert normalizeFile('가') == normalizeFile('가', 'NFC')
+	# Normalization is idempotent and leaves pure ASCII untouched.
+	assert normalizeFile(normalizeFile('가', 'NFD'), 'NFD') == normalizeFile('가', 'NFD')
+	assert normalizeFile('/a/b/c.txt', 'NFD') == '/a/b/c.txt'
+	assert normalizeFile('') == ''
+
+
+def test_isFileHidden_additional_path_shapes():
+	assert isFileHidden('') is False
+	assert isFileHidden('/') is False
+	assert isFileHidden('/a/b/.hidden.txt') is True
+	# Only the final segment decides.
+	assert isFileHidden('/a/.git/config') is False
+	assert isFileHidden('.a/b') is False
+	# '.' and '..' are not hidden entries.
+	assert isFileHidden('/a/b/.') is False
+	assert isFileHidden('..') is False
+	# A backslash path is not split, so it is never seen as hidden.
+	assert isFileHidden('C:\\a\\.hidden') is False
+
+
+def test_headFile_tailFile_empty_file(edge):
+	path = str(edge / 'empty.txt')
+
+	assert headFile(path) is None
+	assert tailFile(path) is None
+	assert headFile(path, 10) is None
+	assert tailFile(path, 10) is None
+
+
+def test_headFile_tailFile_crlf_line_endings(edge):
+	path = str(edge / 'crlf.txt')
+
+	# '\r' must be consumed as part of the line break, not kept in the text.
+	assert headFile(path) == 'line1'
+	assert headFile(path, 2) == 'line1\nline2'
+	assert tailFile(path) == 'line3'
+	assert tailFile(path, 2) == 'line2\nline3'
+	assert headFile(path, 3) == 'line1\nline2\nline3'
+
+
+def test_headFile_tailFile_without_trailing_newline(edge):
+	path = str(edge / 'no-trailing-newline.txt')
+
+	assert headFile(path) == 'a'
+	assert tailFile(path) == 'b'
+	# Asking beyond EOF returns everything rather than padding.
+	assert headFile(path, 5) == 'a\nb'
+	assert tailFile(path, 5) == 'a\nb'
+
+
+def test_headFile_tailFile_blank_line_only_file(edge):
+	path = str(edge / 'blank-lines.txt')
+
+	assert headFile(path, 3) == '\n\n'
+	# tailFile drops one trailing empty line by design.
+	assert tailFile(path, 3) == '\n'
+	assert tailFile(path, 1) is None
+
+
+def test_headFile_tailFile_non_positive_length(edge):
+	path = str(edge / 'crlf.txt')
+
+	assert headFile(path, 0) is None
+	assert tailFile(path, 0) is None
+	assert headFile(path, -1) is None
+	assert tailFile(path, -1) is None
+
+
+def test_missing_paths_raise(edge):
+	missing = str(edge / 'does-not-exist.txt')
+
+	with pytest.raises(Exception):
+		headFile(missing)
+	with pytest.raises(Exception):
+		tailFile(missing)
+	with pytest.raises(Exception):
+		getFileSize(missing)
+	with pytest.raises(Exception):
+		getFileInfo(missing)
+	with pytest.raises(Exception):
+		getFileHashFromPath(missing)
+	with pytest.raises(Exception):
+		moveFile(missing, str(edge / 'target.txt'))
+
+
+def test_getFileSize_and_hash_empty_file(edge):
+	path = str(edge / 'empty.txt')
+
+	assert getFileSize(path) == 0
+	assert getFileHashFromPath(path) == EMPTY_MD5
+
+
+def test_getFileHashFromPath_and_FromStream_agree(edge):
+	path = str(edge / 'crlf.txt')
+
+	for algorithm in ('md5', 'sha1', 'sha256', 'sha512'):
+		with open(path, 'rb') as stream:
+			assert getFileHashFromPath(path, algorithm) == getFileHashFromStream(
+				stream, algorithm
+			)
+
+
+def test_isFileExists_symlinks_are_followed(edge):
+	# A symlink to an existing file resolves; a dangling one does not.
+	assert isFileExists(str(edge / 'good.link')) is True
+	assert isFileExists(str(edge / 'broken.link')) is False
+
+
+def test_unicode_and_space_bearing_file_names(edge):
+	assert isFileExists(str(edge / UNICODE_FILE_NAME)) is True
+	assert getFileName(UNICODE_FILE_NAME) == '한글 파일 (1)'
+	assert getFileExtension(UNICODE_FILE_NAME) == 'txt'
+	assert getFileSize(str(edge / UNICODE_FILE_NAME)) == 2
+
+
+def test_deleteFile_missing_path_is_a_noop(edge):
+	deleteFile(str(edge / 'does-not-exist.txt'))
+	deleteFile('')
+
+
+def test_deleteAllFileFromDirectory_clears_nested_entries(edge):
+	root = edge / 'nest'
+	(root / 'sub').mkdir(parents=True)
+	(root / 'top.txt').write_text('top')
+	(root / 'sub' / 'inner.txt').write_text('inner')
+
+	deleteAllFileFromDirectory(str(root))
+
+	# Subdirectories are removed too, not just plain files.
+	assert isFileExists(str(root)) is True
+	assert isFileExists(str(root / 'top.txt')) is False
+	assert isFileExists(str(root / 'sub')) is False
+
+
+def test_deleteAllFileFromDirectory_missing_directory_is_a_noop(edge):
+	deleteAllFileFromDirectory(str(edge / 'no-such-directory'))
+
+
+def test_createFileWithDummy_exact_size(edge):
+	for size in (1, 512, 4096):
+		target = str(edge / f'dummy-{size}.bin')
+
+		assert createFileWithDummy(target, size) is True
+		assert getFileSize(target) == size
+
+		deleteFile(target)
+
+
+def test_createFileWithDummy_rejects_negative_size(edge):
+	with pytest.raises(Exception):
+		createFileWithDummy(str(edge / 'negative.bin'), -5)
+
+
+def test_getFileInfo_field_level(edge):
+	fileInfo = getFileInfo(str(edge / 'crlf.txt'))
+
+	assert fileInfo['success'] is True
+	assert fileInfo['isDirectory'] is False
+	assert fileInfo['name'] == 'crlf'
+	assert fileInfo['ext'] == 'txt'
+	assert fileInfo['size'] == 21
+	assert fileInfo['sizeHumanized'] == '21 Bytes'
+	# `path` is always absolute even when a relative path is passed in.
+	assert fileInfo['path'] == str(edge / 'crlf.txt')
+	assert fileInfo['created'] > 0
+	assert fileInfo['modified'] > 0
+
+	directoryInfo = getFileInfo(str(edge))
+
+	assert directoryInfo['success'] is True
+	assert directoryInfo['isDirectory'] is True
+	# A directory without a dot in its name has no extension.
+	assert directoryInfo['ext'] is None
+
+
+def test_getFileInfo_resolves_relative_path(edge, monkeypatch):
+	monkeypatch.chdir(edge)
+
+	fileInfo = getFileInfo('crlf.txt')
+
+	assert fileInfo['name'] == 'crlf'
+	assert fileInfo['ext'] == 'txt'
+	assert fileInfo['path'].endswith('crlf.txt')
+	assert fileInfo['path'] != 'crlf.txt'
+
+
+def test_createDirectory_nested_and_idempotent(edge):
+	nested = str(edge / 'a' / 'b' / 'c')
+
+	createDirectory(nested)
+	assert isFileExists(nested) is True
+
+	# Re-creating an existing directory is a silent no-op.
+	createDirectory(nested)
+	assert isFileExists(nested) is True
+
+	deleteFile(str(edge / 'a'))
+	assert isFileExists(nested) is False
+
+
+def test_moveFile_renames_within_same_directory(edge):
+	source = str(edge / 'move-source.txt')
+	target = str(edge / 'move-target.txt')
+
+	(edge / 'move-source.txt').write_text('payload')
+	moveFile(source, target)
+
+	assert isFileExists(source) is False
+	assert isFileExists(target) is True
+	assert getFileSize(target) == 7
+
+	deleteFile(target)
