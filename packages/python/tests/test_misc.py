@@ -31,11 +31,15 @@ def test_debounce():
 
 	debounceFunc = debounce(lambda: debounceResult.append(True), 30)
 
+	# Each burst of rapid calls must collapse into a single deferred call. The
+	# gap after a burst is kept well above the 30ms debounce window so a loaded
+	# CI runner still schedules the timer before the next burst (a tight margin
+	# made this flaky on slow macOS runners).
 	for _ in range(4):
 		for _ in range(25):
 			debounceFunc()
 
-		time.sleep(0.08)
+		time.sleep(0.2)
 
 	assert debounceResult == [True, True, True, True]
 	assert all(x is True for x in debounceResult)

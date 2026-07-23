@@ -9,6 +9,7 @@
 - **BREAKING CHANGES**: `createFileWithDummy` now creates an empty file for a size of `0` instead of throwing, and throws a clearer error for a negative size
 - **BREAKING CHANGES**: `getParentFilePath` now returns the root (`/` or `\`) for an empty or single-segment path instead of `/.`
 - **BREAKING CHANGES**: `toValidFilePath` now returns the root (`/` or `\`) for a path that collapses to nothing instead of `/.`
+- `isFileExists`: Follow symlinks so a dangling link reports as missing on every platform (previously returned `true` for a dangling link on Windows), matching the Dart and Python implementations
 - `duration`: Support `Month` (30 days) and `Year` (365 days) units, and add `withMilliSeconds`, `maxUnitCount`, and `unit` (single-unit) options
 - `logBox`: Add `logBox` method
 - `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method
