@@ -28,7 +28,7 @@ import {
 } from '../dist/node';
 import { createReadStream, mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
-import { join } from 'path';
+import { join, resolve } from 'path';
 
 const TARGET_PATH = 'test/_resources/files';
 const IS_WINDOWS_OS = process.platform === 'win32';
@@ -392,6 +392,9 @@ describe('File (edge cases)', () => {
 	const EMPTY_MD5 = 'd41d8cd98f00b204e9800998ecf8427e';
 
 	let tempDir: string;
+	// Windows requires a privilege to create symlinks, so track whether the
+	// fixtures could be created and skip the symlink assertions otherwise.
+	let symlinksSupported = false;
 	const p = (...parts: string[]): string => join(tempDir, ...parts);
 
 	before(() => {
@@ -403,8 +406,13 @@ describe('File (edge cases)', () => {
 		writeFileSync(p('blank-lines.txt'), '\n\n\n');
 		writeFileSync(p(UNICODE_FILE_NAME), 'hi');
 
-		symlinkSync(p('ghost.txt'), p('broken.link'));
-		symlinkSync(p('empty.txt'), p('good.link'));
+		try {
+			symlinkSync(p('ghost.txt'), p('broken.link'));
+			symlinkSync(p('empty.txt'), p('good.link'));
+			symlinksSupported = true;
+		} catch {
+			// No privilege to create symlinks (typical on Windows) — skip below.
+		}
 	});
 
 	after(() => {
@@ -626,7 +634,12 @@ describe('File (edge cases)', () => {
 		}
 	});
 
-	it('isFileExists - symlinks are followed', async () => {
+	it('isFileExists - symlinks are followed', async (t) => {
+		if (!symlinksSupported) {
+			t.skip('symlinks are not supported on this platform');
+			return;
+		}
+
 		// A symlink to an existing file resolves; a dangling one does not.
 		assert.strictEqual(await isFileExists(p('good.link')), true);
 		assert.strictEqual(await isFileExists(p('broken.link')), false);
@@ -688,7 +701,9 @@ describe('File (edge cases)', () => {
 		assert.strictEqual(fileInfo.size, 21);
 		assert.strictEqual(fileInfo.sizeHumanized, '21 Bytes');
 		// `path` is always absolute even when a relative path is passed in.
-		assert.strictEqual(fileInfo.path, p('crlf.txt'));
+		// Compare through `resolve` so platform-specific normalization (drive
+		// letter casing, separators) does not make the assertion brittle.
+		assert.strictEqual(fileInfo.path, resolve(p('crlf.txt')));
 		assert.ok(fileInfo.created > 0);
 		assert.ok(fileInfo.modified > 0);
 

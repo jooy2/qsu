@@ -418,8 +418,14 @@ def edge(tmp_path):
 	(tmp_path / 'blank-lines.txt').write_bytes(b'\n\n\n')
 	(tmp_path / UNICODE_FILE_NAME).write_bytes(b'hi')
 
-	os.symlink(str(tmp_path / 'ghost.txt'), str(tmp_path / 'broken.link'))
-	os.symlink(str(tmp_path / 'empty.txt'), str(tmp_path / 'good.link'))
+	# Windows requires a privilege to create symlinks. Do not let a failure here
+	# break every test that depends on this fixture; the symlink test checks for
+	# the links and skips itself when they are absent.
+	try:
+		os.symlink(str(tmp_path / 'ghost.txt'), str(tmp_path / 'broken.link'))
+		os.symlink(str(tmp_path / 'empty.txt'), str(tmp_path / 'good.link'))
+	except (OSError, NotImplementedError):
+		pass
 
 	return tmp_path
 
@@ -654,6 +660,11 @@ def test_getFileHashFromPath_and_FromStream_agree(edge):
 
 
 def test_isFileExists_symlinks_are_followed(edge):
+	# Skip when symlinks could not be created (typically Windows without the
+	# privilege), rather than reporting a false failure.
+	if not os.path.lexists(str(edge / 'good.link')):
+		pytest.skip('symlinks are not supported on this platform')
+
 	# A symlink to an existing file resolves; a dangling one does not.
 	assert isFileExists(str(edge / 'good.link')) is True
 	assert isFileExists(str(edge / 'broken.link')) is False
@@ -713,8 +724,10 @@ def test_getFileInfo_field_level(edge):
 	assert fileInfo['ext'] == 'txt'
 	assert fileInfo['size'] == 21
 	assert fileInfo['sizeHumanized'] == '21 Bytes'
-	# `path` is always absolute even when a relative path is passed in.
-	assert fileInfo['path'] == str(edge / 'crlf.txt')
+	# `path` is always absolute even when a relative path is passed in. Compare
+	# through `abspath` so platform-specific normalization (drive letter casing,
+	# separators) does not make the assertion brittle.
+	assert fileInfo['path'] == os.path.abspath(str(edge / 'crlf.txt'))
 	assert fileInfo['created'] > 0
 	assert fileInfo['modified'] > 0
 

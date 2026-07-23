@@ -322,6 +322,9 @@ void edgeCaseTests() {
     const String emptyMd5 = 'd41d8cd98f00b204e9800998ecf8427e';
 
     late Directory tempDir;
+    // Windows requires a privilege to create symlinks, so track whether the
+    // fixtures could be created and skip the symlink assertions otherwise.
+    bool symlinksSupported = false;
     String p(String name) => '${tempDir.path}/$name';
 
     setUpAll(() {
@@ -333,8 +336,13 @@ void edgeCaseTests() {
       File(p('blank-lines.txt')).writeAsStringSync('\n\n\n');
       File(p(unicodeFileName)).writeAsStringSync('hi');
 
-      Link(p('broken.link')).createSync(p('ghost.txt'));
-      Link(p('good.link')).createSync(p('empty.txt'));
+      try {
+        Link(p('broken.link')).createSync(p('ghost.txt'));
+        Link(p('good.link')).createSync(p('empty.txt'));
+        symlinksSupported = true;
+      } catch (_) {
+        // No privilege to create symlinks (typical on Windows) — skip below.
+      }
     });
 
     tearDownAll(() {
@@ -532,6 +540,11 @@ void edgeCaseTests() {
     });
 
     test('isFileExists - symlinks are followed', () async {
+      if (!symlinksSupported) {
+        markTestSkipped('symlinks are not supported on this platform');
+        return;
+      }
+
       // A symlink to an existing file resolves; a dangling one does not.
       expect(await isFileExists(p('good.link')), true);
       expect(await isFileExists(p('broken.link')), false);
