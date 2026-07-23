@@ -25,6 +25,15 @@ def toValidFilePath(filePath: str, isWindows: bool = None) -> str:
 
 		p = posixpath.normpath(p)
 
+		# `normpath` collapses an empty or self-referential path to '.', which must
+		# resolve to the root rather than to a literal '/.' segment.
+		if p == '.':
+			return '/'
+
+		# POSIX leaves a leading '//' implementation-defined and normpath keeps it;
+		# Node collapses it, so collapse it here too.
+		p = re.sub(r'^/{2,}', '/', p)
+
 		if not posixpath.isabs(p):
 			p = f'/{p}'
 		if p.endswith('/') and len(p) > 1:

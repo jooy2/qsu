@@ -212,7 +212,8 @@ def test_toPosixFilePath():
 def test_isValidFileName():
 	assert isValidFileName('System32') is True
 	assert isValidFileName('.example', True) is True
-	assert isValidFileName('hello.:txt', True) is True
+	# The ':' lives in the extension; the whole name is validated.
+	assert isValidFileName('hello.:txt', True) is False
 	assert isValidFileName('C:\\Windows\\System32') is True
 	assert isValidFileName('C:\\Users\\test\\Desktop\\hello.txt') is True
 	assert isValidFileName('C:\\Users\\test\\Desktop\\hello*') is False
@@ -506,8 +507,16 @@ def test_isValidFileName_reserved_characters_and_edge_names():
 	assert isValidFileName('a:b', True) is False
 	assert isValidFileName('a|b', True) is True
 	assert isValidFileName('a<b>c', True) is True
-	# Windows *device* names are not detected; documents current behavior.
-	assert isValidFileName('nul.txt') is True
+	# Windows device names stay reserved even with an extension appended, but
+	# they are only reserved on Windows.
+	assert isValidFileName('nul.txt') is False
+	assert isValidFileName('CON') is False
+	assert isValidFileName('com1') is False
+	assert isValidFileName('LPT9') is False
+	assert isValidFileName('nul.txt', True) is True
+	# Near-misses are still valid names.
+	assert isValidFileName('COM0') is True
+	assert isValidFileName('CONSOLE') is True
 
 
 def test_getCopyFileName_additional_collision_shapes():
@@ -518,9 +527,10 @@ def test_getCopyFileName_additional_collision_shapes():
 	assert getCopyFileName('a.txt', ['a.txt', 'a (1).txt', 'a (3).txt']) == 'a (2).txt'
 	assert getCopyFileName('a', ['a', 'a (1)', 'a (2)']) == 'a (3)'
 	assert getCopyFileName('한글.txt', ['한글.txt']) == '한글 (1).txt'
-	# NOTE: the extension is rebuilt from getFileExtension, which lower-cases it,
-	# so the copy does not preserve the original casing.
-	assert getCopyFileName('a.TXT', ['a.TXT']) == 'a (1).txt'
+	# The original extension casing is preserved.
+	assert getCopyFileName('a.TXT', ['a.TXT']) == 'a (1).TXT'
+	assert getCopyFileName('Report.PDF', ['Report.PDF']) == 'Report (1).PDF'
+	assert getCopyFileName('a.tar.GZ', ['a.tar.GZ']) == 'a.tar (1).GZ'
 
 
 def test_toValidFilePath_redundant_separators():
@@ -739,6 +749,62 @@ def test_createDirectory_nested_and_idempotent(edge):
 
 	deleteFile(str(edge / 'a'))
 	assert isFileExists(nested) is False
+
+
+def test_getParentFilePath_relative_empty_and_trailing_separator():
+	# A relative path keeps its parent segment instead of collapsing to root.
+	assert getParentFilePath('relative/path') == '/relative'
+	assert getParentFilePath('a/b/c') == '/a/b'
+	# A single segment (and an empty path) has the root as its parent.
+	assert getParentFilePath('a') == '/'
+	assert getParentFilePath('') == '/'
+	# Trailing separators are ignored, as in POSIX dirname(1).
+	assert getParentFilePath('/home/user/') == '/home'
+	assert getParentFilePath('/a/b/c/') == '/a/b'
+	assert getParentFilePath('/a//b') == '/a'
+
+
+def test_getParentFilePath_windows_relative_and_unc():
+	assert getParentFilePath('relative\\path', True) == '\\relative'
+	assert getParentFilePath('a', True) == '\\'
+	assert getParentFilePath('', True) == '\\'
+	assert getParentFilePath('C:\\Users\\', True) == 'C:\\'
+	# The '\\\\' UNC prefix survives.
+	assert getParentFilePath('\\\\net\\share\\file.txt', True) == '\\\\net\\share'
+
+
+def test_toValidFilePath_resolves_dot_segments():
+	assert toValidFilePath('/home/user/../test') == '/home/test'
+	assert toValidFilePath('/a/./b') == '/a/b'
+	# A path that collapses to nothing resolves to the root.
+	assert toValidFilePath('.') == '/'
+	assert toValidFilePath('C:\\a\\..\\b', True) == 'C:\\b'
+	assert toValidFilePath('C:\\Windows\\..\\text.txt', True) == 'C:\\text.txt'
+	assert toValidFilePath('.', True) == '\\'
+
+
+def test_getFilePathLevel_trailing_separator_does_not_add_a_level():
+	assert getFilePathLevel('/home/user/') == getFilePathLevel('/home/user')
+	assert getFilePathLevel('/a/b//') == getFilePathLevel('/a/b')
+	assert getFilePathLevel('C:\\Windows\\') == getFilePathLevel('C:\\Windows')
+	assert getFilePathLevel('//') == 1
+
+
+def test_createFileWithDummy_zero_size_creates_empty_file(edge):
+	target = str(edge / 'zero.bin')
+
+	assert createFileWithDummy(target, 0) is True
+	assert isFileExists(target) is True
+	assert getFileSize(target) == 0
+
+	deleteFile(target)
+
+
+def test_createDirectory_non_recursive_nested_raises(edge):
+	with pytest.raises(Exception):
+		createDirectory(str(edge / 'missing-parent' / 'child'), False)
+
+	assert isFileExists(str(edge / 'missing-parent' / 'child')) is False
 
 
 def test_moveFile_renames_within_same_directory(edge):

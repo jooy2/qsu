@@ -2,8 +2,10 @@ from .createFile import createFile
 
 
 def createFileWithDummy(filePath: str, size: int) -> bool:
-	if not size or size < 0:
+	if size is None:
 		raise Exception('Size is required')
+	if size < 0:
+		raise Exception('Size must be 0 or greater')
 
 	try:
 		if size == 0:

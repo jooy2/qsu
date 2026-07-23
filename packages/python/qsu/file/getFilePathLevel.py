@@ -9,4 +9,6 @@ def getFilePathLevel(filePath: str) -> int:
 	if filePath == '/':
 		return 1
 
-	return len(toPosixFilePath(re.sub(r'\\+$', '', filePath)).split('/'))
+	# Strip trailing separators of either flavour so that '/home/user' and
+	# '/home/user/' report the same level.
+	return len(toPosixFilePath(re.sub(r'[\\/]+$', '', filePath)).split('/'))
