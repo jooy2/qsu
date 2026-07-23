@@ -416,7 +416,14 @@ describe('File (edge cases)', () => {
 	});
 
 	after(() => {
-		rmSync(tempDir, { recursive: true, force: true });
+		// On Windows a just-closed file handle can linger briefly, so a plain
+		// recursive remove may hit EBUSY/EPERM. Retry, and never let a failed
+		// cleanup of a temp directory fail the run.
+		try {
+			rmSync(tempDir, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
+		} catch {
+			// The OS reclaims the temp directory eventually.
+		}
 	});
 
 	it('getFileName - additional path shapes', () => {
