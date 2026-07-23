@@ -47,11 +47,23 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 			nav: [
 				{
 					text: 'Getting Started',
-					link: 'installation'
+					items: [
+						{ text: 'JavaScript', link: '/installation/javascript' },
+						{ text: 'Dart', link: '/installation/dart' },
+						{ text: 'Python', link: '/installation/python' }
+					]
 				},
 				{
 					text: 'Reference',
 					link: 'reference'
+				},
+				{
+					text: 'Changelog',
+					items: [
+						{ text: 'JavaScript', link: '/changelog/javascript' },
+						{ text: 'Dart', link: '/changelog/dart' },
+						{ text: 'Python', link: '/changelog/python' }
+					]
 				}
 			]
 		},
@@ -59,11 +71,23 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 			nav: [
 				{
 					text: '시작하기',
-					link: 'ko/installation'
+					items: [
+						{ text: 'JavaScript', link: '/ko/installation/javascript' },
+						{ text: 'Dart', link: '/ko/installation/dart' },
+						{ text: 'Python', link: '/ko/installation/python' }
+					]
 				},
 				{
 					text: '레퍼런스',
 					link: 'ko/reference'
+				},
+				{
+					text: 'Changelog',
+					items: [
+						{ text: 'JavaScript', link: '/changelog/javascript' },
+						{ text: 'Dart', link: '/changelog/dart' },
+						{ text: 'Python', link: '/changelog/python' }
+					]
 				}
 			]
 		}
