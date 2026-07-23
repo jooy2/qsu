@@ -6,7 +6,7 @@ This function scans an array containing a list of names and displays an alternat
 
 This works almost exactly like the file renaming logic in a file manager. If a duplicate name is detected, a number such as `(1)`, `(2)`, etc., is appended to the end of the filename.
 
-If a file extension is included, it is retained and a number is added before it.
+If a file extension is included, it is retained and a number is added before it. The original extension casing is kept as-is.
 
 This function does not handle file paths.
 
@@ -30,6 +30,7 @@ getCopyFileName('abc.txt', ['abc.txt', 'def.txt']); // 'abc (1).txt'
 getCopyFileName('abc.txt', ['abc.txt', 'abc (1).txt']); // 'abc (2).txt'
 getCopyFileName('abc (1).txt', ['abc.txt', 'abc (1).txt']); // 'abc (1) (1).txt'
 getCopyFileName('def.txt', ['abc.txt']); // 'def.txt'
+getCopyFileName('Report.PDF', ['Report.PDF']); // 'Report (1).PDF' (extension casing preserved)
 ```
 
 ```python [Python]
@@ -37,6 +38,7 @@ getCopyFileName('abc.txt', ['abc.txt', 'def.txt']) # 'abc (1).txt'
 getCopyFileName('abc.txt', ['abc.txt', 'abc (1).txt']) # 'abc (2).txt'
 getCopyFileName('abc (1).txt', ['abc.txt', 'abc (1).txt']) # 'abc (1) (1).txt'
 getCopyFileName('def.txt', ['abc.txt']) # 'def.txt'
+getCopyFileName('Report.PDF', ['Report.PDF']) # 'Report (1).PDF' (extension casing preserved)
 ```
 
 :::

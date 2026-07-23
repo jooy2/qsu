@@ -4,6 +4,8 @@
 
 Remove invalid or unnecessary characters in the path.
 
+`.` and `..` segments are resolved, and a path that collapses to nothing returns the root.
+
 ## Parameters
 
 <ParamsTable :rows="[
@@ -22,16 +24,19 @@ Remove invalid or unnecessary characters in the path.
 ```javascript [JavaScript]
 toValidFilePath('C:\\Windows\\System32\\', true); // 'C:\Windows\System32'
 toValidFilePath('home/user/.bashrc'); // '/home/user/.bashrc'
+toValidFilePath('/home/user/../test'); // '/home/test'
 ```
 
 ```dart [Dart]
 toValidFilePath('C:\\Windows\\System32\\', isWindows: true); // 'C:\Windows\System32'
 toValidFilePath('home/user/.bashrc'); // '/home/user/.bashrc'
+toValidFilePath('/home/user/../test'); // '/home/test'
 ```
 
 ```python [Python]
 toValidFilePath('C:\\Windows\\System32\\', True) # 'C:\Windows\System32'
 toValidFilePath('home/user/.bashrc') # '/home/user/.bashrc'
+toValidFilePath('/home/user/../test') # '/home/test'
 ```
 
 :::

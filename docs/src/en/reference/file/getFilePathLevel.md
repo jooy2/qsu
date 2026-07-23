@@ -4,6 +4,8 @@
 
 Determine how many steps the current path is. The root path (`/` or `C:\`) begins with step 1.
 
+A trailing separator is ignored, so `/home/user/` and `/home/user` report the same level.
+
 ## Parameters
 
 <ParamsTable :rows="[
@@ -23,6 +25,8 @@ Determine how many steps the current path is. The root path (`/` or `C:\`) begin
 getFilePathLevel('C:\\Windows\\System32'); // 3
 // Include '/' root path
 getFilePathLevel('/home/user'); // 3
+// A trailing separator does not add a level
+getFilePathLevel('/home/user/'); // 3
 ```
 
 ```dart [Dart]
@@ -30,6 +34,8 @@ getFilePathLevel('/home/user'); // 3
 getFilePathLevel('C:\\Windows\\System32'); // 3
 // Include '/' root path
 getFilePathLevel('/home/user'); // 3
+// A trailing separator does not add a level
+getFilePathLevel('/home/user/'); // 3
 ```
 
 ```python [Python]
@@ -37,6 +43,8 @@ getFilePathLevel('/home/user'); // 3
 getFilePathLevel('C:\\Windows\\System32') # 3
 # Include '/' root path
 getFilePathLevel('/home/user') # 3
+# A trailing separator does not add a level
+getFilePathLevel('/home/user/') # 3
 ```
 
 :::

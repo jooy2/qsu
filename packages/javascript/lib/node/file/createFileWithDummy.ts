@@ -2,8 +2,11 @@ import { open } from 'fs/promises';
 import { createFile } from './createFile.js';
 
 export async function createFileWithDummy(filePath: string, size: number): Promise<boolean> {
-	if (!size || size < 0) {
+	if (size === undefined || size === null) {
 		throw new Error('Size is required');
+	}
+	if (size < 0) {
+		throw new Error('Size must be 0 or greater');
 	}
 
 	try {

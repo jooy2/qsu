@@ -10,5 +10,7 @@ export function getFilePathLevel(filePath: string): number {
 		return 1;
 	}
 
-	return toPosixFilePath(filePath.replace(/\\+$/, '')).split(posix.sep).length;
+	// Strip trailing separators of either flavour so that '/home/user' and
+	// '/home/user/' report the same level.
+	return toPosixFilePath(filePath.replace(/[\\/]+$/, '')).split(posix.sep).length;
 }

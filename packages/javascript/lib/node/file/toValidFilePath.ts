@@ -25,6 +25,12 @@ export function toValidFilePath(filePath: string, isWindows?: boolean): string {
 
 		p = posix.normalize(p);
 
+		// `normalize` collapses an empty or self-referential path to '.', which
+		// must resolve to the root rather than to a literal '/.' segment.
+		if (p === '.') {
+			return '/';
+		}
+
 		if (!posix.isAbsolute(p)) {
 			p = `/${p}`;
 		}

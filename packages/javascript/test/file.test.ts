@@ -193,7 +193,8 @@ describe('File', () => {
 	it('isValidFileName', () => {
 		assert.strictEqual(isValidFileName('System32'), true);
 		assert.strictEqual(isValidFileName('.example', true), true);
-		assert.strictEqual(isValidFileName('hello.:txt', true), true);
+		// The ':' lives in the extension; the whole name is validated.
+		assert.strictEqual(isValidFileName('hello.:txt', true), false);
 		assert.strictEqual(isValidFileName('C:\\Windows\\System32'), true);
 		assert.strictEqual(isValidFileName('C:\\Users\\test\\Desktop\\hello.txt'), true);
 		assert.strictEqual(isValidFileName('C:\\Users\\test\\Desktop\\hello*'), false);
@@ -493,8 +494,16 @@ describe('File (edge cases)', () => {
 		assert.strictEqual(isValidFileName('a:b', true), false);
 		assert.strictEqual(isValidFileName('a|b', true), true);
 		assert.strictEqual(isValidFileName('a<b>c', true), true);
-		// Windows *device* names are not detected; documents current behavior.
-		assert.strictEqual(isValidFileName('nul.txt'), true);
+		// Windows device names stay reserved even with an extension appended,
+		// but they are only reserved on Windows.
+		assert.strictEqual(isValidFileName('nul.txt'), false);
+		assert.strictEqual(isValidFileName('CON'), false);
+		assert.strictEqual(isValidFileName('com1'), false);
+		assert.strictEqual(isValidFileName('LPT9'), false);
+		assert.strictEqual(isValidFileName('nul.txt', true), true);
+		// Near-misses are still valid names.
+		assert.strictEqual(isValidFileName('COM0'), true);
+		assert.strictEqual(isValidFileName('CONSOLE'), true);
 	});
 
 	it('getCopyFileName - additional collision shapes', () => {
@@ -505,9 +514,10 @@ describe('File (edge cases)', () => {
 		assert.strictEqual(getCopyFileName('a.txt', ['a.txt', 'a (1).txt', 'a (3).txt']), 'a (2).txt');
 		assert.strictEqual(getCopyFileName('a', ['a', 'a (1)', 'a (2)']), 'a (3)');
 		assert.strictEqual(getCopyFileName('한글.txt', ['한글.txt']), '한글 (1).txt');
-		// NOTE: the extension is rebuilt from getFileExtension, which lower-cases
-		// it, so the copy does not preserve the original casing.
-		assert.strictEqual(getCopyFileName('a.TXT', ['a.TXT']), 'a (1).txt');
+		// The original extension casing is preserved.
+		assert.strictEqual(getCopyFileName('a.TXT', ['a.TXT']), 'a (1).TXT');
+		assert.strictEqual(getCopyFileName('Report.PDF', ['Report.PDF']), 'Report (1).PDF');
+		assert.strictEqual(getCopyFileName('a.tar.GZ', ['a.tar.GZ']), 'a.tar (1).GZ');
 	});
 
 	it('toValidFilePath - redundant separators', () => {
@@ -711,6 +721,60 @@ describe('File (edge cases)', () => {
 
 		await deleteFile(p('a'));
 		assert.strictEqual(await isFileExists(nested), false);
+	});
+
+	it('getParentFilePath - relative, empty and trailing-separator paths', () => {
+		// A relative path keeps its parent segment instead of collapsing to root.
+		assert.strictEqual(getParentFilePath('relative/path'), '/relative');
+		assert.strictEqual(getParentFilePath('a/b/c'), '/a/b');
+		// A single segment (and an empty path) has the root as its parent.
+		assert.strictEqual(getParentFilePath('a'), '/');
+		assert.strictEqual(getParentFilePath(''), '/');
+		// Trailing separators are ignored, as in POSIX dirname(1).
+		assert.strictEqual(getParentFilePath('/home/user/'), '/home');
+		assert.strictEqual(getParentFilePath('/a/b/c/'), '/a/b');
+		assert.strictEqual(getParentFilePath('/a//b'), '/a');
+	});
+
+	it('getParentFilePath - Windows relative and UNC paths', () => {
+		assert.strictEqual(getParentFilePath('relative\\path', true), '\\relative');
+		assert.strictEqual(getParentFilePath('a', true), '\\');
+		assert.strictEqual(getParentFilePath('', true), '\\');
+		assert.strictEqual(getParentFilePath('C:\\Users\\', true), 'C:\\');
+		// The '\\\\' UNC prefix survives.
+		assert.strictEqual(getParentFilePath('\\\\net\\share\\file.txt', true), '\\\\net\\share');
+	});
+
+	it('toValidFilePath - resolves . and .. segments', () => {
+		assert.strictEqual(toValidFilePath('/home/user/../test'), '/home/test');
+		assert.strictEqual(toValidFilePath('/a/./b'), '/a/b');
+		// A path that collapses to nothing resolves to the root.
+		assert.strictEqual(toValidFilePath('.'), '/');
+		assert.strictEqual(toValidFilePath('C:\\a\\..\\b', true), 'C:\\b');
+		assert.strictEqual(toValidFilePath('C:\\Windows\\..\\text.txt', true), 'C:\\text.txt');
+		assert.strictEqual(toValidFilePath('.', true), '\\');
+	});
+
+	it('getFilePathLevel - a trailing separator does not add a level', () => {
+		assert.strictEqual(getFilePathLevel('/home/user/'), getFilePathLevel('/home/user'));
+		assert.strictEqual(getFilePathLevel('/a/b//'), getFilePathLevel('/a/b'));
+		assert.strictEqual(getFilePathLevel('C:\\Windows\\'), getFilePathLevel('C:\\Windows'));
+		assert.strictEqual(getFilePathLevel('//'), 1);
+	});
+
+	it('createFileWithDummy - a size of 0 creates an empty file', async () => {
+		const target = p('zero.bin');
+
+		assert.strictEqual(await createFileWithDummy(target, 0), true);
+		assert.strictEqual(await isFileExists(target), true);
+		assert.strictEqual(await getFileSize(target), 0);
+
+		await deleteFile(target);
+	});
+
+	it('createDirectory - a non-recursive nested creation rejects', async () => {
+		await assert.rejects(() => createDirectory(p('missing-parent/child'), false));
+		assert.strictEqual(await isFileExists(p('missing-parent/child')), false);
 	});
 
 	it('moveFile - renames within the same directory', async () => {
