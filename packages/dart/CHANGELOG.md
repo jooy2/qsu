@@ -2,6 +2,13 @@
 
 ## 1.2.2 (2026--)
 
+- **BREAKING CHANGES**: `getParentFilePath` now handles relative paths (`relative/path` -> `/relative`), UNC paths, and trailing separators correctly
+- **BREAKING CHANGES**: `toValidFilePath` now resolves `.` and `..` segments and preserves the UNC `\\` prefix
+- **BREAKING CHANGES**: `getFilePathLevel` no longer counts a trailing separator as an extra level (`/home/user/` now returns the same level as `/home/user`)
+- **BREAKING CHANGES**: `getCopyFileName` now preserves the original file extension casing (e.g. `Report.PDF` copies to `Report (1).PDF` instead of `Report (1).pdf`)
+- **BREAKING CHANGES**: `isValidFileName` now validates the whole name including its extension (so `hello.:txt` is invalid) and rejects Windows device names (`CON`, `NUL`, `COM1`-`COM9`, `LPT1`-`LPT9`, etc.)
+- **BREAKING CHANGES**: `createFileWithDummy` now throws for a negative size instead of returning `false`
+- **BREAKING CHANGES**: `createDirectory`, `moveFile`, and `createFile` now propagate filesystem errors instead of silently ignoring them
 - `duration`: Add `duration` method
 - `arrPick`: Add `arrPick` method
 - `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method

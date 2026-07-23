@@ -10,16 +10,13 @@ import 'package:unorm_dart/unorm_dart.dart';
 
 /// Creates a directory with the specified path. Ignores the operation if the directory already exists.
 Future<void> createDirectory(String filePath, {bool? recursive = true}) async {
-  try {
-    final Directory directory = Directory(filePath);
+  final Directory directory = Directory(filePath);
 
-    if (!await directory.exists()) {
-      await directory.create(recursive: recursive == true);
-    }
-  } catch (error) {
-    if (error is Error) {
-      throw Exception(error.toString());
-    }
+  // Failures propagate, matching the JS/Python implementations. Catching only
+  // `Error` here used to swallow every failure, because dart:io reports them as
+  // `FileSystemException`, which is an `Exception` and not an `Error`.
+  if (!await directory.exists()) {
+    await directory.create(recursive: recursive == true);
   }
 }
 
@@ -36,18 +33,23 @@ Future<void> createFile(String filePath) async {
     await file.setLastAccessed(now);
     await file.setLastModified(now);
   } catch (_) {
-    try {
-      await file.create(recursive: true);
-    } catch (_) {
-      // Do nothing
-    }
+    // The file does not exist yet, so create it. A failure here propagates,
+    // matching the JS/Python implementations.
+    await file.create(recursive: true);
   }
 }
 
 /// Creates a file with the specified size in bytes.
 Future<bool> createFileWithDummy(String filePath, {int? size}) async {
+  if (size == null) {
+    throw ArgumentError('Size is required');
+  }
+  if (size < 0) {
+    throw ArgumentError('Size must be 0 or greater');
+  }
+
   try {
-    if (size == 0 || size == null) {
+    if (size == 0) {
       await createFile(filePath);
       return true;
     }
@@ -176,7 +178,11 @@ String getFileName(String filePath, {bool? withExtension = false}) {
 /// Scans an array containing a list of names and displays an alternative name if any duplicates are found. If no duplicates are found, the names are returned as is.
 String getCopyFileName(String fileName, List<String> fileNameList) {
   final String fName = getFileName(fileName);
-  final String? fExt = getFileExtension(fileName);
+  // Take the extension straight off the original name instead of going through
+  // getFileExtension, which lower-cases it. `Report.PDF` must copy to
+  // `Report (1).PDF`, not `Report (1).pdf`.
+  final String fExt =
+      getFileName(fileName, withExtension: true).substring(fName.length);
   final Set<String> existingSet = fileNameList.toSet();
 
   if (!existingSet.contains(fileName)) {
@@ -184,8 +190,7 @@ String getCopyFileName(String fileName, List<String> fileNameList) {
   }
 
   for (var i = 1;; i++) {
-    final candidate =
-        '$fName ($i)${fExt != null && fExt.isNotEmpty ? '.$fExt' : ''}';
+    final candidate = '$fName ($i)$fExt';
 
     if (!existingSet.contains(candidate)) {
       return candidate;
@@ -253,22 +258,13 @@ Future<int> getFileSize(String filePath) async {
 
 /// Returns the parent path one level above the given path.
 String getParentFilePath(String filePath, {bool? isWindows = false}) {
-  final separator = isWindows == true ? '\\' : '/';
-  final listPathItem = filePath.split(separator);
-
-  if (listPathItem.isNotEmpty) {
-    listPathItem.removeLast();
-  }
-
-  String currentPath;
-
-  if (listPathItem.length == 1) {
-    currentPath = isWindows == true ? 'C:\\' : '/';
-  } else {
-    currentPath = listPathItem.join(separator);
-  }
-
-  return toValidFilePath(currentPath, isWindows: isWindows);
+  // Delegate to `dirname` rather than splitting by hand. The hand-rolled split
+  // collapsed any single-segment relative path to the root ('relative/path'
+  // answered '/' instead of '/relative') and mangled UNC paths.
+  return toValidFilePath(
+    isWindows == true ? windows.dirname(filePath) : posix.dirname(filePath),
+    isWindows: isWindows,
+  );
 }
 
 /// Returns the first line of the specified text file path. The `length` argument is the total number of lines to print. Default is `1`.
@@ -367,13 +363,25 @@ Future<bool> isFileExists(String filePath) async {
 
 /// Determines whether the passed path or filename is using a system-accepted string (Also check the valid file length). Returns false if the name is not available.
 bool isValidFileName(String filePath, {bool? unixType = false}) {
-  final fileName = getFileName(filePath);
+  // Validate the *whole* name, extension included. Stripping the extension
+  // first would let 'hello.:txt' through, because only 'hello' was checked.
+  final fileName = getFileName(filePath, withExtension: true);
   final RegExp fileNameRegex = unixType == true
       ? RegExp(r'(^\s+$)|(^\.+$)|([:/]+)')
       : RegExp(r'(^\s+$)|(^\.+$)|([<>:"/\\|?*]+)');
 
+  if (unixType != true &&
+      _windowsReservedNameRegex.hasMatch(fileName.split('.')[0])) {
+    return false;
+  }
+
   return !fileNameRegex.hasMatch(fileName) && fileName.length <= 255;
 }
+
+/// CON, PRN, AUX, NUL, COM1-9 and LPT1-9 are device names reserved by Windows.
+/// They stay reserved even when an extension is appended (`nul.txt`).
+final RegExp _windowsReservedNameRegex =
+    RegExp(r'^(con|prn|aux|nul|com[1-9]|lpt[1-9])$', caseSensitive: false);
 
 /// Determine how many steps the current path is. The root path (`/` or `C:\`) begins with step 1.
 int getFilePathLevel(String? filePath) {
@@ -385,7 +393,9 @@ int getFilePathLevel(String? filePath) {
     return 1;
   }
 
-  return toPosixFilePath(filePath.replaceAll(RegExp(r'\\+$'), ''))
+  // Strip trailing separators of either flavour so that '/home/user' and
+  // '/home/user/' report the same level.
+  return toPosixFilePath(filePath.replaceAll(RegExp(r'[\\/]+$'), ''))
       .split(posix.separator)
       .length;
 }
@@ -424,11 +434,8 @@ Future<void> moveFile(String filePath, String targetFilePath) async {
     return;
   }
 
-  try {
-    await File(filePath).rename(targetFilePath);
-  } catch (_) {
-    // Do nothing
-  }
+  // Failures propagate, matching the JS/Python implementations.
+  await File(filePath).rename(targetFilePath);
 }
 
 /// Returns the file name within the path.
@@ -462,39 +469,44 @@ String toPosixFilePath(String filePath) {
 
 /// Remove invalid or unnecessary characters in the path.
 String toValidFilePath(String filePath, {bool? isWindows = false}) {
+  // Delegate to the path package's `normalize` so that '.' and '..' segments
+  // collapse the same way they do in JS/Python. The previous regex-only
+  // approach left them in place and destroyed the '\\' prefix of UNC paths.
+  if (filePath.isEmpty) {
+    return isWindows == true ? '\\' : '/';
+  }
+
   if (isWindows == true) {
-    String windowsPath = filePath;
+    String p = windows.normalize(filePath).replaceFirst(RegExp(r'\.$'), '');
 
-    if (windowsPath.length > 2 &&
-        !RegExp(r'^[a-zA-Z]:').hasMatch(windowsPath)) {
-      windowsPath = '\\$windowsPath';
+    if (p.endsWith('\\') && p.length > 1) {
+      p = p.replaceFirst(RegExp(r'\\+$'), '');
+    }
+    if (p.endsWith(':')) {
+      p = '$p\\';
+    }
+    if (!p.startsWith('\\') && !p.contains(':')) {
+      p = '\\$p';
     }
 
-    if (RegExp(r'\\$').hasMatch(windowsPath) &&
-        RegExp(r'\\').allMatches(windowsPath).length > 1) {
-      windowsPath = windowsPath.replaceFirst(RegExp(r'\\$'), '');
-    }
-
-    if (RegExp(r'^[a-zA-Z]:$').hasMatch(windowsPath)) {
-      windowsPath = '$windowsPath\\';
-    }
-
-    return windowsPath.replaceAll(RegExp(r'\\{2,}'), '\\');
+    return p;
   }
 
-  String unixPath = filePath;
+  String p = posix.normalize(filePath);
 
-  if (!RegExp(r'^/').hasMatch(unixPath)) {
-    unixPath = '/$unixPath';
+  // `normalize` collapses an empty or self-referential path to '.', which must
+  // resolve to the root rather than to a literal '/.' segment.
+  if (p == '.') {
+    return '/';
+  }
+  if (!posix.isAbsolute(p)) {
+    p = '/$p';
+  }
+  if (p.endsWith('/') && p.length > 1) {
+    p = p.substring(0, p.length - 1);
   }
 
-  unixPath = unixPath.replaceAll(RegExp(r'/+'), '/');
-
-  if (unixPath.length > 1) {
-    unixPath = unixPath.replaceFirst(RegExp(r'/$'), '');
-  }
-
-  return unixPath;
+  return p;
 }
 
 class FileInfo {

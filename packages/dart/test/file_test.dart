@@ -150,7 +150,8 @@ void main() {
     test('isValidFileName', () {
       expect(isValidFileName('System32'), true);
       expect(isValidFileName('.example', unixType: true), true);
-      expect(isValidFileName('hello.:txt', unixType: true), true);
+      // The ':' lives in the extension; the whole name is validated.
+      expect(isValidFileName('hello.:txt', unixType: true), false);
       expect(isValidFileName('C:\\Windows\\System32'), true);
       expect(isValidFileName('C:\\Users\\test\\Desktop\\hello.txt'), true);
       expect(isValidFileName('C:\\Users\\test\\Desktop\\hello*'), false);
@@ -422,8 +423,16 @@ void edgeCaseTests() {
       expect(isValidFileName('a:b', unixType: true), false);
       expect(isValidFileName('a|b', unixType: true), true);
       expect(isValidFileName('a<b>c', unixType: true), true);
-      // Windows *device* names are not detected; documents current behavior.
-      expect(isValidFileName('nul.txt'), true);
+      // Windows device names stay reserved even with an extension appended,
+      // but they are only reserved on Windows.
+      expect(isValidFileName('nul.txt'), false);
+      expect(isValidFileName('CON'), false);
+      expect(isValidFileName('com1'), false);
+      expect(isValidFileName('LPT9'), false);
+      expect(isValidFileName('nul.txt', unixType: true), true);
+      // Near-misses are still valid names.
+      expect(isValidFileName('COM0'), true);
+      expect(isValidFileName('CONSOLE'), true);
     });
 
     test('getCopyFileName - additional collision shapes', () {
@@ -435,9 +444,10 @@ void edgeCaseTests() {
           'a (2).txt');
       expect(getCopyFileName('a', ['a', 'a (1)', 'a (2)']), 'a (3)');
       expect(getCopyFileName('한글.txt', ['한글.txt']), '한글 (1).txt');
-      // NOTE: the extension is rebuilt from getFileExtension, which lower-cases
-      // it, so the copy does not preserve the original casing.
-      expect(getCopyFileName('a.TXT', ['a.TXT']), 'a (1).txt');
+      // The original extension casing is preserved.
+      expect(getCopyFileName('a.TXT', ['a.TXT']), 'a (1).TXT');
+      expect(getCopyFileName('Report.PDF', ['Report.PDF']), 'Report (1).PDF');
+      expect(getCopyFileName('a.tar.GZ', ['a.tar.GZ']), 'a.tar (1).GZ');
     });
 
     test('toValidFilePath - redundant separators', () {
@@ -617,6 +627,77 @@ void edgeCaseTests() {
 
       await deleteFile(p('a'));
       expect(await isFileExists(nested), false);
+    });
+
+    test('getParentFilePath - relative, empty and trailing-separator paths',
+        () {
+      // A relative path keeps its parent segment instead of collapsing to root.
+      expect(getParentFilePath('relative/path'), '/relative');
+      expect(getParentFilePath('a/b/c'), '/a/b');
+      // A single segment (and an empty path) has the root as its parent.
+      expect(getParentFilePath('a'), '/');
+      expect(getParentFilePath(''), '/');
+      // Trailing separators are ignored, as in POSIX dirname(1).
+      expect(getParentFilePath('/home/user/'), '/home');
+      expect(getParentFilePath('/a/b/c/'), '/a/b');
+      expect(getParentFilePath('/a//b'), '/a');
+    });
+
+    test('getParentFilePath - Windows relative and UNC paths', () {
+      expect(
+          getParentFilePath('relative\\path', isWindows: true), '\\relative');
+      expect(getParentFilePath('a', isWindows: true), '\\');
+      expect(getParentFilePath('', isWindows: true), '\\');
+      expect(getParentFilePath('C:\\Users\\', isWindows: true), 'C:\\');
+      // The '\\' UNC prefix survives.
+      expect(getParentFilePath('\\\\net\\share\\file.txt', isWindows: true),
+          '\\\\net\\share');
+    });
+
+    test('toValidFilePath - resolves . and .. segments', () {
+      expect(toValidFilePath('/home/user/../test'), '/home/test');
+      expect(toValidFilePath('/a/./b'), '/a/b');
+      // A path that collapses to nothing resolves to the root.
+      expect(toValidFilePath('.'), '/');
+      expect(toValidFilePath('C:\\a\\..\\b', isWindows: true), 'C:\\b');
+      expect(toValidFilePath('C:\\Windows\\..\\text.txt', isWindows: true),
+          'C:\\text.txt');
+      expect(toValidFilePath('.', isWindows: true), '\\');
+      expect(toValidFilePath('', isWindows: true), '\\');
+    });
+
+    test('getFilePathLevel - a trailing separator does not add a level', () {
+      expect(getFilePathLevel('/home/user/'), getFilePathLevel('/home/user'));
+      expect(getFilePathLevel('/a/b//'), getFilePathLevel('/a/b'));
+      expect(
+          getFilePathLevel('C:\\Windows\\'), getFilePathLevel('C:\\Windows'));
+      expect(getFilePathLevel('//'), 1);
+    });
+
+    test('createFileWithDummy - a size of 0 creates an empty file', () async {
+      final String target = p('zero.bin');
+
+      expect(await createFileWithDummy(target, size: 0), true);
+      expect(await isFileExists(target), true);
+      expect(await getFileSize(target), 0);
+
+      await deleteFile(target);
+    });
+
+    test('createFileWithDummy - rejects a negative size', () {
+      expect(
+          createFileWithDummy(p('negative.bin'), size: -5), throwsA(anything));
+    });
+
+    test('createDirectory - a non-recursive nested creation throws', () async {
+      expect(createDirectory(p('missing-parent/child'), recursive: false),
+          throwsA(anything));
+      expect(await isFileExists(p('missing-parent/child')), false);
+    });
+
+    test('moveFile - a missing source throws', () {
+      expect(moveFile(p('does-not-exist.txt'), p('target.txt')),
+          throwsA(anything));
     });
 
     test('moveFile - renames within the same directory', () async {
