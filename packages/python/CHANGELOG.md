@@ -12,6 +12,7 @@
 - `duration`: Support `Month` (30 days) and `Year` (365 days) units, and add `withMilliSeconds`, `maxUnitCount`, and `unit` (single-unit) options
 - `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method
 - `getSlug`: Add `getSlug` method
+- `hasBadWords`: Add `hasBadWords` method
 
 ## 0.1.0 (2026-06-16)
 

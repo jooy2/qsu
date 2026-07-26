@@ -1,6 +1,7 @@
 from qsu.verify import (
 	between,
 	contains,
+	hasBadWords,
 	is2dArray,
 	isEmail,
 	isEmpty,
@@ -146,3 +147,58 @@ def test_isTrueMinimumNumberOfTimes():
 		isTrueMinimumNumberOfTimes([left == right2, False, True, True, False], 3)
 		is False
 	)
+
+
+def test_hasBadWords():
+	words = ['admin', 'apple']
+
+	assert hasBadWords('', words) is False
+	assert hasBadWords('hello world', words) is False
+	assert hasBadWords('admin') is False
+	assert hasBadWords('admin', []) is False
+	assert hasBadWords('admin', ['', '  ']) is False
+	assert hasBadWords('!!! ??? ***', words) is False
+
+	assert hasBadWords('i am admin', words) is True
+	assert hasBadWords('I AM ADMIN', words) is True
+	assert hasBadWords('pineapple juice', words) is True
+	assert hasBadWords('apple, banana', words) is True
+
+	# Separators hidden inside the word.
+	assert hasBadWords('ad___min', words) is True
+	assert hasBadWords('a.d.m.i.n', words) is True
+	assert hasBadWords('ad$min', words) is True
+	assert hasBadWords('a d m i n', words) is True
+	assert hasBadWords('the ad min account', words) is True
+
+	# Lookalike characters.
+	assert hasBadWords('adm1n', words) is True
+	assert hasBadWords('@dm1n', words) is True
+	assert hasBadWords('4pp13', words) is True
+	assert hasBadWords('ａｄｍｉｎ', words) is True
+	assert hasBadWords('аdmin', words) is True  # Cyrillic 'a'
+	assert hasBadWords('ádmín', words) is True
+	assert hasBadWords('gㅇㅇd', ['good']) is True  # Hangul 'ㅇ' as 'o'
+
+	# A word split over a space only counts from the start of a token.
+	assert hasBadWords('read min please', words) is False
+	assert hasBadWords('nomad mineral', words) is False
+
+	koWords = ['사과', '고양이']
+
+	assert hasBadWords('맛있는 사과!', koWords) is True
+	assert hasBadWords('사과나무', koWords) is True
+	assert hasBadWords('사-과', koWords) is True
+	assert hasBadWords('사 과', koWords) is True
+	assert hasBadWords('우리 고양이는 귀엽다', koWords) is True
+
+	# Decomposed jamo, including compound vowels and finals.
+	assert hasBadWords('ㅅㅏㄱㅗㅏ', koWords) is True
+	assert hasBadWords('사ㄱㅗㅏ', koWords) is True
+	assert hasBadWords('ㄱㅗㅇㅑㅇㅇl', koWords) is True
+	assert hasBadWords('ㅅr과', koWords) is True  # 'r' shaped like 'ㅏ'
+
+	# Unrelated words that only touch when the space is removed.
+	assert hasBadWords('이거사 과일이야', koWords) is False
+	assert hasBadWords('명사 과제', koWords) is False
+	assert hasBadWords('참고 양이 되었다', koWords) is False
