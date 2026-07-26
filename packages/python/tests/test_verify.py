@@ -180,6 +180,16 @@ def test_hasBadWords():
 	assert hasBadWords('ádmín', words) is True
 	assert hasBadWords('gㅇㅇd', ['good']) is True  # Hangul 'ㅇ' as 'o'
 
+	# Stylized Unicode letters.
+	assert hasBadWords('𝗮𝗱𝗺𝗶𝗻', words) is True
+	assert hasBadWords('ⓐⓓⓜⓘⓝ', words) is True
+	assert hasBadWords('app/e', words) is True
+
+	# Allowed words are excused, even though they contain a banned word.
+	assert hasBadWords('pineapple juice', words, ['pineapple']) is False
+	assert hasBadWords('apple and pineapple', words, ['pineapple']) is True
+	assert hasBadWords('administrator here', words, ['administrator']) is False
+
 	# A word split over a space only counts from the start of a token.
 	assert hasBadWords('read min please', words) is False
 	assert hasBadWords('nomad mineral', words) is False

@@ -40,7 +40,7 @@ _CHAR_GROUPS = [
 	'cçćčс',
 	'dďđ',
 	'e3èéêëēĕėęěеёε',
-	'g9ğ',
+	'g69ğ',
 	'hн',
 	'i1lìíîïīįıłіι',
 	'jј',
@@ -54,13 +54,13 @@ _CHAR_GROUPS = [
 	'uùúûüūůűų',
 	'xхχ',
 	'yýÿу',
-	'zźżž',
+	'z2źżž',
 ]
 
 # Symbols are ambiguous: they may stand for a letter ('a$$') or merely break a
 # word up ('ad$min'), so the text is scanned once with them read as letters and
 # once with them removed.
-_SYMBOL_GROUPS = ['a@', 'c¢', 'e€£', 'i!|¡', 's$§', 't+', 'o°']
+_SYMBOL_GROUPS = ['a@', 'c¢(', 'e€£', 'i!|¡/', 's$§', 't+', 'o°']
 
 
 def _build_map(groups: list) -> dict:
@@ -71,6 +71,30 @@ def _build_map(groups: list) -> dict:
 			built[ch] = group[0]
 
 	return built
+
+
+# Stylized Latin letters that keep their shape: circled ('ⓐ') and the
+# Mathematical Alphanumeric blocks with no gaps ('𝐚', '𝗮', '𝘢', '𝚊'). Every
+# block holds A-Z followed by a-z, so one offset per block is enough.
+_STYLIZED_BLOCKS = [
+	0x24B6,
+	0x1D400,
+	0x1D434,
+	0x1D468,
+	0x1D5A0,
+	0x1D5D4,
+	0x1D608,
+	0x1D63C,
+	0x1D670,
+]
+
+
+def _from_stylized(code: int):
+	for start in _STYLIZED_BLOCKS:
+		if start <= code <= start + 51:
+			return chr(0x61 + (code - start) % 26)
+
+	return None
 
 
 _CHAR_MAP = _build_map(_CHAR_GROUPS)
@@ -151,6 +175,9 @@ def _normalize(text: str, readSymbols: bool) -> str:
 			ch = _JUNG[code - 0x1161]
 		elif 0x11A8 <= code <= 0x11C2:
 			ch = _JONG[code - 0x11A7]
+		elif code >= 0x24B6:
+			# Circled or Mathematical Alphanumeric letter ('ⓐ', '𝗮').
+			ch = _from_stylized(code) or ch
 
 		if ch in _CHAR_MAP:
 			chars.append(_CHAR_MAP[ch])
@@ -169,11 +196,25 @@ def _normalize(text: str, readSymbols: bool) -> str:
 	return _compose_hangul(chars).replace('ㅇ', 'o')
 
 
-def _normalize_word(word) -> str:
-	if not isinstance(word, str):
-		return ''
+def _normalize_all(words: list) -> list:
+	normalized = []
 
-	return _normalize(word, True)
+	for word in words:
+		if not isinstance(word, str):
+			continue
+
+		target = _normalize(word, True)
+
+		if target:
+			normalized.append(target)
+
+	return normalized
+
+
+# Allowed words are blanked out with a character normalization never produces,
+# so a banned word can no longer be found inside them. Blanking keeps the text
+# length intact, which the token positions depend on.
+_MASK = ' '
 
 
 def _is_aligned(at: int, length: int, starts: list, ends: list) -> bool:
@@ -187,21 +228,16 @@ def _is_aligned(at: int, length: int, starts: list, ends: list) -> bool:
 	return False
 
 
-def hasBadWords(str: str, words: list = None) -> bool:
+def hasBadWords(str: str, words: list = None, allowWords: list = None) -> bool:
 	if not str or not words:
 		return False
 
-	targets = []
-
-	for word in words:
-		target = _normalize_word(word)
-
-		if target:
-			targets.append(target)
+	targets = _normalize_all(words)
 
 	if not targets:
 		return False
 
+	allowed = _normalize_all(allowWords) if allowWords else []
 	tokens = str.split()
 
 	for readSymbols in (True, False):
@@ -218,6 +254,13 @@ def hasBadWords(str: str, words: list = None) -> bool:
 			starts.append(len(joined))
 			joined += normalized
 			ends.append(len(joined))
+
+		for term in allowed:
+			at = joined.find(term)
+
+			while at != -1:
+				joined = joined[:at] + _MASK * len(term) + joined[at + len(term) :]
+				at = joined.find(term, at + len(term))
 
 		for target in targets:
 			at = joined.find(target)
