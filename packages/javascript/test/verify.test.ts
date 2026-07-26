@@ -7,6 +7,7 @@ import {
 	isEmpty,
 	isUrl,
 	contains,
+	hasBadWords,
 	is2dArray,
 	between,
 	len,
@@ -155,5 +156,60 @@ describe('Verify', () => {
 			isTrueMinimumNumberOfTimes([left === right2, false, true, true, false], 3),
 			false
 		);
+	});
+
+	it('hasBadWords', () => {
+		const words = ['admin', 'apple'];
+
+		assert.strictEqual(hasBadWords('', words), false);
+		assert.strictEqual(hasBadWords('hello world', words), false);
+		assert.strictEqual(hasBadWords('admin'), false);
+		assert.strictEqual(hasBadWords('admin', []), false);
+		assert.strictEqual(hasBadWords('admin', ['', '  ']), false);
+		assert.strictEqual(hasBadWords('!!! ??? ***', words), false);
+
+		assert.strictEqual(hasBadWords('i am admin', words), true);
+		assert.strictEqual(hasBadWords('I AM ADMIN', words), true);
+		assert.strictEqual(hasBadWords('pineapple juice', words), true);
+		assert.strictEqual(hasBadWords('apple, banana', words), true);
+
+		// Separators hidden inside the word.
+		assert.strictEqual(hasBadWords('ad___min', words), true);
+		assert.strictEqual(hasBadWords('a.d.m.i.n', words), true);
+		assert.strictEqual(hasBadWords('ad$min', words), true);
+		assert.strictEqual(hasBadWords('a d m i n', words), true);
+		assert.strictEqual(hasBadWords('the ad min account', words), true);
+
+		// Lookalike characters.
+		assert.strictEqual(hasBadWords('adm1n', words), true);
+		assert.strictEqual(hasBadWords('@dm1n', words), true);
+		assert.strictEqual(hasBadWords('4pp13', words), true);
+		assert.strictEqual(hasBadWords('ａｄｍｉｎ', words), true);
+		assert.strictEqual(hasBadWords('аdmin', words), true); // Cyrillic 'а'
+		assert.strictEqual(hasBadWords('ádmín', words), true);
+		assert.strictEqual(hasBadWords('gㅇㅇd', ['good']), true); // Hangul 'ㅇ' as 'o'
+
+		// A word split over a space only counts from the start of a token.
+		assert.strictEqual(hasBadWords('read min please', words), false);
+		assert.strictEqual(hasBadWords('nomad mineral', words), false);
+
+		const koWords = ['사과', '고양이'];
+
+		assert.strictEqual(hasBadWords('맛있는 사과!', koWords), true);
+		assert.strictEqual(hasBadWords('사과나무', koWords), true);
+		assert.strictEqual(hasBadWords('사-과', koWords), true);
+		assert.strictEqual(hasBadWords('사 과', koWords), true);
+		assert.strictEqual(hasBadWords('우리 고양이는 귀엽다', koWords), true);
+
+		// Decomposed jamo, including compound vowels and finals.
+		assert.strictEqual(hasBadWords('ㅅㅏㄱㅗㅏ', koWords), true);
+		assert.strictEqual(hasBadWords('사ㄱㅗㅏ', koWords), true);
+		assert.strictEqual(hasBadWords('ㄱㅗㅇㅑㅇㅇl', koWords), true);
+		assert.strictEqual(hasBadWords('ㅅr과', koWords), true); // 'r' shaped like 'ㅏ'
+
+		// Unrelated words that only touch when the space is removed.
+		assert.strictEqual(hasBadWords('이거사 과일이야', koWords), false);
+		assert.strictEqual(hasBadWords('명사 과제', koWords), false);
+		assert.strictEqual(hasBadWords('참고 양이 되었다', koWords), false);
 	});
 });

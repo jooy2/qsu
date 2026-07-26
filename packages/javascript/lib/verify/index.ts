@@ -1,5 +1,6 @@
 export { between } from './between.js';
 export { contains } from './contains.js';
+export { hasBadWords } from './hasBadWords.js';
 export { is2dArray } from './is2dArray.js';
 export { isEmail } from './isEmail.js';
 export { isEmpty } from './isEmpty.js';
