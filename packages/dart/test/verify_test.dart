@@ -158,5 +158,60 @@ void main() {
               minimumCount: 3),
           false);
     });
+
+    test('hasBadWords', () {
+      const List<String> words = ['admin', 'apple'];
+
+      expect(hasBadWords('', words: words), false);
+      expect(hasBadWords('hello world', words: words), false);
+      expect(hasBadWords('admin'), false);
+      expect(hasBadWords('admin', words: []), false);
+      expect(hasBadWords('admin', words: ['', '  ']), false);
+      expect(hasBadWords('!!! ??? ***', words: words), false);
+
+      expect(hasBadWords('i am admin', words: words), true);
+      expect(hasBadWords('I AM ADMIN', words: words), true);
+      expect(hasBadWords('pineapple juice', words: words), true);
+      expect(hasBadWords('apple, banana', words: words), true);
+
+      // Separators hidden inside the word.
+      expect(hasBadWords('ad___min', words: words), true);
+      expect(hasBadWords('a.d.m.i.n', words: words), true);
+      expect(hasBadWords('ad\$min', words: words), true);
+      expect(hasBadWords('a d m i n', words: words), true);
+      expect(hasBadWords('the ad min account', words: words), true);
+
+      // Lookalike characters.
+      expect(hasBadWords('adm1n', words: words), true);
+      expect(hasBadWords('@dm1n', words: words), true);
+      expect(hasBadWords('4pp13', words: words), true);
+      expect(hasBadWords('ａｄｍｉｎ', words: words), true);
+      expect(hasBadWords('аdmin', words: words), true); // Cyrillic 'а'
+      expect(hasBadWords('ádmín', words: words), true);
+      expect(hasBadWords('gㅇㅇd', words: ['good']), true); // 'ㅇ' as 'o'
+
+      // A word split over a space only counts from the start of a token.
+      expect(hasBadWords('read min please', words: words), false);
+      expect(hasBadWords('nomad mineral', words: words), false);
+
+      const List<String> koWords = ['사과', '고양이'];
+
+      expect(hasBadWords('맛있는 사과!', words: koWords), true);
+      expect(hasBadWords('사과나무', words: koWords), true);
+      expect(hasBadWords('사-과', words: koWords), true);
+      expect(hasBadWords('사 과', words: koWords), true);
+      expect(hasBadWords('우리 고양이는 귀엽다', words: koWords), true);
+
+      // Decomposed jamo, including compound vowels and finals.
+      expect(hasBadWords('ㅅㅏㄱㅗㅏ', words: koWords), true);
+      expect(hasBadWords('사ㄱㅗㅏ', words: koWords), true);
+      expect(hasBadWords('ㄱㅗㅇㅑㅇㅇl', words: koWords), true);
+      expect(hasBadWords('ㅅr과', words: koWords), true); // 'r' shaped like 'ㅏ'
+
+      // Unrelated words that only touch when the space is removed.
+      expect(hasBadWords('이거사 과일이야', words: koWords), false);
+      expect(hasBadWords('명사 과제', words: koWords), false);
+      expect(hasBadWords('참고 양이 되었다', words: koWords), false);
+    });
   });
 }

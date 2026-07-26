@@ -13,6 +13,7 @@
 - `arrPick`: Add `arrPick` method
 - `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method
 - `getSlug`: Add `getSlug` method
+- `hasBadWords`: Add `hasBadWords` method
 
 ## 1.2.1 (2026--)
 
