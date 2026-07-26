@@ -1,6 +1,6 @@
 # Changelog (JavaScript)
 
-## 1.12.3 (2026--)
+## 1.13.0 (2026--)
 
 - **BREAKING CHANGES**: `duration` now hides milliseconds by default (enable with `withMilliSeconds`) and uses grammatically correct plurals (e.g. `0 Hours`, `1 Hour`)
 - **BREAKING CHANGES**: `getFilePathLevel` no longer counts a trailing separator as an extra level (`/home/user/` now returns the same level as `/home/user`)
