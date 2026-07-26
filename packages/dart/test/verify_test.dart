@@ -190,6 +190,25 @@ void main() {
       expect(hasBadWords('ádmín', words: words), true);
       expect(hasBadWords('gㅇㅇd', words: ['good']), true); // 'ㅇ' as 'o'
 
+      // Stylized Unicode letters.
+      expect(hasBadWords('𝗮𝗱𝗺𝗶𝗻', words: words), true);
+      expect(hasBadWords('ⓐⓓⓜⓘⓝ', words: words), true);
+      expect(hasBadWords('app/e', words: words), true);
+
+      // Allowed words are excused, even though they contain a banned word.
+      expect(
+          hasBadWords('pineapple juice',
+              words: words, allowWords: ['pineapple']),
+          false);
+      expect(
+          hasBadWords('apple and pineapple',
+              words: words, allowWords: ['pineapple']),
+          true);
+      expect(
+          hasBadWords('administrator here',
+              words: words, allowWords: ['administrator']),
+          false);
+
       // A word split over a space only counts from the start of a token.
       expect(hasBadWords('read min please', words: words), false);
       expect(hasBadWords('nomad mineral', words: words), false);

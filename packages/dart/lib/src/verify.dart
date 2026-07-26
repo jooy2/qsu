@@ -236,7 +236,7 @@ const List<String> _charGroups = [
   'cçćčс',
   'dďđ',
   'e3èéêëēĕėęěеёε',
-  'g9ğ',
+  'g69ğ',
   'hн',
   'i1lìíîïīįıłіι',
   'jј',
@@ -250,7 +250,7 @@ const List<String> _charGroups = [
   'uùúûüūůűų',
   'xхχ',
   'yýÿу',
-  'zźżž'
+  'z2źżž'
 ];
 
 // Symbols are ambiguous: they may stand for a letter ('a$$') or merely break a
@@ -258,9 +258,9 @@ const List<String> _charGroups = [
 // once with them removed.
 const List<String> _symbolGroups = [
   'a@',
-  'c¢',
+  'c¢(',
   'e€£',
-  'i!|¡',
+  'i!|¡/',
   's\$§',
   't+',
   'o°'
@@ -276,6 +276,31 @@ Map<String, String> _buildMap(List<String> groups) {
   }
 
   return built;
+}
+
+// Stylized Latin letters that keep their shape: circled ('ⓐ') and the
+// Mathematical Alphanumeric blocks with no gaps ('𝐚', '𝗮', '𝘢', '𝚊'). Every
+// block holds A-Z followed by a-z, so one offset per block is enough.
+const List<int> _stylizedBlocks = [
+  0x24B6,
+  0x1D400,
+  0x1D434,
+  0x1D468,
+  0x1D5A0,
+  0x1D5D4,
+  0x1D608,
+  0x1D63C,
+  0x1D670
+];
+
+String? _fromStylized(int code) {
+  for (final int start in _stylizedBlocks) {
+    if (code >= start && code <= start + 51) {
+      return String.fromCharCode(0x61 + (code - start) % 26);
+    }
+  }
+
+  return null;
 }
 
 final Map<String, String> _charMap = _buildMap(_charGroups);
@@ -358,6 +383,9 @@ String _normalizeText(String text, bool readSymbols) {
       ch = _jung[rune - 0x1161];
     } else if (rune >= 0x11A8 && rune <= 0x11C2) {
       ch = _jong[rune - 0x11A7];
+    } else if (rune >= 0x24B6) {
+      // Circled or Mathematical Alphanumeric letter ('ⓐ', '𝗮').
+      ch = _fromStylized(rune) ?? ch;
     }
 
     if (_charMap.containsKey(ch)) {
@@ -383,6 +411,25 @@ String _normalizeText(String text, bool readSymbols) {
   return _composeHangul(chars).replaceAll('ㅇ', 'o');
 }
 
+// Allowed words are blanked out with a character normalization never produces,
+// so a banned word can no longer be found inside them. Blanking keeps the text
+// length intact, which the token positions depend on.
+const String _mask = ' ';
+
+List<String> _normalizeAll(List<String> words) {
+  final List<String> normalized = [];
+
+  for (final String word in words) {
+    final String target = _normalizeText(word, true);
+
+    if (target.isNotEmpty) {
+      normalized.add(target);
+    }
+  }
+
+  return normalized;
+}
+
 /// A match may run over the space between two tokens ('ad min'), but only when
 /// it starts where a token starts. That keeps 'admin' out of 'read min' and, in
 /// Korean, keeps '사과' out of '이거사 과일이야'.
@@ -402,25 +449,19 @@ bool _isAligned(int at, int length, List<int> starts, List<int> ends) {
 /// Cyrillic letters) and decomposed Hangul jamo (`ㅅㅏㄱㅗㅏ`).
 /// A word spread over a space is only counted from the start of a word, so
 /// unrelated neighbours (`이거사 과일이야` for `사과`) are not reported.
-bool hasBadWords(String str, {List<String> words = const []}) {
+bool hasBadWords(String str,
+    {List<String> words = const [], List<String> allowWords = const []}) {
   if (str.isEmpty || words.isEmpty) {
     return false;
   }
 
-  final List<String> targets = [];
-
-  for (final String word in words) {
-    final String target = _normalizeText(word, true);
-
-    if (target.isNotEmpty) {
-      targets.add(target);
-    }
-  }
+  final List<String> targets = _normalizeAll(words);
 
   if (targets.isEmpty) {
     return false;
   }
 
+  final List<String> allowed = _normalizeAll(allowWords);
   final List<String> tokens =
       str.split(RegExp(r'\s+')).where((token) => token.isNotEmpty).toList();
 
@@ -439,6 +480,17 @@ bool hasBadWords(String str, {List<String> words = const []}) {
       starts.add(joined.length);
       joined += normalized;
       ends.add(joined.length);
+    }
+
+    for (final String term in allowed) {
+      int at = joined.indexOf(term);
+
+      while (at != -1) {
+        joined = joined.substring(0, at) +
+            _mask * term.length +
+            joined.substring(at + term.length);
+        at = joined.indexOf(term, at + term.length);
+      }
     }
 
     for (final String target in targets) {
