@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.13.2 (2026-07-26)
+
+- `hasBadWords`: Improve `hasBadWords` method
+
 ## 1.13.1 (2026-07-26)
 
 - `hasBadWords`: Add `hasBadWords` method

@@ -7,19 +7,22 @@ Matching is case-insensitive, and a banned word found inside a longer word still
 On top of a plain match, the most common ways of hiding a word are detected as well:
 
 - Characters inserted between the letters: `ad___min`, `a.d.m.i.n`, `ad$min`
-- Lookalike characters, such as leetspeak digits, accents, fullwidth letters and Cyrillic/Greek homoglyphs: `adm1n`, `4pp13`, `ａｄｍｉｎ`, `ádmín`
+- Lookalike characters, such as leetspeak digits, accents, fullwidth, circled and mathematical letters, and Cyrillic/Greek homoglyphs: `adm1n`, `4pp13`, `ａｄｍｉｎ`, `ádmín`, `ⓐⓓⓜⓘⓝ`, `𝗮𝗱𝗺𝗶𝗻`
 - Symbols standing in for a letter: `@dm1n`
 - Korean written as separate jamo, including a Latin letter used for its shape: `ㅅㅏㄱㅗㅏ` and `ㅅr과` are both read as `사과`
 
 A banned word spread over a space is only reported when it starts a word. `ad min` is reported for `admin`, but `read min` is not. This is what keeps unrelated neighbours apart in Korean: for `사과`, the text `이거사 과일이야` is not reported because the match begins in the middle of the preceding word.
 
-Note that hiding tricks are endless, so this is a best-effort check rather than a guarantee. Conversely, a banned word that happens to be a substring of an innocent word is reported, so keep the list specific.
+Because a banned word is also found inside a longer word, an innocent word may be reported (`apple` is found in `pineapple`). Pass those words in `allowWords` and they are excused, even when the text around them is obscured — allowed words go through the very same reading, so `p1n34ppl3` is excused by `pineapple` too.
+
+Note that hiding tricks are endless, so this is a best-effort check rather than a guarantee.
 
 ## Parameters
 
 <ParamsTable :rows="[
 	{ name: 'str', type: 'string', required: true, desc: 'The text to check.' },
-	{ name: 'words', type: 'string[]', named: true, default: '[]', desc: 'The banned words to look for. Empty and blank entries are ignored, and a word containing spaces (`bad word`) is matched as one word.' }
+	{ name: 'words', type: 'string[]', named: true, default: '[]', desc: 'The banned words to look for. Empty and blank entries are ignored, and a word containing spaces (`bad word`) is matched as one word.' },
+	{ name: 'allowWords', type: 'string[]', named: true, default: '[]', desc: 'Words that are never reported, even when a banned word is found inside them (`pineapple` for the banned word `apple`).' }
 ]" />
 
 ## Returns
@@ -46,6 +49,9 @@ hasBadWords('read min please', words); // Returns false
 hasBadWords('맛있는 사과!', ['사과']); // Returns true
 hasBadWords('ㅅㅏㄱㅗㅏ', ['사과']); // Returns true
 hasBadWords('이거사 과일이야', ['사과']); // Returns false
+
+hasBadWords('pineapple juice', words, ['pineapple']); // Returns false
+hasBadWords('apple and pineapple', words, ['pineapple']); // Returns true
 ```
 
 ```dart [Dart]
@@ -64,6 +70,9 @@ hasBadWords('read min please', words: words); // Returns false
 hasBadWords('맛있는 사과!', words: ['사과']); // Returns true
 hasBadWords('ㅅㅏㄱㅗㅏ', words: ['사과']); // Returns true
 hasBadWords('이거사 과일이야', words: ['사과']); // Returns false
+
+hasBadWords('pineapple juice', words: words, allowWords: ['pineapple']); // Returns false
+hasBadWords('apple and pineapple', words: words, allowWords: ['pineapple']); // Returns true
 ```
 
 ```python [Python]
@@ -82,6 +91,9 @@ hasBadWords('read min please', words)  # Returns False
 hasBadWords('맛있는 사과!', words=['사과'])  # Returns True
 hasBadWords('ㅅㅏㄱㅗㅏ', words=['사과'])  # Returns True
 hasBadWords('이거사 과일이야', words=['사과'])  # Returns False
+
+hasBadWords('pineapple juice', words, allowWords=['pineapple'])  # Returns False
+hasBadWords('apple and pineapple', words, allowWords=['pineapple'])  # Returns True
 ```
 
 :::

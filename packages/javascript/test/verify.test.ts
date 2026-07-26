@@ -189,6 +189,16 @@ describe('Verify', () => {
 		assert.strictEqual(hasBadWords('ádmín', words), true);
 		assert.strictEqual(hasBadWords('gㅇㅇd', ['good']), true); // Hangul 'ㅇ' as 'o'
 
+		// Stylized Unicode letters.
+		assert.strictEqual(hasBadWords('𝗮𝗱𝗺𝗶𝗻', words), true);
+		assert.strictEqual(hasBadWords('ⓐⓓⓜⓘⓝ', words), true);
+		assert.strictEqual(hasBadWords('app/e', words), true);
+
+		// Allowed words are excused, even though they contain a banned word.
+		assert.strictEqual(hasBadWords('pineapple juice', words, ['pineapple']), false);
+		assert.strictEqual(hasBadWords('apple and pineapple', words, ['pineapple']), true);
+		assert.strictEqual(hasBadWords('administrator here', words, ['administrator']), false);
+
 		// A word split over a space only counts from the start of a token.
 		assert.strictEqual(hasBadWords('read min please', words), false);
 		assert.strictEqual(hasBadWords('nomad mineral', words), false);
