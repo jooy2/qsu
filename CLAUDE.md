@@ -143,6 +143,9 @@ Follow the existing history: `[scope] tag: message`.
    `named`/`required`/`default` accurately against the *source signatures* (defaults and
    optionality often live in the code, not the old prose).
 4. Keep the docs `<Lang />` title badge honest about which languages actually implement it.
+   Add the same entry to `docs/src/public/llms.txt` (served at `/llms.txt`): one line under the
+   function's category section, with the supported languages and a one-line summary matching the
+   English doc's opening paragraph.
 5. Run lint/format for the languages you touched (ESLint/Prettier, `dart format`,
    and Python formatting) before committing.
 
