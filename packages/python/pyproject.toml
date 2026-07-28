@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "qsu"
-version = "0.1.0"
+version = "1.0.0"
 description = "qsu is a utility library that contains useful and frequently used functions. Start with your preferred language and the modern development environment."
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -25,7 +25,7 @@ keywords = [
     "format",
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",

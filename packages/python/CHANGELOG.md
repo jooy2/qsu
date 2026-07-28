@@ -1,6 +1,6 @@
 # Changelog (Python)
 
-## 0.2.0 (--)
+## 1.0.0 (2026-07-28)
 
 - **BREAKING CHANGES**: `encrypt` and `decrypt` now honour the `algorithm` argument. Every algorithm silently produced AES-CBC before, so a value such as `aes-256-gcm` was accepted but ignored and the output did not match the JavaScript implementation. AEAD modes (GCM) now carry the authentication tag as `iv:authTag:encrypted`; the `iv:encrypted` format for CBC is unchanged. The key length is validated against the algorithm, as it is in JavaScript
 - **BREAKING CHANGES**: `decrypt` now validates PKCS7 padding, so decrypting with the wrong key raises instead of quietly returning an empty string
