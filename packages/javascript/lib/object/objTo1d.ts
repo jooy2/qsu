@@ -8,11 +8,13 @@ export function objTo1d(obj: AnyValueObject, separator = '.'): AnyValueObject {
 
 	const convertObjectTo1d = (o: AnyValueObject, objPath = ''): AnyValueObject => {
 		let result: AnyValueObject = {};
-		const objectLength = Object.keys(o).length;
+		// Build the key list once. Calling `Object.keys` inside the loop rebuilt the whole
+		// array on every iteration, making this O(n^2).
+		const keys = Object.keys(o);
 		const isFirstDepth = objPath.length < 1;
 
-		for (let i = 0; i < objectLength; i += 1) {
-			const key = Object.keys(o)[i];
+		for (let i = 0, objectLength = keys.length; i < objectLength; i += 1) {
+			const key = keys[i];
 			const value = o[key];
 			const newObjPath = `${objPath}${isFirstDepth ? '' : separator}${key}`;
 

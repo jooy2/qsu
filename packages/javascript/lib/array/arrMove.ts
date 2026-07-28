@@ -11,7 +11,10 @@ export function arrMove<N extends number>(
 		throw new Error('Invalid move params');
 	}
 
-	array.splice(to, 0, array.splice(from, 1)[0]);
+	// Move within a copy so the caller's array is left untouched.
+	const newArray = [...array];
 
-	return array;
+	newArray.splice(to, 0, newArray.splice(from, 1)[0]);
+
+	return newArray;
 }

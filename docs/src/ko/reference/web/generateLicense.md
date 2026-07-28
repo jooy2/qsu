@@ -23,10 +23,12 @@
 
 ## Examples
 
-```javascript
+::: code-group
+
+```javascript [JavaScript]
 generateLicense({
 	type: 'mit',
-	holder: 'example',
+	author: 'example',
 	email: 'example@example.com',
 	yearStart: 2020,
 	yearEnd: 2021,
@@ -44,3 +46,5 @@ generateLicense(
 	htmlBr=True
 )
 ```
+
+:::

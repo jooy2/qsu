@@ -1,5 +1,32 @@
 # Changelog (JavaScript)
 
+## 1.14.0 (2026--)
+
+- **BREAKING CHANGES**: `logBox` now requires a Node.js runtime and is imported from the `qsu/node` subpath. It uses `node:util` and `process`, so exporting it from the browser-safe root entry point could break bundlers
+- **BREAKING CHANGES**: `objDeleteKeyByValue`, `objUpdate`, `objMergeNewKey`, `arrShuffle`, `arrMove`, `sortNumeric` and `sortByObjectKey` no longer modify the argument they are given. They all return a new object or array, matching the Dart implementations. `Object.assign(obj, {})` returns `obj` itself and `Array.prototype.sort` reorders in place, so the caller's data used to change underneath it
+- **BREAKING CHANGES**: `numUnique` now returns a millisecond timestamp combined with a per-millisecond sequence (16 digits) instead of a timestamp combined with a random number (18 digits). The old value exceeded `Number.MAX_SAFE_INTEGER`, so digits were rounded away and different draws collapsed onto the same number — 100 calls within one millisecond produced only 98 distinct values. Repeated calls in a process are now always unique and strictly increasing
+- **BREAKING CHANGES**: `arrShuffle` now returns an array when given a single element, instead of returning that element itself
+- **BREAKING CHANGES**: `sortNumeric` and `sortByObjectKey` now apply `descending` through the comparator instead of reversing the sorted result, so equal elements keep their relative order
+- **BREAKING CHANGES**: `generateLicense` now normalizes the `type` option correctly, so `'Apache 2.0'`, `'apache-2.0'` and `'BSD 3'` return the license they name instead of silently falling back to MIT (a missing character class in the normalizing regular expression made it a no-op)
+- **BREAKING CHANGES**: `isEqual` and `isEqualStrict` now compare objects instead of mistaking them for an argument list. Previously any two objects compared as equal (`isEqual({a: 1}, {a: 2})` returned `true`). Passing the operands as an array still works
+- **BREAKING CHANGES**: `safeParseInt` now returns `fallback` when parsing fails (`parseInt` reports failure with `NaN` rather than throwing, so `safeParseInt('abc', 99)` returned `NaN`), and treats `0` as a valid input instead of a missing one
+- **BREAKING CHANGES**: `numberFormat` now groups the integer part as a string, so values beyond `Number.MAX_SAFE_INTEGER` keep every digit (`'123456789012345678901'` no longer becomes `'123,456,789,012,345,680,000'`)
+- **BREAKING CHANGES**: `encrypt` now stores the authentication tag for AEAD algorithms (GCM, CCM, OCB, ChaCha20-Poly1305) as `iv:authTag:encrypted`. Ciphertext produced by these algorithms was previously impossible to decrypt. The `iv:encrypted` format for CBC and other non-AEAD algorithms is unchanged
+- **BREAKING CHANGES**: `arrTo1dArray` no longer throws on `null` or plain objects (`typeof null === 'object'` made it spread a non-iterable); they are now kept as-is, matching the Dart and Python implementations
+- `decrypt`: Support AEAD algorithms by reading the authentication tag, and throw a clear error when the input is not in the format `encrypt` returns
+- `debounce`: Pass the caller's arguments through to the debounced function (`func.apply(args)` passed them as `thisArg`, so the function always received none), and stop a pending timer from keeping a Node process alive
+- `capitalizeEverySentence`: Fix sentences containing characters outside the BMP (emoji) overwriting the wrong character, because a code point array was indexed with UTF-16 offsets
+- `strRandom`: Stop appending the string `'undefined'` to the candidate characters when `additionalCharacters` is omitted, which made `u`, `n`, `d`, `e`, `f` and `i` two to three times more likely
+- `replaceBetween`: Escape both delimiters correctly. A retained `lastIndex` on a `/g` regular expression left `endChar` unescaped, so `replaceBetween('a(b)c', '(', ')')` threw a syntax error
+- `arrUnique`: Stop throwing on arrays containing `undefined` or functions, which have no JSON representation
+- `arrRepeat`, `arrTo1dArray`: Stop overflowing the call stack on large arrays by pushing in a loop instead of spreading
+- `fetchData`: Fix `bodyType: 'form-data'` requests by leaving `Content-Type` unset, so `fetch` can supply the `boundary` parameter that multipart bodies require
+- `is2dArray`: Return on the first nested array instead of walking the whole array and allocating a new one
+- `objToArray`, `objTo1d`, `objUpdate`, `objDeleteKeyByValue`: Build the key list once per object instead of on every iteration, which made these O(n^2) (an object with 4,000 keys took over a second in `objUpdate`)
+- `numberFormat`, `sortNumeric`, `sortByObjectKey`: Reuse a single `Intl.NumberFormat` / `Intl.Collator` instance instead of constructing one per call
+- `numUnique`: Stop building an 89,999 element array on every call to pick a single number
+- Remove `lib/verify/isUnique.ts`, an empty file that was never exported but still emitted `isUnique.js` and `isUnique.d.ts` into the published build
+
 ## 1.13.2 (2026-07-26)
 
 - `hasBadWords`: Improve `hasBadWords` method

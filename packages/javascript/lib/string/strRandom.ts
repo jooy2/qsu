@@ -4,7 +4,7 @@ export function strRandom<N extends number>(
 	length: PositiveNumber<N>,
 	additionalCharacters?: string
 ): string {
-	const availCharacters = `abcdefghijklmnopqrstuvwxyz0123456789${additionalCharacters}`;
+	const availCharacters = `abcdefghijklmnopqrstuvwxyz0123456789${additionalCharacters ?? ''}`;
 	const availCharacterLength = availCharacters.length;
 	let result = '';
 	let newChar;

@@ -12,26 +12,35 @@ export function objUpdate(
 		return null;
 	}
 
-	const newObj = Object.assign(obj, {});
 	let hasUpdated = false;
 
-	const checkObjectKey = (currentObj: AnyValueObject): void => {
-		for (let i = 0; i < Object.keys(currentObj).length; i += 1) {
-			const currentKey = Object.keys(currentObj)[i];
+	// Work on copies. `Object.assign(obj, {})` returned `obj` itself, so the caller's object
+	// (and every nested object) was modified in place.
+	const updateObject = (currentObj: AnyValueObject): AnyValueObject => {
+		const result: AnyValueObject = { ...currentObj };
+		// Build the key list once. Calling `Object.keys` inside the loop rebuilt the whole
+		// array on every iteration, making this O(n^2).
+		const keys = Object.keys(result);
 
-			if (recursive && currentObj[currentKey] && isObject(currentObj[currentKey])) {
-				checkObjectKey(currentObj[currentKey]);
-			}
+		for (let i = 0, keyLength = keys.length; i < keyLength; i += 1) {
+			const currentKey = keys[i];
 
-			if (Object.hasOwn(currentObj, key)) {
-				 
-				currentObj[key] = value;
-				hasUpdated = true;
+			if (recursive && result[currentKey] && isObject(result[currentKey])) {
+				result[currentKey] = updateObject(result[currentKey]);
 			}
 		}
+
+		// Assign once per object. The old code repeated this identical assignment for every
+		// key in the object.
+		if (Object.hasOwn(result, key)) {
+			result[key] = value;
+			hasUpdated = true;
+		}
+
+		return result;
 	};
 
-	checkObjectKey(newObj);
+	const newObj = updateObject(obj);
 
 	if (!hasUpdated && upsert) {
 		newObj[key] = value;

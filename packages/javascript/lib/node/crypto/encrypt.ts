@@ -1,5 +1,9 @@
 import { createCipheriv, randomBytes } from 'crypto';
 
+// AEAD modes (GCM, CCM, OCB, ChaCha20-Poly1305) produce an authentication tag that is
+// required to decrypt. Without it the ciphertext can never be read back.
+export const AEAD_ALGORITHM = /gcm|ccm|ocb|poly1305/i;
+
 export function encrypt(
 	str: string,
 	secret: string,
@@ -18,6 +22,12 @@ export function encrypt(
 	enc = Buffer.concat([enc, cipher.final()]);
 
 	const encoding: BufferEncoding = toBase64 ? 'base64' : 'hex';
+
+	if (AEAD_ALGORITHM.test(algorithm)) {
+		const authTag = (cipher as unknown as { getAuthTag: () => Buffer }).getAuthTag();
+
+		return `${iv.toString(encoding)}:${authTag.toString(encoding)}:${enc.toString(encoding)}`;
+	}
 
 	return `${iv.toString(encoding)}:${enc.toString(encoding)}`;
 }

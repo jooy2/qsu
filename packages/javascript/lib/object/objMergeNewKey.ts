@@ -18,17 +18,23 @@ export function objMergeNewKey(
 		if (Object.hasOwn(merged, key)) {
 			if (Array.isArray(merged[key]) && Array.isArray(data)) {
 				if (options?.arrayAction === 'append') {
-					merged[key].push(...data);
+					// `concat` builds a new array. `push` grew the caller's array, because
+					// the `{ ...obj }` copy above is shallow and shares it.
+					merged[key] = merged[key].concat(data);
 				} else if (options?.arrayAction === 'replace') {
 					merged[key] = data;
 				} else if (merged[key].length === data.length) {
-					for (let i = 0; i < merged[key].length; i += 1) {
+					const mergedArray = [...merged[key]];
+
+					for (let i = 0; i < mergedArray.length; i += 1) {
 						const update = data[i];
 
 						if (isObject(update)) {
-							merged[key][i] = objMergeNewKey(merged[key][i], update, options);
+							mergedArray[i] = objMergeNewKey(mergedArray[i], update, options);
 						}
 					}
+
+					merged[key] = mergedArray;
 				}
 			} else if (isObject(merged[key]) && isObject(data)) {
 				merged[key] = objMergeNewKey(merged[key], data, options);

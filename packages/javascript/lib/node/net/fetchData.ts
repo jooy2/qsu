@@ -11,7 +11,10 @@ function generateDefaultRequestHeader(httpRequestOption?: HTTPRequestOption) {
 	} else {
 		switch (httpRequestOption?.bodyType) {
 			case 'form-data':
-				contentType = 'multipart/form-data';
+				// Leave it unset on purpose: multipart needs a `boundary` parameter, and only
+				// `fetch` knows the one it generates for the `FormData` body. Setting
+				// `multipart/form-data` by hand overrides it and the server cannot parse the body.
+				contentType = null;
 				break;
 			case 'x-www-form-urlencoded':
 				contentType = 'application/x-www-form-urlencoded';

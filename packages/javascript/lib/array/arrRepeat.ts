@@ -13,7 +13,11 @@ export function arrRepeat<N extends number>(array: any, count: PositiveNumber<N>
 		if (isObj) {
 			result.push(array);
 		} else {
-			result.push(...array);
+			// Push in a loop instead of spreading: spread passes every element as an
+			// argument, which overflows the call stack on large arrays.
+			for (let j = 0; j < array.length; j += 1) {
+				result.push(array[j]);
+			}
 		}
 	}
 

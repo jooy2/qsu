@@ -1,13 +1,11 @@
 export function arrShuffle(array: any[]): any[] {
-	if (array.length === 1) {
-		return array[0];
-	}
+	// Shuffle a copy. Returning the input meant the caller's array was reordered in place.
+	const newArray = [...array];
 
-	const newArray = array;
-
-	for (let i = array.length - 1; i > 0; i -= 1) {
+	for (let i = newArray.length - 1; i > 0; i -= 1) {
 		const j = Math.floor(Math.random() * (i + 1));
-		[newArray[i], newArray[j]] = [array[j], array[i]];
+
+		[newArray[i], newArray[j]] = [newArray[j], newArray[i]];
 	}
 
 	return newArray;

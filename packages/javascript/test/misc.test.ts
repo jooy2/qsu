@@ -1,7 +1,8 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
 import { setTimeout } from 'timers/promises';
-import { sleep, funcTimes, debounce, arrWithDefault, logBox } from '../dist';
+import { sleep, funcTimes, debounce, arrWithDefault } from '../dist';
+import { logBox } from '../dist/node';
 
 describe('Misc', () => {
 	it('sleep', async () => {

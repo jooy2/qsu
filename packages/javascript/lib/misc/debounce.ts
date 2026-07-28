@@ -4,13 +4,18 @@ export function debounce<N extends number>(
 	func: (...args: any[]) => void,
 	timeout: PositiveNumber<N>
 ): (...args: any[]) => void {
-	let timer: NodeJS.Timeout;
+	let timer: NodeJS.Timeout | undefined;
 
 	return (...args: any[]): void => {
-		clearTimeout(timer);
+		if (timer) {
+			clearTimeout(timer);
+		}
 
 		timer = setTimeout(() => {
-			func.apply(args);
+			func(...args);
 		}, timeout);
+
+		// A pending debounce should not keep a Node process alive. No-op in browsers.
+		timer?.unref?.();
 	};
 }

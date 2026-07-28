@@ -10,13 +10,19 @@ export function objDeleteKeyByValue(
 		return null;
 	}
 
-	const newObj = Object.assign(obj, {});
+	// Work on a copy. `Object.assign(obj, {})` returned `obj` itself, so the caller's object
+	// was modified in place.
+	const newObj: AnyValueObject = { ...obj };
 
-	for (let i = Object.keys(newObj).length; i >= 0; i -= 1) {
-		const key = Object.keys(newObj)[i];
+	// Build the key list once. Calling `Object.keys` inside the loop rebuilt the whole array
+	// on every iteration, and starting at `length` read one index past the end.
+	const keys = Object.keys(newObj);
+
+	for (let i = keys.length - 1; i >= 0; i -= 1) {
+		const key = keys[i];
 
 		if (recursive && newObj[key] && isObject(newObj[key])) {
-			objDeleteKeyByValue(newObj[key], searchValue, recursive);
+			newObj[key] = objDeleteKeyByValue(newObj[key], searchValue, recursive);
 		} else if (newObj[key] === searchValue) {
 			delete newObj[key];
 		}
