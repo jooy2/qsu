@@ -1,6 +1,6 @@
 # Changelog (JavaScript)
 
-## 1.14.0 (2026--)
+## 1.14.0 (2026-07-28)
 
 - **BREAKING CHANGES**: `logBox` now requires a Node.js runtime and is imported from the `qsu/node` subpath. It uses `node:util` and `process`, so exporting it from the browser-safe root entry point could break bundlers
 - **BREAKING CHANGES**: `objDeleteKeyByValue`, `objUpdate`, `objMergeNewKey`, `arrShuffle`, `arrMove`, `sortNumeric` and `sortByObjectKey` no longer modify the argument they are given. They all return a new object or array, matching the Dart implementations. `Object.assign(obj, {})` returns `obj` itself and `Array.prototype.sort` reorders in place, so the caller's data used to change underneath it
