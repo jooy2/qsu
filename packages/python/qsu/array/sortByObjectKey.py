@@ -7,14 +7,9 @@ def sortByObjectKey(
 	descending: bool = False,
 	numerically: bool = False,
 ) -> list:
+	# Sort a copy: `list.sort` reorders in place. Use `reverse=` rather than reversing the
+	# result, which would also flip the order of equal elements.
 	if numerically:
-		array.sort(key=lambda item: _naturalKey(item[key]))
+		return sorted(array, key=lambda item: _naturalKey(item[key]), reverse=descending)
 
-		if descending:
-			array.reverse()
-
-		return array
-
-	array.sort(key=lambda item: item[key], reverse=descending)
-
-	return array
+	return sorted(array, key=lambda item: item[key], reverse=descending)

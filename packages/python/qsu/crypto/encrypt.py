@@ -1,7 +1,15 @@
 import base64
 import os
 
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives import padding
+
+from ._cipher import (
+	AEAD_MODES,
+	BLOCK_SIZE_BITS,
+	PADDED_MODES,
+	buildCipher,
+	parseAlgorithm,
+)
 
 
 def encrypt(
@@ -14,22 +22,23 @@ def encrypt(
 	if not str or len(str) < 1:
 		return ''
 
+	key, modeName = parseAlgorithm(algorithm, secret)
 	iv = os.urandom(ivSize)
-	cipher = Cipher(algorithms.AES(secret.encode('utf-8')), modes.CBC(iv))
-	encryptor = cipher.encryptor()
+	encryptor = buildCipher(key, modeName, iv).encryptor()
 
 	data = str.encode('utf-8')
-	block_size = 16
-	pad_len = block_size - (len(data) % block_size)
-	padded = data + bytes([pad_len]) * pad_len
 
-	enc = encryptor.update(padded) + encryptor.finalize()
+	if modeName in PADDED_MODES:
+		padder = padding.PKCS7(BLOCK_SIZE_BITS).padder()
+		data = padder.update(data) + padder.finalize()
 
-	if toBase64:
-		iv_str = base64.b64encode(iv).decode('ascii')
-		enc_str = base64.b64encode(enc).decode('ascii')
-	else:
-		iv_str = iv.hex()
-		enc_str = enc.hex()
+	enc = encryptor.update(data) + encryptor.finalize()
 
-	return f'{iv_str}:{enc_str}'
+	def encode(value):
+		return base64.b64encode(value).decode('ascii') if toBase64 else value.hex()
+
+	# AEAD modes need the authentication tag to decrypt, so it is carried in the middle.
+	if modeName in AEAD_MODES:
+		return f'{encode(iv)}:{encode(encryptor.tag)}:{encode(enc)}'
+
+	return f'{encode(iv)}:{encode(enc)}'

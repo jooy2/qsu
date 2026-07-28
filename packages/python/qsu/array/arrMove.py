@@ -4,6 +4,9 @@ def arrMove(array: list, fromIndex: int, to: int) -> list:
 	if arrayLength <= fromIndex or arrayLength <= to:
 		raise Exception('Invalid move params')
 
-	array.insert(to, array.pop(fromIndex))
+	# Move within a copy so the caller's list is left untouched.
+	newArray = list(array)
 
-	return array
+	newArray.insert(to, newArray.pop(fromIndex))
+
+	return newArray

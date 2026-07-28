@@ -1,7 +1,7 @@
-from ..verify.contains import contains
 from .capitalizeFirst import capitalizeFirst
 
-_STOP_WORDS = [
+# A set, so the lookup below is O(1) instead of a linear scan through `contains`.
+_STOP_WORDS = frozenset([
 	'in',
 	'on',
 	'the',
@@ -22,7 +22,7 @@ _STOP_WORDS = [
 	'was',
 	'nor',
 	'an',
-]
+])
 
 
 def capitalizeEachWords(str: str, natural: bool = False) -> str:
@@ -37,7 +37,7 @@ def capitalizeEachWords(str: str, natural: bool = False) -> str:
 	splitStr = tempStr.split(' ')
 
 	for i in range(len(splitStr)):
-		if not natural or not contains(splitStr[i], _STOP_WORDS, True):
+		if not natural or splitStr[i] not in _STOP_WORDS:
 			splitStr[i] = capitalizeFirst(splitStr[i])
 
 	return capitalizeFirst(' '.join(splitStr))

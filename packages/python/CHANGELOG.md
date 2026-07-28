@@ -2,6 +2,23 @@
 
 ## 0.2.0 (--)
 
+- **BREAKING CHANGES**: `encrypt` and `decrypt` now honour the `algorithm` argument. Every algorithm silently produced AES-CBC before, so a value such as `aes-256-gcm` was accepted but ignored and the output did not match the JavaScript implementation. AEAD modes (GCM) now carry the authentication tag as `iv:authTag:encrypted`; the `iv:encrypted` format for CBC is unchanged. The key length is validated against the algorithm, as it is in JavaScript
+- **BREAKING CHANGES**: `decrypt` now validates PKCS7 padding, so decrypting with the wrong key raises instead of quietly returning an empty string
+- **BREAKING CHANGES**: `generateLicense` now normalizes the `type` argument correctly, so `'Apache 2.0'`, `'apache-2.0'` and `'BSD 3'` return the license they name instead of silently falling back to MIT (a missing character class in the normalizing regular expression made it a no-op)
+- **BREAKING CHANGES**: `numberHash` and `strToAscii` now iterate UTF-16 code units, like the JavaScript and Dart implementations. `ord()` returns a code point, so characters outside the BMP produced different values (`'😀'` hashed to `128512` instead of `1772899`)
+- **BREAKING CHANGES**: `numUnique` now returns a millisecond timestamp combined with a per-millisecond sequence (16 digits) instead of a timestamp combined with a random number (18 digits). Repeated calls within a process are now always unique and strictly increasing
+- **BREAKING CHANGES**: `isEqual` and `isEqualStrict` now compare dicts instead of mistaking them for an argument list. Iterating a dict yielded its keys, so every dict comparison returned `False`. Passing the operands as a list or tuple still works
+- **BREAKING CHANGES**: `objDeleteKeyByValue`, `objUpdate`, `arrShuffle`, `arrMove`, `sortNumeric` and `sortByObjectKey` no longer modify the argument they are given; they all return a new dict or list
+- **BREAKING CHANGES**: `arrShuffle` now returns a list when given a single element, instead of returning that element itself
+- **BREAKING CHANGES**: `sortNumeric` and `sortByObjectKey` now apply `descending` through the sort key instead of reversing the sorted result, so equal elements keep their relative order
+- **BREAKING CHANGES**: `safeParseInt` now treats `0` as a valid input instead of a missing one, so `safeParseInt(0, 99)` returns `0`
+- **BREAKING CHANGES**: `trim` now returns `None` for any non-string input instead of raising an `AttributeError` on truthy values such as `trim(123)`
+- `strBlindRandom`: Keep the result the same length as the input. The character that was checked and the character that was masked were one position apart, and the index could land past the end of the string and append instead of mask
+- `generateLicense`: Accept an options `dict` as the first positional argument, like the rest of the package
+- `is2dArray`: Return on the first nested list instead of building a filtered copy of the whole list (640ms to 0ms on a 100,000 element list)
+- `isBotAgent`: Remove 84 of the 172 alternatives that were substrings of another one (`bot` already matches `naverbot`, `bingbot`, ...) and could never change the outcome — verified identical on 200,000 inputs. Roughly halves the matching cost
+- `numUnique`: Stop building an 89,999 element list on every call to pick a single number
+- `capitalizeEachWords`: Look the stop words up in a `frozenset` instead of scanning a list through `contains`
 - **BREAKING CHANGES**: `duration` now hides milliseconds by default (enable with `withMilliSeconds`) and uses grammatically correct plurals (e.g. `0 Hours`, `1 Hour`)
 - **BREAKING CHANGES**: `getFilePathLevel` no longer counts a trailing separator as an extra level (`/home/user/` now returns the same level as `/home/user`)
 - **BREAKING CHANGES**: `getCopyFileName` now preserves the original file extension casing (e.g. `Report.PDF` copies to `Report (1).PDF` instead of `Report (1).pdf`)

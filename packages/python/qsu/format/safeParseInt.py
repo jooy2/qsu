@@ -30,7 +30,9 @@ def _jsParseInt(s: str, radix: int) -> float:
 
 
 def safeParseInt(value: Any, fallback: int = 0, radix: int = 10) -> int:
-	if not value or len(str(value)) < 1:
+	# Only `None` is a missing value. `0` is a perfectly valid input, but `not value`
+	# treated it as missing and returned the fallback instead.
+	if value is None or len(str(value)) < 1:
 		return fallback
 
 	try:

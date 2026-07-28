@@ -3,18 +3,31 @@ from typing import Optional, Union
 
 
 def generateLicense(
-	type: str,
-	author: str,
-	yearStart: Union[str, int],
+	type=None,
+	author: str = None,
+	yearStart: Union[str, int] = None,
 	email: Optional[str] = None,
 	yearEnd: Optional[str] = None,
 	htmlBr: bool = False,
 ) -> str:
+	# Accept an options dict as the first positional argument as well as keyword
+	# arguments, like the rest of the package.
+	if isinstance(type, dict):
+		options = type
+		type = options.get('type')
+		author = options.get('author', author)
+		yearStart = options.get('yearStart', yearStart)
+		email = options.get('email', email)
+		yearEnd = options.get('yearEnd', yearEnd)
+		htmlBr = options.get('htmlBr', htmlBr)
+
 	br = '<br/>' if htmlBr else '\n'
 	yearString = f'{yearStart}{f"-{yearEnd}" if yearEnd else ""}'
 	authorString = f'{author}{f" <{email}>" if email else ""}'
 
-	licenseType = re.sub(r'\.-_,\s', '', type).lower()
+	# The character class brackets were missing, so this matched the literal sequence
+	# '.-_,' followed by a space and normalized nothing: 'Apache 2.0' fell through to MIT.
+	licenseType = re.sub(r'[.\-_,\s]', '', type).lower()
 
 	if licenseType == 'apache20':
 		return (

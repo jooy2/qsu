@@ -8,9 +8,6 @@ def _naturalKey(value: str):
 
 
 def sortNumeric(array: list, descending: bool = False) -> list:
-	array.sort(key=_naturalKey)
-
-	if descending:
-		array.reverse()
-
-	return array
+	# Sort a copy: `list.sort` reorders in place. Use `reverse=` rather than reversing the
+	# result, which would also flip the order of equal elements.
+	return sorted(array, key=_naturalKey, reverse=descending)

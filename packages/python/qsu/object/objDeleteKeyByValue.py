@@ -5,18 +5,18 @@ def objDeleteKeyByValue(obj, searchValue, recursive=False):
 	if not isinstance(obj, dict):
 		return None
 
-	newObj = obj
+	# Work on a copy. `newObj = obj` modified the caller's dict in place.
+	newObj = dict(obj)
 
+	# Start at the last index. Starting at `len(keys)` read one index past the end, which
+	# is why the guard below existed at all.
 	keys = list(newObj.keys())
 
-	for i in range(len(keys), -1, -1):
-		key = keys[i] if 0 <= i < len(keys) else None
-
-		if key is None:
-			continue
+	for i in range(len(keys) - 1, -1, -1):
+		key = keys[i]
 
 		if recursive and newObj.get(key) is not None and isObject(newObj[key]):
-			objDeleteKeyByValue(newObj[key], searchValue, recursive)
+			newObj[key] = objDeleteKeyByValue(newObj[key], searchValue, recursive)
 		elif _strictEqual(newObj.get(key), searchValue):
 			del newObj[key]
 

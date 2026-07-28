@@ -20,7 +20,9 @@ def _loose_eq(a, b) -> bool:
 
 
 def isEqual(leftOperand, *rightOperand) -> bool:
-	if len(rightOperand) > 0 and isinstance(rightOperand[0], (list, tuple, dict)):
+	# Only a list/tuple means "the operands were passed as a sequence". A dict is a value
+	# to compare — iterating it yielded its keys, so every dict comparison was False.
+	if len(rightOperand) > 0 and isinstance(rightOperand[0], (list, tuple)):
 		rightOperands = rightOperand[0]
 	else:
 		rightOperands = rightOperand
