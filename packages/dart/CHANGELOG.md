@@ -1,6 +1,6 @@
 # Changelog (Dart)
 
-## 1.2.2 (2026--)
+## 1.3.0 (2026-07-28)
 
 - **BREAKING CHANGES**: `numberHash` now returns the low 32 bits as a signed value, so it can be negative as documented and matches the JavaScript and Python implementations (`numberHash('k10000')` is `-1184917978`, not `3110049318`)
 - **BREAKING CHANGES**: The `base64url` hash encoding is now unpadded, and `binary` now returns the raw digest as latin-1 characters instead of a string of 0s and 1s, both matching the JavaScript and Python implementations
