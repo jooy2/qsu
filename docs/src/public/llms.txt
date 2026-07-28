@@ -169,7 +169,7 @@ String transformation, capitalization, trimming and truncation.
 - [split](https://qsu.cdget.com/reference/string/split) (JavaScript, Dart, Python): Splits a string based on the specified character and returns it as an Array. Unlike the existing split, it splits the values provided as multiple parameters (array or multiple arguments) at once.
 - [strBlindRandom](https://qsu.cdget.com/reference/string/strBlindRandom) (JavaScript, Python): Replace strings at random locations with a specified number of characters (default 1) with characters (default \*).
 - [strCount](https://qsu.cdget.com/reference/string/strCount) (JavaScript, Dart, Python): Returns the number of times the second String argument is contained in the first String argument.
-- [strRandom](https://qsu.cdget.com/reference/string/strRandom) (JavaScript, Dart, Python): Returns a random String containing numbers or uppercase and lowercase letters of the given length. The default return length is 12.
+- [strRandom](https://qsu.cdget.com/reference/string/strRandom) (JavaScript, Dart, Python): Returns a random String containing numbers or uppercase and lowercase letters of the given length. A non-positive `length` returns an empty string.
 - [strShuffle](https://qsu.cdget.com/reference/string/strShuffle) (JavaScript, Dart, Python): Randomly shuffles the received string and returns it.
 - [strToAscii](https://qsu.cdget.com/reference/string/strToAscii) (JavaScript, Dart, Python): Converts the given string to ascii code and returns it as an array.
 - [strUnique](https://qsu.cdget.com/reference/string/strUnique) (JavaScript, Dart, Python): Remove duplicate characters from a given string and output only one.

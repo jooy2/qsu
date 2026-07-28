@@ -115,8 +115,8 @@ String duration(
       }
     }
     if (target != null) {
-      final num value =
-          double.parse((milliseconds / (target['ms'] as int)).toStringAsFixed(6));
+      final num value = double.parse(
+          (milliseconds / (target['ms'] as int)).toStringAsFixed(6));
       return _durationLabel(value, target, useShortString, useSpace);
     }
   }

@@ -2,6 +2,25 @@
 
 ## 1.2.2 (2026--)
 
+- **BREAKING CHANGES**: `numberHash` now returns the low 32 bits as a signed value, so it can be negative as documented and matches the JavaScript and Python implementations (`numberHash('k10000')` is `-1184917978`, not `3110049318`)
+- **BREAKING CHANGES**: The `base64url` hash encoding is now unpadded, and `binary` now returns the raw digest as latin-1 characters instead of a string of 0s and 1s, both matching the JavaScript and Python implementations
+- **BREAKING CHANGES**: `truncateExpect` no longer inserts the literal text `null` into the result when `endStringChar` is omitted (`truncateExpect('Hi. Bye.', 3)` returned `'Hinull'`)
+- **BREAKING CHANGES**: `numUnique` now returns a millisecond timestamp combined with a per-millisecond sequence (16 digits) instead of a timestamp combined with a random number (18 digits). Repeated calls within a process are now always unique and strictly increasing
+- **BREAKING CHANGES**: `isValidDate` now rejects years `0100`-`1599`, which the JavaScript and Python implementations also reject. Two-digit years `16`-`99` and four-digit years `1600`-`9999` remain valid
+- **BREAKING CHANGES**: `dayDiff` now returns the absolute difference, so swapping the arguments no longer flips the sign
+- **BREAKING CHANGES**: `arrMove` no longer modifies the list it is given; it returns a new one
+- **BREAKING CHANGES**: `strRandom` returns an empty string and `funcTimes` returns an empty list for a non-positive count, instead of throwing, matching the JavaScript and Python implementations
+- **BREAKING CHANGES**: `objTo1d` now rejects a `null` separator, which used to be interpolated into every nested key as the literal text `null`
+- **BREAKING CHANGES**: `isMatchPathname` now throws for an empty matcher list instead of quietly returning `false`
+- `strUnique`: Deduplicate by code point, so characters outside the BMP (emoji) are no longer broken apart
+- `capitalizeFirst`, `capitalizeEachWords`: Return an empty string instead of throwing a `RangeError` on empty input
+- `replaceBetween`: Escape the whole delimiter, so multi-character delimiters produce a valid pattern; `replaceWith` now defaults to an empty string as documented
+- `removeSpecialChar`, `removeLocalePrefix`: Escape the caller's characters before building the pattern, so values like `']'` or `zh.CN` are matched literally instead of being interpreted as a pattern
+- `isMatchPathname`, `removeLocalePrefix`: Accept any iterable, not only `List<String>`. A `List<dynamic>` (what JSON decoding produces) used to be stringified whole and never matched
+- `md5Hash`, `sha1Hash`, `sha256Hash`, `sha512Hash`: Fall back to hex when `encoding` is explicitly `null` instead of throwing
+- `isBotAgent`: Remove 84 of the 172 alternatives that were substrings of another one (`bot` already matches `naverbot`, `bingbot`, ...) and could never change the outcome — verified identical on 200,000 inputs. Roughly halves the matching cost
+- `isBotAgent`, `isMobile`, `getSlug`, `removeSpecialChar`, `replaceBetween`, `trim`, `capitalizeEverySentence`, `getParsedInfoFromAddress`: Compile regular expressions once instead of on every call — `getSlug` was building three per character
+- `objectId`, `strShuffle`, `strRandom`, `numPick`: Reuse a single `Random` instance instead of constructing one per draw
 - **BREAKING CHANGES**: `getParentFilePath` now handles relative paths (`relative/path` -> `/relative`), UNC paths, and trailing separators correctly
 - **BREAKING CHANGES**: `toValidFilePath` now resolves `.` and `..` segments and preserves the UNC `\\` prefix
 - **BREAKING CHANGES**: `getFilePathLevel` no longer counts a trailing separator as an extra level (`/home/user/` now returns the same level as `/home/user`)

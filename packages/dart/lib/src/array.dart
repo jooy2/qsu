@@ -73,10 +73,13 @@ List<dynamic> arrMove(List<dynamic> array, int from, int to) {
     throw Exception('Invalid move params');
   }
 
-  final dynamic item = array.removeAt(from);
-  array.insert(to, item);
+  // Move within a copy so the caller's list is left untouched.
+  final List<dynamic> newArray = List<dynamic>.from(array);
+  final dynamic item = newArray.removeAt(from);
 
-  return array;
+  newArray.insert(to, item);
+
+  return newArray;
 }
 
 /// Merges all elements of a multidimensional array into a one-dimensional array.

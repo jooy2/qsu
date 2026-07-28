@@ -3,35 +3,56 @@ import 'dart:math';
 
 import 'package:qsu/qsu.dart';
 
+/// (Private) A single generator, reused. Creating a `Random` per call is far more
+/// expensive than drawing from an existing one.
+final Random _random = Random();
+
+/// (Private) Compiled once. Building a `RegExp` inside a function recompiles the
+/// pattern on every call.
+final RegExp _repeatedWhitespace = RegExp(r'\s{2,}');
+final RegExp _asciiLetter = RegExp(r'[a-zA-Z]');
+final RegExp _regExpSpecialCharacters = RegExp(r'[.*+?^$(){}|\[\]\\\-/]');
+
+/// (Private) Escape every regular expression metacharacter so the value is matched
+/// literally. Without this a delimiter or exception character is read as a pattern
+/// (`'a-z'` becomes a range, `']'` closes a character class early).
+String _escapeRegExp(String str) {
+  return str.replaceAllMapped(_regExpSpecialCharacters, (m) => '\\${m[0]}');
+}
+
 /// Removes all whitespace before and after a string. Unlike JavaScript's `trim` function, it converts two or more spaces between sentences into a single space.
 String trim(String str) {
   if (str.isEmpty) {
     return '';
   }
 
-  return str.trim().replaceAll(RegExp(r'\s{2,}'), ' ');
+  return str.trim().replaceAll(_repeatedWhitespace, ' ');
 }
 
 /// Returns after removing all special characters, including spaces. If you want to allow any special characters as exceptions, list them in the second argument value without delimiters. For example, if you want to allow spaces and the symbols `&` and `*`, the second argument value would be ' &\*'.
 String removeSpecialChar(String str, {String? exceptionCharacters}) {
+  final String exception =
+      exceptionCharacters == null ? '' : _escapeRegExp(exceptionCharacters);
+
   return str.replaceAll(
       RegExp(
-          '[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f${exceptionCharacters ?? ''}]'),
+          '[^a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ0-9\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f$exception]'),
       '');
 }
 
 /// Replaces text within a range starting and ending with a specific character in a given string with another string. For example, given the string `abc<DEF>ghi`, to change `<DEF>` to `def`, use `replaceBetween('abc<DEF>ghi', '<', '>', 'def')`. The result would be `abcdefghi`.
 /// Deletes strings in the range if `replaceWith` is not specified.
-String replaceBetween(
-    String str, String startChar, String endChar, String replaceWith) {
-  final RegExp specialCharacters = RegExp(r'[.*+?^${}()|[\]\\]');
-  final String startCharRegExp =
-      specialCharacters.hasMatch(startChar) ? '\\$startChar' : startChar;
-  final String endCharRegExp =
-      specialCharacters.hasMatch(endChar) ? '\\$endChar' : endChar;
+String replaceBetween(String str, String startChar, String endChar,
+    [String replaceWith = '']) {
+  if (str.isEmpty) {
+    return '';
+  }
 
+  // Escape the whole delimiter. Prefixing a single backslash only worked for
+  // one-character delimiters and produced an invalid pattern for longer ones.
   return str.replaceAll(
-      RegExp('$startCharRegExp.*?$endCharRegExp'), replaceWith);
+      RegExp('${_escapeRegExp(startChar)}.*?${_escapeRegExp(endChar)}'),
+      replaceWith);
 }
 
 /// Splits a string based on the specified character and returns it as an Array. Unlike the existing split, it splits the values provided as multiple parameters (array or multiple arguments) at once.
@@ -95,6 +116,11 @@ String removeNewLine(String str, {String replaceTo = ''}) {
 
 /// Converts the first letter of the entire string to uppercase and returns.
 String capitalizeFirst(String str) {
+  // Indexing an empty string threw a RangeError. JavaScript and Python return ''.
+  if (str.isEmpty) {
+    return '';
+  }
+
   return '${str[0].toUpperCase()}${str.substring(1)}';
 }
 
@@ -109,7 +135,7 @@ String capitalizeEverySentence(String str, {String? splitChar}) {
     sentenceChars = [...splitStr[i].split('')];
 
     for (int j = 0, jLen = sentenceChars.length; j < jLen; j += 1) {
-      if (RegExp(r'[a-zA-Z]').hasMatch(splitStr[i][j])) {
+      if (_asciiLetter.hasMatch(splitStr[i][j])) {
         sentenceChars[j] = splitStr[i][j].toUpperCase();
         break;
       }
@@ -175,9 +201,15 @@ String truncate(String str, int length, {String? ellipsis}) {
 
 /// The string ignores truncation until the ending character (`endStringChar`). If the expected length is reached, return the truncated string until after the ending character.
 String truncateExpect(String str, int expectLength, {String? endStringChar}) {
+  if (str.isEmpty) {
+    return '';
+  }
+
+  // Compare and interpolate the resolved value. Using the nullable `endStringChar`
+  // here made the check always fail and put the literal text 'null' in the result.
   final String endString = endStringChar ?? '.';
   final bool isEndStringCharLastSentence =
-      str.substring(str.length - 1) == endStringChar;
+      str.substring(str.length - 1) == endString;
   final List<String> splitStr = str.split(endString);
   final int splitStrLength = splitStr.length;
   String convStr = '';
@@ -186,7 +218,7 @@ String truncateExpect(String str, int expectLength, {String? endStringChar}) {
   for (int i = 0; i < splitStrLength; i += 1) {
     if (currentLength < expectLength) {
       convStr +=
-          '${splitStr[i]}${i != splitStrLength - 1 || isEndStringCharLastSentence ? endStringChar : ''}';
+          '${splitStr[i]}${i != splitStrLength - 1 || isEndStringCharLastSentence ? endString : ''}';
       currentLength += splitStr[i].length + endString.length;
     } else {
       break;
@@ -212,10 +244,9 @@ int strCount(String str, String search) {
 /// Randomly shuffles the received string and returns it.
 String strShuffle(String str) {
   final List<int> codePoints = str.runes.toList();
-  final Random random = Random();
 
   for (int i = codePoints.length - 1; i > 0; i--) {
-    int j = random.nextInt(i + 1);
+    int j = _random.nextInt(i + 1);
     int temp = codePoints[i];
     codePoints[i] = codePoints[j];
     codePoints[j] = temp;
@@ -226,19 +257,19 @@ String strShuffle(String str) {
 
 /// Returns a random String containing numbers or uppercase and lowercase letters of the given length. The default return length is 12.
 String strRandom(int length, {String? additionalCharacters}) {
+  // Return an empty string for a non-positive length, like JavaScript and Python.
   if (length <= 0) {
-    throw ArgumentError('Length must be positive');
+    return '';
   }
 
   final String availCharacters =
       'abcdefghijklmnopqrstuvwxyz0123456789${additionalCharacters ?? ''}';
-  final Random random = Random();
   final StringBuffer result = StringBuffer();
 
   for (int i = 0; i < length; i++) {
-    String newChar = availCharacters[random.nextInt(availCharacters.length)];
+    String newChar = availCharacters[_random.nextInt(availCharacters.length)];
 
-    if (random.nextBool()) {
+    if (_random.nextBool()) {
       newChar = newChar.toUpperCase();
     }
 
@@ -254,7 +285,9 @@ String strUnique(String? str) {
     return '';
   }
 
-  return LinkedHashSet<String>.from(str.split('')).join('');
+  // Deduplicate by code point. Splitting into UTF-16 code units broke characters
+  // outside the BMP: two emoji sharing a high surrogate lost one half.
+  return String.fromCharCodes(LinkedHashSet<int>.from(str.runes));
 }
 
 /// Converts the given string to ascii code and returns it as an array.

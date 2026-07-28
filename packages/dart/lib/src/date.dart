@@ -2,7 +2,9 @@
 int dayDiff(DateTime date1, [DateTime? date2]) {
   final DateTime date2c = date2 ?? DateTime.now();
 
-  return (date2c.difference(date1).inHours / 24).ceil();
+  // Use the absolute difference so the argument order does not change the sign,
+  // matching the JavaScript and Python implementations.
+  return (date2c.difference(date1).inHours.abs() / 24).ceil();
 }
 
 /// Returns today's date.
@@ -32,8 +34,13 @@ bool isValidDate(String dateYYYYMMDD) {
   final int month = int.parse(parts[1]);
   final int day = int.parse(parts[2]);
 
-  // Support range: 1600-01-01 ~ 9999/12/31
-  if (year < 16 || year > 9999) return false;
+  // Support range: 1600-01-01 ~ 9999/12/31, plus two-digit years 16-99, which the
+  // JavaScript and Python implementations accept because they normalize the year with
+  // `parseInt` before matching. `0100`-`1599` are rejected there, but the previous
+  // `year < 16` check let them through.
+  if (!((year >= 16 && year <= 99) || (year >= 1600 && year <= 9999))) {
+    return false;
+  }
   if (month < 1 || month > 12) return false;
   if (day < 1) return false;
 

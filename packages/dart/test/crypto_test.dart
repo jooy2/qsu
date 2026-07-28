@@ -1,5 +1,14 @@
+import 'dart:convert';
+
 import 'package:qsu/qsu.dart';
 import 'package:test/test.dart';
+
+/// Decode a hex digest into bytes, so `binary` expectations can be written as the
+/// digest itself rather than an opaque latin-1 literal.
+List<int> hexToBytes(String hex) => [
+      for (int i = 0; i < hex.length; i += 2)
+        int.parse(hex.substring(i, i + 2), radix: 16)
+    ];
 
 void main() {
   group('Crypto', () {
@@ -13,10 +22,16 @@ void main() {
           '098f6bcd4621d373cade4e832627b4f6');
       expect(md5Hash('test', encoding: BinaryToTextEncoding.base64),
           'CY9rzUYh03PK3k6DJie09g==');
+      // base64url is unpadded, matching Node's `digest('base64url')` and Python's
+      // `urlsafe_b64encode(...).rstrip('=')`.
       expect(md5Hash('test', encoding: BinaryToTextEncoding.base64url),
-          'CY9rzUYh03PK3k6DJie09g==');
+          'CY9rzUYh03PK3k6DJie09g');
+      // `binary` is the raw digest as latin-1 characters, not a string of 0s and 1s.
       expect(md5Hash('test', encoding: BinaryToTextEncoding.binary),
-          '00001001100011110110101111001101010001100010000111010011011100111100101011011110010011101000001100100110001001111011010011110110');
+          latin1.decode(hexToBytes('098f6bcd4621d373cade4e832627b4f6')));
+      // A null encoding falls back to hex instead of throwing.
+      expect(
+          md5Hash('test', encoding: null), '098f6bcd4621d373cade4e832627b4f6');
       expect(md5Hash('qsu-md5'), '94af002364e42b514badb41b870ceb04');
     });
 

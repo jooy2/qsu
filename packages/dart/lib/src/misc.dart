@@ -7,8 +7,9 @@ Future<void> sleep(int delay) async {
 
 /// Repeat iteratee n (times argument value) times. After the return result of each function is stored in the array in order, the final array is returned.
 List<dynamic> funcTimes(int times, dynamic iteratee) {
+  // Return an empty list for a non-positive count, like JavaScript and Python.
   if (times < 1) {
-    throw ArgumentError('`times` must be a positive integer.');
+    return [];
   }
 
   return List<dynamic>.generate(times, (int index) {

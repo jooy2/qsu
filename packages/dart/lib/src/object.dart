@@ -72,7 +72,9 @@ List<dynamic> objToArray(Map<String, dynamic> obj, {bool? recursive = false}) {
 /// For example, if an object `a` has keys `b`, `c`, and `d`, the `a` key is not displayed, and the keys and values `a.b`, `a.c`, and `a.d` are displayed in the parent step.
 Map<String, dynamic> objTo1d(Map<String, dynamic> obj,
     {String? separator = '.'}) {
-  if (separator != null && separator.isEmpty) {
+  // Reject a null separator too. It used to slip past this check and then be
+  // interpolated as the literal text 'null' into every nested key.
+  if (separator == null || separator.isEmpty) {
     throw ArgumentError('`separator` must have value at least 1 character.');
   }
 
