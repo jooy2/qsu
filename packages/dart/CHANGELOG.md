@@ -1,5 +1,24 @@
 # Changelog (Dart)
 
+## 1.4.0 (2026-08-)
+
+- **BREAKING CHANGES**: `isValidFileName` now rejects an empty name and any name carrying a control character (`U+0000`-`U+001F` or `U+007F`). `NUL` is the one that matters: it terminates the path in the system call underneath every filesystem, so a name carrying one was reported as valid and then silently truncated on the way to disk
+- **BREAKING CHANGES**: `isValidFileName` now rejects a name ending in a dot or a space on the Windows path. Windows strips it instead of reporting an error, so `report.` quietly becomes `report` and overwrites it. Unix keeps them, so they stay valid with `unixType`
+- **BREAKING CHANGES**: `isValidFileName` now measures its 255 limit in UTF-8 bytes rather than characters, which is what ext4, APFS and NTFS enforce. `'가' * 100` is 100 characters but 300 bytes and cannot be created
+- **BREAKING CHANGES**: `headFile` and `tailFile` now replace malformed UTF-8 with `U+FFFD` instead of throwing a `FormatException`, matching the JavaScript and Python implementations. One bad byte in a log file no longer stops it from being read
+- **BREAKING CHANGES**: `headFile` and `tailFile` now keep a leading byte order mark. Dart's UTF-8 decoder drops it, which silently changed text that JavaScript and Python both return whole
+- **BREAKING CHANGES**: `moveFile` now moves a directory as well as a file, with everything inside it. `File(path).rename` reports an error on a directory, so the entity is opened as what it actually is
+- **BREAKING CHANGES**: `getFileInfo` and `getFileSize` now throw the `FileSystemException` as it is instead of wrapping it in `Exception(err.toString())`, which dropped `osError` and `path` and left a caller unable to tell a missing file from a permission error. `headFile` and `tailFile` no longer wrap theirs either
+- **BREAKING CHANGES**: `toValidFilePath` now resolves a leading `..` against the root, so `'../../etc/passwd'` returns `/etc/passwd` instead of `/../../etc/passwd`
+- **BREAKING CHANGES**: `getCopyFileName` now takes an `Iterable<String>` instead of a `List<String>`, and reads a `Set` as it is. Naming n files into one directory calls this n times, and rebuilding the set on every call made that loop quadratic — 16,000 names took 21 seconds through a `List` and 0.01 seconds through a reused `Set`
+- `tailFile`: Read backwards from the end of the file a chunk at a time instead of streaming it from the start. On a 108 MB log the last line took 0.73 seconds and now takes 0.002
+- `headFile`: Read forwards a chunk at a time and stop as soon as enough lines are in hand, rather than running the whole file through a stream transformer
+- `moveFile`: Fall back to a copy and a remove when the operating system reports a cross-device error. `rename` cannot cross a filesystem boundary, so moving out of the temporary directory, into a mounted volume or onto another drive failed outright
+- `isFileExists`: Answer with a single `FileSystemEntity.type` call rather than asking `File.exists` and then `Directory.exists`, which cost two system calls for every directory
+- `createDirectory`: Drop the `exists` call that ran before every `create`. `create` is already a no-op for an existing directory and already reports a file in the way
+- `deleteAllFileFromDirectory`: Delete up to 32 entries at a time instead of awaiting each one in turn
+- `hasBadWords`: Catch a banned word broken up by digits (`ad1min`, `사1과`, `사123과`), a common way of hiding a word in Korean. A digit that opens or closes a word is still read as a letter, so a number in front of a word (`2시 발표`) is not read away
+
 ## 1.3.0 (2026-07-28)
 
 - **BREAKING CHANGES**: `numberHash` now returns the low 32 bits as a signed value, so it can be negative as documented and matches the JavaScript and Python implementations (`numberHash('k10000')` is `-1184917978`, not `3110049318`)
@@ -33,10 +52,7 @@
 - `getParsedInfoFromAddress`: Add `getParsedInfoFromAddress` method
 - `getSlug`: Add `getSlug` method
 - `hasBadWords`: Add `hasBadWords` method
-
-## 1.2.1 (2026--)
-
-- `capitalizeEachWords`: If the `natural` option is not enabled, characters that are already uppercase will not be converted to lowercase.
+- `capitalizeEachWords`: If the `natural` option is not enabled, characters that are already uppercase will not be converted to lowercase
 
 ## 1.2.0 (2026-04-14)
 

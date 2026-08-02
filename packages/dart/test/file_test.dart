@@ -422,9 +422,15 @@ void edgeCaseTests() {
       expect(isValidFileName('.'), false);
       expect(isValidFileName('..'), false);
       expect(isValidFileName('...'), false);
-      // Leading/trailing spaces are accepted (only all-whitespace is rejected).
+      // A leading space is accepted (only all-whitespace is rejected).
       expect(isValidFileName(' leading'), true);
-      expect(isValidFileName('trailing '), true);
+      // Windows strips a trailing space or dot instead of reporting an error,
+      // so the name that ends up on disk is not the one that was asked for.
+      expect(isValidFileName('trailing '), false);
+      expect(isValidFileName('trailing.'), false);
+      // Unix keeps them, so they stay valid there.
+      expect(isValidFileName('trailing ', unixType: true), true);
+      expect(isValidFileName('trailing.', unixType: true), true);
       expect(isValidFileName('한글파일.txt'), true);
       expect(isValidFileName('한글파일.txt', unixType: true), true);
       // Unix only rejects ':' and '/', so Windows-reserved chars pass.
@@ -725,6 +731,255 @@ void edgeCaseTests() {
       expect(await getFileSize(target), 7);
 
       await deleteFile(target);
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // Covers what the filesystem actually does to these functions rather than
+  // what a path string looks like: names carrying characters no filesystem
+  // accepts, text that is not valid UTF-8, entries that are symlinks, and the
+  // cost of reading the end of a file that does not fit in memory.
+  //
+  // The timing assertions are deliberately loose. They separate "reads what it
+  // was asked for" from "reads the whole file", which is a difference of three
+  // orders of magnitude, not a measurement of the machine.
+  // -------------------------------------------------------------------------
+
+  group('File (hardening)', () {
+    // Enough lines that reading the file from the start to answer for its end
+    // is clearly separable from reading only the end.
+    const int bigFileLines = 500000;
+    const int bigWindow = 100000;
+    const int budgetMs = 10000;
+    final String nul = String.fromCharCode(0);
+
+    late Directory tempDir;
+    bool symlinksSupported = false;
+    String p(String name) => '${tempDir.path}/$name';
+
+    setUpAll(() {
+      tempDir = Directory.systemTemp.createTempSync('qsu-hard-');
+
+      final StringBuffer lines = StringBuffer();
+
+      for (int i = 0; i < bigFileLines; i++) {
+        lines.write('line $i\n');
+      }
+
+      File(p('big.log')).writeAsStringSync(lines.toString());
+
+      // 0xff and 0xfe cannot open a UTF-8 sequence, and the NUL after them is
+      // valid text that has to survive.
+      File(p('malformed.bin')).writeAsBytesSync(
+        [0xff, 0xfe, 0x00, 97, 98, 99, 10, 100, 101, 102, 10],
+      );
+      File(p('lone-cr.txt')).writeAsBytesSync('one\rtwo\rthree\r'.codeUnits);
+      File(p('bom.txt')).writeAsStringSync('﻿first\nsecond\n');
+      File(p('two-lines.txt')).writeAsStringSync('a\nb\n');
+
+      Directory(p('keep')).createSync();
+      File(p('keep/precious.txt')).writeAsStringSync('do not delete me');
+
+      try {
+        Directory(p('linked')).createSync();
+        Link(p('linked/shortcut')).createSync(p('keep'));
+        symlinksSupported = true;
+      } catch (_) {
+        // No privilege to create symlinks (typical on Windows).
+      }
+    });
+
+    tearDownAll(() {
+      tempDir.deleteSync(recursive: true);
+    });
+
+    test(
+        'isValidFileName - an empty name, control characters and the byte limit',
+        () {
+      // A name of nothing cannot be created.
+      expect(isValidFileName(''), false);
+      expect(isValidFileName('', unixType: true), false);
+
+      // NUL terminates the path in the system call underneath, so a name
+      // carrying one is truncated rather than rejected by the filesystem.
+      expect(isValidFileName('fi${nul}le.txt'), false);
+      expect(isValidFileName('fi${nul}le.txt', unixType: true), false);
+      expect(isValidFileName('tab${String.fromCharCode(9)}.txt'), false);
+      expect(isValidFileName('del${String.fromCharCode(127)}.txt'), false);
+
+      // The limit is 255 *bytes*, which is what the filesystem enforces.
+      expect(isValidFileName('a' * 255), true);
+      expect(isValidFileName('a' * 256), false);
+      // '가' is three bytes: 85 of them fit, 86 do not.
+      expect(isValidFileName('가' * 85), true);
+      expect(isValidFileName('가' * 86), false);
+      // Counting UTF-16 units instead would make this 240-byte name too long,
+      // and would disagree with the Python implementation.
+      expect(isValidFileName('😀' * 60), true);
+    });
+
+    test('createDirectory - reports a file already sitting at the path',
+        () async {
+      final String target = p('in-the-way.txt');
+
+      File(target).writeAsStringSync('x');
+
+      // Answering "already there, nothing to do" hid the fact that nothing
+      // usable as a directory had been created.
+      expect(createDirectory(target), throwsA(isA<FileSystemException>()));
+      expect(createDirectory(target, recursive: false),
+          throwsA(isA<FileSystemException>()));
+    });
+
+    test('createFile - creates the parent directories it needs', () async {
+      final String target = p('created/deep/nested/note.txt');
+
+      await createFile(target);
+
+      expect(await isFileExists(target), true);
+      expect(await getFileSize(target), 0);
+    });
+
+    test(
+        'createFile, deleteFile and moveFile - a whitespace-only path does nothing',
+        () async {
+      await createFile('   ');
+      expect(await isFileExists('   '), false);
+
+      final String witness = p('witness.txt');
+
+      File(witness).writeAsStringSync('still here');
+      await deleteFile('   ');
+      await moveFile('   ', witness);
+      await moveFile(witness, '  ');
+
+      expect(await isFileExists(witness), true);
+    });
+
+    test('headFile / tailFile - malformed UTF-8 is replaced, not thrown on',
+        () async {
+      final String path = p('malformed.bin');
+      final String? head = await headFile(path);
+
+      // Two bytes that cannot open a sequence become two replacement
+      // characters; the NUL after them is text and stays.
+      expect(head!.runes.toList(), [65533, 65533, 0, 97, 98, 99]);
+      expect(await tailFile(path, length: 1), 'def');
+    });
+
+    test('headFile / tailFile - a lone carriage return breaks a line',
+        () async {
+      final String path = p('lone-cr.txt');
+
+      expect(await headFile(path, length: 3), 'one\ntwo\nthree');
+      expect(await tailFile(path, length: 1), 'three');
+      expect(await tailFile(path, length: 2), 'two\nthree');
+    });
+
+    test('headFile / tailFile - a byte order mark stays in the first line',
+        () async {
+      final String path = p('bom.txt');
+
+      expect(await headFile(path, length: 1), '﻿first');
+      expect(await tailFile(path, length: 2), '﻿first\nsecond');
+    });
+
+    test('headFile / tailFile - a length beyond the file returns every line',
+        () async {
+      final String path = p('two-lines.txt');
+
+      expect(await headFile(path, length: 99), 'a\nb');
+      expect(await tailFile(path, length: 99), 'a\nb');
+    });
+
+    test('tailFile - a large window costs no more than the lines it returns',
+        () async {
+      final Stopwatch watch = Stopwatch()..start();
+      final String? result = await tailFile(p('big.log'), length: bigWindow);
+      watch.stop();
+
+      expect(result!.split('\n').length, bigWindow);
+      expect(result.endsWith('line ${bigFileLines - 1}'), true);
+      expect(result.startsWith('line ${bigFileLines - bigWindow}\n'), true);
+      expect(watch.elapsedMilliseconds, lessThan(budgetMs));
+    });
+
+    test('headFile - the cost does not follow the size of the file', () async {
+      final Stopwatch watch = Stopwatch()..start();
+
+      expect(await headFile(p('big.log'), length: 1), 'line 0');
+      watch.stop();
+
+      expect(watch.elapsedMilliseconds, lessThan(budgetMs));
+    });
+
+    test('getCopyFileName - takes a Set, and reusing one stays linear', () {
+      final Set<String> existing = {'a.txt', 'a (1).txt'};
+
+      expect(getCopyFileName('a.txt', existing), 'a (2).txt');
+      expect(getCopyFileName('b.txt', existing), 'b.txt');
+
+      // A Set handed in is read, not copied, so one can be kept across a whole
+      // loop. Rebuilding it per call made naming n files quadratic.
+      final Set<String> names = {
+        for (int i = 0; i < 20000; i++) 'file$i.txt',
+      };
+      final Stopwatch watch = Stopwatch()..start();
+
+      for (int i = 0; i < 20000; i++) {
+        names.add(getCopyFileName('file$i.txt', names));
+      }
+
+      watch.stop();
+
+      expect(names.length, 40000);
+      expect(watch.elapsedMilliseconds, lessThan(budgetMs));
+    });
+
+    test('moveFile - moves a directory, not only a file', () async {
+      final String source = p('move-dir-source');
+      final String target = p('move-dir-target');
+
+      Directory('$source/inner').createSync(recursive: true);
+      File('$source/inner/leaf.txt').writeAsStringSync('payload');
+
+      await moveFile(source, target);
+
+      expect(await isFileExists(source), false);
+      expect(await isFileExists('$target/inner/leaf.txt'), true);
+    });
+
+    test('getFileSize / getFileInfo - the filesystem error keeps its shape',
+        () async {
+      final String missing = p('does-not-exist.txt');
+
+      // Wrapping the failure in `Exception(err.toString())` dropped `osError`
+      // and `path`, leaving a caller unable to tell "missing" from "no access".
+      expect(getFileSize(missing), throwsA(isA<FileSystemException>()));
+      expect(getFileInfo(missing), throwsA(isA<FileSystemException>()));
+      expect(
+          getFileSize(missing),
+          throwsA(
+              predicate((e) => (e as FileSystemException).path == missing)));
+    });
+
+    test('toValidFilePath - a leading .. cannot climb above the root', () {
+      expect(toValidFilePath('../../etc/passwd'), '/etc/passwd');
+      expect(toValidFilePath('../a/../b'), '/b');
+      expect(toValidFilePath('..\\..\\Users', isWindows: true), '\\Users');
+    });
+
+    test('deleteAllFileFromDirectory - unlinks a symlink and keeps its target',
+        () async {
+      if (!symlinksSupported) {
+        markTestSkipped('symlinks are not supported on this platform');
+        return;
+      }
+
+      await deleteAllFileFromDirectory(p('linked'));
+
+      expect(await isFileExists(p('linked/shortcut')), false);
+      expect(await isFileExists(p('keep/precious.txt')), true);
     });
   });
 }
