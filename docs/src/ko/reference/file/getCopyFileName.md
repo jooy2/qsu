@@ -10,11 +10,13 @@
 
 이 함수는 파일 경로에 대해서는 처리하지 않습니다.
 
+파일 `n`개의 이름을 한 디렉터리에 정할 때는 이 함수를 `n`번 호출하게 됩니다. `Set`을 넘기면 호출마다 다시 만들지 않고 그대로 읽으므로, 그 반복문 전체의 비용이 제곱이 아닌 선형이 됩니다.
+
 ## Parameters
 
 <ParamsTable :rows="[
 	{ name: 'fileName', type: 'string', required: true, desc: '변경할 파일 이름' },
-	{ name: 'fileNameList', type: 'string[]', required: true, desc: '중복을 확인 할 파일 이름이 담긴 배열' }
+	{ name: 'fileNameList', type: 'string[] | Set<string>', required: true, desc: '중복을 확인 할 파일 이름 목록. `Set`을 넘기면 그대로 사용하므로 반복문 전체에서 재사용할 수 있고, 배열을 넘기면 호출마다 `Set`으로 복사합니다.' }
 ]" />
 
 ## Returns

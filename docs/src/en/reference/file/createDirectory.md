@@ -4,6 +4,8 @@
 
 Creates a directory with the specified path. Ignores the operation if the directory already exists.
 
+If a **file** already sits at the path, the error is reported rather than swallowed: nothing usable as a directory was created, so answering "already there" would be a lie.
+
 ## Parameters
 
 <ParamsTable :rows="[

@@ -500,9 +500,15 @@ describe('File (edge cases)', () => {
 		assert.strictEqual(isValidFileName('.'), false);
 		assert.strictEqual(isValidFileName('..'), false);
 		assert.strictEqual(isValidFileName('...'), false);
-		// Leading/trailing spaces are accepted (only all-whitespace is rejected).
+		// A leading space is accepted (only all-whitespace is rejected).
 		assert.strictEqual(isValidFileName(' leading'), true);
-		assert.strictEqual(isValidFileName('trailing '), true);
+		// Windows strips a trailing space or dot instead of reporting an error,
+		// so the name that ends up on disk is not the one that was asked for.
+		assert.strictEqual(isValidFileName('trailing '), false);
+		assert.strictEqual(isValidFileName('trailing.'), false);
+		// Unix keeps them, so they stay valid there.
+		assert.strictEqual(isValidFileName('trailing ', true), true);
+		assert.strictEqual(isValidFileName('trailing.', true), true);
 		assert.strictEqual(isValidFileName('한글파일.txt'), true);
 		assert.strictEqual(isValidFileName('한글파일.txt', true), true);
 		// Unix only rejects ':' and '/', so Windows-reserved chars pass.
@@ -811,5 +817,256 @@ describe('File (edge cases)', () => {
 		assert.strictEqual(await getFileSize(target), 7);
 
 		await deleteFile(target);
+	});
+});
+
+// ---------------------------------------------------------------------------
+// Covers what the filesystem actually does to these functions rather than what
+// a path string looks like: names carrying characters no filesystem accepts,
+// text that is not valid UTF-8, entries that are symlinks, and the cost of
+// reading the end of a file that does not fit in memory.
+//
+// The timing assertions are deliberately loose. They separate "reads what it
+// was asked for" from "reads the whole file", which is a difference of three
+// orders of magnitude, not a measurement of the machine.
+// ---------------------------------------------------------------------------
+
+describe('File (hardening)', () => {
+	// Enough lines that the previous tailFile, which walked the file from the
+	// start and shifted a `length`-sized array once per line, needed minutes for
+	// the window asked for below.
+	const BIG_FILE_LINES = 500000;
+	const BIG_WINDOW = 100000;
+	const BUDGET_MS = 10000;
+	const NUL = String.fromCharCode(0);
+
+	let tempDir: string;
+	let symlinksSupported = false;
+	const p = (...parts: string[]): string => join(tempDir, ...parts);
+
+	before(() => {
+		tempDir = mkdtempSync(join(tmpdir(), 'qsu-hard-'));
+
+		const lines: string[] = [];
+
+		for (let i = 0; i < BIG_FILE_LINES; i++) {
+			lines.push(`line ${i}`);
+		}
+
+		writeFileSync(p('big.log'), `${lines.join('\n')}\n`);
+
+		// 0xff and 0xfe cannot open a UTF-8 sequence, and the NUL after them is
+		// valid text that has to survive.
+		writeFileSync(
+			p('malformed.bin'),
+			Buffer.from([0xff, 0xfe, 0x00, 97, 98, 99, 10, 100, 101, 102, 10])
+		);
+		writeFileSync(p('lone-cr.txt'), 'one\rtwo\rthree\r');
+		writeFileSync(p('bom.txt'), '﻿first\nsecond\n');
+		writeFileSync(p('two-lines.txt'), 'a\nb\n');
+
+		mkdirSync(p('keep'));
+		writeFileSync(p('keep', 'precious.txt'), 'do not delete me');
+
+		try {
+			mkdirSync(p('linked'));
+			symlinkSync(p('keep'), p('linked', 'shortcut'), 'dir');
+			symlinksSupported = true;
+		} catch {
+			// No privilege to create symlinks (typical on Windows).
+		}
+	});
+
+	after(() => {
+		try {
+			rmSync(tempDir, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
+		} catch {
+			// The OS reclaims the temp directory eventually.
+		}
+	});
+
+	it('isValidFileName - an empty name, control characters and the byte limit', () => {
+		// A name of nothing cannot be created.
+		assert.strictEqual(isValidFileName(''), false);
+		assert.strictEqual(isValidFileName('', true), false);
+
+		// NUL terminates the path in the system call underneath, so a name
+		// carrying one is truncated rather than rejected by the filesystem.
+		assert.strictEqual(isValidFileName(`fi${NUL}le.txt`), false);
+		assert.strictEqual(isValidFileName(`fi${NUL}le.txt`, true), false);
+		assert.strictEqual(isValidFileName(`tab${String.fromCharCode(9)}.txt`), false);
+		assert.strictEqual(isValidFileName(`del${String.fromCharCode(127)}.txt`), false);
+
+		// The limit is 255 *bytes*, which is what the filesystem enforces.
+		assert.strictEqual(isValidFileName('a'.repeat(255)), true);
+		assert.strictEqual(isValidFileName('a'.repeat(256)), false);
+		// '가' is three bytes: 85 of them fit, 86 do not.
+		assert.strictEqual(isValidFileName('가'.repeat(85)), true);
+		assert.strictEqual(isValidFileName('가'.repeat(86)), false);
+		// Counting UTF-16 units instead would make this 240-byte name too long,
+		// and would disagree with the Python implementation.
+		assert.strictEqual(isValidFileName('😀'.repeat(60)), true);
+	});
+
+	it('isFileHidden - a name shaped like a shell command is not run', async () => {
+		const marker = p('injection-proof.txt');
+		// A quote closes the quoting of `attrib "<path>"`, and '&' separates
+		// commands in both sh and cmd. Running the command line through a shell
+		// created the marker; running `attrib` directly cannot.
+		const shaped = `a" & echo qsu > ${marker} & echo "b`;
+
+		assert.strictEqual(await isFileHidden(shaped, true), false);
+
+		// A shell would have backgrounded the write, so give it a moment.
+		await new Promise((resolve) => setTimeout(resolve, 200));
+		assert.strictEqual(await isFileExists(marker), false);
+	});
+
+	it('createDirectory - reports a file already sitting at the path', async () => {
+		const target = p('in-the-way.txt');
+
+		writeFileSync(target, 'x');
+
+		// Answering "already there, nothing to do" hid the fact that nothing
+		// usable as a directory had been created.
+		await assert.rejects(() => createDirectory(target));
+		await assert.rejects(() => createDirectory(target, false));
+	});
+
+	it('createFile - creates the parent directories it needs', async () => {
+		const target = p('created', 'deep', 'nested', 'note.txt');
+
+		await createFile(target);
+
+		assert.strictEqual(await isFileExists(target), true);
+		assert.strictEqual(await getFileSize(target), 0);
+	});
+
+	it('createFile, deleteFile and moveFile - a whitespace-only path does nothing', async () => {
+		await createFile('   ');
+		assert.strictEqual(await isFileExists('   '), false);
+
+		const witness = p('witness.txt');
+
+		writeFileSync(witness, 'still here');
+		await deleteFile('   ');
+		await moveFile('   ', witness);
+		await moveFile(witness, '  ');
+
+		assert.strictEqual(await isFileExists(witness), true);
+	});
+
+	it('headFile / tailFile - malformed UTF-8 is replaced, not thrown on', async () => {
+		const head = await headFile(p('malformed.bin'));
+
+		// Two bytes that cannot open a sequence become two replacement
+		// characters; the NUL after them is text and stays.
+		assert.deepStrictEqual(
+			[...(head as string)].map((c) => c.codePointAt(0)),
+			[65533, 65533, 0, 97, 98, 99]
+		);
+		assert.strictEqual(await tailFile(p('malformed.bin'), 1), 'def');
+	});
+
+	it('headFile / tailFile - a lone carriage return breaks a line', async () => {
+		assert.strictEqual(await headFile(p('lone-cr.txt'), 3), 'one\ntwo\nthree');
+		assert.strictEqual(await tailFile(p('lone-cr.txt'), 1), 'three');
+		assert.strictEqual(await tailFile(p('lone-cr.txt'), 2), 'two\nthree');
+	});
+
+	it('headFile / tailFile - a byte order mark stays in the first line', async () => {
+		assert.strictEqual(await headFile(p('bom.txt'), 1), '﻿first');
+		assert.strictEqual(await tailFile(p('bom.txt'), 2), '﻿first\nsecond');
+	});
+
+	it('headFile / tailFile - a length beyond the file returns every line', async () => {
+		assert.strictEqual(await headFile(p('two-lines.txt'), 99), 'a\nb');
+		assert.strictEqual(await tailFile(p('two-lines.txt'), 99), 'a\nb');
+	});
+
+	it('tailFile - a large window costs no more than the lines it returns', async () => {
+		const started = Date.now();
+		const result = await tailFile(p('big.log'), BIG_WINDOW);
+		const elapsed = Date.now() - started;
+
+		assert.strictEqual(result?.split('\n').length, BIG_WINDOW);
+		assert.strictEqual(result?.endsWith(`line ${BIG_FILE_LINES - 1}`), true);
+		assert.strictEqual(result?.startsWith(`line ${BIG_FILE_LINES - BIG_WINDOW}\n`), true);
+		assert.ok(elapsed < BUDGET_MS, `tailFile(${BIG_WINDOW}) took ${elapsed}ms`);
+	});
+
+	it('headFile - the cost does not follow the size of the file', async () => {
+		const started = Date.now();
+
+		assert.strictEqual(await headFile(p('big.log'), 1), 'line 0');
+		assert.ok(
+			Date.now() - started < BUDGET_MS,
+			'headFile read more than the line it was asked for'
+		);
+	});
+
+	it('getCopyFileName - takes a Set, and reusing one stays linear', () => {
+		const existing = new Set(['a.txt', 'a (1).txt']);
+
+		assert.strictEqual(getCopyFileName('a.txt', existing), 'a (2).txt');
+		assert.strictEqual(getCopyFileName('b.txt', existing), 'b.txt');
+		// A Set handed in is read, not copied, so one can be kept across a whole
+		// loop. Rebuilding it per call made naming n files quadratic.
+		const names = new Set<string>();
+
+		for (let i = 0; i < 20000; i++) {
+			names.add(`file${i}.txt`);
+		}
+
+		const started = Date.now();
+
+		for (let i = 0; i < 20000; i++) {
+			names.add(getCopyFileName(`file${i}.txt`, names));
+		}
+
+		assert.strictEqual(names.size, 40000);
+		assert.ok(Date.now() - started < BUDGET_MS, 'naming 20,000 files did not stay linear');
+	});
+
+	it('moveFile - moves a directory, not only a file', async () => {
+		const source = p('move-dir-source');
+		const target = p('move-dir-target');
+
+		mkdirSync(join(source, 'inner'), { recursive: true });
+		writeFileSync(join(source, 'inner', 'leaf.txt'), 'payload');
+
+		await moveFile(source, target);
+
+		assert.strictEqual(await isFileExists(source), false);
+		assert.strictEqual(await isFileExists(join(target, 'inner', 'leaf.txt')), true);
+	});
+
+	it('getFileSize / getFileInfo - the filesystem error keeps its code', async () => {
+		const missing = p('does-not-exist.txt');
+		const isEnoent = (err: NodeJS.ErrnoException): boolean =>
+			err.code === 'ENOENT' && err.path === missing;
+
+		// Re-throwing `new Error(err.message)` dropped `code`, `errno` and
+		// `path`, leaving a caller unable to tell "missing" from "no access".
+		await assert.rejects(() => getFileSize(missing), isEnoent);
+		await assert.rejects(() => getFileInfo(missing), isEnoent);
+	});
+
+	it('toValidFilePath - a leading .. cannot climb above the root', () => {
+		assert.strictEqual(toValidFilePath('../../etc/passwd'), '/etc/passwd');
+		assert.strictEqual(toValidFilePath('../a/../b'), '/b');
+		assert.strictEqual(toValidFilePath('..\\..\\Users', true), '\\Users');
+	});
+
+	it('deleteAllFileFromDirectory - unlinks a symlink and keeps its target', async (t) => {
+		if (!symlinksSupported) {
+			t.skip('symlinks are not supported on this platform');
+			return;
+		}
+
+		await deleteAllFileFromDirectory(p('linked'));
+
+		assert.strictEqual(await isFileExists(p('linked', 'shortcut')), false);
+		assert.strictEqual(await isFileExists(p('keep', 'precious.txt')), true);
 	});
 });

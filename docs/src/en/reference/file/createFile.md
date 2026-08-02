@@ -4,6 +4,10 @@
 
 Create a file of empty data. If the same file already exists, it is ignored.
 
+Any parent directory the path needs is created along with the file.
+
+A path that is empty or nothing but whitespace does nothing, so an empty form field does not become a file literally named `   `.
+
 ## Parameters
 
 <ParamsTable :rows="[

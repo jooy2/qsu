@@ -6,6 +6,8 @@ Delete files or directory in the specified path. If the file does not exist in t
 
 This method also supports deleting directory paths. If files exist within the directory, they are included and removed.
 
+A symlink is unlinked, never followed, so the directory it points at is left alone. A path that is empty or nothing but whitespace does nothing.
+
 ## Parameters
 
 <ParamsTable :rows="[

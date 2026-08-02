@@ -4,6 +4,10 @@
 
 Returns the file in the specified path as a value hashed by a specific algorithm. The default algorithm is `md5`. This method uses a `Promise` to return a valid hash value.
 
+::: warning
+`md5` is the default because this function is most often used to tell two files apart. It is broken as a cryptographic hash — a collision can be constructed on purpose — so use `sha256` when the answer has to be trusted against a deliberate attempt to forge it.
+:::
+
 ## Parameters
 
 <ParamsTable :rows="[

@@ -4,6 +4,10 @@
 
 Returns the first line of the specified text file path. The `length` argument is the total number of lines to print. Default is `1`.
 
+Only as much of the file as the requested lines need is read, so the cost does not follow the size of the file.
+
+A line breaks on `\n`, `\r\n` or a lone `\r`. Bytes that are not valid UTF-8 become the replacement character `U+FFFD` instead of raising, and a leading byte order mark is kept.
+
 ## Parameters
 
 <ParamsTable :rows="[

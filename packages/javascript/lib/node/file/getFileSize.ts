@@ -2,15 +2,9 @@ import { Stats } from 'fs';
 import { stat } from 'fs/promises';
 
 export async function getFileSize(filePath: string): Promise<number> {
-	try {
-		const fileItem: Stats = await stat(filePath);
+	// The filesystem error is thrown as it is, so `code`, `errno` and `path`
+	// survive for the caller to read.
+	const fileItem: Stats = await stat(filePath);
 
-		return fileItem.size;
-	} catch (err) {
-		if (err instanceof Error) {
-			throw new Error(err.message);
-		}
-	}
-
-	return -1;
+	return fileItem.size;
 }

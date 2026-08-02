@@ -1,29 +1,22 @@
 import { createHash } from 'crypto';
 import { createReadStream } from 'fs';
+import { pipeline } from 'stream/promises';
+
+// The 64 KB stream default costs measurably more system calls than it needs to
+// on a file of any size.
+const READ_CHUNK_SIZE = 1024 * 1024;
 
 export async function getFileHashFromPath(
 	filePath: string,
 	algorithm: 'md5' | 'sha1' | 'sha256' | 'sha512' = 'md5'
 ): Promise<string> {
-	return new Promise((resolve, reject) => {
-		if (!filePath) {
-			reject(new Error('Invalid path'));
-			return;
-		}
+	if (!filePath) {
+		throw new Error('Invalid path');
+	}
 
-		const hashHandler = createHash(algorithm);
-		const stream = createReadStream(filePath);
+	const hashHandler = createHash(algorithm);
 
-		stream.on('error', (err: Error) => {
-			reject(err);
-		});
+	await pipeline(createReadStream(filePath, { highWaterMark: READ_CHUNK_SIZE }), hashHandler);
 
-		stream.on('data', (chunk: Buffer | string) => {
-			hashHandler.update(chunk);
-		});
-
-		stream.on('end', () => {
-			resolve(hashHandler.digest('hex'));
-		});
-	});
+	return hashHandler.digest('hex');
 }

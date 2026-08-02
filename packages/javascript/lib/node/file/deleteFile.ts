@@ -1,7 +1,9 @@
 import { rm } from 'fs/promises';
 
 export async function deleteFile(filePath: string): Promise<void> {
-	if (!filePath) {
+	// A path of nothing but whitespace is treated as no path at all, matching
+	// the Dart implementation.
+	if (!filePath?.trim()) {
 		return;
 	}
 

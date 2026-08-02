@@ -1,13 +1,17 @@
 import { getFileName } from './getFileName.js';
 
-export function getCopyFileName(fileName: string, fileNameList: string[]): string {
+export function getCopyFileName(fileName: string, fileNameList: string[] | Set<string>): string {
 	const fName = getFileName(fileName);
 	// Take the extension straight off the original name instead of going through
 	// getFileExtension, which lower-cases it. `Report.PDF` must copy to
 	// `Report (1).PDF`, not `Report (1).pdf`.
 	const fExt = getFileName(fileName, true).slice(fName.length);
 
-	const existingSet = new Set(fileNameList);
+	// Naming n files into one directory means calling this n times, so building
+	// a fresh Set out of the list on every call makes that loop quadratic
+	// (16,000 names took 15 seconds). A Set handed in is used as it is, which
+	// lets the caller keep one across the whole loop.
+	const existingSet = fileNameList instanceof Set ? fileNameList : new Set(fileNameList);
 
 	if (!existingSet.has(fileName)) {
 		return fileName;

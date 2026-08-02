@@ -4,6 +4,8 @@
 
 Remove invalid or unnecessary characters in the path.
 
+`.` and `..` segments are resolved, and the result is always absolute. A `..` cannot climb above the root, so `../../etc/passwd` becomes `/etc/passwd`.
+
 `.` and `..` segments are resolved, and a path that collapses to nothing returns the root.
 
 ## Parameters

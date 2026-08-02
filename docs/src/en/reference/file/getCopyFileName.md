@@ -10,11 +10,13 @@ If a file extension is included, it is retained and a number is added before it.
 
 This function does not handle file paths.
 
+Naming `n` files into one directory means calling this `n` times. Passing a `Set` lets it be read directly instead of rebuilt on every call, which is the difference between linear and quadratic over that loop.
+
 ## Parameters
 
 <ParamsTable :rows="[
 	{ name: 'fileName', type: 'string', required: true, desc: 'File name to rename' },
-	{ name: 'fileNameList', type: 'string[]', required: true, desc: 'An array containing the names of files to check for duplicates' }
+	{ name: 'fileNameList', type: 'string[] | Set<string>', required: true, desc: 'The names to check for duplicates. A `Set` is read as it is, so one can be reused across a loop; a list is copied into a `Set` on every call.' }
 ]" />
 
 ## Returns

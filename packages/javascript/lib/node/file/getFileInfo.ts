@@ -9,37 +9,21 @@ import { FileInfo } from '../../_types/global';
 export async function getFileInfo(filePath: string): Promise<FileInfo> {
 	const dateToUnixTime = (date: Date): number => Math.floor(new Date(date).getTime() / 1000);
 
-	try {
-		const fileItem: Stats = await stat(filePath);
-
-		return {
-			success: true,
-			isDirectory: fileItem.isDirectory(),
-			ext: getFileExtension(filePath),
-			size: fileItem.size,
-			sizeHumanized: fileSizeFormat(fileItem.size),
-			name: getFileName(filePath),
-			dirname: dirname(filePath),
-			path: pathResolve(filePath),
-			created: dateToUnixTime(fileItem.ctime),
-			modified: dateToUnixTime(fileItem.mtime)
-		};
-	} catch (err) {
-		if (err instanceof Error) {
-			throw new Error(err.message);
-		}
-	}
+	// The filesystem error is thrown as it is. Re-throwing `new Error(message)`
+	// dropped `code`, `errno` and `path`, so a caller could not tell ENOENT from
+	// EACCES, and the original stack was lost with them.
+	const fileItem: Stats = await stat(filePath);
 
 	return {
-		success: false,
-		isDirectory: false,
-		ext: null,
-		size: 0,
-		sizeHumanized: '0 Bytes',
-		name: 'unknown',
+		success: true,
+		isDirectory: fileItem.isDirectory(),
+		ext: getFileExtension(filePath),
+		size: fileItem.size,
+		sizeHumanized: fileSizeFormat(fileItem.size),
+		name: getFileName(filePath),
 		dirname: dirname(filePath),
-		path: filePath,
-		created: -1,
-		modified: -1
+		path: pathResolve(filePath),
+		created: dateToUnixTime(fileItem.ctime),
+		modified: dateToUnixTime(fileItem.mtime)
 	};
 }

@@ -9,14 +9,17 @@ export function toValidFilePath(filePath: string, isWindows?: boolean): string {
 
 		p = win32.normalize(p).replace(/\.$/g, '');
 
+		if (!p.startsWith('\\') && p.indexOf(':') === -1) {
+			// Anchor the path *before* resolving the rest of it: '..' cannot
+			// climb above the root, so '..\\..\\Users' is '\\Users' rather than
+			// the '\\..\\..\\Users' a plain prefix would leave behind.
+			p = win32.normalize(`\\${p}`);
+		}
 		if (p.endsWith('\\') && p.length > 1) {
 			p = p.replace(/\\+$/, '');
 		}
 		if (p.endsWith(':')) {
 			p = `${p}\\`;
-		}
-		if (!p.startsWith('\\') && p.indexOf(':') === -1) {
-			p = `\\${p}`;
 		}
 
 		return p;
@@ -32,7 +35,10 @@ export function toValidFilePath(filePath: string, isWindows?: boolean): string {
 		}
 
 		if (!posix.isAbsolute(p)) {
-			p = `/${p}`;
+			// Anchor the path *before* resolving the rest of it: '..' cannot
+			// climb above the root, so '../../etc/passwd' is '/etc/passwd'
+			// rather than the '/../../etc/passwd' a plain prefix would leave.
+			p = posix.normalize(`/${p}`);
 		}
 		if (p.endsWith('/') && p.length > 1) {
 			p = p.slice(0, -1);

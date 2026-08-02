@@ -1,5 +1,23 @@
 # Changelog (JavaScript)
 
+## 1.15.0 (2026-08-02)
+
+- **BREAKING CHANGES**: `isValidFileName` now rejects an empty name and any name carrying a control character (`U+0000`-`U+001F` or `U+007F`). `NUL` is the one that matters: it terminates the path in the system call underneath every filesystem, so a name carrying one was reported as valid and then silently truncated on the way to disk
+- **BREAKING CHANGES**: `isValidFileName` now rejects a name ending in a dot or a space on the Windows path. Windows strips it instead of reporting an error, so `report.` quietly becomes `report` and overwrites it. Unix keeps them, so they stay valid with `unixType`
+- **BREAKING CHANGES**: `isValidFileName` now measures its 255 limit in UTF-8 bytes rather than characters, which is what ext4, APFS and NTFS enforce. `'가'.repeat(100)` is 100 characters but 300 bytes and cannot be created. Counting characters also disagreed with the Python implementation, which counted code points where JavaScript counted UTF-16 units (`'😀'.repeat(130)` was invalid here and valid there)
+- **BREAKING CHANGES**: `createDirectory` now reports the error when a *file* already sits at the path. It asked only whether *something* was there and then answered that there was nothing to do, so no directory existed and nothing said so. The `stat` behind that check is gone as well, because `mkdir` with `recursive` is already a no-op for an existing directory
+- **BREAKING CHANGES**: `createFile` now creates any parent directory the path needs instead of failing with `ENOENT`, matching the Dart implementation
+- **BREAKING CHANGES**: `createFile`, `deleteFile` and `moveFile` now treat a path of nothing but whitespace as no path at all, matching the Dart implementation. `createFile('   ')` used to create a file literally named `   `
+- **BREAKING CHANGES**: `getFileInfo` and `getFileSize` now throw the original filesystem error instead of a new `Error` carrying only its message. `code`, `errno` and `path` were dropped with it, so a caller could not tell `ENOENT` from `EACCES`, and the stack pointed at qsu rather than at the call. The unreachable fallback object both functions ended with has been removed
+- **BREAKING CHANGES**: `toValidFilePath` now resolves a leading `..` against the root, so `'../../etc/passwd'` returns `/etc/passwd` instead of `/../../etc/passwd`
+- `isFileHidden`: Run `attrib` directly instead of handing a command line to a shell. A quote in a file name closed the quoting of `attrib "<path>"` and the rest of the name ran as a command, so scanning a directory could execute whatever a file in it was named. Running the program directly also halves the processes each call starts
+- `isFileHidden`: Read the attribute letters out of the column `attrib` prints them in. Removing the caller's path from the output failed whenever a relative path was given, because `attrib` answers with an absolute one, and any `H` in a directory name then read as hidden
+- `tailFile`: Read backwards from the end of the file a chunk at a time instead of walking it from the start, and stop shifting a `length`-sized array once per line. The old shape cost `lines × length`: on a 108 MB log the last 20,000 lines took 57 seconds and now take 0.02, and the last single line went from 0.29 seconds to 0.001
+- `getCopyFileName`: Accept a `Set` as well as an array, and read it as it is. Naming n files into one directory calls this n times, and rebuilding the set on every call made that loop quadratic — 16,000 names took 19 seconds through an array and 0.01 seconds through a reused `Set`
+- `moveFile`: Fall back to a copy and a remove when the operating system reports `EXDEV`. `rename` cannot cross a filesystem boundary, so moving out of the temporary directory, into a mounted volume or onto another drive failed outright
+- `deleteAllFileFromDirectory`: Delete up to 32 entries at a time instead of awaiting each one in turn
+- `getFileHashFromPath`: Read through `pipeline` with a 1 MB buffer instead of collecting `data` events at the 64 KB stream default
+
 ## 1.14.1 (2026-08-02)
 
 - `hasBadWords`: Catch a banned word broken up by digits (`ad1min`, `사1과`, `사123과`), a common way of hiding a word in Korean. A digit that opens or closes a word is still read as a letter, so a number in front of a word (`2시 발표`) is not read away
