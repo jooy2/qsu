@@ -171,6 +171,11 @@ def test_hasBadWords():
 	assert hasBadWords('a d m i n', words) is True
 	assert hasBadWords('the ad min account', words) is True
 
+	# Digits wedged between the letters.
+	assert hasBadWords('ad1min', words) is True
+	assert hasBadWords('ap123ple', words) is True
+	assert hasBadWords('a1d.m2in', words) is True
+
 	# Lookalike characters.
 	assert hasBadWords('adm1n', words) is True
 	assert hasBadWords('@dm1n', words) is True
@@ -208,7 +213,14 @@ def test_hasBadWords():
 	assert hasBadWords('ㄱㅗㅇㅑㅇㅇl', koWords) is True
 	assert hasBadWords('ㅅr과', koWords) is True  # 'r' shaped like 'ㅏ'
 
+	# Digits wedged between the syllables.
+	assert hasBadWords('사1과', koWords) is True
+	assert hasBadWords('사123과', koWords) is True
+	assert hasBadWords('ㅅㅏ1ㄱㅗㅏ', koWords) is True
+	assert hasBadWords('고3양2이', koWords) is True
+
 	# Unrelated words that only touch when the space is removed.
 	assert hasBadWords('이거사 과일이야', koWords) is False
+	assert hasBadWords('이거1사 과일이야', koWords) is False
 	assert hasBadWords('명사 과제', koWords) is False
 	assert hasBadWords('참고 양이 되었다', koWords) is False

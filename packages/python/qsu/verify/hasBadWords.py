@@ -158,8 +158,38 @@ def _compose_hangul(chars: list) -> str:
 	return ''.join(out)
 
 
-def _normalize(text: str, readSymbols: bool) -> str:
+def _without_inner_digits(chars: list, digits: list) -> list:
+	"""Digits wedged between two other characters ('바1보', 'ad1min') usually just
+	break a word up, so the text is read once more with them removed. A digit that
+	opens or closes a word is kept, so a counted noun ('2시 발표') keeps its number
+	— a banned word that merely carries a digit around ('바보1') is still found
+	inside the word anyway."""
+	out = []
+	length = len(chars)
+	i = 0
+
+	while i < length:
+		if not digits[i]:
+			out.append(chars[i])
+			i += 1
+			continue
+
+		j = i
+
+		while j < length and digits[j]:
+			j += 1
+
+		if i == 0 or j == length:
+			out.extend(chars[i:j])
+
+		i = j
+
+	return out
+
+
+def _normalize(text: str, readSymbols: bool, dropDigits: bool) -> str:
 	chars = []
+	digits = []
 
 	for raw in text.lower():
 		ch = raw
@@ -179,21 +209,28 @@ def _normalize(text: str, readSymbols: bool) -> str:
 			# Circled or Mathematical Alphanumeric letter ('ⓐ', '𝗮').
 			ch = _from_stylized(code) or ch
 
+		isDigit = '0' <= ch <= '9'
+
 		if ch in _CHAR_MAP:
 			chars.append(_CHAR_MAP[ch])
+			digits.append(isDigit)
 		elif ch.isalnum():
 			chars.append(ch)
+			digits.append(isDigit)
 		elif readSymbols and ch in _SYMBOL_MAP:
 			chars.append(_SYMBOL_MAP[ch])
+			digits.append(False)
+
+	read = _without_inner_digits(chars, digits) if dropDigits else chars
 
 	# 'ㅇ' sitting next to Latin letters is meant as an 'o' ('fㅇㅇl' -> 'fool'),
 	# so it is read that way before it can be composed into a syllable.
-	for i in range(1, len(chars)):
-		if chars[i] == 'ㅇ' and 'a' <= chars[i - 1] <= 'z':
-			chars[i] = 'o'
+	for i in range(1, len(read)):
+		if read[i] == 'ㅇ' and 'a' <= read[i - 1] <= 'z':
+			read[i] = 'o'
 
 	# Whatever 'ㅇ' is left over after composing is a lookalike of 'o' as well.
-	return _compose_hangul(chars).replace('ㅇ', 'o')
+	return _compose_hangul(read).replace('ㅇ', 'o')
 
 
 def _normalize_all(words: list) -> list:
@@ -203,12 +240,18 @@ def _normalize_all(words: list) -> list:
 		if not isinstance(word, str):
 			continue
 
-		target = _normalize(word, True)
+		target = _normalize(word, True, False)
 
 		if target:
 			normalized.append(target)
 
 	return normalized
+
+
+# Every way the text is read, as (readSymbols, dropDigits). Symbols and digits
+# are both ambiguous — they may stand for a letter or merely break a word up —
+# so each combination gets a scan of its own.
+_READINGS = ((True, False), (False, False), (True, True), (False, True))
 
 
 # Allowed words are blanked out with a character normalization never produces,
@@ -240,13 +283,13 @@ def hasBadWords(str: str, words: list = None, allowWords: list = None) -> bool:
 	allowed = _normalize_all(allowWords) if allowWords else []
 	tokens = str.split()
 
-	for readSymbols in (True, False):
+	for readSymbols, dropDigits in _READINGS:
 		starts = []
 		ends = []
 		joined = ''
 
 		for token in tokens:
-			normalized = _normalize(token, readSymbols)
+			normalized = _normalize(token, readSymbols, dropDigits)
 
 			if not normalized:
 				continue
