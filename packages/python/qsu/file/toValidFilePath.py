@@ -12,12 +12,15 @@ def toValidFilePath(filePath: str, isWindows: bool = None) -> str:
 
 		p = re.sub(r'\.$', '', ntpath.normpath(p))
 
+		if not p.startswith('\\') and p.find(':') == -1:
+			# Anchor the path *before* resolving the rest of it: '..' cannot
+			# climb above the root, so '..\\..\\Users' is '\\Users' rather than
+			# the '\\..\\..\\Users' a plain prefix would leave behind.
+			p = ntpath.normpath(f'\\{p}')
 		if p.endswith('\\') and len(p) > 1:
 			p = re.sub(r'\\+$', '', p)
 		if p.endswith(':'):
 			p = f'{p}\\'
-		if not p.startswith('\\') and p.find(':') == -1:
-			p = f'\\{p}'
 
 		return p
 	else:
@@ -35,7 +38,10 @@ def toValidFilePath(filePath: str, isWindows: bool = None) -> str:
 		p = re.sub(r'^/{2,}', '/', p)
 
 		if not posixpath.isabs(p):
-			p = f'/{p}'
+			# Anchor the path *before* resolving the rest of it: '..' cannot
+			# climb above the root, so '../../etc/passwd' is '/etc/passwd'
+			# rather than the '/../../etc/passwd' a plain prefix would leave.
+			p = posixpath.normpath(f'/{p}')
 		if p.endswith('/') and len(p) > 1:
 			p = p[:-1]
 

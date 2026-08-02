@@ -3,7 +3,9 @@ import shutil
 
 
 def deleteFile(filePath: str) -> None:
-	if not filePath:
+	# A path of nothing but whitespace is treated as no path at all, matching
+	# the Dart implementation.
+	if not filePath or not filePath.strip():
 		return
 
 	try:

@@ -1,17 +1,49 @@
+import codecs
+import re
+
+_CHUNK_SIZE = 64 * 1024
+
+# Node's readline (createInterface with crlfDelay: Infinity) breaks a line on
+# '\n', '\r\n' and a lone '\r'.
+_LINE_BREAK_REGEX = re.compile(r'\r\n|\n|\r')
+
+
 def readLines(filePath: str):
-	# Mirrors Node's readline (createInterface with crlfDelay: Infinity):
-	# lines are split on '\n', a trailing '\r' is stripped (CRLF handled as a
-	# single break), and no extra empty line is yielded for a trailing newline.
-	with open(filePath, 'r', encoding='utf-8', newline='') as stream:
-		content = stream.read()
+	# Yields one line at a time, reading the file in chunks. Reading the whole
+	# file with `read()` cost as much memory as the file was large: asking for
+	# the first line of a 108 MB log held 476 MB of it at once.
+	#
+	# Malformed bytes are replaced rather than raised, matching what the
+	# JavaScript and Dart implementations do with the same file.
+	decoder = codecs.getincrementaldecoder('utf-8')('replace')
+	buffer = ''
 
-	if content == '':
-		return []
+	with open(filePath, 'rb') as stream:
+		while True:
+			chunk = stream.read(_CHUNK_SIZE)
+			atEnd = not chunk
 
-	parts = content.split('\n')
+			buffer += decoder.decode(chunk, atEnd)
 
-	# A trailing '\n' produces a final empty element that Node does not emit.
-	if parts and parts[-1] == '':
-		parts.pop()
+			# A '\r' at the end of the buffer may still turn out to be the first
+			# half of a '\r\n', so it is left for the next chunk to resolve.
+			limit = len(buffer)
 
-	return [part[:-1] if part.endswith('\r') else part for part in parts]
+			if not atEnd and buffer.endswith('\r'):
+				limit -= 1
+
+			last = 0
+
+			for match in _LINE_BREAK_REGEX.finditer(buffer, 0, limit):
+				yield buffer[last:match.start()]
+				last = match.end()
+
+			buffer = buffer[last:]
+
+			if atEnd:
+				break
+
+	# A break at the end of the file closes the last line, it does not open an
+	# empty one.
+	if buffer != '':
+		yield buffer

@@ -1,5 +1,28 @@
 # Changelog (Python)
 
+## 1.1.0 (2026-08-02)
+
+- **BREAKING CHANGES**: `isValidFileName` now rejects an empty name and any name carrying a control character (`U+0000`-`U+001F` or `U+007F`). `NUL` is the one that matters: it terminates the path in the system call underneath every filesystem, so a name carrying one was reported as valid and then silently truncated on the way to disk
+- **BREAKING CHANGES**: `isValidFileName` now rejects a name ending in a dot or a space on the Windows path. Windows strips it instead of reporting an error, so `report.` quietly becomes `report` and overwrites it. Unix keeps them, so they stay valid with `unixType`
+- **BREAKING CHANGES**: `isValidFileName` now measures its 255 limit in UTF-8 bytes rather than characters, which is what ext4, APFS and NTFS enforce. `'가' * 100` is 100 characters but 300 bytes and cannot be created. Counting characters also disagreed with the JavaScript and Dart implementations, which count UTF-16 units where Python counted code points (`'😀' * 130` was valid here and invalid there)
+- **BREAKING CHANGES**: `headFile` and `tailFile` now replace malformed UTF-8 with `U+FFFD` instead of raising `UnicodeDecodeError`, matching the JavaScript and Dart implementations. One bad byte in a log file no longer stops it from being read
+- **BREAKING CHANGES**: `headFile` and `tailFile` now break a line on a lone `\r` as well as on `\n` and `\r\n`, matching Node's readline and Dart's `LineSplitter`. A file written on a pre-OS X Mac used to come back as a single line
+- **BREAKING CHANGES**: `createDirectory` now reports the error when a *file* already sits at the path. It asked only whether *something* was there and then answered that there was nothing to do, so no directory existed and nothing said so
+- **BREAKING CHANGES**: `createFile` now creates any parent directory the path needs instead of raising `FileNotFoundError`, matching the Dart implementation
+- **BREAKING CHANGES**: `createFile`, `deleteFile` and `moveFile` now treat a path of nothing but whitespace as no path at all, matching the Dart implementation. `createFile('   ')` used to create a file literally named `   `
+- **BREAKING CHANGES**: `getFileInfo` and `getFileSize` now raise the original `OSError` instead of a plain `Exception` carrying only its text. `errno`, `strerror` and `filename` were dropped with it, so a caller could not tell a missing file from a permission error. The unreachable `return` both functions ended with has been removed
+- **BREAKING CHANGES**: `getFileInfo` now builds `dirname` with `os.path`, which follows the host platform, instead of always splitting on `/`. A Windows path used to come back whole
+- **BREAKING CHANGES**: `toValidFilePath` now resolves a leading `..` against the root, so `'../../etc/passwd'` returns `/etc/passwd` instead of `/../../etc/passwd`
+- `isFileHidden`: Read the attribute letters out of the column `attrib` prints them in. Removing the caller's path from the output failed whenever a relative path was given, because `attrib` answers with an absolute one, and any `H` in a directory name then read as hidden
+- `headFile`: Read the file in chunks instead of pulling all of it into memory with a single `read()`. Asking for the first line of a 108 MB log held 476 MB at once and now holds a chunk
+- `tailFile`: Read backwards from the end of the file a chunk at a time instead of walking it from the start, and stop popping the front of a `length`-sized list once per line. The old shape cost `lines × length`: on a 108 MB log the last 20,000 lines took 6.8 seconds and now take 0.06, and the last single line went from 0.28 seconds to 0.001
+- `getCopyFileName`: Accept a `set` as well as a list, and read it as it is. Naming n files into one directory calls this n times, and rebuilding the set on every call made that loop quadratic — 16,000 names took 11 seconds through a list and 0.03 seconds through a reused `set`
+- `moveFile`: Fall back to a copy and a remove when the operating system reports `EXDEV`. `os.rename` cannot cross a filesystem boundary, so moving out of the temporary directory, into a mounted volume or onto another drive failed outright
+- `isFileExists`: Drop the `os.access` call whose result was thrown away, halving the system calls this makes
+- `getFileInfo`: Read the directory flag out of the `stat` result already in hand instead of asking the filesystem a second time through `os.path.isdir`
+- `createDirectory`: Drop the `isFileExists` call that ran before every `makedirs`. `makedirs` with `exist_ok` is already a no-op for an existing directory
+- `hasBadWords`: Catch a banned word broken up by digits (`ad1min`, `사1과`, `사123과`), a common way of hiding a word in Korean. A digit that opens or closes a word is still read as a letter, so a number in front of a word (`2시 발표`) is not read away
+
 ## 1.0.0 (2026-07-28)
 
 - **BREAKING CHANGES**: `encrypt` and `decrypt` now honour the `algorithm` argument. Every algorithm silently produced AES-CBC before, so a value such as `aes-256-gcm` was accepted but ignored and the output did not match the JavaScript implementation. AEAD modes (GCM) now carry the authentication tag as `iv:authTag:encrypted`; the `iv:encrypted` format for CBC is unchanged. The key length is validated against the algorithm, as it is in JavaScript

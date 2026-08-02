@@ -3,7 +3,10 @@ import time
 
 
 def createFile(filePath: str) -> None:
-	if not filePath:
+	# A path of nothing but whitespace is treated as no path at all, matching
+	# the Dart implementation, which otherwise creates a file literally named
+	# '   ' out of an empty form field.
+	if not filePath or not filePath.strip():
 		return
 
 	now = time.time()
@@ -12,6 +15,12 @@ def createFile(filePath: str) -> None:
 		# Mirrors Node fs.utimes: update times of an existing file.
 		os.utime(filePath, (now, now))
 	except Exception:
-		# File does not exist yet: create it (equivalent to opening with 'a').
+		# The file does not exist yet. Its parent directory may not exist
+		# either, so it is created first rather than raising FileNotFoundError.
+		parent = os.path.dirname(filePath)
+
+		if parent:
+			os.makedirs(parent, exist_ok=True)
+
 		with open(filePath, 'a'):
 			pass

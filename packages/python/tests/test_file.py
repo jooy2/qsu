@@ -1,4 +1,7 @@
+import errno
 import os
+import time
+import tracemalloc
 import unicodedata
 
 import pytest
@@ -504,9 +507,15 @@ def test_isValidFileName_reserved_characters_and_edge_names():
 	assert isValidFileName('.') is False
 	assert isValidFileName('..') is False
 	assert isValidFileName('...') is False
-	# Leading/trailing spaces are accepted (only all-whitespace is rejected).
+	# A leading space is accepted (only all-whitespace is rejected).
 	assert isValidFileName(' leading') is True
-	assert isValidFileName('trailing ') is True
+	# Windows strips a trailing space or dot instead of reporting an error, so
+	# the name that ends up on disk is not the one that was asked for.
+	assert isValidFileName('trailing ') is False
+	assert isValidFileName('trailing.') is False
+	# Unix keeps them, so they stay valid there.
+	assert isValidFileName('trailing ', True) is True
+	assert isValidFileName('trailing.', True) is True
 	assert isValidFileName('한글파일.txt') is True
 	assert isValidFileName('한글파일.txt', True) is True
 	# Unix only rejects ':' and '/', so Windows-reserved chars pass.
@@ -832,3 +841,248 @@ def test_moveFile_renames_within_same_directory(edge):
 	assert getFileSize(target) == 7
 
 	deleteFile(target)
+
+
+# ---------------------------------------------------------------------------
+# Covers what the filesystem actually does to these functions rather than what
+# a path string looks like: names carrying characters no filesystem accepts,
+# text that is not valid UTF-8, entries that are symlinks, and the cost of
+# reading the end of a file that does not fit in memory.
+#
+# The timing assertions are deliberately loose. They separate "reads what it was
+# asked for" from "reads the whole file", which is a difference of three orders
+# of magnitude, not a measurement of the machine.
+# ---------------------------------------------------------------------------
+
+# Enough lines that the previous tailFile, which walked the file from the start
+# and popped the front of a `length`-sized list once per line, needed minutes for
+# the window asked for below.
+BIG_FILE_LINES = 500000
+BIG_WINDOW = 100000
+BUDGET_SECONDS = 10.0
+
+
+@pytest.fixture
+def hardening(tmp_path):
+	"""Build the hardening fixture tree in a temp directory."""
+	(tmp_path / 'big.log').write_text(
+		''.join('line %d\n' % i for i in range(BIG_FILE_LINES))
+	)
+
+	# 0xff and 0xfe cannot open a UTF-8 sequence, and the NUL after them is
+	# valid text that has to survive.
+	(tmp_path / 'malformed.bin').write_bytes(
+		bytes([0xFF, 0xFE, 0x00, 97, 98, 99, 10, 100, 101, 102, 10])
+	)
+	(tmp_path / 'lone-cr.txt').write_bytes(b'one\rtwo\rthree\r')
+	(tmp_path / 'bom.txt').write_bytes('﻿first\nsecond\n'.encode('utf-8'))
+	(tmp_path / 'two-lines.txt').write_bytes(b'a\nb\n')
+
+	(tmp_path / 'keep').mkdir()
+	(tmp_path / 'keep' / 'precious.txt').write_text('do not delete me')
+
+	(tmp_path / 'linked').mkdir()
+
+	try:
+		os.symlink(str(tmp_path / 'keep'), str(tmp_path / 'linked' / 'shortcut'))
+	except (OSError, NotImplementedError):
+		pass
+
+	return tmp_path
+
+
+def test_isValidFileName_empty_control_characters_and_byte_limit():
+	# A name of nothing cannot be created.
+	assert isValidFileName('') is False
+	assert isValidFileName('', True) is False
+
+	# NUL terminates the path in the system call underneath, so a name carrying
+	# one is truncated rather than rejected by the filesystem.
+	assert isValidFileName('fi\x00le.txt') is False
+	assert isValidFileName('fi\x00le.txt', True) is False
+	assert isValidFileName('tab\t.txt') is False
+	assert isValidFileName('del\x7f.txt') is False
+
+	# The limit is 255 *bytes*, which is what the filesystem enforces.
+	assert isValidFileName('a' * 255) is True
+	assert isValidFileName('a' * 256) is False
+	# '가' is three bytes: 85 of them fit, 86 do not.
+	assert isValidFileName('가' * 85) is True
+	assert isValidFileName('가' * 86) is False
+	# Counting code points instead would let this 300-byte name through, and
+	# would disagree with the JavaScript and Dart implementations.
+	assert isValidFileName('😀' * 60) is True
+
+
+def test_isFileHidden_a_name_shaped_like_a_shell_command_is_not_run(tmp_path):
+	marker = str(tmp_path / 'injection-proof.txt')
+	# A quote closes the quoting of `attrib "<path>"`, and '&' separates
+	# commands in both sh and cmd. Handing the command line to a shell created
+	# the marker; running `attrib` through an argument list cannot.
+	shaped = 'a" & echo qsu > %s & echo "b' % marker
+
+	assert isFileHidden(shaped, True) is False
+
+	time.sleep(0.2)
+
+	assert isFileExists(marker) is False
+
+
+def test_createDirectory_reports_a_file_already_at_the_path(tmp_path):
+	target = str(tmp_path / 'in-the-way.txt')
+
+	(tmp_path / 'in-the-way.txt').write_text('x')
+
+	# Answering "already there, nothing to do" hid the fact that nothing usable
+	# as a directory had been created.
+	with pytest.raises(OSError):
+		createDirectory(target)
+	with pytest.raises(OSError):
+		createDirectory(target, False)
+
+
+def test_createFile_creates_the_parent_directories_it_needs(tmp_path):
+	target = str(tmp_path / 'created' / 'deep' / 'nested' / 'note.txt')
+
+	createFile(target)
+
+	assert isFileExists(target) is True
+	assert getFileSize(target) == 0
+
+
+def test_whitespace_only_paths_do_nothing(tmp_path):
+	createFile('   ')
+	assert isFileExists('   ') is False
+
+	witness = str(tmp_path / 'witness.txt')
+
+	(tmp_path / 'witness.txt').write_text('still here')
+	deleteFile('   ')
+	moveFile('   ', witness)
+	moveFile(witness, '  ')
+
+	assert isFileExists(witness) is True
+
+
+def test_headFile_tailFile_malformed_utf8_is_replaced(hardening):
+	path = str(hardening / 'malformed.bin')
+
+	# Two bytes that cannot open a sequence become two replacement characters;
+	# the NUL after them is text and stays.
+	assert [ord(c) for c in headFile(path)] == [65533, 65533, 0, 97, 98, 99]
+	assert tailFile(path, 1) == 'def'
+
+
+def test_headFile_tailFile_lone_carriage_return_breaks_a_line(hardening):
+	path = str(hardening / 'lone-cr.txt')
+
+	assert headFile(path, 3) == 'one\ntwo\nthree'
+	assert tailFile(path, 1) == 'three'
+	assert tailFile(path, 2) == 'two\nthree'
+
+
+def test_headFile_tailFile_byte_order_mark_stays_in_the_first_line(hardening):
+	path = str(hardening / 'bom.txt')
+
+	assert headFile(path, 1) == '﻿first'
+	assert tailFile(path, 2) == '﻿first\nsecond'
+
+
+def test_headFile_tailFile_length_beyond_the_file(hardening):
+	path = str(hardening / 'two-lines.txt')
+
+	assert headFile(path, 99) == 'a\nb'
+	assert tailFile(path, 99) == 'a\nb'
+
+
+def test_tailFile_a_large_window_costs_no_more_than_the_lines_returned(hardening):
+	started = time.time()
+	result = tailFile(str(hardening / 'big.log'), BIG_WINDOW)
+	elapsed = time.time() - started
+
+	assert len(result.split('\n')) == BIG_WINDOW
+	assert result.endswith('line %d' % (BIG_FILE_LINES - 1))
+	assert result.startswith('line %d\n' % (BIG_FILE_LINES - BIG_WINDOW))
+	assert elapsed < BUDGET_SECONDS, 'tailFile took %.1fs' % elapsed
+
+
+def test_headFile_cost_does_not_follow_the_size_of_the_file(hardening):
+	tracemalloc.start()
+
+	try:
+		started = time.time()
+		assert headFile(str(hardening / 'big.log'), 1) == 'line 0'
+		elapsed = time.time() - started
+		peak = tracemalloc.get_traced_memory()[1]
+	finally:
+		tracemalloc.stop()
+
+	assert elapsed < BUDGET_SECONDS, 'headFile took %.1fs' % elapsed
+	# Reading the file with a single `read()` held all of it at once: 476 MB for
+	# a 108 MB log. The chunked read never holds more than a chunk and a line.
+	assert peak < 4 * 1024 * 1024, 'headFile held %d bytes at once' % peak
+
+
+def test_getCopyFileName_takes_a_set_and_reusing_one_stays_linear():
+	existing = {'a.txt', 'a (1).txt'}
+
+	assert getCopyFileName('a.txt', existing) == 'a (2).txt'
+	assert getCopyFileName('b.txt', existing) == 'b.txt'
+
+	# A set handed in is read, not copied, so one can be kept across a whole
+	# loop. Rebuilding it per call made naming n files quadratic.
+	names = {'file%d.txt' % i for i in range(20000)}
+	started = time.time()
+
+	for i in range(20000):
+		names.add(getCopyFileName('file%d.txt' % i, names))
+
+	assert len(names) == 40000
+	assert time.time() - started < BUDGET_SECONDS, 'naming did not stay linear'
+
+
+def test_moveFile_moves_a_directory(tmp_path):
+	source = str(tmp_path / 'move-dir-source')
+	target = str(tmp_path / 'move-dir-target')
+
+	(tmp_path / 'move-dir-source' / 'inner').mkdir(parents=True)
+	(tmp_path / 'move-dir-source' / 'inner' / 'leaf.txt').write_text('payload')
+
+	moveFile(source, target)
+
+	assert isFileExists(source) is False
+	assert isFileExists(os.path.join(target, 'inner', 'leaf.txt')) is True
+
+
+def test_getFileSize_getFileInfo_keep_the_filesystem_error(tmp_path):
+	missing = str(tmp_path / 'does-not-exist.txt')
+
+	# Re-raising `Exception(str(err))` dropped `errno`, `strerror` and
+	# `filename`, leaving a caller unable to tell "missing" from "no access".
+	with pytest.raises(OSError) as sizeError:
+		getFileSize(missing)
+
+	assert sizeError.value.errno == errno.ENOENT
+	assert sizeError.value.filename == missing
+
+	with pytest.raises(OSError) as infoError:
+		getFileInfo(missing)
+
+	assert infoError.value.errno == errno.ENOENT
+	assert infoError.value.filename == missing
+
+
+def test_toValidFilePath_a_leading_dotdot_cannot_climb_above_the_root():
+	assert toValidFilePath('../../etc/passwd') == '/etc/passwd'
+	assert toValidFilePath('../a/../b') == '/b'
+	assert toValidFilePath('..\\..\\Users', True) == '\\Users'
+
+
+def test_deleteAllFileFromDirectory_unlinks_a_symlink_and_keeps_its_target(hardening):
+	if not os.path.islink(str(hardening / 'linked' / 'shortcut')):
+		pytest.skip('symlinks are not supported on this platform')
+
+	deleteAllFileFromDirectory(str(hardening / 'linked'))
+
+	assert isFileExists(str(hardening / 'linked' / 'shortcut')) is False
+	assert isFileExists(str(hardening / 'keep' / 'precious.txt')) is True
