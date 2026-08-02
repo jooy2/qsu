@@ -7,6 +7,7 @@ Matching is case-insensitive, and a banned word found inside a longer word still
 On top of a plain match, the most common ways of hiding a word are detected as well:
 
 - Characters inserted between the letters: `ad___min`, `a.d.m.i.n`, `ad$min`
+- Digits wedged between the letters, a common trick in Korean: `ad1min`, `사1과`, `사123과`. A digit that opens or closes a word is left alone, so a number in front of a word (`2시 발표`) is not read away
 - Lookalike characters, such as leetspeak digits, accents, fullwidth, circled and mathematical letters, and Cyrillic/Greek homoglyphs: `adm1n`, `4pp13`, `ａｄｍｉｎ`, `ádmín`, `ⓐⓓⓜⓘⓝ`, `𝗮𝗱𝗺𝗶𝗻`
 - Symbols standing in for a letter: `@dm1n`
 - Korean written as separate jamo, including a Latin letter used for its shape: `ㅅㅏㄱㅗㅏ` and `ㅅr과` are both read as `사과`
@@ -40,6 +41,7 @@ hasBadWords('hello world', words); // Returns false
 hasBadWords('I AM ADMIN', words); // Returns true
 hasBadWords('pineapple juice', words); // Returns true
 hasBadWords('ad___min', words); // Returns true
+hasBadWords('ad1min', words); // Returns true
 hasBadWords('ad$min', words); // Returns true
 hasBadWords('a d m i n', words); // Returns true
 hasBadWords('@dm1n', words); // Returns true
@@ -48,6 +50,7 @@ hasBadWords('read min please', words); // Returns false
 
 hasBadWords('맛있는 사과!', ['사과']); // Returns true
 hasBadWords('ㅅㅏㄱㅗㅏ', ['사과']); // Returns true
+hasBadWords('사1과', ['사과']); // Returns true
 hasBadWords('이거사 과일이야', ['사과']); // Returns false
 
 hasBadWords('pineapple juice', words, ['pineapple']); // Returns false
@@ -61,6 +64,7 @@ hasBadWords('hello world', words: words); // Returns false
 hasBadWords('I AM ADMIN', words: words); // Returns true
 hasBadWords('pineapple juice', words: words); // Returns true
 hasBadWords('ad___min', words: words); // Returns true
+hasBadWords('ad1min', words: words); // Returns true
 hasBadWords('ad\$min', words: words); // Returns true
 hasBadWords('a d m i n', words: words); // Returns true
 hasBadWords('@dm1n', words: words); // Returns true
@@ -69,6 +73,7 @@ hasBadWords('read min please', words: words); // Returns false
 
 hasBadWords('맛있는 사과!', words: ['사과']); // Returns true
 hasBadWords('ㅅㅏㄱㅗㅏ', words: ['사과']); // Returns true
+hasBadWords('사1과', words: ['사과']); // Returns true
 hasBadWords('이거사 과일이야', words: ['사과']); // Returns false
 
 hasBadWords('pineapple juice', words: words, allowWords: ['pineapple']); // Returns false
@@ -82,6 +87,7 @@ hasBadWords('hello world', words)  # Returns False
 hasBadWords('I AM ADMIN', words)  # Returns True
 hasBadWords('pineapple juice', words)  # Returns True
 hasBadWords('ad___min', words)  # Returns True
+hasBadWords('ad1min', words)  # Returns True
 hasBadWords('ad$min', words)  # Returns True
 hasBadWords('a d m i n', words)  # Returns True
 hasBadWords('@dm1n', words)  # Returns True
@@ -90,6 +96,7 @@ hasBadWords('read min please', words)  # Returns False
 
 hasBadWords('맛있는 사과!', words=['사과'])  # Returns True
 hasBadWords('ㅅㅏㄱㅗㅏ', words=['사과'])  # Returns True
+hasBadWords('사1과', words=['사과'])  # Returns True
 hasBadWords('이거사 과일이야', words=['사과'])  # Returns False
 
 hasBadWords('pineapple juice', words, allowWords=['pineapple'])  # Returns False

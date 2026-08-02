@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.14.1 (2026-08-02)
+
+- `hasBadWords`: Catch a banned word broken up by digits (`ad1min`, `사1과`, `사123과`), a common way of hiding a word in Korean. A digit that opens or closes a word is still read as a letter, so a number in front of a word (`2시 발표`) is not read away
+
 ## 1.14.0 (2026-07-28)
 
 - **BREAKING CHANGES**: `logBox` now requires a Node.js runtime and is imported from the `qsu/node` subpath. It uses `node:util` and `process`, so exporting it from the browser-safe root entry point could break bundlers

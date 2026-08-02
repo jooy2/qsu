@@ -180,6 +180,11 @@ describe('Verify', () => {
 		assert.strictEqual(hasBadWords('a d m i n', words), true);
 		assert.strictEqual(hasBadWords('the ad min account', words), true);
 
+		// Digits wedged between the letters.
+		assert.strictEqual(hasBadWords('ad1min', words), true);
+		assert.strictEqual(hasBadWords('ap123ple', words), true);
+		assert.strictEqual(hasBadWords('a1d.m2in', words), true);
+
 		// Lookalike characters.
 		assert.strictEqual(hasBadWords('adm1n', words), true);
 		assert.strictEqual(hasBadWords('@dm1n', words), true);
@@ -217,8 +222,15 @@ describe('Verify', () => {
 		assert.strictEqual(hasBadWords('ㄱㅗㅇㅑㅇㅇl', koWords), true);
 		assert.strictEqual(hasBadWords('ㅅr과', koWords), true); // 'r' shaped like 'ㅏ'
 
+		// Digits wedged between the syllables.
+		assert.strictEqual(hasBadWords('사1과', koWords), true);
+		assert.strictEqual(hasBadWords('사123과', koWords), true);
+		assert.strictEqual(hasBadWords('ㅅㅏ1ㄱㅗㅏ', koWords), true);
+		assert.strictEqual(hasBadWords('고3양2이', koWords), true);
+
 		// Unrelated words that only touch when the space is removed.
 		assert.strictEqual(hasBadWords('이거사 과일이야', koWords), false);
+		assert.strictEqual(hasBadWords('이거1사 과일이야', koWords), false);
 		assert.strictEqual(hasBadWords('명사 과제', koWords), false);
 		assert.strictEqual(hasBadWords('참고 양이 되었다', koWords), false);
 	});

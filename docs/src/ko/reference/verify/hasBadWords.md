@@ -7,6 +7,7 @@
 단순 포함 외에도, 금지어를 숨기는 흔한 방법들을 함께 검사합니다:
 
 - 글자 사이에 문자를 끼워 넣은 경우: `ad___min`, `a.d.m.i.n`, `ad$min`
+- 글자 사이에 숫자를 끼워 넣은 경우: `ad1min`, `사1과`, `사123과`. 단어의 처음이나 끝에 붙은 숫자는 그대로 읽기 때문에 앞에 붙은 수(`2시 발표`)가 사라지지 않습니다
 - 모양이 비슷한 문자(리트 스피크 숫자, 발음 구별 기호, 전각/원문자/수학 문자, 키릴·그리스 문자 등): `adm1n`, `4pp13`, `ａｄｍｉｎ`, `ádmín`, `ⓐⓓⓜⓘⓝ`, `𝗮𝗱𝗺𝗶𝗻`
 - 글자를 대신하는 기호: `@dm1n`
 - 자음과 모음을 분리한 한글. 모양이 비슷한 알파벳을 섞은 경우도 포함합니다: `ㅅㅏㄱㅗㅏ`와 `ㅅr과`는 모두 `사과`로 읽습니다
@@ -40,6 +41,7 @@ hasBadWords('hello world', words); // Returns false
 hasBadWords('I AM ADMIN', words); // Returns true
 hasBadWords('pineapple juice', words); // Returns true
 hasBadWords('ad___min', words); // Returns true
+hasBadWords('ad1min', words); // Returns true
 hasBadWords('ad$min', words); // Returns true
 hasBadWords('a d m i n', words); // Returns true
 hasBadWords('@dm1n', words); // Returns true
@@ -48,6 +50,7 @@ hasBadWords('read min please', words); // Returns false
 
 hasBadWords('맛있는 사과!', ['사과']); // Returns true
 hasBadWords('ㅅㅏㄱㅗㅏ', ['사과']); // Returns true
+hasBadWords('사1과', ['사과']); // Returns true
 hasBadWords('이거사 과일이야', ['사과']); // Returns false
 
 hasBadWords('pineapple juice', words, ['pineapple']); // Returns false
@@ -61,6 +64,7 @@ hasBadWords('hello world', words: words); // Returns false
 hasBadWords('I AM ADMIN', words: words); // Returns true
 hasBadWords('pineapple juice', words: words); // Returns true
 hasBadWords('ad___min', words: words); // Returns true
+hasBadWords('ad1min', words: words); // Returns true
 hasBadWords('ad\$min', words: words); // Returns true
 hasBadWords('a d m i n', words: words); // Returns true
 hasBadWords('@dm1n', words: words); // Returns true
@@ -69,6 +73,7 @@ hasBadWords('read min please', words: words); // Returns false
 
 hasBadWords('맛있는 사과!', words: ['사과']); // Returns true
 hasBadWords('ㅅㅏㄱㅗㅏ', words: ['사과']); // Returns true
+hasBadWords('사1과', words: ['사과']); // Returns true
 hasBadWords('이거사 과일이야', words: ['사과']); // Returns false
 
 hasBadWords('pineapple juice', words: words, allowWords: ['pineapple']); // Returns false
@@ -82,6 +87,7 @@ hasBadWords('hello world', words)  # Returns False
 hasBadWords('I AM ADMIN', words)  # Returns True
 hasBadWords('pineapple juice', words)  # Returns True
 hasBadWords('ad___min', words)  # Returns True
+hasBadWords('ad1min', words)  # Returns True
 hasBadWords('ad$min', words)  # Returns True
 hasBadWords('a d m i n', words)  # Returns True
 hasBadWords('@dm1n', words)  # Returns True
@@ -90,6 +96,7 @@ hasBadWords('read min please', words)  # Returns False
 
 hasBadWords('맛있는 사과!', words=['사과'])  # Returns True
 hasBadWords('ㅅㅏㄱㅗㅏ', words=['사과'])  # Returns True
+hasBadWords('사1과', words=['사과'])  # Returns True
 hasBadWords('이거사 과일이야', words=['사과'])  # Returns False
 
 hasBadWords('pineapple juice', words, allowWords=['pineapple'])  # Returns False
