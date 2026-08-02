@@ -367,8 +367,42 @@ String _composeHangul(List<String> chars) {
   return out.toString();
 }
 
-String _normalizeText(String text, bool readSymbols) {
+/// Digits wedged between two other characters ('바1보', 'ad1min') usually just
+/// break a word up, so the text is read once more with them removed. A digit
+/// that opens or closes a word is kept, so a counted noun ('2시 발표') keeps its
+/// number — a banned word that merely carries a digit around ('바보1') is still
+/// found inside the word anyway.
+List<String> _withoutInnerDigits(List<String> chars, List<bool> digits) {
+  final List<String> out = [];
+  final int length = chars.length;
+  int i = 0;
+
+  while (i < length) {
+    if (!digits[i]) {
+      out.add(chars[i]);
+      i += 1;
+      continue;
+    }
+
+    int j = i;
+
+    while (j < length && digits[j]) {
+      j += 1;
+    }
+
+    if (i == 0 || j == length) {
+      out.addAll(chars.getRange(i, j));
+    }
+
+    i = j;
+  }
+
+  return out;
+}
+
+String _normalizeText(String text, bool readSymbols, bool dropDigits) {
   final List<String> chars = [];
+  final List<bool> digits = [];
 
   for (final int rune in text.toLowerCase().runes) {
     String ch = String.fromCharCode(rune);
@@ -388,28 +422,47 @@ String _normalizeText(String text, bool readSymbols) {
       ch = _fromStylized(rune) ?? ch;
     }
 
+    final bool isDigit =
+        ch.length == 1 && ch.codeUnitAt(0) >= 0x30 && ch.codeUnitAt(0) <= 0x39;
+
     if (_charMap.containsKey(ch)) {
       chars.add(_charMap[ch]!);
+      digits.add(isDigit);
     } else if (_alphanumeric.hasMatch(ch)) {
       chars.add(ch);
+      digits.add(isDigit);
     } else if (readSymbols && _symbolMap.containsKey(ch)) {
       chars.add(_symbolMap[ch]!);
+      digits.add(false);
     }
   }
 
+  final List<String> read =
+      dropDigits ? _withoutInnerDigits(chars, digits) : chars;
+
   // 'ㅇ' sitting next to Latin letters is meant as an 'o' ('fㅇㅇl' -> 'fool'),
   // so it is read that way before it can be composed into a syllable.
-  for (int i = 1, iLen = chars.length; i < iLen; i += 1) {
-    final int prev = chars[i - 1].codeUnitAt(0);
+  for (int i = 1, iLen = read.length; i < iLen; i += 1) {
+    final int prev = read[i - 1].codeUnitAt(0);
 
-    if (chars[i] == 'ㅇ' && prev >= 0x61 && prev <= 0x7A) {
-      chars[i] = 'o';
+    if (read[i] == 'ㅇ' && prev >= 0x61 && prev <= 0x7A) {
+      read[i] = 'o';
     }
   }
 
   // Whatever 'ㅇ' is left over after composing is a lookalike of 'o' as well.
-  return _composeHangul(chars).replaceAll('ㅇ', 'o');
+  return _composeHangul(read).replaceAll('ㅇ', 'o');
 }
+
+// Every way the text is read, as [readSymbols, dropDigits]. Symbols and digits
+// are both ambiguous — they may stand for a letter or merely break a word up —
+// so each combination gets a scan of its own.
+const List<List<bool>> _readings = [
+  [true, false],
+  [false, false],
+  [true, true],
+  [false, true]
+];
 
 // Allowed words are blanked out with a character normalization never produces,
 // so a banned word can no longer be found inside them. Blanking keeps the text
@@ -420,7 +473,7 @@ List<String> _normalizeAll(List<String> words) {
   final List<String> normalized = [];
 
   for (final String word in words) {
-    final String target = _normalizeText(word, true);
+    final String target = _normalizeText(word, true, false);
 
     if (target.isNotEmpty) {
       normalized.add(target);
@@ -445,8 +498,8 @@ bool _isAligned(int at, int length, List<int> starts, List<int> ends) {
 
 /// Returns `true` when the given string contains one of the banned `words`.
 /// Beyond a plain match, it also catches words hidden with separators
-/// (`ad___min`, `ad$min`), lookalike characters (`adm1n`, `4pp13`, fullwidth or
-/// Cyrillic letters) and decomposed Hangul jamo (`ㅅㅏㄱㅗㅏ`).
+/// (`ad___min`, `ad$min`, `ad1min`), lookalike characters (`adm1n`, `4pp13`,
+/// fullwidth or Cyrillic letters) and decomposed Hangul jamo (`ㅅㅏㄱㅗㅏ`).
 /// A word spread over a space is only counted from the start of a word, so
 /// unrelated neighbours (`이거사 과일이야` for `사과`) are not reported.
 bool hasBadWords(String str,
@@ -465,13 +518,15 @@ bool hasBadWords(String str,
   final List<String> tokens =
       str.split(RegExp(r'\s+')).where((token) => token.isNotEmpty).toList();
 
-  for (final bool readSymbols in [true, false]) {
+  for (final List<bool> reading in _readings) {
+    final bool readSymbols = reading[0];
+    final bool dropDigits = reading[1];
     final List<int> starts = [];
     final List<int> ends = [];
     String joined = '';
 
     for (final String token in tokens) {
-      final String normalized = _normalizeText(token, readSymbols);
+      final String normalized = _normalizeText(token, readSymbols, dropDigits);
 
       if (normalized.isEmpty) {
         continue;

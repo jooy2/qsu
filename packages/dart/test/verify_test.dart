@@ -181,6 +181,11 @@ void main() {
       expect(hasBadWords('a d m i n', words: words), true);
       expect(hasBadWords('the ad min account', words: words), true);
 
+      // Digits wedged between the letters.
+      expect(hasBadWords('ad1min', words: words), true);
+      expect(hasBadWords('ap123ple', words: words), true);
+      expect(hasBadWords('a1d.m2in', words: words), true);
+
       // Lookalike characters.
       expect(hasBadWords('adm1n', words: words), true);
       expect(hasBadWords('@dm1n', words: words), true);
@@ -227,8 +232,15 @@ void main() {
       expect(hasBadWords('ㄱㅗㅇㅑㅇㅇl', words: koWords), true);
       expect(hasBadWords('ㅅr과', words: koWords), true); // 'r' shaped like 'ㅏ'
 
+      // Digits wedged between the syllables.
+      expect(hasBadWords('사1과', words: koWords), true);
+      expect(hasBadWords('사123과', words: koWords), true);
+      expect(hasBadWords('ㅅㅏ1ㄱㅗㅏ', words: koWords), true);
+      expect(hasBadWords('고3양2이', words: koWords), true);
+
       // Unrelated words that only touch when the space is removed.
       expect(hasBadWords('이거사 과일이야', words: koWords), false);
+      expect(hasBadWords('이거1사 과일이야', words: koWords), false);
       expect(hasBadWords('명사 과제', words: koWords), false);
       expect(hasBadWords('참고 양이 되었다', words: koWords), false);
     });
