@@ -1,5 +1,5 @@
-import { mkdir, open, utimes } from 'fs/promises';
-import { dirname } from 'path';
+import { mkdir, open, utimes } from 'node:fs/promises';
+import { dirname } from 'node:path';
 
 export async function createFile(filePath: string): Promise<void> {
 	// A path of nothing but whitespace is treated as no path at all, matching

@@ -1,4 +1,4 @@
-import { createDecipheriv } from 'crypto';
+import { createDecipheriv } from 'node:crypto';
 import { AEAD_ALGORITHM } from './encrypt.js';
 
 export function decrypt(

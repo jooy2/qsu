@@ -1,4 +1,4 @@
-import { open } from 'fs/promises';
+import { open } from 'node:fs/promises';
 import { createFile } from './createFile.js';
 
 export async function createFileWithDummy(filePath: string, size: number): Promise<boolean> {

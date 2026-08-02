@@ -1,6 +1,6 @@
-import { Stats } from 'fs';
-import { stat } from 'fs/promises';
-import { dirname, resolve as pathResolve } from 'path';
+import { Stats } from 'node:fs';
+import { stat } from 'node:fs/promises';
+import { dirname, resolve as pathResolve } from 'node:path';
 import { getFileExtension } from './getFileExtension.js';
 import { fileSizeFormat } from '../../format/fileSizeFormat.js';
 import { getFileName } from './getFileName.js';

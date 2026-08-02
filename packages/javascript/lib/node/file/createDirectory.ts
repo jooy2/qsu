@@ -1,4 +1,4 @@
-import { mkdir, stat } from 'fs/promises';
+import { mkdir, stat } from 'node:fs/promises';
 
 export async function createDirectory(filePath: string, recursive = true): Promise<void> {
 	if (recursive) {

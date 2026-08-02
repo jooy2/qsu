@@ -1,4 +1,4 @@
-import { execFile } from 'child_process';
+import { execFile } from 'node:child_process';
 
 // `attrib` prints the attribute letters first and the *absolute* path second
 // (`A    H       C:\dir\file.txt`). Cutting the line where the path begins is

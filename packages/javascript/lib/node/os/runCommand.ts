@@ -1,5 +1,5 @@
-import { exec as processExec } from 'child_process';
-import { EOL } from 'os';
+import { exec as processExec } from 'node:child_process';
+import { EOL } from 'node:os';
 
 export function runCommand(command: string): Promise<string | null> {
 	return new Promise((resolve, reject) => {

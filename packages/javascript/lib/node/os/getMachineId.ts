@@ -1,4 +1,4 @@
-import { platform } from 'os';
+import { platform } from 'node:os';
 import { runCommand } from './runCommand.js';
 
 export async function getMachineId(): Promise<string> {

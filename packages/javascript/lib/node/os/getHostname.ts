@@ -1,4 +1,4 @@
-import { hostname, platform } from 'os';
+import { hostname, platform } from 'node:os';
 import { runCommand } from './runCommand.js';
 
 export async function getHostname(): Promise<string> {

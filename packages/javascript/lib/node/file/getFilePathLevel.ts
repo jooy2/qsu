@@ -1,4 +1,4 @@
-import { posix } from 'path';
+import { posix } from 'node:path';
 import { toPosixFilePath } from './toPosixFilePath.js';
 
 export function getFilePathLevel(filePath: string): number {

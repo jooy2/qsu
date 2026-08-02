@@ -18,6 +18,7 @@
 - `deleteAllFileFromDirectory`: Delete up to 32 entries at a time instead of awaiting each one in turn
 - `getFileHashFromPath`: Read through `pipeline` with a 1 MB buffer instead of collecting `data` events at the 64 KB stream default
 - `hasBadWords`: Catch a banned word broken up by digits (`ad1min`, `사1과`, `사123과`), a common way of hiding a word in Korean. A digit that opens or closes a word is still read as a letter, so a number in front of a word (`2시 발표`) is not read away
+- Import every Node.js built-in through the `node:` prefix (`node:crypto`, `node:fs`, `node:fs/promises`, `node:path`, `node:os`, `node:child_process`, `node:stream/promises`). A bare specifier like `crypto`, `path` or `os` also names a real package on npm, so a bundler could resolve it to that package instead of the built-in, and webpack 4 and other older bundlers silently substituted a browser polyfill for it. The prefix marks these as built-ins unambiguously, so a bundler targeting the browser reports them rather than replacing them. The hash functions were also importing from `crypto` and `node:crypto` in the same file. This changes no behavior and no API: the browser-safe `qsu` root entry point never imported a built-in, and everything under `qsu/node` is imported from that subpath as before
 
 ## 1.14.0 (2026-07-28)
 

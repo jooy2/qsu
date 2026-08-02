@@ -1,4 +1,4 @@
-import { posix, win32 } from 'path';
+import { posix, win32 } from 'node:path';
 
 export function getFileName(filePath: string, withExtension = false): string {
 	const removeExtension = !withExtension && !filePath.endsWith('/') && !filePath.endsWith('\\');

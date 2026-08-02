@@ -1,4 +1,4 @@
-import { homedir, platform, userInfo } from 'os';
+import { homedir, platform, userInfo } from 'node:os';
 import { AnyValueObject } from '../../_types/global';
 import { runCommand } from './runCommand.js';
 

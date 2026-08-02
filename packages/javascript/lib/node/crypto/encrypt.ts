@@ -1,4 +1,4 @@
-import { createCipheriv, randomBytes } from 'crypto';
+import { createCipheriv, randomBytes } from 'node:crypto';
 
 // AEAD modes (GCM, CCM, OCB, ChaCha20-Poly1305) produce an authentication tag that is
 // required to decrypt. Without it the ciphertext can never be read back.

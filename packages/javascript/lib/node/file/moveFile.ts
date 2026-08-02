@@ -1,5 +1,5 @@
-import { copyFile, mkdir, readdir, rename, rm, stat } from 'fs/promises';
-import { join } from 'path';
+import { copyFile, mkdir, readdir, rename, rm, stat } from 'node:fs/promises';
+import { join } from 'node:path';
 
 async function copyRecursive(filePath: string, targetFilePath: string): Promise<void> {
 	const fileItem = await stat(filePath);

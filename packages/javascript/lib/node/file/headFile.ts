@@ -1,4 +1,4 @@
-import { createReadStream } from 'fs';
+import { createReadStream } from 'node:fs';
 import { createInterface } from 'node:readline';
 
 export async function headFile(filePath: string, length = 1): Promise<string | null> {

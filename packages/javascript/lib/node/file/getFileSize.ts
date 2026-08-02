@@ -1,5 +1,5 @@
-import { Stats } from 'fs';
-import { stat } from 'fs/promises';
+import { Stats } from 'node:fs';
+import { stat } from 'node:fs/promises';
 
 export async function getFileSize(filePath: string): Promise<number> {
 	// The filesystem error is thrown as it is, so `code`, `errno` and `path`

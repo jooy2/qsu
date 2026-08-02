@@ -1,4 +1,4 @@
-import { open } from 'fs/promises';
+import { open } from 'node:fs/promises';
 
 const CHUNK_SIZE = 64 * 1024;
 

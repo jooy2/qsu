@@ -1,4 +1,4 @@
-import { posix, win32 } from 'path';
+import { posix, win32 } from 'node:path';
 
 export function toValidFilePath(filePath: string, isWindows?: boolean): string {
 	if (filePath?.length < 1) {

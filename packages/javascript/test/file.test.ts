@@ -26,9 +26,16 @@ import {
 	toPosixFilePath,
 	toValidFilePath
 } from '../dist/node';
-import { createReadStream, mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'fs';
-import { tmpdir } from 'os';
-import { join, resolve } from 'path';
+import {
+	createReadStream,
+	mkdirSync,
+	mkdtempSync,
+	rmSync,
+	symlinkSync,
+	writeFileSync
+} from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 
 const TARGET_PATH = 'test/_resources/files';
 const IS_WINDOWS_OS = process.platform === 'win32';

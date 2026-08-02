@@ -1,4 +1,4 @@
-import { extname } from 'path';
+import { extname } from 'node:path';
 import { getFileName } from './getFileName.js';
 
 export function getFileExtension(filePath: string): string | null {

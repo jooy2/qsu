@@ -1,6 +1,6 @@
-import { createHash } from 'crypto';
-import { createReadStream } from 'fs';
-import { pipeline } from 'stream/promises';
+import { createHash } from 'node:crypto';
+import { createReadStream } from 'node:fs';
+import { pipeline } from 'node:stream/promises';
 
 // The 64 KB stream default costs measurably more system calls than it needs to
 // on a file of any size.

@@ -1,4 +1,4 @@
-import { rm } from 'fs/promises';
+import { rm } from 'node:fs/promises';
 
 export async function deleteFile(filePath: string): Promise<void> {
 	// A path of nothing but whitespace is treated as no path at all, matching
