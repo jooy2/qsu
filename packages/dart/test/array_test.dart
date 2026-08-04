@@ -211,5 +211,110 @@ void main() {
       expect(arrCompact([true, -1, 0.5]), [true, -1, 0.5]);
       expect(arrCompact(null), []);
     });
+
+    test('arrDifference', () {
+      expect(
+          arrDifference([
+            2,
+            1,
+            3
+          ], [
+            [2, 3]
+          ]),
+          [1]);
+      // Duplicates of a kept value stay, and the original order is preserved.
+      expect(
+          arrDifference([
+            2,
+            1,
+            2,
+            3
+          ], [
+            [1]
+          ]),
+          [2, 2, 3]);
+      expect(
+          arrDifference([
+            1,
+            2,
+            3,
+            4
+          ], [
+            [2],
+            [4]
+          ]),
+          [1, 3]);
+      expect(arrDifference([1, 2, 3]), [1, 2, 3]);
+      expect(arrDifference([1, 2, 3], []), [1, 2, 3]);
+      expect(
+          arrDifference([], [
+            [1]
+          ]),
+          []);
+      expect(
+          arrDifference([
+            'a',
+            'b'
+          ], [
+            ['b']
+          ]),
+          ['a']);
+      // Values are compared by value, so nested lists and maps are matched too.
+      expect(
+          arrDifference([
+            [1],
+            [2]
+          ], [
+            [
+              [1]
+            ]
+          ]),
+          [
+            [2]
+          ]);
+      expect(
+          arrDifference([
+            {'a': 1},
+            {'b': 2}
+          ], [
+            [
+              {'a': 1}
+            ]
+          ]),
+          [
+            {'b': 2}
+          ]);
+      // `1` and `'1'` are different values.
+      expect(
+          arrDifference([
+            1,
+            '1'
+          ], [
+            [1]
+          ]),
+          ['1']);
+      expect(
+          arrDifference([
+            null,
+            0,
+            1
+          ], [
+            [null]
+          ]),
+          [0, 1]);
+      expect(
+          arrDifference([
+            double.nan,
+            1
+          ], [
+            [double.nan]
+          ]),
+          [1]);
+      expect(
+          arrDifference(null, [
+            [1]
+          ]),
+          []);
+    });
   });
 }

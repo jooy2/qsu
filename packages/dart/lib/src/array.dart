@@ -198,3 +198,66 @@ List<dynamic> arrCompact(List<dynamic>? array) {
 
   return result;
 }
+
+/// (Private) A stable string key for a value, so that array membership can be decided by
+/// value instead of by identity. Python cannot hash a list or a map at all, so an identity
+/// comparison could not have been ported to all three languages.
+String _comparableKey(dynamic value) {
+  if (value == null) {
+    return 'null';
+  }
+
+  if (value is num) {
+    if (value is double) {
+      if (value.isNaN) {
+        return 'number:NaN';
+      }
+
+      // JavaScript has no int/double distinction, so `1` and `1.0` are one value there.
+      if (value.isFinite &&
+          value == value.truncateToDouble() &&
+          value.abs() < 1e18) {
+        return 'number:${value.toInt()}';
+      }
+    }
+
+    return 'number:$value';
+  }
+
+  if (value is String) {
+    return 'string:$value';
+  }
+
+  if (value is bool) {
+    return 'boolean:$value';
+  }
+
+  try {
+    return 'json:${jsonEncode(value, toEncodable: (Object? o) => o.toString())}';
+  } catch (_) {
+    // A cyclic structure has no JSON form.
+    return 'json:$value';
+  }
+}
+
+/// Returns the values of the first array that are not contained in any of the other arrays.
+/// The original order is preserved and duplicates of a kept value are not removed.
+/// Values are compared by value rather than by identity, so nested lists and maps are matched as well.
+List<dynamic> arrDifference(List<dynamic>? array,
+    [List<List<dynamic>>? others]) {
+  if (array == null) {
+    return [];
+  }
+
+  final Set<String> excluded = {};
+
+  for (final List<dynamic> other in others ?? const []) {
+    for (final dynamic value in other) {
+      excluded.add(_comparableKey(value));
+    }
+  }
+
+  return array
+      .where((dynamic value) => !excluded.contains(_comparableKey(value)))
+      .toList();
+}
