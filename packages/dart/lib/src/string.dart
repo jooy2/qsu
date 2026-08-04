@@ -11,13 +11,16 @@ final Random _random = Random();
 /// pattern on every call.
 final RegExp _repeatedWhitespace = RegExp(r'\s{2,}');
 final RegExp _asciiLetter = RegExp(r'[a-zA-Z]');
-final RegExp _regExpSpecialCharacters = RegExp(r'[.*+?^$(){}|\[\]\\\-/]');
+final RegExp _regExpSpecialCharactersInClass =
+    RegExp(r'[.*+?^$(){}|\[\]\\\-/]');
 
 /// (Private) Escape every regular expression metacharacter so the value is matched
-/// literally. Without this a delimiter or exception character is read as a pattern
-/// (`'a-z'` becomes a range, `']'` closes a character class early).
-String _escapeRegExp(String str) {
-  return str.replaceAllMapped(_regExpSpecialCharacters, (m) => '\\${m[0]}');
+/// literally. Unlike the public [escapeRegExp] this also escapes `-` and `/`, because the
+/// result may land inside a character class, where `'a-z'` would become a range and `']'`
+/// would close the class early.
+String _escapeRegExpInClass(String str) {
+  return str.replaceAllMapped(
+      _regExpSpecialCharactersInClass, (m) => '\\${m[0]}');
 }
 
 /// Removes all whitespace before and after a string. Unlike JavaScript's `trim` function, it converts two or more spaces between sentences into a single space.
@@ -31,8 +34,9 @@ String trim(String str) {
 
 /// Returns after removing all special characters, including spaces. If you want to allow any special characters as exceptions, list them in the second argument value without delimiters. For example, if you want to allow spaces and the symbols `&` and `*`, the second argument value would be ' &\*'.
 String removeSpecialChar(String str, {String? exceptionCharacters}) {
-  final String exception =
-      exceptionCharacters == null ? '' : _escapeRegExp(exceptionCharacters);
+  final String exception = exceptionCharacters == null
+      ? ''
+      : _escapeRegExpInClass(exceptionCharacters);
 
   return str.replaceAll(
       RegExp(
@@ -51,7 +55,8 @@ String replaceBetween(String str, String startChar, String endChar,
   // Escape the whole delimiter. Prefixing a single backslash only worked for
   // one-character delimiters and produced an invalid pattern for longer ones.
   return str.replaceAll(
-      RegExp('${_escapeRegExp(startChar)}.*?${_escapeRegExp(endChar)}'),
+      RegExp(
+          '${_escapeRegExpInClass(startChar)}.*?${_escapeRegExpInClass(endChar)}'),
       replaceWith);
 }
 
@@ -565,4 +570,19 @@ String deburr(String? str) {
   }
 
   return result.toString();
+}
+
+/// (Private) Compiled once. The set is the union of the characters that are special
+/// *outside* a character class in JavaScript, Dart and Python.
+final RegExp _regExpSpecialCharacters = RegExp(r'[\\^$.*+?()\[\]{}|]');
+
+/// Escapes every regular expression metacharacter in the given string, so the value can be dropped into a pattern and matched literally.
+/// The escaped set is `^ $ . * + ? ( ) [ ] { } |` and `\`, the union of what JavaScript, Dart and Python all read as syntax outside a character class.
+/// `-` and `#` are left alone: they are special only inside a character class or in Python's verbose mode.
+String escapeRegExp(String? str) {
+  if (str == null || str.isEmpty) {
+    return '';
+  }
+
+  return str.replaceAllMapped(_regExpSpecialCharacters, (m) => '\\${m[0]}');
 }

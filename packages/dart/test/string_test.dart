@@ -220,5 +220,20 @@ st'''), 'test');
       expect(deburr('한글'), '한글');
       expect(deburr('Ti\u1ebfng Vi\u1ec7t'), 'Ti\u1ebfng Vi\u1ec7t');
     });
+
+    test('escapeRegExp', () {
+      expect(escapeRegExp(''), '');
+      expect(escapeRegExp(null), '');
+      expect(escapeRegExp('hello'), 'hello');
+      expect(escapeRegExp('1 + 1 = 2'), r'1 \+ 1 = 2');
+      expect(escapeRegExp('[qsu](https://qsu.cdget.com/)'),
+          r'\[qsu\]\(https://qsu\.cdget\.com/\)');
+      expect(escapeRegExp(r'^$.*+?()[]{}|\'), r'\^\$\.\*\+\?\(\)\[\]\{\}\|\\');
+      // `-`, `#`, `/` and whitespace are not special outside a character class.
+      expect(escapeRegExp('a-z #1 / b'), 'a-z #1 / b');
+      // The escaped value matches itself literally.
+      expect(RegExp(escapeRegExp('a.b')).hasMatch('a.b'), true);
+      expect(RegExp(escapeRegExp('a.b')).hasMatch('axb'), false);
+    });
   });
 }

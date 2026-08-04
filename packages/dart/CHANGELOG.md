@@ -2,6 +2,7 @@
 
 ## 1.5.0 (2026--)
 
+- `escapeRegExp`: Added. Escapes every regular expression metacharacter (`^ $ . * + ? ( ) [ ] { } |` and `\`) so a value can be matched literally. `-` and `#` are left alone: they are special only inside a character class. The private helper behind `removeSpecialChar` and `replaceBetween`, which does also escape `-` and `/` because its result lands inside a character class, is now named `_escapeRegExpInClass` to keep the two apart
 - `deburr`: Added. Replaces accented Latin letters with their unaccented equivalents (`déjà vu` becomes `deja vu`), spelling out `Æ`, `ß`, `Þ`, `Œ` and `Ĳ`, and dropping combining marks. Covers the Latin-1 Supplement and Latin Extended-A blocks
 - `words`: Added. Splits a string into the words it is made of. Anything that is neither a letter nor a digit separates words, and camelCase boundaries, runs of capitals (`XMLHttpRequest` is `XML`, `Http`, `Request`) and runs of digits are split as well
 - `arrIntersection`: Added. Returns the values that are present in every one of the given arrays. The result is unique and keeps the order of the first array
