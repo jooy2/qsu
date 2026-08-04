@@ -8,7 +8,8 @@ import {
 	objToArray,
 	objDeleteKeyByValue,
 	objUpdate,
-	objMergeNewKey
+	objMergeNewKey,
+	objPickBy
 } from '../dist';
 
 describe('Misc', () => {
@@ -593,5 +594,43 @@ describe('Misc', () => {
 				]
 			}
 		);
+	});
+
+	it('objPickBy', () => {
+		assert.deepStrictEqual(
+			objPickBy({ a: 1, b: 2, c: 3 }, (value) => value > 1),
+			{ b: 2, c: 3 }
+		);
+		assert.deepStrictEqual(
+			objPickBy({ a: 1, b: 2 }, (value, key) => key === 'a'),
+			{ a: 1 }
+		);
+		assert.deepStrictEqual(
+			objPickBy({ a: null, b: 1 }, (value) => value !== null),
+			{ b: 1 }
+		);
+		assert.deepStrictEqual(
+			objPickBy({ a: 1 }, () => false),
+			{}
+		);
+		assert.deepStrictEqual(
+			objPickBy({}, () => true),
+			{}
+		);
+		// Only the top level is inspected; a nested object is carried over as it is.
+		assert.deepStrictEqual(
+			objPickBy({ a: { b: 1 }, c: 2 }, (value) => typeof value === 'object'),
+			{ a: { b: 1 } }
+		);
+		assert.strictEqual(
+			objPickBy(null as any, () => true),
+			null
+		);
+
+		// The original object is not modified.
+		const original = { a: 1, b: 2 };
+
+		objPickBy(original, (value) => value > 1);
+		assert.deepStrictEqual(original, { a: 1, b: 2 });
 	});
 });
