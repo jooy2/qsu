@@ -180,5 +180,30 @@ void main() {
       objPickBy(original, (value, key) => value > 1);
       expect(original, {'a': 1, 'b': 2});
     });
+
+    test('objMapKeys', () {
+      expect(objMapKeys({'a': 1, 'b': 2}, (value, key) => key.toUpperCase()),
+          {'A': 1, 'B': 2});
+      expect(objMapKeys({'a': 1, 'b': 2}, (value, key) => '$key$value'),
+          {'a1': 1, 'b2': 2});
+      // When two keys map onto the same name, the later one wins.
+      expect(objMapKeys({'a': 1, 'b': 2}, (value, key) => 'x'), {'x': 2});
+      expect(objMapKeys({}, (value, key) => key), {});
+      // The keys of a nested map are left alone.
+      expect(
+          objMapKeys({
+            'a': {'b': 1}
+          }, (value, key) => key.toUpperCase()),
+          {
+            'A': {'b': 1}
+          });
+      expect(objMapKeys(null, (value, key) => key), null);
+
+      // The original object is not modified.
+      final Map<String, dynamic> original = {'a': 1};
+
+      objMapKeys(original, (value, key) => key.toUpperCase());
+      expect(original, {'a': 1});
+    });
   });
 }

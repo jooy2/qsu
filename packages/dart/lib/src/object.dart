@@ -120,3 +120,24 @@ Map<String, dynamic>? objPickBy(
 
   return result;
 }
+
+/// Returns a new object whose keys are the values returned by the callback. The values are carried over untouched.
+/// The callback receives `(value, key)`, in that order, matching the rest of the ecosystem.
+/// Only the top level is inspected: the keys of a nested map are left alone.
+/// When two keys map onto the same name, the later one wins.
+Map<String, dynamic>? objMapKeys(
+  Map<String, dynamic>? obj,
+  String Function(dynamic value, String key) iteratee,
+) {
+  if (obj == null) {
+    return null;
+  }
+
+  final Map<String, dynamic> result = {};
+
+  obj.forEach((String key, dynamic value) {
+    result[iteratee(value, key)] = value;
+  });
+
+  return result;
+}
