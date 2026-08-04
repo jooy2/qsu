@@ -18,6 +18,7 @@ from qsu import (
 	truncate,
 	truncateExpect,
 	urlJoin,
+	words,
 )
 
 
@@ -234,3 +235,35 @@ def test_getGroupKeys():
 	]
 	assert getGroupKeys('abc {d\nef}', '{', '}') == []
 	assert getGroupKeys('abc {def}\n\n{ghi}\n\n{a\n}', '{', '}') == ['def', 'ghi']
+
+
+def test_words():
+	assert words('') == []
+	assert words(None) == []
+	assert words('   ') == []
+	assert words('hello world') == ['hello', 'world']
+	assert words('fred, barney, & pebbles') == ['fred', 'barney', 'pebbles']
+	assert words('--foo-bar--') == ['foo', 'bar']
+	assert words('constant_case_VALUE') == ['constant', 'case', 'VALUE']
+	# camelCase and PascalCase boundaries.
+	assert words('camelCase') == ['camel', 'Case']
+	assert words('PascalCase') == ['Pascal', 'Case']
+	# The last capital of a run of capitals opens the next word.
+	assert words('XMLHttpRequest') == ['XML', 'Http', 'Request']
+	assert words('ABC') == ['ABC']
+	assert words('ABCd') == ['AB', 'Cd']
+	# Digits are their own words.
+	assert words('abc12def') == ['abc', '12', 'def']
+	assert words('version 2 of qsu') == ['version', '2', 'of', 'qsu']
+	# Uncased scripts have no camelCase boundary, and switch words on a cased letter.
+	assert words('한글English혼합') == ['한글', 'English', '혼합']
+	assert words('안녕하세요 반갑습니다') == [
+		'안녕하세요',
+		'반갑습니다',
+	]
+	# Accents stay attached, whether precomposed or decomposed.
+	assert words('D\u00e9j\u00e0 Vu') == ['D\u00e9j\u00e0', 'Vu']
+	assert words('De\u0301ja\u0300 Vu') == ['De\u0301ja\u0300', 'Vu']
+	assert words("don't") == ['don', 't']
+	# `ß` is a lowercase letter even though it upper-cases to two characters.
+	assert words('Straße') == ['Straße']

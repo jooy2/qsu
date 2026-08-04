@@ -17,6 +17,7 @@ from .trim import trim
 from .truncate import truncate
 from .truncateExpect import truncateExpect
 from .urlJoin import urlJoin
+from .words import words
 
 __all__ = [
 	'capitalizeEachWords',
@@ -38,4 +39,5 @@ __all__ = [
 	'truncate',
 	'truncateExpect',
 	'urlJoin',
+	'words',
 ]
