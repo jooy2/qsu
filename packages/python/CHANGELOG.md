@@ -2,6 +2,7 @@
 
 ## 1.2.0 (2026--)
 
+- `throttle`: Added. Limits how often a function may run to at most once per `wait` window, the counterpart of `debounce`. `leading` and `trailing` (both `True` by default) choose which edge of the window runs. The trailing call is scheduled on a background thread, as `debounce` already does
 - `objInvert`: Added. Returns a new object with the keys and values swapped. Values are converted to text because keys are always strings — `None` becomes `null` and `True` becomes `true`, and a whole `float` loses its fractional part, so the result matches the JavaScript implementation — and the later entry wins when two share a value
 - `objMapKeys`: Added. Returns a new object whose keys are the values returned by the callback, with the values carried over untouched. The callback receives `(value, key)`, and the later key wins when two map onto the same name
 - `objPickBy`: Added. Returns a new object containing only the entries for which the callback returns `true`. The callback receives `(value, key)`, and only the top level is inspected

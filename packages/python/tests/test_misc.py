@@ -5,6 +5,7 @@ from qsu.misc import (
 	funcTimes,
 	logBox,
 	sleep,
+	throttle,
 )
 
 
@@ -77,3 +78,41 @@ def test_logBox_no_arguments(capsys):
 	captured = capsys.readouterr()
 
 	assert '(no arguments)' in captured.out
+
+
+def test_throttle():
+	calls = []
+	throttled = throttle(lambda value: calls.append(value), 30)
+
+	# The leading edge runs straight away; the rest collapse into one trailing call
+	# carrying the most recent arguments.
+	throttled(1)
+	throttled(2)
+	throttled(3)
+	assert calls == [1]
+
+	time.sleep(0.08)
+	assert calls == [1, 3]
+
+
+def test_throttle_leading_false():
+	calls = []
+	throttled = throttle(lambda value: calls.append(value), 30, leading=False)
+
+	throttled(1)
+	throttled(2)
+	assert calls == []
+
+	time.sleep(0.08)
+	assert calls == [2]
+
+
+def test_throttle_trailing_false():
+	calls = []
+	throttled = throttle(lambda value: calls.append(value), 30, {'trailing': False})
+
+	throttled(1)
+	throttled(2)
+
+	time.sleep(0.08)
+	assert calls == [1]
