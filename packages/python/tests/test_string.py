@@ -2,6 +2,7 @@ from qsu import (
 	capitalizeEachWords,
 	capitalizeEverySentence,
 	capitalizeFirst,
+	deburr,
 	getGroupKeys,
 	getStrBytes,
 	removeNewLine,
@@ -267,3 +268,22 @@ def test_words():
 	assert words("don't") == ['don', 't']
 	# `ß` is a lowercase letter even though it upper-cases to two characters.
 	assert words('Straße') == ['Straße']
+
+
+def test_deburr():
+	assert deburr('') == ''
+	assert deburr(None) == ''
+	assert deburr('hello') == 'hello'
+	assert deburr('déjà vu') == 'deja vu'
+	assert deburr('Łódź') == 'Lodz'
+	assert deburr('Ærøskøbing') == 'Aeroskobing'
+	assert deburr('Þór') == 'Thor'
+	assert deburr('Straße') == 'Strasse'
+	assert deburr('Ĳsselmeer') == 'IJsselmeer'
+	assert deburr('Œuvre') == 'Oeuvre'
+	# A decomposed accent is dropped along with the precomposed ones.
+	assert deburr('Cafe\u0301') == 'Cafe'
+	assert deburr('De\u0301ja\u0300 Vu') == 'Deja Vu'
+	# Anything outside Latin-1 Supplement and Latin Extended-A is left as it is.
+	assert deburr('한글') == '한글'
+	assert deburr('Ti\u1ebfng Vi\u1ec7t') == 'Ti\u1ebfng Vi\u1ec7t'

@@ -1,6 +1,7 @@
 from .capitalizeEachWords import capitalizeEachWords
 from .capitalizeEverySentence import capitalizeEverySentence
 from .capitalizeFirst import capitalizeFirst
+from .deburr import deburr
 from .getGroupKeys import getGroupKeys
 from .getStrBytes import getStrBytes
 from .removeNewLine import removeNewLine
@@ -23,6 +24,7 @@ __all__ = [
 	'capitalizeEachWords',
 	'capitalizeEverySentence',
 	'capitalizeFirst',
+	'deburr',
 	'getGroupKeys',
 	'getStrBytes',
 	'removeNewLine',
