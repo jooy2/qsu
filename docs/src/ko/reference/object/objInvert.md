@@ -8,6 +8,8 @@
 
 원본 객체는 변경되지 않습니다. 인자가 객체가 아니면 `null`을 반환합니다.
 
+순회 순서에 대해 한 가지 유의할 점이 있습니다. JavaScript 객체는 정수 형태의 키를 항상 먼저 열거하므로 `objInvert({ a: 'x', b: 1 })`은 JavaScript에서 `1`이 `x`보다 먼저 나오지만, Dart와 Python은 삽입 순서를 유지합니다. 항목 자체는 세 언어에서 모두 동일합니다.
+
 ## Parameters
 
 <ParamsTable :rows="[

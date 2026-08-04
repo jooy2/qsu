@@ -8,6 +8,8 @@ Only the top level is inspected, and when two entries share a value the later on
 
 The original object is not modified. If the argument is not an object, `null` is returned.
 
+One note on iteration order: a JavaScript object always enumerates integer-like keys first, so `objInvert({ a: 'x', b: 1 })` iterates `1` before `x` there while Dart and Python keep the insertion order. The entries themselves are identical in all three.
+
 ## Parameters
 
 <ParamsTable :rows="[
