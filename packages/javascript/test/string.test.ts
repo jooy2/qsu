@@ -19,7 +19,8 @@ import {
 	split,
 	strUnique,
 	strToAscii,
-	urlJoin
+	urlJoin,
+	words
 } from '../dist';
 
 describe('String', () => {
@@ -240,5 +241,33 @@ st`),
 		]);
 		assert.deepStrictEqual(getGroupKeys('abc {d\nef}', '{', '}'), []);
 		assert.deepStrictEqual(getGroupKeys('abc {def}\n\n{ghi}\n\n{a\n}', '{', '}'), ['def', 'ghi']);
+	});
+
+	it('words', () => {
+		assert.deepStrictEqual(words(''), []);
+		assert.deepStrictEqual(words('   '), []);
+		assert.deepStrictEqual(words('hello world'), ['hello', 'world']);
+		assert.deepStrictEqual(words('fred, barney, & pebbles'), ['fred', 'barney', 'pebbles']);
+		assert.deepStrictEqual(words('--foo-bar--'), ['foo', 'bar']);
+		assert.deepStrictEqual(words('constant_case_VALUE'), ['constant', 'case', 'VALUE']);
+		// camelCase and PascalCase boundaries.
+		assert.deepStrictEqual(words('camelCase'), ['camel', 'Case']);
+		assert.deepStrictEqual(words('PascalCase'), ['Pascal', 'Case']);
+		// The last capital of a run of capitals opens the next word.
+		assert.deepStrictEqual(words('XMLHttpRequest'), ['XML', 'Http', 'Request']);
+		assert.deepStrictEqual(words('ABC'), ['ABC']);
+		assert.deepStrictEqual(words('ABCd'), ['AB', 'Cd']);
+		// Digits are their own words.
+		assert.deepStrictEqual(words('abc12def'), ['abc', '12', 'def']);
+		assert.deepStrictEqual(words('version 2 of qsu'), ['version', '2', 'of', 'qsu']);
+		// Uncased scripts have no camelCase boundary, and switch words on a cased letter.
+		assert.deepStrictEqual(words('한글English혼합'), ['한글', 'English', '혼합']);
+		assert.deepStrictEqual(words('안녕하세요 반갑습니다'), ['안녕하세요', '반갑습니다']);
+		// Accents stay attached, whether precomposed or decomposed.
+		assert.deepStrictEqual(words('Déjà Vu'), ['Déjà', 'Vu']);
+		assert.deepStrictEqual(words('De\u0301ja\u0300 Vu'), ['De\u0301ja\u0300', 'Vu']);
+		assert.deepStrictEqual(words("don't"), ['don', 't']);
+		// `ß` is a lowercase letter even though it upper-cases to two characters.
+		assert.deepStrictEqual(words('Straße'), ['Straße']);
 	});
 });

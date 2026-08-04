@@ -9,7 +9,7 @@ Things worth knowing before answering questions about qsu:
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
 - In JavaScript, the `crypto`, `file`, `net` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as does `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
-- 125 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
+- 126 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
 ## Getting started
 
@@ -180,6 +180,8 @@ String transformation, capitalization, trimming and truncation.
 - [truncate](https://qsu.cdget.com/reference/string/truncate) (JavaScript, Dart, Python): Truncates a long string to a specified length, optionally appending an ellipsis after the string.
 - [truncateExpect](https://qsu.cdget.com/reference/string/truncateExpect) (JavaScript, Dart, Python): The string ignores truncation until the ending character (`endStringChar`). If the expected length is reached, return the truncated string until after the ending character.
 - [urlJoin](https://qsu.cdget.com/reference/string/urlJoin) (JavaScript, Dart, Python): Merges the given string argument with the first argument (the beginning of the URL), joining it so that the slash (`/`) symbol is correctly included.
+
+- [words](https://qsu.cdget.com/reference/string/words) (JavaScript, Dart, Python): Splits a string into the words it is made of and returns them as an array. Anything that is neither a letter nor a digit separates words, and camelCase boundaries, runs of capitals and runs of digits are split as well.
 
 ## verify
 

@@ -2,6 +2,7 @@
 
 ## 1.16.0 (2026--)
 
+- `words`: Added. Splits a string into the words it is made of. Anything that is neither a letter nor a digit separates words, and camelCase boundaries, runs of capitals (`XMLHttpRequest` is `XML`, `Http`, `Request`) and runs of digits are split as well
 - `arrIntersection`: Added. Returns the values that are present in every one of the given arrays. The result is unique and keeps the order of the first array
 - `arrDifference`: Added. Returns the values of the first array that are not contained in any of the other arrays. Values are compared by value rather than by reference, so nested arrays and objects are matched as well
 - `arrCompact`: Added. Returns a new array with every falsy value removed (`null`, `undefined`, `false`, `0`, `''`, `NaN`). Empty arrays and objects are truthy and are kept
