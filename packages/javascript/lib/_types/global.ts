@@ -21,6 +21,12 @@ export type DurationOptions = {
 	unit?: DurationUnitName;
 };
 
+export type RetryOptions = {
+	times?: number;
+	delay?: number;
+	backoff?: number;
+};
+
 export type ThrottleOptions = {
 	leading?: boolean;
 	trailing?: boolean;

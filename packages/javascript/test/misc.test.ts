@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
 import { setTimeout } from 'timers/promises';
-import { sleep, funcTimes, debounce, arrWithDefault, throttle } from '../dist';
+import { sleep, funcTimes, debounce, arrWithDefault, throttle, retry } from '../dist';
 import { logBox } from '../dist/node';
 
 describe('Misc', () => {
@@ -97,5 +97,71 @@ describe('Misc', () => {
 
 		await sleep(80);
 		assert.deepStrictEqual(calls, [1]);
+	});
+
+	it('retry', async () => {
+		let attempts = 0;
+		const result = await retry(() => {
+			attempts += 1;
+
+			if (attempts < 3) {
+				throw new Error('nope');
+			}
+
+			return 'ok';
+		});
+
+		assert.strictEqual(result, 'ok');
+		assert.strictEqual(attempts, 3);
+
+		// An asynchronous function is awaited.
+		assert.strictEqual(await retry(async () => 'async ok'), 'async ok');
+
+		// After `times` attempts the error of the last one is thrown.
+		let failures = 0;
+
+		await assert.rejects(
+			retry(
+				() => {
+					failures += 1;
+					throw new Error('always');
+				},
+				{ times: 2 }
+			),
+			/always/
+		);
+		assert.strictEqual(failures, 2);
+
+		// `times: 1` disables retrying.
+		let once = 0;
+
+		await assert.rejects(
+			retry(
+				() => {
+					once += 1;
+					throw new Error('x');
+				},
+				{ times: 1 }
+			)
+		);
+		assert.strictEqual(once, 1);
+
+		await assert.rejects(retry(() => 1, { times: 0 }));
+
+		// `backoff` multiplies the delay after every failure: 20ms, then 40ms.
+		const started = Date.now();
+		let delayed = 0;
+
+		await assert.rejects(
+			retry(
+				() => {
+					delayed += 1;
+					throw new Error('x');
+				},
+				{ times: 3, delay: 20, backoff: 2 }
+			)
+		);
+		assert.strictEqual(delayed, 3);
+		assert(Date.now() - started >= 50);
 	});
 });
