@@ -2,6 +2,7 @@
 
 ## 1.5.0 (2026--)
 
+- `objPickBy`: Added. Returns a new object containing only the entries for which the callback returns `true`. The callback receives `(value, key)`, and only the top level is inspected
 - `uncapitalizeFirst`: Added. Converts the first letter of the entire string to lowercase, the inverse of `capitalizeFirst`. Only the first character is touched, so `TEST` becomes `tEST`
 - `escapeRegExp`: Added. Escapes every regular expression metacharacter (`^ $ . * + ? ( ) [ ] { } |` and `\`) so a value can be matched literally. `-` and `#` are left alone: they are special only inside a character class. The private helper behind `removeSpecialChar` and `replaceBetween`, which does also escape `-` and `/` because its result lands inside a character class, is now named `_escapeRegExpInClass` to keep the two apart
 - `deburr`: Added. Replaces accented Latin letters with their unaccented equivalents (`déjà vu` becomes `deja vu`), spelling out `Æ`, `ß`, `Þ`, `Œ` and `Ĳ`, and dropping combining marks. Covers the Latin-1 Supplement and Latin Extended-A blocks

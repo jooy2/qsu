@@ -98,3 +98,25 @@ Map<String, dynamic> objTo1d(Map<String, dynamic> obj,
 
   return convertObjectTo1d(obj);
 }
+
+/// Returns a new object containing only the entries for which the callback returns `true`.
+/// The callback receives `(value, key)`, in that order, matching the rest of the ecosystem.
+/// Only the top level is inspected: a nested map is carried over as it is, never filtered.
+Map<String, dynamic>? objPickBy(
+  Map<String, dynamic>? obj,
+  bool Function(dynamic value, String key) predicate,
+) {
+  if (obj == null) {
+    return null;
+  }
+
+  final Map<String, dynamic> result = {};
+
+  obj.forEach((String key, dynamic value) {
+    if (predicate(value, key)) {
+      result[key] = value;
+    }
+  });
+
+  return result;
+}

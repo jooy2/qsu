@@ -154,5 +154,31 @@ void main() {
             'c': 3
           });
     });
+
+    test('objPickBy', () {
+      expect(objPickBy({'a': 1, 'b': 2, 'c': 3}, (value, key) => value > 1),
+          {'b': 2, 'c': 3});
+      expect(objPickBy({'a': 1, 'b': 2}, (value, key) => key == 'a'), {'a': 1});
+      expect(objPickBy({'a': null, 'b': 1}, (value, key) => value != null),
+          {'b': 1});
+      expect(objPickBy({'a': 1}, (value, key) => false), {});
+      expect(objPickBy({}, (value, key) => true), {});
+      // Only the top level is inspected; a nested map is carried over as it is.
+      expect(
+          objPickBy({
+            'a': {'b': 1},
+            'c': 2
+          }, (value, key) => value is Map),
+          {
+            'a': {'b': 1}
+          });
+      expect(objPickBy(null, (value, key) => true), null);
+
+      // The original object is not modified.
+      final Map<String, dynamic> original = {'a': 1, 'b': 2};
+
+      objPickBy(original, (value, key) => value > 1);
+      expect(original, {'a': 1, 'b': 2});
+    });
   });
 }
