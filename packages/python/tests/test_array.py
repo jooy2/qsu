@@ -1,3 +1,5 @@
+import math
+
 import pytest
 
 from qsu.array import (
@@ -5,6 +7,7 @@ from qsu.array import (
 	arrCount,
 	arrDifference,
 	arrGroupByMaxCount,
+	arrIntersection,
 	arrMove,
 	arrPick,
 	arrRepeat,
@@ -218,3 +221,27 @@ def test_arrDifference():
 	assert arrDifference([None, 0, 1], [None]) == [0, 1]
 	assert arrDifference([True, 1], [1]) == [True]
 	assert arrDifference(None, [1]) == []
+
+
+def test_arrIntersection():
+	assert arrIntersection([2, 1], [2, 3]) == [2]
+	assert arrIntersection([1, 2, 3], [2, 3, 4], [3, 2]) == [2, 3]
+	# The result is unique and keeps the order of the first array.
+	assert arrIntersection([2, 1, 2], [2]) == [2]
+	assert arrIntersection([3, 1, 2], [1, 2, 3]) == [3, 1, 2]
+	assert arrIntersection([1, 2], [3]) == []
+	assert arrIntersection([1, 1, 2]) == [1, 2]
+	assert arrIntersection() == []
+	assert arrIntersection([], [1]) == []
+	# Values are compared by value, so nested lists and dicts are matched too.
+	assert arrIntersection([[1], [2]], [[2], [3]]) == [[2]]
+	assert arrIntersection([{'a': 1}, {'b': 2}], [{'b': 2}]) == [{'b': 2}]
+	# `1` and `'1'` are different values.
+	assert arrIntersection([1, '1'], ['1']) == ['1']
+	assert arrIntersection([True, 1], [1]) == [1]
+
+	# `nan` never equals itself, so the value cannot be compared directly.
+	nanResult = arrIntersection([float('nan'), 1], [float('nan')])
+
+	assert len(nanResult) == 1
+	assert math.isnan(nanResult[0])

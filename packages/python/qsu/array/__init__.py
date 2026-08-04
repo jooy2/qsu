@@ -2,6 +2,7 @@ from .arrCompact import arrCompact
 from .arrCount import arrCount
 from .arrDifference import arrDifference
 from .arrGroupByMaxCount import arrGroupByMaxCount
+from .arrIntersection import arrIntersection
 from .arrMove import arrMove
 from .arrPick import arrPick
 from .arrRepeat import arrRepeat
@@ -19,6 +20,7 @@ __all__ = [
 	'arrCount',
 	'arrDifference',
 	'arrGroupByMaxCount',
+	'arrIntersection',
 	'arrMove',
 	'arrPick',
 	'arrRepeat',

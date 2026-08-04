@@ -2,6 +2,7 @@
 
 ## 1.2.0 (2026--)
 
+- `arrIntersection`: Added. Returns the values that are present in every one of the given arrays. The result is unique and keeps the order of the first array
 - `arrDifference`: Added. Returns the values of the first array that are not contained in any of the other arrays. Values are compared by value rather than by identity, so nested lists and dicts are matched as well
 - `arrCompact`: Added. Returns a new array with every falsy value removed (`None`, `False`, `0`, `''`, `nan`). An empty list and an empty dict are kept, matching the JavaScript implementation
 
