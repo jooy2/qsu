@@ -1,3 +1,4 @@
+from .arrCompact import arrCompact
 from .arrCount import arrCount
 from .arrGroupByMaxCount import arrGroupByMaxCount
 from .arrMove import arrMove
@@ -13,6 +14,7 @@ from .sortByObjectKey import sortByObjectKey
 from .sortNumeric import sortNumeric
 
 __all__ = [
+	'arrCompact',
 	'arrCount',
 	'arrGroupByMaxCount',
 	'arrMove',

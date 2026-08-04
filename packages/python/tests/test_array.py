@@ -1,6 +1,7 @@
 import pytest
 
 from qsu.array import (
+	arrCompact,
 	arrCount,
 	arrGroupByMaxCount,
 	arrMove,
@@ -185,3 +186,15 @@ def test_arrGroupByMaxCount():
 	assert arrGroupByMaxCount([1, 2, [], 4, [[]]], 2) == [[1, 2], [[], 4], [[[]]]]
 	assert arrGroupByMaxCount([1, 2, 3, 4], 5) == [[1, 2, 3, 4]]
 	assert arrGroupByMaxCount([1, 1, 1, 1, 1, 1], 2) == [[1, 1], [1, 1], [1, 1]]
+
+
+def test_arrCompact():
+	assert arrCompact([0, 1, False, 2, '', 3, None, float('nan')]) == [1, 2, 3]
+	assert arrCompact([False, 0, '', None, float('nan')]) == []
+	assert arrCompact([]) == []
+	assert arrCompact(['a', 'b']) == ['a', 'b']
+	# Empty containers and whitespace are not falsy and must survive.
+	assert arrCompact([[], {}, ' ', '0']) == [[], {}, ' ', '0']
+	assert arrCompact([-0.0, 0.0, 0]) == []
+	assert arrCompact([True, -1, 0.5]) == [True, -1, 0.5]
+	assert arrCompact(None) == []

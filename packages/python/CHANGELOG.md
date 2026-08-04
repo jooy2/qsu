@@ -1,5 +1,9 @@
 # Changelog (Python)
 
+## 1.2.0 (2026--)
+
+- `arrCompact`: Added. Returns a new array with every falsy value removed (`None`, `False`, `0`, `''`, `nan`). An empty list and an empty dict are kept, matching the JavaScript implementation
+
 ## 1.1.0 (2026-08-04)
 
 - **BREAKING CHANGES**: `isValidFileName` now rejects an empty name and any name carrying a control character (`U+0000`-`U+001F` or `U+007F`). `NUL` is the one that matters: it terminates the path in the system call underneath every filesystem, so a name carrying one was reported as valid and then silently truncated on the way to disk
