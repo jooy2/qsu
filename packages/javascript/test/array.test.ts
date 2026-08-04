@@ -16,7 +16,8 @@ import {
 	funcTimes,
 	arrPick,
 	arrCompact,
-	arrDifference
+	arrDifference,
+	arrIntersection
 } from '../dist';
 
 describe('Array', () => {
@@ -314,5 +315,23 @@ describe('Array', () => {
 		assert.deepStrictEqual(arrDifference([null, undefined, 0], [null]), [undefined, 0]);
 		assert.deepStrictEqual(arrDifference([NaN, 1], [NaN]), [1]);
 		assert.deepStrictEqual(arrDifference(null as unknown as any[], [1]), []);
+	});
+
+	it('arrIntersection', () => {
+		assert.deepStrictEqual(arrIntersection([2, 1], [2, 3]), [2]);
+		assert.deepStrictEqual(arrIntersection([1, 2, 3], [2, 3, 4], [3, 2]), [2, 3]);
+		// The result is unique and keeps the order of the first array.
+		assert.deepStrictEqual(arrIntersection([2, 1, 2], [2]), [2]);
+		assert.deepStrictEqual(arrIntersection([3, 1, 2], [1, 2, 3]), [3, 1, 2]);
+		assert.deepStrictEqual(arrIntersection([1, 2], [3]), []);
+		assert.deepStrictEqual(arrIntersection([1, 1, 2]), [1, 2]);
+		assert.deepStrictEqual(arrIntersection(), []);
+		assert.deepStrictEqual(arrIntersection([], [1]), []);
+		// Values are compared by value, so nested arrays and objects are matched too.
+		assert.deepStrictEqual(arrIntersection([[1], [2]], [[2], [3]]), [[2]]);
+		assert.deepStrictEqual(arrIntersection([{ a: 1 }, { b: 2 }], [{ b: 2 }]), [{ b: 2 }]);
+		// `1` and `'1'` are different values.
+		assert.deepStrictEqual(arrIntersection([1, '1'], ['1']), ['1']);
+		assert.deepStrictEqual(arrIntersection([NaN, 1], [NaN]), [NaN]);
 	});
 });
