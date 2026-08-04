@@ -173,3 +173,28 @@ List<String> sortNumeric(List<String> array, {bool descending = false}) {
 
   return descending ? result.reversed.toList() : result;
 }
+
+/// Returns a new array with every falsy value removed.
+/// Dart has no truthiness of its own, so the rejected set is fixed rather than left to the language: `null`, `false`, `0` (including `-0.0` and `0.0`), the empty string and `NaN`.
+/// Everything else is kept, so an empty list, an empty map and a string of spaces all survive.
+List<dynamic> arrCompact(List<dynamic>? array) {
+  if (array == null) {
+    return [];
+  }
+
+  final List<dynamic> result = [];
+
+  for (final dynamic value in array) {
+    if (value == null || value == false || value == '') {
+      continue;
+    }
+
+    if (value is num && (value == 0 || (value is double && value.isNaN))) {
+      continue;
+    }
+
+    result.add(value);
+  }
+
+  return result;
+}

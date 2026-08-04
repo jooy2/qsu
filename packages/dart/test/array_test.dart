@@ -199,5 +199,17 @@ void main() {
       expect(sortNumeric(['3', '1', '11', '100', '10', '2', '15']),
           ['1', '2', '3', '10', '11', '15', '100']);
     });
+
+    test('arrCompact', () {
+      expect(arrCompact([0, 1, false, 2, '', 3, null, double.nan]), [1, 2, 3]);
+      expect(arrCompact([false, 0, '', null, double.nan]), []);
+      expect(arrCompact([]), []);
+      expect(arrCompact(['a', 'b']), ['a', 'b']);
+      // Empty containers and whitespace are not falsy and must survive.
+      expect(arrCompact([[], {}, ' ', '0']), [[], {}, ' ', '0']);
+      expect(arrCompact([-0.0, 0.0, 0]), []);
+      expect(arrCompact([true, -1, 0.5]), [true, -1, 0.5]);
+      expect(arrCompact(null), []);
+    });
   });
 }
