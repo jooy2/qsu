@@ -9,7 +9,7 @@ Things worth knowing before answering questions about qsu:
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
 - In JavaScript, the `crypto`, `file`, `net` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as does `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
-- 127 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
+- 128 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
 ## Getting started
 
@@ -165,6 +165,7 @@ String transformation, capitalization, trimming and truncation.
 - [capitalizeEverySentence](https://qsu.cdget.com/reference/string/capitalizeEverySentence) (JavaScript, Dart, Python): Capitalize the first letter of every sentence. Typically, the `.` characters to separate sentences, but this can be customized via the value of the `splitChar` argument.
 - [capitalizeFirst](https://qsu.cdget.com/reference/string/capitalizeFirst) (JavaScript, Dart, Python): Converts the first letter of the entire string to uppercase and returns.
 - [deburr](https://qsu.cdget.com/reference/string/deburr) (JavaScript, Dart, Python): Replaces accented Latin letters with their unaccented equivalents, so `déjà vu` becomes `deja vu`. Covers the Latin-1 Supplement and Latin Extended-A blocks plus combining marks.
+- [escapeRegExp](https://qsu.cdget.com/reference/string/escapeRegExp) (JavaScript, Dart, Python): Escapes every regular expression metacharacter in the given string, so the value can be dropped into a pattern and matched literally.
 - [getGroupKeys](https://qsu.cdget.com/reference/string/getGroupKeys) (JavaScript, Python): Returns a text key enclosed between the start and end characters in the given string. This can be useful for identifying template string keys in strings that follow i18n syntax.
 - [getStrBytes](https://qsu.cdget.com/reference/string/getStrBytes) (JavaScript, Dart, Python): Returns the number of bytes in the given string.
 - [removeNewLine](https://qsu.cdget.com/reference/string/removeNewLine) (JavaScript, Dart, Python): Removes `\n`, `\r` characters or replaces them with specified characters.

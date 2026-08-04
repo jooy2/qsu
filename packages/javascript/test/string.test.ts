@@ -21,7 +21,8 @@ import {
 	strToAscii,
 	urlJoin,
 	words,
-	deburr
+	deburr,
+	escapeRegExp
 } from '../dist';
 
 describe('String', () => {
@@ -288,5 +289,24 @@ st`),
 		// Anything outside Latin-1 Supplement and Latin Extended-A is left as it is.
 		assert.strictEqual(deburr('한글'), '한글');
 		assert.strictEqual(deburr('Ti\u1ebfng Vi\u1ec7t'), 'Ti\u1ebfng Vi\u1ec7t');
+	});
+
+	it('escapeRegExp', () => {
+		assert.strictEqual(escapeRegExp(''), '');
+		assert.strictEqual(escapeRegExp('hello'), 'hello');
+		assert.strictEqual(escapeRegExp('1 + 1 = 2'), '1 \\+ 1 = 2');
+		assert.strictEqual(
+			escapeRegExp('[qsu](https://qsu.cdget.com/)'),
+			'\\[qsu\\]\\(https://qsu\\.cdget\\.com/\\)'
+		);
+		assert.strictEqual(
+			escapeRegExp('^$.*+?()[]{}|\\'),
+			'\\^\\$\\.\\*\\+\\?\\(\\)\\[\\]\\{\\}\\|\\\\'
+		);
+		// `-`, `#`, `/` and whitespace are not special outside a character class.
+		assert.strictEqual(escapeRegExp('a-z #1 / b'), 'a-z #1 / b');
+		// The escaped value matches itself literally.
+		assert.strictEqual(new RegExp(escapeRegExp('a.b')).test('a.b'), true);
+		assert.strictEqual(new RegExp(escapeRegExp('a.b')).test('axb'), false);
 	});
 });

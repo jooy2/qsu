@@ -2,6 +2,7 @@ export { capitalizeEachWords } from './capitalizeEachWords.js';
 export { capitalizeEverySentence } from './capitalizeEverySentence.js';
 export { capitalizeFirst } from './capitalizeFirst.js';
 export { deburr } from './deburr.js';
+export { escapeRegExp } from './escapeRegExp.js';
 export { getGroupKeys } from './getGroupKeys.js';
 export { getStrBytes } from './getStrBytes.js';
 export { removeNewLine } from './removeNewLine.js';
