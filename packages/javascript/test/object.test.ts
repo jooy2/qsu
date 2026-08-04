@@ -9,7 +9,8 @@ import {
 	objDeleteKeyByValue,
 	objUpdate,
 	objMergeNewKey,
-	objPickBy
+	objPickBy,
+	objMapKeys
 } from '../dist';
 
 describe('Misc', () => {
@@ -632,5 +633,40 @@ describe('Misc', () => {
 
 		objPickBy(original, (value) => value > 1);
 		assert.deepStrictEqual(original, { a: 1, b: 2 });
+	});
+
+	it('objMapKeys', () => {
+		assert.deepStrictEqual(
+			objMapKeys({ a: 1, b: 2 }, (value, key) => key.toUpperCase()),
+			{ A: 1, B: 2 }
+		);
+		assert.deepStrictEqual(
+			objMapKeys({ a: 1, b: 2 }, (value, key) => `${key}${value}`),
+			{ a1: 1, b2: 2 }
+		);
+		// When two keys map onto the same name, the later one wins.
+		assert.deepStrictEqual(
+			objMapKeys({ a: 1, b: 2 }, () => 'x'),
+			{ x: 2 }
+		);
+		assert.deepStrictEqual(
+			objMapKeys({}, (value, key) => key),
+			{}
+		);
+		// The keys of a nested object are left alone.
+		assert.deepStrictEqual(
+			objMapKeys({ a: { b: 1 } }, (value, key) => key.toUpperCase()),
+			{ A: { b: 1 } }
+		);
+		assert.strictEqual(
+			objMapKeys(null as any, (value, key) => key),
+			null
+		);
+
+		// The original object is not modified.
+		const original = { a: 1 };
+
+		objMapKeys(original, (value, key) => key.toUpperCase());
+		assert.deepStrictEqual(original, { a: 1 });
 	});
 });
