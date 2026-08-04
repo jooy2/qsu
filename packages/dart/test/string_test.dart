@@ -173,5 +173,33 @@ st'''), 'test');
       expect(getStrBytes('😀'), 4);
       expect(getStrBytes('123 ABcd 가나다😀'), 22);
     });
+
+    test('words', () {
+      expect(words(''), []);
+      expect(words(null), []);
+      expect(words('   '), []);
+      expect(words('hello world'), ['hello', 'world']);
+      expect(words('fred, barney, & pebbles'), ['fred', 'barney', 'pebbles']);
+      expect(words('--foo-bar--'), ['foo', 'bar']);
+      expect(words('constant_case_VALUE'), ['constant', 'case', 'VALUE']);
+      // camelCase and PascalCase boundaries.
+      expect(words('camelCase'), ['camel', 'Case']);
+      expect(words('PascalCase'), ['Pascal', 'Case']);
+      // The last capital of a run of capitals opens the next word.
+      expect(words('XMLHttpRequest'), ['XML', 'Http', 'Request']);
+      expect(words('ABC'), ['ABC']);
+      expect(words('ABCd'), ['AB', 'Cd']);
+      // Digits are their own words.
+      expect(words('abc12def'), ['abc', '12', 'def']);
+      expect(words('version 2 of qsu'), ['version', '2', 'of', 'qsu']);
+      // Uncased scripts have no camelCase boundary, and switch words on a cased letter.
+      expect(words('한글English혼합'), ['한글', 'English', '혼합']);
+      // Accents stay attached, whether precomposed or decomposed.
+      expect(words('D\u00E9j\u00E0 Vu'), ['D\u00E9j\u00E0', 'Vu']);
+      expect(words('De\u0301ja\u0300 Vu'), ['De\u0301ja\u0300', 'Vu']);
+      expect(words("don't"), ['don', 't']);
+      // `ß` is a lowercase letter even though it upper-cases to two characters.
+      expect(words('Straße'), ['Straße']);
+    });
   });
 }

@@ -359,3 +359,111 @@ int getStrBytes(String? str) {
 
   return bytes;
 }
+
+/// (Private) Compiled once, for [words]. Building a `RegExp` inside a function recompiles
+/// the pattern on every call.
+final RegExp _letter = RegExp(r'\p{L}', unicode: true);
+final RegExp _mark = RegExp(r'\p{M}', unicode: true);
+
+/// (Private) Case is read out of the Unicode general category rather than out of
+/// `toUpperCase`. Dart maps `ß` to itself where JavaScript and Python map it to `SS`, so
+/// asking whether the mapped form differs answered differently per language and split
+/// `ßtraße` into four words.
+final RegExp _upper = RegExp(r'\p{Lu}|\p{Lt}', unicode: true);
+final RegExp _lower = RegExp(r'\p{Ll}', unicode: true);
+
+bool _isDigit(String char) =>
+    char.length == 1 &&
+    char.codeUnitAt(0) >= 0x30 &&
+    char.codeUnitAt(0) <= 0x39;
+
+bool _isLetter(String char) => _letter.hasMatch(char);
+
+/// (Private) A combining mark belongs to the letter in front of it, so a decomposed `é`
+/// (`e` plus U+0301) is not cut in two.
+bool _isMark(String char) => _mark.hasMatch(char);
+
+bool _isUpper(String char) => _upper.hasMatch(char);
+
+bool _isLower(String char) => _lower.hasMatch(char);
+
+bool _hasCase(String char) => _isUpper(char) || _isLower(char);
+
+/// Splits a string into the words it is made of and returns them as an array.
+/// Anything that is neither a letter nor a digit separates words, so spaces, punctuation, `-` and `_` never appear in the result.
+/// A run of digits is its own word, a camelCase boundary splits, and the last capital of a run of capitals opens the next word (`XMLHttpRequest` is `XML`, `Http`, `Request`).
+/// Scripts without upper and lower case have no camelCase boundary, but they do change word when a cased letter appears.
+List<String> words(String? str) {
+  if (str == null || str.isEmpty) {
+    return [];
+  }
+
+  // Walk code points. Indexing a Dart string walks UTF-16 units, which would cut a
+  // surrogate pair in half and disagree with the JavaScript and Python implementations.
+  final List<String> chars =
+      str.runes.map((int rune) => String.fromCharCode(rune)).toList();
+  final int charsLength = chars.length;
+  final List<String> result = [];
+  int i = 0;
+
+  while (i < charsLength) {
+    final String char = chars[i];
+    int end = i + 1;
+
+    if (_isDigit(char)) {
+      while (end < charsLength && _isDigit(chars[end])) {
+        end++;
+      }
+
+      result.add(chars.sublist(i, end).join());
+      i = end;
+      continue;
+    }
+
+    if (!_isLetter(char)) {
+      i++;
+      continue;
+    }
+
+    if (!_hasCase(char)) {
+      // Hangul, CJK, Thai and the like carry no case, so no camelCase boundary applies.
+      while (end < charsLength &&
+          (_isMark(chars[end]) ||
+              (_isLetter(chars[end]) && !_hasCase(chars[end])))) {
+        end++;
+      }
+    } else if (_isUpper(char)) {
+      while (
+          end < charsLength && _isLetter(chars[end]) && _isUpper(chars[end])) {
+        end++;
+      }
+
+      if (end - i > 1) {
+        // `XMLHttp` is `XML` plus `Http`: the last capital of a run of capitals opens
+        // the next word instead of closing this one.
+        if (end < charsLength &&
+            _isLetter(chars[end]) &&
+            _isLower(chars[end])) {
+          end--;
+        }
+      } else {
+        while (end < charsLength &&
+            (_isMark(chars[end]) ||
+                (_isLetter(chars[end]) && _isLower(chars[end])))) {
+          end++;
+        }
+      }
+    } else {
+      while (end < charsLength &&
+          (_isMark(chars[end]) ||
+              (_isLetter(chars[end]) && _isLower(chars[end])))) {
+        end++;
+      }
+    }
+
+    result.add(chars.sublist(i, end).join());
+    i = end;
+  }
+
+  return result;
+}
