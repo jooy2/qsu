@@ -1,6 +1,7 @@
 from qsu.object import (
 	objDeleteKeyByValue,
 	objFindItemRecursiveByKey,
+	objInvert,
 	objMapKeys,
 	objMergeNewKey,
 	objPickBy,
@@ -312,4 +313,22 @@ def test_objMapKeys():
 	original = {'a': 1}
 
 	objMapKeys(original, lambda value, key: key.upper())
+	assert original == {'a': 1}
+
+
+def test_objInvert():
+	assert objInvert({'a': 1, 'b': 2}) == {'1': 'a', '2': 'b'}
+	assert objInvert({'a': 'x', 'b': 'y'}) == {'x': 'a', 'y': 'b'}
+	# Two entries sharing a value land on the same key, so the later one wins.
+	assert objInvert({'a': 1, 'b': 1}) == {'1': 'b'}
+	assert objInvert({'a': True, 'b': None}) == {'true': 'a', 'null': 'b'}
+	# A whole number is written without a fractional part in every language.
+	assert objInvert({'a': 1.0, 'b': 1.5}) == {'1': 'a', '1.5': 'b'}
+	assert objInvert({}) == {}
+	assert objInvert(None) is None
+
+	# The original object is not modified.
+	original = {'a': 1}
+
+	objInvert(original)
 	assert original == {'a': 1}

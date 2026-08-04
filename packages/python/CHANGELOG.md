@@ -2,6 +2,7 @@
 
 ## 1.2.0 (2026--)
 
+- `objInvert`: Added. Returns a new object with the keys and values swapped. Values are converted to text because keys are always strings — `None` becomes `null` and `True` becomes `true`, and a whole `float` loses its fractional part, so the result matches the JavaScript implementation — and the later entry wins when two share a value
 - `objMapKeys`: Added. Returns a new object whose keys are the values returned by the callback, with the values carried over untouched. The callback receives `(value, key)`, and the later key wins when two map onto the same name
 - `objPickBy`: Added. Returns a new object containing only the entries for which the callback returns `true`. The callback receives `(value, key)`, and only the top level is inspected
 - `uncapitalizeFirst`: Added. Converts the first letter of the entire string to lowercase, the inverse of `capitalizeFirst`. Only the first character is touched, so `TEST` becomes `tEST`

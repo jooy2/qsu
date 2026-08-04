@@ -1,5 +1,6 @@
 from .objDeleteKeyByValue import objDeleteKeyByValue
 from .objFindItemRecursiveByKey import objFindItemRecursiveByKey
+from .objInvert import objInvert
 from .objMapKeys import objMapKeys
 from .objMergeNewKey import objMergeNewKey
 from .objPickBy import objPickBy
@@ -12,6 +13,7 @@ from .objUpdate import objUpdate
 __all__ = [
 	'objDeleteKeyByValue',
 	'objFindItemRecursiveByKey',
+	'objInvert',
 	'objMapKeys',
 	'objMergeNewKey',
 	'objPickBy',
