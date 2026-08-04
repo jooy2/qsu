@@ -50,6 +50,46 @@ void main() {
       expect(debounceResult, equals(List.filled(4, true)));
     });
 
+    test('throttle', () async {
+      final List<int> calls = [];
+      final throttled = throttle((int value) => calls.add(value), 30);
+
+      // The leading edge fires straight away; the rest collapse into one trailing call
+      // carrying the most recent arguments.
+      throttled([1]);
+      throttled([2]);
+      throttled([3]);
+      expect(calls, [1]);
+
+      await Future.delayed(Duration(milliseconds: 80));
+      expect(calls, [1, 3]);
+    });
+
+    test('throttle (leading: false)', () async {
+      final List<int> calls = [];
+      final throttled =
+          throttle((int value) => calls.add(value), 30, leading: false);
+
+      throttled([1]);
+      throttled([2]);
+      expect(calls, []);
+
+      await Future.delayed(Duration(milliseconds: 80));
+      expect(calls, [2]);
+    });
+
+    test('throttle (trailing: false)', () async {
+      final List<int> calls = [];
+      final throttled =
+          throttle((int value) => calls.add(value), 30, trailing: false);
+
+      throttled([1]);
+      throttled([2]);
+
+      await Future.delayed(Duration(milliseconds: 80));
+      expect(calls, [1]);
+    });
+
     test('console', () {
       runZoned(
         () {
