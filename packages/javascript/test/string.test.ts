@@ -20,7 +20,8 @@ import {
 	strUnique,
 	strToAscii,
 	urlJoin,
-	words
+	words,
+	deburr
 } from '../dist';
 
 describe('String', () => {
@@ -269,5 +270,23 @@ st`),
 		assert.deepStrictEqual(words("don't"), ['don', 't']);
 		// `ß` is a lowercase letter even though it upper-cases to two characters.
 		assert.deepStrictEqual(words('Straße'), ['Straße']);
+	});
+
+	it('deburr', () => {
+		assert.strictEqual(deburr(''), '');
+		assert.strictEqual(deburr('hello'), 'hello');
+		assert.strictEqual(deburr('déjà vu'), 'deja vu');
+		assert.strictEqual(deburr('Łódź'), 'Lodz');
+		assert.strictEqual(deburr('Ærøskøbing'), 'Aeroskobing');
+		assert.strictEqual(deburr('Þór'), 'Thor');
+		assert.strictEqual(deburr('Straße'), 'Strasse');
+		assert.strictEqual(deburr('Ĳsselmeer'), 'IJsselmeer');
+		assert.strictEqual(deburr('Œuvre'), 'Oeuvre');
+		// A decomposed accent is dropped along with the precomposed ones.
+		assert.strictEqual(deburr('Cafe\u0301'), 'Cafe');
+		assert.strictEqual(deburr('De\u0301ja\u0300 Vu'), 'Deja Vu');
+		// Anything outside Latin-1 Supplement and Latin Extended-A is left as it is.
+		assert.strictEqual(deburr('한글'), '한글');
+		assert.strictEqual(deburr('Ti\u1ebfng Vi\u1ec7t'), 'Ti\u1ebfng Vi\u1ec7t');
 	});
 });
