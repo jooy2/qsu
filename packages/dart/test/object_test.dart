@@ -205,5 +205,23 @@ void main() {
       objMapKeys(original, (value, key) => key.toUpperCase());
       expect(original, {'a': 1});
     });
+
+    test('objInvert', () {
+      expect(objInvert({'a': 1, 'b': 2}), {'1': 'a', '2': 'b'});
+      expect(objInvert({'a': 'x', 'b': 'y'}), {'x': 'a', 'y': 'b'});
+      // Two entries sharing a value land on the same key, so the later one wins.
+      expect(objInvert({'a': 1, 'b': 1}), {'1': 'b'});
+      expect(objInvert({'a': true, 'b': null}), {'true': 'a', 'null': 'b'});
+      // A whole number is written without a fractional part in every language.
+      expect(objInvert({'a': 1.0, 'b': 1.5}), {'1': 'a', '1.5': 'b'});
+      expect(objInvert({}), {});
+      expect(objInvert(null), null);
+
+      // The original object is not modified.
+      final Map<String, dynamic> original = {'a': 1};
+
+      objInvert(original);
+      expect(original, {'a': 1});
+    });
   });
 }

@@ -141,3 +141,38 @@ Map<String, dynamic>? objMapKeys(
 
   return result;
 }
+
+/// (Private) The text form a value takes when it becomes a key in [objInvert].
+/// JavaScript has no int/double distinction, so a whole `double` is written without a
+/// fractional part to keep the three implementations in step.
+String _toKeyString(dynamic value) {
+  if (value == null) {
+    return 'null';
+  }
+
+  if (value is double &&
+      value.isFinite &&
+      value == value.truncateToDouble() &&
+      value.abs() < 1e18) {
+    return value.toInt().toString();
+  }
+
+  return value.toString();
+}
+
+/// Returns a new object with the keys and values swapped: every value becomes a key, and the key it came from becomes its value.
+/// Keys are always strings, so the value is converted to text first (`null` becomes `'null'`, `1.0` becomes `'1'`).
+/// Only the top level is inspected, and when two entries share a value the later one wins, because both land on the same key.
+Map<String, String>? objInvert(Map<String, dynamic>? obj) {
+  if (obj == null) {
+    return null;
+  }
+
+  final Map<String, String> result = {};
+
+  obj.forEach((String key, dynamic value) {
+    result[_toKeyString(value)] = key;
+  });
+
+  return result;
+}
