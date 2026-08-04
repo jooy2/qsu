@@ -1,5 +1,6 @@
 export { arrCompact } from './arrCompact.js';
 export { arrCount } from './arrCount.js';
+export { arrDifference } from './arrDifference.js';
 export { arrGroupByMaxCount } from './arrGroupByMaxCount.js';
 export { arrMove } from './arrMove.js';
 export { arrPick } from './arrPick.js';

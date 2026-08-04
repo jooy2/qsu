@@ -15,7 +15,8 @@ import {
 	arrGroupByMaxCount,
 	funcTimes,
 	arrPick,
-	arrCompact
+	arrCompact,
+	arrDifference
 } from '../dist';
 
 describe('Array', () => {
@@ -294,5 +295,24 @@ describe('Array', () => {
 		assert.deepStrictEqual(arrCompact([-0, 0.0, 0]), []);
 		assert.deepStrictEqual(arrCompact([true, -1, 0.5]), [true, -1, 0.5]);
 		assert.deepStrictEqual(arrCompact(null as unknown as any[]), []);
+	});
+
+	it('arrDifference', () => {
+		assert.deepStrictEqual(arrDifference([2, 1, 3], [2, 3]), [1]);
+		// Duplicates of a kept value stay, and the original order is preserved.
+		assert.deepStrictEqual(arrDifference([2, 1, 2, 3], [1]), [2, 2, 3]);
+		assert.deepStrictEqual(arrDifference([1, 2, 3, 4], [2], [4]), [1, 3]);
+		assert.deepStrictEqual(arrDifference([1, 2, 3]), [1, 2, 3]);
+		assert.deepStrictEqual(arrDifference([1, 2, 3], []), [1, 2, 3]);
+		assert.deepStrictEqual(arrDifference([], [1]), []);
+		assert.deepStrictEqual(arrDifference(['a', 'b'], ['b']), ['a']);
+		// Values are compared by value, so nested arrays and objects are matched too.
+		assert.deepStrictEqual(arrDifference([[1], [2]], [[1]]), [[2]]);
+		assert.deepStrictEqual(arrDifference([{ a: 1 }, { b: 2 }], [{ a: 1 }]), [{ b: 2 }]);
+		// `1` and `'1'` are different values.
+		assert.deepStrictEqual(arrDifference([1, '1'], [1]), ['1']);
+		assert.deepStrictEqual(arrDifference([null, undefined, 0], [null]), [undefined, 0]);
+		assert.deepStrictEqual(arrDifference([NaN, 1], [NaN]), [1]);
+		assert.deepStrictEqual(arrDifference(null as unknown as any[], [1]), []);
 	});
 });

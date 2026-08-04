@@ -9,7 +9,7 @@ Things worth knowing before answering questions about qsu:
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
 - In JavaScript, the `crypto`, `file`, `net` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as does `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
-- 123 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
+- 124 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
 ## Getting started
 
@@ -26,6 +26,7 @@ Array creation, sorting, sampling, deduplication and grouping.
 
 - [arrCompact](https://qsu.cdget.com/reference/array/arrCompact) (JavaScript, Dart, Python): Returns a new array with every falsy value removed. The rejected set is fixed across languages: `null`, `false`, `0`, the empty string and `NaN`.
 - [arrCount](https://qsu.cdget.com/reference/array/arrCount) (JavaScript, Dart, Python): Returns the number of duplicates for each unique value in the given array. The array values can only be of type `String` or `Number`.
+- [arrDifference](https://qsu.cdget.com/reference/array/arrDifference) (JavaScript, Dart, Python): Returns the values of the first array that are not contained in any of the other arrays. Values are compared by value, so nested arrays and objects are matched as well.
 - [arrGroupByMaxCount](https://qsu.cdget.com/reference/array/arrGroupByMaxCount) (JavaScript, Dart, Python): Separates the data in the given array into a two-dimensional array containing only the maximum number of elements. For example, if you have an array of 6 data in 2 groups, this function will create a 2-dimensional array with 3 lengths.
 - [arrMove](https://qsu.cdget.com/reference/array/arrMove) (JavaScript, Dart, Python): Moves the position of a specific element in an array to the specified position. (Position starts from 0.)
 - [arrPick](https://qsu.cdget.com/reference/array/arrPick) (JavaScript, Dart, Python): Returns a random item from the given array. If the array is empty or is not an array, it returns `null`.

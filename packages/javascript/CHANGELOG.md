@@ -2,6 +2,7 @@
 
 ## 1.16.0 (2026--)
 
+- `arrDifference`: Added. Returns the values of the first array that are not contained in any of the other arrays. Values are compared by value rather than by reference, so nested arrays and objects are matched as well
 - `arrCompact`: Added. Returns a new array with every falsy value removed (`null`, `undefined`, `false`, `0`, `''`, `NaN`). Empty arrays and objects are truthy and are kept
 
 ## 1.15.0 (2026-08-02)
