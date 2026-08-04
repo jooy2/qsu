@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
 import { setTimeout } from 'timers/promises';
-import { sleep, funcTimes, debounce, arrWithDefault } from '../dist';
+import { sleep, funcTimes, debounce, arrWithDefault, throttle } from '../dist';
 import { logBox } from '../dist/node';
 
 describe('Misc', () => {
@@ -59,5 +59,43 @@ describe('Misc', () => {
 				assert.deepStrictEqual(debounceResult, arrWithDefault(true, 4));
 			});
 		});
+	});
+
+	it('throttle', async () => {
+		const calls: number[] = [];
+		const throttled = throttle((value: number) => calls.push(value), 30);
+
+		// The leading edge fires straight away; the rest collapse into one trailing call
+		// carrying the most recent arguments.
+		throttled(1);
+		throttled(2);
+		throttled(3);
+		assert.deepStrictEqual(calls, [1]);
+
+		await sleep(80);
+		assert.deepStrictEqual(calls, [1, 3]);
+	});
+
+	it('throttle (leading: false)', async () => {
+		const calls: number[] = [];
+		const throttled = throttle((value: number) => calls.push(value), 30, { leading: false });
+
+		throttled(1);
+		throttled(2);
+		assert.deepStrictEqual(calls, []);
+
+		await sleep(80);
+		assert.deepStrictEqual(calls, [2]);
+	});
+
+	it('throttle (trailing: false)', async () => {
+		const calls: number[] = [];
+		const throttled = throttle((value: number) => calls.push(value), 30, { trailing: false });
+
+		throttled(1);
+		throttled(2);
+
+		await sleep(80);
+		assert.deepStrictEqual(calls, [1]);
 	});
 });

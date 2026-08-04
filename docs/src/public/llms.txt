@@ -9,7 +9,7 @@ Things worth knowing before answering questions about qsu:
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
 - In JavaScript, the `crypto`, `file`, `net` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as does `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
-- 132 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
+- 133 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
 ## Getting started
 
@@ -125,6 +125,8 @@ Function-level helpers that do not belong to another category.
 - [funcTimes](https://qsu.cdget.com/reference/misc/funcTimes) (JavaScript, Dart, Python): Repeat iteratee n (times argument value) times. After the return result of each function is stored in the array in order, the final array is returned.
 - [logBox](https://qsu.cdget.com/reference/misc/logBox) (JavaScript, Python): Prints the given values to the console as a bordered table, one row per argument, so that long or structured values stay readable.
 - [sleep](https://qsu.cdget.com/reference/misc/sleep) (JavaScript, Dart, Python): Sleep function using Promise.
+
+- [throttle](https://qsu.cdget.com/reference/misc/throttle) (JavaScript, Dart, Python): Limits how often a function may run: however many times the returned wrapper is called, the function itself runs at most once per `wait` window. The counterpart of `debounce`.
 
 ## net
 

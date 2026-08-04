@@ -21,6 +21,11 @@ export type DurationOptions = {
 	unit?: DurationUnitName;
 };
 
+export type ThrottleOptions = {
+	leading?: boolean;
+	trailing?: boolean;
+};
+
 export interface FileInfo {
 	success: boolean;
 	isDirectory: boolean;
