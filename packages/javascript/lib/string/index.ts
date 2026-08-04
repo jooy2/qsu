@@ -18,5 +18,6 @@ export { strUnique } from './strUnique.js';
 export { trim } from './trim.js';
 export { truncate } from './truncate.js';
 export { truncateExpect } from './truncateExpect.js';
+export { uncapitalizeFirst } from './uncapitalizeFirst.js';
 export { urlJoin } from './urlJoin.js';
 export { words } from './words.js';

@@ -22,7 +22,8 @@ import {
 	urlJoin,
 	words,
 	deburr,
-	escapeRegExp
+	escapeRegExp,
+	uncapitalizeFirst
 } from '../dist';
 
 describe('String', () => {
@@ -74,6 +75,16 @@ st`),
 		assert.strictEqual(capitalizeFirst('test'), 'Test');
 		assert.strictEqual(capitalizeFirst('tEST'), 'TEST');
 		assert.strictEqual(capitalizeFirst('testWords'), 'TestWords');
+	});
+
+	it('uncapitalizeFirst', () => {
+		assert.strictEqual(uncapitalizeFirst(''), '');
+		assert.strictEqual(uncapitalizeFirst('T'), 't');
+		assert.strictEqual(uncapitalizeFirst('Test'), 'test');
+		assert.strictEqual(uncapitalizeFirst('TEST'), 'tEST');
+		assert.strictEqual(uncapitalizeFirst('TestWords'), 'testWords');
+		assert.strictEqual(uncapitalizeFirst('test'), 'test');
+		assert.strictEqual(uncapitalizeFirst('한글'), '한글');
 	});
 
 	it('capitalizeEverySentence', () => {

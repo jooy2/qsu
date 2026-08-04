@@ -2,6 +2,7 @@
 
 ## 1.16.0 (2026--)
 
+- `uncapitalizeFirst`: Added. Converts the first letter of the entire string to lowercase, the inverse of `capitalizeFirst`. Only the first character is touched, so `TEST` becomes `tEST`
 - `escapeRegExp`: Added. Escapes every regular expression metacharacter (`^ $ . * + ? ( ) [ ] { } |` and `\`) so a value can be matched literally. `-` and `#` are left alone: they are special only inside a character class, and `\-` outside one is a syntax error in unicode mode
 - `deburr`: Added. Replaces accented Latin letters with their unaccented equivalents (`déjà vu` becomes `deja vu`), spelling out `Æ`, `ß`, `Þ`, `Œ` and `Ĳ`, and dropping combining marks. Covers the Latin-1 Supplement and Latin Extended-A blocks
 - `words`: Added. Splits a string into the words it is made of. Anything that is neither a letter nor a digit separates words, and camelCase boundaries, runs of capitals (`XMLHttpRequest` is `XML`, `Http`, `Request`) and runs of digits are split as well
