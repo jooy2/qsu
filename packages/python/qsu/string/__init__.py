@@ -18,6 +18,7 @@ from .strUnique import strUnique
 from .trim import trim
 from .truncate import truncate
 from .truncateExpect import truncateExpect
+from .uncapitalizeFirst import uncapitalizeFirst
 from .urlJoin import urlJoin
 from .words import words
 
@@ -42,6 +43,7 @@ __all__ = [
 	'trim',
 	'truncate',
 	'truncateExpect',
+	'uncapitalizeFirst',
 	'urlJoin',
 	'words',
 ]

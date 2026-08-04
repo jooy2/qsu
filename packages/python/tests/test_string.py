@@ -21,6 +21,7 @@ from qsu import (
 	trim,
 	truncate,
 	truncateExpect,
+	uncapitalizeFirst,
 	urlJoin,
 	words,
 )
@@ -66,6 +67,16 @@ def test_capitalizeFirst():
 	assert capitalizeFirst('test') == 'Test'
 	assert capitalizeFirst('tEST') == 'TEST'
 	assert capitalizeFirst('testWords') == 'TestWords'
+
+
+def test_uncapitalizeFirst():
+	assert uncapitalizeFirst('') == ''
+	assert uncapitalizeFirst('T') == 't'
+	assert uncapitalizeFirst('Test') == 'test'
+	assert uncapitalizeFirst('TEST') == 'tEST'
+	assert uncapitalizeFirst('TestWords') == 'testWords'
+	assert uncapitalizeFirst('test') == 'test'
+	assert uncapitalizeFirst('한글') == '한글'
 
 
 def test_capitalizeEverySentence():
