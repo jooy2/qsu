@@ -2,6 +2,7 @@ from qsu.object import (
 	objDeleteKeyByValue,
 	objFindItemRecursiveByKey,
 	objMergeNewKey,
+	objPickBy,
 	objTo1d,
 	objToArray,
 	objToPrettyStr,
@@ -266,3 +267,25 @@ def test_objMergeNewKey():
 	) == {
 		'a': [{'aa': 1, 'bb': 2, 'cc': 3}, {'aa': 4, 'bb': 5, 'cc': 6}],
 	}
+
+
+def test_objPickBy():
+	assert objPickBy({'a': 1, 'b': 2, 'c': 3}, lambda value, key: value > 1) == {
+		'b': 2,
+		'c': 3,
+	}
+	assert objPickBy({'a': 1, 'b': 2}, lambda value, key: key == 'a') == {'a': 1}
+	assert objPickBy({'a': None, 'b': 1}, lambda value, key: value is not None) == {'b': 1}
+	assert objPickBy({'a': 1}, lambda value, key: False) == {}
+	assert objPickBy({}, lambda value, key: True) == {}
+	# Only the top level is inspected; a nested dict is carried over as it is.
+	assert objPickBy(
+		{'a': {'b': 1}, 'c': 2}, lambda value, key: isinstance(value, dict)
+	) == {'a': {'b': 1}}
+	assert objPickBy(None, lambda value, key: True) is None
+
+	# The original object is not modified.
+	original = {'a': 1, 'b': 2}
+
+	objPickBy(original, lambda value, key: value > 1)
+	assert original == {'a': 1, 'b': 2}

@@ -2,6 +2,7 @@
 
 ## 1.2.0 (2026--)
 
+- `objPickBy`: Added. Returns a new object containing only the entries for which the callback returns `true`. The callback receives `(value, key)`, and only the top level is inspected
 - `uncapitalizeFirst`: Added. Converts the first letter of the entire string to lowercase, the inverse of `capitalizeFirst`. Only the first character is touched, so `TEST` becomes `tEST`
 - `escapeRegExp`: Added. Escapes every regular expression metacharacter (`^ $ . * + ? ( ) [ ] { } |` and `\`) so a value can be matched literally. Unlike `re.escape` it leaves `-`, `#` and whitespace alone, because those are special only inside a character class or in verbose mode, and escaping them would not match the JavaScript implementation
 - `deburr`: Added. Replaces accented Latin letters with their unaccented equivalents (`déjà vu` becomes `deja vu`), spelling out `Æ`, `ß`, `Þ`, `Œ` and `Ĳ`, and dropping combining marks. Covers the Latin-1 Supplement and Latin Extended-A blocks
