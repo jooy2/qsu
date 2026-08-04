@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.16.0 (2026--)
+
+- `arrCompact`: Added. Returns a new array with every falsy value removed (`null`, `undefined`, `false`, `0`, `''`, `NaN`). Empty arrays and objects are truthy and are kept
+
 ## 1.15.0 (2026-08-02)
 
 - **BREAKING CHANGES**: `isValidFileName` now rejects an empty name and any name carrying a control character (`U+0000`-`U+001F` or `U+007F`). `NUL` is the one that matters: it terminates the path in the system call underneath every filesystem, so a name carrying one was reported as valid and then silently truncated on the way to disk

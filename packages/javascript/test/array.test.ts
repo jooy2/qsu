@@ -14,7 +14,8 @@ import {
 	sortNumeric,
 	arrGroupByMaxCount,
 	funcTimes,
-	arrPick
+	arrPick,
+	arrCompact
 } from '../dist';
 
 describe('Array', () => {
@@ -281,5 +282,17 @@ describe('Array', () => {
 			[1, 1],
 			[1, 1]
 		]);
+	});
+
+	it('arrCompact', () => {
+		assert.deepStrictEqual(arrCompact([0, 1, false, 2, '', 3, null, undefined, NaN]), [1, 2, 3]);
+		assert.deepStrictEqual(arrCompact([false, 0, '', null, undefined, NaN]), []);
+		assert.deepStrictEqual(arrCompact([]), []);
+		assert.deepStrictEqual(arrCompact(['a', 'b']), ['a', 'b']);
+		// Empty containers and whitespace are not falsy and must survive.
+		assert.deepStrictEqual(arrCompact([[], {}, ' ', '0']), [[], {}, ' ', '0']);
+		assert.deepStrictEqual(arrCompact([-0, 0.0, 0]), []);
+		assert.deepStrictEqual(arrCompact([true, -1, 0.5]), [true, -1, 0.5]);
+		assert.deepStrictEqual(arrCompact(null as unknown as any[]), []);
 	});
 });

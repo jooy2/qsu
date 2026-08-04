@@ -1,3 +1,4 @@
+export { arrCompact } from './arrCompact.js';
 export { arrCount } from './arrCount.js';
 export { arrGroupByMaxCount } from './arrGroupByMaxCount.js';
 export { arrMove } from './arrMove.js';
