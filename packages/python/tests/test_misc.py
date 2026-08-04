@@ -1,9 +1,12 @@
 import time
 
+import pytest
+
 from qsu.misc import (
 	debounce,
 	funcTimes,
 	logBox,
+	retry,
 	sleep,
 	throttle,
 )
@@ -116,3 +119,63 @@ def test_throttle_trailing_false():
 
 	time.sleep(0.08)
 	assert calls == [1]
+
+
+def test_retry():
+	attempts = {'count': 0}
+
+	def flaky():
+		attempts['count'] += 1
+
+		if attempts['count'] < 3:
+			raise ValueError('nope')
+
+		return 'ok'
+
+	assert retry(flaky) == 'ok'
+	assert attempts['count'] == 3
+
+
+def test_retry_gives_up_and_raises_the_last_error():
+	failures = {'count': 0}
+
+	def always():
+		failures['count'] += 1
+		raise ValueError('always')
+
+	with pytest.raises(ValueError, match='always'):
+		retry(always, times=2)
+
+	assert failures['count'] == 2
+
+	# `times=1` disables retrying.
+	once = {'count': 0}
+
+	def onlyOnce():
+		once['count'] += 1
+		raise ValueError('x')
+
+	with pytest.raises(ValueError):
+		retry(onlyOnce, {'times': 1})
+
+	assert once['count'] == 1
+
+	with pytest.raises(ValueError, match='at least 1'):
+		retry(lambda: 1, times=0)
+
+
+def test_retry_backoff():
+	# `backoff` multiplies the delay after every failure: 20ms, then 40ms.
+	delayed = {'count': 0}
+
+	def always():
+		delayed['count'] += 1
+		raise ValueError('x')
+
+	started = time.monotonic()
+
+	with pytest.raises(ValueError):
+		retry(always, times=3, delay=20, backoff=2)
+
+	assert delayed['count'] == 3
+	assert (time.monotonic() - started) * 1000 >= 50
