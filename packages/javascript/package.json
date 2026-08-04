@@ -1,6 +1,6 @@
 {
 	"name": "qsu",
-	"version": "1.15.0",
+	"version": "1.16.0",
 	"description": "qsu is a utility library that contains useful and frequently used functions. Start with your preferred language and the modern development environment.",
 	"author": "CDGet <jooy2.contact@gmail.com>",
 	"license": "MIT",
@@ -74,17 +74,17 @@
 	"devDependencies": {
 		"@eslint/js": "^9.39.2",
 		"@types/node": "^26.1.2",
-		"@typescript-eslint/parser": "^8.65.0",
+		"@typescript-eslint/parser": "^8.66.0",
 		"dayjs": "^1.11.21",
 		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-n": "^18.2.2",
-		"globals": "^17.8.0",
+		"globals": "^17.9.0",
 		"jiti": "^2.7.0",
 		"prettier": "^3.9.6",
 		"terser-glob": "^1.2.1",
-		"tsx": "^4.23.1",
+		"tsx": "^4.23.5",
 		"typescript": "6.0.3",
-		"typescript-eslint": "^8.65.0"
+		"typescript-eslint": "^8.66.0"
 	}
 }

@@ -1,6 +1,6 @@
 # Changelog (JavaScript)
 
-## 1.16.0 (2026--)
+## 1.16.0 (2026-08-04)
 
 - `retry`: Added. Runs the given function again on failure until it succeeds or the attempts run out, raising the last error if they all fail. `times` counts total attempts (default `3`), `delay` waits between them and `backoff` multiplies that wait after each failure
 - `throttle`: Added. Limits how often a function may run to at most once per `wait` window, the counterpart of `debounce`. `leading` and `trailing` (both `true` by default) choose which edge of the window runs
