@@ -129,6 +129,16 @@ String capitalizeFirst(String str) {
   return '${str[0].toUpperCase()}${str.substring(1)}';
 }
 
+/// Converts the first letter of the entire string to lowercase and returns. This is the inverse of [capitalizeFirst].
+/// Only the first character is touched, so the rest of the string keeps its case.
+String uncapitalizeFirst(String str) {
+  if (str.isEmpty) {
+    return '';
+  }
+
+  return '${str[0].toLowerCase()}${str.substring(1)}';
+}
+
 /// Capitalize the first letter of every sentence. Typically, the `.` characters to separate sentences, but this can be customized via the value of the `splitChar` argument.
 String capitalizeEverySentence(String str, {String? splitChar}) {
   final String splitter = splitChar ?? '.';

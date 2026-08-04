@@ -64,6 +64,16 @@ st'''), 'test');
       expect(capitalizeFirst('tEST'), 'TEST');
     });
 
+    test('uncapitalizeFirst', () {
+      expect(uncapitalizeFirst(''), '');
+      expect(uncapitalizeFirst('T'), 't');
+      expect(uncapitalizeFirst('Test'), 'test');
+      expect(uncapitalizeFirst('TEST'), 'tEST');
+      expect(uncapitalizeFirst('TestWords'), 'testWords');
+      expect(uncapitalizeFirst('test'), 'test');
+      expect(uncapitalizeFirst('한글'), '한글');
+    });
+
     test('capitalizeEverySentence', () {
       expect(capitalizeEverySentence('hello. world'), 'Hello. World');
       expect(capitalizeEverySentence('hello. 1world'), 'Hello. 1World');
