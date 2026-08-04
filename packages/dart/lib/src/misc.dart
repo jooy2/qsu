@@ -100,3 +100,46 @@ Function throttle(Function func, int wait,
     }
   };
 }
+
+/// Runs the given function and, if it fails, runs it again until it succeeds or the attempts run out.
+/// The value of the first successful attempt is returned; if every attempt fails, the error of the last one is rethrown with its original stack trace.
+/// [times] counts total attempts, not extra ones, so the default of `3` means one call plus at most two retries and `times: 1` disables retrying.
+/// [delay] is the wait between two attempts in milliseconds, and [backoff] multiplies it after every failure. The wait sits strictly between attempts.
+Future<T> retry<T>(
+  FutureOr<T> Function() func, {
+  int? times = 3,
+  int? delay = 0,
+  num? backoff = 1,
+}) async {
+  final int maxAttempts = times ?? 3;
+  final num backoffFactor = backoff ?? 1;
+
+  if (maxAttempts < 1) {
+    throw ArgumentError('`times` must be at least 1.');
+  }
+
+  num currentDelay = delay ?? 0;
+  Object? lastError;
+  StackTrace lastStackTrace = StackTrace.empty;
+
+  for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      return await func();
+    } catch (error, stackTrace) {
+      lastError = error;
+      lastStackTrace = stackTrace;
+
+      // The delay sits *between* attempts, so the final failure is reported without
+      // waiting one more time for nothing.
+      if (attempt < maxAttempts) {
+        if (currentDelay > 0) {
+          await sleep(currentDelay.round());
+        }
+
+        currentDelay *= backoffFactor;
+      }
+    }
+  }
+
+  Error.throwWithStackTrace(lastError!, lastStackTrace);
+}

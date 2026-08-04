@@ -90,6 +90,68 @@ void main() {
       expect(calls, [1]);
     });
 
+    test('retry', () async {
+      int attempts = 0;
+      final String result = await retry(() {
+        attempts++;
+
+        if (attempts < 3) {
+          throw Exception('nope');
+        }
+
+        return 'ok';
+      });
+
+      expect(result, 'ok');
+      expect(attempts, 3);
+
+      // An asynchronous function is awaited.
+      expect(await retry(() async => 'async ok'), 'async ok');
+
+      // After `times` attempts the error of the last one is thrown.
+      int failures = 0;
+
+      await expectLater(
+        retry(() {
+          failures++;
+          throw Exception('always');
+        }, times: 2),
+        throwsA(isA<Exception>()),
+      );
+      expect(failures, 2);
+
+      // `times: 1` disables retrying.
+      int once = 0;
+
+      await expectLater(
+        retry(() {
+          once++;
+          throw Exception('x');
+        }, times: 1),
+        throwsA(isA<Exception>()),
+      );
+      expect(once, 1);
+
+      await expectLater(
+        retry(() => 1, times: 0),
+        throwsA(isA<ArgumentError>()),
+      );
+
+      // `backoff` multiplies the delay after every failure: 20ms, then 40ms.
+      final int started = DateTime.now().millisecondsSinceEpoch;
+      int delayed = 0;
+
+      await expectLater(
+        retry(() {
+          delayed++;
+          throw Exception('x');
+        }, times: 3, delay: 20, backoff: 2),
+        throwsA(isA<Exception>()),
+      );
+      expect(delayed, 3);
+      expect(DateTime.now().millisecondsSinceEpoch - started >= 50, true);
+    });
+
     test('console', () {
       runZoned(
         () {
