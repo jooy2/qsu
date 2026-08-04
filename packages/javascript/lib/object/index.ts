@@ -1,5 +1,6 @@
 export { objDeleteKeyByValue } from './objDeleteKeyByValue.js';
 export { objFindItemRecursiveByKey } from './objFindItemRecursiveByKey.js';
+export { objInvert } from './objInvert.js';
 export { objMapKeys } from './objMapKeys.js';
 export { objMergeNewKey } from './objMergeNewKey.js';
 export { objPickBy } from './objPickBy.js';

@@ -10,7 +10,8 @@ import {
 	objUpdate,
 	objMergeNewKey,
 	objPickBy,
-	objMapKeys
+	objMapKeys,
+	objInvert
 } from '../dist';
 
 describe('Misc', () => {
@@ -667,6 +668,24 @@ describe('Misc', () => {
 		const original = { a: 1 };
 
 		objMapKeys(original, (value, key) => key.toUpperCase());
+		assert.deepStrictEqual(original, { a: 1 });
+	});
+
+	it('objInvert', () => {
+		assert.deepStrictEqual(objInvert({ a: 1, b: 2 }), { '1': 'a', '2': 'b' });
+		assert.deepStrictEqual(objInvert({ a: 'x', b: 'y' }), { x: 'a', y: 'b' });
+		// Two entries sharing a value land on the same key, so the later one wins.
+		assert.deepStrictEqual(objInvert({ a: 1, b: 1 }), { '1': 'b' });
+		assert.deepStrictEqual(objInvert({ a: true, b: null }), { true: 'a', null: 'b' });
+		// A whole number is written without a fractional part in every language.
+		assert.deepStrictEqual(objInvert({ a: 1.0, b: 1.5 }), { '1': 'a', '1.5': 'b' });
+		assert.deepStrictEqual(objInvert({}), {});
+		assert.strictEqual(objInvert(null as any), null);
+
+		// The original object is not modified.
+		const original = { a: 1 };
+
+		objInvert(original);
 		assert.deepStrictEqual(original, { a: 1 });
 	});
 });
