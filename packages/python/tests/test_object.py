@@ -1,6 +1,7 @@
 from qsu.object import (
 	objDeleteKeyByValue,
 	objFindItemRecursiveByKey,
+	objMapKeys,
 	objMergeNewKey,
 	objPickBy,
 	objTo1d,
@@ -289,3 +290,26 @@ def test_objPickBy():
 
 	objPickBy(original, lambda value, key: value > 1)
 	assert original == {'a': 1, 'b': 2}
+
+
+def test_objMapKeys():
+	assert objMapKeys({'a': 1, 'b': 2}, lambda value, key: key.upper()) == {
+		'A': 1,
+		'B': 2,
+	}
+	assert objMapKeys({'a': 1, 'b': 2}, lambda value, key: f'{key}{value}') == {
+		'a1': 1,
+		'b2': 2,
+	}
+	# When two keys map onto the same name, the later one wins.
+	assert objMapKeys({'a': 1, 'b': 2}, lambda value, key: 'x') == {'x': 2}
+	assert objMapKeys({}, lambda value, key: key) == {}
+	# The keys of a nested dict are left alone.
+	assert objMapKeys({'a': {'b': 1}}, lambda value, key: key.upper()) == {'A': {'b': 1}}
+	assert objMapKeys(None, lambda value, key: key) is None
+
+	# The original object is not modified.
+	original = {'a': 1}
+
+	objMapKeys(original, lambda value, key: key.upper())
+	assert original == {'a': 1}
