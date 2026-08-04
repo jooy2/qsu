@@ -3,6 +3,7 @@ import pytest
 from qsu.array import (
 	arrCompact,
 	arrCount,
+	arrDifference,
 	arrGroupByMaxCount,
 	arrMove,
 	arrPick,
@@ -198,3 +199,22 @@ def test_arrCompact():
 	assert arrCompact([-0.0, 0.0, 0]) == []
 	assert arrCompact([True, -1, 0.5]) == [True, -1, 0.5]
 	assert arrCompact(None) == []
+
+
+def test_arrDifference():
+	assert arrDifference([2, 1, 3], [2, 3]) == [1]
+	# Duplicates of a kept value stay, and the original order is preserved.
+	assert arrDifference([2, 1, 2, 3], [1]) == [2, 2, 3]
+	assert arrDifference([1, 2, 3, 4], [2], [4]) == [1, 3]
+	assert arrDifference([1, 2, 3]) == [1, 2, 3]
+	assert arrDifference([1, 2, 3], []) == [1, 2, 3]
+	assert arrDifference([], [1]) == []
+	assert arrDifference(['a', 'b'], ['b']) == ['a']
+	# Values are compared by value, so nested lists and dicts are matched too.
+	assert arrDifference([[1], [2]], [[1]]) == [[2]]
+	assert arrDifference([{'a': 1}, {'b': 2}], [{'a': 1}]) == [{'b': 2}]
+	# `1` and `'1'` are different values.
+	assert arrDifference([1, '1'], [1]) == ['1']
+	assert arrDifference([None, 0, 1], [None]) == [0, 1]
+	assert arrDifference([True, 1], [1]) == [True]
+	assert arrDifference(None, [1]) == []

@@ -1,5 +1,6 @@
 from .arrCompact import arrCompact
 from .arrCount import arrCount
+from .arrDifference import arrDifference
 from .arrGroupByMaxCount import arrGroupByMaxCount
 from .arrMove import arrMove
 from .arrPick import arrPick
@@ -16,6 +17,7 @@ from .sortNumeric import sortNumeric
 __all__ = [
 	'arrCompact',
 	'arrCount',
+	'arrDifference',
 	'arrGroupByMaxCount',
 	'arrMove',
 	'arrPick',
