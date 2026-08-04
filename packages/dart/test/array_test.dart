@@ -316,5 +316,97 @@ void main() {
           ]),
           []);
     });
+
+    test('arrIntersection', () {
+      expect(
+          arrIntersection([
+            [2, 1],
+            [2, 3]
+          ]),
+          [2]);
+      expect(
+          arrIntersection([
+            [1, 2, 3],
+            [2, 3, 4],
+            [3, 2]
+          ]),
+          [2, 3]);
+      // The result is unique and keeps the order of the first array.
+      expect(
+          arrIntersection([
+            [2, 1, 2],
+            [2]
+          ]),
+          [2]);
+      expect(
+          arrIntersection([
+            [3, 1, 2],
+            [1, 2, 3]
+          ]),
+          [3, 1, 2]);
+      expect(
+          arrIntersection([
+            [1, 2],
+            [3]
+          ]),
+          []);
+      expect(
+          arrIntersection([
+            [1, 1, 2]
+          ]),
+          [1, 2]);
+      expect(arrIntersection([]), []);
+      expect(arrIntersection(null), []);
+      expect(
+          arrIntersection([
+            [],
+            [1]
+          ]),
+          []);
+      // Values are compared by value, so nested lists and maps are matched too.
+      expect(
+          arrIntersection([
+            [
+              [1],
+              [2]
+            ],
+            [
+              [2],
+              [3]
+            ]
+          ]),
+          [
+            [2]
+          ]);
+      expect(
+          arrIntersection([
+            [
+              {'a': 1},
+              {'b': 2}
+            ],
+            [
+              {'b': 2}
+            ]
+          ]),
+          [
+            {'b': 2}
+          ]);
+      // `1` and `'1'` are different values.
+      expect(
+          arrIntersection([
+            [1, '1'],
+            ['1']
+          ]),
+          ['1']);
+
+      // `NaN` never equals itself, so the value cannot be matched with `expect` directly.
+      final List<dynamic> nanResult = arrIntersection([
+        [double.nan, 1],
+        [double.nan]
+      ]);
+
+      expect(nanResult, hasLength(1));
+      expect((nanResult[0] as double).isNaN, true);
+    });
   });
 }

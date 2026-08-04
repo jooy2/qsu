@@ -261,3 +261,37 @@ List<dynamic> arrDifference(List<dynamic>? array,
       .where((dynamic value) => !excluded.contains(_comparableKey(value)))
       .toList();
 }
+
+/// Returns the values that are present in every one of the given arrays.
+/// The result is unique and keeps the order of the first array, so a single array simply has its duplicates removed.
+/// Values are compared by value rather than by identity, so nested lists and maps are matched as well.
+List<dynamic> arrIntersection(List<List<dynamic>>? arrays) {
+  if (arrays == null || arrays.isEmpty) {
+    return [];
+  }
+
+  final List<Set<String>> otherKeys = [];
+
+  for (int i = 1; i < arrays.length; i++) {
+    otherKeys.add(arrays[i].map(_comparableKey).toSet());
+  }
+
+  final Set<String> seen = {};
+  final List<dynamic> result = [];
+
+  for (final dynamic value in arrays[0]) {
+    final String key = _comparableKey(value);
+
+    if (seen.contains(key)) {
+      continue;
+    }
+
+    seen.add(key);
+
+    if (otherKeys.every((Set<String> keys) => keys.contains(key))) {
+      result.add(value);
+    }
+  }
+
+  return result;
+}
