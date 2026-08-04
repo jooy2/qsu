@@ -1,8 +1,11 @@
+import re
+
 from qsu import (
 	capitalizeEachWords,
 	capitalizeEverySentence,
 	capitalizeFirst,
 	deburr,
+	escapeRegExp,
 	getGroupKeys,
 	getStrBytes,
 	removeNewLine,
@@ -287,3 +290,20 @@ def test_deburr():
 	# Anything outside Latin-1 Supplement and Latin Extended-A is left as it is.
 	assert deburr('한글') == '한글'
 	assert deburr('Ti\u1ebfng Vi\u1ec7t') == 'Ti\u1ebfng Vi\u1ec7t'
+
+
+def test_escapeRegExp():
+	assert escapeRegExp('') == ''
+	assert escapeRegExp(None) == ''
+	assert escapeRegExp('hello') == 'hello'
+	assert escapeRegExp('1 + 1 = 2') == r'1 \+ 1 = 2'
+	assert (
+		escapeRegExp('[qsu](https://qsu.cdget.com/)')
+		== r'\[qsu\]\(https://qsu\.cdget\.com/\)'
+	)
+	assert escapeRegExp(r'^$.*+?()[]{}|' + '\\') == r'\^\$\.\*\+\?\(\)\[\]\{\}\|' + '\\\\'
+	# `-`, `#`, `/` and whitespace are not special outside a character class.
+	assert escapeRegExp('a-z #1 / b') == 'a-z #1 / b'
+	# The escaped value matches itself literally.
+	assert re.search(escapeRegExp('a.b'), 'a.b') is not None
+	assert re.search(escapeRegExp('a.b'), 'axb') is None
