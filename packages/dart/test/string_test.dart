@@ -201,5 +201,24 @@ st'''), 'test');
       // `ß` is a lowercase letter even though it upper-cases to two characters.
       expect(words('Straße'), ['Straße']);
     });
+
+    test('deburr', () {
+      expect(deburr(''), '');
+      expect(deburr(null), '');
+      expect(deburr('hello'), 'hello');
+      expect(deburr('déjà vu'), 'deja vu');
+      expect(deburr('Łódź'), 'Lodz');
+      expect(deburr('Ærøskøbing'), 'Aeroskobing');
+      expect(deburr('Þór'), 'Thor');
+      expect(deburr('Straße'), 'Strasse');
+      expect(deburr('Ĳsselmeer'), 'IJsselmeer');
+      expect(deburr('Œuvre'), 'Oeuvre');
+      // A decomposed accent is dropped along with the precomposed ones.
+      expect(deburr('Cafe\u0301'), 'Cafe');
+      expect(deburr('De\u0301ja\u0300 Vu'), 'Deja Vu');
+      // Anything outside Latin-1 Supplement and Latin Extended-A is left as it is.
+      expect(deburr('한글'), '한글');
+      expect(deburr('Ti\u1ebfng Vi\u1ec7t'), 'Ti\u1ebfng Vi\u1ec7t');
+    });
   });
 }

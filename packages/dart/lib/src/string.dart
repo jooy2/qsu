@@ -467,3 +467,102 @@ List<String> words(String? str) {
 
   return result;
 }
+
+/// (Private) Every character of the key maps to the value. The set covers the Latin-1
+/// Supplement and Latin Extended-A blocks, which is what can be expressed as a plain table
+/// in all three languages: Dart has no Unicode normalization, so a decomposing step that
+/// would also reach Latin Extended Additional (Vietnamese and the like) is not available.
+const Map<String, String> _deburredGroups = {
+  'ÀÁÂÃÄÅĀĂĄ': 'A',
+  'àáâãäåāăą': 'a',
+  'ÇĆĈĊČ': 'C',
+  'çćĉċč': 'c',
+  'ÐĎĐ': 'D',
+  'ðďđ': 'd',
+  'ÈÉÊËĒĔĖĘĚ': 'E',
+  'èéêëēĕėęě': 'e',
+  'ĜĞĠĢ': 'G',
+  'ĝğġģ': 'g',
+  'ĤĦ': 'H',
+  'ĥħ': 'h',
+  'ÌÍÎÏĨĪĬĮİ': 'I',
+  'ìíîïĩīĭįı': 'i',
+  'Ĵ': 'J',
+  'ĵ': 'j',
+  'Ķ': 'K',
+  'ķĸ': 'k',
+  'ĹĻĽĿŁ': 'L',
+  'ĺļľŀł': 'l',
+  'ÑŃŅŇŊ': 'N',
+  'ñńņňŋ': 'n',
+  'ÒÓÔÕÖØŌŎŐ': 'O',
+  'òóôõöøōŏő': 'o',
+  'ŔŖŘ': 'R',
+  'ŕŗř': 'r',
+  'ŚŜŞŠ': 'S',
+  'śŝşšſ': 's',
+  'ŢŤŦ': 'T',
+  'ţťŧ': 't',
+  'ÙÚÛÜŨŪŬŮŰŲ': 'U',
+  'ùúûüũūŭůűų': 'u',
+  'Ŵ': 'W',
+  'ŵ': 'w',
+  'ÝŶŸ': 'Y',
+  'ýÿŷ': 'y',
+  'ŹŻŽ': 'Z',
+  'źżž': 'z',
+  'Æ': 'Ae',
+  'æ': 'ae',
+  'Þ': 'Th',
+  'þ': 'th',
+  'ß': 'ss',
+  'Ĳ': 'IJ',
+  'ĳ': 'ij',
+  'Œ': 'Oe',
+  'œ': 'oe',
+  'ŉ': "'n",
+};
+
+/// (Private) Built once from [_deburredGroups], so each call is a plain lookup.
+final Map<int, String> _deburredLetters = () {
+  final Map<int, String> letters = {};
+
+  _deburredGroups.forEach((String chars, String replacement) {
+    for (final int rune in chars.runes) {
+      letters[rune] = replacement;
+    }
+  });
+
+  return letters;
+}();
+
+/// (Private) Combining diacritical marks, combining marks for symbols and combining half
+/// marks. These carry the accent of a decomposed character, so dropping them handles input
+/// that was not written with a precomposed letter.
+bool _isCombiningMark(int code) =>
+    (code >= 0x0300 && code <= 0x036f) ||
+    (code >= 0x20d0 && code <= 0x20f0) ||
+    (code >= 0xfe20 && code <= 0xfe2f);
+
+/// Replaces accented Latin letters with their unaccented equivalents, so `déjà vu` becomes `deja vu`.
+/// Letters that have no single-letter equivalent are spelled out (`Æ` becomes `Ae`, `ß` becomes `ss`, `Þ` becomes `Th`).
+/// Combining marks are removed as well, so text written in a decomposed form is handled too.
+/// The mapping covers the Latin-1 Supplement and Latin Extended-A blocks; anything else is returned as it is.
+String deburr(String? str) {
+  if (str == null || str.isEmpty) {
+    return '';
+  }
+
+  final StringBuffer result = StringBuffer();
+
+  // Walk code points, not UTF-16 units, so a surrogate pair is never cut in half.
+  for (final int rune in str.runes) {
+    if (_isCombiningMark(rune)) {
+      continue;
+    }
+
+    result.write(_deburredLetters[rune] ?? String.fromCharCode(rune));
+  }
+
+  return result.toString();
+}
