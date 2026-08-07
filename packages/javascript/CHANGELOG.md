@@ -2,6 +2,7 @@
 
 ## 1.17.0 (2026--)
 
+- `strToSnakeCase`: Added. Converts a string to `snake_case`, lowercasing every word and joining them with an underscore. It splits with `words`, so `XMLHttpRequest` becomes `xml_http_request` and `abc12def` becomes `abc_12_def`
 - `strToCamelCase`: Added. Converts a string to `camelCase`, lowercasing the first word and giving every word after it an uppercase first letter. It splits with `words`, so an acronym stays whole (`XMLHttpRequest` becomes `xmlHttpRequest`) and a run of digits is its own word (`abc12def` becomes `abc12Def`)
 - `min`: Added. Returns the smallest of the given numbers, accepting either n arguments or a single array exactly like `sum`. Values that are not numbers are skipped, and so is `NaN`, which would otherwise win by losing every comparison. An empty input returns `null`
 - `max`: Added. Returns the largest of the given numbers, accepting either n arguments or a single array exactly like `sum`. Values that are not numbers are skipped, and so is `NaN`, which would otherwise win by losing every comparison. An empty input returns `null`

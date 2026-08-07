@@ -24,7 +24,8 @@ import {
 	deburr,
 	escapeRegExp,
 	uncapitalizeFirst,
-	strToCamelCase
+	strToCamelCase,
+	strToSnakeCase
 } from '../dist';
 
 describe('String', () => {
@@ -267,6 +268,17 @@ st`),
 		assert.strictEqual(strToCamelCase('XMLHttpRequest'), 'xmlHttpRequest');
 		assert.strictEqual(strToCamelCase('abc12def'), 'abc12Def');
 		assert.strictEqual(strToCamelCase('한글English혼합'), '한글English혼합');
+	});
+
+	it('strToSnakeCase', () => {
+		assert.strictEqual(strToSnakeCase(''), '');
+		assert.strictEqual(strToSnakeCase('foo bar'), 'foo_bar');
+		assert.strictEqual(strToSnakeCase('--foo-bar--'), 'foo_bar');
+		assert.strictEqual(strToSnakeCase('__FOO_BAR__'), 'foo_bar');
+		assert.strictEqual(strToSnakeCase('camelCase'), 'camel_case');
+		assert.strictEqual(strToSnakeCase('XMLHttpRequest'), 'xml_http_request');
+		assert.strictEqual(strToSnakeCase('abc12def'), 'abc_12_def');
+		assert.strictEqual(strToSnakeCase('한글English혼합'), '한글_english_혼합');
 	});
 
 	it('words', () => {
