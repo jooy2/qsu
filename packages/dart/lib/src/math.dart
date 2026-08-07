@@ -100,6 +100,27 @@ num clamp(num value, num min, num max) {
   return upper < min ? min : upper;
 }
 
+/// Rounds a number down, to the given number of decimal places. A negative [precision] rounds down to tens, hundreds and so on, so `floor(4060, -2)` returns `4000`.
+/// Rounding goes toward negative infinity, not toward zero, so a negative value falls: `floor(-4.006)` returns `-5`.
+/// The value is shifted through its shortest string representation rather than multiplied by a power of ten, so `floor(1.1, 1)` returns `1.1` and not `1.0`.
+/// `NaN` and the infinities are returned as they are.
+/// This is the "always down" companion of [round]; [ceil] is the "always up" one.
+num floor(num value, [int precision = 0]) {
+  if (value is double && !value.isFinite) {
+    return value;
+  }
+
+  final num shifted = _decimalShift(value, precision);
+
+  // Already whole: a value as large as `1e21` cannot carry a fraction, and `num.floor`
+  // cannot answer with an `int` that far outside the 64-bit range.
+  if (shifted is int || shifted == shifted.truncateToDouble()) {
+    return _toWholeWhenExact(_decimalShift(shifted, -precision));
+  }
+
+  return _toWholeWhenExact(_decimalShift(shifted.floor(), -precision));
+}
+
 /// Returns after dividing all n arguments of numbers or the values of a single array of numbers.
 double div(List<num> args) {
   double total = args[0].toDouble();

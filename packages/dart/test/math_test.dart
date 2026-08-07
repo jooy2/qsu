@@ -56,6 +56,19 @@ void main() {
       expect(div([1234]), equals(1234));
     });
 
+    test('floor', () {
+      expect(floor(4.006), equals(4));
+      expect(floor(4), equals(4));
+      expect(floor(-4.006), equals(-5));
+      expect(floor(0.046, 2), equals(0.04));
+      expect(floor(4060, -2), equals(4000));
+      expect(floor(1.1, 1), equals(1.1));
+      expect(floor(-0.5), equals(-1));
+      expect(floor(0), equals(0));
+      expect(floor(double.nan).isNaN, isTrue);
+      expect(floor(double.negativeInfinity), equals(double.negativeInfinity));
+    });
+
     test('mul', () {
       expect(mul([0]), equals(0));
       expect(mul([1, 2, 3, 4]), equals(24));
