@@ -1,3 +1,4 @@
+export { clamp } from './clamp.js';
 export { div } from './div.js';
 export { mul } from './mul.js';
 export { numPick } from './numPick.js';

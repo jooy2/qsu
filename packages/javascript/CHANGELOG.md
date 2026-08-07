@@ -1,5 +1,9 @@
 # Changelog (JavaScript)
 
+## 1.17.0 (2026--)
+
+- `clamp`: Added. Restricts a number to an inclusive range, returning `min` below it and `max` above it. The upper bound is applied first, so `min` wins when the two are passed the wrong way round, matching Lodash rather than Dart's `num.clamp`, which throws
+
 ## 1.16.0 (2026-08-04)
 
 - `retry`: Added. Runs the given function again on failure until it succeeds or the attempts run out, raising the last error if they all fail. `times` counts total attempts (default `3`), `delay` waits between them and `backoff` multiplies that wait after each failure

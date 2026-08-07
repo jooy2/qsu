@@ -1,8 +1,20 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { numPick, numUnique, sum, mul, sub, div } from '../dist';
+import { numPick, numUnique, sum, mul, sub, div, clamp } from '../dist';
 
 describe('Math', () => {
+	it('clamp', () => {
+		assert.strictEqual(clamp(5, 1, 10), 5);
+		assert.strictEqual(clamp(1, 1, 10), 1);
+		assert.strictEqual(clamp(10, 1, 10), 10);
+		assert.strictEqual(clamp(-7, 1, 10), 1);
+		assert.strictEqual(clamp(42, 1, 10), 10);
+		assert.strictEqual(clamp(1.5, 0, 1), 1);
+		assert.strictEqual(clamp(-1.5, -1, 1), -1);
+		// An inverted range resolves to `min`, because the upper bound is applied first.
+		assert.strictEqual(clamp(5, 10, 1), 10);
+	});
+
 	it('numPick', () => {
 		assert.strictEqual(typeof numPick(1, 60) === 'number', true);
 		for (let i = 0; i < 50; i += 1) {
