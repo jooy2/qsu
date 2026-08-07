@@ -4,6 +4,7 @@ from qsu.object import (
 	objInvert,
 	objMapKeys,
 	objMergeNewKey,
+	objPick,
 	objPickBy,
 	objTo1d,
 	objToArray,
@@ -269,6 +270,21 @@ def test_objMergeNewKey():
 	) == {
 		'a': [{'aa': 1, 'bb': 2, 'cc': 3}, {'aa': 4, 'bb': 5, 'cc': 6}],
 	}
+
+
+def test_objPick():
+	assert objPick({'a': 1, 'b': 2, 'c': 3}, ['a', 'c']) == {'a': 1, 'c': 3}
+	assert objPick({'a': 1, 'b': 2}, 'a') == {'a': 1}
+	assert objPick({'a': 1, 'b': 2}, []) == {}
+	# A key that is not there is skipped rather than added as `None`.
+	assert objPick({'a': 1}, ['a', 'zzz']) == {'a': 1}
+	assert objPick({'a': None}, 'a') == {'a': None}
+	# The nested value is carried over as it is, and the source is not modified.
+	source = {'a': {'b': 1}, 'c': 2}
+	assert objPick(source, 'a') == {'a': {'b': 1}}
+	assert source == {'a': {'b': 1}, 'c': 2}
+	assert objPick(None, 'a') is None
+	assert objPick('abc', 'a') is None
 
 
 def test_objPickBy():

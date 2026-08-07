@@ -3,6 +3,7 @@ from .objFindItemRecursiveByKey import objFindItemRecursiveByKey
 from .objInvert import objInvert
 from .objMapKeys import objMapKeys
 from .objMergeNewKey import objMergeNewKey
+from .objPick import objPick
 from .objPickBy import objPickBy
 from .objTo1d import objTo1d
 from .objToArray import objToArray
@@ -16,6 +17,7 @@ __all__ = [
 	'objInvert',
 	'objMapKeys',
 	'objMergeNewKey',
+	'objPick',
 	'objPickBy',
 	'objTo1d',
 	'objToArray',
