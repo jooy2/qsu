@@ -2,6 +2,7 @@
 
 ## 1.2.0 (2026--)
 
+- `objClone`: Added. Copies an object, deeply by default and top level only with `deep: False`. A `dict`, `list` and `tuple` are rebuilt with their contents copied and a `set` gets a fresh copy, while a `datetime` (immutable) or a class instance is handed back as it is. A structure that points back at itself is rebuilt with the same shape rather than recursing until the recursion limit is hit
 - `objMerge`: Added. Merges any number of objects into one new object, going down through nested dicts, with the later source winning. Two dicts under the same key are merged into a new dict, so neither source is shared with the result or modified. Lists are replaced whole rather than merged index by index as Lodash does, and `None` is returned when an argument is not a dict
 - `objGet`: Added. Reads a nested value out of an object by dot and/or bracket path (`a.b.c`, `list[0]`, `list[1].d`), returning the `fallback` when the path is not there. A bracket may carry a quoted key, so `["a.b"]` reads one key rather than walking two levels, and a stored `None` counts as a value rather than a missing path
 - `objPick`: Added. Returns a new object containing only the listed keys, accepting a single key or a list of keys. Only the top level is inspected, and a key the dict does not have is skipped rather than carried over as `None`

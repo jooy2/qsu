@@ -1,4 +1,5 @@
 from qsu.object import (
+	objClone,
 	objDeleteKeyByValue,
 	objFindItemRecursiveByKey,
 	objGet,
@@ -272,6 +273,43 @@ def test_objMergeNewKey():
 	) == {
 		'a': [{'aa': 1, 'bb': 2, 'cc': 3}, {'aa': 4, 'bb': 5, 'cc': 6}],
 	}
+
+
+def test_objClone():
+	source = {'a': 1, 'b': {'c': [1, 2, {'d': 3}]}}
+	deep = objClone(source)
+
+	assert deep == source
+	assert deep['b'] is not source['b']
+	assert deep['b']['c'] is not source['b']['c']
+	deep['b']['c'][2]['d'] = 99
+	assert source['b']['c'][2]['d'] == 3
+
+	# `deep: False` copies the top level only, so the nested value is shared.
+	shallow = objClone(source, {'deep': False})
+
+	assert shallow is not source
+	assert shallow['b'] is source['b']
+
+	# Lists are cloned as lists.
+	cloned = objClone([1, [2, 3]])
+
+	assert cloned == [1, [2, 3]]
+	assert isinstance(cloned, list)
+
+	# A structure that points back at itself is rebuilt with the same shape.
+	cyclic = {'name': 'root'}
+	cyclic['self'] = cyclic
+
+	clonedCyclic = objClone(cyclic)
+
+	assert clonedCyclic['self'] is clonedCyclic
+	assert clonedCyclic is not cyclic
+
+	# Values that are not containers are handed back as they are.
+	assert objClone(5) == 5
+	assert objClone(None) is None
+	assert objClone('abc') == 'abc'
 
 
 def test_objMerge():

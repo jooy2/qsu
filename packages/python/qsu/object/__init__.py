@@ -1,3 +1,4 @@
+from .objClone import objClone
 from .objDeleteKeyByValue import objDeleteKeyByValue
 from .objFindItemRecursiveByKey import objFindItemRecursiveByKey
 from .objGet import objGet
@@ -14,6 +15,7 @@ from .objToQueryString import objToQueryString
 from .objUpdate import objUpdate
 
 __all__ = [
+	'objClone',
 	'objDeleteKeyByValue',
 	'objFindItemRecursiveByKey',
 	'objGet',
