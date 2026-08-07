@@ -51,6 +51,24 @@ void main() {
       expect(mul([1234]), equals(1234));
     });
 
+    test('round', () {
+      expect(round(0.5), equals(1));
+      expect(round(2.5), equals(3));
+      expect(round(-0.5), equals(-1));
+      expect(round(-1.5), equals(-2));
+      expect(round(1.4), equals(1));
+      expect(round(-1.4), equals(-1));
+      expect(round(1.005, 2), equals(1.01));
+      expect(round(2.675, 2), equals(2.68));
+      expect(round(1234, -2), equals(1200));
+      expect(round(4.006, 2), equals(4.01));
+      expect(round(1.1, 1), equals(1.1));
+      expect(round(0), equals(0));
+      expect(round(-0.4), equals(0));
+      expect(round(double.nan).isNaN, isTrue);
+      expect(round(double.infinity), equals(double.infinity));
+    });
+
     test('sub', () {
       expect(sub([0]), equals(0));
       expect(sub([100, 10, 20, 30]), equals(40));
