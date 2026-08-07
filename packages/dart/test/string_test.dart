@@ -221,6 +221,18 @@ st'''), 'test');
       expect(strToKebabCase('한글English혼합'), '한글-english-혼합');
     });
 
+    test('strToPascalCase', () {
+      expect(strToPascalCase(''), '');
+      expect(strToPascalCase(null), '');
+      expect(strToPascalCase('foo bar'), 'FooBar');
+      expect(strToPascalCase('--foo-bar--'), 'FooBar');
+      expect(strToPascalCase('__FOO_BAR__'), 'FooBar');
+      expect(strToPascalCase('camelCase'), 'CamelCase');
+      expect(strToPascalCase('XMLHttpRequest'), 'XmlHttpRequest');
+      expect(strToPascalCase('abc12def'), 'Abc12Def');
+      expect(strToPascalCase('한글English혼합'), '한글English혼합');
+    });
+
     test('words', () {
       expect(words(''), []);
       expect(words(null), []);

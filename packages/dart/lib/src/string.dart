@@ -653,3 +653,14 @@ String strToKebabCase(String? str) {
 
   return words(str).map((String word) => word.toLowerCase()).join('-');
 }
+
+/// Converts a string to `PascalCase`: every word gets an uppercase first letter and a lowercase rest, with all separators removed.
+/// The string is split with [words], so an acronym is separated from the word after it (`XMLHttpRequest` becomes `XmlHttpRequest`) and a run of digits is its own word (`abc12def` becomes `Abc12Def`).
+/// This is [strToCamelCase] with the first word capitalized as well, and it is not [capitalizeEachWords], which keeps the original separators.
+String strToPascalCase(String? str) {
+  if (str == null || str.isEmpty) {
+    return '';
+  }
+
+  return words(str).map(_capitalizeWord).join();
+}
