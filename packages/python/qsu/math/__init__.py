@@ -1,3 +1,4 @@
+from .ceil import ceil
 from .clamp import clamp
 from .div import div
 from .mul import mul
@@ -8,6 +9,7 @@ from .sub import sub
 from .sum import sum
 
 __all__ = [
+	'ceil',
 	'clamp',
 	'div',
 	'mul',

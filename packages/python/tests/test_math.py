@@ -1,4 +1,5 @@
 from qsu.math import (
+	ceil,
 	clamp,
 	div,
 	mul,
@@ -8,6 +9,19 @@ from qsu.math import (
 	sub,
 	sum,
 )
+
+
+def test_ceil():
+	assert ceil(4.006) == 5
+	assert ceil(4) == 4
+	assert ceil(-4.006) == -4
+	assert ceil(6.004, 2) == 6.01
+	assert ceil(6040, -2) == 6100
+	assert ceil(1.1, 1) == 1.1
+	assert ceil(-0.5) == 0
+	assert ceil(0) == 0
+	assert ceil(float('nan')) != ceil(float('nan'))
+	assert ceil(float('inf')) == float('inf')
 
 
 def test_clamp():
