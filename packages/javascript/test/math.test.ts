@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { numPick, numUnique, sum, mul, sub, div, clamp, round, ceil } from '../dist';
+import { numPick, numUnique, sum, mul, sub, div, clamp, round, ceil, floor } from '../dist';
 
 describe('Math', () => {
 	it('clamp', () => {
@@ -26,6 +26,19 @@ describe('Math', () => {
 		assert.strictEqual(ceil(0), 0);
 		assert.strictEqual(Number.isNaN(ceil(NaN)), true);
 		assert.strictEqual(ceil(Infinity), Infinity);
+	});
+
+	it('floor', () => {
+		assert.strictEqual(floor(4.006), 4);
+		assert.strictEqual(floor(4), 4);
+		assert.strictEqual(floor(-4.006), -5);
+		assert.strictEqual(floor(0.046, 2), 0.04);
+		assert.strictEqual(floor(4060, -2), 4000);
+		assert.strictEqual(floor(1.1, 1), 1.1);
+		assert.strictEqual(floor(-0.5), -1);
+		assert.strictEqual(floor(0), 0);
+		assert.strictEqual(Number.isNaN(floor(NaN)), true);
+		assert.strictEqual(floor(-Infinity), -Infinity);
 	});
 
 	it('round', () => {
