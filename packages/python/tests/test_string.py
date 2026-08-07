@@ -19,6 +19,7 @@ from qsu import (
 	strToAscii,
 	strToCamelCase,
 	strToKebabCase,
+	strToPascalCase,
 	strToSnakeCase,
 	strUnique,
 	trim,
@@ -287,6 +288,17 @@ def test_strToKebabCase():
 	assert strToKebabCase('XMLHttpRequest') == 'xml-http-request'
 	assert strToKebabCase('abc12def') == 'abc-12-def'
 	assert strToKebabCase('한글English혼합') == '한글-english-혼합'
+
+
+def test_strToPascalCase():
+	assert strToPascalCase('') == ''
+	assert strToPascalCase('foo bar') == 'FooBar'
+	assert strToPascalCase('--foo-bar--') == 'FooBar'
+	assert strToPascalCase('__FOO_BAR__') == 'FooBar'
+	assert strToPascalCase('camelCase') == 'CamelCase'
+	assert strToPascalCase('XMLHttpRequest') == 'XmlHttpRequest'
+	assert strToPascalCase('abc12def') == 'Abc12Def'
+	assert strToPascalCase('한글English혼합') == '한글English혼합'
 
 
 def test_words():
