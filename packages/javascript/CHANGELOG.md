@@ -2,6 +2,7 @@
 
 ## 1.17.0 (2026--)
 
+- `escapeHtml`: Added. Escapes `&`, `<`, `>`, `"` and `'` so a value can be dropped into a page as text rather than read as markup. `'` is written as `&#39;` rather than `&apos;`, which HTML 4 never defined. It lives in the `web` category, next to `getSlug`, and leaves `escapeRegExp` as the pattern-oriented one
 - `objClone`: Added. Copies an object, deeply by default and top level only with `deep: false`. Plain objects, arrays, `Map` and `Set` are rebuilt with their contents copied, `Date` and `RegExp` get a fresh copy, and a function or class instance is handed back as it is. A structure that points back at itself is rebuilt with the same shape rather than recursing until the stack runs out
 - `objMerge`: Added. Merges any number of objects into one new object, going down through nested objects, with the later source winning. Two plain objects under the same key are merged into a new object, so neither source is shared with the result or modified. Arrays are replaced whole rather than merged index by index as Lodash does, and `null` is returned when an argument is not an object
 - `objGet`: Added. Reads a nested value out of an object by dot and/or bracket path (`a.b.c`, `list[0]`, `list[1].d`), returning the `fallback` when the path is not there. A bracket may carry a quoted key, so `["a.b"]` reads one key rather than walking two levels, and a stored `null` counts as a value rather than a missing path

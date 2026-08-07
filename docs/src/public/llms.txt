@@ -9,7 +9,7 @@ Things worth knowing before answering questions about qsu:
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
 - In JavaScript, the `crypto`, `file`, `net` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as does `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
-- 150 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
+- 151 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
 ## Getting started
 
@@ -229,6 +229,7 @@ Type, equality, range and format validation.
 
 URLs, slugs, user agents and other web-oriented helpers.
 
+- [escapeHtml](https://qsu.cdget.com/reference/web/escapeHtml) (JavaScript, Dart, Python): Escapes the five characters that carry meaning in HTML (`&`, `<`, `>`, `"`, `'`), so a value can be dropped into a page as text rather than read as markup.
 - [generateLicense](https://qsu.cdget.com/reference/web/generateLicense) (JavaScript, Python): Returns text in a specific license format based on the author information of the given argument. The argument uses the Object type.
 - [getParsedInfoFromAddress](https://qsu.cdget.com/reference/web/getParsedInfoFromAddress) (JavaScript, Dart, Python): Parses an address string into its parts and returns them as an object. It handles ordinary web URLs as well as host-only addresses, IPv4, IPv6 (bare or wrapped in `[]`), and SSH-style connection strings that carry user information such as `ssh://user:pass@host:port`.
 - [getSlug](https://qsu.cdget.com/reference/web/getSlug) (JavaScript, Dart, Python): Converts a string into a URL-friendly slug. The input is trimmed, split into words on whitespace and any existing `-`/`_` characters, and joined back together with the chosen separator.

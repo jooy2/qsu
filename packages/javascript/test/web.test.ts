@@ -7,7 +7,8 @@ import {
 	removeLocalePrefix,
 	isMobile,
 	getParsedInfoFromAddress,
-	getSlug
+	getSlug,
+	escapeHtml
 } from '../dist';
 import { homepage } from '../package.json';
 
@@ -196,6 +197,20 @@ describe('Web', () => {
 		for (const [url, expected] of cases) {
 			assert.deepStrictEqual(getParsedInfoFromAddress(url), { ...base, ...expected }, url);
 		}
+	});
+
+	it('escapeHtml', () => {
+		assert.strictEqual(escapeHtml(''), '');
+		assert.strictEqual(escapeHtml('fred, barney, & pebbles'), 'fred, barney, &amp; pebbles');
+		assert.strictEqual(
+			escapeHtml('<script>alert("x")</script>'),
+			'&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'
+		);
+		assert.strictEqual(escapeHtml("it's"), 'it&#39;s');
+		// `&` is escaped first, so an escaped entity is not escaped twice.
+		assert.strictEqual(escapeHtml('&lt;'), '&amp;lt;');
+		// Everything else is left alone.
+		assert.strictEqual(escapeHtml('a/b한글😀'), 'a/b한글😀');
 	});
 
 	it('getSlug', () => {
