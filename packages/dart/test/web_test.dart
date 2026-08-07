@@ -250,6 +250,24 @@ void main() {
       expect(escapeHtml('a/b한글😀'), 'a/b한글😀');
     });
 
+    test('unescapeHtml', () {
+      expect(unescapeHtml(''), '');
+      expect(unescapeHtml(null), '');
+      expect(unescapeHtml('fred, barney, &amp; pebbles'),
+          'fred, barney, & pebbles');
+      expect(unescapeHtml('&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'),
+          '<script>alert("x")</script>');
+      expect(unescapeHtml('it&#39;s'), "it's");
+      // One pass, so an escaped entity comes back as text instead of being unescaped twice.
+      expect(unescapeHtml('&amp;lt;'), '&lt;');
+      // Entities outside the escaped set are left alone.
+      expect(unescapeHtml('&apos;&nbsp;&#x27;'), '&apos;&nbsp;&#x27;');
+      // Round trip.
+      const String raw = '<a href="x">it\'s & more</a>';
+
+      expect(unescapeHtml(escapeHtml(raw)), raw);
+    });
+
     test('getSlug', () {
       // Basics: lowercased, spaces become the separator.
       expect(getSlug('Hello World'), 'hello-world');

@@ -2,6 +2,7 @@
 
 ## 1.5.0 (2026--)
 
+- `unescapeHtml`: Added. Turns the five entities `escapeHtml` produces back into their characters. The string is walked once rather than replaced five times in a row, so `&amp;lt;` comes back as the literal text `&lt;` instead of being unescaped twice, and only those five entities are recognised, so `&nbsp;` and `&#x27;` are left as they are
 - `escapeHtml`: Added. Escapes `&`, `<`, `>`, `"` and `'` so a value can be dropped into a page as text rather than read as markup. `'` is written as `&#39;` rather than `&apos;`, which HTML 4 never defined. It lives in the `web` category, next to `getSlug`, and leaves `escapeRegExp` as the pattern-oriented one
 - `objClone`: Added. Copies an object, deeply by default and top level only with `deep: false`. A `Map`, `List` and `Set` are rebuilt with their contents copied, while a `DateTime` (immutable) or a class instance is handed back as it is. A structure that points back at itself is rebuilt with the same shape rather than recursing until the stack runs out
 - `objMerge`: Added. Merges any number of objects into one new object, going down through nested maps, with the later source winning. Two maps under the same key are merged into a new map, so neither source is shared with the result or modified. Lists are replaced whole rather than merged index by index as Lodash does, and `null` is returned when an entry is not a map

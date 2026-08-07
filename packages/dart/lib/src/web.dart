@@ -379,3 +379,28 @@ String escapeHtml(String? str) {
   return str.replaceAllMapped(
       _unescapedHtmlCharacters, (Match m) => _htmlEscapes[m[0]]!);
 }
+
+/// (Private) Compiled once. One pass over the whole string, not five sequential
+/// replacements: turning `&amp;` into `&` first and `&lt;` into `<` afterwards would read
+/// `&amp;lt;` as `<`, where it has to come back as the literal text `&lt;`.
+final RegExp _escapedHtmlEntities = RegExp(r'&(?:amp|lt|gt|quot|#39);');
+
+const Map<String, String> _htmlUnescapes = {
+  '&amp;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&#39;': "'",
+};
+
+/// Turns the five HTML entities that [escapeHtml] produces (`&amp;`, `&lt;`, `&gt;`, `&quot;` and `&#39;`) back into the characters they stand for.
+/// The string is walked once, not replaced five times in a row, so `&amp;lt;` comes back as the literal text `&lt;` instead of being unescaped twice.
+/// Only these five entities are recognised, so anything else (`&apos;`, `&nbsp;`, `&#x27;`, a numeric entity) is left exactly as it is, and `unescapeHtml(escapeHtml(text))` always returns the original text.
+String unescapeHtml(String? str) {
+  if (str == null || str.isEmpty) {
+    return '';
+  }
+
+  return str.replaceAllMapped(
+      _escapedHtmlEntities, (Match m) => _htmlUnescapes[m[0]]!);
+}
