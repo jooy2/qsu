@@ -10,6 +10,14 @@
 $ pip install qsu
 ```
 
+**qsu** is published to PyPI, so modern package managers such as [uv](https://docs.astral.sh/uv), [Poetry](https://python-poetry.org), and [PDM](https://pdm-project.org) can install it from their default index without any extra configuration:
+
+```bash
+$ uv add qsu
+$ poetry add qsu
+$ pdm add qsu
+```
+
 ## How to use
 
 ```python

@@ -11,8 +11,28 @@ You need to have at least `Python 3.8` to install **qsu**. For security and high
 
 After configuring the Python environment, run the following command to install the library:
 
-```bash
+::: code-group
+
+```bash [pip]
 $ pip install qsu
+```
+
+```bash [uv]
+$ uv add qsu
+```
+
+```bash [poetry]
+$ poetry add qsu
+```
+
+:::
+
+**qsu** is published to PyPI, so modern package managers such as [uv](https://docs.astral.sh/uv), [Poetry](https://python-poetry.org), and [PDM](https://pdm-project.org) resolve it from their default index without any extra configuration.
+
+If you use `uv` outside of a project (for example, in a plain virtual environment), install it with the pip-compatible command instead:
+
+```bash
+$ uv pip install qsu
 ```
 
 ## How to use

@@ -11,8 +11,28 @@ Python 언어로 **qsu**를 설치하기 위해 몇가지 간단한 절차가 �
 
 Python 환경을 구성한 후 다음 명령을 실행하여 라이브러리를 설치하세요:
 
-```bash
+::: code-group
+
+```bash [pip]
 $ pip install qsu
+```
+
+```bash [uv]
+$ uv add qsu
+```
+
+```bash [poetry]
+$ poetry add qsu
+```
+
+:::
+
+**qsu**는 PyPI에 배포되어 있으므로 [uv](https://docs.astral.sh/uv), [Poetry](https://python-poetry.org), [PDM](https://pdm-project.org)과 같은 최신 패키지 관리자에서도 별도의 설정 없이 기본 인덱스를 통해 설치할 수 있습니다.
+
+프로젝트 외부에서 `uv`를 사용하는 경우(예: 일반 가상 환경) 다음과 같이 pip 호환 명령을 사용하세요:
+
+```bash
+$ uv pip install qsu
 ```
 
 ## 사용 방법
