@@ -155,6 +155,37 @@ void main() {
           });
     });
 
+    test('objGet', () {
+      final data = {
+        'a': {
+          'b': {'c': 42}
+        },
+        'list': [
+          1,
+          {'d': 'x'}
+        ],
+        'empty': null
+      };
+
+      expect(objGet(data, 'a.b.c'), 42);
+      expect(objGet(data, 'list[0]'), 1);
+      expect(objGet(data, 'list[1].d'), 'x');
+      expect(objGet(data, 'list.1.d'), 'x');
+      expect(objGet(data, 'a.b'), {'c': 42});
+      // A stored `null` is a value, not a missing path.
+      expect(objGet(data, 'empty'), isNull);
+      // Missing paths fall back.
+      expect(objGet(data, 'a.zzz'), isNull);
+      expect(objGet(data, 'a.zzz', fallback: 'none'), 'none');
+      expect(objGet(data, 'a.b.c.d', fallback: 0), 0);
+      expect(objGet(data, 'list[9]', fallback: 'none'), 'none');
+      expect(objGet(data, '', fallback: 'none'), 'none');
+      expect(objGet(null, 'a', fallback: 'none'), 'none');
+      // A quoted bracket key keeps the dot inside it.
+      expect(objGet({'a.b': 1}, '["a.b"]'), 1);
+      expect(objGet({'a.b': 1}, "['a.b']"), 1);
+    });
+
     test('objPick', () {
       expect(objPick({'a': 1, 'b': 2, 'c': 3}, ['a', 'c']), {'a': 1, 'c': 3});
       expect(objPick({'a': 1, 'b': 2}, 'a'), {'a': 1});

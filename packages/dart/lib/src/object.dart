@@ -199,3 +199,106 @@ Map<String, dynamic>? objPick(Map<String, dynamic>? obj, dynamic keys) {
 
   return result;
 }
+
+/// (Private) Turns `a.b[0].c` into `['a', 'b', '0', 'c']`. A bracket may carry a quoted
+/// key, so `a["b.c"]` reads one key `b.c` instead of two.
+List<String> _parsePath(String path) {
+  final List<String> segments = [];
+  final int pathLength = path.length;
+  String current = '';
+  int i = 0;
+
+  while (i < pathLength) {
+    final String char = path[i];
+
+    if (char == '[') {
+      final int end = path.indexOf(']', i);
+
+      if (end == -1) {
+        current += char;
+        i++;
+        continue;
+      }
+
+      if (current != '') {
+        segments.add(current);
+        current = '';
+      }
+
+      String inner = path.substring(i + 1, end);
+      final String quote = inner.isEmpty ? '' : inner[0];
+
+      if (inner.length >= 2 &&
+          (quote == "'" || quote == '"') &&
+          inner.endsWith(quote)) {
+        inner = inner.substring(1, inner.length - 1);
+      }
+
+      segments.add(inner);
+      i = end + 1;
+
+      // `a[0].b` puts a dot right after the bracket, which would otherwise close an empty
+      // segment and make the lookup miss.
+      if (i < pathLength && path[i] == '.') {
+        i++;
+      }
+
+      continue;
+    }
+
+    if (char == '.') {
+      segments.add(current);
+      current = '';
+      i++;
+      continue;
+    }
+
+    current += char;
+    i++;
+  }
+
+  if (current != '' || segments.isEmpty) {
+    segments.add(current);
+  }
+
+  return segments;
+}
+
+/// Reads a nested value out of an object by path, returning [fallback] when the path is not there.
+/// The path takes both dot and bracket notation, and the two can be mixed: `a.b.c`, `list[0]`, `list[1].d` and `list.1.d` all work. A bracket may carry a quoted key, so `["a.b"]` reads one key named `a.b` instead of walking two levels.
+/// Whether a step exists is decided by the presence of the key, not by the value behind it, so a stored `null` is returned as it is rather than replaced by the fallback.
+/// Lists are walked with their numeric index.
+dynamic objGet(Map<String, dynamic>? obj, String path, {dynamic fallback}) {
+  if (obj == null) {
+    return fallback;
+  }
+
+  final List<String> segments = _parsePath(path);
+  dynamic current = obj;
+
+  for (final String segment in segments) {
+    if (current is Map) {
+      if (!current.containsKey(segment)) {
+        return fallback;
+      }
+
+      current = current[segment];
+      continue;
+    }
+
+    if (current is List) {
+      final int? index = int.tryParse(segment);
+
+      if (index == null || index < 0 || index >= current.length) {
+        return fallback;
+      }
+
+      current = current[index];
+      continue;
+    }
+
+    return fallback;
+  }
+
+  return current;
+}
