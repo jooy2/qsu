@@ -9,7 +9,7 @@ Things worth knowing before answering questions about qsu:
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
 - In JavaScript, the `crypto`, `file`, `net` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as does `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
-- 143 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
+- 144 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
 ## Getting started
 
@@ -191,6 +191,7 @@ String transformation, capitalization, trimming and truncation.
 - [strToAscii](https://qsu.cdget.com/reference/string/strToAscii) (JavaScript, Dart, Python): Converts the given string to ascii code and returns it as an array.
 - [strToCamelCase](https://qsu.cdget.com/reference/string/strToCamelCase) (JavaScript, Dart, Python): Converts a string to `camelCase`: the first word is lowercased and every word after it gets an uppercase first letter, with all separators removed.
 - [strToKebabCase](https://qsu.cdget.com/reference/string/strToKebabCase) (JavaScript, Dart, Python): Converts a string to `kebab-case`: every word is lowercased and joined with a hyphen. For a URL slug use `getSlug` instead.
+- [strToPascalCase](https://qsu.cdget.com/reference/string/strToPascalCase) (JavaScript, Dart, Python): Converts a string to `PascalCase`: every word gets an uppercase first letter and a lowercase rest, with all separators removed.
 - [strToSnakeCase](https://qsu.cdget.com/reference/string/strToSnakeCase) (JavaScript, Dart, Python): Converts a string to `snake_case`: every word is lowercased and joined with an underscore.
 - [strUnique](https://qsu.cdget.com/reference/string/strUnique) (JavaScript, Dart, Python): Remove duplicate characters from a given string and output only one.
 - [trim](https://qsu.cdget.com/reference/string/trim) (JavaScript, Dart, Python): Removes all whitespace before and after a string. Unlike JavaScript's `trim` function, it converts two or more spaces between sentences into a single space.

@@ -16,6 +16,7 @@ export { strShuffle } from './strShuffle.js';
 export { strToAscii } from './strToAscii.js';
 export { strToCamelCase } from './strToCamelCase.js';
 export { strToKebabCase } from './strToKebabCase.js';
+export { strToPascalCase } from './strToPascalCase.js';
 export { strToSnakeCase } from './strToSnakeCase.js';
 export { strUnique } from './strUnique.js';
 export { trim } from './trim.js';

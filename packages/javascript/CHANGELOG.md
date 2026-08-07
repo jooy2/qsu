@@ -2,6 +2,7 @@
 
 ## 1.17.0 (2026--)
 
+- `strToPascalCase`: Added. Converts a string to `PascalCase`, giving every word an uppercase first letter and a lowercase rest. It splits with `words`, so `XMLHttpRequest` becomes `XmlHttpRequest`. `capitalizeEachWords` stays the one that keeps the original separators
 - `strToKebabCase`: Added. Converts a string to `kebab-case`, lowercasing every word and joining them with a hyphen. It splits with `words`, so `XMLHttpRequest` becomes `xml-http-request`. `getSlug` stays the URL-oriented one
 - `strToSnakeCase`: Added. Converts a string to `snake_case`, lowercasing every word and joining them with an underscore. It splits with `words`, so `XMLHttpRequest` becomes `xml_http_request` and `abc12def` becomes `abc_12_def`
 - `strToCamelCase`: Added. Converts a string to `camelCase`, lowercasing the first word and giving every word after it an uppercase first letter. It splits with `words`, so an acronym stays whole (`XMLHttpRequest` becomes `xmlHttpRequest`) and a run of digits is its own word (`abc12def` becomes `abc12Def`)
