@@ -1,4 +1,5 @@
 from qsu.math import (
+	clamp,
 	div,
 	mul,
 	numPick,
@@ -6,6 +7,18 @@ from qsu.math import (
 	sub,
 	sum,
 )
+
+
+def test_clamp():
+	assert clamp(5, 1, 10) == 5
+	assert clamp(1, 1, 10) == 1
+	assert clamp(10, 1, 10) == 10
+	assert clamp(-7, 1, 10) == 1
+	assert clamp(42, 1, 10) == 10
+	assert clamp(1.5, 0, 1) == 1
+	assert clamp(-1.5, -1, 1) == -1
+	# An inverted range resolves to `min`, because the upper bound is applied first.
+	assert clamp(5, 10, 1) == 10
 
 
 def test_numPick():

@@ -1,3 +1,4 @@
+from .clamp import clamp
 from .div import div
 from .mul import mul
 from .numPick import numPick
@@ -6,6 +7,7 @@ from .sub import sub
 from .sum import sum
 
 __all__ = [
+	'clamp',
 	'div',
 	'mul',
 	'numPick',
