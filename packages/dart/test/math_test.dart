@@ -24,6 +24,19 @@ void main() {
       }
     });
 
+    test('ceil', () {
+      expect(ceil(4.006), equals(5));
+      expect(ceil(4), equals(4));
+      expect(ceil(-4.006), equals(-4));
+      expect(ceil(6.004, 2), equals(6.01));
+      expect(ceil(6040, -2), equals(6100));
+      expect(ceil(1.1, 1), equals(1.1));
+      expect(ceil(-0.5), equals(0));
+      expect(ceil(0), equals(0));
+      expect(ceil(double.nan).isNaN, isTrue);
+      expect(ceil(double.infinity), equals(double.infinity));
+    });
+
     test('clamp', () {
       expect(clamp(5, 1, 10), equals(5));
       expect(clamp(1, 1, 10), equals(1));

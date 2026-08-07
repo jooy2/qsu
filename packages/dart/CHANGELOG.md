@@ -2,6 +2,7 @@
 
 ## 1.5.0 (2026--)
 
+- `ceil`: Added. Rounds a number up, to the given number of decimal places, a negative precision rounding up to tens, hundreds and so on. Rounding goes toward positive infinity, so `ceil(-4.006)` is `-4`. The value is shifted through its shortest string representation, so `ceil(1.1, 1)` is `1.1` and not `1.2`, and a whole result is handed back as an `int`
 - `round`: Added. Rounds a number to the given number of decimal places, a negative precision rounding to tens, hundreds and so on. Ties go away from zero, which is what `num.round` already does but not what JavaScript's `Math.round` or Lodash do. The value is shifted through its shortest string representation rather than multiplied by a power of ten, so `round(1.005, 2)` is `1.01` and not `1`, and a whole result is handed back as an `int` so `round(1234, -2)` is `1200` rather than `1200.0`
 - `clamp`: Added. Restricts a number to an inclusive range, returning `min` below it and `max` above it. The upper bound is applied first, so `min` wins when the two are passed the wrong way round, where the built-in `num.clamp` throws on an inverted range instead
 

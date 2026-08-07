@@ -70,6 +70,27 @@ int numUnique() {
   return _lastUniqueId;
 }
 
+/// Rounds a number up, to the given number of decimal places. A negative [precision] rounds up to tens, hundreds and so on, so `ceil(6040, -2)` returns `6100`.
+/// Rounding goes toward positive infinity, not away from zero, so a negative value rises: `ceil(-4.006)` returns `-4`.
+/// The value is shifted through its shortest string representation rather than multiplied by a power of ten, so `ceil(1.1, 1)` returns `1.1` and not `1.2`.
+/// `NaN` and the infinities are returned as they are.
+/// This is the "always up" companion of [round]; [floor] is the "always down" one.
+num ceil(num value, [int precision = 0]) {
+  if (value is double && !value.isFinite) {
+    return value;
+  }
+
+  final num shifted = _decimalShift(value, precision);
+
+  // Already whole: a value as large as `1e21` cannot carry a fraction, and `num.ceil`
+  // cannot answer with an `int` that far outside the 64-bit range.
+  if (shifted is int || shifted == shifted.truncateToDouble()) {
+    return _toWholeWhenExact(_decimalShift(shifted, -precision));
+  }
+
+  return _toWholeWhenExact(_decimalShift(shifted.ceil(), -precision));
+}
+
 /// Restricts a number to an inclusive range. Returns [min] when the value falls below it, [max] when it rises above it, and the value itself otherwise.
 /// The upper bound is applied first and the lower bound second, so [min] wins when the two are passed the wrong way round: `clamp(5, 10, 1)` returns `10`.
 /// The built-in `num.clamp` throws on an inverted range instead, so this function is shipped for parity with the JavaScript and Python implementations.
