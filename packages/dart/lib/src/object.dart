@@ -335,3 +335,84 @@ Map<String, dynamic>? objMerge(List<Map<String, dynamic>?> objects) {
 
   return result;
 }
+
+/// (Private) Copies a value, remembering every container already copied so a structure that
+/// points back at itself is rebuilt with the same shape instead of recursing until the
+/// stack runs out. The map compares by identity, because two equal but distinct maps must
+/// still be copied separately.
+dynamic _cloneValue(dynamic value, Map<Object, dynamic> seen) {
+  if (value == null) {
+    return null;
+  }
+
+  if (seen.containsKey(value)) {
+    return seen[value];
+  }
+
+  if (value is Map) {
+    final Map<String, dynamic> copy = {};
+
+    seen[value] = copy;
+    value.forEach((dynamic key, dynamic entry) {
+      copy[key.toString()] = _cloneValue(entry, seen);
+    });
+
+    return copy;
+  }
+
+  if (value is List) {
+    final List<dynamic> copy = [];
+
+    seen[value] = copy;
+
+    for (final dynamic entry in value) {
+      copy.add(_cloneValue(entry, seen));
+    }
+
+    return copy;
+  }
+
+  if (value is Set) {
+    final Set<dynamic> copy = {};
+
+    seen[value] = copy;
+
+    for (final dynamic entry in value) {
+      copy.add(_cloneValue(entry, seen));
+    }
+
+    return copy;
+  }
+
+  // A `DateTime` is immutable, and a class instance cannot be rebuilt without knowing how
+  // it was made, so both are handed back as they are.
+  return value;
+}
+
+/// Copies an object. The copy is deep by default, so nothing inside it is shared with the original; pass `deep: false` to copy the top level only.
+/// A `Map`, `List` and `Set` are rebuilt with their contents copied. A `DateTime` is immutable and a class instance cannot be rebuilt without knowing how it was made, so both are handed back as they are.
+/// A structure that points back at itself is rebuilt with the same shape instead of recursing until the stack runs out.
+/// A value that is not a container is returned as it is, so `objClone(5)` is `5`.
+dynamic objClone(dynamic obj, {bool deep = true}) {
+  if (obj == null) {
+    return obj;
+  }
+
+  if (!deep) {
+    if (obj is Map) {
+      return Map<String, dynamic>.from(obj);
+    }
+
+    if (obj is List) {
+      return List<dynamic>.from(obj);
+    }
+
+    if (obj is Set) {
+      return Set<dynamic>.from(obj);
+    }
+
+    return obj;
+  }
+
+  return _cloneValue(obj, Map<Object, dynamic>.identity());
+}

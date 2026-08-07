@@ -155,6 +155,58 @@ void main() {
           });
     });
 
+    test('objClone', () {
+      final source = {
+        'a': 1,
+        'b': {
+          'c': [
+            1,
+            2,
+            {'d': 3}
+          ]
+        }
+      };
+      final deep = objClone(source);
+
+      expect(deep, source);
+      expect(identical(deep['b'], source['b']), isFalse);
+      deep['b']['c'][2]['d'] = 99;
+      expect((source['b'] as Map)['c'][2]['d'], 3);
+
+      // `deep: false` copies the top level only, so the nested value is shared.
+      final shallow = objClone(source, deep: false);
+
+      expect(identical(shallow, source), isFalse);
+      expect(identical(shallow['b'], source['b']), isTrue);
+
+      // Lists are cloned as lists.
+      final list = objClone([
+        1,
+        [2, 3]
+      ]);
+
+      expect(list, [
+        1,
+        [2, 3]
+      ]);
+      expect(list is List, isTrue);
+
+      // A structure that points back at itself is rebuilt with the same shape.
+      final Map<String, dynamic> cyclic = {'name': 'root'};
+
+      cyclic['self'] = cyclic;
+
+      final clonedCyclic = objClone(cyclic);
+
+      expect(identical(clonedCyclic['self'], clonedCyclic), isTrue);
+      expect(identical(clonedCyclic, cyclic), isFalse);
+
+      // Values that are not containers are handed back as they are.
+      expect(objClone(5), 5);
+      expect(objClone(null), isNull);
+      expect(objClone('abc'), 'abc');
+    });
+
     test('objMerge', () {
       expect(
           objMerge([
