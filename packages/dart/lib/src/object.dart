@@ -302,3 +302,36 @@ dynamic objGet(Map<String, dynamic>? obj, String path, {dynamic fallback}) {
 
   return current;
 }
+
+/// Merges any number of objects into one new object, going down through nested objects. When two sources carry the same key, the later one wins.
+/// Two maps under the same key are merged into a *new* map, so neither source ends up shared with the result and neither is modified. Everything else, lists included, is replaced whole by the later value, where Lodash merges lists index by index.
+/// A key that only one source carries is copied over as it is, so a nested map under such a key is shared with that source. Use [objClone] when a fully independent copy is needed.
+/// `null` is returned when the list is empty, or when any of its entries is not a map.
+Map<String, dynamic>? objMerge(List<Map<String, dynamic>?> objects) {
+  if (objects.isEmpty) {
+    return null;
+  }
+
+  final Map<String, dynamic> result = {};
+
+  for (final Map<String, dynamic>? source in objects) {
+    if (source == null) {
+      return null;
+    }
+
+    source.forEach((String key, dynamic value) {
+      final dynamic previous = result[key];
+
+      if (isObject(previous) && isObject(value)) {
+        result[key] = objMerge([
+          Map<String, dynamic>.from(previous as Map),
+          Map<String, dynamic>.from(value as Map),
+        ]);
+      } else {
+        result[key] = value;
+      }
+    });
+  }
+
+  return result;
+}

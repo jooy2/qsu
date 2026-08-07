@@ -155,6 +155,88 @@ void main() {
           });
     });
 
+    test('objMerge', () {
+      expect(
+          objMerge([
+            {'a': 1},
+            {'b': 2}
+          ]),
+          {'a': 1, 'b': 2});
+      // The later source wins.
+      expect(
+          objMerge([
+            {'a': 1},
+            {'a': 2},
+            {'a': 3}
+          ]),
+          {'a': 3});
+      // Nested maps are merged rather than replaced.
+      expect(
+          objMerge([
+            {
+              'a': {'b': 1, 'c': 2}
+            },
+            {
+              'a': {'c': 9, 'd': 3}
+            }
+          ]),
+          {
+            'a': {'b': 1, 'c': 9, 'd': 3}
+          });
+      // Lists are replaced whole, not merged index by index.
+      expect(
+          objMerge([
+            {
+              'a': [1, 2, 3]
+            },
+            {
+              'a': [9]
+            }
+          ]),
+          {
+            'a': [9]
+          });
+      // A `null` replaces the map that was there.
+      expect(
+          objMerge([
+            {
+              'a': {'b': 1}
+            },
+            {'a': null}
+          ]),
+          {'a': null});
+      expect(
+          objMerge([
+            {'a': 1}
+          ]),
+          {'a': 1});
+      expect(objMerge([{}, {}]), {});
+      expect(objMerge([]), isNull);
+      expect(
+          objMerge([
+            {'a': 1},
+            null
+          ]),
+          isNull);
+
+      // Neither source is modified, and the merged branch is a new map.
+      final first = {
+        'a': {'b': 1}
+      };
+      final second = {
+        'a': {'c': 2}
+      };
+      final merged = objMerge([first, second])!;
+
+      (merged['a'] as Map)['b'] = 99;
+      expect(first, {
+        'a': {'b': 1}
+      });
+      expect(second, {
+        'a': {'c': 2}
+      });
+    });
+
     test('objGet', () {
       final data = {
         'a': {
