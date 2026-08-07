@@ -642,3 +642,14 @@ String strToSnakeCase(String? str) {
 
   return words(str).map((String word) => word.toLowerCase()).join('_');
 }
+
+/// Converts a string to `kebab-case`: every word is lowercased and joined with a hyphen.
+/// The string is split with [words], so spaces, punctuation, `-` and `_` all act as delimiters, an acronym is separated from the word after it (`XMLHttpRequest` becomes `xml-http-request`) and a run of digits is its own word (`abc12def` becomes `abc-12-def`).
+/// This is a general-purpose case conversion. For a URL-friendly slug use [getSlug] instead, which also strips accents and non-Latin characters.
+String strToKebabCase(String? str) {
+  if (str == null || str.isEmpty) {
+    return '';
+  }
+
+  return words(str).map((String word) => word.toLowerCase()).join('-');
+}

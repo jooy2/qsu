@@ -2,6 +2,7 @@
 
 ## 1.5.0 (2026--)
 
+- `strToKebabCase`: Added. Converts a string to `kebab-case`, lowercasing every word and joining them with a hyphen. It splits with `words`, so `XMLHttpRequest` becomes `xml-http-request`. `getSlug` stays the URL-oriented one
 - `strToSnakeCase`: Added. Converts a string to `snake_case`, lowercasing every word and joining them with an underscore. It splits with `words`, so `XMLHttpRequest` becomes `xml_http_request` and `abc12def` becomes `abc_12_def`
 - `strToCamelCase`: Added. Converts a string to `camelCase`, lowercasing the first word and giving every word after it an uppercase first letter. It splits with `words`, so an acronym stays whole (`XMLHttpRequest` becomes `xmlHttpRequest`) and a run of digits is its own word (`abc12def` becomes `abc12Def`)
 - `min`: Added. Returns the smallest of the given numbers, taking a single array exactly like `sum`. `NaN` is skipped, because it loses every comparison and would otherwise win by being seen first, and an empty list returns `null`. It shadows `min` from `dart:math`, so a file that needs both has to import one of them with a prefix
