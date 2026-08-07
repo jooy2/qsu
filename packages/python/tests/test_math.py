@@ -4,6 +4,7 @@ from qsu.math import (
 	div,
 	floor,
 	max,
+	min,
 	mul,
 	numPick,
 	numUnique,
@@ -107,6 +108,18 @@ def test_max():
 	assert max() is None
 	assert max([float('nan'), 5]) == 5
 	assert max(['a', 3, None]) == 3
+
+
+def test_min():
+	assert min(1, 2, 3) == 1
+	assert min([4, 2, 8, 6]) == 2
+	assert min(-4, -2, -8) == -8
+	assert min(1.5, 1.25) == 1.25
+	assert min(7) == 7
+	assert min([]) is None
+	assert min() is None
+	assert min([float('nan'), 5]) == 5
+	assert min(['a', 3, None]) == 3
 
 
 def test_mul():

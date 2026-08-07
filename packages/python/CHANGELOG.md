@@ -2,6 +2,7 @@
 
 ## 1.2.0 (2026--)
 
+- `min`: Added. Returns the smallest of the given numbers, accepting either n arguments or a single list exactly like `sum`. Values that are not numbers are skipped, `bool` among them, and so is `nan`, which would otherwise win by losing every comparison. An empty input returns `None`
 - `max`: Added. Returns the largest of the given numbers, accepting either n arguments or a single list exactly like `sum`. Values that are not numbers are skipped, `bool` among them, and so is `nan`, which would otherwise win by losing every comparison. An empty input returns `None`
 - `floor`: Added. Rounds a number down, to the given number of decimal places, a negative precision rounding down to tens, hundreds and so on. Rounding goes toward negative infinity, so `floor(-4.006)` is `-5`. The value is read through `Decimal(str(value))` and shifted by its exponent, so `floor(1.1, 1)` is `1.1`
 - `ceil`: Added. Rounds a number up, to the given number of decimal places, a negative precision rounding up to tens, hundreds and so on. Rounding goes toward positive infinity, so `ceil(-4.006)` is `-4`. The value is read through `Decimal(str(value))` and shifted by its exponent, so `ceil(1.1, 1)` is `1.1` and not `1.2`
