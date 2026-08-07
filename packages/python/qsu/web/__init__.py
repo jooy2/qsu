@@ -6,6 +6,7 @@ from .isBotAgent import isBotAgent
 from .isMatchPathname import isMatchPathname
 from .isMobile import isMobile
 from .removeLocalePrefix import removeLocalePrefix
+from .unescapeHtml import unescapeHtml
 
 __all__ = [
 	'escapeHtml',
@@ -16,4 +17,5 @@ __all__ = [
 	'isMatchPathname',
 	'isMobile',
 	'removeLocalePrefix',
+	'unescapeHtml',
 ]

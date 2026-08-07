@@ -9,6 +9,7 @@ from qsu.web import (
 	isMatchPathname,
 	isMobile,
 	removeLocalePrefix,
+	unescapeHtml,
 )
 
 homepage = 'https://qsu.cdget.com'
@@ -190,6 +191,24 @@ def test_escapeHtml():
 	assert escapeHtml('&lt;') == '&amp;lt;'
 	# Everything else is left alone.
 	assert escapeHtml('a/b한글😀') == 'a/b한글😀'
+
+
+def test_unescapeHtml():
+	assert unescapeHtml('') == ''
+	assert unescapeHtml('fred, barney, &amp; pebbles') == 'fred, barney, & pebbles'
+	assert (
+		unescapeHtml('&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;')
+		== '<script>alert("x")</script>'
+	)
+	assert unescapeHtml('it&#39;s') == "it's"
+	# One pass, so an escaped entity comes back as text instead of being unescaped twice.
+	assert unescapeHtml('&amp;lt;') == '&lt;'
+	# Entities outside the escaped set are left alone.
+	assert unescapeHtml('&apos;&nbsp;&#x27;') == '&apos;&nbsp;&#x27;'
+	# Round trip.
+	raw = '<a href="x">it\'s & more</a>'
+
+	assert unescapeHtml(escapeHtml(raw)) == raw
 
 
 def test_getSlug():
