@@ -14,7 +14,8 @@ import {
 	objInvert,
 	objPick,
 	objGet,
-	objMerge
+	objMerge,
+	objClone
 } from '../dist';
 
 describe('Misc', () => {
@@ -599,6 +600,52 @@ describe('Misc', () => {
 				]
 			}
 		);
+	});
+
+	it('objClone', () => {
+		const source = { a: 1, b: { c: [1, 2, { d: 3 }] } };
+		const deep = objClone(source);
+
+		assert.deepStrictEqual(deep, source);
+		assert.notStrictEqual(deep.b, source.b);
+		assert.notStrictEqual(deep.b.c, source.b.c);
+		deep.b.c[2].d = 99;
+		assert.strictEqual(source.b.c[2].d, 3);
+
+		// `deep: false` copies the top level only, so the nested value is shared.
+		const shallow = objClone(source, { deep: false });
+
+		assert.notStrictEqual(shallow, source);
+		assert.strictEqual(shallow.b, source.b);
+
+		// Arrays are cloned as arrays.
+		const list = objClone([1, [2, 3]]);
+
+		assert.deepStrictEqual(list, [1, [2, 3]]);
+		assert.strictEqual(Array.isArray(list), true);
+
+		// `Date` and `RegExp` get a fresh copy.
+		const date = new Date(0);
+		const clonedDate = objClone({ date }).date;
+
+		assert.notStrictEqual(clonedDate, date);
+		assert.strictEqual(clonedDate.getTime(), 0);
+		assert.strictEqual(objClone({ re: /ab+c/gi }).re.source, 'ab+c');
+
+		// A structure that points back at itself is rebuilt with the same shape.
+		const cyclic: any = { name: 'root' };
+
+		cyclic.self = cyclic;
+
+		const clonedCyclic = objClone(cyclic);
+
+		assert.strictEqual(clonedCyclic.self, clonedCyclic);
+		assert.notStrictEqual(clonedCyclic, cyclic);
+
+		// Primitives are handed back as they are.
+		assert.strictEqual(objClone(5), 5);
+		assert.strictEqual(objClone(null), null);
+		assert.strictEqual(objClone('abc'), 'abc');
 	});
 
 	it('objMerge', () => {

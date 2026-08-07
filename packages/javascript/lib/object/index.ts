@@ -1,3 +1,4 @@
+export { objClone } from './objClone.js';
 export { objDeleteKeyByValue } from './objDeleteKeyByValue.js';
 export { objFindItemRecursiveByKey } from './objFindItemRecursiveByKey.js';
 export { objGet } from './objGet.js';
