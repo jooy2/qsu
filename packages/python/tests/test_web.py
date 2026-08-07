@@ -1,6 +1,7 @@
 import pytest
 
 from qsu.web import (
+	escapeHtml,
 	generateLicense,
 	getParsedInfoFromAddress,
 	getSlug,
@@ -175,6 +176,20 @@ def test_getParsedInfoFromAddress():
 		assert result['port'] == case.get('port'), url
 		assert result['user'] == case.get('user'), url
 		assert result['pass'] == case.get('pass'), url
+
+
+def test_escapeHtml():
+	assert escapeHtml('') == ''
+	assert escapeHtml('fred, barney, & pebbles') == 'fred, barney, &amp; pebbles'
+	assert (
+		escapeHtml('<script>alert("x")</script>')
+		== '&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'
+	)
+	assert escapeHtml("it's") == 'it&#39;s'
+	# `&` is escaped first, so an escaped entity is not escaped twice.
+	assert escapeHtml('&lt;') == '&amp;lt;'
+	# Everything else is left alone.
+	assert escapeHtml('a/b한글😀') == 'a/b한글😀'
 
 
 def test_getSlug():

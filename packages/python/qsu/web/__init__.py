@@ -1,3 +1,4 @@
+from .escapeHtml import escapeHtml
 from .generateLicense import generateLicense
 from .getParsedInfoFromAddress import getParsedInfoFromAddress
 from .getSlug import getSlug
@@ -7,6 +8,7 @@ from .isMobile import isMobile
 from .removeLocalePrefix import removeLocalePrefix
 
 __all__ = [
+	'escapeHtml',
 	'generateLicense',
 	'getParsedInfoFromAddress',
 	'getSlug',
