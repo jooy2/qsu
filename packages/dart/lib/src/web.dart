@@ -352,3 +352,30 @@ ParsedAddress getParsedInfoFromAddress(String url) {
     pass: pass,
   );
 }
+
+/// (Private) Compiled once. Building a `RegExp` inside a function recompiles the pattern
+/// on every call.
+final RegExp _unescapedHtmlCharacters = RegExp(r'''[&<>"']''');
+
+/// (Private) `'` is written as `&#39;` rather than `&apos;`, which HTML 4 did not define
+/// and which therefore does not survive every parser.
+const Map<String, String> _htmlEscapes = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+};
+
+/// Escapes the five characters that carry meaning in HTML (`&`, `<`, `>`, `"` and `'`), so a value can be dropped into a page as text rather than read as markup.
+/// `'` is written as `&#39;` rather than `&apos;`, which HTML 4 never defined and which therefore does not survive every parser.
+/// Everything else is left alone. `&` is part of the escaped set, which means an already-escaped string is escaped again: `escapeHtml('&lt;')` returns `'&amp;lt;'`.
+/// [unescapeHtml] turns the result back.
+String escapeHtml(String? str) {
+  if (str == null || str.isEmpty) {
+    return '';
+  }
+
+  return str.replaceAllMapped(
+      _unescapedHtmlCharacters, (Match m) => _htmlEscapes[m[0]]!);
+}

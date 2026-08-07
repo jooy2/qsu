@@ -236,6 +236,20 @@ void main() {
       }
     });
 
+    test('escapeHtml', () {
+      expect(escapeHtml(''), '');
+      expect(escapeHtml(null), '');
+      expect(
+          escapeHtml('fred, barney, & pebbles'), 'fred, barney, &amp; pebbles');
+      expect(escapeHtml('<script>alert("x")</script>'),
+          '&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;');
+      expect(escapeHtml("it's"), 'it&#39;s');
+      // `&` is escaped first, so an escaped entity is not escaped twice.
+      expect(escapeHtml('&lt;'), '&amp;lt;');
+      // Everything else is left alone.
+      expect(escapeHtml('a/b한글😀'), 'a/b한글😀');
+    });
+
     test('getSlug', () {
       // Basics: lowercased, spaces become the separator.
       expect(getSlug('Hello World'), 'hello-world');
