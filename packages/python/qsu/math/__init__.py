@@ -2,6 +2,7 @@ from .ceil import ceil
 from .clamp import clamp
 from .div import div
 from .floor import floor
+from .max import max
 from .mul import mul
 from .numPick import numPick
 from .numUnique import numUnique
@@ -14,6 +15,7 @@ __all__ = [
 	'clamp',
 	'div',
 	'floor',
+	'max',
 	'mul',
 	'numPick',
 	'numUnique',

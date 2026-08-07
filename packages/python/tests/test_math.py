@@ -3,6 +3,7 @@ from qsu.math import (
 	clamp,
 	div,
 	floor,
+	max,
 	mul,
 	numPick,
 	numUnique,
@@ -94,6 +95,18 @@ def test_floor():
 	assert floor(0) == 0
 	assert floor(float('nan')) != floor(float('nan'))
 	assert floor(float('-inf')) == float('-inf')
+
+
+def test_max():
+	assert max(1, 2, 3) == 3
+	assert max([4, 2, 8, 6]) == 8
+	assert max(-4, -2, -8) == -2
+	assert max(1.5, 1.25) == 1.5
+	assert max(7) == 7
+	assert max([]) is None
+	assert max() is None
+	assert max([float('nan'), 5]) == 5
+	assert max(['a', 3, None]) == 3
 
 
 def test_mul():

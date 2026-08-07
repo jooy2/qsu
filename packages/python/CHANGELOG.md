@@ -2,6 +2,7 @@
 
 ## 1.2.0 (2026--)
 
+- `max`: Added. Returns the largest of the given numbers, accepting either n arguments or a single list exactly like `sum`. Values that are not numbers are skipped, `bool` among them, and so is `nan`, which would otherwise win by losing every comparison. An empty input returns `None`
 - `floor`: Added. Rounds a number down, to the given number of decimal places, a negative precision rounding down to tens, hundreds and so on. Rounding goes toward negative infinity, so `floor(-4.006)` is `-5`. The value is read through `Decimal(str(value))` and shifted by its exponent, so `floor(1.1, 1)` is `1.1`
 - `ceil`: Added. Rounds a number up, to the given number of decimal places, a negative precision rounding up to tens, hundreds and so on. Rounding goes toward positive infinity, so `ceil(-4.006)` is `-4`. The value is read through `Decimal(str(value))` and shifted by its exponent, so `ceil(1.1, 1)` is `1.1` and not `1.2`
 - `round`: Added. Rounds a number to the given number of decimal places, a negative precision rounding to tens, hundreds and so on. Ties go away from zero rather than to the nearest even number, so unlike the built-in `round` it answers `1` for `0.5` and `3` for `2.5`, matching the JavaScript and Dart implementations. The value is read through `Decimal(str(value))` and shifted by its exponent rather than multiplied by a power of ten, so `round(1.005, 2)` is `1.01` and not `1`
