@@ -1,6 +1,6 @@
 # Changelog (Dart)
 
-## 1.5.0 (2026--)
+## 1.5.0 (2026-08-07)
 
 - `unescapeHtml`: Added. Turns the five entities `escapeHtml` produces back into their characters. The string is walked once rather than replaced five times in a row, so `&amp;lt;` comes back as the literal text `&lt;` instead of being unescaped twice, and only those five entities are recognised, so `&nbsp;` and `&#x27;` are left as they are
 - `escapeHtml`: Added. Escapes `&`, `<`, `>`, `"` and `'` so a value can be dropped into a page as text rather than read as markup. `'` is written as `&#39;` rather than `&apos;`, which HTML 4 never defined. It lives in the `web` category, next to `getSlug`, and leaves `escapeRegExp` as the pattern-oriented one
