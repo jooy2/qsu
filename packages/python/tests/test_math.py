@@ -4,6 +4,7 @@ from qsu.math import (
 	mul,
 	numPick,
 	numUnique,
+	round,
 	sub,
 	sum,
 )
@@ -40,6 +41,24 @@ def test_numUnique():
 			raise Exception('Duplicate number generated')
 		else:
 			uniq_sets.add(uniq)
+
+
+def test_round():
+	assert round(0.5) == 1
+	assert round(2.5) == 3
+	assert round(-0.5) == -1
+	assert round(-1.5) == -2
+	assert round(1.4) == 1
+	assert round(-1.4) == -1
+	assert round(1.005, 2) == 1.01
+	assert round(2.675, 2) == 2.68
+	assert round(1234, -2) == 1200
+	assert round(4.006, 2) == 4.01
+	assert round(1.1, 1) == 1.1
+	assert round(0) == 0
+	assert round(-0.4) == 0
+	assert round(float('nan')) != round(float('nan'))
+	assert round(float('inf')) == float('inf')
 
 
 def test_sum():
