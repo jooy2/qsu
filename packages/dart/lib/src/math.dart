@@ -155,6 +155,28 @@ num? max(List<num> args) {
   return result;
 }
 
+/// Returns the smallest of the given numbers. Like [sum], it takes a single array of numbers.
+/// Values that are `NaN` are skipped, because `NaN` loses every comparison and would otherwise win by being seen first and then never being replaced.
+/// When nothing is left to compare, `null` is returned.
+/// This shadows `min` from `dart:math`, so a file that needs both has to import one of them with a prefix.
+num? min(List<num> args) {
+  num? result;
+
+  for (var i = 0; i < args.length; i++) {
+    final num value = args[i];
+
+    if (value.isNaN) {
+      continue;
+    }
+
+    if (result == null || value < result) {
+      result = value;
+    }
+  }
+
+  return result;
+}
+
 /// Returns after multiplying all n arguments of numbers or the values of a single array of numbers.
 num mul(List<num> args) {
   num total = args[0];

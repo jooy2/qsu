@@ -79,6 +79,16 @@ void main() {
       expect(max([double.nan, 5]), equals(5));
     });
 
+    test('min', () {
+      expect(min([1, 2, 3]), equals(1));
+      expect(min([4, 2, 8, 6]), equals(2));
+      expect(min([-4, -2, -8]), equals(-8));
+      expect(min([1.5, 1.25]), equals(1.25));
+      expect(min([7]), equals(7));
+      expect(min([]), isNull);
+      expect(min([double.nan, 5]), equals(5));
+    });
+
     test('mul', () {
       expect(mul([0]), equals(0));
       expect(mul([1, 2, 3, 4]), equals(24));
