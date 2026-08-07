@@ -9,7 +9,7 @@ Things worth knowing before answering questions about qsu:
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
 - In JavaScript, the `crypto`, `file`, `net` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as does `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
-- 138 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
+- 139 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
 ## Getting started
 
@@ -113,6 +113,7 @@ Basic arithmetic over argument lists or arrays, and random numbers.
 - [clamp](https://qsu.cdget.com/reference/math/clamp) (JavaScript, Dart, Python): Restricts a number to an inclusive range. Returns `min` when the value falls below it, `max` when it rises above it, and the value itself otherwise.
 - [div](https://qsu.cdget.com/reference/math/div) (JavaScript, Dart, Python): Returns after dividing all n arguments of numbers or the values of a single array of numbers.
 - [floor](https://qsu.cdget.com/reference/math/floor) (JavaScript, Dart, Python): Rounds a number down, to the given number of decimal places. Rounding goes toward negative infinity, so a negative value falls.
+- [max](https://qsu.cdget.com/reference/math/max) (JavaScript, Dart, Python): Returns the largest of the given numbers, accepting either n arguments or a single array. Non-numbers and `NaN` are skipped, and an empty input returns `null`.
 - [mul](https://qsu.cdget.com/reference/math/mul) (JavaScript, Dart, Python): Returns after multiplying all n arguments of numbers or the values of a single array of numbers.
 - [numPick](https://qsu.cdget.com/reference/math/numPick) (JavaScript, Dart, Python): Returns a randomly selected number between the min and max values.
 - [numUnique](https://qsu.cdget.com/reference/math/numUnique) (JavaScript, Dart, Python): Returns a unique number based on the current timestamp.
