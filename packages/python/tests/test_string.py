@@ -17,6 +17,7 @@ from qsu import (
 	strRandom,
 	strShuffle,
 	strToAscii,
+	strToCamelCase,
 	strUnique,
 	trim,
 	truncate,
@@ -250,6 +251,18 @@ def test_getGroupKeys():
 	]
 	assert getGroupKeys('abc {d\nef}', '{', '}') == []
 	assert getGroupKeys('abc {def}\n\n{ghi}\n\n{a\n}', '{', '}') == ['def', 'ghi']
+
+
+def test_strToCamelCase():
+	assert strToCamelCase('') == ''
+	assert strToCamelCase('foo bar') == 'fooBar'
+	assert strToCamelCase('--foo-bar--') == 'fooBar'
+	assert strToCamelCase('__FOO_BAR__') == 'fooBar'
+	assert strToCamelCase('camelCase') == 'camelCase'
+	assert strToCamelCase('PascalCase') == 'pascalCase'
+	assert strToCamelCase('XMLHttpRequest') == 'xmlHttpRequest'
+	assert strToCamelCase('abc12def') == 'abc12Def'
+	assert strToCamelCase('한글English혼합') == '한글English혼합'
 
 
 def test_words():

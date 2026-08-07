@@ -14,6 +14,7 @@ from .strCount import strCount
 from .strRandom import strRandom
 from .strShuffle import strShuffle
 from .strToAscii import strToAscii
+from .strToCamelCase import strToCamelCase
 from .strUnique import strUnique
 from .trim import trim
 from .truncate import truncate
@@ -39,6 +40,7 @@ __all__ = [
 	'strRandom',
 	'strShuffle',
 	'strToAscii',
+	'strToCamelCase',
 	'strUnique',
 	'trim',
 	'truncate',

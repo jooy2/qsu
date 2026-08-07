@@ -2,6 +2,7 @@
 
 ## 1.2.0 (2026--)
 
+- `strToCamelCase`: Added. Converts a string to `camelCase`, lowercasing the first word and giving every word after it an uppercase first letter. It splits with `words`, so an acronym stays whole (`XMLHttpRequest` becomes `xmlHttpRequest`) and a run of digits is its own word (`abc12def` becomes `abc12Def`)
 - `min`: Added. Returns the smallest of the given numbers, accepting either n arguments or a single list exactly like `sum`. Values that are not numbers are skipped, `bool` among them, and so is `nan`, which would otherwise win by losing every comparison. An empty input returns `None`
 - `max`: Added. Returns the largest of the given numbers, accepting either n arguments or a single list exactly like `sum`. Values that are not numbers are skipped, `bool` among them, and so is `nan`, which would otherwise win by losing every comparison. An empty input returns `None`
 - `floor`: Added. Rounds a number down, to the given number of decimal places, a negative precision rounding down to tens, hundreds and so on. Rounding goes toward negative infinity, so `floor(-4.006)` is `-5`. The value is read through `Decimal(str(value))` and shifted by its exponent, so `floor(1.1, 1)` is `1.1`
