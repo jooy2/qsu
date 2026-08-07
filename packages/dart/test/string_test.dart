@@ -233,6 +233,18 @@ st'''), 'test');
       expect(strToPascalCase('한글English혼합'), '한글English혼합');
     });
 
+    test('strToConstantCase', () {
+      expect(strToConstantCase(''), '');
+      expect(strToConstantCase(null), '');
+      expect(strToConstantCase('foo bar'), 'FOO_BAR');
+      expect(strToConstantCase('--foo-bar--'), 'FOO_BAR');
+      expect(strToConstantCase('__FOO_BAR__'), 'FOO_BAR');
+      expect(strToConstantCase('camelCase'), 'CAMEL_CASE');
+      expect(strToConstantCase('XMLHttpRequest'), 'XML_HTTP_REQUEST');
+      expect(strToConstantCase('abc12def'), 'ABC_12_DEF');
+      expect(strToConstantCase('한글English혼합'), '한글_ENGLISH_혼합');
+    });
+
     test('words', () {
       expect(words(''), []);
       expect(words(null), []);

@@ -2,6 +2,7 @@
 
 ## 1.5.0 (2026--)
 
+- `strToConstantCase`: Added. Converts a string to `CONSTANT_CASE`, uppercasing every word and joining them with an underscore. It splits with `words`, so `XMLHttpRequest` becomes `XML_HTTP_REQUEST`. Dart applies the simple Unicode case mapping where JavaScript and Python apply the full one, so `straße` becomes `STRAßE` here and `STRASSE` there, which the documentation states rather than papering over
 - `strToPascalCase`: Added. Converts a string to `PascalCase`, giving every word an uppercase first letter and a lowercase rest. It splits with `words`, so `XMLHttpRequest` becomes `XmlHttpRequest`. `capitalizeEachWords` stays the one that keeps the original separators
 - `strToKebabCase`: Added. Converts a string to `kebab-case`, lowercasing every word and joining them with a hyphen. It splits with `words`, so `XMLHttpRequest` becomes `xml-http-request`. `getSlug` stays the URL-oriented one
 - `strToSnakeCase`: Added. Converts a string to `snake_case`, lowercasing every word and joining them with an underscore. It splits with `words`, so `XMLHttpRequest` becomes `xml_http_request` and `abc12def` becomes `abc_12_def`

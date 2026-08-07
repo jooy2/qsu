@@ -664,3 +664,14 @@ String strToPascalCase(String? str) {
 
   return words(str).map(_capitalizeWord).join();
 }
+
+/// Converts a string to `CONSTANT_CASE`: every word is uppercased and joined with an underscore.
+/// The string is split with [words], so an acronym is separated from the word after it (`XMLHttpRequest` becomes `XML_HTTP_REQUEST`) and a run of digits is its own word (`abc12def` becomes `ABC_12_DEF`).
+/// Dart applies the simple Unicode case mapping where JavaScript and Python apply the full one, so `straße` becomes `STRAßE` here and `STRASSE` there. Matching them would need a copy of the Unicode special-casing table, so the difference is documented instead.
+String strToConstantCase(String? str) {
+  if (str == null || str.isEmpty) {
+    return '';
+  }
+
+  return words(str).map((String word) => word.toUpperCase()).join('_');
+}
