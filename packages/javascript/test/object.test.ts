@@ -12,7 +12,8 @@ import {
 	objPickBy,
 	objMapKeys,
 	objInvert,
-	objPick
+	objPick,
+	objGet
 } from '../dist';
 
 describe('Misc', () => {
@@ -597,6 +598,28 @@ describe('Misc', () => {
 				]
 			}
 		);
+	});
+
+	it('objGet', () => {
+		const data = { a: { b: { c: 42 } }, list: [1, { d: 'x' }], empty: null };
+
+		assert.strictEqual(objGet(data, 'a.b.c'), 42);
+		assert.strictEqual(objGet(data, 'list[0]'), 1);
+		assert.strictEqual(objGet(data, 'list[1].d'), 'x');
+		assert.strictEqual(objGet(data, 'list.1.d'), 'x');
+		assert.deepStrictEqual(objGet(data, 'a.b'), { c: 42 });
+		// A stored `null` is a value, not a missing path.
+		assert.strictEqual(objGet(data, 'empty'), null);
+		// Missing paths fall back.
+		assert.strictEqual(objGet(data, 'a.zzz'), null);
+		assert.strictEqual(objGet(data, 'a.zzz', { fallback: 'none' }), 'none');
+		assert.strictEqual(objGet(data, 'a.b.c.d', { fallback: 0 }), 0);
+		assert.strictEqual(objGet(data, 'list[9]', { fallback: 'none' }), 'none');
+		assert.strictEqual(objGet(data, '', { fallback: 'none' }), 'none');
+		assert.strictEqual(objGet(null as any, 'a', { fallback: 'none' }), 'none');
+		// A quoted bracket key keeps the dot inside it.
+		assert.strictEqual(objGet({ 'a.b': 1 }, '["a.b"]'), 1);
+		assert.strictEqual(objGet({ 'a.b': 1 }, "['a.b']"), 1);
 	});
 
 	it('objPick', () => {
