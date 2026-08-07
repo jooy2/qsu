@@ -36,6 +36,15 @@ int numUnique() {
   return _lastUniqueId;
 }
 
+/// Restricts a number to an inclusive range. Returns [min] when the value falls below it, [max] when it rises above it, and the value itself otherwise.
+/// The upper bound is applied first and the lower bound second, so [min] wins when the two are passed the wrong way round: `clamp(5, 10, 1)` returns `10`.
+/// The built-in `num.clamp` throws on an inverted range instead, so this function is shipped for parity with the JavaScript and Python implementations.
+num clamp(num value, num min, num max) {
+  final num upper = value > max ? max : value;
+
+  return upper < min ? min : upper;
+}
+
 /// Returns after dividing all n arguments of numbers or the values of a single array of numbers.
 double div(List<num> args) {
   double total = args[0].toDouble();

@@ -2,6 +2,8 @@
 
 ## 1.5.0 (2026--)
 
+- `clamp`: Added. Restricts a number to an inclusive range, returning `min` below it and `max` above it. The upper bound is applied first, so `min` wins when the two are passed the wrong way round, where the built-in `num.clamp` throws on an inverted range instead
+
 - `retry`: Added. Runs the given function again on failure until it succeeds or the attempts run out, rethrowing the last error with its original stack trace if they all fail. `times` counts total attempts (default `3`), `delay` waits between them and `backoff` multiplies that wait after each failure
 - `throttle`: Added. Limits how often a function may run to at most once per `wait` window, the counterpart of `debounce`. `leading` and `trailing` (both `true` by default) choose which edge of the window runs
 - `objInvert`: Added. Returns a new object with the keys and values swapped. Values are converted to text because keys are always strings, a whole `double` losing its fractional part so the result matches the JavaScript implementation, and the later entry wins when two share a value

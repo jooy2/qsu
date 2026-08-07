@@ -24,6 +24,18 @@ void main() {
       }
     });
 
+    test('clamp', () {
+      expect(clamp(5, 1, 10), equals(5));
+      expect(clamp(1, 1, 10), equals(1));
+      expect(clamp(10, 1, 10), equals(10));
+      expect(clamp(-7, 1, 10), equals(1));
+      expect(clamp(42, 1, 10), equals(10));
+      expect(clamp(1.5, 0, 1), equals(1));
+      expect(clamp(-1.5, -1, 1), equals(-1));
+      // An inverted range resolves to `min`, because the upper bound is applied first.
+      expect(clamp(5, 10, 1), equals(10));
+    });
+
     test('div', () {
       expect(div([0]), equals(0));
       expect(div([100, 2, 2, 5]), equals(5));
