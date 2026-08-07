@@ -18,6 +18,7 @@ from qsu import (
 	strShuffle,
 	strToAscii,
 	strToCamelCase,
+	strToSnakeCase,
 	strUnique,
 	trim,
 	truncate,
@@ -263,6 +264,17 @@ def test_strToCamelCase():
 	assert strToCamelCase('XMLHttpRequest') == 'xmlHttpRequest'
 	assert strToCamelCase('abc12def') == 'abc12Def'
 	assert strToCamelCase('한글English혼합') == '한글English혼합'
+
+
+def test_strToSnakeCase():
+	assert strToSnakeCase('') == ''
+	assert strToSnakeCase('foo bar') == 'foo_bar'
+	assert strToSnakeCase('--foo-bar--') == 'foo_bar'
+	assert strToSnakeCase('__FOO_BAR__') == 'foo_bar'
+	assert strToSnakeCase('camelCase') == 'camel_case'
+	assert strToSnakeCase('XMLHttpRequest') == 'xml_http_request'
+	assert strToSnakeCase('abc12def') == 'abc_12_def'
+	assert strToSnakeCase('한글English혼합') == '한글_english_혼합'
 
 
 def test_words():
