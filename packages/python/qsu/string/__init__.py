@@ -5,6 +5,7 @@ from .deburr import deburr
 from .escapeRegExp import escapeRegExp
 from .getGroupKeys import getGroupKeys
 from .getStrBytes import getStrBytes
+from .pad import pad
 from .removeNewLine import removeNewLine
 from .removeSpecialChar import removeSpecialChar
 from .replaceBetween import replaceBetween
@@ -35,6 +36,7 @@ __all__ = [
 	'escapeRegExp',
 	'getGroupKeys',
 	'getStrBytes',
+	'pad',
 	'removeNewLine',
 	'removeSpecialChar',
 	'replaceBetween',

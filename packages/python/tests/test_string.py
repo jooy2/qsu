@@ -8,6 +8,7 @@ from qsu import (
 	escapeRegExp,
 	getGroupKeys,
 	getStrBytes,
+	pad,
 	removeNewLine,
 	removeSpecialChar,
 	replaceBetween,
@@ -311,6 +312,25 @@ def test_strToConstantCase():
 	assert strToConstantCase('XMLHttpRequest') == 'XML_HTTP_REQUEST'
 	assert strToConstantCase('abc12def') == 'ABC_12_DEF'
 	assert strToConstantCase('한글English혼합') == '한글_ENGLISH_혼합'
+
+
+def test_pad():
+	# `both` is the default, and the extra character goes to the end.
+	assert pad('abc', 8) == '  abc   '
+	assert pad('abc', 8, {'char': '_-'}) == '_-abc_-_'
+	assert pad('abc', 8, {'position': 'start'}) == '     abc'
+	assert pad('abc', 8, {'position': 'end'}) == 'abc     '
+	assert pad('5', 3, position='start', char='0') == '005'
+	# Already long enough, so it is returned untouched.
+	assert pad('abcdefgh', 8) == 'abcdefgh'
+	assert pad('abcdefghi', 8) == 'abcdefghi'
+	assert pad('abc', 0) == 'abc'
+	# An empty padding character has nothing to pad with.
+	assert pad('abc', 8, {'char': ''}) == 'abc'
+	assert pad('', 4, {'char': '-'}) == '----'
+	assert pad(None, 4, {'char': '-'}) == '----'
+	# Counted in code points, so an emoji is one character.
+	assert pad('😀', 3, position='end', char='-') == '😀--'
 
 
 def test_words():
