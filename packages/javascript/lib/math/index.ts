@@ -3,6 +3,7 @@ export { clamp } from './clamp.js';
 export { div } from './div.js';
 export { floor } from './floor.js';
 export { max } from './max.js';
+export { min } from './min.js';
 export { mul } from './mul.js';
 export { numPick } from './numPick.js';
 export { numUnique } from './numUnique.js';

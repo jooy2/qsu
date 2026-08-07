@@ -1,6 +1,19 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { numPick, numUnique, sum, mul, sub, div, clamp, round, ceil, floor, max } from '../dist';
+import {
+	numPick,
+	numUnique,
+	sum,
+	mul,
+	sub,
+	div,
+	clamp,
+	round,
+	ceil,
+	floor,
+	max,
+	min
+} from '../dist';
 
 describe('Math', () => {
 	it('clamp', () => {
@@ -100,6 +113,18 @@ describe('Math', () => {
 		assert.strictEqual(sum(1, 2, 3, 4), 10);
 		assert.strictEqual(sum([1, 2, 3]), 6);
 		assert.strictEqual(sum(1234), 1234);
+	});
+
+	it('min', () => {
+		assert.strictEqual(min(1, 2, 3), 1);
+		assert.strictEqual(min([4, 2, 8, 6]), 2);
+		assert.strictEqual(min(-4, -2, -8), -8);
+		assert.strictEqual(min(1.5, 1.25), 1.25);
+		assert.strictEqual(min(7), 7);
+		assert.strictEqual(min([]), null);
+		assert.strictEqual(min(), null);
+		assert.strictEqual(min([NaN, 5]), 5);
+		assert.strictEqual(min(['a', 3, null] as any), 3);
 	});
 
 	it('mul', () => {
