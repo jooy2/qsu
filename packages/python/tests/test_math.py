@@ -2,6 +2,7 @@ from qsu.math import (
 	ceil,
 	clamp,
 	div,
+	floor,
 	mul,
 	numPick,
 	numUnique,
@@ -80,6 +81,19 @@ def test_sum():
 	assert sum(1, 2, 3, 4) == 10
 	assert sum([1, 2, 3]) == 6
 	assert sum(1234) == 1234
+
+
+def test_floor():
+	assert floor(4.006) == 4
+	assert floor(4) == 4
+	assert floor(-4.006) == -5
+	assert floor(0.046, 2) == 0.04
+	assert floor(4060, -2) == 4000
+	assert floor(1.1, 1) == 1.1
+	assert floor(-0.5) == -1
+	assert floor(0) == 0
+	assert floor(float('nan')) != floor(float('nan'))
+	assert floor(float('-inf')) == float('-inf')
 
 
 def test_mul():
