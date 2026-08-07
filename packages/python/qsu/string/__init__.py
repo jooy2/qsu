@@ -15,6 +15,7 @@ from .strRandom import strRandom
 from .strShuffle import strShuffle
 from .strToAscii import strToAscii
 from .strToCamelCase import strToCamelCase
+from .strToConstantCase import strToConstantCase
 from .strToKebabCase import strToKebabCase
 from .strToPascalCase import strToPascalCase
 from .strToSnakeCase import strToSnakeCase
@@ -44,6 +45,7 @@ __all__ = [
 	'strShuffle',
 	'strToAscii',
 	'strToCamelCase',
+	'strToConstantCase',
 	'strToKebabCase',
 	'strToPascalCase',
 	'strToSnakeCase',
