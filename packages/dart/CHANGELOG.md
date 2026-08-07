@@ -2,6 +2,7 @@
 
 ## 1.5.0 (2026--)
 
+- `objPick`: Added. Returns a new object containing only the listed keys, accepting a single key or a list of keys. Only the top level is inspected, and a key the map does not have is skipped rather than carried over as `null`
 - `pad`: Added. Pads a string until it reaches the given length, with one `position` named parameter (`start`, `end` or `both`) covering what Lodash splits across `pad`, `padStart` and `padEnd`. `both` is the default and gives the extra character to the end, a multi-character `char` is repeated and truncated, and the length is counted in code points so an emoji counts as one in every language
 - `strToConstantCase`: Added. Converts a string to `CONSTANT_CASE`, uppercasing every word and joining them with an underscore. It splits with `words`, so `XMLHttpRequest` becomes `XML_HTTP_REQUEST`. Dart applies the simple Unicode case mapping where JavaScript and Python apply the full one, so `straße` becomes `STRAßE` here and `STRASSE` there, which the documentation states rather than papering over
 - `strToPascalCase`: Added. Converts a string to `PascalCase`, giving every word an uppercase first letter and a lowercase rest. It splits with `words`, so `XMLHttpRequest` becomes `XmlHttpRequest`. `capitalizeEachWords` stays the one that keeps the original separators

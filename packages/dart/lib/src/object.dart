@@ -176,3 +176,26 @@ Map<String, String>? objInvert(Map<String, dynamic>? obj) {
 
   return result;
 }
+
+/// Returns a new object containing only the listed keys. A single key or a list of keys is accepted.
+/// Only the top level is inspected, and a key the map does not have is skipped rather than carried over as `null`, so the result never claims a key the source never had.
+/// Values are carried over as they are, so a nested map is shared with the source rather than copied.
+/// The original map is not modified. If the first argument is `null`, `null` is returned.
+Map<String, dynamic>? objPick(Map<String, dynamic>? obj, dynamic keys) {
+  if (obj == null) {
+    return null;
+  }
+
+  final List<String> keyList = keys is String
+      ? <String>[keys]
+      : (keys as Iterable).map((dynamic key) => key.toString()).toList();
+  final Map<String, dynamic> result = {};
+
+  for (final String key in keyList) {
+    if (obj.containsKey(key)) {
+      result[key] = obj[key];
+    }
+  }
+
+  return result;
+}

@@ -155,6 +155,28 @@ void main() {
           });
     });
 
+    test('objPick', () {
+      expect(objPick({'a': 1, 'b': 2, 'c': 3}, ['a', 'c']), {'a': 1, 'c': 3});
+      expect(objPick({'a': 1, 'b': 2}, 'a'), {'a': 1});
+      expect(objPick({'a': 1, 'b': 2}, []), {});
+      // A key that is not there is skipped rather than added as `null`.
+      expect(objPick({'a': 1}, ['a', 'zzz']), {'a': 1});
+      expect(objPick({'a': null}, 'a'), {'a': null});
+      // The nested value is carried over as it is, and the source is not modified.
+      final source = {
+        'a': {'b': 1},
+        'c': 2
+      };
+      expect(objPick(source, 'a'), {
+        'a': {'b': 1}
+      });
+      expect(source, {
+        'a': {'b': 1},
+        'c': 2
+      });
+      expect(objPick(null, 'a'), isNull);
+    });
+
     test('objPickBy', () {
       expect(objPickBy({'a': 1, 'b': 2, 'c': 3}, (value, key) => value > 1),
           {'b': 2, 'c': 3});
