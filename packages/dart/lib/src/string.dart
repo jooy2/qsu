@@ -632,3 +632,13 @@ String strToCamelCase(String? str) {
 
   return result.toString();
 }
+
+/// Converts a string to `snake_case`: every word is lowercased and joined with an underscore.
+/// The string is split with [words], so spaces, punctuation, `-` and `_` all act as delimiters, an acronym is separated from the word after it (`XMLHttpRequest` becomes `xml_http_request`) and a run of digits is its own word (`abc12def` becomes `abc_12_def`).
+String strToSnakeCase(String? str) {
+  if (str == null || str.isEmpty) {
+    return '';
+  }
+
+  return words(str).map((String word) => word.toLowerCase()).join('_');
+}
