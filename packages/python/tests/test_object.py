@@ -1,6 +1,7 @@
 from qsu.object import (
 	objDeleteKeyByValue,
 	objFindItemRecursiveByKey,
+	objGet,
 	objInvert,
 	objMapKeys,
 	objMergeNewKey,
@@ -270,6 +271,28 @@ def test_objMergeNewKey():
 	) == {
 		'a': [{'aa': 1, 'bb': 2, 'cc': 3}, {'aa': 4, 'bb': 5, 'cc': 6}],
 	}
+
+
+def test_objGet():
+	data = {'a': {'b': {'c': 42}}, 'list': [1, {'d': 'x'}], 'empty': None}
+
+	assert objGet(data, 'a.b.c') == 42
+	assert objGet(data, 'list[0]') == 1
+	assert objGet(data, 'list[1].d') == 'x'
+	assert objGet(data, 'list.1.d') == 'x'
+	assert objGet(data, 'a.b') == {'c': 42}
+	# A stored `None` is a value, not a missing path.
+	assert objGet(data, 'empty') is None
+	# Missing paths fall back.
+	assert objGet(data, 'a.zzz') is None
+	assert objGet(data, 'a.zzz', {'fallback': 'none'}) == 'none'
+	assert objGet(data, 'a.b.c.d', fallback=0) == 0
+	assert objGet(data, 'list[9]', {'fallback': 'none'}) == 'none'
+	assert objGet(data, '', {'fallback': 'none'}) == 'none'
+	assert objGet(None, 'a', {'fallback': 'none'}) == 'none'
+	# A quoted bracket key keeps the dot inside it.
+	assert objGet({'a.b': 1}, '["a.b"]') == 1
+	assert objGet({'a.b': 1}, "['a.b']") == 1
 
 
 def test_objPick():
