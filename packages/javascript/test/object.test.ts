@@ -11,7 +11,8 @@ import {
 	objMergeNewKey,
 	objPickBy,
 	objMapKeys,
-	objInvert
+	objInvert,
+	objPick
 } from '../dist';
 
 describe('Misc', () => {
@@ -596,6 +597,21 @@ describe('Misc', () => {
 				]
 			}
 		);
+	});
+
+	it('objPick', () => {
+		assert.deepStrictEqual(objPick({ a: 1, b: 2, c: 3 }, ['a', 'c']), { a: 1, c: 3 });
+		assert.deepStrictEqual(objPick({ a: 1, b: 2 }, 'a'), { a: 1 });
+		assert.deepStrictEqual(objPick({ a: 1, b: 2 }, []), {});
+		// A key that is not there is skipped rather than added as `undefined`.
+		assert.deepStrictEqual(objPick({ a: 1 }, ['a', 'zzz']), { a: 1 });
+		assert.deepStrictEqual(objPick({ a: null }, 'a'), { a: null });
+		// The nested value is carried over as it is, and the source is not modified.
+		const source = { a: { b: 1 }, c: 2 };
+		assert.deepStrictEqual(objPick(source, 'a'), { a: { b: 1 } });
+		assert.deepStrictEqual(source, { a: { b: 1 }, c: 2 });
+		assert.strictEqual(objPick(null as any, 'a'), null);
+		assert.strictEqual(objPick('abc' as any, 'a'), null);
 	});
 
 	it('objPickBy', () => {
