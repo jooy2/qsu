@@ -27,6 +27,11 @@ export type RetryOptions = {
 	backoff?: number;
 };
 
+export type PadOptions = {
+	position?: 'start' | 'end' | 'both';
+	char?: string;
+};
+
 export type ThrottleOptions = {
 	leading?: boolean;
 	trailing?: boolean;

@@ -5,6 +5,7 @@ export { deburr } from './deburr.js';
 export { escapeRegExp } from './escapeRegExp.js';
 export { getGroupKeys } from './getGroupKeys.js';
 export { getStrBytes } from './getStrBytes.js';
+export { pad } from './pad.js';
 export { removeNewLine } from './removeNewLine.js';
 export { removeSpecialChar } from './removeSpecialChar.js';
 export { replaceBetween } from './replaceBetween.js';

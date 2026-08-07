@@ -28,7 +28,8 @@ import {
 	strToSnakeCase,
 	strToKebabCase,
 	strToPascalCase,
-	strToConstantCase
+	strToConstantCase,
+	pad
 } from '../dist';
 
 describe('String', () => {
@@ -315,6 +316,24 @@ st`),
 		assert.strictEqual(strToConstantCase('XMLHttpRequest'), 'XML_HTTP_REQUEST');
 		assert.strictEqual(strToConstantCase('abc12def'), 'ABC_12_DEF');
 		assert.strictEqual(strToConstantCase('한글English혼합'), '한글_ENGLISH_혼합');
+	});
+
+	it('pad', () => {
+		// `both` is the default, and the extra character goes to the end.
+		assert.strictEqual(pad('abc', 8), '  abc   ');
+		assert.strictEqual(pad('abc', 8, { char: '_-' }), '_-abc_-_');
+		assert.strictEqual(pad('abc', 8, { position: 'start' }), '     abc');
+		assert.strictEqual(pad('abc', 8, { position: 'end' }), 'abc     ');
+		assert.strictEqual(pad('5', 3, { position: 'start', char: '0' }), '005');
+		// Already long enough, so it is returned untouched.
+		assert.strictEqual(pad('abcdefgh', 8), 'abcdefgh');
+		assert.strictEqual(pad('abcdefghi', 8), 'abcdefghi');
+		assert.strictEqual(pad('abc', 0), 'abc');
+		// An empty padding character has nothing to pad with.
+		assert.strictEqual(pad('abc', 8, { char: '' }), 'abc');
+		assert.strictEqual(pad('', 4, { char: '-' }), '----');
+		// Counted in code points, so an emoji is one character.
+		assert.strictEqual(pad('😀', 3, { position: 'end', char: '-' }), '😀--');
 	});
 
 	it('words', () => {
