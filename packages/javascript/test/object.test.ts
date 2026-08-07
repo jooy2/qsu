@@ -13,7 +13,8 @@ import {
 	objMapKeys,
 	objInvert,
 	objPick,
-	objGet
+	objGet,
+	objMerge
 } from '../dist';
 
 describe('Misc', () => {
@@ -598,6 +599,34 @@ describe('Misc', () => {
 				]
 			}
 		);
+	});
+
+	it('objMerge', () => {
+		assert.deepStrictEqual(objMerge({ a: 1 }, { b: 2 }), { a: 1, b: 2 });
+		// The later source wins.
+		assert.deepStrictEqual(objMerge({ a: 1 }, { a: 2 }, { a: 3 }), { a: 3 });
+		// Nested objects are merged rather than replaced.
+		assert.deepStrictEqual(objMerge({ a: { b: 1, c: 2 } }, { a: { c: 9, d: 3 } }), {
+			a: { b: 1, c: 9, d: 3 }
+		});
+		// Arrays are replaced whole, not merged index by index.
+		assert.deepStrictEqual(objMerge({ a: [1, 2, 3] }, { a: [9] }), { a: [9] });
+		// A `null` replaces the object that was there.
+		assert.deepStrictEqual(objMerge({ a: { b: 1 } }, { a: null }), { a: null });
+		assert.deepStrictEqual(objMerge({ a: 1 }), { a: 1 });
+		assert.deepStrictEqual(objMerge({}, {}), {});
+		assert.strictEqual(objMerge(), null);
+		assert.strictEqual(objMerge({ a: 1 }, null as any), null);
+		assert.strictEqual(objMerge([1, 2] as any), null);
+
+		// Neither source is modified, and the merged branch is a new object.
+		const first = { a: { b: 1 } };
+		const second = { a: { c: 2 } };
+		const merged = objMerge(first, second) as any;
+
+		merged.a.b = 99;
+		assert.deepStrictEqual(first, { a: { b: 1 } });
+		assert.deepStrictEqual(second, { a: { c: 2 } });
 	});
 
 	it('objGet', () => {

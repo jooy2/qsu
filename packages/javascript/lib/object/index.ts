@@ -3,6 +3,7 @@ export { objFindItemRecursiveByKey } from './objFindItemRecursiveByKey.js';
 export { objGet } from './objGet.js';
 export { objInvert } from './objInvert.js';
 export { objMapKeys } from './objMapKeys.js';
+export { objMerge } from './objMerge.js';
 export { objMergeNewKey } from './objMergeNewKey.js';
 export { objPick } from './objPick.js';
 export { objPickBy } from './objPickBy.js';
