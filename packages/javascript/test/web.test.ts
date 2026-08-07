@@ -8,7 +8,8 @@ import {
 	isMobile,
 	getParsedInfoFromAddress,
 	getSlug,
-	escapeHtml
+	escapeHtml,
+	unescapeHtml
 } from '../dist';
 import { homepage } from '../package.json';
 
@@ -211,6 +212,24 @@ describe('Web', () => {
 		assert.strictEqual(escapeHtml('&lt;'), '&amp;lt;');
 		// Everything else is left alone.
 		assert.strictEqual(escapeHtml('a/b한글😀'), 'a/b한글😀');
+	});
+
+	it('unescapeHtml', () => {
+		assert.strictEqual(unescapeHtml(''), '');
+		assert.strictEqual(unescapeHtml('fred, barney, &amp; pebbles'), 'fred, barney, & pebbles');
+		assert.strictEqual(
+			unescapeHtml('&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'),
+			'<script>alert("x")</script>'
+		);
+		assert.strictEqual(unescapeHtml('it&#39;s'), "it's");
+		// One pass, so an escaped entity comes back as text instead of being unescaped twice.
+		assert.strictEqual(unescapeHtml('&amp;lt;'), '&lt;');
+		// Entities outside the escaped set are left alone.
+		assert.strictEqual(unescapeHtml('&apos;&nbsp;&#x27;'), '&apos;&nbsp;&#x27;');
+		// Round trip.
+		const raw = `<a href="x">it's & more</a>`;
+
+		assert.strictEqual(unescapeHtml(escapeHtml(raw)), raw);
 	});
 
 	it('getSlug', () => {

@@ -6,3 +6,4 @@ export { isBotAgent } from './isBotAgent.js';
 export { isMatchPathname } from './isMatchPathname.js';
 export { isMobile } from './isMobile.js';
 export { removeLocalePrefix } from './removeLocalePrefix.js';
+export { unescapeHtml } from './unescapeHtml.js';
