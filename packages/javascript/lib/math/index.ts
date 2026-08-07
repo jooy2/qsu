@@ -1,3 +1,4 @@
+export { ceil } from './ceil.js';
 export { clamp } from './clamp.js';
 export { div } from './div.js';
 export { mul } from './mul.js';
