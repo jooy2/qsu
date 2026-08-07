@@ -245,6 +245,25 @@ st'''), 'test');
       expect(strToConstantCase('한글English혼합'), '한글_ENGLISH_혼합');
     });
 
+    test('pad', () {
+      // `both` is the default, and the extra character goes to the end.
+      expect(pad('abc', 8), '  abc   ');
+      expect(pad('abc', 8, char: '_-'), '_-abc_-_');
+      expect(pad('abc', 8, position: 'start'), '     abc');
+      expect(pad('abc', 8, position: 'end'), 'abc     ');
+      expect(pad('5', 3, position: 'start', char: '0'), '005');
+      // Already long enough, so it is returned untouched.
+      expect(pad('abcdefgh', 8), 'abcdefgh');
+      expect(pad('abcdefghi', 8), 'abcdefghi');
+      expect(pad('abc', 0), 'abc');
+      // An empty padding character has nothing to pad with.
+      expect(pad('abc', 8, char: ''), 'abc');
+      expect(pad('', 4, char: '-'), '----');
+      expect(pad(null, 4, char: '-'), '----');
+      // Counted in code points, so an emoji is one character.
+      expect(pad('😀', 3, position: 'end', char: '-'), '😀--');
+    });
+
     test('words', () {
       expect(words(''), []);
       expect(words(null), []);

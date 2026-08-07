@@ -675,3 +675,51 @@ String strToConstantCase(String? str) {
 
   return words(str).map((String word) => word.toUpperCase()).join('_');
 }
+
+/// (Private) Repeats the padding characters and cuts them off at [count], so a
+/// multi-character `char` is used whole where it fits and truncated where it does not.
+String _buildPad(String char, int count) {
+  if (count <= 0) {
+    return '';
+  }
+
+  final List<String> chars =
+      char.runes.map((int rune) => String.fromCharCode(rune)).toList();
+  final StringBuffer result = StringBuffer();
+
+  for (int i = 0; i < count; i++) {
+    result.write(chars[i % chars.length]);
+  }
+
+  return result.toString();
+}
+
+/// Pads a string until it reaches the given length. One function covers all three directions through the [position] option, so it replaces Lodash's `pad`, `padStart` and `padEnd`.
+/// Padding is added on both sides by default. When the two sides cannot be equal the extra character goes to the end, so `pad('abc', 8)` returns `'  abc   '`.
+/// A [char] longer than one character is repeated and cut off where it no longer fits: `pad('abc', 8, char: '_-')` returns `'_-abc_-_'`.
+/// The string is returned untouched when it is already at least [length] long, and when [char] is empty. Length is counted in code points, so a character outside the Basic Multilingual Plane counts as one in every language.
+String pad(String? str, int length,
+    {String? position = 'both', String? char = ' '}) {
+  final String text = str ?? '';
+  final String padChar = char ?? ' ';
+  // Counted in code points. A Dart string is indexed in UTF-16 units, so an emoji would
+  // count as two here and as one in Python, and the result would differ per language.
+  final int textLength = text.runes.length;
+
+  if (textLength >= length || padChar.isEmpty) {
+    return text;
+  }
+
+  final int total = length - textLength;
+  int startLength = total ~/ 2;
+
+  if (position == 'start') {
+    startLength = total;
+  } else if (position == 'end') {
+    startLength = 0;
+  }
+
+  return _buildPad(padChar, startLength) +
+      text +
+      _buildPad(padChar, total - startLength);
+}
