@@ -9,7 +9,7 @@ Things worth knowing before answering questions about qsu:
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
 - In JavaScript, the `crypto`, `file`, `net` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as does `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
-- 135 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
+- 136 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
 ## Getting started
 
@@ -114,6 +114,7 @@ Basic arithmetic over argument lists or arrays, and random numbers.
 - [mul](https://qsu.cdget.com/reference/math/mul) (JavaScript, Dart, Python): Returns after multiplying all n arguments of numbers or the values of a single array of numbers.
 - [numPick](https://qsu.cdget.com/reference/math/numPick) (JavaScript, Dart, Python): Returns a randomly selected number between the min and max values.
 - [numUnique](https://qsu.cdget.com/reference/math/numUnique) (JavaScript, Dart, Python): Returns a unique number based on the current timestamp.
+- [round](https://qsu.cdget.com/reference/math/round) (JavaScript, Dart, Python): Rounds a number to the given number of decimal places, with ties going away from zero in every language. A negative precision rounds to tens, hundreds and so on.
 - [sub](https://qsu.cdget.com/reference/math/sub) (JavaScript, Dart, Python): Returns after subtracting all n arguments of numbers or the values of a single array of numbers.
 - [sum](https://qsu.cdget.com/reference/math/sum) (JavaScript, Dart, Python): Returns after adding up all the n arguments of numbers or the values of a single array of numbers.
 

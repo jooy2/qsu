@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { numPick, numUnique, sum, mul, sub, div, clamp } from '../dist';
+import { numPick, numUnique, sum, mul, sub, div, clamp, round } from '../dist';
 
 describe('Math', () => {
 	it('clamp', () => {
@@ -13,6 +13,24 @@ describe('Math', () => {
 		assert.strictEqual(clamp(-1.5, -1, 1), -1);
 		// An inverted range resolves to `min`, because the upper bound is applied first.
 		assert.strictEqual(clamp(5, 10, 1), 10);
+	});
+
+	it('round', () => {
+		assert.strictEqual(round(0.5), 1);
+		assert.strictEqual(round(2.5), 3);
+		assert.strictEqual(round(-0.5), -1);
+		assert.strictEqual(round(-1.5), -2);
+		assert.strictEqual(round(1.4), 1);
+		assert.strictEqual(round(-1.4), -1);
+		assert.strictEqual(round(1.005, 2), 1.01);
+		assert.strictEqual(round(2.675, 2), 2.68);
+		assert.strictEqual(round(1234, -2), 1200);
+		assert.strictEqual(round(4.006, 2), 4.01);
+		assert.strictEqual(round(1.1, 1), 1.1);
+		assert.strictEqual(round(0), 0);
+		assert.strictEqual(round(-0.4), 0);
+		assert.strictEqual(Number.isNaN(round(NaN)), true);
+		assert.strictEqual(round(Infinity), Infinity);
 	});
 
 	it('numPick', () => {
