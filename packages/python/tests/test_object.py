@@ -4,6 +4,7 @@ from qsu.object import (
 	objGet,
 	objInvert,
 	objMapKeys,
+	objMerge,
 	objMergeNewKey,
 	objPick,
 	objPickBy,
@@ -271,6 +272,34 @@ def test_objMergeNewKey():
 	) == {
 		'a': [{'aa': 1, 'bb': 2, 'cc': 3}, {'aa': 4, 'bb': 5, 'cc': 6}],
 	}
+
+
+def test_objMerge():
+	assert objMerge({'a': 1}, {'b': 2}) == {'a': 1, 'b': 2}
+	# The later source wins.
+	assert objMerge({'a': 1}, {'a': 2}, {'a': 3}) == {'a': 3}
+	# Nested dicts are merged rather than replaced.
+	assert objMerge({'a': {'b': 1, 'c': 2}}, {'a': {'c': 9, 'd': 3}}) == {
+		'a': {'b': 1, 'c': 9, 'd': 3}
+	}
+	# Lists are replaced whole, not merged index by index.
+	assert objMerge({'a': [1, 2, 3]}, {'a': [9]}) == {'a': [9]}
+	# A `None` replaces the dict that was there.
+	assert objMerge({'a': {'b': 1}}, {'a': None}) == {'a': None}
+	assert objMerge({'a': 1}) == {'a': 1}
+	assert objMerge({}, {}) == {}
+	assert objMerge() is None
+	assert objMerge({'a': 1}, None) is None
+	assert objMerge([1, 2]) is None
+
+	# Neither source is modified, and the merged branch is a new dict.
+	first = {'a': {'b': 1}}
+	second = {'a': {'c': 2}}
+	merged = objMerge(first, second)
+
+	merged['a']['b'] = 99
+	assert first == {'a': {'b': 1}}
+	assert second == {'a': {'c': 2}}
 
 
 def test_objGet():
