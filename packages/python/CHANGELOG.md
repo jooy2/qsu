@@ -1,6 +1,6 @@
 # Changelog (Python)
 
-## 1.2.0 (2026--)
+## 1.2.0 (2026-08-07)
 
 - `unescapeHtml`: Added. Turns the five entities `escapeHtml` produces back into their characters. The string is walked once rather than replaced five times in a row, so `&amp;lt;` comes back as the literal text `&lt;` instead of being unescaped twice, and only those five entities are recognised, so `&nbsp;` and `&#x27;` are left as they are
 - `escapeHtml`: Added. Escapes `&`, `<`, `>`, `"` and `'` so a value can be dropped into a page as text rather than read as markup. `'` is written as `&#39;` where the built-in `html.escape` writes `&#x27;`, so this is not a wrapper around it. It lives in the `web` category, next to `getSlug`, and leaves `escapeRegExp` as the pattern-oriented one
@@ -20,7 +20,6 @@
 - `ceil`: Added. Rounds a number up, to the given number of decimal places, a negative precision rounding up to tens, hundreds and so on. Rounding goes toward positive infinity, so `ceil(-4.006)` is `-4`. The value is read through `Decimal(str(value))` and shifted by its exponent, so `ceil(1.1, 1)` is `1.1` and not `1.2`
 - `round`: Added. Rounds a number to the given number of decimal places, a negative precision rounding to tens, hundreds and so on. Ties go away from zero rather than to the nearest even number, so unlike the built-in `round` it answers `1` for `0.5` and `3` for `2.5`, matching the JavaScript and Dart implementations. The value is read through `Decimal(str(value))` and shifted by its exponent rather than multiplied by a power of ten, so `round(1.005, 2)` is `1.01` and not `1`
 - `clamp`: Added. Restricts a number to an inclusive range, returning `min` below it and `max` above it. The upper bound is applied first, so `min` wins when the two are passed the wrong way round, matching Lodash rather than Dart's `num.clamp`, which throws
-
 - `retry`: Added. Runs the given function again on failure until it succeeds or the attempts run out, raising the last error if they all fail. `times` counts total attempts (default `3`), `delay` waits between them and `backoff` multiplies that wait after each failure. It is synchronous and waits with `time.sleep`, as `sleep` already does. `BaseException` is not caught, so `KeyboardInterrupt` still stops the loop
 - `throttle`: Added. Limits how often a function may run to at most once per `wait` window, the counterpart of `debounce`. `leading` and `trailing` (both `True` by default) choose which edge of the window runs. The trailing call is scheduled on a background thread, as `debounce` already does
 - `objInvert`: Added. Returns a new object with the keys and values swapped. Values are converted to text because keys are always strings — `None` becomes `null` and `True` becomes `true`, and a whole `float` loses its fractional part, so the result matches the JavaScript implementation — and the later entry wins when two share a value

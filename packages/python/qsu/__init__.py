@@ -37,7 +37,7 @@ from .string import *  # noqa: F401,F403
 from .verify import *  # noqa: F401,F403
 from .web import *  # noqa: F401,F403
 
-__version__ = '1.1.0'
+__version__ = '1.2.0'
 
 __all__ = [
 	*array.__all__,
