@@ -23,7 +23,8 @@ import {
 	words,
 	deburr,
 	escapeRegExp,
-	uncapitalizeFirst
+	uncapitalizeFirst,
+	strToCamelCase
 } from '../dist';
 
 describe('String', () => {
@@ -254,6 +255,18 @@ st`),
 		]);
 		assert.deepStrictEqual(getGroupKeys('abc {d\nef}', '{', '}'), []);
 		assert.deepStrictEqual(getGroupKeys('abc {def}\n\n{ghi}\n\n{a\n}', '{', '}'), ['def', 'ghi']);
+	});
+
+	it('strToCamelCase', () => {
+		assert.strictEqual(strToCamelCase(''), '');
+		assert.strictEqual(strToCamelCase('foo bar'), 'fooBar');
+		assert.strictEqual(strToCamelCase('--foo-bar--'), 'fooBar');
+		assert.strictEqual(strToCamelCase('__FOO_BAR__'), 'fooBar');
+		assert.strictEqual(strToCamelCase('camelCase'), 'camelCase');
+		assert.strictEqual(strToCamelCase('PascalCase'), 'pascalCase');
+		assert.strictEqual(strToCamelCase('XMLHttpRequest'), 'xmlHttpRequest');
+		assert.strictEqual(strToCamelCase('abc12def'), 'abc12Def');
+		assert.strictEqual(strToCamelCase('한글English혼합'), '한글English혼합');
 	});
 
 	it('words', () => {

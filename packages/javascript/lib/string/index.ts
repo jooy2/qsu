@@ -14,6 +14,7 @@ export { strCount } from './strCount.js';
 export { strRandom } from './strRandom.js';
 export { strShuffle } from './strShuffle.js';
 export { strToAscii } from './strToAscii.js';
+export { strToCamelCase } from './strToCamelCase.js';
 export { strUnique } from './strUnique.js';
 export { trim } from './trim.js';
 export { truncate } from './truncate.js';

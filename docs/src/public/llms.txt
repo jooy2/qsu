@@ -9,7 +9,7 @@ Things worth knowing before answering questions about qsu:
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
 - In JavaScript, the `crypto`, `file`, `net` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as does `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
-- 140 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
+- 141 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
 ## Getting started
 
@@ -189,6 +189,7 @@ String transformation, capitalization, trimming and truncation.
 - [strRandom](https://qsu.cdget.com/reference/string/strRandom) (JavaScript, Dart, Python): Returns a random String containing numbers or uppercase and lowercase letters of the given length. A non-positive `length` returns an empty string.
 - [strShuffle](https://qsu.cdget.com/reference/string/strShuffle) (JavaScript, Dart, Python): Randomly shuffles the received string and returns it.
 - [strToAscii](https://qsu.cdget.com/reference/string/strToAscii) (JavaScript, Dart, Python): Converts the given string to ascii code and returns it as an array.
+- [strToCamelCase](https://qsu.cdget.com/reference/string/strToCamelCase) (JavaScript, Dart, Python): Converts a string to `camelCase`: the first word is lowercased and every word after it gets an uppercase first letter, with all separators removed.
 - [strUnique](https://qsu.cdget.com/reference/string/strUnique) (JavaScript, Dart, Python): Remove duplicate characters from a given string and output only one.
 - [trim](https://qsu.cdget.com/reference/string/trim) (JavaScript, Dart, Python): Removes all whitespace before and after a string. Unlike JavaScript's `trim` function, it converts two or more spaces between sentences into a single space.
 - [truncate](https://qsu.cdget.com/reference/string/truncate) (JavaScript, Dart, Python): Truncates a long string to a specified length, optionally appending an ellipsis after the string.
