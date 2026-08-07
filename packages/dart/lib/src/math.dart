@@ -1,8 +1,9 @@
-import 'dart:math';
+// Prefixed, because this library declares its own top-level `max` and `min`.
+import 'dart:math' as math;
 
 /// (Private) A single generator, reused. Creating a `Random` per draw is far more
 /// expensive than drawing from it.
-final Random _random = Random();
+final math.Random _random = math.Random();
 
 /// (Private) Last value handed out by [numUnique], so repeated calls never collide.
 int _lastUniqueId = 0;
@@ -130,6 +131,28 @@ double div(List<num> args) {
   }
 
   return total;
+}
+
+/// Returns the largest of the given numbers. Like [sum], it takes a single array of numbers.
+/// Values that are `NaN` are skipped, because `NaN` loses every comparison and would otherwise win by being seen first and then never being replaced.
+/// When nothing is left to compare, `null` is returned.
+/// This shadows `max` from `dart:math`, so a file that needs both has to import one of them with a prefix.
+num? max(List<num> args) {
+  num? result;
+
+  for (var i = 0; i < args.length; i++) {
+    final num value = args[i];
+
+    if (value.isNaN) {
+      continue;
+    }
+
+    if (result == null || value > result) {
+      result = value;
+    }
+  }
+
+  return result;
 }
 
 /// Returns after multiplying all n arguments of numbers or the values of a single array of numbers.

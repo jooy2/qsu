@@ -69,6 +69,16 @@ void main() {
       expect(floor(double.negativeInfinity), equals(double.negativeInfinity));
     });
 
+    test('max', () {
+      expect(max([1, 2, 3]), equals(3));
+      expect(max([4, 2, 8, 6]), equals(8));
+      expect(max([-4, -2, -8]), equals(-2));
+      expect(max([1.5, 1.25]), equals(1.5));
+      expect(max([7]), equals(7));
+      expect(max([]), isNull);
+      expect(max([double.nan, 5]), equals(5));
+    });
+
     test('mul', () {
       expect(mul([0]), equals(0));
       expect(mul([1, 2, 3, 4]), equals(24));
