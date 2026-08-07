@@ -184,6 +184,19 @@ st'''), 'test');
       expect(getStrBytes('123 ABcd 가나다😀'), 22);
     });
 
+    test('strToCamelCase', () {
+      expect(strToCamelCase(''), '');
+      expect(strToCamelCase(null), '');
+      expect(strToCamelCase('foo bar'), 'fooBar');
+      expect(strToCamelCase('--foo-bar--'), 'fooBar');
+      expect(strToCamelCase('__FOO_BAR__'), 'fooBar');
+      expect(strToCamelCase('camelCase'), 'camelCase');
+      expect(strToCamelCase('PascalCase'), 'pascalCase');
+      expect(strToCamelCase('XMLHttpRequest'), 'xmlHttpRequest');
+      expect(strToCamelCase('abc12def'), 'abc12Def');
+      expect(strToCamelCase('한글English혼합'), '한글English혼합');
+    });
+
     test('words', () {
       expect(words(''), []);
       expect(words(null), []);

@@ -596,3 +596,39 @@ String escapeRegExp(String? str) {
 
   return str.replaceAllMapped(_regExpSpecialCharacters, (m) => '\\${m[0]}');
 }
+
+/// (Private) Uppercases the first character of a word and lowercases the rest, so `XML`
+/// becomes `Xml`.
+///
+/// The word is split by code point rather than indexed, because indexing a Dart string
+/// walks UTF-16 units and would cut a surrogate pair in half, disagreeing with the
+/// JavaScript and Python implementations. This is not the same as the public
+/// [capitalizeFirst], which leaves the rest of the string alone.
+String _capitalizeWord(String word) {
+  if (word.isEmpty) {
+    return '';
+  }
+
+  final List<String> chars =
+      word.runes.map((int rune) => String.fromCharCode(rune)).toList();
+
+  return chars[0].toUpperCase() + chars.sublist(1).join().toLowerCase();
+}
+
+/// Converts a string to `camelCase`: the first word is lowercased and every word after it gets an uppercase first letter, with all separators removed.
+/// The string is split with [words], so spaces, punctuation, `-` and `_` all act as delimiters, an acronym stays whole (`XMLHttpRequest` becomes `xmlHttpRequest`) and a run of digits is its own word (`abc12def` becomes `abc12Def`).
+/// Scripts without upper and lower case are passed through unchanged.
+String strToCamelCase(String? str) {
+  if (str == null || str.isEmpty) {
+    return '';
+  }
+
+  final List<String> list = words(str);
+  final StringBuffer result = StringBuffer();
+
+  for (int i = 0; i < list.length; i++) {
+    result.write(i == 0 ? list[i].toLowerCase() : _capitalizeWord(list[i]));
+  }
+
+  return result.toString();
+}

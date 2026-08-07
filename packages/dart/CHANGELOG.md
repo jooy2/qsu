@@ -2,6 +2,7 @@
 
 ## 1.5.0 (2026--)
 
+- `strToCamelCase`: Added. Converts a string to `camelCase`, lowercasing the first word and giving every word after it an uppercase first letter. It splits with `words`, so an acronym stays whole (`XMLHttpRequest` becomes `xmlHttpRequest`) and a run of digits is its own word (`abc12def` becomes `abc12Def`)
 - `min`: Added. Returns the smallest of the given numbers, taking a single array exactly like `sum`. `NaN` is skipped, because it loses every comparison and would otherwise win by being seen first, and an empty list returns `null`. It shadows `min` from `dart:math`, so a file that needs both has to import one of them with a prefix
 - `max`: Added. Returns the largest of the given numbers, taking a single array exactly like `sum`. `NaN` is skipped, because it loses every comparison and would otherwise win by being seen first, and an empty list returns `null`. It shadows `max` from `dart:math`, so a file that needs both has to import one of them with a prefix
 - `floor`: Added. Rounds a number down, to the given number of decimal places, a negative precision rounding down to tens, hundreds and so on. Rounding goes toward negative infinity, so `floor(-4.006)` is `-5`. The value is shifted through its shortest string representation, so `floor(1.1, 1)` is `1.1`, and a whole result is handed back as an `int`
