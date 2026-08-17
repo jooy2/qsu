@@ -206,11 +206,32 @@ String capitalizeEachWords(String str, {bool natural = false}) {
   return capitalizeFirst(splitStr.join(' '));
 }
 
+/// (Private) Whether `target` sits at `index`, both already split into code points.
+bool _isMatchAt(List<int> runes, List<int> target, int index) {
+  if (index + target.length > runes.length) {
+    return false;
+  }
+
+  for (int i = 0; i < target.length; i += 1) {
+    if (runes[index + i] != target[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 /// Truncates a long string to a specified length, optionally appending an ellipsis after the string.
 String truncate(String str, int length, {String? ellipsis}) {
-  if (str.length > length) {
-    return str.substring(0, length) + (ellipsis ?? '');
+  // Counted in code points. A Dart string is indexed in UTF-16 units, so a character outside
+  // the Basic Multilingual Plane would count as two here and as one in Python, and cutting
+  // between the two halves would leave a broken character behind.
+  final List<int> runes = str.runes.toList();
+
+  if (runes.length > length) {
+    return String.fromCharCodes(runes.take(length)) + (ellipsis ?? '');
   }
+
   return str;
 }
 
@@ -228,7 +249,13 @@ String truncateExpect(String str, int expectLength, {dynamic endStringChar}) {
     return '';
   }
 
-  if (str.length <= expectLength) {
+  // Counted in code points. A Dart string is indexed in UTF-16 units, so a character outside
+  // the Basic Multilingual Plane would count as two here and as one in Python, and the two
+  // languages would stop at different sentences.
+  final List<int> runes = str.runes.toList();
+  final int runesLength = runes.length;
+
+  if (runesLength <= expectLength) {
     return str;
   }
 
@@ -239,21 +266,21 @@ String truncateExpect(String str, int expectLength, {dynamic endStringChar}) {
           : <String>['$endStringChar']);
   // Longest first, so an ending character that starts with another one (`.` next to `...`)
   // is matched whole instead of being cut short by the shorter one.
-  final List<String> endStrings = given
+  final List<List<int>> endStrings = given
       .where((String endString) => endString.isNotEmpty)
+      .map((String endString) => endString.runes.toList())
       .toList()
-    ..sort((String left, String right) => right.length - left.length);
+    ..sort((List<int> left, List<int> right) => right.length - left.length);
 
   if (endStrings.isEmpty) {
     return str;
   }
 
-  final int strLength = str.length;
   int index = 0;
 
-  while (index < strLength) {
+  while (index < runesLength) {
     final int matchIndex = endStrings.indexWhere(
-      (String endString) => str.startsWith(endString, index),
+      (List<int> endString) => _isMatchAt(runes, endString, index),
     );
 
     if (matchIndex == -1) {
@@ -265,7 +292,7 @@ String truncateExpect(String str, int expectLength, {dynamic endStringChar}) {
 
     // The sentence that crosses the expected length is still kept whole.
     if (index >= expectLength) {
-      return str.substring(0, index);
+      return String.fromCharCodes(runes.take(index));
     }
   }
 

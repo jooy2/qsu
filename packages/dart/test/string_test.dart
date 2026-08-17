@@ -96,6 +96,12 @@ st'''), 'test');
       expect(truncate('test', 2), 'te');
       expect(truncate('hello', 5), 'hello');
       expect(truncate('test', 1, ellipsis: '...'), 't...');
+
+      // Counted in code points, so an astral character is one and is never cut in half.
+      expect(truncate('a\u{1F44B}b', 2), 'a\u{1F44B}');
+      expect(truncate('\u{1F44B}\u{1F44B}\u{1F44B}', 2, ellipsis: '...'),
+          '\u{1F44B}\u{1F44B}...');
+      expect(truncate('\u{1F44B}\u{1F44B}', 2), '\u{1F44B}\u{1F44B}');
     });
 
     test('truncateExpect', () {
@@ -143,6 +149,10 @@ st'''), 'test');
       expect(
           truncateExpect('hello. this is test', 3, endStringChar: <String>[]),
           'hello. this is test');
+
+      // The expected length is counted in code points, so an astral character is one.
+      expect(truncateExpect('\u{1F44B}\u{1F44B}.ab.cd.', 5, endStringChar: '.'),
+          '\u{1F44B}\u{1F44B}.ab.');
     });
 
     test('strCount', () {
