@@ -9,11 +9,14 @@ export function truncate<N extends number>(
 		return '';
 	}
 
-	let convStr = str;
+	// Counted in code points. A JavaScript string is indexed in UTF-16 units, so a character
+	// outside the Basic Multilingual Plane would count as two here and as one in Python, and
+	// cutting between the two halves would leave a broken character behind.
+	const chars = Array.from(str);
 
-	if (str.length > length) {
-		convStr = str.substring(0, length) + ellipsis;
+	if (chars.length <= length) {
+		return str;
 	}
 
-	return convStr;
+	return chars.slice(0, length).join('') + ellipsis;
 }

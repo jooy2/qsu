@@ -2,6 +2,7 @@
 
 ## 1.18.0 (2026--)
 
+- `truncate`, `truncateExpect`: The length is now counted in code points, as `pad` already did, so a character outside the Basic Multilingual Plane counts as one in every language. A JavaScript string is indexed in UTF-16 units, so `truncate('a👋b', 2)` used to cut between the two halves of the emoji and hand back a broken character, and `truncateExpect` stopped at a different sentence than Python did on the same text
 - `truncateExpect`: `endStringChar` now takes an array as well as a single string, and defaults to the full stop as each script writes it (`.`, `。`, `．`, `｡`). Japanese and Chinese text used to come back untouched, because a text with no ASCII `.` in it split into one piece and the expected length was never reached. `!` and `?` are left out of the default on purpose, so that the same sentence is not split differently depending on the script it is written in. A longer ending character is matched before a shorter one, so `.` next to `...` no longer cuts `...` short
 
 ## 1.17.0 (2026-08-07)

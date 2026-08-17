@@ -138,6 +138,11 @@ st`),
 		assert.strictEqual(truncate('test', 2), 'te');
 		assert.strictEqual(truncate('hello', 5, '...'), 'hello');
 		assert.strictEqual(truncate('test', 1, '...'), 't...');
+
+		// Counted in code points, so an astral character is one and is never cut in half.
+		assert.strictEqual(truncate('a\u{1F44B}b', 2), 'a\u{1F44B}');
+		assert.strictEqual(truncate('\u{1F44B}\u{1F44B}\u{1F44B}', 2, '...'), '\u{1F44B}\u{1F44B}...');
+		assert.strictEqual(truncate('\u{1F44B}\u{1F44B}', 2), '\u{1F44B}\u{1F44B}');
 	});
 
 	it('truncateExpect', () => {
@@ -177,6 +182,12 @@ st`),
 		assert.strictEqual(truncateExpect('a. b! c? d.', 4, ['.', '!', '?']), 'a. b!');
 		assert.strictEqual(truncateExpect('a...b.c', 2, ['.', '...']), 'a...');
 		assert.strictEqual(truncateExpect('hello. this is test', 3, []), 'hello. this is test');
+
+		// The expected length is counted in code points, so an astral character is one.
+		assert.strictEqual(
+			truncateExpect('\u{1F44B}\u{1F44B}.ab.cd.', 5, '.'),
+			'\u{1F44B}\u{1F44B}.ab.'
+		);
 	});
 
 	it('split', () => {

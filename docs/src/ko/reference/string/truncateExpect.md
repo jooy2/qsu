@@ -8,11 +8,13 @@
 
 긴 끝 문자가 짧은 것보다 먼저 매칭되므로, `...` 옆에 `.`이 있어도 `...`이 중간에 잘리지 않습니다. 끝 문자를 찾지 못했거나 목록이 비어 있으면 문자열을 그대로 반환합니다.
 
+`expectLength`는 코드 포인트 단위로 계산되므로, 기본 다국어 평면(BMP) 밖의 문자도 모든 언어에서 1자로 세어집니다.
+
 ## Parameters
 
 <ParamsTable :rows="[
 	{ name: 'str', type: 'string', required: true, desc: '자를 문자열입니다.' },
-	{ name: 'expectLength', type: 'number', required: true, desc: '잘라낼 기준 길이입니다. 이 길이를 넘어가는 문장은 온전히 유지됩니다.' },
+	{ name: 'expectLength', type: 'number', required: true, desc: '잘라낼 기준 길이이며, 코드 포인트 단위로 계산됩니다. 이 길이를 넘어가는 문장은 온전히 유지됩니다.' },
 	{ name: 'endStringChar', type: 'string | string[]', named: true, default: `['.', '。', '．', '｡']`, desc: '끝 문자 또는 끝 문자의 배열입니다. 더 긴 쪽이 먼저 매칭되며, 빈 목록이면 문자열을 그대로 반환합니다.' }
 ]" />
 

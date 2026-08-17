@@ -8,11 +8,13 @@ The default is the full stop as each script writes it — `.`, `。` (ideographi
 
 A longer ending character is matched before a shorter one, so `.` next to `...` does not cut `...` short. When no ending character is found, or the list is empty, the string is returned untouched.
 
+`expectLength` is counted in code points, so a character outside the Basic Multilingual Plane counts as one in every language.
+
 ## Parameters
 
 <ParamsTable :rows="[
 	{ name: 'str', type: 'string', required: true, desc: 'The string to truncate.' },
-	{ name: 'expectLength', type: 'number', required: true, desc: 'The length to truncate at. The sentence that crosses it is kept whole.' },
+	{ name: 'expectLength', type: 'number', required: true, desc: 'The length to truncate at, counted in code points. The sentence that crosses it is kept whole.' },
 	{ name: 'endStringChar', type: 'string | string[]', named: true, default: `['.', '。', '．', '｡']`, desc: 'The ending character, or an array of them. A longer one is matched first, and an empty list returns the string untouched.' }
 ]" />
 
