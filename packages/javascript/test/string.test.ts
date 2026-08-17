@@ -155,6 +155,28 @@ st`),
 		assert.strictEqual(truncateExpect('hello.. this is test', 21, '.'), 'hello.. this is test');
 		assert.strictEqual(truncateExpect('hello.. this is test', 19, '.'), 'hello.. this is test');
 		assert.strictEqual(truncateExpect('hello-this-is-test-string-bye', 14, '-'), 'hello-this-is-');
+
+		// The default covers the full stop as every script writes it.
+		assert.strictEqual(
+			truncateExpect('안녕하세요。반갑습니다。좋은 하루。', 8),
+			'안녕하세요。반갑습니다。'
+		);
+		assert.strictEqual(
+			truncateExpect('これはテストです。よろしくお願いします。さようなら。', 10),
+			'これはテストです。よろしくお願いします。'
+		);
+		assert.strictEqual(truncateExpect('你好。这是测试。再见。', 5), '你好。这是测试。');
+		assert.strictEqual(truncateExpect('テストです｡もう一度｡', 4), 'テストです｡');
+		assert.strictEqual(truncateExpect('ａｂ．ｃｄ．ｅｆ．', 3), 'ａｂ．');
+		assert.strictEqual(truncateExpect('hello. こんにちは。bye.', 8), 'hello. こんにちは。');
+
+		// An explicit ending character still means only that one.
+		assert.strictEqual(truncateExpect('안녕。하세요。반가워.', 3, '.'), '안녕。하세요。반가워.');
+
+		// An array accepts several at once, and the longest one is matched first.
+		assert.strictEqual(truncateExpect('a. b! c? d.', 4, ['.', '!', '?']), 'a. b!');
+		assert.strictEqual(truncateExpect('a...b.c', 2, ['.', '...']), 'a...');
+		assert.strictEqual(truncateExpect('hello. this is test', 3, []), 'hello. this is test');
 	});
 
 	it('split', () => {
