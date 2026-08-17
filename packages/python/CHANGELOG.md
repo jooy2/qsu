@@ -1,5 +1,9 @@
 # Changelog (Python)
 
+## 1.3.0 (2026--)
+
+- `truncateExpect`: `endStringChar` now takes a list as well as a single string, and defaults to the full stop as each script writes it (`.`, `。`, `．`, `｡`). Japanese and Chinese text used to come back untouched, because a text with no ASCII `.` in it split into one piece and the expected length was never reached. `!` and `?` are left out of the default on purpose, so that the same sentence is not split differently depending on the script it is written in. A longer ending character is matched before a shorter one, so `.` next to `...` no longer cuts `...` short
+
 ## 1.2.0 (2026-08-07)
 
 - `unescapeHtml`: Added. Turns the five entities `escapeHtml` produces back into their characters. The string is walked once rather than replaced five times in a row, so `&amp;lt;` comes back as the literal text `&lt;` instead of being unescaped twice, and only those five entities are recognised, so `&nbsp;` and `&#x27;` are left as they are

@@ -145,6 +145,25 @@ def test_truncateExpect():
 	assert truncateExpect('hello.. this is test', 19, '.') == 'hello.. this is test'
 	assert truncateExpect('hello-this-is-test-string-bye', 14, '-') == 'hello-this-is-'
 
+	# The default covers the full stop as every script writes it.
+	assert truncateExpect('안녕하세요。반갑습니다。좋은 하루。', 8) == '안녕하세요。반갑습니다。'
+	assert (
+		truncateExpect('これはテストです。よろしくお願いします。さようなら。', 10)
+		== 'これはテストです。よろしくお願いします。'
+	)
+	assert truncateExpect('你好。这是测试。再见。', 5) == '你好。这是测试。'
+	assert truncateExpect('テストです｡もう一度｡', 4) == 'テストです｡'
+	assert truncateExpect('ａｂ．ｃｄ．ｅｆ．', 3) == 'ａｂ．'
+	assert truncateExpect('hello. こんにちは。bye.', 8) == 'hello. こんにちは。'
+
+	# An explicit ending character still means only that one.
+	assert truncateExpect('안녕。하세요。반가워.', 3, '.') == '안녕。하세요。반가워.'
+
+	# A list accepts several at once, and the longest one is matched first.
+	assert truncateExpect('a. b! c? d.', 4, ['.', '!', '?']) == 'a. b!'
+	assert truncateExpect('a...b.c', 2, ['.', '...']) == 'a...'
+	assert truncateExpect('hello. this is test', 3, []) == 'hello. this is test'
+
 
 def test_split():
 	assert split('hello,js world', ['']) == ['hello,js world']
