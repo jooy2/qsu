@@ -112,9 +112,37 @@ st'''), 'test');
       expect(truncateExpect('hello.. this is test', 19, endStringChar: '.'),
           'hello.. this is test');
       expect(
+          truncateExpect('abc. def. ghi.', 6, endStringChar: '.'), 'abc. def.');
+      expect(truncateExpect('abc. def. ghi.', 20, endStringChar: '.'),
+          'abc. def. ghi.');
+      expect(
           truncateExpect('hello-this-is-test-string-bye', 14,
               endStringChar: '-'),
           'hello-this-is-');
+
+      // The default covers the full stop as every script writes it.
+      expect(truncateExpect('안녕하세요。반갑습니다。좋은 하루。', 8), '안녕하세요。반갑습니다。');
+      expect(truncateExpect('これはテストです。よろしくお願いします。さようなら。', 10),
+          'これはテストです。よろしくお願いします。');
+      expect(truncateExpect('你好。这是测试。再见。', 5), '你好。这是测试。');
+      expect(truncateExpect('テストです｡もう一度｡', 4), 'テストです｡');
+      expect(truncateExpect('ａｂ．ｃｄ．ｅｆ．', 3), 'ａｂ．');
+      expect(truncateExpect('hello. こんにちは。bye.', 8), 'hello. こんにちは。');
+
+      // An explicit ending character still means only that one.
+      expect(
+          truncateExpect('안녕。하세요。반가워.', 3, endStringChar: '.'), '안녕。하세요。반가워.');
+
+      // A list accepts several at once, and the longest one is matched first.
+      expect(
+          truncateExpect('a. b! c? d.', 4,
+              endStringChar: <String>['.', '!', '?']),
+          'a. b!');
+      expect(truncateExpect('a...b.c', 2, endStringChar: <String>['.', '...']),
+          'a...');
+      expect(
+          truncateExpect('hello. this is test', 3, endStringChar: <String>[]),
+          'hello. this is test');
     });
 
     test('strCount', () {

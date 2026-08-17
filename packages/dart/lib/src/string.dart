@@ -214,33 +214,64 @@ String truncate(String str, int length, {String? ellipsis}) {
   return str;
 }
 
+/// The full stop as each script writes it: ASCII, the CJK ideographic full stop and its
+/// fullwidth and halfwidth forms. `!` and `?` are deliberately left out — an ASCII `!` has
+/// never ended a sentence here, so accepting `！` would split the same text differently
+/// depending on the script it is written in. Pass them explicitly to opt in.
+const List<String> _defaultEndStringChars = <String>['.', '。', '．', '｡'];
+
 /// The string ignores truncation until the ending character (`endStringChar`). If the expected length is reached, return the truncated string until after the ending character.
-String truncateExpect(String str, int expectLength, {String? endStringChar}) {
+///
+/// `endStringChar` accepts a single `String` or a `List<String>`.
+String truncateExpect(String str, int expectLength, {dynamic endStringChar}) {
   if (str.isEmpty) {
     return '';
   }
 
-  // Compare and interpolate the resolved value. Using the nullable `endStringChar`
-  // here made the check always fail and put the literal text 'null' in the result.
-  final String endString = endStringChar ?? '.';
-  final bool isEndStringCharLastSentence =
-      str.substring(str.length - 1) == endString;
-  final List<String> splitStr = str.split(endString);
-  final int splitStrLength = splitStr.length;
-  String convStr = '';
-  int currentLength = 0;
+  if (str.length <= expectLength) {
+    return str;
+  }
 
-  for (int i = 0; i < splitStrLength; i += 1) {
-    if (currentLength < expectLength) {
-      convStr +=
-          '${splitStr[i]}${i != splitStrLength - 1 || isEndStringCharLastSentence ? endString : ''}';
-      currentLength += splitStr[i].length + endString.length;
-    } else {
-      break;
+  final List<String> given = endStringChar == null
+      ? _defaultEndStringChars
+      : (endStringChar is List
+          ? endStringChar.map((dynamic value) => '$value').toList()
+          : <String>['$endStringChar']);
+  // Longest first, so an ending character that starts with another one (`.` next to `...`)
+  // is matched whole instead of being cut short by the shorter one.
+  final List<String> endStrings = given
+      .where((String endString) => endString.isNotEmpty)
+      .toList()
+    ..sort((String left, String right) => right.length - left.length);
+
+  if (endStrings.isEmpty) {
+    return str;
+  }
+
+  final int strLength = str.length;
+  int index = 0;
+
+  while (index < strLength) {
+    final int matchIndex = endStrings.indexWhere(
+      (String endString) => str.startsWith(endString, index),
+    );
+
+    if (matchIndex == -1) {
+      index += 1;
+      continue;
+    }
+
+    index += endStrings[matchIndex].length;
+
+    // The sentence that crosses the expected length is still kept whole.
+    if (index >= expectLength) {
+      return str.substring(0, index);
     }
   }
 
-  return convStr;
+  // Every sentence fit within the expected length, so whatever trails the last ending
+  // character is kept as well.
+  return str;
 }
 
 /// Returns the number of times the second String argument is contained in the first String argument.
