@@ -131,6 +131,11 @@ def test_truncate():
 	assert truncate('hello', 5, '...') == 'hello'
 	assert truncate('test', 1, '...') == 't...'
 
+	# Counted in code points, so an astral character is one and is never cut in half.
+	assert truncate('a\U0001f44bb', 2) == 'a\U0001f44b'
+	assert truncate('\U0001f44b\U0001f44b\U0001f44b', 2, '...') == '\U0001f44b\U0001f44b...'
+	assert truncate('\U0001f44b\U0001f44b', 2) == '\U0001f44b\U0001f44b'
+
 
 def test_truncateExpect():
 	assert (
@@ -163,6 +168,9 @@ def test_truncateExpect():
 	assert truncateExpect('a. b! c? d.', 4, ['.', '!', '?']) == 'a. b!'
 	assert truncateExpect('a...b.c', 2, ['.', '...']) == 'a...'
 	assert truncateExpect('hello. this is test', 3, []) == 'hello. this is test'
+
+	# The expected length is counted in code points, so an astral character is one.
+	assert truncateExpect('\U0001f44b\U0001f44b.ab.cd.', 5, '.') == '\U0001f44b\U0001f44b.ab.'
 
 
 def test_split():
