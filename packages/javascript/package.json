@@ -21,8 +21,7 @@
 		"lint:fix": "eslint . --ext .js,.ts --fix .",
 		"minify": "terser-glob 'dist/**/*.js' --config-file terser.config.json",
 		"prepare": "npm run build",
-		"format": "prettier .",
-		"format:fix": "prettier . --write"
+		"format": "prettier . --write"
 	},
 	"engines": {
 		"node": ">=18.0.0"
