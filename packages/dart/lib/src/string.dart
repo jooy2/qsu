@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 
-import 'package:qsu/qsu.dart';
+import 'package:qsu/src/verify.dart';
 
 /// (Private) A single generator, reused. Creating a `Random` per call is far more
 /// expensive than drawing from an existing one.
