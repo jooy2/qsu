@@ -53,15 +53,27 @@ const DEBURRED_GROUPS: ReadonlyArray<readonly [string, string]> = [
 	['ŉ', "'n"]
 ];
 
-const DEBURRED = new Map<string, string>();
+let deburred: Map<string, string> | undefined;
 
-for (let i = 0, groupsLength = DEBURRED_GROUPS.length; i < groupsLength; i += 1) {
-	const [chars, replacement] = DEBURRED_GROUPS[i];
-
-	for (const char of chars) {
-		DEBURRED.set(char, replacement);
+// Expanding the groups into a lookup is only worth doing once, and only for callers
+// that actually reach `deburr`, so the map is built on first use and reused.
+const getDeburred = (): Map<string, string> => {
+	if (deburred !== undefined) {
+		return deburred;
 	}
-}
+
+	deburred = new Map<string, string>();
+
+	for (let i = 0, groupsLength = DEBURRED_GROUPS.length; i < groupsLength; i += 1) {
+		const [chars, replacement] = DEBURRED_GROUPS[i];
+
+		for (const char of chars) {
+			deburred.set(char, replacement);
+		}
+	}
+
+	return deburred;
+};
 
 // Combining diacritical marks, combining marks for symbols and combining half marks. These
 // carry the accent of a decomposed character, so dropping them handles input that was not
@@ -76,6 +88,7 @@ export function deburr(str: string): string {
 		return '';
 	}
 
+	const table = getDeburred();
 	let result = '';
 
 	// Walk code points, not UTF-16 units, so a surrogate pair is never cut in half.
@@ -84,7 +97,7 @@ export function deburr(str: string): string {
 			continue;
 		}
 
-		result += DEBURRED.get(char) ?? char;
+		result += table.get(char) ?? char;
 	}
 
 	return result;

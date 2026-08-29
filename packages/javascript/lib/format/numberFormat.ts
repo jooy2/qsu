@@ -1,9 +1,12 @@
 const DIGITS_ONLY = /^\d+$/;
 
-// Creating an `Intl.NumberFormat` is expensive, so build it once and reuse it.
-const FALLBACK_FORMATTER = new Intl.NumberFormat('en-US', {
-	roundingPriority: 'morePrecision'
-});
+let fallbackFormatter: Intl.NumberFormat | undefined;
+
+// Creating an `Intl.NumberFormat` is expensive, so build it on first use and reuse it.
+const getFallbackFormatter = (): Intl.NumberFormat =>
+	(fallbackFormatter ??= new Intl.NumberFormat('en-US', {
+		roundingPriority: 'morePrecision'
+	}));
 
 // Group digits straight from the string so values beyond `Number.MAX_SAFE_INTEGER`
 // keep every digit (`parseInt` would round them).
@@ -32,7 +35,7 @@ export function numberFormat(number: number | string): string {
 
 	const numberFormatted = DIGITS_ONLY.test(numberParts[0])
 		? groupThousands(numberParts[0])
-		: FALLBACK_FORMATTER.format(parseInt(numberParts[0], 10));
+		: getFallbackFormatter().format(parseInt(numberParts[0], 10));
 
 	const result = `${numberFormatted}${numberParts.length > 1 ? `.${numberParts[1]}` : ''}`;
 	return isNegative ? `-${result}` : result;
