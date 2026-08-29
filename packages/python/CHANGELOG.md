@@ -2,6 +2,7 @@
 
 ## 1.3.0 (2026--)
 
+- Categories and functions are now imported on first access. `import qsu` used to pull in all 170 function modules, and with them `cryptography`, `subprocess` and `urllib`, whatever the caller went on to use; reaching for a single function through its own module cost exactly the same, because importing a submodule runs the package `__init__` first. It now takes 0.2ms rather than 61ms and loads 18 modules rather than 286, and the first call into a category pays for that category alone. `__all__` and its order, `from qsu import *`, `from qsu.array import arrUnique` and `dir()` all answer as before, and every name still resolves to one object whether it is read from `qsu` or from its category
 - `truncateExpect`: `endStringChar` now takes a list as well as a single string, and defaults to the full stop as each script writes it (`.`, `。`, `．`, `｡`). Japanese and Chinese text used to come back untouched, because a text with no ASCII `.` in it split into one piece and the expected length was never reached. `!` and `?` are left out of the default on purpose, so that the same sentence is not split differently depending on the script it is written in. A longer ending character is matched before a shorter one, so `.` next to `...` no longer cuts `...` short
 
 ## 1.2.0 (2026-08-07)
