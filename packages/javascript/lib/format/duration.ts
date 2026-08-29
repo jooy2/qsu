@@ -1,4 +1,4 @@
-import type { DurationOptions, DurationUnitName } from '../_types/global';
+import type { DurationOptions, DurationUnitName } from '../_types/global.js';
 
 type Unit = { name: DurationUnitName; short: string; ms: number };
 

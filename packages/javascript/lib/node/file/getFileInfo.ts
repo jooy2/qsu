@@ -4,7 +4,7 @@ import { dirname, resolve as pathResolve } from 'node:path';
 import { getFileExtension } from './getFileExtension.js';
 import { fileSizeFormat } from '../../format/fileSizeFormat.js';
 import { getFileName } from './getFileName.js';
-import { FileInfo } from '../../_types/global';
+import type { FileInfo } from '../../_types/global.js';
 
 export async function getFileInfo(filePath: string): Promise<FileInfo> {
 	const dateToUnixTime = (date: Date): number => Math.floor(new Date(date).getTime() / 1000);

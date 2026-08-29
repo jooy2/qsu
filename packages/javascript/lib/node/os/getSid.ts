@@ -1,5 +1,5 @@
 import { homedir, platform, userInfo } from 'node:os';
-import { AnyValueObject } from '../../_types/global';
+import type { AnyValueObject } from '../../_types/global.js';
 import { runCommand } from './runCommand.js';
 
 export async function getSid(): Promise<string> {

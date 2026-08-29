@@ -1,4 +1,4 @@
-import type { PadOptions } from '../_types/global';
+import type { PadOptions } from '../_types/global.js';
 
 // Repeats the padding characters and cuts them off at `count`, so a multi-character `char`
 // is used whole where it fits and truncated where it does not.

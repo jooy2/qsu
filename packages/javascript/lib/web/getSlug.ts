@@ -1,4 +1,4 @@
-import type { SlugOptions } from '../_types/global';
+import type { SlugOptions } from '../_types/global.js';
 
 // Both the chosen separator and any separator-like char in the source act as a
 // word boundary, so "hello-world" stays "hello-world" instead of doubling up.

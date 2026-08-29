@@ -1,4 +1,4 @@
-import type { PositiveNumber } from '../_types/global';
+import type { PositiveNumber } from '../_types/global.js';
 
 export function truncate<N extends number>(
 	str: string,

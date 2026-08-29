@@ -1,4 +1,4 @@
-import type { ParsedAddress } from '../_types/global';
+import type { ParsedAddress } from '../_types/global.js';
 
 export function getParsedInfoFromAddress(url: string): ParsedAddress {
 	const result: ParsedAddress = {

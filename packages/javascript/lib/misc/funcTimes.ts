@@ -1,4 +1,4 @@
-import type { PositiveNumber } from '../_types/global';
+import type { PositiveNumber } from '../_types/global.js';
 
 export function funcTimes<N extends number>(times: PositiveNumber<N>, iteratee: any): Array<any> {
 	const results = [];

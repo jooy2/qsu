@@ -1,4 +1,4 @@
-import type { AnyValueObject } from '../_types/global';
+import type { AnyValueObject } from '../_types/global.js';
 
 export function safeJSONParse(jsonString: any, fallback = {}): AnyValueObject {
 	if (!jsonString) {

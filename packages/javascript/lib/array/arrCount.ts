@@ -1,4 +1,4 @@
-import type { NumberValueObject } from '../_types/global';
+import type { NumberValueObject } from '../_types/global.js';
 
 export function arrCount(array: string[] | number[]): NumberValueObject {
 	const result: NumberValueObject = {};

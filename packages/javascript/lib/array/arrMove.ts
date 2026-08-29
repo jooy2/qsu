@@ -1,4 +1,4 @@
-import { PositiveNumber } from '../_types/global';
+import type { PositiveNumber } from '../_types/global.js';
 
 export function arrMove<N extends number>(
 	array: any[],

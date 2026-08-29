@@ -1,4 +1,4 @@
-import type { RetryOptions } from '../_types/global';
+import type { RetryOptions } from '../_types/global.js';
 import { sleep } from './sleep.js';
 
 export async function retry<T>(func: () => T | Promise<T>, options?: RetryOptions): Promise<T> {

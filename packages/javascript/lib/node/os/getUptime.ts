@@ -1,5 +1,5 @@
 import { numberFormat } from '../../format/numberFormat.js';
-import { GetUptimeOption } from '../../_types/global';
+import type { GetUptimeOption } from '../../_types/global.js';
 
 export function getUptime(opt?: GetUptimeOption): number | string {
 	let t = process?.uptime();

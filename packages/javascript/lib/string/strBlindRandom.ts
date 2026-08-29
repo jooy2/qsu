@@ -1,4 +1,4 @@
-import type { PositiveNumber } from '../_types/global';
+import type { PositiveNumber } from '../_types/global.js';
 import { numPick } from '../math/numPick.js';
 
 const MASKABLE = /[a-zA-Z가-힣]/;

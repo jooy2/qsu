@@ -1,4 +1,4 @@
-import { LicenseOption } from '../_types/global';
+import type { LicenseOption } from '../_types/global.js';
 
 export function generateLicense(options: LicenseOption): string {
 	const br = options.htmlBr ? '<br/>' : '\n';

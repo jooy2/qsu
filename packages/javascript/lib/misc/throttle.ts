@@ -1,4 +1,4 @@
-import type { PositiveNumber, ThrottleOptions } from '../_types/global';
+import type { PositiveNumber, ThrottleOptions } from '../_types/global.js';
 
 export function throttle<N extends number>(
 	func: (...args: any[]) => void,

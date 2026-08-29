@@ -1,4 +1,4 @@
-import type { AnyValueObject } from '../_types/global';
+import type { AnyValueObject } from '../_types/global.js';
 import { isObject } from '../verify/isObject.js';
 
 export function objToArray(obj: AnyValueObject, recursive = false): any[] {

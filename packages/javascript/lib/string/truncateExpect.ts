@@ -1,4 +1,4 @@
-import type { PositiveNumber } from '../_types/global';
+import type { PositiveNumber } from '../_types/global.js';
 
 // The full stop as each script writes it: ASCII, the CJK ideographic full stop and its
 // fullwidth and halfwidth forms. `!` and `?` are deliberately left out — an ASCII `!` has

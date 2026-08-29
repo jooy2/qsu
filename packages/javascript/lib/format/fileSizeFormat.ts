@@ -1,4 +1,4 @@
-import type { PositiveNumber } from '../_types/global';
+import type { PositiveNumber } from '../_types/global.js';
 
 export function fileSizeFormat<N extends number>(
 	bytes: PositiveNumber<N>,

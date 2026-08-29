@@ -1,4 +1,4 @@
-import type { AnyValueObject } from '../_types/global';
+import type { AnyValueObject } from '../_types/global.js';
 
 // Turns `a.b[0].c` into `['a', 'b', '0', 'c']`. A bracket may carry a quoted key, so
 // `a["b.c"]` reads one key `b.c` instead of two.

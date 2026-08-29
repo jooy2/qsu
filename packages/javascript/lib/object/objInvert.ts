@@ -1,4 +1,4 @@
-import type { AnyValueObject } from '../_types/global';
+import type { AnyValueObject } from '../_types/global.js';
 
 export function objInvert(obj: AnyValueObject): { [key: string]: string } | null {
 	if (!obj || typeof obj !== 'object') {

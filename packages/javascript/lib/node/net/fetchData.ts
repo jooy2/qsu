@@ -1,4 +1,4 @@
-import type { AnyValueObject, HTTPRequestOption } from '../../_types/global';
+import type { AnyValueObject, HTTPRequestOption } from '../../_types/global.js';
 import { objToQueryString } from '../../object/objToQueryString.js';
 import { urlJoin } from '../../string/urlJoin.js';
 import { Readable } from 'node:stream';

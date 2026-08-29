@@ -1,4 +1,4 @@
-import type { AnyValueObject } from '../_types/global';
+import type { AnyValueObject } from '../_types/global.js';
 
 export function objPick(obj: AnyValueObject, keys: string | string[]): AnyValueObject | null {
 	if (!obj || typeof obj !== 'object') {

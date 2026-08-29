@@ -1,4 +1,4 @@
-import { PositiveNumber } from '../_types/global';
+import type { PositiveNumber } from '../_types/global.js';
 import { isObject } from '../verify/isObject.js';
 
 export function arrRepeat<N extends number>(array: any, count: PositiveNumber<N>): any[] {
