@@ -1,9 +1,16 @@
 name: qsu
 description: >-
-  qsu is a utility library that contains useful and frequently used functions. Start with your preferred language and the modern development environment.
+  Everyday helpers you would otherwise write yourself: slugs, text case, date math, file size formatting, deep clone and merge, validation and hashing.
 version: 1.5.0
 repository: https://github.com/jooy2/qsu
 homepage: https://qsu.cdget.com
+
+topics:
+  - utility
+  - helper
+  - string
+  - validation
+  - crypto
 
 environment:
   sdk: ^3.5.0
