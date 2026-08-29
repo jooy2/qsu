@@ -1,7 +1,7 @@
 {
 	"name": "qsu",
 	"version": "1.18.0",
-	"description": "Zero-dependency, tree-shakeable utility library: 150+ typed helpers for arrays, objects, strings, dates, math, validation, crypto and files. The same API in JavaScript, Dart and Python.",
+	"description": "Everyday helpers you would otherwise write yourself: slugs, text case, date math, number and file size formatting, deep clone and merge, email and URL validation, debounce, throttle and hashing. No dependencies.",
 	"author": "CDGet <jooy2.contact@gmail.com>",
 	"license": "MIT",
 	"homepage": "https://qsu.cdget.com",
