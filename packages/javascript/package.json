@@ -35,9 +35,9 @@
 			"default": "./dist/index.js"
 		},
 		"./types": {
-			"types": "./dist/types/global.d.ts",
-			"module": "./dist/types/global.js",
-			"default": "./dist/types/global.js"
+			"types": "./dist/_types/global.d.ts",
+			"module": "./dist/_types/global.js",
+			"default": "./dist/_types/global.js"
 		},
 		"./array": {
 			"types": "./dist/array/index.d.ts",
