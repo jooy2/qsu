@@ -13,6 +13,7 @@
 		"url": "https://github.com/jooy2/qsu/issues"
 	},
 	"type": "module",
+	"sideEffects": false,
 	"types": "dist/index.d.ts",
 	"scripts": {
 		"build": "tsc --project tsconfig.prod.json && npm run minify",
