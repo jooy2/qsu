@@ -1,15 +1,4 @@
-from .between import between
-from .contains import contains
-from .hasBadWords import hasBadWords
-from .is2dArray import is2dArray
-from .isEmail import isEmail
-from .isEmpty import isEmpty
-from .isEqual import isEqual
-from .isEqualStrict import isEqualStrict
-from .isObject import isObject
-from .isTrueMinimumNumberOfTimes import isTrueMinimumNumberOfTimes
-from .isUrl import isUrl
-from .len import len
+from .._lazy import lazy
 
 __all__ = [
 	'between',
@@ -25,3 +14,5 @@ __all__ = [
 	'isUrl',
 	'len',
 ]
+
+lazy(__name__)

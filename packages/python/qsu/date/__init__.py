@@ -1,8 +1,4 @@
-from .createDateListFromRange import createDateListFromRange
-from .dateToYYYYMMDD import dateToYYYYMMDD
-from .dayDiff import dayDiff
-from .isValidDate import isValidDate
-from .today import today
+from .._lazy import lazy
 
 __all__ = [
 	'createDateListFromRange',
@@ -11,3 +7,5 @@ __all__ = [
 	'isValidDate',
 	'today',
 ]
+
+lazy(__name__)

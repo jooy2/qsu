@@ -1,18 +1,4 @@
-from .objClone import objClone
-from .objDeleteKeyByValue import objDeleteKeyByValue
-from .objFindItemRecursiveByKey import objFindItemRecursiveByKey
-from .objGet import objGet
-from .objInvert import objInvert
-from .objMapKeys import objMapKeys
-from .objMerge import objMerge
-from .objMergeNewKey import objMergeNewKey
-from .objPick import objPick
-from .objPickBy import objPickBy
-from .objTo1d import objTo1d
-from .objToArray import objToArray
-from .objToPrettyStr import objToPrettyStr
-from .objToQueryString import objToQueryString
-from .objUpdate import objUpdate
+from .._lazy import lazy
 
 __all__ = [
 	'objClone',
@@ -31,3 +17,5 @@ __all__ = [
 	'objToQueryString',
 	'objUpdate',
 ]
+
+lazy(__name__)

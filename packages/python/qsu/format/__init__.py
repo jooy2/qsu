@@ -1,8 +1,4 @@
-from .duration import duration
-from .fileSizeFormat import fileSizeFormat
-from .numberFormat import numberFormat
-from .safeJSONParse import safeJSONParse
-from .safeParseInt import safeParseInt
+from .._lazy import lazy
 
 __all__ = [
 	'duration',
@@ -11,3 +7,5 @@ __all__ = [
 	'safeJSONParse',
 	'safeParseInt',
 ]
+
+lazy(__name__)

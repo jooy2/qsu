@@ -1,12 +1,4 @@
-from .escapeHtml import escapeHtml
-from .generateLicense import generateLicense
-from .getParsedInfoFromAddress import getParsedInfoFromAddress
-from .getSlug import getSlug
-from .isBotAgent import isBotAgent
-from .isMatchPathname import isMatchPathname
-from .isMobile import isMobile
-from .removeLocalePrefix import removeLocalePrefix
-from .unescapeHtml import unescapeHtml
+from .._lazy import lazy
 
 __all__ = [
 	'escapeHtml',
@@ -19,3 +11,5 @@ __all__ = [
 	'removeLocalePrefix',
 	'unescapeHtml',
 ]
+
+lazy(__name__)

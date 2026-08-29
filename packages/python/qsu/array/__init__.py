@@ -1,19 +1,4 @@
-from .arrCompact import arrCompact
-from .arrCount import arrCount
-from .arrDifference import arrDifference
-from .arrGroupByMaxCount import arrGroupByMaxCount
-from .arrIntersection import arrIntersection
-from .arrMove import arrMove
-from .arrPick import arrPick
-from .arrRepeat import arrRepeat
-from .arrShuffle import arrShuffle
-from .arrTo1dArray import arrTo1dArray
-from .arrUnique import arrUnique
-from .arrWithDefault import arrWithDefault
-from .arrWithNumber import arrWithNumber
-from .average import average
-from .sortByObjectKey import sortByObjectKey
-from .sortNumeric import sortNumeric
+from .._lazy import lazy
 
 __all__ = [
 	'arrCompact',
@@ -33,3 +18,5 @@ __all__ = [
 	'sortByObjectKey',
 	'sortNumeric',
 ]
+
+lazy(__name__)

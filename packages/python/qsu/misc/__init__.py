@@ -1,9 +1,4 @@
-from .debounce import debounce
-from .funcTimes import funcTimes
-from .logBox import logBox
-from .retry import retry
-from .sleep import sleep
-from .throttle import throttle
+from .._lazy import lazy
 
 __all__ = [
 	'debounce',
@@ -13,3 +8,5 @@ __all__ = [
 	'sleep',
 	'throttle',
 ]
+
+lazy(__name__)
