@@ -46,10 +46,10 @@ function main() {
 
 Instead of the function name, you can use a delimiter such as an underscore (`_`) to call the function.
 
-This is a good way to distinguish which function is a utility function being used by `qsu`, but it is not recommended because it loads all functions at once, making it impossible to reduce capacity through tree-shaking. Therefore, you should choose the appropriate method depending on the size of the project.
+This is a good way to distinguish which function is a utility function being used by `qsu`, but it is not recommended. A bundler can still drop the functions you never touch while every access is a plain property (`_.today()`), but as soon as the name is looked up dynamically (`_[name]()`) or `_` is handed to something else, the whole library has to be kept. Therefore, you should choose the appropriate method depending on the size of the project.
 
 ```javascript
-import _ from 'qsu';
+import * as _ from 'qsu';
 
 function main() {
 	console.log(_.today()); // '20xx-xx-xx'
