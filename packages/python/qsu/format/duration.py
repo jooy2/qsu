@@ -3,7 +3,7 @@ from typing import Optional
 
 # Descending order. 'ms' is the absolute number of milliseconds in one unit.
 # A month is treated as 30 days and a year as 365 days.
-_UNITS = [
+_UNITS: list = [
 	{'name': 'Year', 'short': 'Y', 'ms': 31536000000},
 	{'name': 'Month', 'short': 'Mo', 'ms': 2592000000},
 	{'name': 'Day', 'short': 'D', 'ms': 86400000},

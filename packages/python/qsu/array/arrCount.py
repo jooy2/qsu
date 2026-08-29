@@ -1,5 +1,5 @@
 def arrCount(array: list) -> dict:
-	result = {}
+	result: dict = {}
 
 	for item in array:
 		key = str(item)

@@ -1,6 +1,6 @@
 def arrGroupByMaxCount(array: list, maxLengthPerGroup: int = 1) -> list:
 	result = []
-	tempArray = []
+	tempArray: list = []
 
 	for item in array:
 		if len(tempArray) == maxLengthPerGroup:

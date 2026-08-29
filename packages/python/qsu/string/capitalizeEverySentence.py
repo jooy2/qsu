@@ -1,7 +1,7 @@
 import re
+from typing import Optional
 
-
-def capitalizeEverySentence(str: str, splitChar: str = None) -> str:
+def capitalizeEverySentence(str: str, splitChar: Optional[str] = None) -> str:
 	if not str:
 		return ''
 

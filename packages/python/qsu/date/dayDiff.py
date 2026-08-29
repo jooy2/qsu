@@ -1,8 +1,8 @@
 import math
 from datetime import datetime
+from typing import Optional
 
-
-def dayDiff(date1: datetime, date2: datetime = None) -> int:
+def dayDiff(date1: datetime, date2: Optional[datetime] = None) -> int:
 	date2c = date2 if date2 is not None else datetime.now()
 
 	diff_ms = abs(date2c.timestamp() - date1.timestamp()) * 1000

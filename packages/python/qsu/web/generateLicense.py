@@ -4,8 +4,8 @@ from typing import Optional, Union
 
 def generateLicense(
 	type=None,
-	author: str = None,
-	yearStart: Union[str, int] = None,
+	author: Optional[str] = None,
+	yearStart: Optional[Union[str, int]] = None,
 	email: Optional[str] = None,
 	yearEnd: Optional[str] = None,
 	htmlBr: bool = False,

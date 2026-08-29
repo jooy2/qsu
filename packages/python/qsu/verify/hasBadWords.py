@@ -1,3 +1,5 @@
+from typing import Optional
+
 # Hangul jamo tables, used to rebuild syllables from decomposed input
 # ('ㅁㅓㅇㅊㅓㅇ' -> '멍청').
 _CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ'
@@ -271,7 +273,7 @@ def _is_aligned(at: int, length: int, starts: list, ends: list) -> bool:
 	return False
 
 
-def hasBadWords(str: str, words: list = None, allowWords: list = None) -> bool:
+def hasBadWords(str: str, words: Optional[list] = None, allowWords: Optional[list] = None) -> bool:
 	if not str or not words:
 		return False
 

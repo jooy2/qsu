@@ -1,7 +1,7 @@
 import re
+from typing import Optional
 
-
-def removeSpecialChar(str: str, exceptionCharacters: str = None) -> str:
+def removeSpecialChar(str: str, exceptionCharacters: Optional[str] = None) -> str:
 	if not str:
 		return ''
 

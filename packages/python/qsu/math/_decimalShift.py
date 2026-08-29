@@ -10,4 +10,9 @@ def _decimalShift(value: Decimal, exponent: int) -> Decimal:
 	"""
 	sign, digits, currentExponent = value.as_tuple()
 
+	# NaN and infinity carry 'n', 'N' or 'F' as their exponent, and shifting one is
+	# meaningless. Callers check `is_finite()` first, so this is never reached.
+	if not isinstance(currentExponent, int):
+		return value
+
 	return Decimal((sign, digits, currentExponent + exponent))

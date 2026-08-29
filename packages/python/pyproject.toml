@@ -62,7 +62,10 @@ Repository = "https://github.com/jooy2/qsu"
 Changelog = "https://qsu.cdget.com/changelog/python"
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0"]
+dev = ["pytest>=8.0", "mypy>=1.11"]
+
+[tool.mypy]
+files = ["qsu"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["qsu"]

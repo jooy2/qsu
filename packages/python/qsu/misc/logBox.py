@@ -98,7 +98,7 @@ def _detectWidth() -> int:
 			c = 0
 		if isinstance(c, int) and c > 0:
 			return c
-	env = os.environ.get('COLUMNS')
+	env = os.environ.get('COLUMNS', '')
 	try:
 		envNum = int(env)
 		if envNum > 0:

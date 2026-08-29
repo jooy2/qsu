@@ -1,4 +1,5 @@
 import re
+from typing import Optional
 from .getFileName import getFileName
 
 # CON, PRN, AUX, NUL, COM1-9 and LPT1-9 are device names reserved by Windows.
@@ -18,7 +19,7 @@ _CONTROL_CHARACTER_REGEX = re.compile(r'[\x00-\x1f\x7f]')
 _MAX_FILE_NAME_BYTES = 255
 
 
-def isValidFileName(filePath: str, unixType: bool = None) -> bool:
+def isValidFileName(filePath: str, unixType: Optional[bool] = None) -> bool:
 	# Validate the *whole* name, extension included. Stripping the extension
 	# first would let 'hello.:txt' through, because only 'hello' was checked.
 	fileName = getFileName(filePath, True)

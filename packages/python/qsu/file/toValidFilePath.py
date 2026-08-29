@@ -1,9 +1,9 @@
 import re
 import posixpath
 import ntpath
+from typing import Optional
 
-
-def toValidFilePath(filePath: str, isWindows: bool = None) -> str:
+def toValidFilePath(filePath: str, isWindows: Optional[bool] = None) -> str:
 	if filePath is not None and len(filePath) < 1:
 		return '\\' if isWindows else '/'
 

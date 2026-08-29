@@ -1,5 +1,6 @@
 import posixpath
 import ntpath
+from typing import Optional
 from .toValidFilePath import toValidFilePath
 
 
@@ -13,7 +14,7 @@ def _stripTrailingSeparators(filePath: str, sep: str) -> str:
 	return stripped if stripped else filePath[:1]
 
 
-def getParentFilePath(filePath: str, isWindows: bool = None) -> str:
+def getParentFilePath(filePath: str, isWindows: Optional[bool] = None) -> str:
 	if isWindows:
 		return toValidFilePath(
 			ntpath.dirname(_stripTrailingSeparators(filePath, '\\')), isWindows

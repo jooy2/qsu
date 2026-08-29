@@ -128,11 +128,13 @@ def fetchData(url: str, options=None):
 	if not opt.get('host') and not url.startswith('/'):
 		raise ValueError('`url` must begin with `/`.')
 
-	if opt.get('host') and len(opt.get('host')) > 0:
+	host = opt.get('host')
+
+	if host and len(host) > 0:
 		if url.startswith('http') or '://' in url:
 			raise ValueError('If `host` is specified, `url` must begin with `/`.')
 
-		fullRequestUrl = urlJoin(opt.get('host'), url)
+		fullRequestUrl = urlJoin(host, url)
 	else:
 		fullRequestUrl = url
 
@@ -180,7 +182,9 @@ def fetchData(url: str, options=None):
 			else:
 				return rawBody.decode('utf-8')
 	except Exception as error:
-		if opt.get('onError'):
-			opt.get('onError')(error)
+		onError = opt.get('onError')
+
+		if onError:
+			onError(error)
 
 		return None

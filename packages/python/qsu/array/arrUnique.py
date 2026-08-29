@@ -5,19 +5,19 @@ from ..verify.is2dArray import is2dArray
 
 def arrUnique(array: list) -> list:
 	if is2dArray(array):
-		seen = set()
+		seenKeys = set()
 		result = []
 
 		for item in array:
 			key = json.dumps(item, separators=(',', ':'))
 
-			if key not in seen:
-				seen.add(key)
+			if key not in seenKeys:
+				seenKeys.add(key)
 				result.append(json.loads(key))
 
 		return result
 
-	seen = []
+	seen: list = []
 	result = []
 
 	for item in array:

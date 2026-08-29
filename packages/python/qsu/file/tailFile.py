@@ -36,7 +36,7 @@ def tailFile(filePath: str, length: int = 1):
 		# of lines asked for rather than the size of the file. Reading forwards
 		# means a 10 GB log is streamed in full to answer for its last line.
 		position = size
-		chunks = []
+		chunks: list = []
 
 		while position > 0:
 			readLength = min(_CHUNK_SIZE, position)

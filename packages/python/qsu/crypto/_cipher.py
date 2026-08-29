@@ -29,6 +29,8 @@ def parseAlgorithm(algorithm: str, secret: str):
 
 
 def buildCipher(key: bytes, modeName: str, iv: bytes, tag=None) -> Cipher:
+	mode: modes.Mode
+
 	if modeName == 'cbc':
 		mode = modes.CBC(iv)
 	elif modeName == 'gcm':

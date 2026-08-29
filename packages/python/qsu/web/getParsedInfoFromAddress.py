@@ -2,7 +2,7 @@ import re
 
 
 def getParsedInfoFromAddress(url: str) -> dict:
-	result = {
+	result: dict = {
 		'error': False,
 		'protocol': None,
 		'host': None,

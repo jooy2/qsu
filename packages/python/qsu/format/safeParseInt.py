@@ -1,7 +1,7 @@
 from typing import Any
 
 
-def _jsParseInt(s: str, radix: int) -> float:
+def _jsParseInt(s: str, radix: int) -> int:
 	# Mirror JavaScript's parseInt leniency: parse the leading valid prefix,
 	# ignore the rest, and return NaN-like behavior via ValueError to the caller.
 	s = s.strip()
