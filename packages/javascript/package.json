@@ -39,11 +39,82 @@
 			"module": "./dist/types/global.js",
 			"default": "./dist/types/global.js"
 		},
+		"./array": {
+			"types": "./dist/array/index.d.ts",
+			"module": "./dist/array/index.js",
+			"default": "./dist/array/index.js"
+		},
+		"./date": {
+			"types": "./dist/date/index.d.ts",
+			"module": "./dist/date/index.js",
+			"default": "./dist/date/index.js"
+		},
+		"./format": {
+			"types": "./dist/format/index.d.ts",
+			"module": "./dist/format/index.js",
+			"default": "./dist/format/index.js"
+		},
+		"./math": {
+			"types": "./dist/math/index.d.ts",
+			"module": "./dist/math/index.js",
+			"default": "./dist/math/index.js"
+		},
+		"./misc": {
+			"types": "./dist/misc/index.d.ts",
+			"module": "./dist/misc/index.js",
+			"default": "./dist/misc/index.js"
+		},
+		"./object": {
+			"types": "./dist/object/index.d.ts",
+			"module": "./dist/object/index.js",
+			"default": "./dist/object/index.js"
+		},
+		"./string": {
+			"types": "./dist/string/index.d.ts",
+			"module": "./dist/string/index.js",
+			"default": "./dist/string/index.js"
+		},
+		"./verify": {
+			"types": "./dist/verify/index.d.ts",
+			"module": "./dist/verify/index.js",
+			"default": "./dist/verify/index.js"
+		},
+		"./web": {
+			"types": "./dist/web/index.d.ts",
+			"module": "./dist/web/index.js",
+			"default": "./dist/web/index.js"
+		},
 		"./node": {
 			"types": "./dist/node/index.d.ts",
 			"module": "./dist/node/index.js",
 			"default": "./dist/node/index.js"
-		}
+		},
+		"./node/crypto": {
+			"types": "./dist/node/crypto/index.d.ts",
+			"module": "./dist/node/crypto/index.js",
+			"default": "./dist/node/crypto/index.js"
+		},
+		"./node/file": {
+			"types": "./dist/node/file/index.d.ts",
+			"module": "./dist/node/file/index.js",
+			"default": "./dist/node/file/index.js"
+		},
+		"./node/misc": {
+			"types": "./dist/node/misc/index.d.ts",
+			"module": "./dist/node/misc/index.js",
+			"default": "./dist/node/misc/index.js"
+		},
+		"./node/net": {
+			"types": "./dist/node/net/index.d.ts",
+			"module": "./dist/node/net/index.js",
+			"default": "./dist/node/net/index.js"
+		},
+		"./node/os": {
+			"types": "./dist/node/os/index.d.ts",
+			"module": "./dist/node/os/index.js",
+			"default": "./dist/node/os/index.js"
+		},
+		"./package.json": "./package.json"
 	},
 	"typesVersions": {
 		"*": {
