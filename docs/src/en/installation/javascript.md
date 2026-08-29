@@ -75,4 +75,18 @@ Functions that should use `qsu/node` are listed at the top of each document in t
 
 <NodeRequired en />
 
+## Importing a single category
+
+The package is marked side-effect free, so a bundler keeps only the functions you import from `qsu` and drops the rest.
+
+If you are not running a bundler at all — a script, a serverless function, a test — you can import a single category instead of the whole package, which loads only that category's modules:
+
+```javascript
+import { arrUnique } from 'qsu/array';
+import { getSlug } from 'qsu/web';
+import { md5Hash } from 'qsu/node/crypto';
+```
+
+Every category has a subpath of its own: `qsu/array`, `qsu/date`, `qsu/format`, `qsu/math`, `qsu/misc`, `qsu/object`, `qsu/string`, `qsu/verify`, `qsu/web`, and under the Node.js runtime `qsu/node/crypto`, `qsu/node/file`, `qsu/node/misc`, `qsu/node/net`, `qsu/node/os`.
+
 For more information on all other supported functions, see the [Reference](/reference/index.md) documentation.

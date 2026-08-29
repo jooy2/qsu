@@ -75,4 +75,18 @@ main();
 
 <NodeRequired ko />
 
+## 카테고리 단위로 불러오기
+
+패키지는 부수 효과가 없는 것으로 표시되어 있으므로, 번들러는 `qsu`에서 import한 함수만 남기고 나머지는 모두 제거합니다.
+
+번들러를 사용하지 않는 환경(스크립트, 서버리스 함수, 테스트 등)이라면 패키지 전체 대신 카테고리 하나만 import할 수 있습니다. 이 경우 해당 카테고리의 모듈만 로드됩니다.
+
+```javascript
+import { arrUnique } from 'qsu/array';
+import { getSlug } from 'qsu/web';
+import { md5Hash } from 'qsu/node/crypto';
+```
+
+각 카테고리는 고유한 하위 경로를 가집니다: `qsu/array`, `qsu/date`, `qsu/format`, `qsu/math`, `qsu/misc`, `qsu/object`, `qsu/string`, `qsu/verify`, `qsu/web`, 그리고 Node.js 런타임에서는 `qsu/node/crypto`, `qsu/node/file`, `qsu/node/misc`, `qsu/node/net`, `qsu/node/os`.
+
 이외에도 지원하는 모든 함수에 대해 자세히 알아보려면 [Reference](/ko/reference/index.md) 설명서를 참조하세요.
