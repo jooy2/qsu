@@ -12,6 +12,26 @@ from qsu.misc import (
 )
 
 
+def _waitFor(predicate, timeout: float = 2.0):
+	"""Poll until `predicate()` is truthy, giving up after `timeout` seconds.
+
+	The tests below assert that a deferred call has landed. A fixed `sleep` has
+	to guess how long a timer takes to fire: short enough to keep the suite
+	quick made these flaky on loaded macOS CI runners, and long enough to be
+	safe there slows every run down. Waiting for the result instead returns as
+	soon as it lands and only spends the full timeout when something is broken.
+	"""
+	deadline = time.monotonic() + timeout
+
+	while time.monotonic() < deadline:
+		if predicate():
+			return True
+
+		time.sleep(0.005)
+
+	return bool(predicate())
+
+
 def test_sleep():
 	start = time.monotonic()
 	result = sleep(100)
@@ -36,14 +56,14 @@ def test_debounce():
 	debounceFunc = debounce(lambda: debounceResult.append(True), 30)
 
 	# Each burst of rapid calls must collapse into a single deferred call. The
-	# gap after a burst is kept well above the 30ms debounce window so a loaded
-	# CI runner still schedules the timer before the next burst (a tight margin
-	# made this flaky on slow macOS runners).
-	for _ in range(4):
+	# next burst only starts once the previous one has landed, so a loaded CI
+	# runner that is slow to schedule the timer cannot merge two bursts (a fixed
+	# gap made this flaky on slow macOS runners).
+	for burst in range(1, 5):
 		for _ in range(25):
 			debounceFunc()
 
-		time.sleep(0.2)
+		assert _waitFor(lambda: len(debounceResult) == burst), debounceResult
 
 	assert debounceResult == [True, True, True, True]
 	assert all(x is True for x in debounceResult)
@@ -56,6 +76,10 @@ def test_debounce_uses_latest_arguments():
 
 	debounceFunc('first', value=1)
 	debounceFunc('second', value=2)
+
+	assert _waitFor(lambda: debounceResult), 'the debounced call never fired'
+	# Settle past the debounce window: the superseded `first` call must not
+	# arrive late behind it.
 	time.sleep(0.03)
 
 	assert debounceResult == [(('second',), {'value': 2})]
@@ -94,7 +118,7 @@ def test_throttle():
 	throttled(3)
 	assert calls == [1]
 
-	time.sleep(0.08)
+	assert _waitFor(lambda: len(calls) == 2), calls
 	assert calls == [1, 3]
 
 
@@ -106,7 +130,7 @@ def test_throttle_leading_false():
 	throttled(2)
 	assert calls == []
 
-	time.sleep(0.08)
+	assert _waitFor(lambda: calls), 'the trailing call never fired'
 	assert calls == [2]
 
 
