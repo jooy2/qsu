@@ -1,4 +1,6 @@
+import ast
 import importlib
+import pathlib
 import subprocess
 import sys
 
@@ -92,3 +94,34 @@ def test_importing_the_package_does_not_load_the_functions():
 
 	assert functions == 0
 	assert heavy == 0
+
+
+def _type_checking_imports(source: str) -> list:
+	"""(Private) The names re-exported from an `if TYPE_CHECKING:` block."""
+	names = []
+
+	for node in ast.parse(source).body:
+		if not isinstance(node, ast.If) or getattr(node.test, 'id', None) != 'TYPE_CHECKING':
+			continue
+
+		for statement in node.body:
+			if isinstance(statement, ast.ImportFrom):
+				names.extend(alias.asname or alias.name for alias in statement.names)
+
+	return names
+
+
+def test_the_package_ships_its_type_information():
+	# Without this marker a type checker ignores the annotations entirely (PEP 561).
+	assert (pathlib.Path(qsu.__file__).parent / 'py.typed').is_file()
+
+
+def test_every_category_re_exports_all_of_its_names_for_type_checkers():
+	# The functions are imported on demand at runtime, so a type checker can only
+	# follow a name if the category spells the import out under `if TYPE_CHECKING`.
+	# A name added to `__all__` and forgotten there resolves to the module instead.
+	for category in CATEGORIES:
+		module = importlib.import_module(f'qsu.{category}')
+		source = pathlib.Path(module.__file__).read_text()
+
+		assert _type_checking_imports(source) == list(module.__all__), category
