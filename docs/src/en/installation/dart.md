@@ -7,9 +7,9 @@ order: 2
 
 There are a few simple steps to install **qsu** in Dart.
 
-You need to have at least `Dart 3.x` to install **qsu**.
+You need to have at least `Dart 3.5` to install **qsu**.
 
-If you are using Flutter, you need to be using at least Flutter version `3.10.x`. In this case, you don't need to worry about the Dart version because it is determined by Flutter.
+If you are using Flutter, you need to be using at least Flutter version `3.24`, which is the release that ships Dart 3.5. In this case, you don't need to worry about the Dart version because it is determined by Flutter.
 
 For safety and high compatibility, it is recommended to keep the Dart and Flutter versions as up-to-date as possible.
 
