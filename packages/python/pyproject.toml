@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "qsu"
 version = "1.2.0"
-description = "qsu is a utility library that contains useful and frequently used functions. Start with your preferred language and the modern development environment."
+description = "Everyday helpers you would otherwise write yourself: slugs, text case, date math, file size formatting, deep clone and merge, validation, hashing and file utilities."
 readme = "README.md"
 license = { file = "LICENSE" }
 authors = [{ name = "CDGet", email = "jooy2.contact@gmail.com" }]
@@ -14,15 +14,29 @@ dependencies = ["cryptography>=42.0"]
 keywords = [
     "util",
     "utility",
-    "tool",
+    "utils",
     "toolkit",
     "helper",
+    "helpers",
     "array",
+    "list",
+    "dict",
+    "object",
     "string",
     "date",
     "math",
-    "verify",
     "format",
+    "validation",
+    "verify",
+    "crypto",
+    "hash",
+    "encrypt",
+    "base64",
+    "file",
+    "web",
+    "slug",
+    "debounce",
+    "throttle",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
