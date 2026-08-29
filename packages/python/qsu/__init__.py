@@ -13,6 +13,24 @@ whatever the caller went on to use, which was most of the cost of the import.
 """
 
 import importlib
+from typing import TYPE_CHECKING, Optional
+
+if TYPE_CHECKING:
+	# Imported at runtime only when the name is first read. Spelling the imports out
+	# here lets a type checker follow a name to the function behind it.
+	from .array import *  # noqa: F401,F403
+	from .crypto import *  # noqa: F401,F403
+	from .date import *  # noqa: F401,F403
+	from .file import *  # noqa: F401,F403
+	from .format import *  # noqa: F401,F403
+	from .math import *  # noqa: F401,F403
+	from .misc import *  # noqa: F401,F403
+	from .net import *  # noqa: F401,F403
+	from .object import *  # noqa: F401,F403
+	from .os import *  # noqa: F401,F403
+	from .string import *  # noqa: F401,F403
+	from .verify import *  # noqa: F401,F403
+	from .web import *  # noqa: F401,F403
 
 __version__ = '1.2.0'
 
@@ -34,7 +52,7 @@ _CATEGORIES = (
 
 # Function name -> the category module that holds it, built on first use. Reading the
 # categories' `__all__` no longer imports the functions behind them.
-_index = None
+_index: Optional[dict] = None
 
 
 def _functions() -> dict:
