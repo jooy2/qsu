@@ -1,4 +1,4 @@
-# createDateListFromRange <Lang js python />
+# createDateListFromRange <Lang js dart python />
 
 `YYYY-MM-DD` 형식으로 `시작일`부터 `종료일`까지의 모든 날짜의 배열 목록을 만듭니다.
 

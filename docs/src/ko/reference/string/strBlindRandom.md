@@ -23,3 +23,12 @@ strBlindRandom('hello', 2, '#'); // Returns '#el#o'
 ```
 
 :::
+
+::: lang python
+
+```python
+strBlindRandom('hello', 2, '#')  # e.g. 'he##o'
+strBlindRandom('hello', 2)  # e.g. '*ell*'
+```
+
+:::

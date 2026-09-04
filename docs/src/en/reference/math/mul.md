@@ -23,6 +23,15 @@ mul([1, 2, 3, 4]); // Returns 24
 
 :::
 
+::: lang dart
+
+```dart
+mul([1, 2, 3]); // Returns 6
+mul([1, 2, 3, 4]); // Returns 24
+```
+
+:::
+
 ::: lang python
 
 ```python

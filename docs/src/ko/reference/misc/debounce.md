@@ -44,6 +44,22 @@ No return values
 
 :::
 
+::: lang dart
+
+```dart
+import 'package:qsu/qsu.dart';
+
+// debounce는 래퍼 함수를 반환합니다. 타임아웃(밀리초) 안에 반복 호출하면
+// 타이머가 초기화되어, 호출이 멈춘 뒤에야 func가 한 번 실행됩니다.
+final onKeyUp = debounce(() {
+  print('handleKeyUp called.');
+}, 100);
+
+onKeyUp(); // 100ms 윈도우 안에서는 마지막 호출만 실행됩니다
+```
+
+:::
+
 ::: lang python
 
 ```python

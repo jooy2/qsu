@@ -37,6 +37,18 @@ getCopyFileName('Report.PDF', ['Report.PDF']); // 'Report (1).PDF' (extension ca
 
 :::
 
+::: lang dart
+
+```dart
+getCopyFileName('abc.txt', ['abc.txt', 'def.txt']); // 'abc (1).txt'
+getCopyFileName('abc.txt', ['abc.txt', 'abc (1).txt']); // 'abc (2).txt'
+getCopyFileName('abc (1).txt', ['abc.txt', 'abc (1).txt']); // 'abc (1) (1).txt'
+getCopyFileName('def.txt', ['abc.txt']); // 'def.txt'
+getCopyFileName('Report.PDF', ['Report.PDF']); // 'Report (1).PDF' (extension casing preserved)
+```
+
+:::
+
 ::: lang python
 
 ```python

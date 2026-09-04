@@ -23,6 +23,15 @@ div([100, 2, 2, 5]); // Returns 5
 
 :::
 
+::: lang dart
+
+```dart
+div([10, 5, 2]); // Returns 1.0
+div([100, 2, 2, 5]); // Returns 5.0
+```
+
+:::
+
 ::: lang python
 
 ```python

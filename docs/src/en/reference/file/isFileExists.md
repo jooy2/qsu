@@ -25,6 +25,15 @@ await isFileExists('not-exist.txt'); // false
 
 :::
 
+::: lang dart
+
+```dart
+await isFileExists('text.txt'); // true
+await isFileExists('not-exist.txt'); // false
+```
+
+:::
+
 ::: lang python
 
 ```python

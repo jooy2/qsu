@@ -44,6 +44,22 @@ No return values
 
 :::
 
+::: lang dart
+
+```dart
+import 'package:qsu/qsu.dart';
+
+// debounce returns a wrapper. Repeated calls within the timeout window
+// (in milliseconds) reset the timer, so func only runs once the calls stop.
+final onKeyUp = debounce(() {
+  print('handleKeyUp called.');
+}, 100);
+
+onKeyUp(); // only the final call within the 100ms window fires
+```
+
+:::
+
 ::: lang python
 
 ```python

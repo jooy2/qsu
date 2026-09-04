@@ -1,4 +1,4 @@
-# dateToYYYYMMDD <Lang js python />
+# dateToYYYYMMDD <Lang js dart python />
 
 Date 객체의 날짜 데이터를 `YYYY-MM-DD` 형식으로 반환합니다.
 

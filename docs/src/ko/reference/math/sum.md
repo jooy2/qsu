@@ -23,6 +23,15 @@ sum([1, 2, 3, 4]); // Returns 10
 
 :::
 
+::: lang dart
+
+```dart
+sum([1, 2, 3]); // Returns 6
+sum([1, 2, 3, 4]); // Returns 10
+```
+
+:::
+
 ::: lang python
 
 ```python

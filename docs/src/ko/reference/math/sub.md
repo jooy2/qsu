@@ -23,6 +23,15 @@ sub([1, 2, 3, 4]); // Returns -8
 
 :::
 
+::: lang dart
+
+```dart
+sub([10, 1, 5]); // Returns 4
+sub([1, 2, 3, 4]); // Returns -8
+```
+
+:::
+
 ::: lang python
 
 ```python
