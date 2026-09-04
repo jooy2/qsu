@@ -1,5 +1,4 @@
-# getCpu <Lang js python />
-
+# getCpu
 <NodeRequired en />
 
 This function returns the name of the CPU currently used by the system. Depending on the OS, the name may be incorrect or may not be retrievable.

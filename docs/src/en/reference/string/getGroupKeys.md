@@ -1,5 +1,4 @@
-# getGroupKeys <Lang js python />
-
+# getGroupKeys
 Returns a text key enclosed between the start and end characters in the given string. This can be useful for identifying template string keys in strings that follow i18n syntax.
 
 For example, in text like `abc {def} ghi`, `{def}` is a key used in template strings, and this function seeks to find 'def'.

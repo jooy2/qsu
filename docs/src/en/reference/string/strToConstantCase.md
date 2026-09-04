@@ -1,5 +1,4 @@
-# strToConstantCase <Lang js dart python />
-
+# strToConstantCase
 Converts a string to `CONSTANT_CASE`: every word is uppercased and joined with an underscore.
 
 The string is split with [words](./words), so spaces, punctuation, `-` and `_` all act as delimiters, camelCase boundaries split, an acronym is separated from the word after it (`XMLHttpRequest` becomes `XML_HTTP_REQUEST`) and a run of digits is its own word (`abc12def` becomes `ABC_12_DEF`).

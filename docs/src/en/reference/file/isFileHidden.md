@@ -1,5 +1,4 @@
-# isFileHidden <Lang js python />
-
+# isFileHidden
 <NodeRequired en />
 
 Checks whether a file or folder in the specified path is a hidden file. Determines system hidden files for Windows and the presence or absence of a `.`(dot) for Linux and macOS or other operating systems.

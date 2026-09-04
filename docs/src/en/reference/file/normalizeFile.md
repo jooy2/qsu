@@ -1,5 +1,4 @@
-# normalizeFile <Lang js dart python />
-
+# normalizeFile
 <NodeRequired en />
 
 Returns the file name within the path.

@@ -1,5 +1,4 @@
-# toPosixFilePath <Lang js dart python />
-
+# toPosixFilePath
 <NodeRequired ko />
 
 지정된 경로를 POSIX 형식(주로 리눅스에서 사용)의 경로로 반환합니다. 예를 들어, 윈도우 경로는 `\\` 대신 `/`로 변환됩니다.

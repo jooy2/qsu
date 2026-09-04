@@ -1,5 +1,4 @@
-# mul <Lang js dart python />
-
+# mul
 Returns after multiplying all n arguments of numbers or the values of a single array of numbers.
 
 ## Parameters

@@ -1,5 +1,4 @@
-# toValidFilePath <Lang js dart python />
-
+# toValidFilePath
 <NodeRequired en />
 
 Remove invalid or unnecessary characters in the path.

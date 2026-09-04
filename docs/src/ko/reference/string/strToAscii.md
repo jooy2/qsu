@@ -1,5 +1,4 @@
-# strToAscii <Lang dart js python />
-
+# strToAscii
 지정된 문자열을 ASCII 코드로 변환하여 배열로 반환합니다.
 
 ## Parameters

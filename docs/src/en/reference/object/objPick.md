@@ -1,5 +1,4 @@
-# objPick <Lang js dart python />
-
+# objPick
 Returns a new object containing only the listed keys. A single key or an array of keys is accepted.
 
 Only the top level is inspected, and a key that the object does not have is skipped rather than carried over as an empty value, so the result never claims a key the source never had. Values are carried over as they are, so a nested object is shared with the source rather than copied — use [objClone](./objClone) if a copy is needed.

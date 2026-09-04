@@ -1,5 +1,4 @@
-# objFindItemRecursiveByKey <Lang js python />
-
+# objFindItemRecursiveByKey
 Returns the object if the key of a specific piece of data in the object's dataset corresponds to a specific value. This function returns only one result, so it is used to search for unique IDs, including all of their children.
 
 ## Parameters

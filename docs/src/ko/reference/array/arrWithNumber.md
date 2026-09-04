@@ -1,5 +1,4 @@
-# arrWithNumber <Lang dart js python />
-
+# arrWithNumber
 시작...끝 값의 순서로 배열을 생성하고 반환합니다.
 
 ## Parameters

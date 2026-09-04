@@ -1,5 +1,4 @@
-# isTrueMinimumNumberOfTimes <Lang dart js python />
-
+# isTrueMinimumNumberOfTimes
 `conditions` 배열에 있는 값이 최소 `minimumCount` 번 참이면 `true`를 반환합니다.
 
 ## Parameters

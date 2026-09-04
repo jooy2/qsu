@@ -1,5 +1,4 @@
-# escapeHtml <Lang js dart python />
-
+# escapeHtml
 HTML에서 특별한 의미를 갖는 다섯 개의 문자를 이스케이프합니다. 값이 마크업으로 해석되지 않고 텍스트로 표시되도록 할 때 사용합니다.
 
 | 문자 | 변환 결과 |

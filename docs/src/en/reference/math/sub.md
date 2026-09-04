@@ -1,5 +1,4 @@
-# sub <Lang js dart python />
-
+# sub
 Returns after subtracting all n arguments of numbers or the values of a single array of numbers.
 
 ## Parameters

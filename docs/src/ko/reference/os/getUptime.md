@@ -1,5 +1,4 @@
-# getUptime <Lang js python />
-
+# getUptime
 <NodeRequired ko />
 
 현재 Node.js 프로세스가 실행된 시간을 초로 리턴합니다.

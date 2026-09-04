@@ -1,5 +1,4 @@
-# isEmail <Lang dart js python />
-
+# isEmail
 Checks if the given argument value is a valid email.
 
 ## Parameters

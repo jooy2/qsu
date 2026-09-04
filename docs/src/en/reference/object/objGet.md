@@ -1,5 +1,4 @@
-# objGet <Lang js dart python />
-
+# objGet
 Reads a nested value out of an object by path, returning a `fallback` when the path is not there.
 
 The path takes both dot and bracket notation, and the two can be mixed: `a.b.c`, `list[0]`, `list[1].d` and `list.1.d` all work. A bracket may carry a quoted key, so `["a.b"]` reads one key named `a.b` instead of walking two levels.

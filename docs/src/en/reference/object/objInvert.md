@@ -1,5 +1,4 @@
-# objInvert <Lang dart js python />
-
+# objInvert
 Returns a new object with the keys and values swapped: every value becomes a key, and the key it came from becomes its value.
 
 Keys are always strings, so the value is converted to text first. `null` becomes `'null'`, `true` becomes `'true'`, and a number that happens to be whole is written without a fractional part in every language, so `1.0` becomes `'1'` in Dart and Python just as it does in JavaScript.

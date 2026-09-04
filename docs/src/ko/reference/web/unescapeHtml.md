@@ -1,5 +1,4 @@
-# unescapeHtml <Lang js dart python />
-
+# unescapeHtml
 [escapeHtml](./escapeHtml)이 만들어내는 다섯 개의 HTML 엔티티를 원래 문자로 되돌립니다.
 
 | 엔티티 | 변환 결과 |

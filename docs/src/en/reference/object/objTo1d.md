@@ -1,5 +1,4 @@
-# objTo1d <Lang dart js python />
-
+# objTo1d
 Merges objects from the given object to the top level of the child items and displays the key names in steps, using a delimiter (`.` by default) instead of the existing keys. For example, if an object `a` has keys `b`, `c`, and `d`, the `a` key is not displayed, and the keys and values `a.b`, `a.c`, and `a.d` are displayed in the parent step.
 
 ## Parameters

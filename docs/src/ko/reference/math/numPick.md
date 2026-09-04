@@ -1,5 +1,4 @@
-# numPick <Lang dart js python />
-
+# numPick
 min과 max값 사이 중 임의의 숫자를 선택하여 리턴합니다.
 
 ## Parameters

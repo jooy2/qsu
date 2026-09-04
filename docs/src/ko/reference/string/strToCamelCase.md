@@ -1,5 +1,4 @@
-# strToCamelCase <Lang js dart python />
-
+# strToCamelCase
 문자열을 `camelCase`로 변환합니다. 첫 번째 단어는 모두 소문자로 바꾸고, 그 뒤의 단어는 첫 글자만 대문자로 바꾼 뒤 구분자를 모두 제거하여 이어 붙입니다.
 
 문자열은 [words](./words)로 나누므로 공백·구두점·`-`·`_`가 모두 구분자로 처리되고, camelCase 경계에서 나뉘며, 약어는 그대로 유지되고(`XMLHttpRequest` → `xmlHttpRequest`), 연속된 숫자는 하나의 단어가 됩니다(`abc12def` → `abc12Def`).

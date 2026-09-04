@@ -1,5 +1,4 @@
-# sleep <Lang dart js python />
-
+# sleep
 Sleep function using Promise.
 
 ## Parameters

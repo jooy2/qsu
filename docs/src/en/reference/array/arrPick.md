@@ -1,5 +1,4 @@
-# arrPick <Lang js dart python />
-
+# arrPick
 Returns a random item from the given array. If the array is empty or is not an array, it returns `null`.
 
 ## Parameters

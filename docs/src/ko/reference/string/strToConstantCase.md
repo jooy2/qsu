@@ -1,5 +1,4 @@
-# strToConstantCase <Lang js dart python />
-
+# strToConstantCase
 문자열을 `CONSTANT_CASE`로 변환합니다. 모든 단어를 대문자로 바꾼 뒤 밑줄(`_`)로 이어 붙입니다.
 
 문자열은 [words](./words)로 나누므로 공백·구두점·`-`·`_`가 모두 구분자로 처리되고, camelCase 경계에서 나뉘며, 약어는 뒤따르는 단어와 분리되고(`XMLHttpRequest` → `XML_HTTP_REQUEST`), 연속된 숫자는 하나의 단어가 됩니다(`abc12def` → `ABC_12_DEF`).

@@ -1,5 +1,4 @@
-# duration <Lang dart js python />
-
+# duration
 Displays the given millisecond value in human-readable time. For example, the value of `604800000` (7 days) is displayed as `7 Days`.
 
 A month is treated as 30 days and a year as 365 days.

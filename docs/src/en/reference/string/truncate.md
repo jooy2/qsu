@@ -1,5 +1,4 @@
-# truncate <Lang dart js python />
-
+# truncate
 Truncates a long string to a specified length, optionally appending an ellipsis after the string.
 
 Length is counted in code points, so a character outside the Basic Multilingual Plane counts as one in every language and is never cut in half.

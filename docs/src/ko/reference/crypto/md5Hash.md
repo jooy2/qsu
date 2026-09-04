@@ -1,5 +1,4 @@
-# md5Hash <Lang dart js python />
-
+# md5Hash
 <NodeRequired ko />
 
 문자열 데이터를 md5 해시 값으로 변환하여 반환합니다.

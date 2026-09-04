@@ -1,5 +1,4 @@
-# objClone <Lang js dart python />
-
+# objClone
 Copies an object. The copy is deep by default, so nothing inside it is shared with the original; pass `deep: false` to copy the top level only.
 
 A structure that points back at itself is handled: every container is remembered while it is being copied, so a cycle is rebuilt with the same shape instead of recursing until the stack runs out.

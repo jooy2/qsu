@@ -1,5 +1,4 @@
-# min <Lang js dart python />
-
+# min
 Returns the smallest of the given numbers. Like [sum](./sum), it accepts either n arguments or a single array of numbers.
 
 Values that are not numbers are skipped, as they are in `sum`, and so is `NaN`, which would otherwise win by losing every comparison it takes part in.

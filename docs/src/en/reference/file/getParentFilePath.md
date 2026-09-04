@@ -1,5 +1,4 @@
-# getParentFilePath <Lang js dart python />
-
+# getParentFilePath
 <NodeRequired en />
 
 Returns the parent path one level above the given path.

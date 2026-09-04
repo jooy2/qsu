@@ -1,5 +1,4 @@
-# removeSpecialChar <Lang dart js python />
-
+# removeSpecialChar
 Returns after removing all special characters, including spaces. If you want to allow any special characters as exceptions, list them in the second argument value without delimiters. For example, if you want to allow spaces and the symbols `&` and `*`, the second argument value would be ' &\*'.
 
 ## Parameters

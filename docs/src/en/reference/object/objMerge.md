@@ -1,5 +1,4 @@
-# objMerge <Lang js dart python />
-
+# objMerge
 Merges any number of objects into one new object, going down through nested objects. When two sources carry the same key, the later one wins.
 
 Two plain objects under the same key are merged into a **new** object, so neither source ends up shared with the result and neither is modified. Anything else — including arrays — is replaced whole by the later value. Lodash merges arrays index by index instead, which quietly keeps elements the caller meant to drop, so `objMerge({ a: [1, 2, 3] }, { a: [9] })` returns `{ a: [9] }` here and `{ a: [9, 2, 3] }` in Lodash.

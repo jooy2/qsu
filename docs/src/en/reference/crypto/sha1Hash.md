@@ -1,5 +1,4 @@
-# sha1Hash <Lang dart js python />
-
+# sha1Hash
 <NodeRequired en />
 
 Converts String data to sha1 hash value and returns it.

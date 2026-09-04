@@ -1,5 +1,4 @@
-# objToArray <Lang dart js python />
-
+# objToArray
 Converts the given object to array format. The resulting array is a two-dimensional array with one key value stored as follows: `[key, value]`. If the `recursive` option is `true`, it will convert to a two-dimensional array again when the value is of type `object`.
 
 ## Parameters

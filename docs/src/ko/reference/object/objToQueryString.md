@@ -1,5 +1,4 @@
-# objToQueryString <Lang dart js python />
-
+# objToQueryString
 주어진 객체 데이터를 URL 쿼리 문자열로 변환합니다.
 
 ## Parameters

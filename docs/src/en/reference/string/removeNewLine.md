@@ -1,5 +1,4 @@
-# removeNewLine <Lang dart js python />
-
+# removeNewLine
 Removes `\n`, `\r` characters or replaces them with specified characters.
 
 ## Parameters

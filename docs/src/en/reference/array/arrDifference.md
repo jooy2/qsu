@@ -1,5 +1,4 @@
-# arrDifference <Lang dart js python />
-
+# arrDifference
 Returns the values of the first array that are not contained in any of the other arrays.
 
 The original order is preserved and duplicates of a kept value are not removed, so `arrDifference([2, 1, 2, 3], [1])` returns `[2, 2, 3]`.

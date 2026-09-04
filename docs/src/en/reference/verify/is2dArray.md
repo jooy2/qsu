@@ -1,5 +1,4 @@
-# is2dArray <Lang dart js python />
-
+# is2dArray
 Returns `true` if the given array is a two-dimensional array.
 
 ## Parameters

@@ -1,5 +1,4 @@
-# numberFormat <Lang dart js python />
-
+# numberFormat
 Returns the given number formatted for easy reading, including commas.
 
 ## Parameters

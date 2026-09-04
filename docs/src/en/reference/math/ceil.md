@@ -1,5 +1,4 @@
-# ceil <Lang js dart python />
-
+# ceil
 Rounds a number **up**, to the given number of decimal places. A negative `precision` rounds up to tens, hundreds and so on: `ceil(6040, -2)` returns `6100`.
 
 Rounding goes toward positive infinity, not away from zero, so a negative value rises: `ceil(-4.006)` returns `-4`.

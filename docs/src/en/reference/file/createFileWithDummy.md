@@ -1,5 +1,4 @@
-# createFileWithDummy <Lang js dart python />
-
+# createFileWithDummy
 <NodeRequired en />
 
 Creates a file with the specified size in bytes. A size of `0` creates an empty file, and a negative size raises an error.

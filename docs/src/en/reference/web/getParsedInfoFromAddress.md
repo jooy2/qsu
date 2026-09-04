@@ -1,5 +1,4 @@
-# getParsedInfoFromAddress <Lang js dart python />
-
+# getParsedInfoFromAddress
 Parses an address string into its parts and returns them as an object. It handles ordinary web URLs as well as host-only addresses, IPv4, IPv6 (bare or wrapped in `[]`), and SSH-style connection strings that carry user information such as `ssh://user:pass@host:port`.
 
 The rules are intentionally generic:

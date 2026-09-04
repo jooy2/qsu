@@ -1,5 +1,4 @@
-# escapeHtml <Lang js dart python />
-
+# escapeHtml
 Escapes the five characters that carry meaning in HTML, so a value can be dropped into a page as text rather than read as markup.
 
 | Character | Becomes |

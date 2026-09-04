@@ -1,5 +1,4 @@
-# dateToYYYYMMDD <Lang js dart python />
-
+# dateToYYYYMMDD
 Returns the date data of a Date object in the format `YYYY-MM-DD`.
 
 ## Parameters

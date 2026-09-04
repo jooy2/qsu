@@ -1,5 +1,4 @@
-# pad <Lang js dart python />
-
+# pad
 Pads a string until it reaches the given length. One function covers all three directions through the `position` option, so it replaces Lodash's `pad`, `padStart` and `padEnd`.
 
 Padding is added on both sides by default, matching Lodash's `pad`. When the two sides cannot be equal the extra character goes to the end, so `pad('abc', 8)` returns `'  abc   '`.

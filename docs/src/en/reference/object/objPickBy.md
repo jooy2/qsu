@@ -1,5 +1,4 @@
-# objPickBy <Lang dart js python />
-
+# objPickBy
 Returns a new object containing only the entries for which the callback returns `true`.
 
 The callback receives `(value, key)`, in that order, matching the rest of the ecosystem. Only the top level is inspected — a nested object is carried over as it is, never filtered.

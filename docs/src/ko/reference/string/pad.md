@@ -1,5 +1,4 @@
-# pad <Lang js dart python />
-
+# pad
 문자열이 지정한 길이가 될 때까지 문자를 채웁니다. `position` 옵션으로 세 방향을 모두 처리하므로 Lodash의 `pad`, `padStart`, `padEnd`를 하나로 대신합니다.
 
 기본값은 양쪽을 모두 채우는 것으로, Lodash의 `pad`와 동일합니다. 양쪽을 똑같이 나눌 수 없으면 남는 한 글자는 뒤쪽에 붙습니다. `pad('abc', 8)`은 `'  abc   '`를 반환합니다.

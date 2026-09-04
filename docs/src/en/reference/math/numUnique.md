@@ -1,5 +1,4 @@
-# numUnique <Lang dart js python />
-
+# numUnique
 Returns a unique number based on the current timestamp.
 
 The value is a millisecond timestamp combined with a per-millisecond sequence, so repeated calls within the same process always return a new, strictly increasing number.

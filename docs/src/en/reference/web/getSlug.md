@@ -1,5 +1,4 @@
-# getSlug <Lang js dart python />
-
+# getSlug
 Converts a string into a URL-friendly slug. The input is trimmed, split into words on whitespace and any existing `-`/`_` characters, and joined back together with the chosen separator. Letters are kept, while non-Latin letters, digits and special characters are gated by the options below.
 
 The behavior is intentionally simple and predictable:

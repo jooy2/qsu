@@ -1,5 +1,4 @@
-# throttle <Lang dart js python />
-
+# throttle
 Limits how often a function may run: however many times the returned wrapper is called, the function itself runs at most once per `wait` window.
 
 This is the counterpart of `debounce`. `debounce` waits for the calls to stop and then runs once; `throttle` keeps running at a steady rate while the calls continue. Use it for events that fire continuously — scrolling, resizing, mouse movement, progress updates.

@@ -1,5 +1,4 @@
-# createFileWithDummy <Lang js dart python />
-
+# createFileWithDummy
 <NodeRequired ko />
 
 지정된 크기의 파일을 바이트 단위로 만듭니다. 크기가 `0`이면 빈 파일을 만들고, 음수 크기는 오류를 발생시킵니다.

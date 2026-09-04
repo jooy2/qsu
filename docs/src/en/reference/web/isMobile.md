@@ -1,5 +1,4 @@
-# isMobile <Lang js dart python />
-
+# isMobile
 Checks if the current user is accessing from a mobile device via the User Agent string. This function returns `false` for tablet users.
 
 ## Parameters

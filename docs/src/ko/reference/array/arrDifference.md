@@ -1,5 +1,4 @@
-# arrDifference <Lang dart js python />
-
+# arrDifference
 첫 번째 배열의 값 중에서 나머지 배열들 어디에도 포함되지 않은 값만 반환합니다.
 
 원본 순서가 유지되며 남은 값의 중복도 제거하지 않으므로, `arrDifference([2, 1, 2, 3], [1])`은 `[2, 2, 3]`을 반환합니다.

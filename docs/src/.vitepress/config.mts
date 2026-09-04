@@ -39,40 +39,38 @@ function pageOf(locale: string, path: string): string {
 	return `/${relative(join(srcDir, locale), path).replace(/\.md$/, '').split(sep).join('/')}`;
 }
 
-/** What a reference page says about itself: its title badge and its blocks. */
-function claimsOf(path: string): { badge: string[] | null; blocks: string[] } {
-	const source = readFileSync(path, 'utf8');
-	const badge = source.match(/^#\s+.*?<Lang\s+([^/>]*)\/>/m);
-	const blocks = new Set(
-		[...source.matchAll(/^::: lang (.+)$/gm)].flatMap((match) => match[1].trim().split(/\s+/))
+/** The languages a reference page has content for, in the switch's own order. */
+function blocksOf(path: string): string[] {
+	const wanted = new Set(
+		[...readFileSync(path, 'utf8').matchAll(/^:{3,}\s*lang (.+)$/gm)].flatMap((match) =>
+			match[1].trim().split(/\s+/)
+		)
 	);
 
-	return {
-		badge: badge ? CODE_LANGUAGE_IDS.filter((id) => badge[1].split(/\s+/).includes(id)) : null,
-		blocks: CODE_LANGUAGE_IDS.filter((id) => blocks.has(id))
-	};
+	return CODE_LANGUAGE_IDS.filter((id) => wanted.has(id));
 }
 
 /**
- * The reference pages that only some of the languages implement, read off the
- * `<Lang />` badge in each page's title.
+ * The reference pages that only some of the languages implement.
  *
  * Not every function exists in every package, so the sidebar marks the entries
  * the selected language cannot use and the page says so under its title. Both
  * need the answer for a page they are not currently rendering, which is why it
- * is collected here rather than page by page. The default locale is the source,
- * since the badge says the same thing in every translation.
+ * is collected here rather than page by page.
+ *
+ * A page's `::: lang` blocks are the answer: what a page has content for is what
+ * qsu has ported. The default locale is the source, since a translation
+ * documents the same function.
  *
  * Only the exceptions are listed. A reference page missing from the map is one
  * every language implements, which is most of them and would otherwise be a few
  * kilobytes of "all three" shipped to every reader.
  *
- * The badge is load-bearing, so this is also where it is checked. A page whose
- * badge and `::: lang` blocks disagree, or whose translations disagree with each
- * other, leaves a reader an empty Examples section or an entry the sidebar marks
- * wrongly — and neither shows up in a page you are not looking at. The build
- * refuses; the dev server only complains, so that a page half written is not a
- * page that will not load.
+ * The translations are checked against it on the way past. A page whose Korean
+ * blocks do not match its English ones marks the sidebar differently in the two
+ * locales, and that is not something you see on a page you are not reading. The
+ * build refuses; the dev server only complains, so that a page half written is
+ * not a page that will not load.
  */
 function collectFunctionLanguages(): Record<string, string[]> {
 	const languages: Record<string, string[]> = {};
@@ -81,47 +79,32 @@ function collectFunctionLanguages(): Record<string, string[]> {
 	for (const locale of supportedLocale) {
 		for (const path of markdownFiles(join(srcDir, locale, 'reference'))) {
 			const page = pageOf(locale, path);
-			const { badge, blocks } = claimsOf(path);
-			const where = `${locale}${page}.md`;
-
-			if (!badge) {
-				if (blocks.length) {
-					problems.push(`${where} has ::: lang blocks but no <Lang /> badge in its title.`);
-				}
-
-				continue;
-			}
-
-			if (badge.join(' ') !== blocks.join(' ')) {
-				problems.push(
-					`${where}: the title badge says ${badge.join(', ')} but the page has ` +
-						`${blocks.length ? `::: lang blocks for ${blocks.join(', ')}` : 'no ::: lang block'}.`
-				);
-			}
+			const implemented = blocksOf(path);
 
 			if (locale === defaultLocale) {
-				if (badge.length < CODE_LANGUAGE_IDS.length) {
-					languages[page] = badge;
+				if (implemented.length && implemented.length < CODE_LANGUAGE_IDS.length) {
+					languages[page] = implemented;
 				}
 
 				continue;
 			}
 
-			const original = claimsOf(join(srcDir, defaultLocale, `${page.slice(1)}.md`)).badge;
+			const original = blocksOf(join(srcDir, defaultLocale, `${page.slice(1)}.md`));
 
-			if (original && badge.join(' ') !== original.join(' ')) {
+			if (implemented.join(' ') !== original.join(' ')) {
 				problems.push(
-					`${where}: the title badge says ${badge.join(', ')} where ` +
-						`${defaultLocale}${page}.md says ${original.join(', ')}.`
+					`${locale}${page}.md has ::: lang blocks for ${implemented.join(', ') || 'nothing'} ` +
+						`where ${defaultLocale}${page}.md has ${original.join(', ') || 'nothing'}.`
 				);
 			}
 		}
 	}
 
 	if (problems.length) {
-		const report = ['The reference pages below disagree with themselves:', ...problems].join(
-			'\n  '
-		);
+		const report = [
+			'The reference pages below disagree with their translations:',
+			...problems
+		].join('\n  ');
 
 		// `vitepress build` against `vitepress dev`. There is no hook that knows
 		// which one is running by the time the config is read.

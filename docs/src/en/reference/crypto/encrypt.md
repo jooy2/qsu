@@ -1,5 +1,4 @@
-# encrypt <Lang js python />
-
+# encrypt
 <NodeRequired en />
 
 Encrypt with the algorithm of your choice (algorithm default: `aes-256-cbc`, ivSize default: `16`) using a string and a secret (secret).

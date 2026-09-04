@@ -1,5 +1,4 @@
-# strBlindRandom <Lang js python />
-
+# strBlindRandom
 임의의 위치에 있는 문자열을 지정된 문자 수(기본값 1)로 대체합니다(기본값 \*).
 
 ## Parameters

@@ -1,5 +1,4 @@
-# strUnique <Lang dart js python />
-
+# strUnique
 Remove duplicate characters from a given string and output only one.
 
 ## Parameters

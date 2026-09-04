@@ -1,5 +1,4 @@
-# getFileHashFromPath <Lang js dart python />
-
+# getFileHashFromPath
 <NodeRequired en />
 
 Returns the file in the specified path as a value hashed by a specific algorithm. The default algorithm is `md5`. This method uses a `Promise` to return a valid hash value.

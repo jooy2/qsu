@@ -1,5 +1,4 @@
-# moveFile <Lang js dart python />
-
+# moveFile
 <NodeRequired ko />
 
 지정된 파일 경로에 있는 파일을 다른 경로로 이동합니다. 디렉터리도 그 안의 내용과 함께 같은 방식으로 이동합니다.

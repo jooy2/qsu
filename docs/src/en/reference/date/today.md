@@ -1,5 +1,4 @@
-# today <Lang js dart python />
-
+# today
 Returns today's date.
 
 ## Parameters

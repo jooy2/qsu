@@ -1,5 +1,4 @@
-# createDirectory <Lang js dart python />
-
+# createDirectory
 <NodeRequired en />
 
 Creates a directory with the specified path. Ignores the operation if the directory already exists.

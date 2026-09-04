@@ -1,5 +1,4 @@
-# urlJoin <Lang dart js python />
-
+# urlJoin
 Merges the given string argument with the first argument (the beginning of the URL), joining it so that the slash (`/`) symbol is correctly included.
 
 ::: lang dart

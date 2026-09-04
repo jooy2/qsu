@@ -1,5 +1,4 @@
-# getSid <Lang js python />
-
+# getSid
 <NodeRequired ko />
 
 장치의 현재 사용자에 대한 보안 식별자(SID) 값을 가져옵니다. 값을 가져오지 못하면 에러를 발생시킵니다.

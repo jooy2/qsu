@@ -1,5 +1,4 @@
-# is2dArray <Lang dart js python />
-
+# is2dArray
 지정된 배열이 2차원 배열이면 `true`를 반환합니다.
 
 ## Parameters

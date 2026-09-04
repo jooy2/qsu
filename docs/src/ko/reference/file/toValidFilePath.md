@@ -1,5 +1,4 @@
-# toValidFilePath <Lang js dart python />
-
+# toValidFilePath
 <NodeRequired ko />
 
 경로에 있는 유효하지 않거나 불필요한 문자를 제거합니다.

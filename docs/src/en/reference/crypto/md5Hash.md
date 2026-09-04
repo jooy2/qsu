@@ -1,5 +1,4 @@
-# md5Hash <Lang dart js python />
-
+# md5Hash
 <NodeRequired en />
 
 Converts String data to md5 hash value and returns it.

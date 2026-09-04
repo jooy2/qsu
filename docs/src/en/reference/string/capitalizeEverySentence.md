@@ -1,5 +1,4 @@
-# capitalizeEverySentence <Lang dart js python />
-
+# capitalizeEverySentence
 Capitalize the first letter of every sentence. Typically, the `.` characters to separate sentences, but this can be customized via the value of the `splitChar` argument.
 
 ## Parameters

@@ -1,5 +1,4 @@
-# isEmpty <Lang dart js python />
-
+# isEmpty
 Returns true if the passed data is empty or has a length of 0.
 
 ## Parameters

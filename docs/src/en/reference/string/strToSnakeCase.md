@@ -1,5 +1,4 @@
-# strToSnakeCase <Lang js dart python />
-
+# strToSnakeCase
 Converts a string to `snake_case`: every word is lowercased and joined with an underscore.
 
 The string is split with [words](./words), so spaces, punctuation, `-` and `_` all act as delimiters, camelCase boundaries split, an acronym is separated from the word after it (`XMLHttpRequest` becomes `xml_http_request`) and a run of digits is its own word (`abc12def` becomes `abc_12_def`).

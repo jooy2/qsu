@@ -1,5 +1,4 @@
-# arrMove <Lang dart js python />
-
+# arrMove
 Moves the position of a specific element in an array to the specified position. (Position starts from 0.)
 
 ## Parameters

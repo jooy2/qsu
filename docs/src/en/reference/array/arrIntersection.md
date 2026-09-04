@@ -1,5 +1,4 @@
-# arrIntersection <Lang dart js python />
-
+# arrIntersection
 Returns the values that are present in every one of the given arrays.
 
 The result is unique and keeps the order of the first array, so `arrIntersection([2, 1, 2], [2])` returns `[2]`. Calling it with a single array is therefore the same as removing its duplicates, and calling it with no array at all returns an empty array.

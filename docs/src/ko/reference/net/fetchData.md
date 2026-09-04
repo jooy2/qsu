@@ -1,5 +1,4 @@
-# fetchData <Lang js python />
-
+# fetchData
 <NodeRequired ko />
 
 이 함수는 `node:fetch`를 조금 더 쉽게 사용하면서도 응답 상태에 상관 없이 데이터를 반환받기 위해 사용됩니다. 기본적으로 `GET` method를 사용하지만 별도 옵션으로 `POST` 등의 method도 사용할 수 있습니다.

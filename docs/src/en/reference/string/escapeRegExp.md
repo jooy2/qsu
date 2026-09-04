@@ -1,5 +1,4 @@
-# escapeRegExp <Lang dart js python />
-
+# escapeRegExp
 Escapes every regular expression metacharacter in the given string, so the value can be dropped into a pattern and matched literally.
 
 The escaped set is `^`, `$`, `.`, `*`, `+`, `?`, `(`, `)`, `[`, `]`, `{`, `}`, `|` and `\` — the union of what JavaScript, Dart and Python all read as syntax **outside** a character class.

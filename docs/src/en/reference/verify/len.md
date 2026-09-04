@@ -1,5 +1,4 @@
-# len <Lang dart js python />
-
+# len
 Returns the length of any type of data. If the argument value is `null`, `0` is returned.
 
 ::: lang js

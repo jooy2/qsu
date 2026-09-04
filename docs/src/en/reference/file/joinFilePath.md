@@ -1,5 +1,4 @@
-# joinFilePath <Lang js dart python />
-
+# joinFilePath
 <NodeRequired en />
 
 Combines paths for each operating system according to the given parameter values.

@@ -1,5 +1,4 @@
-# decodeBase64 <Lang dart js python />
-
+# decodeBase64
 <NodeRequired en />
 
 Decodes an encoded base64 string to a plain string.

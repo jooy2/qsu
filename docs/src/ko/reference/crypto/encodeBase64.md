@@ -1,5 +1,4 @@
-# encodeBase64 <Lang dart js python />
-
+# encodeBase64
 <NodeRequired ko />
 
 지정된 문자열을 Base64로 인코딩합니다.

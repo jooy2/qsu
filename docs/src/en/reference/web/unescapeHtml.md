@@ -1,5 +1,4 @@
-# unescapeHtml <Lang js dart python />
-
+# unescapeHtml
 Turns the five HTML entities that [escapeHtml](./escapeHtml) produces back into the characters they stand for.
 
 | Entity | Becomes |

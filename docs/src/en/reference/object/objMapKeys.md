@@ -1,5 +1,4 @@
-# objMapKeys <Lang dart js python />
-
+# objMapKeys
 Returns a new object whose keys are the values returned by the callback. The values are carried over untouched.
 
 The callback receives `(value, key)`, in that order, matching the rest of the ecosystem, and must return a string. Only the top level is inspected — the keys of a nested object are left alone.

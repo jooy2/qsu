@@ -29,9 +29,9 @@ When you add or change a function, treat all three packages as one logical chang
 - **Same category.** Functions are grouped into categories (`array`, `crypto`, `date`,
   `file`, `format`, `math`, `misc`, `net`, `object`, `os`, `string`, `verify`, `web`).
 - Not every function exists in every language (e.g. `fetchData` and the `os/*` functions are
-  JS + Python only; Dart has no `net`/`os`). When a function is language‑specific, the docs
-  title reflects it (see the `<Lang />` badge). Don't invent parity that the sources don't
-  have — verify against the actual signatures.
+  JS + Python only; Dart has no `net`/`os`). A page only carries a `::: lang` block for the
+  packages that have the function, and the docs mark the rest. Don't invent parity that the
+  sources don't have — verify against the actual signatures.
 
 ## Packages
 
@@ -84,7 +84,7 @@ newer Node when running docs commands, or the build fails during Vite config res
 - **Package manager:** pnpm. Common commands (run inside `docs/`): `pnpm install`,
   `pnpm run dev`, `pnpm run build`, `pnpm run format`.
 - **Custom Vue components** (`docs/src/.vitepress/components`, registered in `theme/index.ts`):
-  - `Lang` / `LangLogo` — the programming‑language badges (js/dart/python) in page titles.
+  - `LangLogo` — a language's logo, used by the switch, the chips and the banners.
   - `LangSelect` / `Layout` — the language switch above the sidebar menu, and the layout that
     places it (see next section).
   - `LangNotice` — the "not available in *language*" banner above a function a package lacks.
@@ -102,7 +102,8 @@ document at once and CSS displays one of them, so switching costs one attribute 
 re-render. The data files behind it live in `docs/src/.vitepress/data`.
 
 A sentence only some of the packages need is a `::: lang` block rather than an aside inside a
-shared paragraph, and several languages may share one:
+shared paragraph, and several languages may share one. Nest one around a `::: code-group` with
+four colons, the way VitePress's own containers nest:
 
 ````md
 ::: lang js
@@ -116,11 +117,12 @@ duration(604800000); // Returns '7 Days'
 
 Two rules follow from this:
 
-- **The `<Lang />` badge in a page's title is data, not decoration.** `config.mts` reads it to
-  build `functionLanguages`, which the sidebar marks, the notice and the fallback below all
-  depend on. A badge that claims a language must have a `::: lang` block for it, and every
-  locale's badge must agree; `collectFunctionLanguages` checks both, failing `pnpm run build`
-  and warning in the dev server.
+- **A page's blocks are what says which languages have the function.** `config.mts` reads them
+  to build `functionLanguages`, which the sidebar marks, the notice and the fallback below all
+  depend on, so a package with no `::: lang` block on a page is a package the docs report as
+  not having it. The translations have to agree with the default locale, and
+  `collectFunctionLanguages` checks that, failing `pnpm run build` and warning in the dev
+  server.
 - **A page a package does not implement falls back to the first one it does.** A reader on
   Dart looking at `os/getCpu` gets the JavaScript documentation with a notice above it, rather
   than an empty page. `displayLanguages` in `data/languages.ts` is where that happens; the
@@ -230,9 +232,9 @@ Follow the existing history: `[scope] tag: message`.
    `<ReturnType>` for the return type, and set `named`/`required`/`default`/`type` accurately
    against the *source signatures* (defaults, optionality and per‑language types live in the
    code, not in the old prose).
-4. Give each package's example its own `::: lang` block, and keep the docs `<Lang />` title
-   badge honest about which languages actually implement it — the badge and the blocks must
-   agree, since the sidebar marks and the notice are built from the badge.
+4. Give each package's example its own `::: lang` block, in every locale. A package with no
+   block is a package the sidebar marks as not having the function, so a missing example is
+   not a gap but a wrong answer.
    Add the same entry to `docs/src/public/llms.txt` (served at `/llms.txt`): one line under the
    function's category section, with the supported languages and a one-line summary matching the
    English doc's opening paragraph.

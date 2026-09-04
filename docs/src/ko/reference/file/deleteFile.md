@@ -1,5 +1,4 @@
-# deleteFile <Lang js dart python />
-
+# deleteFile
 <NodeRequired ko />
 
 지정된 경로에 있는 파일 또는 디렉터리를 삭제합니다. 파일이 경로에 존재하지 않으면 무시됩니다.

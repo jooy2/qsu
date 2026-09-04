@@ -1,5 +1,4 @@
-# sha256Hash <Lang dart js python />
-
+# sha256Hash
 <NodeRequired en />
 
 Converts String data to sha256 hash value and returns it.

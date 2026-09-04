@@ -1,5 +1,4 @@
-# strToPascalCase <Lang js dart python />
-
+# strToPascalCase
 Converts a string to `PascalCase`: every word gets an uppercase first letter and a lowercase rest, with all separators removed.
 
 The string is split with [words](./words), so spaces, punctuation, `-` and `_` all act as delimiters, camelCase boundaries split, an acronym is separated from the word after it (`XMLHttpRequest` becomes `XmlHttpRequest`) and a run of digits is its own word (`abc12def` becomes `Abc12Def`).

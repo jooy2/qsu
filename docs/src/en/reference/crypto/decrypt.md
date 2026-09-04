@@ -1,5 +1,4 @@
-# decrypt <Lang js python />
-
+# decrypt
 <NodeRequired en />
 
 Decrypt with the specified algorithm (default: `aes-256-cbc`) using a string and a secret (secret).

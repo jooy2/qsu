@@ -1,5 +1,4 @@
-# arrMove <Lang dart js python />
-
+# arrMove
 배열의 특정 요소의 위치를 지정된 위치로 이동합니다. (위치는 0부터 시작합니다.)
 
 ## Parameters

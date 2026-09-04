@@ -1,5 +1,4 @@
-# getUptime <Lang js python />
-
+# getUptime
 <NodeRequired en />
 
 Returns the number of seconds the Node.js process has been running.

@@ -1,5 +1,4 @@
-# arrCount <Lang dart js python />
-
+# arrCount
 지정된 배열의 각 고유 값에 대한 중복 횟수를 반환합니다. 배열 값은 `String` 또는 `Number` 유형만 가능합니다.
 
 ## Parameters

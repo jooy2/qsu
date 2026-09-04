@@ -1,5 +1,4 @@
-# objInvert <Lang dart js python />
-
+# objInvert
 키와 값을 서로 바꾼 새 객체를 반환합니다. 각 값이 키가 되고, 그 값이 있던 키가 값이 됩니다.
 
 키는 항상 문자열이므로 값을 먼저 문자열로 변환합니다. `null`은 `'null'`, `true`는 `'true'`가 되며, 소수부가 없는 숫자는 모든 언어에서 정수 형태로 기록되므로 Dart와 Python에서도 `1.0`은 JavaScript와 동일하게 `'1'`이 됩니다.

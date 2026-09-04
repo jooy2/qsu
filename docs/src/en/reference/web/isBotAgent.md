@@ -1,5 +1,4 @@
-# isBotAgent <Lang js dart python />
-
+# isBotAgent
 Analyze the user agent value to determine if it's a bot for a search engine. Returns `true` if it's a bot.
 
 ## Parameters

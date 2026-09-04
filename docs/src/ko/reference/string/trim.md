@@ -1,5 +1,4 @@
-# trim <Lang dart js python />
-
+# trim
 문자열 앞뒤의 모든 공백을 제거합니다. JavaScript의 `trim` 함수와는 달리, 문장 사이에 있는 두 개 이상의 공백을 하나의 공백으로 변환합니다.
 
 ## Parameters

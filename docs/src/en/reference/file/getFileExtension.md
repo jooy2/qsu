@@ -1,5 +1,4 @@
-# getFileExtension <Lang js dart python />
-
+# getFileExtension
 <NodeRequired en />
 
 Returns the file extension from the given file path. An empty string value is returned for files without extension.

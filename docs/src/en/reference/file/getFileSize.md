@@ -1,5 +1,4 @@
-# getFileSize <Lang js dart python />
-
+# getFileSize
 <NodeRequired en />
 
 Calculates the size of the file at the given path.

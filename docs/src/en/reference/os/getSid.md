@@ -1,5 +1,4 @@
-# getSid <Lang js python />
-
+# getSid
 <NodeRequired en />
 
 Gets the Security Identifier (SID) value for the current user on the device. Throws an error if the value is not obtained.

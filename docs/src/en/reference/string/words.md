@@ -1,5 +1,4 @@
-# words <Lang dart js python />
-
+# words
 Splits a string into the words it is made of and returns them as an array.
 
 Anything that is neither a letter nor a digit separates words, so spaces, punctuation, `-` and `_` all act as delimiters and never appear in the result. On top of that:

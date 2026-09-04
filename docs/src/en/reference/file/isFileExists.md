@@ -1,5 +1,4 @@
-# isFileExists <Lang js dart python />
-
+# isFileExists
 <NodeRequired en />
 
 If a file or directory exists at the specified path, it returns `true`.

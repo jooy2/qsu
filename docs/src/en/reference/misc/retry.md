@@ -1,5 +1,4 @@
-# retry <Lang dart js python />
-
+# retry
 Runs the given function and, if it fails, runs it again until it succeeds or the attempts run out. The value of the first successful attempt is returned; if every attempt fails, the error of the **last** one is raised.
 
 `times` counts *total* attempts, not extra ones, so the default of `3` means one call plus at most two retries and `times: 1` disables retrying altogether. `times` below `1` is an error.

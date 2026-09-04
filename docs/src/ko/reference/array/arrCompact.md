@@ -1,5 +1,4 @@
-# arrCompact <Lang dart js python />
-
+# arrCompact
 falsy 값을 모두 제거한 새 배열을 반환합니다.
 
 Dart와 Python에는 JavaScript와 같은 truthiness 개념이 없기 때문에, 제거 대상은 언어에 맡기지 않고 다음으로 고정되어 있습니다. `null`, `false`, `0`(`-0`과 `0.0` 포함), 빈 문자열 `''`, 그리고 `NaN`입니다. 그 외의 값은 모두 유지되므로 빈 배열, 빈 객체, 공백만 있는 문자열은 그대로 남습니다.

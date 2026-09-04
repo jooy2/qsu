@@ -1,5 +1,4 @@
-# getFilePathLevel <Lang js dart python />
-
+# getFilePathLevel
 <NodeRequired en />
 
 Determine how many steps the current path is. The root path (`/` or `C:\`) begins with step 1.

@@ -1,5 +1,4 @@
-# decodeBase64 <Lang dart js python />
-
+# decodeBase64
 <NodeRequired ko />
 
 인코딩된 base64 문자열을 일반 문자열로 디코딩합니다.

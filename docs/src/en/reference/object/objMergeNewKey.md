@@ -1,5 +1,4 @@
-# objMergeNewKey <Lang js python />
-
+# objMergeNewKey
 Merge two object data into one object. The key to this method is to compare the two objects and add the newly added key data, if any.
 
 If the value is different from the existing key, it is replaced with the changed value, If the arrays are the same length and the data type of the array is object, the new key is added by comparing the object keys again at the same array index for both objects.

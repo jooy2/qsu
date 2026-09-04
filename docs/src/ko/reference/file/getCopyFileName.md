@@ -1,5 +1,4 @@
-# getCopyFileName <Lang js dart python />
-
+# getCopyFileName
 <NodeRequired ko />
 
 지정된 이름을 이름 리스트가 담긴 배열에서 스캔한 뒤 중복된 항목이 있으면 대체 이름을 표시하는 함수입니다. 중복된 항목이 없으면 이름이 그대로 반환됩니다.

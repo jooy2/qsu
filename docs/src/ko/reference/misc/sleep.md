@@ -1,5 +1,4 @@
-# sleep <Lang dart js python />
-
+# sleep
 Promise를 이용한 수면 기능.
 
 ## Parameters

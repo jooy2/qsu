@@ -1,5 +1,4 @@
-# objDeleteKeyByValue <Lang js dart python />
-
+# objDeleteKeyByValue
 Deletes keys equal to the given value from the object data. If the `recursive` option is `true`, also deletes all keys corresponding to the same value in the child items.
 
 ## Parameters

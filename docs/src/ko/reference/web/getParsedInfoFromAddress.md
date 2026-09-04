@@ -1,5 +1,4 @@
-# getParsedInfoFromAddress <Lang js dart python />
-
+# getParsedInfoFromAddress
 주소 문자열을 각 구성요소로 파싱하여 객체로 반환합니다. 일반적인 웹 URL뿐만 아니라 호스트만 있는 주소, IPv4, IPv6(맨몸 또는 `[]`로 감싼 형태), 그리고 `ssh://user:pass@host:port`처럼 사용자 정보를 포함하는 SSH 스타일 접속 문자열도 처리합니다.
 
 파싱 규칙은 의도적으로 범용적입니다.

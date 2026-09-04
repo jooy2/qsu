@@ -1,5 +1,4 @@
-# len <Lang dart js python />
-
+# len
 모든 유형의 데이터 길이를 반환합니다. 인자 값이 `null`이면 `0`을 반환합니다.
 
 ::: lang js

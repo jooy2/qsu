@@ -1,5 +1,4 @@
-# truncateExpect <Lang dart js python />
-
+# truncateExpect
 이 문자열은 끝 문자(`endStringChar`)까지 잘림을 무시합니다. 예상 길이에 도달하면, 끝 문자 뒤의 잘린 문자열을 반환합니다.
 
 끝 문자는 배열로 여러 개를 넘길 수 있으며, 예상 길이를 넘어가는 문장은 끝까지 온전히 유지됩니다.

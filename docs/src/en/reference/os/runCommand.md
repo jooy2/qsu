@@ -1,5 +1,4 @@
-# runCommand <Lang js python />
-
+# runCommand
 <NodeRequired en />
 
 It returns the result that is output after entering and executing the command prompt command.

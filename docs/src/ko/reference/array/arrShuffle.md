@@ -1,5 +1,4 @@
-# arrShuffle <Lang dart js python />
-
+# arrShuffle
 주어진 배열의 순서를 섞어서 반환합니다.
 
 ## Parameters

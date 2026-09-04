@@ -1,5 +1,4 @@
-# strToCamelCase <Lang js dart python />
-
+# strToCamelCase
 Converts a string to `camelCase`: the first word is lowercased and every word after it gets an uppercase first letter, with all separators removed.
 
 The string is split with [words](./words), so spaces, punctuation, `-` and `_` all act as delimiters, camelCase boundaries split, an acronym stays whole (`XMLHttpRequest` becomes `xmlHttpRequest`) and a run of digits is its own word (`abc12def` becomes `abc12Def`).

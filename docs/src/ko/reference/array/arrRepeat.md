@@ -1,5 +1,4 @@
-# arrRepeat <Lang dart js python />
-
+# arrRepeat
 `Array` 또는 `Object`의 데이터를 특정 횟수만큼 반복하고 1차원 배열로 반환합니다.
 
 ## Parameters

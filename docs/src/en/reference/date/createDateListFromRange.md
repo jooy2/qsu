@@ -1,5 +1,4 @@
-# createDateListFromRange <Lang js dart python />
-
+# createDateListFromRange
 Create an array list of all dates from `startDate` to `endDate` in the format `YYYY-MM-DD`.
 
 ## Parameters

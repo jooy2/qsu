@@ -1,5 +1,4 @@
-# arrTo1dArray <Lang dart js python />
-
+# arrTo1dArray
 다차원 배열의 모든 요소를 1차원 배열로 병합합니다.
 
 ## Parameters

@@ -1,5 +1,4 @@
-# isEqualStrict <Lang dart js python />
-
+# isEqualStrict
 It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
 
 `isEqual` returns `true` even if the data types do not match, but `isEqualStrict` returns `true` only when the data types of all argument values match.

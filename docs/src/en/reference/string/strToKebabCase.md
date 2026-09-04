@@ -1,5 +1,4 @@
-# strToKebabCase <Lang js dart python />
-
+# strToKebabCase
 Converts a string to `kebab-case`: every word is lowercased and joined with a hyphen.
 
 The string is split with [words](./words), so spaces, punctuation, `-` and `_` all act as delimiters, camelCase boundaries split, an acronym is separated from the word after it (`XMLHttpRequest` becomes `xml-http-request`) and a run of digits is its own word (`abc12def` becomes `abc-12-def`).

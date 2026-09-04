@@ -1,5 +1,4 @@
-# arrRepeat <Lang dart js python />
-
+# arrRepeat
 Repeats the data of an `Array` or `Object` a specific number of times and returns it as a 1d array.
 
 ## Parameters

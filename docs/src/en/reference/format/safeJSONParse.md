@@ -1,5 +1,4 @@
-# safeJSONParse <Lang dart js python />
-
+# safeJSONParse
 Attempts to parse without returning an error, even if the argument value is of the wrong type or in `JSON` format. If parsing fails, it will be replaced with the object set in `fallback`. The default value for `fallback` is an empty object.
 
 ## Parameters

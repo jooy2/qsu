@@ -1,5 +1,4 @@
-# between <Lang dart js python />
-
+# between
 Returns `true` if the first argument is in the range of the second argument (`[min, max]`). To allow the minimum and maximum values to be in the range, pass `true` for the third argument.
 
 ## Parameters

@@ -1,5 +1,4 @@
-# logBox <Lang js python />
-
+# logBox
 <NodeRequired ko />
 
 전달한 값들을 테두리가 있는 표 형태로 콘솔에 출력합니다. 인자 하나가 한 행이 되며, 길거나 구조가 있는 값도 읽기 쉽게 표시됩니다. 박스 너비는 터미널 크기에 맞춰지고, 객체는 `[object Object]` 대신 내용이 펼쳐집니다.

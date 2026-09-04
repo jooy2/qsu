@@ -1,5 +1,4 @@
-# runCommand <Lang js python />
-
+# runCommand
 <NodeRequired ko />
 
 명령 프롬프트 커맨드를 입력하고 실행 후 출력되는 결과를 리턴합니다.

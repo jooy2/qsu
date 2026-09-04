@@ -1,5 +1,4 @@
-# arrUnique <Lang dart js python />
-
+# arrUnique
 Remove duplicate values from array and two-dimensional array data. In the case of 2d arrays, json type data duplication is not removed.
 
 ## Parameters

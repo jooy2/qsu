@@ -1,5 +1,4 @@
-# deburr <Lang dart js python />
-
+# deburr
 Replaces accented Latin letters with their unaccented equivalents, so `'déjà vu'` becomes `'deja vu'`.
 
 Letters that have no single-letter equivalent are spelled out: `Æ` becomes `Ae`, `ß` becomes `ss`, `Þ` becomes `Th`, `Œ` becomes `Oe` and `Ĳ` becomes `IJ`.
