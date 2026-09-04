@@ -56,15 +56,26 @@ html[data-code-lang='python'] .lang-only[data-code-lang]:not([data-code-lang~='p
  * their languages' own colours.
  * ------------------------------------------------------------------------- */
 
-/* Pinned to the top of the sidebar's scroller, since it decides what every
-   entry below it will say. `top: 0` is above the sidebar's own top padding, so
-   the switch comes to rest under the navbar. It needs an opaque background and
-   a z-index over VitePress's `.curtain`, which already masks that padding. */
+/*
+ * Pinned to the top of the sidebar's scroller, since it decides what every entry
+ * below it will say. `top: 0` is above the sidebar's own top padding, so the
+ * switch comes to rest under the navbar. It needs an opaque background and a
+ * z-index over VitePress's `.curtain`, which already masks that padding.
+ *
+ * It is also the menu's containing block, which is what `--lang-switch-gap` is
+ * for: the strip's bottom padding is what separates the switch from the entries
+ * below it, and the menu has to be placed back up through it rather than hanging
+ * that far off the button.
+ */
 .lang-switch {
+	--lang-switch-gap: 18px;
+
 	position: sticky;
 	z-index: 2;
 	top: 0;
-	padding: 12px 0 16px;
+	/* Padding rather than margin, because a margin is transparent, and a few
+	   pixels of transparency on a pinned strip is the menu sliding through it. */
+	padding: 12px 0 var(--lang-switch-gap);
 	border-bottom: 1px solid var(--vp-c-divider);
 	background-color: var(--vp-sidebar-bg-color);
 }
@@ -79,83 +90,201 @@ html[data-code-lang='python'] .lang-only[data-code-lang]:not([data-code-lang~='p
 	color: var(--vp-c-text-3);
 }
 
-.lang-switch-track {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 2px;
-	padding: 3px;
+/*
+ * One row that names the choice. Every language's label is inside it and CSS
+ * displays the chosen one — see the comment at the top of `LangSelect.vue`.
+ */
+.lang-switch-button {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	height: 34px;
+	padding: 0 10px;
 	border: 1px solid var(--vp-c-divider);
 	border-radius: 8px;
 	background-color: var(--vp-c-bg-alt);
+	color: var(--vp-c-text-1);
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1;
+	cursor: pointer;
+	transition:
+		color 0.16s,
+		border-color 0.16s,
+		background-color 0.16s;
+}
+
+.lang-switch-button:hover {
+	border-color: var(--vp-c-brand-1);
+	background-color: var(--vp-c-bg);
+}
+
+.lang-switch-button:focus-visible {
+	outline: 2px solid var(--vp-c-brand-1);
+	outline-offset: 2px;
+}
+
+.lang-switch-current {
+	display: flex;
+	flex: 1;
+	min-width: 0;
+}
+
+.lang-switch-face {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	min-width: 0;
+}
+
+/* A label is one word against a track of about 208px, so this only bites in a
+   narrow sidebar — but a clipped name is worse than an ellipsis. */
+.lang-switch-face > span {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.lang-switch-chevron {
+	flex: none;
+	width: 14px;
+	height: 14px;
+	color: var(--vp-c-text-3);
+	transition:
+		color 0.16s,
+		transform 0.18s;
+}
+
+.lang-switch-button[aria-expanded='true'] .lang-switch-chevron {
+	color: var(--vp-c-text-2);
+	transform: rotate(180deg);
+}
+
+/*
+ * The menu sits over the sidebar entries rather than pushing them down: those
+ * entries are what the reader is on their way to, and a control that displaces
+ * them every time it opens moves the link they were reaching for.
+ */
+.lang-switch-menu {
+	position: absolute;
+	z-index: 10;
+	top: calc(100% - var(--lang-switch-gap) + 6px);
+	right: 0;
+	left: 0;
+	padding: 6px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 10px;
+	background-color: var(--vp-c-bg-elv);
+	box-shadow: var(--vp-shadow-3);
+	animation: lang-switch-menu-in 0.14s ease-out;
+}
+
+@keyframes lang-switch-menu-in {
+	from {
+		opacity: 0;
+		transform: translateY(-4px);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lang-switch-menu {
+		animation: none;
+	}
+}
+
+.lang-switch-list {
+	display: grid;
+	gap: 2px;
 }
 
 .lang-switch-option {
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	gap: 5px;
-	height: 28px;
-	padding: 0 4px;
+	gap: 8px;
+	width: 100%;
+	height: 30px;
+	padding: 0 8px;
 	border-radius: 6px;
-	font-size: 12px;
-	font-weight: 600;
-	line-height: 1;
 	color: var(--vp-c-text-2);
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1;
 	cursor: pointer;
 	transition:
 		color 0.16s,
 		background-color 0.16s;
 }
 
-.lang-switch-option > span {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.lang-switch-option img {
-	flex: none;
-	opacity: 0.5;
-	transition: opacity 0.16s;
-}
-
 .lang-switch-option:hover {
+	background-color: var(--vp-c-default-soft);
 	color: var(--vp-c-text-1);
 }
 
-.lang-switch-option:hover img {
-	opacity: 1;
-}
-
+/* Inset rather than an outline, because the option is flush against the menu's
+   own 6px of padding and an outline would sit on its edge. */
 .lang-switch-option:focus-visible {
-	outline: 2px solid var(--vp-c-brand-1);
-	outline-offset: 1px;
+	outline: none;
+	box-shadow: inset 0 0 0 2px var(--vp-c-brand-1);
 }
 
-/*
- * The selected option, decided by the attribute on `<html>` rather than by the
- * component's state — that is what lets a pre-rendered page show the reader's
- * own choice before any JavaScript has run.
- */
-html[data-code-lang='js'] .lang-switch-option[data-code-lang='js'],
-html[data-code-lang='dart'] .lang-switch-option[data-code-lang='dart'],
-html[data-code-lang='python'] .lang-switch-option[data-code-lang='python'] {
-	background-color: var(--vp-c-bg);
+.lang-switch-option[aria-selected='true'] {
 	color: var(--vp-c-brand-1);
-	box-shadow: 0 1px 2px rgb(0 0 0 / 8%);
+	font-weight: 600;
 }
 
-html[data-code-lang='js'] .lang-switch-option[data-code-lang='js'] img,
-html[data-code-lang='dart'] .lang-switch-option[data-code-lang='dart'] img,
-html[data-code-lang='python'] .lang-switch-option[data-code-lang='python'] img {
+.lang-switch-option-label {
+	flex: 1;
+	text-align: left;
+}
+
+/* Reserved rather than conditional, so the rows line up whichever one is
+   currently answering. */
+.lang-switch-check {
+	flex: none;
+	width: 14px;
+	height: 14px;
+	opacity: 0;
+}
+
+.lang-switch-option[aria-selected='true'] .lang-switch-check {
 	opacity: 1;
 }
 
+/* What the control actually does, which is the one thing collapsing it into a
+   button took away: three visible options used to say "these are what this page
+   can be written in" by standing there. */
 .lang-switch-hint {
-	margin: 8px 0 0;
+	margin: 6px 8px 2px;
+	padding-top: 8px;
+	border-top: 1px solid var(--vp-c-divider);
 	font-size: 11px;
 	line-height: 1.5;
 	color: var(--vp-c-text-3);
+	white-space: normal;
+}
+
+.lang-switch img {
+	flex: none;
+}
+
+/* Quiet on the options that are not chosen, so the menu reads as one selected
+   thing rather than three competing ones. The button's own logo is never dimmed:
+   it is the answer. */
+.lang-switch-option img {
+	opacity: 0.55;
+	transition: opacity 0.16s;
+}
+
+.lang-switch-option:hover img,
+.lang-switch-option:focus-visible img,
+.lang-switch-option[aria-selected='true'] img {
+	opacity: 1;
 }
 
 /* ---------------------------------------------------------------------------
