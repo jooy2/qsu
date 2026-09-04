@@ -14,6 +14,7 @@ import {
 	displayLanguages,
 	languagesOf
 } from './data/languages';
+import { isLiteral, literalHtml } from './data/types';
 
 const supportedLocale = ['en', 'ko'];
 const defaultLocale: string = supportedLocale[0];
@@ -257,6 +258,35 @@ const vitePressConfigs: UserConfig = {
 	 */
 	markdown: {
 		config(md: MarkdownRenderer) {
+			/**
+			 * `` `null` `` in prose, written the way each language writes it.
+			 *
+			 * A reference page names a value once and every reader gets the word
+			 * their own package uses — `None` rather than `null` in Python — so a
+			 * sentence does not have to end in "(`None` in Python)" to be true for
+			 * everyone. Only the three literals in `data/types.ts` are touched.
+			 *
+			 * To write one that is not translated, because the sentence really is
+			 * about JavaScript's spelling of it, use `<code>` rather than backticks.
+			 */
+			const renderCode = md.renderer.rules.code_inline;
+
+			md.renderer.rules.code_inline = (tokens, index, options, env, self) => {
+				const { content } = tokens[index];
+
+				if (isLiteral(content)) {
+					const page = `/${((env as { relativePath?: string }).relativePath ?? '').replace(/\.md$/, '')}`;
+
+					return literalHtml(content, languagesOf(functionLanguages, page));
+				}
+
+				if (renderCode) {
+					return renderCode(tokens, index, options, env, self);
+				}
+
+				return `<code${self.renderAttrs(tokens[index])}>${md.utils.escapeHtml(content)}</code>`;
+			};
+
 			md.use(container, 'lang', {
 				validate: (params: string) => /^lang(\s+\S+)+$/.test(params.trim()),
 				render(

@@ -6,6 +6,7 @@ import Layout from '../components/Layout.vue';
 import NodeRequired from '../components/NodeRequired.vue';
 import ParamsTable from '../components/ParamsTable.vue';
 import ReturnType from '../components/ReturnType.vue';
+import Val from '../components/Val.vue';
 import './lang.css';
 
 export default {
@@ -19,5 +20,6 @@ export default {
 		app.component('NodeRequired', NodeRequired);
 		app.component('ParamsTable', ParamsTable);
 		app.component('ReturnType', ReturnType);
+		app.component('Val', Val);
 	}
 };

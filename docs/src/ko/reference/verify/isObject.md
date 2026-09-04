@@ -1,6 +1,6 @@
 # isObject <Lang dart js python />
 
-주어진 데이터가 `Object` 타입인지 확인합니다. `Array`를 포함한 다른 데이터 타입의 경우 `false`를 반환합니다.
+주어진 값이 객체이면 `true`를, 배열을 포함한 그 밖의 모든 타입에는 `false`를 반환합니다.
 
 ## Parameters
 

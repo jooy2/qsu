@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useData } from 'vitepress';
 import LangLogo from './LangLogo.vue';
-import { defaultVariants, typeVariants } from '../data/types';
+import { isLiteral, literalHtml, literalVariants, typeVariants } from '../data/types';
 import { displayLanguages, valueIn, variantsOf } from '../data/languages';
 import { usePageLanguages } from '../data/pageLanguages';
 import { localeOf, t } from '../data/i18n';
@@ -40,7 +40,7 @@ const locale = computed(() => localeOf(lang.value));
 const implemented = usePageLanguages();
 
 const typesOf = (type) => typeVariants(type, implemented.value);
-const defaultsOf = (value) => defaultVariants(value, implemented.value);
+const defaultsOf = (value) => literalVariants(value, implemented.value);
 // A description is prose, so nothing is translated: a row either says one thing
 // or names the languages it says something else to.
 const descsOf = (desc) => variantsOf(implemented.value, (language) => valueIn(desc, language));
@@ -66,7 +66,8 @@ const named = computed(() =>
 const hasNamed = computed(() => props.rows.some((row) => row.named));
 
 // Escape HTML, then render inline `code` and **strong**. Content is authored
-// in-repo (trusted).
+// in-repo (trusted). A literal inside a description is written per language, the
+// same way the Markdown renderer writes one inside a paragraph.
 function format(text) {
 	if (!text) {
 		return '';
@@ -76,7 +77,9 @@ function format(text) {
 		.replace(/&/g, '&amp;')
 		.replace(/</g, '&lt;')
 		.replace(/>/g, '&gt;')
-		.replace(/`([^`]+)`/g, '<code>$1</code>')
+		.replace(/`([^`]+)`/g, (match, code) =>
+			isLiteral(code) ? literalHtml(code, implemented.value) : `<code>${code}</code>`
+		)
 		.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 }
 </script>

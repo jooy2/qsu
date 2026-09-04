@@ -91,6 +91,7 @@ newer Node when running docs commands, or the build fails during Vite config res
   - `NodeRequired` — the "requires a Node.js runtime (`qsu/node`)" banner. JavaScript only.
   - `ParamsTable` — the parameter tables (see below).
   - `ReturnType` — the **Returns** section.
+  - `Val` — a value that differs between packages, inline in a sentence.
 
 ### The language switch
 
@@ -124,6 +125,26 @@ Two rules follow from this:
   Dart looking at `os/getCpu` gets the JavaScript documentation with a notice above it, rather
   than an empty page. `displayLanguages` in `data/languages.ts` is where that happens; the
   Markdown does not have to know.
+
+### Values in prose
+
+`` `null` ``, `` `true` `` and `` `false` `` are written the way each language writes them
+wherever they appear — in a paragraph, in a list item, in a `ParamsTable` description or in a
+`default` — so a sentence never has to end in "(`None` in Python)". Write the JavaScript
+spelling and the renderer does the rest; `LITERALS` in `data/types.ts` is the whole list.
+
+`NaN` is left alone: every language's own documentation calls the IEEE value that. `undefined`
+is left alone too, because it has no counterpart to be written as — a page with something to
+say about it says it in a `::: lang js` block.
+
+For anything else that differs mid-sentence, name the packages yourself:
+
+```md
+Anything not present in the input is returned as <Val js="undefined" dart="null" python="None" />.
+```
+
+To write a literal that is *not* translated, because the sentence really is about JavaScript's
+spelling of it, use `<code>null</code>` rather than backticks.
 
 ### Types across languages
 

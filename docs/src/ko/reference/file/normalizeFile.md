@@ -8,7 +8,7 @@
 
 <ParamsTable :rows="[
 	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' },
-	{ name: 'normalizationForm', type: `'NFC' | 'NFD' | 'NFKC' | 'NFKD'`, named: true, desc: 'Normalization method (If value is `undefined`, `NFC` is used.)' }
+	{ name: 'normalizationForm', type: `'NFC' | 'NFD' | 'NFKC' | 'NFKD'`, named: true, default: `'NFC'`, desc: '정규화 방식입니다.' }
 ]" />
 
 ## Returns

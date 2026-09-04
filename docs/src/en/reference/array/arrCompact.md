@@ -2,9 +2,15 @@
 
 Returns a new array with every falsy value removed.
 
-Dart and Python have no truthiness of their own, so the rejected set is fixed rather than left to each language: `null` (`undefined` as well in JavaScript, `None` in Python), `false`, `0` (including `-0` and `0.0`), the empty string `''` and `NaN`. Everything else is kept — an empty array, an empty object and a string of spaces are all preserved.
+Dart and Python have no truthiness of their own, so the rejected set is fixed rather than left to each language: `null`, `false`, `0` (including `-0` and `0.0`), the empty string `''` and `NaN`. Everything else is kept — an empty array, an empty object and a string of spaces are all preserved.
 
 If the argument is not an array, an empty array is returned.
+
+::: lang js
+
+`undefined` is rejected as well.
+
+:::
 
 ## Parameters
 

@@ -1,6 +1,6 @@
 # isObject <Lang dart js python />
 
-Check whether the given data is of type `Object`. Returns `false` for other data types including `Array`.
+Returns `true` when the given value is an object, and `false` for every other type, an array included.
 
 ## Parameters
 

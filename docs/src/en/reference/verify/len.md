@@ -1,6 +1,12 @@
 # len <Lang dart js python />
 
-Returns the length of any type of data. If the argument value is `null` or `undefined`, `0` is returned.
+Returns the length of any type of data. If the argument value is `null`, `0` is returned.
+
+::: lang js
+
+`undefined` gives `0` as well.
+
+:::
 
 ## Parameters
 

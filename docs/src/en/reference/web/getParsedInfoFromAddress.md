@@ -5,7 +5,7 @@ Parses an address string into its parts and returns them as an object. It handle
 The rules are intentionally generic:
 
 - The protocol is only recognized when the string contains `://` (so `host:1234` is treated as a host and port, not a `host` scheme). It is returned in uppercase.
-- The scheme, port and user information are not defaulted. Anything that is not present in the input is returned as `undefined` (JavaScript) or `null` (Dart/Python).
+- The scheme, port and user information are not defaulted. Anything that is not present in the input is returned as <Val js="undefined" dart="null" python="None" />.
 - The user information is split from the host by the **last** `@`, and the user is split from the password by the **first** `:`. This keeps `@` and `:` inside a password intact.
 - A bare IPv6 address (`::1`, `fe80::1`) is detected by having two or more colons and cannot carry a port. To attach a port, wrap it in brackets (`[::1]:22`). Brackets are kept as part of the host.
 - The path, query and fragment (everything from the first `/`, `?` or `#`) are dropped.

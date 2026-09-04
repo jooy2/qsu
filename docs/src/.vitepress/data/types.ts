@@ -177,10 +177,13 @@ export function typeVariants(
 }
 
 /**
- * A default value, written the way each language writes it.
+ * The value literals whose spelling changes between languages.
  *
- * Only the three literals whose spelling changes; a number, a string or an empty
- * list reads the same everywhere.
+ * Only these three. A number, a string and an empty list read the same
+ * everywhere, and `NaN` is what every language's own documentation calls the
+ * IEEE value, whatever expression produces it. `undefined` is not here because
+ * it has no counterpart to be written as: a page that has something to say about
+ * it says it in a `::: lang js` block.
  */
 const LITERALS: Record<string, Record<string, string>> = {
 	true: { python: 'True' },
@@ -188,9 +191,33 @@ const LITERALS: Record<string, Record<string, string>> = {
 	null: { python: 'None' }
 };
 
-export function defaultVariants(
+/** Whether `value` is one of the literals each language spells differently. */
+export function isLiteral(value: string): boolean {
+	return LITERALS[value] !== undefined;
+}
+
+/** A literal, written the way each language writes it. */
+export function literalVariants(
 	value: string,
 	implemented: string[] | null
 ): { text: string; languages: string[] }[] {
 	return variantsOf(implemented, (language) => LITERALS[value]?.[language] ?? value);
+}
+
+/**
+ * The same literal as the `<code>` elements a page renders it through.
+ *
+ * A reference page writes `` `null` `` and every reader gets the word their own
+ * package uses, so the prose does not have to carry "(`None` in Python)" at the
+ * end of every sentence that mentions one. Both the Markdown renderer and
+ * `ParamsTable` go through here, since a literal turns up in a paragraph and in
+ * a parameter description alike.
+ */
+export function literalHtml(value: string, implemented: string[] | null): string {
+	return literalVariants(value, implemented)
+		.map(
+			(variant) =>
+				`<code class="lang-only" data-code-lang="${variant.languages.join(' ')}">${variant.text}</code>`
+		)
+		.join('');
 }

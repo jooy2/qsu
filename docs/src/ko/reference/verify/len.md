@@ -1,6 +1,12 @@
 # len <Lang dart js python />
 
-모든 유형의 데이터 길이를 반환합니다. 인자 값이 `null` 또는 `undefined`이면, `0`이 반환됩니다.
+모든 유형의 데이터 길이를 반환합니다. 인자 값이 `null`이면 `0`을 반환합니다.
+
+::: lang js
+
+`undefined`도 마찬가지로 `0`을 반환합니다.
+
+:::
 
 ## Parameters
 
