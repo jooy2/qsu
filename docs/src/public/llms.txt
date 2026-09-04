@@ -15,9 +15,7 @@ Things worth knowing before answering questions about qsu:
 
 - [Introduction](https://qsu.cdget.com/introduction): What qsu is, and which languages it supports.
 - [Installation](https://qsu.cdget.com/installation): Installation instructions for every supported language.
-- [Installation: JavaScript/Node.js](https://qsu.cdget.com/installation/javascript): Install and import the npm package, including the browser-safe and `qsu/node` entry points.
-- [Installation: Dart/Flutter](https://qsu.cdget.com/installation/dart): Install and import the pub package.
-- [Installation: Python](https://qsu.cdget.com/installation/python): Install and import the PyPI package.
+- [Changelog](https://qsu.cdget.com/changelog/): What changed in each package, by version.
 - [Reference](https://qsu.cdget.com/reference): Index of all utility functions.
 
 ## array

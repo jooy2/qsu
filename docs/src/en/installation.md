@@ -1,19 +1,38 @@
----
-title: JavaScript
-order: 1
----
+# Installation
 
-# Installation for JavaScript <Lang js />
+**qsu** is published once per language: on [npm](https://npmjs.com/package/qsu), on [pub.dev](https://pub.dev/packages/qsu) and on [PyPI](https://pypi.org/project/qsu). Pick a language in the sidebar and this page follows it.
 
-A few simple steps are required to install **qsu** in the JavaScript language.
+## Requirements
 
-First, **qsu** requires `Node.js 18.x` or later. For security and high compatibility, it is recommended to use the latest LTS version of Node.js.
+::: lang js
+
+**qsu** requires `Node.js 18.x` or later. For security and high compatibility, it is recommended to use the latest LTS version of Node.js.
 
 **qsu** is **ESM only**. To load the module, you must use `import` instead of `require`. There is a workaround that can be used for CommonJS, but it is recommended to use ESM in line with recent JavaScript trends.
 
 In addition, some functions use APIs supported by Node.js (e.g. `node:crypto`, `node:path`, `node:fs`). These functions may not work properly on the client side or cause module reference issues.
 
-After configuring the Node.js environment, run the following command to install the library:
+:::
+
+::: lang dart
+
+You need to have at least `Dart 3.5` to install **qsu**.
+
+If you are using Flutter, you need to be using at least Flutter version `3.24`, which is the release that ships Dart 3.5. In this case, you don't need to worry about the Dart version because it is determined by Flutter.
+
+For safety and high compatibility, it is recommended to keep the Dart and Flutter versions as up-to-date as possible.
+
+:::
+
+::: lang python
+
+You need to have at least `Python 3.8` to install **qsu**. For security and high compatibility, it is recommended to use a recent, actively maintained version of Python.
+
+:::
+
+## Install
+
+:::: lang js
 
 ::: code-group
 
@@ -31,7 +50,55 @@ $ yarn add qsu
 
 :::
 
+::::
+
+::: lang dart
+
+For a Dart project:
+
+```bash
+$ dart pub add qsu
+```
+
+For a Flutter project:
+
+```bash
+$ flutter pub add qsu
+```
+
+:::
+
+:::: lang python
+
+::: code-group
+
+```bash [pip]
+$ pip install qsu
+```
+
+```bash [uv]
+$ uv add qsu
+```
+
+```bash [poetry]
+$ poetry add qsu
+```
+
+:::
+
+**qsu** is published to PyPI, so modern package managers such as [uv](https://docs.astral.sh/uv), [Poetry](https://python-poetry.org), and [PDM](https://pdm-project.org) resolve it from their default index without any extra configuration.
+
+If you use `uv` outside of a project (for example, in a plain virtual environment), install it with the pip-compatible command instead:
+
+```bash
+$ uv pip install qsu
+```
+
+::::
+
 ## How to use
+
+::: lang js
 
 Below is an example using `today` and `strCount` utility functions of `qsu`. You can simply import the `qsu` package to use it.
 
@@ -75,6 +142,34 @@ Functions that should use `qsu/node` are listed at the top of each document in t
 
 <NodeRequired en />
 
+:::
+
+::: lang dart
+
+Import the `package:qsu/qsu.dart` file at the top of the file you want to use.
+
+```dart
+import 'package:qsu/qsu.dart';
+```
+
+:::
+
+::: lang python
+
+Import the functions you need directly from the `qsu` package. Function names, parameters, and behavior match the JavaScript implementation, so the same call works across languages.
+
+```python
+from qsu import capitalizeFirst, strCount
+
+def main():
+    print(capitalizeFirst('abcd'))  # 'Abcd'
+    print(strCount('123412341234', '1'))  # 3
+```
+
+:::
+
+::: lang js
+
 ## Importing a single category
 
 The package is marked side-effect free, so a bundler keeps only the functions you import from `qsu` and drops the rest.
@@ -88,5 +183,7 @@ import { md5Hash } from 'qsu/node/crypto';
 ```
 
 Every category has a subpath of its own: `qsu/array`, `qsu/date`, `qsu/format`, `qsu/math`, `qsu/misc`, `qsu/object`, `qsu/string`, `qsu/verify`, `qsu/web`, and under the Node.js runtime `qsu/node/crypto`, `qsu/node/file`, `qsu/node/misc`, `qsu/node/net`, `qsu/node/os`.
+
+:::
 
 For more information on all other supported functions, see the [Reference](/reference/index.md) documentation.

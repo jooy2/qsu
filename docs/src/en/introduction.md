@@ -10,8 +10,6 @@ Repeated utility codes that had to be managed for each project can be easily acc
 - Fast: It has the most competent and fastest solution for operations.
 - Safe: It supports variable type checking, proper error handling, and is inspected to pass security checks and rigorous testing, enabling safe programming.
 
-**qsu** officially supports the following languages (some functions may not be supported in certain languages):
+**qsu** officially supports JavaScript/Node.js, Dart/Flutter and Python. Some functions are missing from one package or another, and a page says so when the one you have chosen is not among them.
 
-- [JavaScript/Node.js](/installation/javascript.md)
-- [Dart/Flutter](/installation/dart.md)
-- [Python](/installation/python.md)
+See [Installation](/installation.md) to get started.

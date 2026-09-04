@@ -1,19 +1,38 @@
----
-title: JavaScript
-order: 1
----
+# 설치하기
 
-# JavaScript에서 설치 <Lang js />
+**qsu**는 언어마다 하나씩 배포됩니다. [npm](https://npmjs.com/package/qsu), [pub.dev](https://pub.dev/packages/qsu), [PyPI](https://pypi.org/project/qsu)에서 받을 수 있습니다. 사이드바에서 언어를 고르면 이 문서가 그 언어를 따릅니다.
 
-JavaScript 언어로 **qsu**를 설치하기 위해 몇가지 간단한 절차가 필요합니다.
+## Requirements
 
-먼저 **qsu**는 `Node.js 18.x` 이상을 요구합니다. 안전하고 높은 호환성을 위해 가능한 Node.js 버전은 최신 LTS 버전을 사용하는 것을 권장합니다.
+::: lang js
+
+**qsu**는 `Node.js 18.x` 이상을 요구합니다. 안전하고 높은 호환성을 위해 가능한 Node.js 버전은 최신 LTS 버전을 사용하는 것을 권장합니다.
 
 **qsu**는 **ESM 전용**입니다. 모듈을 로드하려면 `require` 대신 `import`를 사용해야 합니다. CommonJS에 사용할 수 있는 해결 방법이 있지만 최근 JavaScript 트렌드에 따라 ESM을 사용하는 것이 좋습니다.
 
 또한 일부 함수는 Node.js에서 지원하는 API를 사용합니다. (예: `node:crypto`, `node:path`, `node:fs`) 이러한 함수는 클라이언트 사이드에서 올바르게 동작하지 않거나 모듈 참조 문제가 발생할 수 있습니다.
 
-Node.js 환경을 구성한 후 다음 명령을 실행하여 라이브러리를 설치합니다:
+:::
+
+::: lang dart
+
+**qsu**를 설치하려면 `Dart 3.5` 이상이 필요합니다.
+
+Flutter를 사용 중인 경우 Dart 3.5를 포함하는 Flutter 버전 `3.24` 이상을 사용 중이어야 합니다. 이 경우 Dart 버전은 Flutter에서 결정하므로 신경쓰지 않아도 됩니다.
+
+안전하고 높은 호환성을 위해 가능한 Dart와 Flutter 버전을 최신 버전으로 유지하는 것을 권장합니다.
+
+:::
+
+::: lang python
+
+**qsu**를 설치하려면 `Python 3.8` 이상이 필요합니다. 안전하고 높은 호환성을 위해 가능한 최신 버전의 Python을 사용하는 것을 권장합니다.
+
+:::
+
+## Install
+
+:::: lang js
 
 ::: code-group
 
@@ -31,7 +50,55 @@ $ yarn add qsu
 
 :::
 
-## 사용 방법
+::::
+
+::: lang dart
+
+Dart 프로젝트라면 다음 명령을 실행합니다:
+
+```bash
+$ dart pub add qsu
+```
+
+Flutter 프로젝트라면 다음 명령을 실행합니다:
+
+```bash
+$ flutter pub add qsu
+```
+
+:::
+
+:::: lang python
+
+::: code-group
+
+```bash [pip]
+$ pip install qsu
+```
+
+```bash [uv]
+$ uv add qsu
+```
+
+```bash [poetry]
+$ poetry add qsu
+```
+
+:::
+
+**qsu**는 PyPI에 배포되어 있으므로 [uv](https://docs.astral.sh/uv), [Poetry](https://python-poetry.org), [PDM](https://pdm-project.org)과 같은 최신 패키지 관리자에서도 별도의 설정 없이 기본 인덱스를 통해 설치할 수 있습니다.
+
+프로젝트 외부에서 `uv`를 사용하는 경우(예: 일반 가상 환경) 다음과 같이 pip 호환 명령을 사용하세요:
+
+```bash
+$ uv pip install qsu
+```
+
+::::
+
+## How to use
+
+::: lang js
 
 아래는 `qsu`의 `today`와 `strCount` 유틸리티 함수를 사용한 예시입니다. 간단히 `qsu` 패키지를 import하여 사용할 수 있습니다.
 
@@ -75,6 +142,34 @@ main();
 
 <NodeRequired ko />
 
+:::
+
+::: lang dart
+
+사용하려는 파일의 상단에 `package:qsu/qsu.dart` 파일을 import하여 사용합니다.
+
+```dart
+import 'package:qsu/qsu.dart';
+```
+
+:::
+
+::: lang python
+
+필요한 함수를 `qsu` 패키지에서 직접 가져와 사용하세요. 함수 이름, 파라미터, 동작은 JavaScript 구현과 동일하므로 언어가 달라도 동일한 호출 방식을 사용할 수 있습니다.
+
+```python
+from qsu import capitalizeFirst, strCount
+
+def main():
+    print(capitalizeFirst('abcd'))  # 'Abcd'
+    print(strCount('123412341234', '1'))  # 3
+```
+
+:::
+
+::: lang js
+
 ## 카테고리 단위로 불러오기
 
 패키지는 부수 효과가 없는 것으로 표시되어 있으므로, 번들러는 `qsu`에서 import한 함수만 남기고 나머지는 모두 제거합니다.
@@ -89,4 +184,6 @@ import { md5Hash } from 'qsu/node/crypto';
 
 각 카테고리는 고유한 하위 경로를 가집니다: `qsu/array`, `qsu/date`, `qsu/format`, `qsu/math`, `qsu/misc`, `qsu/object`, `qsu/string`, `qsu/verify`, `qsu/web`, 그리고 Node.js 런타임에서는 `qsu/node/crypto`, `qsu/node/file`, `qsu/node/misc`, `qsu/node/net`, `qsu/node/os`.
 
-이외에도 지원하는 모든 함수에 대해 자세히 알아보려면 [Reference](/ko/reference/index.md) 설명서를 참조하세요.
+:::
+
+지원하는 모든 함수에 대해 자세히 알아보려면 [레퍼런스](/ko/reference/index.md) 문서를 참고하세요.

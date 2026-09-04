@@ -140,7 +140,7 @@ const functionLanguages = collectFunctionLanguages();
 const commonSidebarConfig: VitePressSidebarOptions = {
 	debugPrint: true,
 	documentRootPath: 'src',
-	manualSortFileNameByPriority: ['introduction.md', 'installation'],
+	manualSortFileNameByPriority: ['introduction.md', 'installation.md'],
 	hyphenToSpace: true,
 	collapsed: false,
 	useTitleFromFileHeading: true,
@@ -174,50 +174,16 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 	themeConfig: {
 		en: {
 			nav: [
-				{
-					text: 'Getting Started',
-					items: [
-						{ text: 'JavaScript', link: '/installation/javascript' },
-						{ text: 'Dart', link: '/installation/dart' },
-						{ text: 'Python', link: '/installation/python' }
-					]
-				},
-				{
-					text: 'Reference',
-					link: 'reference'
-				},
-				{
-					text: 'Changelog',
-					items: [
-						{ text: 'JavaScript', link: '/changelog/javascript' },
-						{ text: 'Dart', link: '/changelog/dart' },
-						{ text: 'Python', link: '/changelog/python' }
-					]
-				}
+				{ text: 'Getting Started', link: '/installation' },
+				{ text: 'Reference', link: '/reference' },
+				{ text: 'Changelog', link: '/changelog/' }
 			]
 		},
 		ko: {
 			nav: [
-				{
-					text: '시작하기',
-					items: [
-						{ text: 'JavaScript', link: '/ko/installation/javascript' },
-						{ text: 'Dart', link: '/ko/installation/dart' },
-						{ text: 'Python', link: '/ko/installation/python' }
-					]
-				},
-				{
-					text: '레퍼런스',
-					link: 'ko/reference'
-				},
-				{
-					text: 'Changelog',
-					items: [
-						{ text: 'JavaScript', link: '/changelog/javascript' },
-						{ text: 'Dart', link: '/changelog/dart' },
-						{ text: 'Python', link: '/changelog/python' }
-					]
-				}
+				{ text: '시작하기', link: '/ko/installation' },
+				{ text: '레퍼런스', link: '/ko/reference' },
+				{ text: 'Changelog', link: '/changelog/' }
 			]
 		}
 	}
@@ -240,6 +206,7 @@ const vitePressConfigs: UserConfig = {
 	sitemap: {
 		hostname: packageJson.homepage
 	},
+	srcExclude: ['changelog/javascript.md', 'changelog/dart.md', 'changelog/python.md'],
 	rewrites: {
 		'en/:rest*': ':rest*'
 	},

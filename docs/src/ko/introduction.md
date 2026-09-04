@@ -10,8 +10,6 @@
 - 빠름: 동작에 대한 가장 유능하고 빠른 해결책을 가지고 있습니다.
 - 안전함: 변수 타입 체크, 적절한 에러 핸들링을 지원하며 보안 검사 및 엄격한 테스트를 통과하도록 검수하여 안전한 프로그래밍이 가능합니다.
 
-**qsu**는 공식적으로 다음 언어를 지원합니다 (일부 함수는 특정 언어에서 지원되지 않을 수 있습니다):
+**qsu**는 공식적으로 JavaScript/Node.js, Dart/Flutter, Python을 지원합니다. 일부 함수는 특정 패키지에 없으며, 고른 언어에 없는 함수는 문서에서 따로 알려줍니다.
 
-- [JavaScript/Node.js](/ko/installation/javascript.md)
-- [Dart/Flutter](/ko/installation/dart.md)
-- [Python](/ko/installation/python.md)
+시작하려면 [설치하기](/ko/installation.md) 문서를 참고하세요.

@@ -1,3 +1,3 @@
-This file will be replaced by another file during the production build.
+# Changelog (Dart)
 
-Do not edit!
+This file is replaced by `packages/dart/CHANGELOG.md` during the production build. Do not edit it.

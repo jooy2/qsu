@@ -47,9 +47,9 @@ Start `qsu` in your preferred programming language:
 
 | Language             | Links                                                                                                                            | Stat                                                                                                                                                                                                                                                               |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| JavaScript / Node.js | **[Documentation](https://qsu.cdget.com/installation/javascript)** <br/> [Changelog](https://qsu.cdget.com/changelog/javascript) | [![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu) [![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu) ![minified size](https://img.shields.io/bundlephobia/min/qsu) |
-| Dart / Flutter       | **[Documentation](https://qsu.cdget.com/installation/dart)** <br/> [Changelog](https://qsu.cdget.com/changelog/dart)             | ![Pub Version](https://img.shields.io/pub/v/qsu) ![Pub Monthly Downloads](https://img.shields.io/pub/dm/qsu) ![Pub Likes](https://img.shields.io/pub/likes/qsu) ![Pub Points](https://img.shields.io/pub/points/qsu)                                               |
-| Python               | **[Documentation](https://qsu.cdget.com/installation/python)** <br/> [Changelog](https://qsu.cdget.com/changelog/python)         | [![PyPI version](https://img.shields.io/pypi/v/qsu)](https://pypi.org/project/qsu/) [![PyPI downloads](https://img.shields.io/pypi/dm/qsu)](https://pypi.org/project/qsu/) ![PyPI python versions](https://img.shields.io/pypi/pyversions/qsu)                     |
+| JavaScript / Node.js | **[Documentation](https://qsu.cdget.com/installation)** <br/> [Changelog](https://qsu.cdget.com/changelog/) | [![npm latest package](https://img.shields.io/npm/v/qsu/latest.svg)](https://www.npmjs.com/package/qsu) [![npm downloads](https://img.shields.io/npm/dm/qsu.svg)](https://www.npmjs.com/package/qsu) ![minified size](https://img.shields.io/bundlephobia/min/qsu) |
+| Dart / Flutter       | **[Documentation](https://qsu.cdget.com/installation)** <br/> [Changelog](https://qsu.cdget.com/changelog/)             | ![Pub Version](https://img.shields.io/pub/v/qsu) ![Pub Monthly Downloads](https://img.shields.io/pub/dm/qsu) ![Pub Likes](https://img.shields.io/pub/likes/qsu) ![Pub Points](https://img.shields.io/pub/points/qsu)                                               |
+| Python               | **[Documentation](https://qsu.cdget.com/installation)** <br/> [Changelog](https://qsu.cdget.com/changelog/)         | [![PyPI version](https://img.shields.io/pypi/v/qsu)](https://pypi.org/project/qsu/) [![PyPI downloads](https://img.shields.io/pypi/dm/qsu)](https://pypi.org/project/qsu/) ![PyPI python versions](https://img.shields.io/pypi/pyversions/qsu)                     |
 
 Install it with the package manager you already use:
 
@@ -92,9 +92,9 @@ In JavaScript, categories marked `qsu/node` require a Node.js runtime and are im
 The full documentation lives at **[qsu.cdget.com](https://qsu.cdget.com)**, in English and Korean.
 
 - [Introduction](https://qsu.cdget.com/introduction) — what qsu is and what it is good for
-- Installation — [JavaScript](https://qsu.cdget.com/installation/javascript) · [Dart](https://qsu.cdget.com/installation/dart) · [Python](https://qsu.cdget.com/installation/python)
+- [Installation](https://qsu.cdget.com/installation) — installing the package, in the language you pick
 - [Reference](https://qsu.cdget.com/reference) — every function, with parameters, defaults and examples
-- Changelog — [JavaScript](https://qsu.cdget.com/changelog/javascript) · [Dart](https://qsu.cdget.com/changelog/dart) · [Python](https://qsu.cdget.com/changelog/python)
+- [Changelog](https://qsu.cdget.com/changelog/) — what changed in each package, by version
 - [llms.txt](https://qsu.cdget.com/llms.txt) — a machine-readable index of every function, for use with LLM tooling
 
 ## Cross-language parity
