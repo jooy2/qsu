@@ -116,7 +116,9 @@ Two rules follow from this:
 
 - **The `<Lang />` badge in a page's title is data, not decoration.** `config.mts` reads it to
   build `functionLanguages`, which the sidebar marks, the notice and the fallback below all
-  depend on. A badge that claims a language must have a `::: lang` block for it.
+  depend on. A badge that claims a language must have a `::: lang` block for it, and every
+  locale's badge must agree; `collectFunctionLanguages` checks both, failing `pnpm run build`
+  and warning in the dev server.
 - **A page a package does not implement falls back to the first one it does.** A reader on
   Dart looking at `os/getCpu` gets the JavaScript documentation with a notice above it, rather
   than an empty page. `displayLanguages` in `data/languages.ts` is where that happens; the

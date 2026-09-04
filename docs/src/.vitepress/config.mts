@@ -18,6 +18,40 @@ import {
 const supportedLocale = ['en', 'ko'];
 const defaultLocale: string = supportedLocale[0];
 
+const srcDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+
+/** Every `.md` file under `directory`, at any depth. */
+function markdownFiles(directory: string): string[] {
+	return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+		const path = join(directory, entry.name);
+
+		if (entry.isDirectory()) {
+			return markdownFiles(path);
+		}
+
+		return entry.name.endsWith('.md') ? [path] : [];
+	});
+}
+
+/** The locale-free route of a source file, such as `/reference/os/getCpu`. */
+function pageOf(locale: string, path: string): string {
+	return `/${relative(join(srcDir, locale), path).replace(/\.md$/, '').split(sep).join('/')}`;
+}
+
+/** What a reference page says about itself: its title badge and its blocks. */
+function claimsOf(path: string): { badge: string[] | null; blocks: string[] } {
+	const source = readFileSync(path, 'utf8');
+	const badge = source.match(/^#\s+.*?<Lang\s+([^/>]*)\/>/m);
+	const blocks = new Set(
+		[...source.matchAll(/^::: lang (.+)$/gm)].flatMap((match) => match[1].trim().split(/\s+/))
+	);
+
+	return {
+		badge: badge ? CODE_LANGUAGE_IDS.filter((id) => badge[1].split(/\s+/).includes(id)) : null,
+		blocks: CODE_LANGUAGE_IDS.filter((id) => blocks.has(id))
+	};
+}
+
 /**
  * The reference pages that only some of the languages implement, read off the
  * `<Lang />` badge in each page's title.
@@ -30,44 +64,72 @@ const defaultLocale: string = supportedLocale[0];
  *
  * Only the exceptions are listed. A reference page missing from the map is one
  * every language implements, which is most of them and would otherwise be a few
- * kilobytes of "all three" shipped to every reader. Keys are locale-free paths,
- * such as `/reference/os/getCpu`.
+ * kilobytes of "all three" shipped to every reader.
+ *
+ * The badge is load-bearing, so this is also where it is checked. A page whose
+ * badge and `::: lang` blocks disagree, or whose translations disagree with each
+ * other, leaves a reader an empty Examples section or an entry the sidebar marks
+ * wrongly — and neither shows up in a page you are not looking at. The build
+ * refuses; the dev server only complains, so that a page half written is not a
+ * page that will not load.
  */
 function collectFunctionLanguages(): Record<string, string[]> {
-	const root = join(resolve(dirname(fileURLToPath(import.meta.url)), '..'), defaultLocale);
 	const languages: Record<string, string[]> = {};
+	const problems: string[] = [];
 
-	const walk = (directory: string): void => {
-		for (const entry of readdirSync(directory, { withFileTypes: true })) {
-			const path = join(directory, entry.name);
-
-			if (entry.isDirectory()) {
-				walk(path);
-				continue;
-			}
-
-			if (!entry.name.endsWith('.md')) {
-				continue;
-			}
-
-			const badge = readFileSync(path, 'utf8').match(/^#\s+.*?<Lang\s+([^/>]*)\/>/m);
+	for (const locale of supportedLocale) {
+		for (const path of markdownFiles(join(srcDir, locale, 'reference'))) {
+			const page = pageOf(locale, path);
+			const { badge, blocks } = claimsOf(path);
+			const where = `${locale}${page}.md`;
 
 			if (!badge) {
+				if (blocks.length) {
+					problems.push(`${where} has ::: lang blocks but no <Lang /> badge in its title.`);
+				}
+
 				continue;
 			}
 
-			const wanted = badge[1].trim().split(/\s+/);
-			const implemented = CODE_LANGUAGE_IDS.filter((id) => wanted.includes(id));
+			if (badge.join(' ') !== blocks.join(' ')) {
+				problems.push(
+					`${where}: the title badge says ${badge.join(', ')} but the page has ` +
+						`${blocks.length ? `::: lang blocks for ${blocks.join(', ')}` : 'no ::: lang block'}.`
+				);
+			}
 
-			if (implemented.length === CODE_LANGUAGE_IDS.length) {
+			if (locale === defaultLocale) {
+				if (badge.length < CODE_LANGUAGE_IDS.length) {
+					languages[page] = badge;
+				}
+
 				continue;
 			}
 
-			languages[`/${relative(root, path).replace(/\.md$/, '').split(sep).join('/')}`] = implemented;
+			const original = claimsOf(join(srcDir, defaultLocale, `${page.slice(1)}.md`)).badge;
+
+			if (original && badge.join(' ') !== original.join(' ')) {
+				problems.push(
+					`${where}: the title badge says ${badge.join(', ')} where ` +
+						`${defaultLocale}${page}.md says ${original.join(', ')}.`
+				);
+			}
 		}
-	};
+	}
 
-	walk(join(root, 'reference'));
+	if (problems.length) {
+		const report = ['The reference pages below disagree with themselves:', ...problems].join(
+			'\n  '
+		);
+
+		// `vitepress build` against `vitepress dev`. There is no hook that knows
+		// which one is running by the time the config is read.
+		if (process.argv.includes('build')) {
+			throw new Error(report);
+		}
+
+		console.warn(report);
+	}
 
 	return languages;
 }
