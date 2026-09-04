@@ -160,9 +160,9 @@ The categories in the top half are exported from `qsu` and are safe to bundle fo
 
 Installing and using the package and defining all the utility methods can be found on the documentation page below.
 
-- [Installation](https://qsu.cdget.com/installation/javascript)
+- [Installation](https://qsu.cdget.com/installation)
 - [Reference](https://qsu.cdget.com/reference) — every function, with parameters, defaults and examples
-- [Changelog](https://qsu.cdget.com/changelog/javascript)
+- [Changelog](https://qsu.cdget.com/changelog/)
 
 ## Development
 

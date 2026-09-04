@@ -6,8 +6,8 @@
  * so a reader on Dart sees Dart examples, Dart types and Dart parameter rules
  * without leaving the page.
  *
- * The ids match the props `<Lang />` already takes in page titles, so a title
- * badge and a `::: lang` block name a language the same way.
+ * The ids are what a `::: lang` block names, what `<Val>` takes as attributes,
+ * and what `<html data-code-lang>` carries.
  */
 export interface CodeLanguage {
 	id: string;

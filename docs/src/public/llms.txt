@@ -239,9 +239,7 @@ URLs, slugs, user agents and other web-oriented helpers.
 
 ## Optional
 
-- [Changelog: JavaScript](https://qsu.cdget.com/changelog/javascript): Release history of the npm package.
-- [Changelog: Dart](https://qsu.cdget.com/changelog/dart): Release history of the pub package.
-- [Changelog: Python](https://qsu.cdget.com/changelog/python): Release history of the PyPI package.
+- [Changelog](https://qsu.cdget.com/changelog/): Release history of each package, per language.
 - [Source repository](https://github.com/jooy2/qsu): Monorepo containing all three packages and this documentation.
 - [npm package](https://npmjs.com/package/qsu): JavaScript/Node.js distribution.
 - [pub.dev package](https://pub.dev/packages/qsu): Dart/Flutter distribution.
