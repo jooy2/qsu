@@ -184,8 +184,9 @@ const vitePressConfigs: UserConfig = {
 	 * `::: lang js` … `:::` — the part of a page only one language sees.
 	 *
 	 * Every language's blocks stay in the document and CSS displays one of them,
-	 * which is what makes the switch instant and keeps the search index complete.
-	 * A block several languages share is written `::: lang js python`.
+	 * which is what makes the switch instant and keeps the two halves from being
+	 * two pages that drift apart. A block several languages share is written
+	 * `::: lang js python`.
 	 *
 	 * A page some of the packages do not have shows its first language to the
 	 * readers of the ones it lacks, rather than showing them nothing at all —

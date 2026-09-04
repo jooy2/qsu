@@ -9,8 +9,8 @@
  *   before the first paint, which a `v-if` cannot do before hydration.
  * - No hydration mismatch. The server renders every language, and so does the
  *   client.
- * - A complete search index. VitePress builds it from the rendered page, so a
- *   Dart signature is still findable while JavaScript is selected.
+ * - An instant switch. Changing the attribute on `<html>` re-paints the page
+ *   without re-rendering anything.
  *
  * `data-code-lang` holds a space separated list, because content two languages
  * share and the third does not is a real case — hence `~=`. The list is written

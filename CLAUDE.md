@@ -97,8 +97,8 @@ newer Node when running docs commands, or the build fails during Vite config res
 The sidebar carries a JavaScript / Dart / Python switch, and it decides what every page says.
 The choice is kept in `localStorage` and applied to `<html data-code-lang>` by an inline
 script before the first paint, so nothing flashes. Every language's content is in the
-document at once and CSS displays one of them, which is also what keeps the search index
-complete. The data files behind it live in `docs/src/.vitepress/data`.
+document at once and CSS displays one of them, so switching costs one attribute write and no
+re-render. The data files behind it live in `docs/src/.vitepress/data`.
 
 Language‑scoped content is written as a container, and several languages may share one:
 
