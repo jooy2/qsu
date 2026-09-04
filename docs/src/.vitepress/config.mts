@@ -322,7 +322,8 @@ const vitePressConfigs: UserConfig = {
 		socialLinks: [
 			{ icon: 'github', link: packageJson.repository.url.replace('.git', '') },
 			{ icon: 'npm', link: 'https://npmjs.com/package/qsu' },
-			{ icon: 'dart', link: 'https://pub.dev/packages/qsu' }
+			{ icon: 'dart', link: 'https://pub.dev/packages/qsu' },
+			{ icon: 'pypi', link: 'https://pypi.org/project/qsu' }
 		],
 		editLink: {
 			pattern: 'https://github.com/jooy2/qsu/edit/main/docs/src/:path'
