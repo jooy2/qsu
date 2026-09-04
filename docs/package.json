@@ -13,6 +13,7 @@
 	"author": "CDGet <jooy2.contact@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
+		"markdown-it-container": "^4.0.0",
 		"vitepress": "^1.6.4",
 		"vitepress-i18n": "^1.4.0",
 		"vitepress-sidebar": "^1.39.0",
