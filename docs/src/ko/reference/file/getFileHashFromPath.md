@@ -17,7 +17,7 @@
 
 ## Returns
 
-> Promise::string
+> Promise<string>
 
 ## Examples
 

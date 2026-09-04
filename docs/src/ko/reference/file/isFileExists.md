@@ -12,7 +12,7 @@
 
 ## Returns
 
-> Promise:boolean
+> Promise<boolean>
 
 ## Examples
 

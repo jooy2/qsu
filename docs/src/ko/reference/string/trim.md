@@ -10,7 +10,7 @@
 
 ## Returns
 
-> string
+> string | null
 
 ## Examples
 

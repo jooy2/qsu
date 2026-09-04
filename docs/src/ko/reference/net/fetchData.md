@@ -42,7 +42,7 @@
 
 ## Returns
 
-> string | null | object
+> Promise<string | object | null>
 
 ## Examples
 

@@ -14,7 +14,7 @@ UUID는 시스템을 재설치하거나 가상 머신의 환경이 변경될 때
 
 ## Returns
 
-> string
+> Promise<string>
 
 ## Examples
 

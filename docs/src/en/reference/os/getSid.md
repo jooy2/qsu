@@ -16,7 +16,7 @@ No required parameters
 
 ## Returns
 
-> string
+> Promise<string>
 
 ## Examples
 

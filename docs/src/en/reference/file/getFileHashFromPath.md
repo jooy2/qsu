@@ -17,7 +17,7 @@ Returns the file in the specified path as a value hashed by a specific algorithm
 
 ## Returns
 
-> Promise::string
+> Promise<string>
 
 ## Examples
 

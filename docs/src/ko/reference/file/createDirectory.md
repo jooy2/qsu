@@ -15,7 +15,7 @@
 
 ## Returns
 
-> void
+> Promise<void>
 
 ## Examples
 

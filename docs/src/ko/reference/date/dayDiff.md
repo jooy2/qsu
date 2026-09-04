@@ -11,7 +11,7 @@
 
 ## Returns
 
-> number'
+> number
 
 ## Examples
 

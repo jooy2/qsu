@@ -10,7 +10,7 @@
 
 ## Returns
 
-> string
+> Promise<string>
 
 ## Examples
 

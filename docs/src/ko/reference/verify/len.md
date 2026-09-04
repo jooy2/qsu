@@ -10,7 +10,7 @@
 
 ## Returns
 
-> boolean
+> number
 
 ## Examples
 

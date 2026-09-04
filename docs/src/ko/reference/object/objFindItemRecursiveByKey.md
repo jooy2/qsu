@@ -13,7 +13,7 @@
 
 ## Returns
 
-> object|null
+> object | null
 
 ## Examples
 

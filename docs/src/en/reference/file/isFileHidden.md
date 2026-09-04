@@ -15,7 +15,7 @@ If Windows fails to get the file properties, it assumes the file is not hidden.
 
 ## Returns
 
-> Promise:boolean
+> Promise<boolean>
 
 ## Examples
 

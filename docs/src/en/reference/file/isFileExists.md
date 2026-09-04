@@ -12,7 +12,7 @@ If a file or directory exists at the specified path, it returns `true`.
 
 ## Returns
 
-> Promise:boolean
+> Promise<boolean>
 
 ## Examples
 

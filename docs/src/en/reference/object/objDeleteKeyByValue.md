@@ -12,7 +12,7 @@ Deletes keys equal to the given value from the object data. If the `recursive` o
 
 ## Returns
 
-> object|null
+> object | null
 
 ## Examples
 

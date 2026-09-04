@@ -23,7 +23,7 @@ In JavaScript and Dart the function may be synchronous or asynchronous, and `ret
 
 ## Returns
 
-> any
+> Promise<any>
 
 ## Examples
 

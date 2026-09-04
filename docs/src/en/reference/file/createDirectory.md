@@ -15,7 +15,7 @@ If a **file** already sits at the path, the error is reported rather than swallo
 
 ## Returns
 
-> void
+> Promise<void>
 
 ## Examples
 

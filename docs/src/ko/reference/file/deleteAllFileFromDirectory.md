@@ -12,7 +12,7 @@
 
 ## Returns
 
-> Promise::void
+> Promise<void>
 
 ## Examples
 

@@ -17,7 +17,7 @@ A line breaks on `\n`, `\r\n` or a lone `\r`. Bytes that are not valid UTF-8 bec
 
 ## Returns
 
-> Promise::string|null
+> Promise<string | null>
 
 ## Examples
 

@@ -12,7 +12,7 @@
 
 ## Returns
 
-> Promise::string
+> Promise<object>
 
 ## Examples
 

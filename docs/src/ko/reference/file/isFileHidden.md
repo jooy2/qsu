@@ -15,7 +15,7 @@ Windows가 파일 속성을 가져오지 못하면, 해당 파일이 숨김 파�
 
 ## Returns
 
-> Promise:boolean
+> Promise<boolean>
 
 ## Examples
 

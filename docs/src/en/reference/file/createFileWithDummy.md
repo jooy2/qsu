@@ -13,7 +13,7 @@ Creates a file with the specified size in bytes. A size of `0` creates an empty 
 
 ## Returns
 
-> Promise::void
+> Promise<boolean>
 
 ## Examples
 

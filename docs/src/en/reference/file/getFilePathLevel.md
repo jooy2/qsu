@@ -14,7 +14,7 @@ A trailing separator is ignored, so `/home/user/` and `/home/user` report the sa
 
 ## Returns
 
-> string
+> number
 
 ## Examples
 

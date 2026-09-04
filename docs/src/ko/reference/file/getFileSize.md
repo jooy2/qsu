@@ -12,7 +12,7 @@
 
 ## Returns
 
-> string
+> Promise<number>
 
 ## Examples
 

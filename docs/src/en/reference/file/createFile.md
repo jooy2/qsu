@@ -16,7 +16,7 @@ A path that is empty or nothing but whitespace does nothing, so an empty form fi
 
 ## Returns
 
-> Promise::void
+> Promise<void>
 
 ## Examples
 

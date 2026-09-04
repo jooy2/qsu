@@ -10,7 +10,7 @@ Promise를 이용한 수면 기능.
 
 ## Returns
 
-> Promise:boolean
+> Promise<void>
 
 ## Examples
 

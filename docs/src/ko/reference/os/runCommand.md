@@ -18,7 +18,7 @@
 
 ## Returns
 
-> string | null
+> Promise<string | null>
 
 ## Examples
 

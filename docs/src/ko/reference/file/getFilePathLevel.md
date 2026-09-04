@@ -14,7 +14,7 @@
 
 ## Returns
 
-> string
+> number
 
 ## Examples
 

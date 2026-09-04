@@ -10,7 +10,7 @@ Sleep function using Promise.
 
 ## Returns
 
-> Promise:boolean
+> Promise<void>
 
 ## Examples
 

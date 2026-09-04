@@ -23,7 +23,7 @@ JavaScript와 Dart에서는 함수가 동기든 비동기든 상관없으며 `re
 
 ## Returns
 
-> any
+> Promise<any>
 
 ## Examples
 

@@ -13,7 +13,7 @@
 
 ## Returns
 
-> Promise::void
+> Promise<boolean>
 
 ## Examples
 

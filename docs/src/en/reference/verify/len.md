@@ -10,7 +10,7 @@ Returns the length of any type of data. If the argument value is `null` or `unde
 
 ## Returns
 
-> boolean
+> number
 
 ## Examples
 

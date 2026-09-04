@@ -17,7 +17,7 @@
 
 ## Returns
 
-> Promise::string|null
+> Promise<string | null>
 
 ## Examples
 
