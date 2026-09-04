@@ -22,7 +22,7 @@ Arrays are walked with their numeric index. The fallback is returned as soon as 
 
 ## Returns
 
-> any
+<ReturnType type="any" />
 
 ## Examples
 

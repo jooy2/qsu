@@ -12,7 +12,7 @@ Values that are not numbers are skipped, as they are in `sum`, and so is `NaN`, 
 
 ## Returns
 
-> number | null
+<ReturnType :type="{ js: 'number | null', dart: 'num?' }" />
 
 ## Examples
 

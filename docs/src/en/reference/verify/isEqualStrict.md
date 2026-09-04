@@ -15,7 +15,7 @@ In Dart, rest parameters are not supported in `rightOperand`.
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

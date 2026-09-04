@@ -12,7 +12,7 @@
 
 ## Returns
 
-> Promise<number>
+<ReturnType type="Promise<number>" />
 
 ## Examples
 

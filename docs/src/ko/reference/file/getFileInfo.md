@@ -12,7 +12,7 @@
 
 ## Returns
 
-> Promise<object>
+<ReturnType :type="{ js: 'Promise<object>', dart: 'Future<FileInfo>' }" />
 
 ## Examples
 

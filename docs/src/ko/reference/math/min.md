@@ -12,7 +12,7 @@
 
 ## Returns
 
-> number | null
+<ReturnType :type="{ js: 'number | null', dart: 'num?' }" />
 
 ## Examples
 

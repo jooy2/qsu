@@ -10,7 +10,7 @@ Returns after adding up all the n arguments of numbers or the values of a single
 
 ## Returns
 
-> number
+<ReturnType :type="{ js: 'number', dart: 'num' }" />
 
 ## Examples
 

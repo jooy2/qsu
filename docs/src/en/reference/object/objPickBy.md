@@ -10,12 +10,12 @@ The original object is not modified. If the first argument is not an object, `nu
 
 <ParamsTable :rows="[
 	{ name: 'obj', type: 'object', required: true, desc: 'The object to filter. It is not modified.' },
-	{ name: 'predicate', type: 'function', required: true, desc: 'Called as `(value, key)` for every entry. The entry is kept when it returns `true`.' }
+	{ name: 'predicate', type: { js: 'function', dart: 'bool Function(dynamic value, String key)' }, required: true, desc: 'Called as `(value, key)` for every entry. The entry is kept when it returns `true`.' }
 ]" />
 
 ## Returns
 
-> object | null
+<ReturnType type="object | null" />
 
 ## Examples
 

@@ -12,7 +12,7 @@ Returns the file extension from the given file path. An empty string value is re
 
 ## Returns
 
-> string | null
+<ReturnType type="string | null" />
 
 ## Examples
 

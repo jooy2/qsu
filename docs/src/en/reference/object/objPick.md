@@ -17,7 +17,7 @@ For the predicate form, use [objPickBy](./objPickBy).
 
 ## Returns
 
-> object | null
+<ReturnType type="object | null" />
 
 ## Examples
 

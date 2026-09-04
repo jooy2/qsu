@@ -10,7 +10,7 @@
 
 ## Returns
 
-> string | null
+<ReturnType :type="{ js: 'string | null', dart: 'String' }" />
 
 ## Examples
 

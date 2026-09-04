@@ -16,12 +16,12 @@ Naming `n` files into one directory means calling this `n` times. Passing a `Set
 
 <ParamsTable :rows="[
 	{ name: 'fileName', type: 'string', required: true, desc: 'File name to rename' },
-	{ name: 'fileNameList', type: 'string[] | Set<string>', required: true, desc: 'The names to check for duplicates. A `Set` is read as it is, so one can be reused across a loop; a list is copied into a `Set` on every call.' }
+	{ name: 'fileNameList', type: { js: 'string[] | Set<string>', dart: 'Iterable<String>' }, required: true, desc: 'The names to check for duplicates. A `Set` is read as it is, so one can be reused across a loop; a list is copied into a `Set` on every call.' }
 ]" />
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

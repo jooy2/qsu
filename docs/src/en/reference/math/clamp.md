@@ -9,14 +9,14 @@ Dart already ships `num.clamp`, but that method throws on an inverted range. Thi
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'value', type: 'number', required: true, desc: 'The number to restrict.' },
-	{ name: 'min', type: 'number', required: true, desc: 'The lower bound, included in the range.' },
-	{ name: 'max', type: 'number', required: true, desc: 'The upper bound, included in the range.' }
+	{ name: 'value', type: { js: 'number', dart: 'num' }, required: true, desc: 'The number to restrict.' },
+	{ name: 'min', type: { js: 'number', dart: 'num' }, required: true, desc: 'The lower bound, included in the range.' },
+	{ name: 'max', type: { js: 'number', dart: 'num' }, required: true, desc: 'The upper bound, included in the range.' }
 ]" />
 
 ## Returns
 
-> number
+<ReturnType :type="{ js: 'number', dart: 'num' }" />
 
 ## Examples
 

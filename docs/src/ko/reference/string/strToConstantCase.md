@@ -20,7 +20,7 @@ JavaScript와 Python은 유니코드 전체 케이스 매핑(full case mapping)�
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

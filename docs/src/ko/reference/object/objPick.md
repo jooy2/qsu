@@ -17,7 +17,7 @@
 
 ## Returns
 
-> object | null
+<ReturnType type="object | null" />
 
 ## Examples
 

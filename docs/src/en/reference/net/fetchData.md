@@ -42,7 +42,7 @@ However, you can receive error details via the `onError` event.
 
 ## Returns
 
-> Promise<string | object | null>
+<ReturnType type="Promise<string | object | null>" />
 
 ## Examples
 

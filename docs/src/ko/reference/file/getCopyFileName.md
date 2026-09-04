@@ -16,12 +16,12 @@
 
 <ParamsTable :rows="[
 	{ name: 'fileName', type: 'string', required: true, desc: '변경할 파일 이름' },
-	{ name: 'fileNameList', type: 'string[] | Set<string>', required: true, desc: '중복을 확인 할 파일 이름 목록. `Set`을 넘기면 그대로 사용하므로 반복문 전체에서 재사용할 수 있고, 배열을 넘기면 호출마다 `Set`으로 복사합니다.' }
+	{ name: 'fileNameList', type: { js: 'string[] | Set<string>', dart: 'Iterable<String>' }, required: true, desc: '중복을 확인 할 파일 이름 목록. `Set`을 넘기면 그대로 사용하므로 반복문 전체에서 재사용할 수 있고, 배열을 넘기면 호출마다 `Set`으로 복사합니다.' }
 ]" />
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

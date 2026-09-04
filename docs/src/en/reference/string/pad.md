@@ -23,7 +23,7 @@ The string is returned untouched when it is already at least `length` long, and 
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

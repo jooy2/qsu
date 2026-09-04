@@ -18,7 +18,7 @@ One note on iteration order: a JavaScript object always enumerates integer-like 
 
 ## Returns
 
-> object | null
+<ReturnType :type="{ js: 'object | null', dart: 'Map<String, String>?' }" />
 
 ## Examples
 

@@ -34,7 +34,7 @@ objMergeNewKey(obj1, obj2, options);
 
 ## Returns
 
-> object | null
+<ReturnType type="object | null" />
 
 ## Examples
 

@@ -17,7 +17,7 @@ Remove invalid or unnecessary characters in the path.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

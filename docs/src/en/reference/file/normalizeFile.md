@@ -13,7 +13,7 @@ Returns the file name within the path.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

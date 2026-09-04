@@ -15,7 +15,7 @@ If the `numerically` option is `true`, when sorting an array consisting of strin
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

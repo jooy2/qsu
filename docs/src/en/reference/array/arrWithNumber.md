@@ -11,7 +11,7 @@ Creates and returns an Array in the order of start...end values.
 
 ## Returns
 
-> number[]
+<ReturnType type="number[]" />
 
 ## Examples
 

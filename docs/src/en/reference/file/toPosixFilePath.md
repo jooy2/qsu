@@ -12,7 +12,7 @@ Returns the given path as a path in POSIX format (usually used by Linux). For ex
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

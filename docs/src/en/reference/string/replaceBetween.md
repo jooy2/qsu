@@ -15,7 +15,7 @@ Deletes strings in the range if `replaceWith` is not specified.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

@@ -10,7 +10,7 @@ Remove duplicate values from array and two-dimensional array data. In the case o
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

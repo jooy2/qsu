@@ -11,7 +11,7 @@ When sorting an array consisting of strings, it sorts first by the numbers conta
 
 ## Returns
 
-> string[]
+<ReturnType type="string[]" />
 
 ## Examples
 

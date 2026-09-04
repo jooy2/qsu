@@ -16,7 +16,7 @@ This is the counterpart of [strToCamelCase](./strToCamelCase), [strToPascalCase]
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

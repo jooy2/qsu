@@ -10,7 +10,7 @@ Sleep function using Promise.
 
 ## Returns
 
-> Promise<void>
+<ReturnType type="Promise<void>" />
 
 ## Examples
 

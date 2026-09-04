@@ -21,7 +21,7 @@ The length limit is **255 bytes**, which is what ext4, APFS and NTFS enforce —
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

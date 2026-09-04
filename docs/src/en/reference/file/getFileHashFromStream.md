@@ -13,7 +13,7 @@ Returns a file in a Node.js ReadableStream object as a value hashed with a speci
 
 ## Returns
 
-> Promise<string>
+<ReturnType type="Promise<string>" />
 
 ## Examples
 

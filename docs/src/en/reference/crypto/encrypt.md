@@ -20,7 +20,7 @@ The result is `iv:encrypted`. For AEAD algorithms (`gcm`, `ccm`, `ocb`, `poly130
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

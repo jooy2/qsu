@@ -14,7 +14,7 @@ Changes the value matching a specific key name in the given object. If the `recu
 
 ## Returns
 
-> object | null
+<ReturnType type="object | null" />
 
 ## Examples
 

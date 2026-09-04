@@ -16,7 +16,7 @@ The mapping covers the **Latin-1 Supplement** and **Latin Extended-A** blocks, p
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

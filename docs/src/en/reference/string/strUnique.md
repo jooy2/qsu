@@ -10,7 +10,7 @@ Remove duplicate characters from a given string and output only one.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

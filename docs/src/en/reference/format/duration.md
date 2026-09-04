@@ -7,7 +7,7 @@ A month is treated as 30 days and a year as 365 days.
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'milliseconds', type: 'number', required: true, desc: 'The duration to format, in milliseconds.' },
+	{ name: 'milliseconds', type: { js: 'number', dart: 'num', python: 'float' }, required: true, desc: 'The duration to format, in milliseconds.' },
 	{ name: 'options', type: 'DurationOptions', named: true, desc: 'Formatting options. See the table below.' }
 ]" />
 
@@ -23,7 +23,7 @@ A month is treated as 30 days and a year as 365 days.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

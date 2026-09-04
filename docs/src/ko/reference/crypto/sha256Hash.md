@@ -8,12 +8,12 @@
 
 <ParamsTable :rows="[
 	{ name: 'str', type: 'string', required: true },
-	{ name: 'encoding', type: `'hex' | 'base64' | 'base64url' | 'binary'`, named: true, default: `'hex'` }
+	{ name: 'encoding', type: { js: `'hex' | 'base64' | 'base64url' | 'binary'`, dart: 'BinaryToTextEncoding' }, named: true, default: `'hex'` }
 ]" />
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

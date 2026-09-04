@@ -15,7 +15,7 @@
 
 ## Returns
 
-> Promise<void>
+<ReturnType type="Promise<void>" />
 
 ## Examples
 

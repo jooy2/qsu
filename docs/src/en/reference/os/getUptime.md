@@ -17,7 +17,7 @@ Returns the number of seconds the Node.js process has been running.
 
 ## Returns
 
-> number | string
+<ReturnType :type="{ js: 'number | string', python: 'int | float | str' }" />
 
 ## Examples
 

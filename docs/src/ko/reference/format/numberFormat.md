@@ -5,12 +5,12 @@
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'number', type: 'number', required: true }
+	{ name: 'number', type: { js: 'number', python: 'int | float | str' }, required: true }
 ]" />
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

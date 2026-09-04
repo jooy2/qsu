@@ -10,7 +10,7 @@ Analyze the user agent value to determine if it's a bot for a search engine. Ret
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

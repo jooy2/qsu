@@ -12,7 +12,7 @@ Returns `true` if the given data is in the correct URL format. If withProtocol i
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

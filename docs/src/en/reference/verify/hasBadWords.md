@@ -28,7 +28,7 @@ Note that hiding tricks are endless, so this is a best-effort check rather than 
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

@@ -19,7 +19,7 @@
 
 ## Returns
 
-> object
+<ReturnType :type="{ js: 'object', dart: 'ParsedAddress' }" />
 
 ## Examples
 

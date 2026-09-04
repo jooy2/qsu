@@ -12,7 +12,7 @@ Calculates the size of the file at the given path.
 
 ## Returns
 
-> Promise<number>
+<ReturnType type="Promise<number>" />
 
 ## Examples
 

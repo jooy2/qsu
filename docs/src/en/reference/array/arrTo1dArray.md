@@ -10,7 +10,7 @@ Merges all elements of a multidimensional array into a one-dimensional array.
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

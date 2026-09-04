@@ -11,7 +11,7 @@
 
 ## Returns
 
-> object
+<ReturnType type="object" />
 
 ## Examples
 

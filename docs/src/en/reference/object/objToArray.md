@@ -11,7 +11,7 @@ Converts the given object to array format. The resulting array is a two-dimensio
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

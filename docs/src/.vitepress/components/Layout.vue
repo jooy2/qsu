@@ -71,15 +71,10 @@ function syncOutline() {
 		return;
 	}
 
-	// A page with nothing for the selected language shows every language instead
-	// of nothing at all, so its outline keeps every heading. `lang.css` gates the
-	// blocks on the same condition.
-	const gated = Boolean(doc.querySelector(`.lang-only[data-code-lang~="${codeLanguage.value}"]`));
-
 	for (const link of document.querySelectorAll('.outline-link')) {
 		const id = decodeURIComponent(link.getAttribute('href')?.slice(1) ?? '');
 		const heading = id ? doc.querySelector(`[id="${CSS.escape(id)}"]`) : null;
-		const block = gated ? heading?.closest('.lang-only') : null;
+		const block = heading?.closest('.lang-only');
 		const hidden =
 			Boolean(block) && !block.dataset.codeLang.split(' ').includes(codeLanguage.value);
 

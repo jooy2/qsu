@@ -6,12 +6,12 @@
 
 <ParamsTable :rows="[
 	{ name: 'str', type: 'string', required: true },
-	{ name: 'splitter', type: 'string | string[] | ...string', required: true }
+	{ name: 'splitter', type: { js: 'string | string[] | ...string', dart: 'List<String>' }, required: true }
 ]" />
 
 ## Returns
 
-> string[]
+<ReturnType type="string[]" />
 
 ## Examples
 

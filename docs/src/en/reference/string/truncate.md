@@ -14,7 +14,7 @@ Length is counted in code points, so a character outside the Basic Multilingual 
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

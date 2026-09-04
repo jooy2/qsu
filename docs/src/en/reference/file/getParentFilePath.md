@@ -15,7 +15,7 @@ Trailing separators are ignored, so `/home/user/` and `/home/user` share the par
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

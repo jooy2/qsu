@@ -13,7 +13,7 @@
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

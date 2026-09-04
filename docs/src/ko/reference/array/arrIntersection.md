@@ -16,7 +16,7 @@ JavaScript와 Python에서는 배열들을 각각의 인자로 전달하고, Dar
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

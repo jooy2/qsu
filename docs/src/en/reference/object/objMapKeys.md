@@ -10,12 +10,12 @@ When two keys map onto the same name, the later one wins. The original object is
 
 <ParamsTable :rows="[
 	{ name: 'obj', type: 'object', required: true, desc: 'The object whose keys are mapped. It is not modified.' },
-	{ name: 'iteratee', type: 'function', required: true, desc: 'Called as `(value, key)` for every entry. Its return value becomes the new key.' }
+	{ name: 'iteratee', type: { js: 'function', dart: 'String Function(dynamic value, String key)' }, required: true, desc: 'Called as `(value, key)` for every entry. Its return value becomes the new key.' }
 ]" />
 
 ## Returns
 
-> object | null
+<ReturnType type="object | null" />
 
 ## Examples
 

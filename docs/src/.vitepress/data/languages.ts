@@ -60,3 +60,33 @@ export function languagesOf(
 
 	return map?.[page] ?? map?.[page.replace(/^\/[^/]+/, '')] ?? null;
 }
+
+/**
+ * Which languages a piece of content written for `wanted` is displayed to.
+ *
+ * Usually that is `wanted` itself. The exception is a page some of the packages
+ * do not have: hiding everything from a reader on Dart because qsu has no Dart
+ * `getCpu` would leave them an empty page, so the languages the page lacks are
+ * handed to the first one it has. Content that has nothing for that page at all
+ * is displayed to nobody.
+ *
+ * `implemented` is `null` for a page every language implements, which is most of
+ * them. See `functionLanguages` in `config.mts`.
+ */
+export function displayLanguages(implemented: string[] | null, wanted: string[]): string[] {
+	if (!implemented) {
+		return wanted;
+	}
+
+	const shown = wanted.filter((id) => implemented.includes(id));
+
+	if (shown.length === 0) {
+		return [];
+	}
+
+	if (!shown.includes(implemented[0])) {
+		return shown;
+	}
+
+	return [...shown, ...CODE_LANGUAGE_IDS.filter((id) => !implemented.includes(id))];
+}

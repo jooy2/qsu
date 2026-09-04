@@ -21,7 +21,7 @@ Even when there is no key name, such as `{}`, it is treated as a valid key. In t
 
 ## Returns
 
-> string[]
+<ReturnType type="string[]" />
 
 ## Examples
 

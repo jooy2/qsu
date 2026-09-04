@@ -24,7 +24,7 @@ HTML에서 특별한 의미를 갖는 다섯 개의 문자를 이스케이프합
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

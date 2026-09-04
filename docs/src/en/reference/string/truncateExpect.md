@@ -20,7 +20,7 @@ A longer ending character is matched before a shorter one, so `.` next to `...` 
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

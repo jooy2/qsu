@@ -27,7 +27,7 @@ In Python the wrapper is scheduled with a background thread, exactly as `debounc
 
 ## Returns
 
-> function
+<ReturnType type="function" />
 
 ## Examples
 

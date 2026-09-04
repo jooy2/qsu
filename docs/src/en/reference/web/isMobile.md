@@ -10,7 +10,7 @@ Checks if the current user is accessing from a mobile device via the User Agent 
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

@@ -13,13 +13,13 @@
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'value', type: 'number', required: true, desc: '반올림할 숫자입니다.' },
+	{ name: 'value', type: { js: 'number', dart: 'num' }, required: true, desc: '반올림할 숫자입니다.' },
 	{ name: 'precision', type: 'number', default: '0', desc: '반올림할 소수점 자릿수입니다. 정수여야 하며, 음수를 지정하면 10의 자리, 100의 자리 단위로 반올림합니다.' }
 ]" />
 
 ## Returns
 
-> number
+<ReturnType :type="{ js: 'number', dart: 'num' }" />
 
 ## Examples
 

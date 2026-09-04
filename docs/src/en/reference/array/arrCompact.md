@@ -14,7 +14,7 @@ If the argument is not an array, an empty array is returned.
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

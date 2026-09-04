@@ -24,7 +24,7 @@ Everything else is left alone, so text and emoji pass through untouched. `&` is 
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

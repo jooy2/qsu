@@ -10,7 +10,7 @@
 
 ## Returns
 
-> Promise<string>
+<ReturnType type="Promise<string>" />
 
 ## Examples
 

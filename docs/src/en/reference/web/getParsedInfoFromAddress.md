@@ -19,7 +19,7 @@ The rules are intentionally generic:
 
 ## Returns
 
-> object
+<ReturnType :type="{ js: 'object', dart: 'ParsedAddress' }" />
 
 ## Examples
 

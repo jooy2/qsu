@@ -11,7 +11,7 @@ Initialize an array with a default value of a specific length.
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

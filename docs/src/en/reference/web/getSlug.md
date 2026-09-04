@@ -29,7 +29,7 @@ The behavior is intentionally simple and predictable:
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

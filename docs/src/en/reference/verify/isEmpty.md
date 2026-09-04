@@ -10,7 +10,7 @@ Returns true if the passed data is empty or has a length of 0.
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

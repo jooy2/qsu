@@ -11,7 +11,7 @@ Create an array list of all dates from `startDate` to `endDate` in the format `Y
 
 ## Returns
 
-> string[]
+<ReturnType type="string[]" />
 
 ## Examples
 

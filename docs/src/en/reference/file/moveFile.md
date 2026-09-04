@@ -17,7 +17,7 @@ A path that is empty or nothing but whitespace does nothing.
 
 ## Returns
 
-> Promise<void>
+<ReturnType type="Promise<void>" />
 
 ## Examples
 

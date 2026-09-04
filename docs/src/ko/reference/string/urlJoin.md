@@ -7,12 +7,12 @@ Dart에서는 하나의 인자만 받아들이며, 인자는 List로 구성됩�
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'args', type: '...any[]', required: true, desc: '연결할 URL 조각들(가변 인자). Dart에서는 `List<dynamic>` 하나로 전달합니다.' }
+	{ name: 'args', type: { js: '...any[]', dart: 'List<String?>' }, required: true, desc: '연결할 URL 조각들(가변 인자). Dart에서는 `List<dynamic>` 하나로 전달합니다.' }
 ]" />
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

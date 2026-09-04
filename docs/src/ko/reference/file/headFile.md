@@ -17,7 +17,7 @@
 
 ## Returns
 
-> Promise<string | null>
+<ReturnType type="Promise<string | null>" />
 
 ## Examples
 

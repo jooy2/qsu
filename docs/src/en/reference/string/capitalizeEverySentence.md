@@ -11,7 +11,7 @@ Capitalize the first letter of every sentence. Typically, the `.` characters to 
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

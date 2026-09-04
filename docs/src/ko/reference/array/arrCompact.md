@@ -14,7 +14,7 @@ Dart와 Python에는 JavaScript와 같은 truthiness 개념이 없기 때문에,
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

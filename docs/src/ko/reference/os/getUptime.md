@@ -17,7 +17,7 @@
 
 ## Returns
 
-> number | string
+<ReturnType :type="{ js: 'number | string', python: 'int | float | str' }" />
 
 ## Examples
 

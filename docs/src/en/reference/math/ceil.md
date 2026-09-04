@@ -13,13 +13,13 @@ This is the "always up" companion of [round](./round); [floor](./floor) is the "
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'value', type: 'number', required: true, desc: 'The number to round up.' },
+	{ name: 'value', type: { js: 'number', dart: 'num' }, required: true, desc: 'The number to round up.' },
 	{ name: 'precision', type: 'number', default: '0', desc: 'Number of decimal places to round to. Must be a whole number; a negative value rounds to tens, hundreds and so on.' }
 ]" />
 
 ## Returns
 
-> number
+<ReturnType :type="{ js: 'number', dart: 'num' }" />
 
 ## Examples
 

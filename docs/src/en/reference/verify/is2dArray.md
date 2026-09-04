@@ -10,7 +10,7 @@ Returns `true` if the given array is a two-dimensional array.
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

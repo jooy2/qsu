@@ -11,7 +11,7 @@ Merges objects from the given object to the top level of the child items and dis
 
 ## Returns
 
-> object
+<ReturnType type="object" />
 
 ## Examples
 

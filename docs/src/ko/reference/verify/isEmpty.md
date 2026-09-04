@@ -10,7 +10,7 @@
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

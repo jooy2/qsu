@@ -10,7 +10,7 @@ Recursively output all the steps of the JSON object (`JSON.stringify`) and then 
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

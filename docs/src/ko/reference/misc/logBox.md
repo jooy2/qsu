@@ -14,7 +14,7 @@
 
 ## Returns
 
-> void
+<ReturnType type="void" />
 
 ## Examples
 

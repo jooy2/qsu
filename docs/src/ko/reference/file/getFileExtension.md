@@ -12,7 +12,7 @@
 
 ## Returns
 
-> string | null
+<ReturnType type="string | null" />
 
 ## Examples
 

@@ -21,7 +21,7 @@ Windows 경로에서는 점(`.`)이나 공백으로 끝나는 이름을 거부�
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

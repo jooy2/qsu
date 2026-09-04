@@ -27,7 +27,7 @@ Python에서는 `debounce`와 마찬가지로 백그라운드 스레드를 사�
 
 ## Returns
 
-> function
+<ReturnType type="function" />
 
 ## Examples
 

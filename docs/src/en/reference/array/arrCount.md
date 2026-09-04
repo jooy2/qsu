@@ -5,13 +5,13 @@ Returns the number of duplicates for each unique value in the given array. The a
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'array', type: 'string[] | number[]', required: true },
+	{ name: 'array', type: { js: 'string[] | number[]', dart: 'List<dynamic>' }, required: true },
 	{ name: 'count', type: 'number', required: true }
 ]" />
 
 ## Returns
 
-> object
+<ReturnType :type="{ js: 'object', dart: 'Map<String, int>' }" />
 
 ## Examples
 

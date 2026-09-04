@@ -2,77 +2,76 @@
 import { computed } from 'vue';
 import { useData } from 'vitepress';
 import LangLogo from './LangLogo.vue';
+import { defaultVariants, typeVariants } from '../data/types';
+import { displayLanguages } from '../data/languages';
+import { usePageLanguages } from '../data/pageLanguages';
+import { localeOf, t } from '../data/i18n';
 
+// The parameter table, written in the type names of the language being read.
+//
+// Every language's spelling of a type is in the document at once and CSS
+// displays one, so the table keeps its shape when the reader switches. A row
+// names a type once, in the JavaScript package's terms, and `data/types.ts`
+// translates it; a row whose packages genuinely differ writes them out:
+//
+//   { name: 'milliseconds', type: { js: 'number', dart: 'num', python: 'float' } }
+//
+// `named` marks the parameters that stop being an options object outside
+// JavaScript. What that means is different in Dart and in Python, so the chip
+// and the footnote are language scoped too, and JavaScript sees neither: there
+// the table below already says what the options object holds.
 const props = defineProps({
-	// Rows to render. Each item:
-	//   { name, type, required?, named?, default?, desc? }
-	// `named` marks the parameter from which arguments become named parameters
-	// (Dart) / keyword arguments (Python).
 	rows: {
 		type: Array,
 		required: true
 	},
-	// Optional type name shown as the table caption (used for expanded object types).
+	// Shown as the caption, for a table that expands an object type.
 	name: {
 		type: String,
 		default: ''
 	}
 });
 
-// UI strings per documentation locale. To localize this table for a new
-// language, add a locale key here (keyed by the locale prefix used in
-// `.vitepress/config.mts` `supportedLocale`). Anything missing falls back to `en`.
-// `note` is the named-parameter footnote, split into fragments around two
-// <strong> emphases: [leadIn, strongA, middle, strongB, tailOut].
-const LABELS = {
-	en: {
-		name: 'Name',
-		type: 'Type',
-		required: 'Required',
-		optional: 'Optional',
-		default: 'Default',
-		namedTitle: 'Named parameter in Dart, keyword argument in Python',
-		note: [
-			' parameters are passed as ',
-			'named parameters',
-			' in Dart and ',
-			'keyword arguments',
-			' in Python.'
-		]
-	},
-	ko: {
-		name: '이름',
-		type: '타입',
-		required: '필수',
-		optional: '선택',
-		default: '기본값',
-		namedTitle: 'Dart에서는 named 파라미터, Python에서는 키워드 인자입니다',
-		note: [
-			' 표시가 있는 파라미터는 Dart에서는 ',
-			'named 파라미터',
-			', Python에서는 ',
-			'키워드 인자',
-			'로 전달됩니다.'
-		]
-	}
-};
-
 const { lang } = useData();
-const locale = computed(
-	() => Object.keys(LABELS).find((key) => lang.value.startsWith(key)) ?? 'en'
+const locale = computed(() => localeOf(lang.value));
+const implemented = usePageLanguages();
+
+const typesOf = (type) => typeVariants(type, implemented.value);
+const defaultsOf = (value) => defaultVariants(value, implemented.value);
+const scope = (language) => displayLanguages(implemented.value, [language]).join(' ');
+
+const named = computed(() =>
+	[
+		{
+			id: 'dart',
+			chip: t(locale.value, 'namedChipDart'),
+			note: t(locale.value, 'namedNoteDart'),
+			title: t(locale.value, 'namedTitleDart')
+		},
+		{
+			id: 'python',
+			chip: t(locale.value, 'namedChipPython'),
+			note: t(locale.value, 'namedNotePython'),
+			title: t(locale.value, 'namedTitlePython')
+		}
+	].map((item) => ({ ...item, languages: scope(item.id) }))
 );
-const t = (key) => LABELS[locale.value][key] ?? LABELS.en[key];
 
 const hasNamed = computed(() => props.rows.some((row) => row.named));
 
-// Escape HTML, then render inline `code` spans. Content is authored in-repo (trusted).
-function formatDesc(text) {
-	if (!text) return '';
-	const escaped = String(text)
+// Escape HTML, then render inline `code` and **strong**. Content is authored
+// in-repo (trusted).
+function format(text) {
+	if (!text) {
+		return '';
+	}
+
+	return String(text)
 		.replace(/&/g, '&amp;')
 		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;');
-	return escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
+		.replace(/>/g, '&gt;')
+		.replace(/`([^`]+)`/g, '<code>$1</code>')
+		.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 }
 </script>
 
@@ -83,71 +82,85 @@ function formatDesc(text) {
 		</div>
 
 		<div class="params-scroll">
-		<table>
-			<thead>
-				<tr>
-					<th class="col-name">{{ t('name') }}</th>
-					<th class="col-type">{{ t('type') }}</th>
-					<th class="col-req">{{ t('required') }}</th>
-					<th class="col-default">{{ t('default') }}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<template v-for="row in rows" :key="row.name">
-					<tr :class="{ 'has-desc': row.desc }">
-						<td class="col-name">
-							<code class="param-name">{{ row.name }}</code>
-							<span
-								v-if="row.named"
-								class="named-chip"
-								:title="t('namedTitle')"
-							>
-								<LangLogo name="dart" :width="13" />
-								<LangLogo name="python" :width="13" />
-								<span>named</span>
-							</span>
-						</td>
-						<td class="col-type">
-							<code class="param-type">{{ row.type }}</code>
-						</td>
-						<td class="col-req">
-							<span
-								v-if="row.required"
-								class="req req-yes"
-								:title="t('required')"
-								>●</span
-							>
-							<span v-else class="req req-no" :title="t('optional')">–</span>
-						</td>
-						<td class="col-default">
-							<code v-if="row.default !== undefined" class="param-default">{{
-								row.default
-							}}</code>
-							<span v-else class="default-empty">–</span>
-						</td>
+			<table>
+				<thead>
+					<tr>
+						<th class="col-name">{{ t(locale, 'paramName') }}</th>
+						<th class="col-type">{{ t(locale, 'paramType') }}</th>
+						<th class="col-req">{{ t(locale, 'paramRequired') }}</th>
+						<th class="col-default">{{ t(locale, 'paramDefault') }}</th>
 					</tr>
-					<tr v-if="row.desc" class="param-desc-row">
-						<td colspan="4">
-							<span v-html="formatDesc(row.desc)"></span>
-						</td>
-					</tr>
-				</template>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<template v-for="row in rows" :key="row.name">
+						<tr :class="{ 'has-desc': row.desc }">
+							<td class="col-name">
+								<code class="param-name">{{ row.name }}</code>
+								<template v-if="row.named">
+									<span
+										v-for="item in named"
+										:key="item.id"
+										class="named-chip lang-only"
+										:data-code-lang="item.languages"
+										:title="item.title"
+									>
+										<LangLogo :name="item.id" :width="13" />
+										<span>{{ item.chip }}</span>
+									</span>
+								</template>
+							</td>
+							<td class="col-type">
+								<code
+									v-for="variant in typesOf(row.type)"
+									:key="variant.text"
+									class="param-type lang-only"
+									:data-code-lang="variant.languages.join(' ')"
+									>{{ variant.text }}</code
+								>
+							</td>
+							<td class="col-req">
+								<span v-if="row.required" class="req req-yes" :title="t(locale, 'paramRequired')"
+									>●</span
+								>
+								<span v-else class="req req-no" :title="t(locale, 'paramOptional')">–</span>
+							</td>
+							<td class="col-default">
+								<template v-if="row.default !== undefined">
+									<code
+										v-for="variant in defaultsOf(row.default)"
+										:key="variant.text"
+										class="param-default lang-only"
+										:data-code-lang="variant.languages.join(' ')"
+										>{{ variant.text }}</code
+									>
+								</template>
+								<span v-else class="default-empty">–</span>
+							</td>
+						</tr>
+						<tr v-if="row.desc" class="param-desc-row">
+							<td colspan="4">
+								<span v-html="format(row.desc)"></span>
+							</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
 		</div>
 
-		<p v-if="hasNamed" class="params-note">
-			<span class="named-chip named-chip-inline">
-				<LangLogo name="dart" :width="13" />
-				<LangLogo name="python" :width="13" />
-				<span>named</span>
-			</span>
-			<span>{{ t('note')[0] }}</span
-			><strong>{{ t('note')[1] }}</strong
-			><span>{{ t('note')[2] }}</span
-			><strong>{{ t('note')[3] }}</strong
-			><span>{{ t('note')[4] }}</span>
-		</p>
+		<template v-if="hasNamed">
+			<p
+				v-for="item in named"
+				:key="item.id"
+				class="params-note lang-only"
+				:data-code-lang="item.languages"
+			>
+				<span class="named-chip named-chip-inline">
+					<LangLogo :name="item.id" :width="13" />
+					<span>{{ item.chip }}</span>
+				</span>
+				<span v-html="format(item.note)"></span>
+			</p>
+		</template>
 	</div>
 </template>
 

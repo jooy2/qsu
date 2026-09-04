@@ -12,7 +12,7 @@ Only the first character is touched, so the rest of the string keeps its case: `
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

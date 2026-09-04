@@ -11,7 +11,7 @@ Repeat iteratee n (times argument value) times. After the return result of each 
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

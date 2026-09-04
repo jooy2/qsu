@@ -11,7 +11,7 @@ Returns today's date.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

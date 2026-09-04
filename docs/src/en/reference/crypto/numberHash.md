@@ -12,7 +12,7 @@ Returns the specified string as a hash value of type number. The return value ca
 
 ## Returns
 
-> number
+<ReturnType type="number" />
 
 ## Examples
 

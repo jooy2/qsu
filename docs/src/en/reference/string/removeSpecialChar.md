@@ -11,7 +11,7 @@ Returns after removing all special characters, including spaces. If you want to 
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

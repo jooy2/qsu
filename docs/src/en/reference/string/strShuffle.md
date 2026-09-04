@@ -10,7 +10,7 @@ Randomly shuffles the received string and returns it.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

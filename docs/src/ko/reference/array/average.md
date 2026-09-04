@@ -5,12 +5,12 @@
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'array', type: 'number[]', required: true }
+	{ name: 'array', type: { js: 'number[]', dart: 'List<double>' }, required: true }
 ]" />
 
 ## Returns
 
-> number
+<ReturnType :type="{ js: 'number', dart: 'double', python: 'float' }" />
 
 ## Examples
 

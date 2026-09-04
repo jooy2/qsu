@@ -20,7 +20,7 @@ The string is walked by code point, so characters outside the Basic Multilingual
 
 ## Returns
 
-> string[]
+<ReturnType type="string[]" />
 
 ## Examples
 

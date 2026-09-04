@@ -13,7 +13,7 @@
 
 ## Returns
 
-> Promise<boolean>
+<ReturnType type="Promise<boolean>" />
 
 ## Examples
 

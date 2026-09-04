@@ -28,7 +28,32 @@ const STRINGS: Record<string, Record<string, string>> = {
 		ko: '{language}에서는 제공하지 않습니다. {languages}에서 제공합니다.'
 	},
 	/** Between the last two items of a list of names. */
-	listJoin: { en: ' and ', ko: ', ' }
+	listJoin: { en: ' and ', ko: ', ' },
+	/* `ParamsTable.vue`. The parameter names themselves are never translated:
+	   they are what the reader types. */
+	paramName: { en: 'Name', ko: '이름' },
+	paramType: { en: 'Type', ko: '타입' },
+	paramRequired: { en: 'Required', ko: '필수' },
+	paramOptional: { en: 'Optional', ko: '선택' },
+	paramDefault: { en: 'Default', ko: '기본값' },
+	namedChipDart: { en: 'named', ko: 'named' },
+	namedChipPython: { en: 'keyword', ko: 'keyword' },
+	namedTitleDart: {
+		en: 'Passed as a named parameter in Dart',
+		ko: 'Dart에서는 named 파라미터로 전달합니다'
+	},
+	namedTitlePython: {
+		en: 'Passed as a keyword argument in Python',
+		ko: 'Python에서는 키워드 인자로 전달합니다'
+	},
+	namedNoteDart: {
+		en: 'These parameters are passed as **named parameters**.',
+		ko: '이 파라미터는 **named 파라미터**로 전달합니다.'
+	},
+	namedNotePython: {
+		en: 'These parameters are passed as **keyword arguments**, or as a single `dict` in their place.',
+		ko: '이 파라미터는 **키워드 인자**로 전달하거나, 대신 `dict` 하나로 전달합니다.'
+	}
 };
 
 /**

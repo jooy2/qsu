@@ -12,7 +12,7 @@ Returns file or directory information as an easy-to-understand object.
 
 ## Returns
 
-> Promise<object>
+<ReturnType :type="{ js: 'Promise<object>', dart: 'Future<FileInfo>' }" />
 
 ## Examples
 

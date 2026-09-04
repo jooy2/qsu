@@ -12,7 +12,7 @@ Returns `true` if the first string argument contains the second argument "string
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

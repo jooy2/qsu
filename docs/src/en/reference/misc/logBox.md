@@ -14,7 +14,7 @@ Values wider than the terminal are wrapped, and East Asian characters and emoji 
 
 ## Returns
 
-> void
+<ReturnType type="void" />
 
 ## Examples
 

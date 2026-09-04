@@ -16,7 +16,7 @@ A symlink is unlinked, never followed, so the directory it points at is left alo
 
 ## Returns
 
-> Promise<void>
+<ReturnType type="Promise<void>" />
 
 ## Examples
 

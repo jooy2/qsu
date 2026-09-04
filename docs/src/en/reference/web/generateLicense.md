@@ -19,7 +19,7 @@ Returns text in a specific license format based on the author information of the
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

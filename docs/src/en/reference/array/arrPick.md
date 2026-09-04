@@ -10,7 +10,7 @@ Returns a random item from the given array. If the array is empty or is not an a
 
 ## Returns
 
-> any | null
+<ReturnType type="any | null" />
 
 ## Examples
 

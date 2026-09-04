@@ -13,7 +13,7 @@ Returns the object if the key of a specific piece of data in the object's datase
 
 ## Returns
 
-> object | null
+<ReturnType type="object | null" />
 
 ## Examples
 

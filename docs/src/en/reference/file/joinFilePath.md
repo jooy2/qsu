@@ -15,7 +15,7 @@ In Dart, the `paths` parameter accepts only one argument, which is a List.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

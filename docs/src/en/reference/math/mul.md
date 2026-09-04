@@ -10,7 +10,7 @@ Returns after multiplying all n arguments of numbers or the values of a single a
 
 ## Returns
 
-> number
+<ReturnType :type="{ js: 'number', dart: 'num' }" />
 
 ## Examples
 

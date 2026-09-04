@@ -9,14 +9,14 @@ Dart에는 이미 `num.clamp`가 있지만, 이 메서드는 뒤집힌 범위에
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'value', type: 'number', required: true, desc: '제한할 숫자입니다.' },
-	{ name: 'min', type: 'number', required: true, desc: '범위에 포함되는 최솟값입니다.' },
-	{ name: 'max', type: 'number', required: true, desc: '범위에 포함되는 최댓값입니다.' }
+	{ name: 'value', type: { js: 'number', dart: 'num' }, required: true, desc: '제한할 숫자입니다.' },
+	{ name: 'min', type: { js: 'number', dart: 'num' }, required: true, desc: '범위에 포함되는 최솟값입니다.' },
+	{ name: 'max', type: { js: 'number', dart: 'num' }, required: true, desc: '범위에 포함되는 최댓값입니다.' }
 ]" />
 
 ## Returns
 
-> number
+<ReturnType :type="{ js: 'number', dart: 'num' }" />
 
 ## Examples
 

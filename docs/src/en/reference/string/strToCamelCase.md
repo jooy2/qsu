@@ -16,7 +16,7 @@ This is the counterpart of [strToPascalCase](./strToPascalCase), [strToSnakeCase
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

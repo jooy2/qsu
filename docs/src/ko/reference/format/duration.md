@@ -7,7 +7,7 @@
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'milliseconds', type: 'number', required: true, desc: '변환할 시간(밀리초)입니다.' },
+	{ name: 'milliseconds', type: { js: 'number', dart: 'num', python: 'float' }, required: true, desc: '변환할 시간(밀리초)입니다.' },
 	{ name: 'options', type: 'DurationOptions', named: true, desc: '포맷 옵션입니다. 아래 표를 참고하세요.' }
 ]" />
 
@@ -23,7 +23,7 @@
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

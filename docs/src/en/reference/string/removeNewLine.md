@@ -11,7 +11,7 @@ Removes `\n`, `\r` characters or replaces them with specified characters.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

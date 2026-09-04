@@ -6,12 +6,12 @@ Attempts to parse without returning an error, even if the argument value is of t
 
 <ParamsTable :rows="[
 	{ name: 'jsonString', type: 'any', required: true },
-	{ name: 'fallback', type: 'object', named: true, default: '{}' }
+	{ name: 'fallback', type: { js: 'object', dart: 'dynamic' }, named: true, default: '{}' }
 ]" />
 
 ## Returns
 
-> object
+<ReturnType :type="{ js: 'object', dart: 'dynamic' }" />
 
 ## Examples
 

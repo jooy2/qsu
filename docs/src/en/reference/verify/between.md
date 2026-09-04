@@ -5,14 +5,14 @@ Returns `true` if the first argument is in the range of the second argument (`[m
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'range', type: '[number, number]', required: true },
-	{ name: 'number', type: 'number', required: true },
+	{ name: 'range', type: { js: '[number, number]', dart: 'List<num>', python: 'list[int]' }, required: true },
+	{ name: 'number', type: { js: 'number', dart: 'num' }, required: true },
 	{ name: 'inclusive', type: 'boolean', default: 'false', named: true }
 ]" />
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

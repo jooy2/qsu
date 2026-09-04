@@ -10,7 +10,7 @@ JSON 객체의 모든 단계를 반복적으로 출력한 다음(`JSON.stringify
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

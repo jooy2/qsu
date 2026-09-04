@@ -11,7 +11,7 @@ You can check if the URL path in the first argument value is matched against the
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

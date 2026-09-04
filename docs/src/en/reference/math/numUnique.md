@@ -14,7 +14,7 @@ No parameters required
 
 ## Returns
 
-> number
+<ReturnType type="number" />
 
 ## Examples
 

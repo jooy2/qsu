@@ -12,7 +12,7 @@ Deletes all files in the specified directory path. However, the directory is pre
 
 ## Returns
 
-> Promise<void>
+<ReturnType type="Promise<void>" />
 
 ## Examples
 

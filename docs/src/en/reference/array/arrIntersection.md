@@ -16,7 +16,7 @@ In JavaScript and Python the arrays are passed as separate arguments; in Dart th
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

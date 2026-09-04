@@ -20,7 +20,7 @@ This is the uppercase counterpart of [strToSnakeCase](./strToSnakeCase).
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

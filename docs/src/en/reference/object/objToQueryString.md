@@ -10,7 +10,7 @@ Converts the given object data to a URL query string.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

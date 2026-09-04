@@ -10,7 +10,7 @@ Returns the number of bytes in the given string.
 
 ## Returns
 
-> number
+<ReturnType type="number" />
 
 ## Examples
 

@@ -17,7 +17,7 @@ In JavaScript and Python the arrays to subtract are passed as additional argumen
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

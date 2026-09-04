@@ -11,7 +11,7 @@ Converts every word with spaces to uppercase. If the naturally argument is true,
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

@@ -16,7 +16,7 @@ This is [strToCamelCase](./strToCamelCase) with the first word capitalized as we
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

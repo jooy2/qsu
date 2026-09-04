@@ -14,7 +14,7 @@
 
 ## Returns
 
-> number
+<ReturnType type="number" />
 
 ## Examples
 

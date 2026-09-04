@@ -15,7 +15,7 @@ Dart에서 `paths` 파라미터는 하나의 인자만 받아들이며, 인자�
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

@@ -12,7 +12,7 @@ Any argument value will be attempted to be parsed as a Number type without retur
 
 ## Returns
 
-> number
+<ReturnType type="number" />
 
 ## Examples
 

@@ -10,12 +10,12 @@
 
 <ParamsTable :rows="[
 	{ name: 'obj', type: 'object', required: true, desc: '키를 변환할 객체입니다. 원본은 변경되지 않습니다.' },
-	{ name: 'iteratee', type: 'function', required: true, desc: '각 항목마다 `(value, key)` 형태로 호출됩니다. 반환값이 새 키가 됩니다.' }
+	{ name: 'iteratee', type: { js: 'function', dart: 'String Function(dynamic value, String key)' }, required: true, desc: '각 항목마다 `(value, key)` 형태로 호출됩니다. 반환값이 새 키가 됩니다.' }
 ]" />
 
 ## Returns
 
-> object | null
+<ReturnType type="object | null" />
 
 ## Examples
 

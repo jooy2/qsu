@@ -12,7 +12,7 @@ Decodes an encoded base64 string to a plain string.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

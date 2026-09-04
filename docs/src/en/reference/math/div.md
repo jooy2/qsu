@@ -10,7 +10,7 @@ Returns after dividing all n arguments of numbers or the values of a single arra
 
 ## Returns
 
-> number
+<ReturnType :type="{ js: 'number', dart: 'double' }" />
 
 ## Examples
 

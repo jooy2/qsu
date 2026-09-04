@@ -10,7 +10,7 @@ Shuffle the order of the given array and return.
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

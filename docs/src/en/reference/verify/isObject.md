@@ -10,7 +10,7 @@ Check whether the given data is of type `Object`. Returns `false` for other data
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

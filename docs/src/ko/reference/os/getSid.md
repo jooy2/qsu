@@ -16,7 +16,7 @@ SID 값은 윈도우와 맥OS에서만 지원됩니다. 다른 운영 체제에�
 
 ## Returns
 
-> Promise<string>
+<ReturnType type="Promise<string>" />
 
 ## Examples
 

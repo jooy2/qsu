@@ -16,7 +16,7 @@ This is a general-purpose case conversion. For a URL-friendly slug use [getSlug]
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

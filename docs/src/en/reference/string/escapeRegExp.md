@@ -14,7 +14,7 @@ The escaped set is `^`, `$`, `.`, `*`, `+`, `?`, `(`, `)`, `[`, `]`, `{`, `}`, `
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

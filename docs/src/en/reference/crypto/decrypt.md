@@ -19,7 +19,7 @@ Decryption also throws when the key is wrong or the ciphertext has been altered,
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

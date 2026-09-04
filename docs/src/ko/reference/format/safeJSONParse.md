@@ -6,12 +6,12 @@
 
 <ParamsTable :rows="[
 	{ name: 'jsonString', type: 'any', required: true },
-	{ name: 'fallback', type: 'object', named: true, default: '{}' }
+	{ name: 'fallback', type: { js: 'object', dart: 'dynamic' }, named: true, default: '{}' }
 ]" />
 
 ## Returns
 
-> object
+<ReturnType :type="{ js: 'object', dart: 'dynamic' }" />
 
 ## Examples
 

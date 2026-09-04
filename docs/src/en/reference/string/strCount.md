@@ -11,7 +11,7 @@ Returns the number of times the second String argument is contained in the first
 
 ## Returns
 
-> number
+<ReturnType type="number" />
 
 ## Examples
 

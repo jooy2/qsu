@@ -10,7 +10,7 @@
 
 ## Returns
 
-> any | null
+<ReturnType type="any | null" />
 
 ## Examples
 

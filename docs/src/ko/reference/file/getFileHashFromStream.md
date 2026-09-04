@@ -13,7 +13,7 @@ Node.js ReadableStream 객체의 파일을 특정 알고리즘으로 해시된 �
 
 ## Returns
 
-> Promise<string>
+<ReturnType type="Promise<string>" />
 
 ## Examples
 

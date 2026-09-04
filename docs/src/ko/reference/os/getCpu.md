@@ -10,7 +10,7 @@ No required parameters
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

@@ -10,7 +10,7 @@
 
 ## Returns
 
-> number
+<ReturnType :type="{ js: 'number', dart: 'double' }" />
 
 ## Examples
 

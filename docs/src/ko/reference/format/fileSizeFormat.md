@@ -5,14 +5,14 @@
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'bytes', type: 'number', required: true, desc: 'Converts it to a human-friendly string via the bytes provided here.' },
+	{ name: 'bytes', type: { js: 'number', python: 'float' }, required: true, desc: 'Converts it to a human-friendly string via the bytes provided here.' },
 	{ name: 'decimals', type: 'number', default: '2', named: true, desc: 'Specifies the number of decimal places to represent.' },
 	{ name: 'ceil', type: 'boolean', default: 'false', named: true, desc: '이 값이 `true`이면 소수점을 제거하고 올림합니다.' }
 ]" />
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

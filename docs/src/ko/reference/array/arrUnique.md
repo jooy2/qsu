@@ -10,7 +10,7 @@
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

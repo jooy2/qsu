@@ -18,7 +18,7 @@ There is no timeout, so a command that never returns leaves the call pending for
 
 ## Returns
 
-> Promise<string | null>
+<ReturnType type="Promise<string | null>" />
 
 ## Examples
 

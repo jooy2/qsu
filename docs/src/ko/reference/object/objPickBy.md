@@ -10,12 +10,12 @@
 
 <ParamsTable :rows="[
 	{ name: 'obj', type: 'object', required: true, desc: '필터링할 객체입니다. 원본은 변경되지 않습니다.' },
-	{ name: 'predicate', type: 'function', required: true, desc: '각 항목마다 `(value, key)` 형태로 호출됩니다. `true`를 반환하면 해당 항목이 유지됩니다.' }
+	{ name: 'predicate', type: { js: 'function', dart: 'bool Function(dynamic value, String key)' }, required: true, desc: '각 항목마다 `(value, key)` 형태로 호출됩니다. `true`를 반환하면 해당 항목이 유지됩니다.' }
 ]" />
 
 ## Returns
 
-> object | null
+<ReturnType type="object | null" />
 
 ## Examples
 

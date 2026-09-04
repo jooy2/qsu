@@ -22,7 +22,7 @@ Only these five entities are recognised, so anything else — `&apos;`, `&nbsp;`
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

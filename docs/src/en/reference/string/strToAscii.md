@@ -10,7 +10,7 @@ Converts the given string to ascii code and returns it as an array.
 
 ## Returns
 
-> number[]
+<ReturnType type="number[]" />
 
 ## Examples
 

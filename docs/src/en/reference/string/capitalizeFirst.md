@@ -10,7 +10,7 @@ Converts the first letter of the entire string to uppercase and returns.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

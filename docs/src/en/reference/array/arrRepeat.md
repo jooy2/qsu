@@ -11,7 +11,7 @@ Repeats the data of an `Array` or `Object` a specific number of times and return
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

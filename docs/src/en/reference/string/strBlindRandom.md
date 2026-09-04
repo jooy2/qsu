@@ -12,7 +12,7 @@ Replace strings at random locations with a specified number of characters (defau
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

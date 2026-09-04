@@ -11,7 +11,7 @@ Returns the date data of a Date object in the format `YYYY-MM-DD`.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

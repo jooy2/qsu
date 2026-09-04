@@ -17,7 +17,7 @@ JavaScript와 Python에서는 제외할 배열들을 추가 인자로 전달하�
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

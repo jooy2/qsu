@@ -10,7 +10,7 @@ Removes all whitespace before and after a string. Unlike JavaScript's `trim` fun
 
 ## Returns
 
-> string | null
+<ReturnType :type="{ js: 'string | null', dart: 'String' }" />
 
 ## Examples
 

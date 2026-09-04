@@ -8,7 +8,12 @@ import type { VitePressSidebarOptions } from 'vitepress-sidebar/types';
 import packageJson from '../../../packages/javascript/package.json' with { type: 'json' };
 import { withI18n } from 'vitepress-i18n';
 import type { VitePressI18nOptions } from 'vitepress-i18n/types';
-import { CODE_LANGUAGE_HEAD_SCRIPT, CODE_LANGUAGE_IDS } from './data/languages';
+import {
+	CODE_LANGUAGE_HEAD_SCRIPT,
+	CODE_LANGUAGE_IDS,
+	displayLanguages,
+	languagesOf
+} from './data/languages';
 
 const supportedLocale = ['en', 'ko'];
 const defaultLocale: string = supportedLocale[0];
@@ -181,12 +186,22 @@ const vitePressConfigs: UserConfig = {
 	 * Every language's blocks stay in the document and CSS displays one of them,
 	 * which is what makes the switch instant and keeps the search index complete.
 	 * A block several languages share is written `::: lang js python`.
+	 *
+	 * A page some of the packages do not have shows its first language to the
+	 * readers of the ones it lacks, rather than showing them nothing at all —
+	 * see `displayLanguages`. The page is `env.relativePath`, which is why this
+	 * renderer takes the whole argument list rather than the first two.
 	 */
 	markdown: {
 		config(md: MarkdownRenderer) {
 			md.use(container, 'lang', {
 				validate: (params: string) => /^lang(\s+\S+)+$/.test(params.trim()),
-				render(tokens: { nesting: number; info: string }[], index: number) {
+				render(
+					tokens: { nesting: number; info: string }[],
+					index: number,
+					_options: unknown,
+					env: { relativePath?: string }
+				) {
 					const token = tokens[index];
 
 					if (token.nesting !== 1) {
@@ -198,8 +213,10 @@ const vitePressConfigs: UserConfig = {
 						.split(/\s+/)
 						.slice(1)
 						.filter((id) => CODE_LANGUAGE_IDS.includes(id));
+					const page = `/${(env.relativePath ?? '').replace(/\.md$/, '')}`;
+					const shown = displayLanguages(languagesOf(functionLanguages, page), wanted);
 
-					return `<div class="lang-only" data-code-lang="${wanted.join(' ')}">\n`;
+					return `<div class="lang-only" data-code-lang="${shown.join(' ')}">\n`;
 				}
 			});
 		}

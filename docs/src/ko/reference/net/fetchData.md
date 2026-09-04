@@ -42,7 +42,7 @@
 
 ## Returns
 
-> Promise<string | object | null>
+<ReturnType type="Promise<string | object | null>" />
 
 ## Examples
 

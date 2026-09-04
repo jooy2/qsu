@@ -11,7 +11,7 @@ Separates the data in the given array into a two-dimensional array containing on
 
 ## Returns
 
-> any[]
+<ReturnType type="any[]" />
 
 ## Examples
 

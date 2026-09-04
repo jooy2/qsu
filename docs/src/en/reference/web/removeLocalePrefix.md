@@ -13,7 +13,7 @@ The first argument can be a URL or a pathname. When using a URL, include the pro
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 

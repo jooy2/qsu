@@ -34,7 +34,7 @@ You must specify the original value for the first argument and the object value 
 
 ## Returns
 
-> object | null
+<ReturnType type="object | null" />
 
 ## Examples
 

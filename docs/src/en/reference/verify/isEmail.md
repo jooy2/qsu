@@ -11,7 +11,7 @@ Checks if the given argument value is a valid email.
 
 ## Returns
 
-> boolean
+<ReturnType type="boolean" />
 
 ## Examples
 

@@ -12,7 +12,7 @@ Base64-encode the given string.
 
 ## Returns
 
-> string
+<ReturnType type="string" />
 
 ## Examples
 
