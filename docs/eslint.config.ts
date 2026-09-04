@@ -20,7 +20,7 @@ export default defineConfig([
 		'**/package-lock.json'
 	]),
 	{
-		files: ['**/*.{js,mjs,cjs,ts}'],
+		files: ['**/*.{js,mjs,cjs,ts,mts}'],
 		languageOptions: {
 			ecmaVersion: 'latest',
 			sourceType: 'module',

@@ -1,0 +1,157 @@
+/**
+ * The programming language switch, and what it hides.
+ *
+ * Every language's content is rendered into the page at once and this file
+ * displays one of them. Doing it in CSS rather than with `v-if` costs some page
+ * weight and buys three things:
+ *
+ * - No flash. The inline script in `<head>` writes `data-code-lang` on `<html>`
+ *   before the first paint, which a `v-if` cannot do before hydration.
+ * - No hydration mismatch. The server renders every language, and so does the
+ *   client.
+ * - A complete search index. VitePress builds it from the rendered page, so a
+ *   Dart signature is still findable while JavaScript is selected.
+ *
+ * `data-code-lang` on a block holds a space separated list, because a block two
+ * languages share and the third does not is a real case — hence `~=`.
+ */
+
+/*
+ * Written as "hide the others" rather than "hide everything, then show one",
+ * because the second shape needs a `display` value to return to and a gated
+ * element is a `<div>` in one place and a `<span>` or a `<code>` in another.
+ * There is no way to write this once for a list, so it is one rule per language.
+ */
+html[data-code-lang='js'] .lang-only[data-code-lang]:not([data-code-lang~='js']),
+html[data-code-lang='dart'] .lang-only[data-code-lang]:not([data-code-lang~='dart']),
+html[data-code-lang='python'] .lang-only[data-code-lang]:not([data-code-lang~='python']) {
+	display: none;
+}
+
+/* The wrapper is a bracket around content, not a section of its own, so it must
+   not add the margin the paragraph above it has already spent. */
+.vp-doc .lang-only > :first-child {
+	margin-top: 0;
+}
+
+.vp-doc .lang-only > :last-child {
+	margin-bottom: 0;
+}
+
+/* An outline entry for a heading the selected language cannot see. Set by
+   `Layout.vue`, the only place that can match an outline link to the block its
+   heading sits in: the outline is built from the Markdown, the blocks exist
+   only in the DOM. */
+.lang-hidden {
+	display: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * The switch itself
+ *
+ * Drawn from VitePress's own variables, because it is part of the site's chrome
+ * and sits among the site's navigation. The logos are the exception; they carry
+ * their languages' own colours.
+ * ------------------------------------------------------------------------- */
+
+/* Pinned to the top of the sidebar's scroller, since it decides what every
+   entry below it will say. `top: 0` is above the sidebar's own top padding, so
+   the switch comes to rest under the navbar. It needs an opaque background and
+   a z-index over VitePress's `.curtain`, which already masks that padding. */
+.lang-switch {
+	position: sticky;
+	z-index: 2;
+	top: 0;
+	padding: 12px 0 16px;
+	border-bottom: 1px solid var(--vp-c-divider);
+	background-color: var(--vp-sidebar-bg-color);
+}
+
+.lang-switch-title {
+	margin: 0 0 8px;
+	font-size: 11px;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--vp-c-text-3);
+}
+
+.lang-switch-track {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2px;
+	padding: 3px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 8px;
+	background-color: var(--vp-c-bg-alt);
+}
+
+.lang-switch-option {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	height: 28px;
+	padding: 0 4px;
+	border-radius: 6px;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1;
+	color: var(--vp-c-text-2);
+	cursor: pointer;
+	transition:
+		color 0.16s,
+		background-color 0.16s;
+}
+
+.lang-switch-option > span {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.lang-switch-option img {
+	flex: none;
+	opacity: 0.5;
+	transition: opacity 0.16s;
+}
+
+.lang-switch-option:hover {
+	color: var(--vp-c-text-1);
+}
+
+.lang-switch-option:hover img {
+	opacity: 1;
+}
+
+.lang-switch-option:focus-visible {
+	outline: 2px solid var(--vp-c-brand-1);
+	outline-offset: 1px;
+}
+
+/*
+ * The selected option, decided by the attribute on `<html>` rather than by the
+ * component's state — that is what lets a pre-rendered page show the reader's
+ * own choice before any JavaScript has run.
+ */
+html[data-code-lang='js'] .lang-switch-option[data-code-lang='js'],
+html[data-code-lang='dart'] .lang-switch-option[data-code-lang='dart'],
+html[data-code-lang='python'] .lang-switch-option[data-code-lang='python'] {
+	background-color: var(--vp-c-bg);
+	color: var(--vp-c-brand-1);
+	box-shadow: 0 1px 2px rgb(0 0 0 / 8%);
+}
+
+html[data-code-lang='js'] .lang-switch-option[data-code-lang='js'] img,
+html[data-code-lang='dart'] .lang-switch-option[data-code-lang='dart'] img,
+html[data-code-lang='python'] .lang-switch-option[data-code-lang='python'] img {
+	opacity: 1;
+}
+
+.lang-switch-hint {
+	margin: 8px 0 0;
+	font-size: 11px;
+	line-height: 1.5;
+	color: var(--vp-c-text-3);
+}

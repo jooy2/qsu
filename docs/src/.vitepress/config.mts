@@ -1,9 +1,11 @@
-import { defineConfig, UserConfig } from 'vitepress';
+import container from 'markdown-it-container';
+import { defineConfig, type MarkdownRenderer, UserConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
 import type { VitePressSidebarOptions } from 'vitepress-sidebar/types';
 import packageJson from '../../../packages/javascript/package.json' with { type: 'json' };
 import { withI18n } from 'vitepress-i18n';
 import type { VitePressI18nOptions } from 'vitepress-i18n/types';
+import { CODE_LANGUAGE_HEAD_SCRIPT, CODE_LANGUAGE_IDS } from './data/languages';
 
 const supportedLocale = ['en', 'ko'];
 const defaultLocale: string = supportedLocale[0];
@@ -103,13 +105,45 @@ const vitePressConfigs: UserConfig = {
 	head: [
 		['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/logo-32.png' }],
 		['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/logo-16.png' }],
-		['link', { rel: 'shortcut icon', href: '/favicon.ico' }]
+		['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
+		// Which programming language every page is read in, applied to `<html>`
+		// before the first paint. See `data/languages.ts`.
+		['script', {}, CODE_LANGUAGE_HEAD_SCRIPT]
 	],
 	sitemap: {
 		hostname: packageJson.homepage
 	},
 	rewrites: {
 		'en/:rest*': ':rest*'
+	},
+	/**
+	 * `::: lang js` … `:::` — the part of a page only one language sees.
+	 *
+	 * Every language's blocks stay in the document and CSS displays one of them,
+	 * which is what makes the switch instant and keeps the search index complete.
+	 * A block several languages share is written `::: lang js python`.
+	 */
+	markdown: {
+		config(md: MarkdownRenderer) {
+			md.use(container, 'lang', {
+				validate: (params: string) => /^lang(\s+\S+)+$/.test(params.trim()),
+				render(tokens: { nesting: number; info: string }[], index: number) {
+					const token = tokens[index];
+
+					if (token.nesting !== 1) {
+						return '</div>\n';
+					}
+
+					const wanted = token.info
+						.trim()
+						.split(/\s+/)
+						.slice(1)
+						.filter((id) => CODE_LANGUAGE_IDS.includes(id));
+
+					return `<div class="lang-only" data-code-lang="${wanted.join(' ')}">\n`;
+				}
+			});
+		}
 	},
 	themeConfig: {
 		siteTitle: false,
