@@ -20,10 +20,15 @@ const STRINGS: Record<string, Record<string, string>> = {
 	},
 	unavailableTitle: { en: 'Not available in {language}', ko: '{language}에서는 제공하지 않습니다' },
 	unavailableBody: {
-		en: 'This function is implemented in {languages}. Switch the language in the sidebar to read its documentation.',
-		ko: '이 함수는 {languages}에서 제공합니다. 사이드바에서 언어를 바꾸면 해당 문서를 볼 수 있습니다.'
+		en: 'This function is not part of the {language} package. The documentation below is for {languages}.',
+		ko: '이 함수는 {language} 패키지에 없습니다. 아래 문서는 {languages} 기준입니다.'
 	},
-	unavailableBadge: { en: 'Not in {language}', ko: '{language} 미지원' }
+	unavailableLink: {
+		en: 'Not available in {language}. Implemented in {languages}.',
+		ko: '{language}에서는 제공하지 않습니다. {languages}에서 제공합니다.'
+	},
+	/** Between the last two items of a list of names. */
+	listJoin: { en: ' and ', ko: ', ' }
 };
 
 /**
@@ -38,9 +43,18 @@ export function localeOf(lang: string | undefined): string {
 	return locale && Object.values(STRINGS).every((entry) => entry[locale]) ? locale : DEFAULT_LOCALE;
 }
 
-/** `t('en', 'unavailableBadge', { language: 'Dart' })` → `'Not in Dart'`. */
+/** `t('en', 'unavailableTitle', { language: 'Dart' })` → `'Not available in Dart'`. */
 export function t(locale: string, key: string, values: Record<string, string> = {}): string {
 	const text = STRINGS[key]?.[locale] ?? STRINGS[key]?.[DEFAULT_LOCALE] ?? '';
 
 	return text.replace(/\{(\w+)\}/g, (match, name: string) => values[name] ?? match);
+}
+
+/** `list('en', ['JavaScript', 'Python'])` → `'JavaScript and Python'`. */
+export function list(locale: string, names: string[]): string {
+	if (names.length < 2) {
+		return names.join('');
+	}
+
+	return names.slice(0, -1).join(', ') + t(locale, 'listJoin') + names[names.length - 1];
 }

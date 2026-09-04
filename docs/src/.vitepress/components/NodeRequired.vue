@@ -7,7 +7,10 @@ defineProps({
 });
 </script>
 <template>
-	<span class="node-required">
+	<!-- The `qsu/node` subpath is a JavaScript concern: the same functions are a
+	     plain import in Dart and Python. So the banner is gated the way a
+	     `::: lang js` block is. -->
+	<span class="node-required lang-only" data-code-lang="js">
 		<LangLogo name="javascript" :width="18" />
 		<span v-if="en">Requires a Node.js runtime ('qsu/node')</span>
 		<span v-else-if="ko">Node.js 런타임 필요 ('qsu/node')</span>

@@ -29,9 +29,15 @@
  * show: on the pages it does not, every language's blocks stay, and the notice
  * under the title says why.
  */
-html[data-code-lang='js'] .vp-doc:has(.lang-only[data-code-lang~='js']) .lang-only[data-code-lang]:not([data-code-lang~='js']),
-html[data-code-lang='dart'] .vp-doc:has(.lang-only[data-code-lang~='dart']) .lang-only[data-code-lang]:not([data-code-lang~='dart']),
-html[data-code-lang='python'] .vp-doc:has(.lang-only[data-code-lang~='python']) .lang-only[data-code-lang]:not([data-code-lang~='python']) {
+html[data-code-lang='js']
+	.vp-doc:has(.lang-only[data-code-lang~='js'])
+	.lang-only[data-code-lang]:not([data-code-lang~='js']),
+html[data-code-lang='dart']
+	.vp-doc:has(.lang-only[data-code-lang~='dart'])
+	.lang-only[data-code-lang]:not([data-code-lang~='dart']),
+html[data-code-lang='python']
+	.vp-doc:has(.lang-only[data-code-lang~='python'])
+	.lang-only[data-code-lang]:not([data-code-lang~='python']) {
 	display: none;
 }
 
@@ -160,5 +166,62 @@ html[data-code-lang='python'] .lang-switch-option[data-code-lang='python'] img {
 	margin: 8px 0 0;
 	font-size: 11px;
 	line-height: 1.5;
+	color: var(--vp-c-text-3);
+}
+
+/* ---------------------------------------------------------------------------
+ * A function the selected language does not implement
+ * ------------------------------------------------------------------------- */
+
+/*
+ * One notice per language the page is missing, gated the plain way: this is the
+ * case the `:has()` guard above is written to leave alone, so it must not be
+ * subject to it.
+ */
+html[data-code-lang='js'] .lang-notice:not([data-code-lang~='js']),
+html[data-code-lang='dart'] .lang-notice:not([data-code-lang~='dart']),
+html[data-code-lang='python'] .lang-notice:not([data-code-lang~='python']) {
+	display: none;
+}
+
+.lang-notice {
+	margin: 0 0 24px;
+	padding: 12px 16px;
+	border-radius: 8px;
+	border: 1px solid var(--vp-c-warning-1);
+	background-color: var(--vp-c-warning-soft);
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+.lang-notice strong {
+	display: block;
+	font-weight: 700;
+}
+
+.lang-notice span {
+	color: var(--vp-c-text-2);
+}
+
+/* The sidebar entry for the same function. Quiet rather than hidden: the
+   function exists, and a reader who came looking for it should find it where
+   they expect and be told why it is marked. */
+.VPSidebarItem .link.lang-unavailable .text {
+	color: var(--vp-c-text-3);
+}
+
+.VPSidebarItem .link.lang-unavailable .text::after {
+	content: attr(data-lang-badge);
+	display: inline-block;
+	margin-left: 6px;
+	padding: 1px 5px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 999px;
+	font-size: 9px;
+	font-weight: 700;
+	line-height: 1.4;
+	letter-spacing: 0.02em;
+	white-space: nowrap;
+	vertical-align: 1px;
 	color: var(--vp-c-text-3);
 }

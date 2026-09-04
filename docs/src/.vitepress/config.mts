@@ -1,4 +1,7 @@
 import container from 'markdown-it-container';
+import { readdirSync, readFileSync } from 'node:fs';
+import { dirname, join, relative, resolve, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig, type MarkdownRenderer, UserConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
 import type { VitePressSidebarOptions } from 'vitepress-sidebar/types';
@@ -9,6 +12,62 @@ import { CODE_LANGUAGE_HEAD_SCRIPT, CODE_LANGUAGE_IDS } from './data/languages';
 
 const supportedLocale = ['en', 'ko'];
 const defaultLocale: string = supportedLocale[0];
+
+/**
+ * The reference pages that only some of the languages implement, read off the
+ * `<Lang />` badge in each page's title.
+ *
+ * Not every function exists in every package, so the sidebar marks the entries
+ * the selected language cannot use and the page says so under its title. Both
+ * need the answer for a page they are not currently rendering, which is why it
+ * is collected here rather than page by page. The default locale is the source,
+ * since the badge says the same thing in every translation.
+ *
+ * Only the exceptions are listed. A reference page missing from the map is one
+ * every language implements, which is most of them and would otherwise be a few
+ * kilobytes of "all three" shipped to every reader. Keys are locale-free paths,
+ * such as `/reference/os/getCpu`.
+ */
+function collectFunctionLanguages(): Record<string, string[]> {
+	const root = join(resolve(dirname(fileURLToPath(import.meta.url)), '..'), defaultLocale);
+	const languages: Record<string, string[]> = {};
+
+	const walk = (directory: string): void => {
+		for (const entry of readdirSync(directory, { withFileTypes: true })) {
+			const path = join(directory, entry.name);
+
+			if (entry.isDirectory()) {
+				walk(path);
+				continue;
+			}
+
+			if (!entry.name.endsWith('.md')) {
+				continue;
+			}
+
+			const badge = readFileSync(path, 'utf8').match(/^#\s+.*?<Lang\s+([^/>]*)\/>/m);
+
+			if (!badge) {
+				continue;
+			}
+
+			const wanted = badge[1].trim().split(/\s+/);
+			const implemented = CODE_LANGUAGE_IDS.filter((id) => wanted.includes(id));
+
+			if (implemented.length === CODE_LANGUAGE_IDS.length) {
+				continue;
+			}
+
+			languages[`/${relative(root, path).replace(/\.md$/, '').split(sep).join('/')}`] = implemented;
+		}
+	};
+
+	walk(join(root, 'reference'));
+
+	return languages;
+}
+
+const functionLanguages = collectFunctionLanguages();
 
 const commonSidebarConfig: VitePressSidebarOptions = {
 	debugPrint: true,
@@ -146,6 +205,8 @@ const vitePressConfigs: UserConfig = {
 		}
 	},
 	themeConfig: {
+		// Read by `LangNotice.vue` and by the sidebar marks in `Layout.vue`.
+		functionLanguages,
 		siteTitle: false,
 		logo: { src: '/logo-text.webp' },
 		socialLinks: [
