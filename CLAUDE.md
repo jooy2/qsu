@@ -85,8 +85,58 @@ newer Node when running docs commands, or the build fails during Vite config res
   `pnpm run dev`, `pnpm run build`, `pnpm run format`.
 - **Custom Vue components** (`docs/src/.vitepress/components`, registered in `theme/index.ts`):
   - `Lang` / `LangLogo` — the programming‑language badges (js/dart/python) in page titles.
-  - `NodeRequired` — the "requires a Node.js runtime (`qsu/node`)" banner.
-  - `ParamsTable` — the parameter tables (see next section).
+  - `LangSelect` / `Layout` — the language switch above the sidebar menu, and the layout that
+    places it (see next section).
+  - `LangNotice` — the "not available in *language*" banner above a function a package lacks.
+  - `NodeRequired` — the "requires a Node.js runtime (`qsu/node`)" banner. JavaScript only.
+  - `ParamsTable` — the parameter tables (see below).
+  - `ReturnType` — the **Returns** section.
+
+### The language switch
+
+The sidebar carries a JavaScript / Dart / Python switch, and it decides what every page says.
+The choice is kept in `localStorage` and applied to `<html data-code-lang>` by an inline
+script before the first paint, so nothing flashes. Every language's content is in the
+document at once and CSS displays one of them, which is also what keeps the search index
+complete. The data files behind it live in `docs/src/.vitepress/data`.
+
+Language‑scoped content is written as a container, and several languages may share one:
+
+````md
+::: lang js
+
+```javascript
+duration(604800000); // Returns '7 Days'
+```
+
+:::
+````
+
+Two rules follow from this:
+
+- **The `<Lang />` badge in a page's title is data, not decoration.** `config.mts` reads it to
+  build `functionLanguages`, which the sidebar marks, the notice and the fallback below all
+  depend on. A badge that claims a language must have a `::: lang` block for it.
+- **A page a package does not implement falls back to the first one it does.** A reader on
+  Dart looking at `os/getCpu` gets the JavaScript documentation with a notice above it, rather
+  than an empty page. `displayLanguages` in `data/languages.ts` is where that happens; the
+  Markdown does not have to know.
+
+### Types across languages
+
+A page documents a signature once, in the JavaScript package's terms, and
+`docs/src/.vitepress/data/types.ts` translates it: `string` becomes `String` in Dart and `str`
+in Python, `Promise<void>` a `Future<void>` and a plain `None`. Numbers default to `int`,
+which is what qsu's numeric parameters almost always are.
+
+Where a package really is different, the row says so and the translation steps aside:
+
+```md
+{ name: 'milliseconds', type: { js: 'number', dart: 'num', python: 'float' } }
+```
+
+Only name the packages that differ; the ones left out are still translated from `js`. Read
+the type off the package's own source before writing one of these.
 
 ### The `ParamsTable` component
 
@@ -102,24 +152,34 @@ lists). It is data‑driven:
 
 Row schema `{ name, type, required?, named?, default?, desc? }`:
 
-- `type` — a data type readable across all three languages (`string`, `number`, `boolean`,
-  `object`, `any[]`, union like `'a' | 'b'`). Omit a trailing `| undefined`; reflect
-  optionality via `required`.
+- `type` — the JavaScript package's type (`string`, `number`, `boolean`, `object`, `any[]`,
+  union like `'a' | 'b'`), translated for the other two. Omit a trailing `| undefined`;
+  reflect optionality via `required`. Pass `{ js, dart, python }` instead where a package
+  genuinely differs — see "Types across languages" above.
 - `required: true` for required params; omit for optional. **Never** set both `required` and
   `default` on the same row.
 - `default` — the documented default. For string/quoted literals use a backtick template so
   the inner quotes survive the JS array literal: ``default: `'-'` ``, ``default: `''` ``.
 - `named: true` — marks the parameter where arguments become **Dart named parameters /
-  Python keyword arguments** (usually the options object). Only use it when the function's
-  `<Lang />` includes `dart`. A footnote is rendered automatically.
+  Python keyword arguments** (usually the options object). The chip and the footnote are
+  rendered per language, and JavaScript sees neither.
 - `desc` — supports inline `` `code` ``; rendered in a merged full‑width row below the param.
 - **Object‑typed params:** put the type name in `type` and expand it in a *second*
   `<ParamsTable name="TypeName" :rows="[...]" />`. The expanded fields are **not** `named`.
 
-Localization: `ParamsTable` picks UI strings from a `LABELS` dictionary keyed by locale
-prefix, falling back to `en`. To support a new documentation language, add a locale key to
-`LABELS` (and to `supportedLocale` in `config.mts`). `reference/format/duration.md` is the
-canonical example to copy from.
+Localization: every string the docs' own components draw lives in
+`docs/src/.vitepress/data/i18n.ts`, keyed by locale and falling back to `en`. To support a new
+documentation language, add its key to every entry there and to `supportedLocale` in
+`config.mts`. `reference/format/duration.md` is the canonical example to copy from.
+
+### The `ReturnType` component
+
+The **Returns** section is `<ReturnType type="string" />`, which renders `string`, `String` or
+`str` depending on the switch. It takes the same per‑language object as a row does:
+
+```md
+<ReturnType :type="{ js: 'number', dart: 'num', python: 'float' }" />
+```
 
 ## Commit conventions
 
@@ -139,10 +199,13 @@ Follow the existing history: `[scope] tag: message`.
    name, category, and behavior. Verify signatures against each other for parity.
 2. Add/update **tests in every package** and make sure existing tests pass
    (`npm run test` / `dart test` / `pytest`).
-3. Update **both `en` and `ko`** reference docs; use `<ParamsTable>` for parameters and set
-   `named`/`required`/`default` accurately against the *source signatures* (defaults and
-   optionality often live in the code, not the old prose).
-4. Keep the docs `<Lang />` title badge honest about which languages actually implement it.
+3. Update **both `en` and `ko`** reference docs; use `<ParamsTable>` for parameters and
+   `<ReturnType>` for the return type, and set `named`/`required`/`default`/`type` accurately
+   against the *source signatures* (defaults, optionality and per‑language types live in the
+   code, not in the old prose).
+4. Give each package's example its own `::: lang` block, and keep the docs `<Lang />` title
+   badge honest about which languages actually implement it — the badge and the blocks must
+   agree, since the sidebar marks and the notice are built from the badge.
    Add the same entry to `docs/src/public/llms.txt` (served at `/llms.txt`): one line under the
    function's category section, with the supported languages and a one-line summary matching the
    English doc's opening paragraph.
