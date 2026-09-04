@@ -10,7 +10,11 @@
 - `trailing: false` — leading 호출만 실행되고, 구간 중에 발생한 호출은 버려집니다.
 - 둘 다 `false`이면 함수는 실행되지 않습니다.
 
-Python에서는 `debounce`와 마찬가지로 백그라운드 스레드를 사용해 예약하므로, trailing 호출은 해당 스레드에서 실행됩니다.
+::: lang python
+
+`debounce`와 마찬가지로 백그라운드 스레드를 사용해 예약하므로, trailing 호출은 해당 스레드에서 실행됩니다.
+
+:::
 
 ## Parameters
 

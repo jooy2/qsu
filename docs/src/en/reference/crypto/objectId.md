@@ -17,7 +17,7 @@ No parameters required
 ::: lang js
 
 ```javascript
-objectId(); // Returns '651372605b49507aea707488'
+objectId(); // e.g. '651372605b49507aea707488'
 ```
 
 :::
@@ -25,7 +25,7 @@ objectId(); // Returns '651372605b49507aea707488'
 ::: lang dart
 
 ```dart
-objectId(); // Returns '651372605b49507aea707488'
+objectId(); // e.g. '651372605b49507aea707488'
 ```
 
 :::
@@ -33,7 +33,7 @@ objectId(); // Returns '651372605b49507aea707488'
 ::: lang python
 
 ```python
-objectId()  # Returns '651372605b49507aea707488'
+objectId()  # e.g. '651372605b49507aea707488'
 ```
 
 :::

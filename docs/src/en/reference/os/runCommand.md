@@ -8,7 +8,13 @@ It returns the result that is output after entering and executing the command pr
 The command runs through the system shell, so anything the shell understands is executed. Building a command by concatenating user input allows arbitrary commands to run: `runCommand('ls ' + userInput)` with an input of `.; rm -rf ~` runs both. Only call this with commands your own code decides.
 :::
 
-There is no timeout, so a command that never returns leaves the call pending forever. In JavaScript the output is also limited by the default `maxBuffer` (1 MB) and the call fails once it is exceeded.
+There is no timeout, so a command that never returns leaves the call pending forever.
+
+::: lang js
+
+The output is also limited by the default `maxBuffer` (1 MB), and the call fails once it is exceeded.
+
+:::
 
 ## Parameters
 

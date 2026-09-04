@@ -13,7 +13,7 @@ A key that only one source carries is copied over as it is, so a nested object u
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'objects', type: { js: '...object[]', dart: 'List<Map<String, dynamic>?>' }, required: true, desc: 'The objects to merge, in order. Later objects win. In Dart they are passed as a single list.' }
+	{ name: 'objects', type: { js: '...object[]', dart: 'List<Map<String, dynamic>?>' }, required: true, desc: { js: 'The objects to merge, in order. Later objects win. They are passed as separate arguments.', dart: 'The objects to merge, in order. Later objects win. They are passed as a single list.' } }
 ]" />
 
 ## Returns

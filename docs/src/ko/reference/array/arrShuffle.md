@@ -17,7 +17,7 @@
 ::: lang js
 
 ```javascript
-arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
+arrShuffle([1, 2, 3, 4]); // e.g. [4, 2, 3, 1]
 ```
 
 :::
@@ -25,7 +25,7 @@ arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
 ::: lang dart
 
 ```dart
-arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
+arrShuffle([1, 2, 3, 4]); // e.g. [4, 2, 3, 1]
 ```
 
 :::
@@ -33,7 +33,7 @@ arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
 ::: lang python
 
 ```python
-arrShuffle([1, 2, 3, 4])  # Returns [4, 2, 3, 1]
+arrShuffle([1, 2, 3, 4])  # e.g. [4, 2, 3, 1]
 ```
 
 :::

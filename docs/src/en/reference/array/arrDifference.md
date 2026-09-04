@@ -6,7 +6,17 @@ The original order is preserved and duplicates of a kept value are not removed, 
 
 Values are compared **by value**, not by reference, so nested arrays and objects are matched as well: `arrDifference([[1], [2]], [[1]])` returns `[[2]]`. Types are not coerced — `1` and `'1'` are different values.
 
-In JavaScript and Python the arrays to subtract are passed as additional arguments; in Dart they are passed as a single list of lists.
+::: lang js python
+
+The arrays to subtract are passed as additional arguments.
+
+:::
+
+::: lang dart
+
+The arrays to subtract are passed as a single list of lists.
+
+:::
 
 ## Parameters
 

@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { useData } from 'vitepress';
 import LangLogo from './LangLogo.vue';
 import { defaultVariants, typeVariants } from '../data/types';
-import { displayLanguages } from '../data/languages';
+import { displayLanguages, valueIn, variantsOf } from '../data/languages';
 import { usePageLanguages } from '../data/pageLanguages';
 import { localeOf, t } from '../data/i18n';
 
@@ -15,6 +15,9 @@ import { localeOf, t } from '../data/i18n';
 // translates it; a row whose packages genuinely differ writes them out:
 //
 //   { name: 'milliseconds', type: { js: 'number', dart: 'num', python: 'float' } }
+//
+// A `desc` may be written per language as well, for the handful of parameters
+// whose packages need different sentences rather than a different type name.
 //
 // `named` marks the parameters that stop being an options object outside
 // JavaScript. What that means is different in Dart and in Python, so the chip
@@ -38,6 +41,9 @@ const implemented = usePageLanguages();
 
 const typesOf = (type) => typeVariants(type, implemented.value);
 const defaultsOf = (value) => defaultVariants(value, implemented.value);
+// A description is prose, so nothing is translated: a row either says one thing
+// or names the languages it says something else to.
+const descsOf = (desc) => variantsOf(implemented.value, (language) => valueIn(desc, language));
 const scope = (language) => displayLanguages(implemented.value, [language]).join(' ');
 
 const named = computed(() =>
@@ -139,7 +145,13 @@ function format(text) {
 						</tr>
 						<tr v-if="row.desc" class="param-desc-row">
 							<td colspan="4">
-								<span v-html="format(row.desc)"></span>
+								<span
+									v-for="variant in descsOf(row.desc)"
+									:key="variant.text"
+									class="lang-only"
+									:data-code-lang="variant.languages.join(' ')"
+									v-html="format(variant.text)"
+								></span>
 							</td>
 						</tr>
 					</template>

@@ -6,7 +6,17 @@
 
 `delay`는 두 시도 사이의 대기 시간(밀리초)이며, `backoff`는 실패할 때마다 그 값에 곱해집니다. `delay: 100, backoff: 2`라면 100ms, 200ms, 400ms 순으로 대기합니다. 대기는 시도와 시도 사이에만 발생하므로, 마지막 실패는 불필요한 대기 없이 즉시 보고됩니다.
 
-JavaScript와 Dart에서는 함수가 동기든 비동기든 상관없으며 `retry` 자체가 비동기입니다. Python에서는 `sleep`과 마찬가지로 동기 방식이며 `time.sleep`으로 대기합니다.
+::: lang js dart
+
+함수는 동기든 비동기든 상관없으며, `retry` 자체는 비동기입니다.
+
+:::
+
+::: lang python
+
+`retry`는 동기 방식이며, `sleep`과 마찬가지로 `time.sleep`으로 대기합니다.
+
+:::
 
 ## Parameters
 

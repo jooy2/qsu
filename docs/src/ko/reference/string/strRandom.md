@@ -20,7 +20,7 @@
 ::: lang js
 
 ```javascript
-strRandom(5); // Returns 'CHy2M'
+strRandom(5); // e.g. 'CHy2M'
 ```
 
 :::
@@ -28,7 +28,7 @@ strRandom(5); // Returns 'CHy2M'
 ::: lang dart
 
 ```dart
-strRandom(5); // Returns 'CHy2M'
+strRandom(5); // e.g. 'CHy2M'
 ```
 
 :::
@@ -36,7 +36,7 @@ strRandom(5); // Returns 'CHy2M'
 ::: lang python
 
 ```python
-strRandom(5)  # Returns 'CHy2M'
+strRandom(5)  # e.g. 'CHy2M'
 ```
 
 :::

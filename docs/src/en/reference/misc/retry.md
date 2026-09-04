@@ -6,7 +6,17 @@ Runs the given function and, if it fails, runs it again until it succeeds or the
 
 `delay` is the wait between two attempts, in milliseconds, and `backoff` multiplies it after each failure — `delay: 100, backoff: 2` waits 100ms, then 200ms, then 400ms. The wait sits strictly between attempts, so the last failure is reported without waiting one more time for nothing.
 
-In JavaScript and Dart the function may be synchronous or asynchronous, and `retry` itself is asynchronous. In Python it is synchronous and waits with `time.sleep`, exactly as `sleep` does.
+::: lang js dart
+
+The function may be synchronous or asynchronous, and `retry` itself is asynchronous.
+
+:::
+
+::: lang python
+
+`retry` is synchronous and waits with `time.sleep`, exactly as `sleep` does.
+
+:::
 
 ## Parameters
 

@@ -15,7 +15,7 @@
  * ```
  */
 
-import { CODE_LANGUAGE_IDS, DEFAULT_CODE_LANGUAGE, displayLanguages } from './languages';
+import { DEFAULT_CODE_LANGUAGE, variantsOf } from './languages';
 
 /** A documented type: one spelling for every language, or one to translate. */
 export type DocumentedType = string | Record<string, string>;
@@ -168,33 +168,12 @@ export function typeIn(type: DocumentedType, language: string): string {
 	return translate(type, language);
 }
 
-/**
- * One entry per distinct spelling, with the languages each is displayed to.
- *
- * Languages that write a type the same way share an entry, so a cell holds one
- * element rather than three when there is only one answer.
- */
+/** The type each language reads, grouped so identical spellings share a cell. */
 export function typeVariants(
 	type: DocumentedType,
 	implemented: string[] | null
 ): { text: string; languages: string[] }[] {
-	const variants: { text: string; languages: string[] }[] = [];
-
-	for (const language of implemented ?? CODE_LANGUAGE_IDS) {
-		const text = typeIn(type, language);
-		const existing = variants.find((variant) => variant.text === text);
-
-		if (existing) {
-			existing.languages.push(language);
-		} else {
-			variants.push({ text, languages: [language] });
-		}
-	}
-
-	return variants.map((variant) => ({
-		text: variant.text,
-		languages: displayLanguages(implemented, variant.languages)
-	}));
+	return variantsOf(implemented, (language) => typeIn(type, language));
 }
 
 /**
@@ -212,25 +191,6 @@ const LITERALS: Record<string, Record<string, string>> = {
 export function defaultVariants(
 	value: string,
 	implemented: string[] | null
-): {
-	text: string;
-	languages: string[];
-}[] {
-	const variants: { text: string; languages: string[] }[] = [];
-
-	for (const language of implemented ?? CODE_LANGUAGE_IDS) {
-		const text = LITERALS[value]?.[language] ?? value;
-		const existing = variants.find((variant) => variant.text === text);
-
-		if (existing) {
-			existing.languages.push(language);
-		} else {
-			variants.push({ text, languages: [language] });
-		}
-	}
-
-	return variants.map((variant) => ({
-		text: variant.text,
-		languages: displayLanguages(implemented, variant.languages)
-	}));
+): { text: string; languages: string[] }[] {
+	return variantsOf(implemented, (language) => LITERALS[value]?.[language] ?? value);
 }

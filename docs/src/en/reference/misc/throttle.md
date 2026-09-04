@@ -10,7 +10,11 @@ By default a call fires immediately (the leading edge) and one more call fires a
 - `trailing: false` — only the leading call fires; calls made during the window are dropped.
 - With both `false` the function never runs.
 
-In Python the wrapper is scheduled with a background thread, exactly as `debounce` is, so the trailing call runs on that thread.
+::: lang python
+
+The wrapper is scheduled with a background thread, exactly as `debounce` is, so the trailing call runs on that thread.
+
+:::
 
 ## Parameters
 

@@ -19,7 +19,7 @@
 ::: lang js
 
 ```javascript
-strBlindRandom('hello', 2, '#'); // Returns '#el#o'
+strBlindRandom('hello', 2, '#'); // e.g. '#el#o'
 ```
 
 :::

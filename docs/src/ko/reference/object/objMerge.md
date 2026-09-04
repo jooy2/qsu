@@ -13,7 +13,7 @@
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'objects', type: { js: '...object[]', dart: 'List<Map<String, dynamic>?>' }, required: true, desc: '병합할 객체들입니다. 나중에 오는 객체가 우선합니다. Dart에서는 하나의 배열로 전달합니다.' }
+	{ name: 'objects', type: { js: '...object[]', dart: 'List<Map<String, dynamic>?>' }, required: true, desc: { js: '병합할 객체들입니다. 나중에 오는 객체가 우선하며, 각각의 인자로 전달합니다.', dart: '병합할 객체들입니다. 나중에 오는 객체가 우선하며, 배열 하나로 전달합니다.' } }
 ]" />
 
 ## Returns

@@ -100,7 +100,8 @@ script before the first paint, so nothing flashes. Every language's content is i
 document at once and CSS displays one of them, so switching costs one attribute write and no
 re-render. The data files behind it live in `docs/src/.vitepress/data`.
 
-Language‑scoped content is written as a container, and several languages may share one:
+A sentence only some of the packages need is a `::: lang` block rather than an aside inside a
+shared paragraph, and several languages may share one:
 
 ````md
 ::: lang js
@@ -165,7 +166,10 @@ Row schema `{ name, type, required?, named?, default?, desc? }`:
 - `named: true` — marks the parameter where arguments become **Dart named parameters /
   Python keyword arguments** (usually the options object). The chip and the footnote are
   rendered per language, and JavaScript sees neither.
-- `desc` — supports inline `` `code` ``; rendered in a merged full‑width row below the param.
+- `desc` — supports inline `` `code` `` and `**bold**`; rendered in a merged full‑width row below
+  the param. It takes the same `{ js, dart, python }` object as `type` where the packages need
+  different sentences, but nothing is translated: whatever a language is not given falls back to
+  the `js` entry.
 - **Object‑typed params:** put the type name in `type` and expand it in a *second*
   `<ParamsTable name="TypeName" :rows="[...]" />`. The expanded fields are **not** `named`.
 

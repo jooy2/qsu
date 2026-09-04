@@ -90,3 +90,44 @@ export function displayLanguages(implemented: string[] | null, wanted: string[])
 
 	return [...shown, ...CODE_LANGUAGE_IDS.filter((id) => !implemented.includes(id))];
 }
+
+/** A value the reference writes once, or once per language. */
+export type PerLanguage = string | Record<string, string>;
+
+/** What `language` reads, for a value written once or once per language. */
+export function valueIn(value: PerLanguage, language: string): string {
+	if (typeof value === 'string') {
+		return value;
+	}
+
+	return value[language] ?? value[DEFAULT_CODE_LANGUAGE] ?? '';
+}
+
+/**
+ * One entry per distinct text, with the languages each is displayed to.
+ *
+ * Languages that read the same thing share an entry, so a table cell holds one
+ * element rather than three when there is only one answer.
+ */
+export function variantsOf(
+	implemented: string[] | null,
+	textOf: (language: string) => string
+): { text: string; languages: string[] }[] {
+	const variants: { text: string; languages: string[] }[] = [];
+
+	for (const language of implemented ?? CODE_LANGUAGE_IDS) {
+		const text = textOf(language);
+		const existing = variants.find((variant) => variant.text === text);
+
+		if (existing) {
+			existing.languages.push(language);
+		} else {
+			variants.push({ text, languages: [language] });
+		}
+	}
+
+	return variants.map((variant) => ({
+		text: variant.text,
+		languages: displayLanguages(implemented, variant.languages)
+	}));
+}

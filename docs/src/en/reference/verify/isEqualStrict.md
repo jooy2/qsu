@@ -11,7 +11,11 @@ It compares the first argument value as the left operand and the argument values
 	{ name: 'rightOperand', type: 'any | any[] | ...any', required: true }
 ]" />
 
-In Dart, rest parameters are not supported in `rightOperand`.
+::: lang dart
+
+`rightOperand` is not a rest parameter. Pass one or two values, or a single list.
+
+:::
 
 ## Returns
 

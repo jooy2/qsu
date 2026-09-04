@@ -6,7 +6,17 @@ The result is unique and keeps the order of the first array, so `arrIntersection
 
 Values are compared **by value**, not by reference, so nested arrays and objects are matched as well: `arrIntersection([[1], [2]], [[2], [3]])` returns `[[2]]`. Types are not coerced — `1` and `'1'` are different values.
 
-In JavaScript and Python the arrays are passed as separate arguments; in Dart they are passed as a single list of lists.
+::: lang js python
+
+The arrays are passed as separate arguments.
+
+:::
+
+::: lang dart
+
+The arrays are passed as a single list of lists.
+
+:::
 
 ## Parameters
 

@@ -2,7 +2,19 @@
 
 Returns the smallest of the given numbers. Like [sum](./sum), it accepts either n arguments or a single array of numbers.
 
-Values that are not numbers are skipped, as they are in `sum`, and so is `NaN`, which would otherwise win by losing every comparison it takes part in. When nothing is left to compare — an empty array, or no arguments at all — `null` is returned (`None` in Python).
+Values that are not numbers are skipped, as they are in `sum`, and so is `NaN`, which would otherwise win by losing every comparison it takes part in.
+
+::: lang js dart
+
+When nothing is left to compare — an empty array, or no arguments at all — `null` is returned.
+
+:::
+
+::: lang python
+
+When nothing is left to compare — an empty list, or no arguments at all — `None` is returned.
+
+:::
 
 ## Parameters
 

@@ -13,7 +13,11 @@ Passing an array as the second argument is treated as "the right operands were g
 	{ name: 'rightOperand', type: 'any | any[] | ...any', required: true }
 ]" />
 
-In Dart, rest parameters are not supported in `rightOperand`.
+::: lang dart
+
+`rightOperand` is not a rest parameter. Pass one or two values, or a single list.
+
+:::
 
 ## Returns
 

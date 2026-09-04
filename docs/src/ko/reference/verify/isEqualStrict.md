@@ -11,7 +11,11 @@
 	{ name: 'rightOperand', type: 'any | any[] | ...any', required: true }
 ]" />
 
-In Dart, rest parameters are not supported in `rightOperand`.
+::: lang dart
+
+`rightOperand`는 가변 인자가 아닙니다. 값을 하나나 둘까지 전달하거나, 리스트 하나로 전달하세요.
+
+:::
 
 ## Returns
 

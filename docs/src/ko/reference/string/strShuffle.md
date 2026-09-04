@@ -17,7 +17,7 @@
 ::: lang js
 
 ```javascript
-strShuffle('abcdefg'); // Returns 'bgafced'
+strShuffle('abcdefg'); // e.g. 'bgafced'
 ```
 
 :::
@@ -25,7 +25,7 @@ strShuffle('abcdefg'); // Returns 'bgafced'
 ::: lang dart
 
 ```dart
-strShuffle('abcdefg'); // Returns 'bgafced'
+strShuffle('abcdefg'); // e.g. 'bgafced'
 ```
 
 :::
@@ -33,7 +33,7 @@ strShuffle('abcdefg'); // Returns 'bgafced'
 ::: lang python
 
 ```python
-strShuffle('abcdefg')  # Returns 'bgafced'
+strShuffle('abcdefg')  # e.g. 'bgafced'
 ```
 
 :::

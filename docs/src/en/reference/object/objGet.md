@@ -17,7 +17,7 @@ Arrays are walked with their numeric index. The fallback is returned as soon as 
 ]" />
 
 <ParamsTable name="ObjGetOptions" :rows="[
-	{ name: 'fallback', type: 'any', default: 'null', desc: 'Returned when the path is not there. `None` in Python.' }
+	{ name: 'fallback', type: 'any', default: 'null', desc: 'Returned when the path is not there.' }
 ]" />
 
 ## Returns

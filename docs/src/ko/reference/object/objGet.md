@@ -17,7 +17,7 @@
 ]" />
 
 <ParamsTable name="ObjGetOptions" :rows="[
-	{ name: 'fallback', type: 'any', default: 'null', desc: '경로가 존재하지 않을 때 반환할 값입니다. Python에서는 `None`입니다.' }
+	{ name: 'fallback', type: 'any', default: 'null', desc: '경로가 존재하지 않을 때 반환할 값입니다.' }
 ]" />
 
 ## Returns
