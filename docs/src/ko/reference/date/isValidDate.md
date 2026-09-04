@@ -18,19 +18,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 isValidDate('2021-01-01'); // Returns true
 isValidDate('2021-02-30'); // Returns false
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 isValidDate('2021-01-01'); // Returns true
 isValidDate('2021-02-30'); // Returns false
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 isValidDate('2021-01-01')  # Returns True
 isValidDate('2021-02-30')  # Returns False
 ```

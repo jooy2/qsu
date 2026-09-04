@@ -14,13 +14,17 @@ No required parameters
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 console.log(await getHostname()); // e.g. 'My PC', 'DESKTOP-ABCDEFG'...
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 print(getHostname())  # e.g. 'My PC', 'DESKTOP-ABCDEFG'...
 ```
 

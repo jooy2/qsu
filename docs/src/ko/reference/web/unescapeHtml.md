@@ -26,9 +26,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 unescapeHtml('fred, barney, &amp; pebbles'); // Returns 'fred, barney, & pebbles'
 unescapeHtml('&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'); // Returns '<script>alert("x")</script>'
 unescapeHtml('it&#39;s'); // Returns "it's"
@@ -36,7 +36,11 @@ unescapeHtml('&amp;lt;'); // Returns '&lt;'
 unescapeHtml('&nbsp;'); // Returns '&nbsp;'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 unescapeHtml('fred, barney, &amp; pebbles'); // Returns 'fred, barney, & pebbles'
 unescapeHtml('&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'); // Returns '<script>alert("x")</script>'
 unescapeHtml('it&#39;s'); // Returns "it's"
@@ -44,7 +48,11 @@ unescapeHtml('&amp;lt;'); // Returns '&lt;'
 unescapeHtml('&nbsp;'); // Returns '&nbsp;'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 unescapeHtml('fred, barney, &amp; pebbles')  # Returns 'fred, barney, & pebbles'
 unescapeHtml('&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;')  # Returns '<script>alert("x")</script>'
 unescapeHtml('it&#39;s')  # Returns "it's"

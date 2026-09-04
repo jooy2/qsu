@@ -23,9 +23,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 floor(4.006); // Returns 4
 floor(-4.006); // Returns -5
 floor(0.046, 2); // Returns 0.04
@@ -33,7 +33,11 @@ floor(4060, -2); // Returns 4000
 floor(1.1, 1); // Returns 1.1
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 floor(4.006); // Returns 4
 floor(-4.006); // Returns -5
 floor(0.046, 2); // Returns 0.04
@@ -41,7 +45,11 @@ floor(4060, -2); // Returns 4000
 floor(1.1, 1); // Returns 1.1
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 floor(4.006)  # Returns 4
 floor(-4.006)  # Returns -5
 floor(0.046, 2)  # Returns 0.04

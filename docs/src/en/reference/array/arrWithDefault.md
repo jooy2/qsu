@@ -15,19 +15,27 @@ Initialize an array with a default value of a specific length.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrWithDefault('abc', 4); // Returns ['abc', 'abc', 'abc', 'abc']
 arrWithDefault(null, 3); // Returns [null, null, null]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrWithDefault('abc', 4); // Returns ['abc', 'abc', 'abc', 'abc']
 arrWithDefault(null, 3); // Returns [null, null, null]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrWithDefault('abc', 4)  # Returns ['abc', 'abc', 'abc', 'abc']
 arrWithDefault(None, 3)  # Returns [None, None, None]
 ```

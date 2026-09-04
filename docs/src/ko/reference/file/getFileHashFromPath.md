@@ -21,17 +21,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 await getFileHashFromPath('/home/user/text.txt', 'sha1'); // '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 await getFileHashFromPath('/home/user/text.txt', algorithm: 'sha1'); // '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 getFileHashFromPath('/home/user/text.txt', 'sha1') # '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```
 

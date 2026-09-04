@@ -18,23 +18,31 @@ Dart와 Python에는 JavaScript와 같은 truthiness 개념이 없기 때문에,
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrCompact([0, 1, false, 2, '', 3, null, undefined, NaN]); // Returns [1, 2, 3]
 arrCompact([false, 0, '', null]); // Returns []
 arrCompact([[], {}, ' ', '0']); // Returns [[], {}, ' ', '0']
 arrCompact([true, -1, 0.5]); // Returns [true, -1, 0.5]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrCompact([0, 1, false, 2, '', 3, null, double.nan]); // Returns [1, 2, 3]
 arrCompact([false, 0, '', null]); // Returns []
 arrCompact([[], {}, ' ', '0']); // Returns [[], {}, ' ', '0']
 arrCompact([true, -1, 0.5]); // Returns [true, -1, 0.5]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrCompact([0, 1, False, 2, '', 3, None, float('nan')])  # Returns [1, 2, 3]
 arrCompact([False, 0, '', None])  # Returns []
 arrCompact([[], {}, ' ', '0'])  # Returns [[], {}, ' ', '0']

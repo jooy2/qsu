@@ -15,9 +15,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 createDateListFromRange(new Date('2023-01-01T01:00:00Z'), new Date('2023-01-05T01:00:00Z'));
 
 /*
@@ -31,7 +31,11 @@ createDateListFromRange(new Date('2023-01-01T01:00:00Z'), new Date('2023-01-05T0
  */
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 createDateListFromRange(DateTime.utc(2023, 1, 1, 1, 0, 0), DateTime.utc(2023, 1, 5, 1, 0, 0));
 
 /*
@@ -45,7 +49,11 @@ createDateListFromRange(DateTime.utc(2023, 1, 1, 1, 0, 0), DateTime.utc(2023, 1,
  */
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 from datetime import datetime
 
 createDateListFromRange(datetime(2023, 1, 1, 1, 0, 0), datetime(2023, 1, 5, 1, 0, 0))

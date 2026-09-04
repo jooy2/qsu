@@ -14,13 +14,17 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 console.log(getRamSize()); // Returns '8 GB'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 print(getRamSize())  # Returns '8 GB'
 ```
 

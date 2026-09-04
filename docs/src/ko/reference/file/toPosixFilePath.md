@@ -16,17 +16,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 toPosixFilePath('C:\\Windows\\System32'); // 'C:/Windows/System32'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 toPosixFilePath('C:\\Windows\\System32'); // 'C:/Windows/System32'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 toPosixFilePath('C:\\Windows\\System32') # 'C:/Windows/System32'
 ```
 

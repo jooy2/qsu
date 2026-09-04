@@ -16,21 +16,29 @@ Only the first character is touched, so the rest of the string keeps its case: `
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 uncapitalizeFirst('Abcd'); // Returns 'abcd'
 uncapitalizeFirst('TestWords'); // Returns 'testWords'
 uncapitalizeFirst('TEST'); // Returns 'tEST'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 uncapitalizeFirst('Abcd'); // Returns 'abcd'
 uncapitalizeFirst('TestWords'); // Returns 'testWords'
 uncapitalizeFirst('TEST'); // Returns 'tEST'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 uncapitalizeFirst('Abcd')  # Returns 'abcd'
 uncapitalizeFirst('TestWords')  # Returns 'testWords'
 uncapitalizeFirst('TEST')  # Returns 'tEST'

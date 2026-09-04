@@ -24,16 +24,20 @@ The result is `iv:encrypted`. For AEAD algorithms (`gcm`, `ccm`, `ocb`, `poly130
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const secret = '12345678901234567890123456789012'; // 32 bytes
 
 encrypt('test', secret); // 'iv:encrypted'
 encrypt('test', secret, 'aes-256-gcm', 12); // 'iv:authTag:encrypted'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 secret = '12345678901234567890123456789012'  # 32 bytes
 
 encrypt('test', secret)  # 'iv:encrypted'

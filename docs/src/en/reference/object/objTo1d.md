@@ -15,9 +15,9 @@ Merges objects from the given object to the top level of the child items and dis
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 objTo1d({
 	a: 1,
 	b: {
@@ -38,7 +38,11 @@ Returns:
  */
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 objTo1d({
   'a': 1,
   'b': {
@@ -59,7 +63,11 @@ Returns:
  */
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 objTo1d({
 	'a': 1,
 	'b': {

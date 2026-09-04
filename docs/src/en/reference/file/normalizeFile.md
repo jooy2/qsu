@@ -17,19 +17,27 @@ Returns the file name within the path.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 normalizeFile('안녕하세요Hello.txt', 'NFC'); // '안녕하세요Hello.txt'
 normalizeFile('안녕하세요Hello.txt', 'NFD'); // '안녕하세요Hello.txt'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 normalizeFile('안녕하세요Hello.txt', normalizationForm: 'NFC'); // '안녕하세요Hello.txt'
 normalizeFile('안녕하세요Hello.txt', normalizationForm: 'NFD'); // '안녕하세요Hello.txt'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 normalizeFile('안녕하세요Hello.txt', 'NFC') # '안녕하세요Hello.txt'
 normalizeFile('안녕하세요Hello.txt', 'NFD') # '안녕하세요Hello.txt'
 ```

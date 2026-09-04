@@ -21,15 +21,19 @@ Returns the number of seconds the Node.js process has been running.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 console.log(getUptime()); // Returns 1234
 console.log(getUptime({ floor: true })); // Returns 1234.123456789
 console.log(getUptime({ format: true })); // Returns '1,234'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 print(getUptime())  # Returns 1234
 print(getUptime({ 'floor': True }))  # Returns 1234.123456789
 print(getUptime({ 'format': True }))  # Returns '1,234'

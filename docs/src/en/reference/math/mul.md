@@ -14,14 +14,18 @@ Returns after multiplying all n arguments of numbers or the values of a single a
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 mul(1, 2, 3); // Returns 6
 mul([1, 2, 3, 4]); // Returns 24
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 mul(1, 2, 3) # Returns 6
 mul([1, 2, 3, 4]) # Returns 24
 ```

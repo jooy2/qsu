@@ -15,19 +15,27 @@ Checks if the given argument value is a valid email.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 isEmail('abc@def.com'); // Returns true
 isEmail('ABC@def.com', true); // Returns false
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 isEmail('abc@def.com'); // Returns true
 isEmail('ABC@def.com', true); // Returns false
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 isEmail('abc@def.com')  # Returns True
 isEmail('ABC@def.com', True)  # Returns False
 ```

@@ -15,17 +15,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 capitalizeEachWords('abcd'); // Returns 'Abcd'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 capitalizeEachWords('abcd'); // Returns 'Abcd'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 capitalizeEachWords('abcd')  # Returns 'Abcd'
 ```
 

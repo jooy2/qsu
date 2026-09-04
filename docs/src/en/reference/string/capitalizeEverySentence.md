@@ -15,19 +15,27 @@ Capitalize the first letter of every sentence. Typically, the `.` characters to 
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 capitalizeEverySentence('hello. world. hi.'); // Returns 'Hello. World. Hi.'
 capitalizeEverySentence('hello!world', '!'); // Returns 'Hello!World'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 capitalizeEverySentence('hello. world. hi.'); // Returns 'Hello. World. Hi.'
 capitalizeEverySentence('hello!world', splitChar: '!'); // Returns 'Hello!World'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 capitalizeEverySentence('hello. world. hi.')  # Returns 'Hello. World. Hi.'
 capitalizeEverySentence('hello!world', '!')  # Returns 'Hello!World'
 ```

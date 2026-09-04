@@ -18,23 +18,31 @@ If the argument is not an array, an empty array is returned.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrCompact([0, 1, false, 2, '', 3, null, undefined, NaN]); // Returns [1, 2, 3]
 arrCompact([false, 0, '', null]); // Returns []
 arrCompact([[], {}, ' ', '0']); // Returns [[], {}, ' ', '0']
 arrCompact([true, -1, 0.5]); // Returns [true, -1, 0.5]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrCompact([0, 1, false, 2, '', 3, null, double.nan]); // Returns [1, 2, 3]
 arrCompact([false, 0, '', null]); // Returns []
 arrCompact([[], {}, ' ', '0']); // Returns [[], {}, ' ', '0']
 arrCompact([true, -1, 0.5]); // Returns [true, -1, 0.5]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrCompact([0, 1, False, 2, '', 3, None, float('nan')])  # Returns [1, 2, 3]
 arrCompact([False, 0, '', None])  # Returns []
 arrCompact([[], {}, ' ', '0'])  # Returns [[], {}, ' ', '0']

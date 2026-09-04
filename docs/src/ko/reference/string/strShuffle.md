@@ -14,17 +14,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 strShuffle('abcdefg'); // Returns 'bgafced'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 strShuffle('abcdefg'); // Returns 'bgafced'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 strShuffle('abcdefg')  # Returns 'bgafced'
 ```
 

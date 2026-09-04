@@ -24,9 +24,9 @@ A longer ending character is matched before a shorter one, so `.` next to `...` 
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 truncateExpect('hello. this is test string.', 10, '.'); // Returns 'hello. this is test string.'
 truncateExpect('hello-this-is-test-string-bye', 14, '-'); // Returns 'hello-this-is-'
 truncateExpect('これはテストです。よろしくお願いします。さようなら。', 10); // Returns 'これはテストです。よろしくお願いします。'
@@ -34,7 +34,11 @@ truncateExpect('你好。这是测试。再见。', 5); // Returns '你好。这
 truncateExpect('a. b! c? d.', 4, ['.', '!', '?']); // Returns 'a. b!'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 truncateExpect('hello. this is test string.', 10, endStringChar: '.'); // Returns 'hello. this is test string.'
 truncateExpect('hello-this-is-test-string-bye', 14, endStringChar: '-'); // Returns 'hello-this-is-'
 truncateExpect('これはテストです。よろしくお願いします。さようなら。', 10); // Returns 'これはテストです。よろしくお願いします。'
@@ -42,7 +46,11 @@ truncateExpect('你好。这是测试。再见。', 5); // Returns '你好。这
 truncateExpect('a. b! c? d.', 4, endStringChar: ['.', '!', '?']); // Returns 'a. b!'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 truncateExpect('hello. this is test string.', 10, '.')  # Returns 'hello. this is test string.'
 truncateExpect('hello-this-is-test-string-bye', 14, '-')  # Returns 'hello-this-is-'
 truncateExpect('これはテストです。よろしくお願いします。さようなら。', 10)  # Returns 'これはテストです。よろしくお願いします。'

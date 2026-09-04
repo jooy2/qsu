@@ -25,9 +25,9 @@ The length limit is **255 bytes**, which is what ext4, APFS and NTFS enforce —
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 isValidFileName('C:\\Windows\\System32*'); // false
 isValidFileName('/home/user/.bashrc', true); // true
 // Windows device names stay reserved even with an extension
@@ -41,7 +41,11 @@ isValidFileName('가'.repeat(85)); // true (255 bytes)
 isValidFileName('가'.repeat(86)); // false (258 bytes)
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 isValidFileName('C:\\Windows\\System32*'); // false
 isValidFileName('/home/user/.bashrc', unixType: true); // true
 // Windows device names stay reserved even with an extension
@@ -49,7 +53,11 @@ isValidFileName('nul.txt'); // false
 isValidFileName('nul.txt', unixType: true); // true
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 isValidFileName('C:\\Windows\\System32*') # False
 isValidFileName('/home/user/.bashrc', True) # True
 # Windows device names stay reserved even with an extension

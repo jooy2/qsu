@@ -16,17 +16,25 @@ Decodes an encoded base64 string to a plain string.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 decodeBase64('dGhpcyBpcyB0ZXN0'); // Returns 'this is test'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 decodeBase64('dGhpcyBpcyB0ZXN0')  # Returns 'this is test'
 ```
 

@@ -20,9 +20,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 strToSnakeCase('foo bar'); // Returns 'foo_bar'
 strToSnakeCase('--foo-bar--'); // Returns 'foo_bar'
 strToSnakeCase('camelCase'); // Returns 'camel_case'
@@ -30,7 +30,11 @@ strToSnakeCase('XMLHttpRequest'); // Returns 'xml_http_request'
 strToSnakeCase('abc12def'); // Returns 'abc_12_def'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 strToSnakeCase('foo bar'); // Returns 'foo_bar'
 strToSnakeCase('--foo-bar--'); // Returns 'foo_bar'
 strToSnakeCase('camelCase'); // Returns 'camel_case'
@@ -38,7 +42,11 @@ strToSnakeCase('XMLHttpRequest'); // Returns 'xml_http_request'
 strToSnakeCase('abc12def'); // Returns 'abc_12_def'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 strToSnakeCase('foo bar')  # Returns 'foo_bar'
 strToSnakeCase('--foo-bar--')  # Returns 'foo_bar'
 strToSnakeCase('camelCase')  # Returns 'camel_case'

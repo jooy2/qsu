@@ -20,9 +20,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 deburr('déjà vu'); // Returns 'deja vu'
 deburr('Łódź'); // Returns 'Lodz'
 deburr('Ærøskøbing'); // Returns 'Aeroskobing'
@@ -31,7 +31,11 @@ deburr('Þór'); // Returns 'Thor'
 deburr('한글'); // Returns '한글'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 deburr('déjà vu'); // Returns 'deja vu'
 deburr('Łódź'); // Returns 'Lodz'
 deburr('Ærøskøbing'); // Returns 'Aeroskobing'
@@ -40,7 +44,11 @@ deburr('Þór'); // Returns 'Thor'
 deburr('한글'); // Returns '한글'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 deburr('déjà vu')  # Returns 'deja vu'
 deburr('Łódź')  # Returns 'Lodz'
 deburr('Ærøskøbing')  # Returns 'Aeroskobing'

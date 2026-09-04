@@ -19,9 +19,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const obj = [
 	{
 		aa: 1,
@@ -73,7 +73,11 @@ sortByObjectKey(obj, 'aa');
 */
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 obj = [
 	{
 		'aa': 1,

@@ -17,19 +17,27 @@ Returns the file name within the path.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 getFileName('/home/user/test.txt'); // 'test'
 getFileName('/home/user/test.txt', true); // 'test.txt'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 getFileName('/home/user/test.txt'); // 'test'
 getFileName('/home/user/test.txt', withExtension: true); // 'test.txt'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 getFileName('/home/user/test.txt') # 'test'
 getFileName('/home/user/test.txt', True) # 'test.txt'
 ```

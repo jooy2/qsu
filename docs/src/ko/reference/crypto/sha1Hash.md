@@ -17,17 +17,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 sha1Hash('test'); // Returns 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 sha1Hash('test'); // Returns 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 sha1Hash('test')  # Returns 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'
 ```
 

@@ -14,17 +14,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrShuffle([1, 2, 3, 4]); // Returns [4, 2, 3, 1]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrShuffle([1, 2, 3, 4])  # Returns [4, 2, 3, 1]
 ```
 

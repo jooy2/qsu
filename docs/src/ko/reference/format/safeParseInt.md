@@ -16,9 +16,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const result1 = safeParseInt('00010');
 const result2 = safeParseInt('10.1234');
 const result3 = safeParseInt(null, -1);
@@ -28,7 +28,11 @@ console.log(result2); // Returns 10
 console.log(result3); // Returns -1
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 final result1 = safeParseInt('00010');
 final result2 = safeParseInt('10.1234');
 final result3 = safeParseInt(null, -1);
@@ -38,7 +42,11 @@ print(result2); // Returns 10
 print(result3); // Returns -1
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 result1 = safeParseInt('00010')
 result2 = safeParseInt('10.1234')
 result3 = safeParseInt(None, -1)

@@ -16,17 +16,25 @@ Base64-encode the given string.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 encodeBase64('this is test'); // Returns 'dGhpcyBpcyB0ZXN0'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 encodeBase64('this is test'); // Returns 'dGhpcyBpcyB0ZXN0'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 encodeBase64('this is test')  # Returns 'dGhpcyBpcyB0ZXN0'
 ```
 

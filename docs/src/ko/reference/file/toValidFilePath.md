@@ -19,21 +19,29 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 toValidFilePath('C:\\Windows\\System32\\', true); // 'C:\Windows\System32'
 toValidFilePath('home/user/.bashrc'); // '/home/user/.bashrc'
 toValidFilePath('/home/user/../test'); // '/home/test'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 toValidFilePath('C:\\Windows\\System32\\', isWindows: true); // 'C:\Windows\System32'
 toValidFilePath('home/user/.bashrc'); // '/home/user/.bashrc'
 toValidFilePath('/home/user/../test'); // '/home/test'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 toValidFilePath('C:\\Windows\\System32\\', True) # 'C:\Windows\System32'
 toValidFilePath('home/user/.bashrc') # '/home/user/.bashrc'
 toValidFilePath('/home/user/../test') # '/home/test'

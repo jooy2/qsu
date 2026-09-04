@@ -18,16 +18,20 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 import { logBox } from 'qsu/node';
 
 logBox([1, 2, 3, 4, 5]);
 logBox('hello', { a: 1 });
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 logBox([1, 2, 3, 4, 5])
 logBox('hello', {'a': 1})
 ```

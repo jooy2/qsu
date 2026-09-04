@@ -16,6 +16,10 @@
 
 ## Examples
 
+::: lang js
+
 ```javascript
 strBlindRandom('hello', 2, '#'); // Returns '#el#o'
 ```
+
+:::

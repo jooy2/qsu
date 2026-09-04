@@ -27,9 +27,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 duration(1234567890); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds'
 duration(1234567890, {
 	withMilliSeconds: true
@@ -49,7 +49,11 @@ duration(604800000, {
 }); // Returns '7Days'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 duration(1234567890); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds'
 duration(1234567890, withMilliSeconds: true); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 duration(34560000000); // Returns '1 Year 1 Month 5 Days'
@@ -59,7 +63,11 @@ duration(1800000, unit: 'Hour'); // Returns '0.5 Hours'
 duration(604800000, useSpace: false); // Returns '7Days'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 duration(1234567890)  # Returns '14 Days 6 Hours 56 Minutes 7 Seconds'
 duration(1234567890, {
 	'withMilliSeconds': True

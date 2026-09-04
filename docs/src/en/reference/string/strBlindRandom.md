@@ -16,6 +16,10 @@ Replace strings at random locations with a specified number of characters (defau
 
 ## Examples
 
+::: lang js
+
 ```javascript
 strBlindRandom('hello', 2, '#'); // Returns '#el#o'
 ```
+
+:::

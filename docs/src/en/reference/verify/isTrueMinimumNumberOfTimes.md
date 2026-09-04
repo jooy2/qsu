@@ -15,9 +15,9 @@ Returns `true` if the values given in the `conditions` array are true at least `
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const left = 1;
 const right = 1 + 2;
 
@@ -26,7 +26,11 @@ isTrueMinimumNumberOfTimes([true, true, false], 3); // Returns false
 isTrueMinimumNumberOfTimes([true, true, left === right], 3); // Returns false
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 final int left = 1;
 final int right = 1 + 2;
 
@@ -35,7 +39,11 @@ isTrueMinimumNumberOfTimes([true, true, false], minimumCount: 3); // Returns fal
 isTrueMinimumNumberOfTimes([true, true, left === right], minimumCount: 3); // Returns false
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 left = 1
 right = 1 + 2
 

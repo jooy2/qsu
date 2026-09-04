@@ -14,19 +14,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrPick([1, 2, 3, 4, 5]); // Returns 1 or 2 or 3 or 4 or 5
 arrPick([]); // Returns null
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrPick([1, 2, 3, 4, 5]); // Returns 1 or 2 or 3 or 4 or 5
 arrPick([]); // Returns null
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrPick([1, 2, 3, 4, 5])  # Returns 1 or 2 or 3 or 4 or 5
 arrPick([])  # Returns None
 ```

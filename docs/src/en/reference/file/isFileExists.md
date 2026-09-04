@@ -16,12 +16,20 @@ If a file or directory exists at the specified path, it returns `true`.
 
 ## Examples
 
+::: lang js
+
 ```javascript
 await isFileExists('text.txt'); // true
 await isFileExists('not-exist.txt'); // false
 ```
 
+:::
+
+::: lang python
+
 ```python
 isFileExists('text.txt') # True
 isFileExists('not-exist.txt') # False
 ```
+
+:::

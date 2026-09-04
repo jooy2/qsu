@@ -31,9 +31,9 @@ Python에서는 `debounce`와 마찬가지로 백그라운드 스레드를 사�
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const onScroll = throttle((position) => {
 	console.log(position);
 }, 100);
@@ -49,7 +49,11 @@ const save = throttle(sendToServer, 1000, { leading: false });
 const track = throttle(sendEvent, 1000, { trailing: false });
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 final onScroll = throttle((position) {
   print(position);
 }, 100);
@@ -65,7 +69,11 @@ final save = throttle(sendToServer, 1000, leading: false);
 final track = throttle(sendEvent, 1000, trailing: false);
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 on_scroll = throttle(lambda position: print(position), 100)
 
 on_scroll(1)  # 즉시 실행

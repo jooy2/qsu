@@ -20,9 +20,9 @@ Dart에는 이미 `num.clamp`가 있지만, 이 메서드는 뒤집힌 범위에
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 clamp(5, 1, 10); // Returns 5
 clamp(-7, 1, 10); // Returns 1
 clamp(42, 1, 10); // Returns 10
@@ -30,7 +30,11 @@ clamp(1.5, 0, 1); // Returns 1
 clamp(5, 10, 1); // Returns 10 (뒤집힌 범위: `min`이 우선)
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 clamp(5, 1, 10); // Returns 5
 clamp(-7, 1, 10); // Returns 1
 clamp(42, 1, 10); // Returns 10
@@ -38,7 +42,11 @@ clamp(1.5, 0, 1); // Returns 1
 clamp(5, 10, 1); // Returns 10 (뒤집힌 범위: `min`이 우선)
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 clamp(5, 1, 10)  # Returns 5
 clamp(-7, 1, 10)  # Returns 1
 clamp(42, 1, 10)  # Returns 10

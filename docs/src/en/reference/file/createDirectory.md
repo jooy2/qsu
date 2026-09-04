@@ -19,17 +19,25 @@ If a **file** already sits at the path, the error is reported rather than swallo
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 createDirectory('/home/user/a/b/c');
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 createDirectory('/home/user/a/b/c');
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 createDirectory('/home/user/a/b/c')
 ```
 

@@ -17,21 +17,29 @@ Creates a file with the specified size in bytes. A size of `0` creates an empty 
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 await createFileWithDummy('/home/user/test.txt', 100000);
 // A size of 0 creates an empty file; a negative size throws
 await createFileWithDummy('/home/user/empty.txt', 0);
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 await createFileWithDummy('/home/user/test.txt', size: 100000);
 // A size of 0 creates an empty file; a negative size throws
 await createFileWithDummy('/home/user/empty.txt', size: 0);
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 createFileWithDummy('/home/user/test.txt', 100000)
 # A size of 0 creates an empty file; a negative size raises
 createFileWithDummy('/home/user/empty.txt', 0)

@@ -14,13 +14,17 @@ JSON 객체의 모든 단계를 반복적으로 출력한 다음(`JSON.stringify
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 objToPrettyStr({ a: 1, b: { c: 1, d: 2 } }); // Returns '{\n\t"a": 1,\n\t"b": {\n\t\t"c": 1,\n\t\t"d": 2\n\t}\n}'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 objToPrettyStr({ 'a': 1, 'b': { 'c': 1, 'd': 2 } })  # Returns '{\n\t"a": 1,\n\t"b": {\n\t\t"c": 1,\n\t\t"d": 2\n\t}\n}'
 ```
 

@@ -16,17 +16,25 @@ Returns file or directory information as an easy-to-understand object.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 await getFileInfo('/home/user/test.txt');
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 await getFileInfo('/home/user/test.txt');
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 getFileInfo('/home/user/test.txt')
 ```
 

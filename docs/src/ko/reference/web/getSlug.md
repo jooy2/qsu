@@ -33,9 +33,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 getSlug('Hello World'); // Returns 'hello-world'
 getSlug('안녕 하세요 반갑습니다'); // Returns '안녕-하세요-반갑습니다'
 getSlug('Product #123 (2024)'); // Returns 'product-123-2024'
@@ -45,7 +45,11 @@ getSlug('Hello 안녕', { includeNonLatin: false }); // Returns 'hello'
 getSlug('Hello World', { baseUrl: 'https://example.com/blog' }); // Returns 'https://example.com/blog/hello-world'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 getSlug('Hello World'); // Returns 'hello-world'
 getSlug('안녕 하세요 반갑습니다'); // Returns '안녕-하세요-반갑습니다'
 getSlug('Product #123 (2024)'); // Returns 'product-123-2024'
@@ -55,7 +59,11 @@ getSlug('Hello 안녕', includeNonLatin: false); // Returns 'hello'
 getSlug('Hello World', baseUrl: 'https://example.com/blog'); // Returns 'https://example.com/blog/hello-world'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 getSlug('Hello World')  # Returns 'hello-world'
 getSlug('안녕 하세요 반갑습니다')  # Returns '안녕-하세요-반갑습니다'
 getSlug('Product #123 (2024)')  # Returns 'product-123-2024'

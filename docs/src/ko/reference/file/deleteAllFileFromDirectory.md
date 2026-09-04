@@ -16,17 +16,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 await deleteAllFileFromDirectory('/home/user/Downloads');
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 await deleteAllFileFromDirectory('/home/user/Downloads');
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 deleteAllFileFromDirectory('/home/user/Downloads')
 ```
 

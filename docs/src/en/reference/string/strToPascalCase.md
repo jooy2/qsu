@@ -20,9 +20,9 @@ This is [strToCamelCase](./strToCamelCase) with the first word capitalized as we
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 strToPascalCase('foo bar'); // Returns 'FooBar'
 strToPascalCase('--foo-bar--'); // Returns 'FooBar'
 strToPascalCase('camelCase'); // Returns 'CamelCase'
@@ -30,7 +30,11 @@ strToPascalCase('XMLHttpRequest'); // Returns 'XmlHttpRequest'
 strToPascalCase('abc12def'); // Returns 'Abc12Def'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 strToPascalCase('foo bar'); // Returns 'FooBar'
 strToPascalCase('--foo-bar--'); // Returns 'FooBar'
 strToPascalCase('camelCase'); // Returns 'CamelCase'
@@ -38,7 +42,11 @@ strToPascalCase('XMLHttpRequest'); // Returns 'XmlHttpRequest'
 strToPascalCase('abc12def'); // Returns 'Abc12Def'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 strToPascalCase('foo bar')  # Returns 'FooBar'
 strToPascalCase('--foo-bar--')  # Returns 'FooBar'
 strToPascalCase('camelCase')  # Returns 'CamelCase'

@@ -17,10 +17,18 @@ Node.js ReadableStream 객체의 파일을 특정 알고리즘으로 해시된 �
 
 ## Examples
 
+::: lang js
+
 ```javascript
 await getFileHashFromStream('/home/user/text.txt', 'sha1'); // '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```
 
+:::
+
+::: lang python
+
 ```python
 getFileHashFromStream('/home/user/text.txt', 'sha1') # '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```
+
+:::

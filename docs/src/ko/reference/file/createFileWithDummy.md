@@ -17,21 +17,29 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 await createFileWithDummy('/home/user/test.txt', 100000);
 // 크기 0은 빈 파일을 만들고 음수 크기는 예외를 던집니다
 await createFileWithDummy('/home/user/empty.txt', 0);
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 await createFileWithDummy('/home/user/test.txt', size: 100000);
 // 크기 0은 빈 파일을 만들고 음수 크기는 예외를 던집니다
 await createFileWithDummy('/home/user/empty.txt', size: 0);
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 createFileWithDummy('/home/user/test.txt', 100000)
 # 크기 0은 빈 파일을 만들고 음수 크기는 예외를 발생시킵니다
 createFileWithDummy('/home/user/empty.txt', 0)

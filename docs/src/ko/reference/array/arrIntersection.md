@@ -20,9 +20,9 @@ JavaScript와 Python에서는 배열들을 각각의 인자로 전달하고, Dar
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrIntersection([2, 1], [2, 3]); // Returns [2]
 arrIntersection([1, 2, 3], [2, 3, 4], [3, 2]); // Returns [2, 3]
 arrIntersection([2, 1, 2], [2]); // Returns [2]
@@ -30,7 +30,11 @@ arrIntersection([1, 2], [3]); // Returns []
 arrIntersection([[1], [2]], [[2], [3]]); // Returns [[2]]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrIntersection([[2, 1], [2, 3]]); // Returns [2]
 arrIntersection([[1, 2, 3], [2, 3, 4], [3, 2]]); // Returns [2, 3]
 arrIntersection([[2, 1, 2], [2]]); // Returns [2]
@@ -38,7 +42,11 @@ arrIntersection([[1, 2], [3]]); // Returns []
 arrIntersection([[[1], [2]], [[2], [3]]]); // Returns [[2]]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrIntersection([2, 1], [2, 3])  # Returns [2]
 arrIntersection([1, 2, 3], [2, 3, 4], [3, 2])  # Returns [2, 3]
 arrIntersection([2, 1, 2], [2])  # Returns [2]

@@ -14,17 +14,25 @@ Converts the first letter of the entire string to uppercase and returns.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 capitalizeFirst('abcd'); // Returns 'Abcd'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 capitalizeFirst('abcd'); // Returns 'Abcd'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 capitalizeFirst('abcd')  # Returns 'Abcd'
 ```
 

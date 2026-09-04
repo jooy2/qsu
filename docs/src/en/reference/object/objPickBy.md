@@ -19,23 +19,31 @@ The original object is not modified. If the first argument is not an object, `nu
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 objPickBy({ a: 1, b: 2, c: 3 }, (value) => value > 1); // Returns { b: 2, c: 3 }
 objPickBy({ a: 1, b: 2 }, (value, key) => key === 'a'); // Returns { a: 1 }
 objPickBy({ a: null, b: 1 }, (value) => value !== null); // Returns { b: 1 }
 objPickBy({ a: 1 }, () => false); // Returns {}
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 objPickBy({'a': 1, 'b': 2, 'c': 3}, (value, key) => value > 1); // Returns {'b': 2, 'c': 3}
 objPickBy({'a': 1, 'b': 2}, (value, key) => key == 'a'); // Returns {'a': 1}
 objPickBy({'a': null, 'b': 1}, (value, key) => value != null); // Returns {'b': 1}
 objPickBy({'a': 1}, (value, key) => false); // Returns {}
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 objPickBy({'a': 1, 'b': 2, 'c': 3}, lambda value, key: value > 1)  # Returns {'b': 2, 'c': 3}
 objPickBy({'a': 1, 'b': 2}, lambda value, key: key == 'a')  # Returns {'a': 1}
 objPickBy({'a': None, 'b': 1}, lambda value, key: value is not None)  # Returns {'b': 1}

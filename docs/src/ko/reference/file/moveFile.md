@@ -21,17 +21,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 await moveFile('/home/user/text.txt', '/home/user/text2.txt');
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 await moveFile('/home/user/text.txt', '/home/user/text2.txt');
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 moveFile('/home/user/text.txt', '/home/user/text2.txt')
 ```
 

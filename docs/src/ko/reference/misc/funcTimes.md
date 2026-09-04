@@ -15,9 +15,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 function sayHi(str) {
 	return `Hi${str || ''}`;
 }
@@ -26,7 +26,11 @@ funcTimes(3, sayHi); // Returns ['Hi', 'Hi', 'Hi']
 funcTimes(4, () => sayHi('!')); // Returns ['Hi!', 'Hi!', 'Hi!', 'Hi!']
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 String sayHi(str) {
   return 'Hi${str || ''}';
 }
@@ -35,7 +39,11 @@ funcTimes(3, sayHi); // Returns ['Hi', 'Hi', 'Hi']
 funcTimes(4, () => sayHi('!')); // Returns ['Hi!', 'Hi!', 'Hi!', 'Hi!']
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 def sayHi(str=None):
 	return f"Hi{str or ''}"
 

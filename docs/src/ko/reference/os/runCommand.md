@@ -22,13 +22,17 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 console.log(await runCommand('echo a')); // Returns 'a'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 print(runCommand('echo a'))  # Returns 'a'
 ```
 

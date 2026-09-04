@@ -19,14 +19,22 @@ Windows가 파일 속성을 가져오지 못하면, 해당 파일이 숨김 파�
 
 ## Examples
 
+::: lang js
+
 ```javascript
 await isFileHidden('text.txt'); // false
 await isFileHidden('.hiddenFile'); // true
 await isFileHidden('.hiddenFile', true); // false (Files with no hidden attribute applied in Windows)
 ```
 
+:::
+
+::: lang python
+
 ```python
 isFileHidden('text.txt') # False
 isFileHidden('.hiddenFile') # True
 isFileHidden('.hiddenFile', True) # False (Files with no hidden attribute applied in Windows)
 ```
+
+:::

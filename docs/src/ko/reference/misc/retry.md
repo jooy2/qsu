@@ -27,9 +27,9 @@ JavaScript와 Dart에서는 함수가 동기든 비동기든 상관없으며 `re
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 // 최초 호출 1회와 최대 2회 재시도
 const data = await retry(() => fetchData('https://example.com'));
 
@@ -44,7 +44,11 @@ const result = await retry(() => unstableCall(), {
 await retry(() => onlyOnce(), { times: 1 });
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 // 최초 호출 1회와 최대 2회 재시도
 final data = await retry(() => unstableCall());
 
@@ -55,7 +59,11 @@ final result = await retry(() => unstableCall(), times: 5, delay: 100, backoff: 
 await retry(() => onlyOnce(), times: 1);
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 # 최초 호출 1회와 최대 2회 재시도
 data = retry(lambda: fetchData('https://example.com'))
 

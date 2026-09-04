@@ -20,9 +20,9 @@ This is a general-purpose case conversion. For a URL-friendly slug use [getSlug]
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 strToKebabCase('foo bar'); // Returns 'foo-bar'
 strToKebabCase('--foo-bar--'); // Returns 'foo-bar'
 strToKebabCase('camelCase'); // Returns 'camel-case'
@@ -30,7 +30,11 @@ strToKebabCase('XMLHttpRequest'); // Returns 'xml-http-request'
 strToKebabCase('abc12def'); // Returns 'abc-12-def'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 strToKebabCase('foo bar'); // Returns 'foo-bar'
 strToKebabCase('--foo-bar--'); // Returns 'foo-bar'
 strToKebabCase('camelCase'); // Returns 'camel-case'
@@ -38,7 +42,11 @@ strToKebabCase('XMLHttpRequest'); // Returns 'xml-http-request'
 strToKebabCase('abc12def'); // Returns 'abc-12-def'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 strToKebabCase('foo bar')  # Returns 'foo-bar'
 strToKebabCase('--foo-bar--')  # Returns 'foo-bar'
 strToKebabCase('camelCase')  # Returns 'camel-case'

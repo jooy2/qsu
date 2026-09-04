@@ -19,23 +19,31 @@ Trailing separators are ignored, so `/home/user/` and `/home/user` share the par
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 getParentFilePath('C:\\Windows\\System32', true); // 'C:\Windows'
 getParentFilePath('/home/user/text.txt'); // '/home/user'
 getParentFilePath('relative/path'); // '/relative'
 getParentFilePath('/home/user/'); // '/home'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 getParentFilePath('C:\\Windows\\System32', isWindows: true); // 'C:\Windows'
 getParentFilePath('/home/user/text.txt'); // '/home/user'
 getParentFilePath('relative/path'); // '/relative'
 getParentFilePath('/home/user/'); // '/home'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 getParentFilePath('C:\\Windows\\System32', True) # 'C:\Windows'
 getParentFilePath('/home/user/text.txt') # '/home/user'
 getParentFilePath('relative/path') # '/relative'

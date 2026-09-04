@@ -15,22 +15,30 @@ Splits a string based on the specified character and returns it as an Array. Unl
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 split('hello% js world', '% '); // Returns ['hello', 'js world']
 split('hello,js,world', ','); // Returns ['hello', 'js', 'world']
 split('hello%js,world', ',', '%'); // Returns ['hello', 'js', 'world']
 split('hello%js,world', [',', '%']); // Returns ['hello', 'js', 'world']
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 split('hello% js world', ['% ']); // Returns ['hello', 'js world']
 split('hello,js,world', [',']); // Returns ['hello', 'js', 'world']
 split('hello%js,world', [',', '%']); // Returns ['hello', 'js', 'world']
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 split('hello% js world', '% ')  # Returns ['hello', 'js world']
 split('hello,js,world', ',')  # Returns ['hello', 'js', 'world']
 split('hello%js,world', ',', '%')  # Returns ['hello', 'js', 'world']

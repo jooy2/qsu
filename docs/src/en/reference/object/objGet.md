@@ -26,9 +26,9 @@ Arrays are walked with their numeric index. The fallback is returned as soon as 
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const data = { a: { b: { c: 42 } }, list: [1, { d: 'x' }] };
 
 objGet(data, 'a.b.c'); // Returns 42
@@ -39,7 +39,11 @@ objGet(data, 'a.zzz', { fallback: 'none' }); // Returns 'none'
 objGet({ 'a.b': 1 }, '["a.b"]'); // Returns 1
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 final data = {'a': {'b': {'c': 42}}, 'list': [1, {'d': 'x'}]};
 
 objGet(data, 'a.b.c'); // Returns 42
@@ -50,7 +54,11 @@ objGet(data, 'a.zzz', fallback: 'none'); // Returns 'none'
 objGet({'a.b': 1}, '["a.b"]'); // Returns 1
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 data = {'a': {'b': {'c': 42}}, 'list': [1, {'d': 'x'}]}
 
 objGet(data, 'a.b.c')  # Returns 42

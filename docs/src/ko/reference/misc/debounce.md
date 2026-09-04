@@ -17,6 +17,8 @@ No return values
 
 ## Examples
 
+::: lang js
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +42,11 @@ No return values
 </script>
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 from qsu.misc import debounce
 
 # debounce는 래퍼 함수를 반환합니다. 타임아웃(밀리초) 안에 반복 호출하면
@@ -52,3 +58,5 @@ key_up_debounce = debounce(on_key_up, 100)
 
 key_up_debounce()  # 100ms 윈도우 안에서는 마지막 호출만 실행됩니다
 ```
+
+:::

@@ -14,21 +14,29 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 getStrBytes('abcd1234'); // Returns 8
 getStrBytes('123 ABcd 가나다😀'); // Returns 22
 getStrBytes('가나다'); // Returns 9
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 getStrBytes('abcd1234'); // Returns 8
 getStrBytes('123 ABcd 가나다😀'); // Returns 22
 getStrBytes('가나다'); // Returns 9
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 getStrBytes('abcd1234')  # Returns 8
 getStrBytes('123 ABcd 가나다😀')  # Returns 22
 getStrBytes('가나다')  # Returns 9

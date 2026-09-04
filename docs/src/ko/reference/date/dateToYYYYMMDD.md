@@ -15,17 +15,25 @@ Date 객체의 날짜 데이터를 `YYYY-MM-DD` 형식으로 반환합니다.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 dateToYYYYMMDD(new Date(2023, 11, 31)); // Returns '2023-12-31'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 dateToYYYYMMDD(DateTime(2023, 12, 31)); // Returns '2023-12-31'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 from datetime import datetime
 
 dateToYYYYMMDD(datetime(2023, 12, 31))  # Returns '2023-12-31'

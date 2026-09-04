@@ -16,17 +16,25 @@ In Dart, accepts only one argument, organized as an List.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 urlJoin('https://example.com', 'hello', 'world'); // Returns 'https://example.com/hello/world'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 urlJoin(['https://example.com', 'hello', 'world']); // Returns 'https://example.com/hello/world'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 urlJoin('https://example.com', 'hello', 'world')  # Returns 'https://example.com/hello/world'
 ```
 

@@ -15,19 +15,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 removeSpecialChar('Hello-qsu, World!'); // Returns 'HelloqsuWorld'
 removeSpecialChar('Hello-qsu, World!', ' -'); // Returns 'Hello-qsu World'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 removeSpecialChar('Hello-qsu, World!'); // Returns 'HelloqsuWorld'
 removeSpecialChar('Hello-qsu, World!', exceptionCharacters: ' -'); // Returns 'Hello-qsu World'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 removeSpecialChar('Hello-qsu, World!')  # Returns 'HelloqsuWorld'
 removeSpecialChar('Hello-qsu, World!', ' -')  # Returns 'Hello-qsu World'
 ```

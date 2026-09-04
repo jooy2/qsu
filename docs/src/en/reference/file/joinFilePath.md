@@ -19,19 +19,27 @@ In Dart, the `paths` parameter accepts only one argument, which is a List.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 joinFilePath(true, 'C:\\', 'Windows', 'System32'); // 'C:\Windows\System32'
 joinFilePath(false, 'home', '/user', '.bashrc'); // '/home/user/.bashrc'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 joinFilePath(['C:\\', 'Windows', 'System32'], isWindows: true); // 'C:\Windows\System32'
 joinFilePath(['home', '/user', '.bashrc']); // '/home/user/.bashrc'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 joinFilePath(True, 'C:\\', 'Windows', 'System32') # 'C:\Windows\System32'
 joinFilePath(False, 'home', '/user', '.bashrc') # '/home/user/.bashrc'
 ```

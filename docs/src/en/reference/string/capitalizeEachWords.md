@@ -15,17 +15,25 @@ Converts every word with spaces to uppercase. If the naturally argument is true,
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 capitalizeEachWords('abcd'); // Returns 'Abcd'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 capitalizeEachWords('abcd'); // Returns 'Abcd'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 capitalizeEachWords('abcd')  # Returns 'Abcd'
 ```
 

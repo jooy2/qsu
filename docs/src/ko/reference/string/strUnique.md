@@ -14,17 +14,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 strUnique('aaabbbcc'); // Returns 'abc'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 strUnique('aaabbbcc'); // Returns 'abc'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 strUnique('aaabbbcc')  # Returns 'abc'
 ```
 

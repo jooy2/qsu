@@ -24,9 +24,9 @@ This is the uppercase counterpart of [strToSnakeCase](./strToSnakeCase).
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 strToConstantCase('foo bar'); // Returns 'FOO_BAR'
 strToConstantCase('--foo-bar--'); // Returns 'FOO_BAR'
 strToConstantCase('camelCase'); // Returns 'CAMEL_CASE'
@@ -34,7 +34,11 @@ strToConstantCase('XMLHttpRequest'); // Returns 'XML_HTTP_REQUEST'
 strToConstantCase('abc12def'); // Returns 'ABC_12_DEF'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 strToConstantCase('foo bar'); // Returns 'FOO_BAR'
 strToConstantCase('--foo-bar--'); // Returns 'FOO_BAR'
 strToConstantCase('camelCase'); // Returns 'CAMEL_CASE'
@@ -42,7 +46,11 @@ strToConstantCase('XMLHttpRequest'); // Returns 'XML_HTTP_REQUEST'
 strToConstantCase('abc12def'); // Returns 'ABC_12_DEF'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 strToConstantCase('foo bar')  # Returns 'FOO_BAR'
 strToConstantCase('--foo-bar--')  # Returns 'FOO_BAR'
 strToConstantCase('camelCase')  # Returns 'CAMEL_CASE'

@@ -20,9 +20,9 @@ This is the counterpart of [strToPascalCase](./strToPascalCase), [strToSnakeCase
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 strToCamelCase('foo bar'); // Returns 'fooBar'
 strToCamelCase('--foo-bar--'); // Returns 'fooBar'
 strToCamelCase('__FOO_BAR__'); // Returns 'fooBar'
@@ -31,7 +31,11 @@ strToCamelCase('XMLHttpRequest'); // Returns 'xmlHttpRequest'
 strToCamelCase('abc12def'); // Returns 'abc12Def'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 strToCamelCase('foo bar'); // Returns 'fooBar'
 strToCamelCase('--foo-bar--'); // Returns 'fooBar'
 strToCamelCase('__FOO_BAR__'); // Returns 'fooBar'
@@ -40,7 +44,11 @@ strToCamelCase('XMLHttpRequest'); // Returns 'xmlHttpRequest'
 strToCamelCase('abc12def'); // Returns 'abc12Def'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 strToCamelCase('foo bar')  # Returns 'fooBar'
 strToCamelCase('--foo-bar--')  # Returns 'fooBar'
 strToCamelCase('__FOO_BAR__')  # Returns 'fooBar'

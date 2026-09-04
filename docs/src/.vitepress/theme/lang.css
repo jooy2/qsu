@@ -21,10 +21,17 @@
  * because the second shape needs a `display` value to return to and a gated
  * element is a `<div>` in one place and a `<span>` or a `<code>` in another.
  * There is no way to write this once for a list, so it is one rule per language.
+ *
+ * `:has()` is what makes a page qsu has not ported still readable. Not every
+ * function exists in every language, and hiding the blocks of a page that has
+ * nothing for the selected one would leave a reader on Dart looking at an empty
+ * Examples section. So the rule only applies where the page has something to
+ * show: on the pages it does not, every language's blocks stay, and the notice
+ * under the title says why.
  */
-html[data-code-lang='js'] .lang-only[data-code-lang]:not([data-code-lang~='js']),
-html[data-code-lang='dart'] .lang-only[data-code-lang]:not([data-code-lang~='dart']),
-html[data-code-lang='python'] .lang-only[data-code-lang]:not([data-code-lang~='python']) {
+html[data-code-lang='js'] .vp-doc:has(.lang-only[data-code-lang~='js']) .lang-only[data-code-lang]:not([data-code-lang~='js']),
+html[data-code-lang='dart'] .vp-doc:has(.lang-only[data-code-lang~='dart']) .lang-only[data-code-lang]:not([data-code-lang~='dart']),
+html[data-code-lang='python'] .vp-doc:has(.lang-only[data-code-lang~='python']) .lang-only[data-code-lang]:not([data-code-lang~='python']) {
 	display: none;
 }
 

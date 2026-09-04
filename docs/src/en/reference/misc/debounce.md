@@ -17,6 +17,8 @@ No return values
 
 ## Examples
 
+::: lang js
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +42,11 @@ No return values
 </script>
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 from qsu.misc import debounce
 
 # debounce returns a wrapper. Repeated calls within the timeout window
@@ -52,3 +58,5 @@ key_up_debounce = debounce(on_key_up, 100)
 
 key_up_debounce()  # only the final call within the 100ms window fires
 ```
+
+:::

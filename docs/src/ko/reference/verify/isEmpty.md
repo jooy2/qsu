@@ -14,21 +14,29 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 isEmpty([]); // Returns true
 isEmpty(''); // Returns true
 isEmpty('abc'); // Returns false
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 isEmpty([]); // Returns true
 isEmpty(''); // Returns true
 isEmpty('abc'); // Returns false
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 isEmpty([])  # Returns True
 isEmpty('')  # Returns True
 isEmpty('abc')  # Returns False

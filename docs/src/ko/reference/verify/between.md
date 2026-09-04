@@ -16,19 +16,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 between([10, 20], 10); // Returns false
 between([10, 20], 10, true); // Returns true
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 between([10, 20], 10); // Returns false
 between([10, 20], 10, inclusive: true); // Returns true
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 between([10, 20], 10)  # Returns False
 between([10, 20], 10, True)  # Returns True
 ```

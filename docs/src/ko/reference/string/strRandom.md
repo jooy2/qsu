@@ -17,17 +17,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 strRandom(5); // Returns 'CHy2M'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 strRandom(5); // Returns 'CHy2M'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 strRandom(5)  # Returns 'CHy2M'
 ```
 

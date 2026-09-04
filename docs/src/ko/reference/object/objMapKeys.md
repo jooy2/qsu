@@ -19,21 +19,29 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 objMapKeys({ a: 1, b: 2 }, (value, key) => key.toUpperCase()); // Returns { A: 1, B: 2 }
 objMapKeys({ a: 1, b: 2 }, (value, key) => `${key}${value}`); // Returns { a1: 1, b2: 2 }
 objMapKeys({ a: 1, b: 2 }, () => 'x'); // Returns { x: 2 }
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 objMapKeys({'a': 1, 'b': 2}, (value, key) => key.toUpperCase()); // Returns {'A': 1, 'B': 2}
 objMapKeys({'a': 1, 'b': 2}, (value, key) => '$key$value'); // Returns {'a1': 1, 'b2': 2}
 objMapKeys({'a': 1, 'b': 2}, (value, key) => 'x'); // Returns {'x': 2}
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 objMapKeys({'a': 1, 'b': 2}, lambda value, key: key.upper())  # Returns {'A': 1, 'B': 2}
 objMapKeys({'a': 1, 'b': 2}, lambda value, key: f'{key}{value}')  # Returns {'a1': 1, 'b2': 2}
 objMapKeys({'a': 1, 'b': 2}, lambda value, key: 'x')  # Returns {'x': 2}

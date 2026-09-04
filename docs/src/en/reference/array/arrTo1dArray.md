@@ -14,17 +14,25 @@ Merges all elements of a multidimensional array into a one-dimensional array.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrTo1dArray([1, 2, [3, 4]], 5); // Returns [1, 2, 3, 4, 5]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrTo1dArray([1, 2, [3, 4]], 5)  # Returns [1, 2, 3, 4, 5]
 ```
 

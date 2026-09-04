@@ -22,9 +22,9 @@ A key that only one source carries is copied over as it is, so a nested object u
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 objMerge({ a: 1 }, { b: 2 }); // Returns { a: 1, b: 2 }
 objMerge({ a: 1 }, { a: 2 }, { a: 3 }); // Returns { a: 3 }
 objMerge({ a: { b: 1, c: 2 } }, { a: { c: 9, d: 3 } }); // Returns { a: { b: 1, c: 9, d: 3 } }
@@ -32,7 +32,11 @@ objMerge({ a: [1, 2, 3] }, { a: [9] }); // Returns { a: [9] }
 objMerge({ a: 1 }, null); // Returns null
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 objMerge([{'a': 1}, {'b': 2}]); // Returns {'a': 1, 'b': 2}
 objMerge([{'a': 1}, {'a': 2}, {'a': 3}]); // Returns {'a': 3}
 objMerge([{'a': {'b': 1, 'c': 2}}, {'a': {'c': 9, 'd': 3}}]); // Returns {'a': {'b': 1, 'c': 9, 'd': 3}}
@@ -40,7 +44,11 @@ objMerge([{'a': [1, 2, 3]}, {'a': [9]}]); // Returns {'a': [9]}
 objMerge([{'a': 1}, null]); // Returns null
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 objMerge({'a': 1}, {'b': 2})  # Returns {'a': 1, 'b': 2}
 objMerge({'a': 1}, {'a': 2}, {'a': 3})  # Returns {'a': 3}
 objMerge({'a': {'b': 1, 'c': 2}}, {'a': {'c': 9, 'd': 3}})  # Returns {'a': {'b': 1, 'c': 9, 'd': 3}}

@@ -18,13 +18,17 @@ No required parameters
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 console.log(await getMachineId()); // Returns 'a642d9e1-6063-4da7-8ea8-2298f989d01d'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 print(getMachineId())  # Returns 'a642d9e1-6063-4da7-8ea8-2298f989d01d'
 ```
 

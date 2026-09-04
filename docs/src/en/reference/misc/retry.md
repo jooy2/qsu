@@ -27,9 +27,9 @@ In JavaScript and Dart the function may be synchronous or asynchronous, and `ret
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 // One call plus at most two retries
 const data = await retry(() => fetchData('https://example.com'));
 
@@ -44,7 +44,11 @@ const result = await retry(() => unstableCall(), {
 await retry(() => onlyOnce(), { times: 1 });
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 // One call plus at most two retries
 final data = await retry(() => unstableCall());
 
@@ -55,7 +59,11 @@ final result = await retry(() => unstableCall(), times: 5, delay: 100, backoff: 
 await retry(() => onlyOnce(), times: 1);
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 # One call plus at most two retries
 data = retry(lambda: fetchData('https://example.com'))
 

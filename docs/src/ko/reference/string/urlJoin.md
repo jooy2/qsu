@@ -16,17 +16,25 @@ Dart에서는 하나의 인자만 받아들이며, 인자는 List로 구성됩�
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 urlJoin('https://example.com', 'hello', 'world'); // Returns 'https://example.com/hello/world'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 urlJoin(['https://example.com', 'hello', 'world']); // Returns 'https://example.com/hello/world'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 urlJoin('https://example.com', 'hello', 'world')  # Returns 'https://example.com/hello/world'
 ```
 

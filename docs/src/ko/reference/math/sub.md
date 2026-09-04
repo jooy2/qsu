@@ -14,14 +14,18 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 sub(10, 1, 5); // Returns 4
 sub([1, 2, 3, 4]); // Returns -8
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 sub(10, 1, 5) # Returns 4
 sub([1, 2, 3, 4]) # Returns -8
 ```

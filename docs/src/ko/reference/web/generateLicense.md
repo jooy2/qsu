@@ -23,9 +23,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 generateLicense({
 	type: 'mit',
 	author: 'example',
@@ -36,7 +36,11 @@ generateLicense({
 });
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 generateLicense(
 	type='mit',
 	author='example',

@@ -21,23 +21,31 @@ For the predicate form, use [objPickBy](./objPickBy).
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 objPick({ a: 1, b: 2, c: 3 }, ['a', 'c']); // Returns { a: 1, c: 3 }
 objPick({ a: 1, b: 2 }, 'a'); // Returns { a: 1 }
 objPick({ a: 1 }, ['a', 'zzz']); // Returns { a: 1 }
 objPick({ a: 1, b: 2 }, []); // Returns {}
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 objPick({'a': 1, 'b': 2, 'c': 3}, ['a', 'c']); // Returns {'a': 1, 'c': 3}
 objPick({'a': 1, 'b': 2}, 'a'); // Returns {'a': 1}
 objPick({'a': 1}, ['a', 'zzz']); // Returns {'a': 1}
 objPick({'a': 1, 'b': 2}, []); // Returns {}
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 objPick({'a': 1, 'b': 2, 'c': 3}, ['a', 'c'])  # Returns {'a': 1, 'c': 3}
 objPick({'a': 1, 'b': 2}, 'a')  # Returns {'a': 1}
 objPick({'a': 1}, ['a', 'zzz'])  # Returns {'a': 1}

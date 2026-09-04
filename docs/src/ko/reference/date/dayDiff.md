@@ -15,17 +15,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 dayDiff(new Date('2021-01-01'), new Date('2021-01-03')); // Returns 2
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 dayDiff(DateTime(2021, 1, 1), DateTime(2021, 1, 3)); // Returns 2
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 from datetime import datetime
 
 dayDiff(datetime(2021, 1, 1), datetime(2021, 1, 3))  # Returns 2

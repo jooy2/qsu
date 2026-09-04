@@ -20,9 +20,9 @@ In JavaScript and Python the arrays are passed as separate arguments; in Dart th
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrIntersection([2, 1], [2, 3]); // Returns [2]
 arrIntersection([1, 2, 3], [2, 3, 4], [3, 2]); // Returns [2, 3]
 arrIntersection([2, 1, 2], [2]); // Returns [2]
@@ -30,7 +30,11 @@ arrIntersection([1, 2], [3]); // Returns []
 arrIntersection([[1], [2]], [[2], [3]]); // Returns [[2]]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrIntersection([[2, 1], [2, 3]]); // Returns [2]
 arrIntersection([[1, 2, 3], [2, 3, 4], [3, 2]]); // Returns [2, 3]
 arrIntersection([[2, 1, 2], [2]]); // Returns [2]
@@ -38,7 +42,11 @@ arrIntersection([[1, 2], [3]]); // Returns []
 arrIntersection([[[1], [2]], [[2], [3]]]); // Returns [[2]]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrIntersection([2, 1], [2, 3])  # Returns [2]
 arrIntersection([1, 2, 3], [2, 3, 4], [3, 2])  # Returns [2, 3]
 arrIntersection([2, 1, 2], [2])  # Returns [2]

@@ -46,13 +46,17 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 console.log(await fetchData('https://github.com'), { get: true });
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 print(fetchData('https://github.com'), { 'get': True })
 ```
 

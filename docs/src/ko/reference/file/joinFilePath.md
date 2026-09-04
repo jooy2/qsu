@@ -19,19 +19,27 @@ Dart에서 `paths` 파라미터는 하나의 인자만 받아들이며, 인자�
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 joinFilePath(true, 'C:\\', 'Windows', 'System32'); // 'C:\Windows\System32'
 joinFilePath(false, 'home', '/user', '.bashrc'); // '/home/user/.bashrc'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 joinFilePath(['C:\\', 'Windows', 'System32'], isWindows: true); // 'C:\Windows\System32'
 joinFilePath(['home', '/user', '.bashrc']); // '/home/user/.bashrc'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 joinFilePath(True, 'C:\\', 'Windows', 'System32') # 'C:\Windows\System32'
 joinFilePath(False, 'home', '/user', '.bashrc') # '/home/user/.bashrc'
 ```

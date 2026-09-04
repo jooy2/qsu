@@ -16,21 +16,29 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 contains('abc', 'a'); // Returns true
 contains('abc', 'd'); // Returns false
 contains('abc', ['a', 'd']); // Returns true
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 contains('abc', 'a'); // Returns true
 contains('abc', 'd'); // Returns false
 contains('abc', ['a', 'd']); // Returns true
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 contains('abc', 'a')  # Returns True
 contains('abc', 'd')  # Returns False
 contains('abc', ['a', 'd'])  # Returns True

@@ -14,17 +14,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 numberFormat(1234567); // Returns 1,234,567
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 numberFormat(1234567); // Returns 1,234,567
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 numberFormat(1234567)  # Returns 1,234,567
 ```
 

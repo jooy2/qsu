@@ -14,19 +14,27 @@ Returns `true` if the given array is a two-dimensional array.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 is2dArray([1]); // Returns false
 is2dArray([[1], [2]]); // Returns true
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 is2dArray([1]); // Returns false
 is2dArray([[1], [2]]); // Returns true
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 is2dArray([1])  # Returns False
 is2dArray([[1], [2]])  # Returns True
 ```

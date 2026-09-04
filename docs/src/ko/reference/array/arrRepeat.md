@@ -15,19 +15,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrRepeat([1, 2, 3, 4], 3); // Returns [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
 arrRepeat({ a: 1, b: 2 }, 2); // Returns [{ a: 1, b: 2 }, { a: 1, b: 2 }]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrRepeat([1, 2, 3, 4], 3); // Returns [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
 arrRepeat({ a: 1, b: 2 }, 2); // Returns [{ a: 1, b: 2 }, { a: 1, b: 2 }]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrRepeat([1, 2, 3, 4], 3)  # Returns [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
 arrRepeat({'a': 1, 'b': 2}, 2)  # Returns [{'a': 1, 'b': 2}, {'a': 1, 'b': 2}]
 ```

@@ -15,17 +15,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 strCount('abcabc', 'a'); // Returns 2
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 strCount('abcabc', 'a'); // Returns 2
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 strCount('abcabc', 'a')  # Returns 2
 ```
 

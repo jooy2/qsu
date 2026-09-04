@@ -14,9 +14,9 @@ Checks if the current user is accessing from a mobile device via the User Agent 
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 isMobile(
 	'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36'
 ); // Returns false
@@ -25,7 +25,11 @@ isMobile(
 ); // Returns true
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 isMobile(
 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36'
 ); // Returns false
@@ -34,7 +38,11 @@ isMobile(
 ); // Returns true
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 isMobile(
 	'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36'
 )  # Returns False

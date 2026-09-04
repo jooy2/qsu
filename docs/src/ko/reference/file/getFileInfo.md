@@ -16,17 +16,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 await getFileInfo('/home/user/test.txt');
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 await getFileInfo('/home/user/test.txt');
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 getFileInfo('/home/user/test.txt')
 ```
 

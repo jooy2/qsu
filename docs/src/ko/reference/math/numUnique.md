@@ -18,19 +18,27 @@ No parameters required
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 numUnique(); // Returns 1785202877818000
 numUnique(); // Returns 1785202877818001
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 numUnique(); // Returns 1785202877818000
 numUnique(); // Returns 1785202877818001
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 numUnique() # Returns 1785202877818000
 numUnique() # Returns 1785202877818001
 ```

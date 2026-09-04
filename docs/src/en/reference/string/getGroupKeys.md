@@ -25,9 +25,9 @@ Even when there is no key name, such as `{}`, it is treated as a valid key. In t
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 getGroupKeys('abc {def} ghi {{jkl}}', '{', '}'); // Returns ['def']
 getGroupKeys('abc {{def}} ghi {jkl}', '{{', '}}'); // Returns ['def']
 getGroupKeys('abc {} {}', '{', '}'); // Returns ['', '']
@@ -35,7 +35,11 @@ getGroupKeys('abc [[def] [ghi] [jkl ', '[', ']'); // Returns ['ghi']
 getGroupKeys('abc {d#e  f}', '{', '}', true); // Returns ['d#e  f']
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 getGroupKeys('abc {def} ghi {{jkl}}', '{', '}')  # Returns ['def']
 getGroupKeys('abc {{def}} ghi {jkl}', '{{', '}}')  # Returns ['def']
 getGroupKeys('abc {} {}', '{', '}')  # Returns ['', '']

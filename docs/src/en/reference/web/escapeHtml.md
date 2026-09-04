@@ -28,23 +28,31 @@ Everything else is left alone, so text and emoji pass through untouched. `&` is 
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 escapeHtml('fred, barney, & pebbles'); // Returns 'fred, barney, &amp; pebbles'
 escapeHtml('<script>alert("x")</script>'); // Returns '&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'
 escapeHtml("it's"); // Returns 'it&#39;s'
 escapeHtml('&lt;'); // Returns '&amp;lt;'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 escapeHtml('fred, barney, & pebbles'); // Returns 'fred, barney, &amp; pebbles'
 escapeHtml('<script>alert("x")</script>'); // Returns '&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'
 escapeHtml("it's"); // Returns 'it&#39;s'
 escapeHtml('&lt;'); // Returns '&amp;lt;'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 escapeHtml('fred, barney, & pebbles')  # Returns 'fred, barney, &amp; pebbles'
 escapeHtml('<script>alert("x")</script>')  # Returns '&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'
 escapeHtml("it's")  # Returns 'it&#39;s'

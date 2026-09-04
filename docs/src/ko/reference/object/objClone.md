@@ -33,9 +33,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const source = { a: 1, b: { c: [1, 2] } };
 
 const deep = objClone(source);
@@ -48,7 +48,11 @@ objClone([1, [2, 3]]); // Returns [1, [2, 3]]
 objClone(5); // Returns 5
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 final source = {'a': 1, 'b': {'c': [1, 2]}};
 
 final deep = objClone(source);
@@ -61,7 +65,11 @@ objClone([1, [2, 3]]); // Returns [1, [2, 3]]
 objClone(5); // Returns 5
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 source = {'a': 1, 'b': {'c': [1, 2]}}
 
 deep = objClone(source)

@@ -19,19 +19,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 replaceBetween('ab[c]d[e]f', '[', ']'); // Returns 'abdf'
 replaceBetween('abcd:replace:', ':', ':', 'e'); // Returns 'abcde'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 replaceBetween('ab[c]d[e]f', '[', ']'); // Returns 'abdf'
 replaceBetween('abcd:replace:', ':', ':', 'e'); // Returns 'abcde'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 replaceBetween('ab[c]d[e]f', '[', ']')  # Returns 'abdf'
 replaceBetween('abcd:replace:', ':', ':', 'e')  # Returns 'abcde'
 ```

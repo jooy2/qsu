@@ -14,19 +14,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 trim(' Hello Wor  ld  '); // Returns 'Hello Wor ld'
 trim('H e l l o     World'); // Returns 'H e l l o World'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 trim(' Hello Wor  ld  '); // Returns 'Hello Wor ld'
 trim('H e l l o     World'); // Returns 'H e l l o World'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 trim(' Hello Wor  ld  ')  # Returns 'Hello Wor ld'
 trim('H e l l o     World')  # Returns 'H e l l o World'
 ```

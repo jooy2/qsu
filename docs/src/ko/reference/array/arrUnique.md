@@ -14,19 +14,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrUnique([1, 2, 2, 3]); // Returns [1, 2, 3]
 arrUnique([[1], [1], [2]]); // Returns [[1], [2]]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrUnique([1, 2, 2, 3]); // Returns [1, 2, 3]
 arrUnique([[1], [1], [2]]); // Returns [[1], [2]]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrUnique([1, 2, 2, 3])  # Returns [1, 2, 3]
 arrUnique([[1], [1], [2]])  # Returns [[1], [2]]
 ```

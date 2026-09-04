@@ -15,17 +15,25 @@ Returns the number of duplicates for each unique value in the given array. The a
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrCount(['a', 'a', 'a', 'b', 'c', 'b', 'a', 'd']); // Returns { a: 4, b: 2, c: 1, d: 1 }
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrCount(['a', 'a', 'a', 'b', 'c', 'b', 'a', 'd']); // Returns { a: 4, b: 2, c: 1, d: 1 }
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrCount(['a', 'a', 'a', 'b', 'c', 'b', 'a', 'd'])  # Returns { 'a': 4, 'b': 2, 'c': 1, 'd': 1 }
 ```
 

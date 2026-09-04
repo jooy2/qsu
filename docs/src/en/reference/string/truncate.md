@@ -18,19 +18,27 @@ Length is counted in code points, so a character outside the Basic Multilingual 
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 truncate('hello', 3); // Returns 'hel'
 truncate('hello', 2, '...'); // Returns 'he...'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 truncate('hello', 3); // Returns 'hel'
 truncate('hello', 2, ellipsis: '...'); // Returns 'he...'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 truncate('hello', 3)  # Returns 'hel'
 truncate('hello', 2, '...')  # Returns 'he...'
 ```

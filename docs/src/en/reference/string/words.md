@@ -24,9 +24,9 @@ The string is walked by code point, so characters outside the Basic Multilingual
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 words('fred, barney, & pebbles'); // Returns ['fred', 'barney', 'pebbles']
 words('camelCase'); // Returns ['camel', 'Case']
 words('XMLHttpRequest'); // Returns ['XML', 'Http', 'Request']
@@ -35,7 +35,11 @@ words('abc12def'); // Returns ['abc', '12', 'def']
 words('한글English혼합'); // Returns ['한글', 'English', '혼합']
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 words('fred, barney, & pebbles'); // Returns ['fred', 'barney', 'pebbles']
 words('camelCase'); // Returns ['camel', 'Case']
 words('XMLHttpRequest'); // Returns ['XML', 'Http', 'Request']
@@ -44,7 +48,11 @@ words('abc12def'); // Returns ['abc', '12', 'def']
 words('한글English혼합'); // Returns ['한글', 'English', '혼합']
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 words('fred, barney, & pebbles')  # Returns ['fred', 'barney', 'pebbles']
 words('camelCase')  # Returns ['camel', 'Case']
 words('XMLHttpRequest')  # Returns ['XML', 'Http', 'Request']

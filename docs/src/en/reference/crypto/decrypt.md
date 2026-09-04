@@ -23,16 +23,20 @@ Decryption also throws when the key is wrong or the ciphertext has been altered,
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const secret = '12345678901234567890123456789012'; // 32 bytes
 
 decrypt('61ba43b65fc...', secret);
 decrypt(encrypt('test', secret, 'aes-256-gcm', 12), secret, 'aes-256-gcm'); // 'test'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 secret = '12345678901234567890123456789012'  # 32 bytes
 
 decrypt('61ba43b65fc...', secret)

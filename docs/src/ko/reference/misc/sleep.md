@@ -14,9 +14,9 @@ Promise를 이용한 수면 기능.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 await sleep(1000); // 1s
 
 sleep(5000).then(() => {
@@ -24,7 +24,11 @@ sleep(5000).then(() => {
 });
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 await sleep(1000); // 1s
 
 sleep(5000).then(() => {
@@ -32,7 +36,11 @@ sleep(5000).then(() => {
 });
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 sleep(1000)  # 1s (blocks synchronously)
 
 sleep(5000)

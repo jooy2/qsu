@@ -14,19 +14,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 isObject([1, 2, 3]); // Returns false
 isObject({ a: 1, b: 2 }); // Returns true
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 isObject([1, 2, 3]); // Returns false
 isObject({ 'a': 1, 'b': 2 }); // Returns true
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 isObject([1, 2, 3])  # Returns False
 isObject({'a': 1, 'b': 2})  # Returns True
 ```

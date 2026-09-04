@@ -22,23 +22,31 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 objInvert({ a: 1, b: 2 }); // Returns { '1': 'a', '2': 'b' }
 objInvert({ a: 'x', b: 'y' }); // Returns { x: 'a', y: 'b' }
 objInvert({ a: 1, b: 1 }); // Returns { '1': 'b' }
 objInvert({ a: true, b: null }); // Returns { true: 'a', null: 'b' }
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 objInvert({'a': 1, 'b': 2}); // Returns {'1': 'a', '2': 'b'}
 objInvert({'a': 'x', 'b': 'y'}); // Returns {'x': 'a', 'y': 'b'}
 objInvert({'a': 1, 'b': 1}); // Returns {'1': 'b'}
 objInvert({'a': true, 'b': null}); // Returns {'true': 'a', 'null': 'b'}
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 objInvert({'a': 1, 'b': 2})  # Returns {'1': 'a', '2': 'b'}
 objInvert({'a': 'x', 'b': 'y'})  # Returns {'x': 'a', 'y': 'b'}
 objInvert({'a': 1, 'b': 1})  # Returns {'1': 'b'}

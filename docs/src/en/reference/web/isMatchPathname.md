@@ -15,21 +15,29 @@ You can check if the URL path in the first argument value is matched against the
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 isMatchPathname('/user/login', '/admin'); // Returns false
 isMatchPathname('/user/login', '/user*'); // Returns true
 isMatchPathname('/user/login', ['/test', '/home/hello', '/user/*']); // Returns true
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 isMatchPathname('/user/login', '/admin'); // Returns false
 isMatchPathname('/user/login', '/user*'); // Returns true
 isMatchPathname('/user/login', ['/test', '/home/hello', '/user/*']); // Returns true
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 isMatchPathname('/user/login', '/admin')  # Returns False
 isMatchPathname('/user/login', '/user*')  # Returns True
 isMatchPathname('/user/login', ['/test', '/home/hello', '/user/*'])  # Returns True

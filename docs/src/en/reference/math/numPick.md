@@ -15,19 +15,27 @@ Returns a randomly selected number between the min and max values.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 numPick(1, 5); // Returns 1~5
 numPick(10, 20); // Returns 10~20
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 numPick(1, 5); // Returns 1~5
 numPick(10, 20); // Returns 10~20
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 numPick(1, 5)  # Returns 1~5
 numPick(10, 20)  # Returns 10~20
 ```

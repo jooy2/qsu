@@ -17,9 +17,9 @@ Returns the object if the key of a specific piece of data in the object's datase
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 objFindItemRecursiveByKey(
 	{
 		id: 123,
@@ -41,7 +41,11 @@ objFindItemRecursiveByKey(
 ); // Returns '{ id: 456, name: 'childItemA' }'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 objFindItemRecursiveByKey(
 	{
 		'id': 123,

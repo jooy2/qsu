@@ -20,13 +20,17 @@ No required parameters
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 console.log(await sid()); // Returns 'S-1-5-21-406418252-5582013529-1321253100-2001'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 print(getSid())  # Returns 'S-1-5-21-406418252-5582013529-1321253100-2001'
 ```
 

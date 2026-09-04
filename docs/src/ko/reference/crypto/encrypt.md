@@ -24,16 +24,20 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const secret = '12345678901234567890123456789012'; // 32바이트
 
 encrypt('test', secret); // 'iv:암호문'
 encrypt('test', secret, 'aes-256-gcm', 12); // 'iv:인증태그:암호문'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 secret = '12345678901234567890123456789012'  # 32바이트
 
 encrypt('test', secret)  # 'iv:암호문'

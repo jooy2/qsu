@@ -16,23 +16,31 @@ Values that are not numbers are skipped, as they are in `sum`, and so is `NaN`, 
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 min(1, 2, 3); // Returns 1
 min([4, 2, 8, 6]); // Returns 2
 min(-4, -2, -8); // Returns -8
 min([]); // Returns null
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 min([1, 2, 3]); // Returns 1
 min([4, 2, 8, 6]); // Returns 2
 min([-4, -2, -8]); // Returns -8
 min([]); // Returns null
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 min(1, 2, 3)  # Returns 1
 min([4, 2, 8, 6])  # Returns 2
 min(-4, -2, -8)  # Returns -8

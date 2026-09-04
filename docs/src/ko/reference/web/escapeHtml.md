@@ -28,23 +28,31 @@ HTML에서 특별한 의미를 갖는 다섯 개의 문자를 이스케이프합
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 escapeHtml('fred, barney, & pebbles'); // Returns 'fred, barney, &amp; pebbles'
 escapeHtml('<script>alert("x")</script>'); // Returns '&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'
 escapeHtml("it's"); // Returns 'it&#39;s'
 escapeHtml('&lt;'); // Returns '&amp;lt;'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 escapeHtml('fred, barney, & pebbles'); // Returns 'fred, barney, &amp; pebbles'
 escapeHtml('<script>alert("x")</script>'); // Returns '&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'
 escapeHtml("it's"); // Returns 'it&#39;s'
 escapeHtml('&lt;'); // Returns '&amp;lt;'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 escapeHtml('fred, barney, & pebbles')  # Returns 'fred, barney, &amp; pebbles'
 escapeHtml('<script>alert("x")</script>')  # Returns '&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;'
 escapeHtml("it's")  # Returns 'it&#39;s'

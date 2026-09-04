@@ -15,19 +15,27 @@ Creates and returns an Array in the order of start...end values.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrWithNumber(1, 3); // Returns [1, 2, 3]
 arrWithNumber(0, 3); // Returns [0, 1, 2, 3]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrWithNumber(1, 3); // Returns [1, 2, 3]
 arrWithNumber(0, 3); // Returns [0, 1, 2, 3]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrWithNumber(1, 3)  # Returns [1, 2, 3]
 arrWithNumber(0, 3)  # Returns [0, 1, 2, 3]
 ```

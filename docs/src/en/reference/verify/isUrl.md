@@ -16,21 +16,29 @@ Returns `true` if the given data is in the correct URL format. If withProtocol i
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 isUrl('google.com'); // Returns false
 isUrl('google.com', true); // Returns true
 isUrl('https://google.com'); // Returns true
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 isUrl('google.com'); // Returns false
 isUrl('google.com', withProtocol: true); // Returns true
 isUrl('https://google.com'); // Returns true
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 isUrl('google.com')  # Returns False
 isUrl('google.com', True)  # Returns True
 isUrl('https://google.com')  # Returns True

@@ -15,9 +15,9 @@ Converts the given object to array format. The resulting array is a two-dimensio
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 objToArray({
 	a: 1.234,
 	b: 'str',
@@ -26,7 +26,11 @@ objToArray({
 }); // Returns [['a', 1.234], ['b', 'str'], ['c', [1, 2, 3]], ['d', { a: 1 }]]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 objToArray({
   'a': 1.234,
   'b': 'str',
@@ -35,7 +39,11 @@ objToArray({
 }); // Returns [['a', 1.234], ['b', 'str'], ['c', [1, 2, 3]], ['d', { 'a': 1 }]]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 objToArray({
 	'a': 1.234,
 	'b': 'str',

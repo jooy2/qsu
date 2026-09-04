@@ -16,23 +16,31 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 max(1, 2, 3); // Returns 3
 max([4, 2, 8, 6]); // Returns 8
 max(-4, -2, -8); // Returns -2
 max([]); // Returns null
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 max([1, 2, 3]); // Returns 3
 max([4, 2, 8, 6]); // Returns 8
 max([-4, -2, -8]); // Returns -2
 max([]); // Returns null
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 max(1, 2, 3)  # Returns 3
 max([4, 2, 8, 6])  # Returns 8
 max(-4, -2, -8)  # Returns -2

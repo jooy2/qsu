@@ -14,6 +14,10 @@ No return values
 
 ## Examples
 
+::: lang dart
+
 ```dart
 console('Hello');
 ```
+
+:::

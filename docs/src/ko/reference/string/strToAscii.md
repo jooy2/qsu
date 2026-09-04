@@ -14,17 +14,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 strToAscii('12345'); // Returns [49, 50, 51, 52, 53]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 strToAscii('12345'); // Returns [49, 50, 51, 52, 53]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 strToAscii('12345')  # Returns [49, 50, 51, 52, 53]
 ```
 

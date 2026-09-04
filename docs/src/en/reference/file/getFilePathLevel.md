@@ -18,9 +18,9 @@ A trailing separator is ignored, so `/home/user/` and `/home/user` report the sa
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 // Include 'C:\' root path
 getFilePathLevel('C:\\Windows\\System32'); // 3
 // Include '/' root path
@@ -29,7 +29,11 @@ getFilePathLevel('/home/user'); // 3
 getFilePathLevel('/home/user/'); // 3
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 // Include 'C:\' root path
 getFilePathLevel('C:\\Windows\\System32'); // 3
 // Include '/' root path
@@ -38,7 +42,11 @@ getFilePathLevel('/home/user'); // 3
 getFilePathLevel('/home/user/'); // 3
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 # Include 'C:\' root path
 getFilePathLevel('C:\\Windows\\System32') # 3
 # Include '/' root path

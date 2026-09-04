@@ -15,19 +15,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrGroupByMaxCount(['a', 'b', 'c', 'd', 'e'], 2);
 // Returns [['a', 'b'], ['c', 'd'], ['e']]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrGroupByMaxCount(['a', 'b', 'c', 'd', 'e'], 2);
 // Returns [['a', 'b'], ['c', 'd'], ['e']]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrGroupByMaxCount(['a', 'b', 'c', 'd', 'e'], 2)
 # Returns [['a', 'b'], ['c', 'd'], ['e']]
 ```

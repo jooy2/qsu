@@ -19,9 +19,9 @@ If the `numerically` option is `true`, when sorting an array consisting of strin
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const obj = [
 	{
 		aa: 1,
@@ -73,7 +73,11 @@ sortByObjectKey(obj, 'aa');
 */
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 obj = [
 	{
 		'aa': 1,

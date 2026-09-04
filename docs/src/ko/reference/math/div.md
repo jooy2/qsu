@@ -14,14 +14,18 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 div(10, 5, 2); // Returns 1
 div([100, 2, 2, 5]); // Returns 5
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 div(10, 5, 2) # Returns 1
 div([100, 2, 2, 5]) # Returns 5
 ```

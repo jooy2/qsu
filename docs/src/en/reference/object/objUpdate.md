@@ -18,9 +18,9 @@ Changes the value matching a specific key name in the given object. If the `recu
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const result = objUpdate(
 	{
 		a: 1,
@@ -40,7 +40,11 @@ const result = objUpdate(
 console.log(result); // Returns { a: 1, b: { a: 1, b: 2, c: 5 }, c: 5 }
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 result = objUpdate(
 	{
 		'a': 1,

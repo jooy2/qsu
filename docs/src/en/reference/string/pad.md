@@ -27,9 +27,9 @@ The string is returned untouched when it is already at least `length` long, and 
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 pad('abc', 8); // Returns '  abc   '
 pad('abc', 8, { char: '_-' }); // Returns '_-abc_-_'
 pad('abc', 8, { position: 'start' }); // Returns '     abc'
@@ -38,7 +38,11 @@ pad('5', 3, { position: 'start', char: '0' }); // Returns '005'
 pad('abcdefgh', 4); // Returns 'abcdefgh'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 pad('abc', 8); // Returns '  abc   '
 pad('abc', 8, char: '_-'); // Returns '_-abc_-_'
 pad('abc', 8, position: 'start'); // Returns '     abc'
@@ -47,7 +51,11 @@ pad('5', 3, position: 'start', char: '0'); // Returns '005'
 pad('abcdefgh', 4); // Returns 'abcdefgh'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 pad('abc', 8)  # Returns '  abc   '
 pad('abc', 8, {'char': '_-'})  # Returns '_-abc_-_'
 pad('abc', 8, {'position': 'start'})  # Returns '     abc'

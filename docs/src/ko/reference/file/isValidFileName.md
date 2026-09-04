@@ -25,9 +25,9 @@ Windows 경로에서는 점(`.`)이나 공백으로 끝나는 이름을 거부�
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 isValidFileName('C:\\Windows\\System32*'); // false
 isValidFileName('/home/user/.bashrc', true); // true
 // 확장자가 붙어도 Windows 예약 장치 이름은 여전히 무효
@@ -41,7 +41,11 @@ isValidFileName('가'.repeat(85)); // true (255바이트)
 isValidFileName('가'.repeat(86)); // false (258바이트)
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 isValidFileName('C:\\Windows\\System32*'); // false
 isValidFileName('/home/user/.bashrc', unixType: true); // true
 // 확장자가 붙어도 Windows 예약 장치 이름은 여전히 무효
@@ -49,7 +53,11 @@ isValidFileName('nul.txt'); // false
 isValidFileName('nul.txt', unixType: true); // true
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 isValidFileName('C:\\Windows\\System32*') # False
 isValidFileName('/home/user/.bashrc', True) # True
 # 확장자가 붙어도 Windows 예약 장치 이름은 여전히 무효

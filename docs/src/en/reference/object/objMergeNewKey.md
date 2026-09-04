@@ -38,9 +38,9 @@ You must specify the original value for the first argument and the object value 
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const result = objMergeNewKey(
 	{
 		a: 1,
@@ -61,7 +61,11 @@ const result = objMergeNewKey(
 console.log(result); // Returns { a: 1, b: { a: 1, b: 2 }, c: [1, 2], d: 4
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 result = objMergeNewKey(
 	{
 		'a': 1,

@@ -14,13 +14,17 @@ No required parameters
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 console.log(await getCpu()); // e.g. 'Apple M1'...
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 print(getCpu())  # e.g. 'Apple M1'...
 ```
 

@@ -15,19 +15,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 removeNewLine('ab\ncd'); // Returns 'abcd'
 removeNewLine('ab\r\ncd', '-'); // Returns 'ab-cd'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 removeNewLine('ab\ncd'); // Returns 'abcd'
 removeNewLine('ab\r\ncd', replaceTo: '-'); // Returns 'ab-cd'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 removeNewLine('ab\ncd')  # Returns 'abcd'
 removeNewLine('ab\r\ncd', '-')  # Returns 'ab-cd'
 ```

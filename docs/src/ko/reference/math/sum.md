@@ -14,14 +14,18 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 sum(1, 2, 3); // Returns 6
 sum([1, 2, 3, 4]); // Returns 10
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 sum(1, 2, 3) # Returns 6
 sum([1, 2, 3, 4]) # Returns 10
 ```

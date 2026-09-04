@@ -16,18 +16,26 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 getFileSize('/home/user/test.txt'); // 300
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 
 getFileSize('/home/user/test.txt'); // 300
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 getFileSize('/home/user/test.txt') # 300
 ```
 

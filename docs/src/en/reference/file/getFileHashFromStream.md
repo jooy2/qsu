@@ -17,10 +17,18 @@ Returns a file in a Node.js ReadableStream object as a value hashed with a speci
 
 ## Examples
 
+::: lang js
+
 ```javascript
 await getFileHashFromStream('/home/user/text.txt', 'sha1'); // '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```
 
+:::
+
+::: lang python
+
 ```python
 getFileHashFromStream('/home/user/text.txt', 'sha1') # '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```
+
+:::

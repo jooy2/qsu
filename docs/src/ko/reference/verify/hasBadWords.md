@@ -32,9 +32,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const words = ['admin', 'apple'];
 
 hasBadWords('hello world', words); // Returns false
@@ -57,7 +57,11 @@ hasBadWords('pineapple juice', words, ['pineapple']); // Returns false
 hasBadWords('apple and pineapple', words, ['pineapple']); // Returns true
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 const words = ['admin', 'apple'];
 
 hasBadWords('hello world', words: words); // Returns false
@@ -80,7 +84,11 @@ hasBadWords('pineapple juice', words: words, allowWords: ['pineapple']); // Retu
 hasBadWords('apple and pineapple', words: words, allowWords: ['pineapple']); // Returns true
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 words = ['admin', 'apple']
 
 hasBadWords('hello world', words)  # Returns False

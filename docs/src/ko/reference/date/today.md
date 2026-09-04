@@ -15,21 +15,29 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 today(); // Returns YYYY-MM-DD
 today('/'); // Returns YYYY/MM/DD
 today('/', false); // Returns DD/MM/YYYY
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 today(); // Returns YYYY-MM-DD
 today(separator: '/'); // Returns YYYY/MM/DD
 today(separator: '/', yearFirst: false); // Returns DD/MM/YYYY
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 today()  # Returns YYYY-MM-DD
 today('/')  # Returns YYYY/MM/DD
 today('/', False)  # Returns MM/DD/YYYY

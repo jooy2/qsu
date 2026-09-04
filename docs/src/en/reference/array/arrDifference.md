@@ -21,9 +21,9 @@ In JavaScript and Python the arrays to subtract are passed as additional argumen
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrDifference([2, 1, 3], [2, 3]); // Returns [1]
 arrDifference([2, 1, 2, 3], [1]); // Returns [2, 2, 3]
 arrDifference([1, 2, 3, 4], [2], [4]); // Returns [1, 3]
@@ -31,7 +31,11 @@ arrDifference([[1], [2]], [[1]]); // Returns [[2]]
 arrDifference([1, '1'], [1]); // Returns ['1']
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrDifference([2, 1, 3], [[2, 3]]); // Returns [1]
 arrDifference([2, 1, 2, 3], [[1]]); // Returns [2, 2, 3]
 arrDifference([1, 2, 3, 4], [[2], [4]]); // Returns [1, 3]
@@ -39,7 +43,11 @@ arrDifference([[1], [2]], [[[1]]]); // Returns [[2]]
 arrDifference([1, '1'], [[1]]); // Returns ['1']
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrDifference([2, 1, 3], [2, 3])  # Returns [1]
 arrDifference([2, 1, 2, 3], [1])  # Returns [2, 2, 3]
 arrDifference([1, 2, 3, 4], [2], [4])  # Returns [1, 3]

@@ -17,17 +17,25 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 md5Hash('test'); // Returns '098f6bcd4621d373cade4e832627b4f6'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 md5Hash('test'); // Returns '098f6bcd4621d373cade4e832627b4f6'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 md5Hash('test')  # Returns '098f6bcd4621d373cade4e832627b4f6'
 ```
 

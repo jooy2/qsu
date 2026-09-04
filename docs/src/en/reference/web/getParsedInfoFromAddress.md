@@ -23,21 +23,29 @@ The rules are intentionally generic:
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 getParsedInfoFromAddress('ssh://test:pass@host:1234');
 getParsedInfoFromAddress('https://google.com');
 getParsedInfoFromAddress('[fe80::f9e9:1d57:9f2d:fb87]:1234');
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 getParsedInfoFromAddress('ssh://test:pass@host:1234');
 getParsedInfoFromAddress('https://google.com');
 getParsedInfoFromAddress('[fe80::f9e9:1d57:9f2d:fb87]:1234');
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 getParsedInfoFromAddress('ssh://test:pass@host:1234')
 getParsedInfoFromAddress('https://google.com')
 getParsedInfoFromAddress('[fe80::f9e9:1d57:9f2d:fb87]:1234')

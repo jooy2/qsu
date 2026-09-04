@@ -23,9 +23,9 @@ This is the "always up" companion of [round](./round); [floor](./floor) is the "
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 ceil(4.006); // Returns 5
 ceil(-4.006); // Returns -4
 ceil(6.004, 2); // Returns 6.01
@@ -33,7 +33,11 @@ ceil(6040, -2); // Returns 6100
 ceil(1.1, 1); // Returns 1.1
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 ceil(4.006); // Returns 5
 ceil(-4.006); // Returns -4
 ceil(6.004, 2); // Returns 6.01
@@ -41,7 +45,11 @@ ceil(6040, -2); // Returns 6100
 ceil(1.1, 1); // Returns 1.1
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 ceil(4.006)  # Returns 5
 ceil(-4.006)  # Returns -4
 ceil(6.004, 2)  # Returns 6.01

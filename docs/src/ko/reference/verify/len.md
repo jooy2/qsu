@@ -14,19 +14,27 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 len('12345'); // Returns 5
 len([1, 2, 3]); // Returns 3
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 len('12345'); // Returns 5
 len([1, 2, 3]); // Returns 3
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 len('12345')  # Returns 5
 len([1, 2, 3])  # Returns 3
 ```

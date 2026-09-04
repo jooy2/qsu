@@ -21,17 +21,25 @@ A line breaks on `\n`, `\r\n` or a lone `\r`. Bytes that are not valid UTF-8 bec
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 await tailFile('/home/targets/hello.md', 2); // 'Good bye\n--- Hello End ---'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 await tailFile('/home/targets/hello.md', length: 2); // 'Good bye\n--- Hello End ---'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 tailFile('/home/targets/hello.md', 2) # 'Good bye\n--- Hello End ---'
 ```
 

@@ -14,17 +14,25 @@ No parameters required
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 objectId(); // Returns '651372605b49507aea707488'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 objectId(); // Returns '651372605b49507aea707488'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 objectId()  # Returns '651372605b49507aea707488'
 ```
 

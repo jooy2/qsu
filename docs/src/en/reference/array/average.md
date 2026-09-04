@@ -14,17 +14,25 @@ Returns the average of all numeric values in an array.
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 average([1, 5, 15, 50]); // Returns 17.75
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 average([1, 5, 15, 50]); // Returns 17.75
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 average([1, 5, 15, 50])  # Returns 17.75
 ```
 

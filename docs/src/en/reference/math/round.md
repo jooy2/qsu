@@ -23,9 +23,9 @@ To round up or down instead of to the nearest value, use [ceil](./ceil) and [flo
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 round(0.5); // Returns 1
 round(2.5); // Returns 3
 round(-0.5); // Returns -1
@@ -35,7 +35,11 @@ round(2.675, 2); // Returns 2.68
 round(1234, -2); // Returns 1200
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 round(0.5); // Returns 1
 round(2.5); // Returns 3
 round(-0.5); // Returns -1
@@ -45,7 +49,11 @@ round(2.675, 2); // Returns 2.68
 round(1234, -2); // Returns 1200
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 round(0.5)  # Returns 1
 round(2.5)  # Returns 3
 round(-0.5)  # Returns -1

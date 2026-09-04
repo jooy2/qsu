@@ -16,12 +16,20 @@
 
 ## Examples
 
+::: lang js
+
 ```javascript
 await isFileExists('text.txt'); // true
 await isFileExists('not-exist.txt'); // false
 ```
 
+:::
+
+::: lang python
+
 ```python
 isFileExists('text.txt') # True
 isFileExists('not-exist.txt') # False
 ```
+
+:::

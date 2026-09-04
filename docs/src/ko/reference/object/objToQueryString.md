@@ -14,9 +14,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 objToQueryString({
 	hello: 'world',
 	test: 1234,
@@ -24,7 +24,11 @@ objToQueryString({
 }); // Returns 'hello=world&test=1234&arr=%5B1%2C2%2C3%5D'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 objToQueryString({
   'hello': 'world',
   'test': 1234,
@@ -32,7 +36,11 @@ objToQueryString({
 }); // Returns 'hello=world&test=1234&arr=%5B1%2C2%2C3%5D'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 objToQueryString({
 	'hello': 'world',
 	'test': 1234,

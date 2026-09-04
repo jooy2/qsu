@@ -16,17 +16,25 @@ Moves the position of a specific element in an array to the specified position. 
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 arrMove([1, 2, 3, 4], 1, 0); // Returns [2, 1, 3, 4]
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 arrMove([1, 2, 3, 4], 1, 0)  # Returns [2, 1, 3, 4]
 ```
 

@@ -16,9 +16,9 @@
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 const result = objDeleteKeyByValue(
 	{
 		a: 1,
@@ -41,7 +41,11 @@ const result = objDeleteKeyByValue(
 console.log(result); // Returns { a: 1, c: { bb: { aaa: 1 } }, d: {} }
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 print(objDeleteKeyByValue(
     {
       'a': 1,
@@ -63,7 +67,11 @@ print(objDeleteKeyByValue(
 // Returns { 'a': 1, 'c': { 'bb': { 'aaa': 1 } }, 'd': {} }
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 result = objDeleteKeyByValue(
 	{
 		'a': 1,

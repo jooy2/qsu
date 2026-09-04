@@ -17,19 +17,27 @@ URL 또는 pathname에서 1단계 경로를 제거합니다. 일반적으로 로
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 removeLocalePrefix('/ko/user/login', ['ko', 'en']); // Returns '/user/login'
 removeLocalePrefix('https://qsu.cdget.com/ko/user/login', ['ko', 'en']); // Returns 'https://qsu.cdget.com/user/login'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 removeLocalePrefix('/ko/user/login', ['ko', 'en']); // Returns '/user/login'
 removeLocalePrefix('https://qsu.cdget.com/ko/user/login', ['ko', 'en']); // Returns 'https://qsu.cdget.com/user/login'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 removeLocalePrefix('/ko/user/login', ['ko', 'en'])  # Returns '/user/login'
 removeLocalePrefix('https://qsu.cdget.com/ko/user/login', ['ko', 'en'])  # Returns 'https://qsu.cdget.com/user/login'
 ```

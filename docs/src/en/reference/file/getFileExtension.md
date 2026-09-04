@@ -16,21 +16,29 @@ Returns the file extension from the given file path. An empty string value is re
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 getFileExtension('/home/user/test.txt'); // 'txt'
 getFileExtension('/home/user/test.txt.sample'); // 'sample'
 getFileExtension('C:\\test\\txt.png'); // 'png'
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 getFileExtension('/home/user/test.txt'); // 'txt'
 getFileExtension('/home/user/test.txt.sample'); // 'sample'
 getFileExtension('C:\\test\\txt.png'); // 'png'
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 getFileExtension('/home/user/test.txt') # 'txt'
 getFileExtension('/home/user/test.txt.sample') # 'sample'
 getFileExtension('C:\\test\\txt.png') # 'png'

@@ -20,17 +20,25 @@ A path that is empty or nothing but whitespace does nothing, so an empty form fi
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 await createFile('/home/user/test.txt');
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 await createFile('/home/user/test.txt');
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 createFile('/home/user/test.txt')
 ```
 

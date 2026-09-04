@@ -18,9 +18,9 @@ The escaped set is `^`, `$`, `.`, `*`, `+`, `?`, `(`, `)`, `[`, `]`, `{`, `}`, `
 
 ## Examples
 
-::: code-group
+::: lang js
 
-```javascript [JavaScript]
+```javascript
 escapeRegExp('1 + 1 = 2'); // Returns '1 \\+ 1 = 2'
 escapeRegExp('[qsu](https://qsu.cdget.com/)'); // Returns '\\[qsu\\]\\(https://qsu\\.cdget\\.com/\\)'
 escapeRegExp('a-z #1'); // Returns 'a-z #1'
@@ -29,7 +29,11 @@ new RegExp(escapeRegExp('a.b')).test('a.b'); // Returns true
 new RegExp(escapeRegExp('a.b')).test('axb'); // Returns false
 ```
 
-```dart [Dart]
+:::
+
+::: lang dart
+
+```dart
 escapeRegExp('1 + 1 = 2'); // Returns '1 \\+ 1 = 2'
 escapeRegExp('[qsu](https://qsu.cdget.com/)'); // Returns '\\[qsu\\]\\(https://qsu\\.cdget\\.com/\\)'
 escapeRegExp('a-z #1'); // Returns 'a-z #1'
@@ -38,7 +42,11 @@ RegExp(escapeRegExp('a.b')).hasMatch('a.b'); // Returns true
 RegExp(escapeRegExp('a.b')).hasMatch('axb'); // Returns false
 ```
 
-```python [Python]
+:::
+
+::: lang python
+
+```python
 escapeRegExp('1 + 1 = 2')  # Returns '1 \\+ 1 = 2'
 escapeRegExp('[qsu](https://qsu.cdget.com/)')  # Returns '\\[qsu\\]\\(https://qsu\\.cdget\\.com/\\)'
 escapeRegExp('a-z #1')  # Returns 'a-z #1'
