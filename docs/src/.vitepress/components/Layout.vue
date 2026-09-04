@@ -60,7 +60,7 @@ function syncSidebar() {
 				)
 			})
 		);
-		text?.setAttribute('data-lang-badge', named.map((item) => item.short).join(' · '));
+		text?.setAttribute('data-lang-badge', t(locale.value, 'unavailableBadge'));
 	}
 }
 

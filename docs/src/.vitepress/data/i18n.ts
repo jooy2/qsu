@@ -23,6 +23,8 @@ const STRINGS: Record<string, Record<string, string>> = {
 		en: 'This function is not part of the {language} package. The documentation below is for {languages}.',
 		ko: '이 함수는 {language} 패키지에 없습니다. 아래 문서는 {languages} 기준입니다.'
 	},
+	/** On the sidebar entry itself, where there is room for one word. */
+	unavailableBadge: { en: 'Unsupported', ko: '미지원' },
 	unavailableLink: {
 		en: 'Not available in {language}. Implemented in {languages}.',
 		ko: '{language}에서는 제공하지 않습니다. {languages}에서 제공합니다.'
