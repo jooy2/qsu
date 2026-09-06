@@ -10,7 +10,7 @@
 		"lint:fix": "eslint . --ext .js,.ts --fix .",
 		"format": "prettier . --write"
 	},
-	"author": "CDGet <jooy2.contact@gmail.com>",
+	"author": "CDGet (https://cdget.com)",
 	"license": "MIT",
 	"dependencies": {
 		"markdown-it-container": "^4.0.0",
