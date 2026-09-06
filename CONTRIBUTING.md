@@ -1,23 +1,59 @@
-# Contributing to Project
+# Contributing to qsu
 
 Thank you for contributing to the project. Your contributions will help us take the project to the next level.
 
-This project adheres to the Contributor Covenant code of conduct. Your contribution implies that you have read and agree to this policy. Any behavior that undermines the quality of the project community, including this policy, will be warned or restricted by the maintainers.
+This project adheres to the [Contributor Covenant](CODE_OF_CONDUCT.md) code of conduct, version 2.1. Your contribution implies that you have read and agree to this policy. Any behavior that undermines the quality of the project community, including this policy, will be warned or restricted by the maintainers.
+
+## Repository layout
+
+`qsu` is a monorepo. The same utility functions are published for three languages, and the documentation site covers all of them:
+
+```
+packages/
+  javascript/   # npm package `qsu` (TypeScript source in lib/, built to dist/)
+  dart/         # pub package `qsu` (lib/src/<category>.dart)
+  python/       # PyPI package `qsu` (qsu/<category>/<functionName>.py)
+docs/           # VitePress documentation site (en + ko), published to qsu.cdget.com
+```
+
+The point of the project is that a function behaves the same in every language it supports. A function keeps the same `camelCase` name, the same category and the same test cases in JavaScript, Dart and Python, even where that is not the idiomatic style of the language. Optional arguments follow each language instead: an options object in JavaScript, named parameters in Dart, a `dict` or keyword arguments in Python.
+
+Not every function exists in every package. When you add one to a single language, say so in the pull request rather than leaving the gap unexplained.
+
+## Development
+
+Work inside the package you are changing:
+
+| Package                           | Install                   | Test        | Analyze / Format                  |
+| --------------------------------- | ------------------------- | ----------- | --------------------------------- |
+| [JavaScript](packages/javascript) | `npm install`             | `npm test`  | `npm run lint` / `npm run format` |
+| [Dart](packages/dart)             | `dart pub get`            | `dart test` | `dart analyze` / `dart format .`  |
+| [Python](packages/python)         | `pip install -e ".[dev]"` | `pytest`    | `mypy`                            |
+
+The documentation site uses pnpm and needs Node.js 18 or later:
+
+```bash
+cd docs && pnpm install && pnpm run dev
+```
+
+Every reference page lives under both `docs/src/en/reference` and `docs/src/ko/reference`, and each package's example is written in its own `::: lang` block. A package with no block on a page is a package the sidebar reports as not having that function, so a missing example is a wrong answer rather than a gap.
 
 ## Issues
 
 Issues can be created on the following page: https://github.com/jooy2/qsu/issues
 
-Alternatively, you can email the package maintainer. However, we prefer to track progress via GitHub Issues.
+Alternatively, you can reach the maintainers at https://cdget.com/contact. However, we prefer to track progress via GitHub Issues.
 
 When creating an issue, keep the following in mind:
 
 - Please specify the correct category selection based on the format of the issue (e.g., bug report, feature request).
 - Check to see if there are duplicate issues.
 - Describe in detail what is happening and what needs to be fixed. You may need additional materials such as images or video.
+- Name the package and the version you are on, and the runtime you ran it with.
 - Use appropriate keyword titles to make it easy for others to search and understand.
 - Please use English in all content.
-- You may need to describe the environment in which the issue occurs.
+
+A security vulnerability is not a general issue. Report one through the process in [SECURITY.md](SECURITY.md).
 
 ## How to contribute (Pull Requests)
 
@@ -58,6 +94,15 @@ Informal tags:
 
 - `package`: Modifications to package settings, modules, or GitHub projects
 - `typo`: Fix typos
+
+Because the repository holds several packages, a commit also carries the scope it belongs to, in front of the tag: `javascript`, `dart`, `python`, or `common` for the documentation and anything that touches every package.
+
+```text
+[python] feat: add `getSlug` method
+[common] docs: describe the `named` row of `ParamsTable`
+```
+
+A change that spans languages is usually easier to review as one commit per package.
 
 ### Create a pull request
 

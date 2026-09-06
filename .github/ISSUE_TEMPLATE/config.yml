@@ -1,1 +1,11 @@
 blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://qsu.cdget.com
+    about: Every function, with parameters, defaults and examples, in English and Korean.
+  - name: Contact the maintainers
+    url: https://cdget.com/contact
+    about: Reach CDGet for anything that does not belong in a public issue.
+  - name: Report a security vulnerability
+    url: https://github.com/jooy2/qsu/security/advisories/new
+    about: Open a draft security advisory. Do not report a vulnerability as a public issue.

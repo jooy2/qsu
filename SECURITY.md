@@ -1,10 +1,21 @@
 # Security Policy
 
+## Supported Versions
+
+Security fixes go into the latest release of each package. Before reporting, check that the problem still happens on the current version of `qsu` for JavaScript, Dart or Python.
+
 ## Reporting Security Issues
 
-To report a security vulnerability, create an issue on GitHub on the "Open a draft security advisory" page on GitHub: https://github.com/jooy2/qsu/security/advisories/new
+To report a security vulnerability, open a draft security advisory on GitHub: https://github.com/jooy2/qsu/security/advisories/new
 
-Also, send private instructions in advance via maintainer email. Do not submit vulnerability-related content as a general issue.
+Do not report a vulnerability as a general issue, and do not describe it in a pull request before it is fixed. If you cannot use the advisory page, write to the maintainers at https://cdget.com/contact and wait for a reply before disclosing anything.
+
+A report is easier to act on when it includes:
+
+- The package and version it affects, and the runtime you ran it on.
+- The steps to reproduce it, with the smallest example that shows the problem.
+- What an attacker gains from it.
+- A patch or a workaround, if you already have one.
 
 ## Security compliance
 
@@ -18,4 +29,4 @@ We recommend that users of project sources use the latest version, which address
 
 ## Contact
 
-- Administrator: jooy2.contact@gmail.com
+- Contact page: https://cdget.com/contact

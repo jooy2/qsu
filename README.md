@@ -156,6 +156,12 @@ Anyone can contribute to the project by reporting new issues or submitting a pul
 
 To report a security issue, please follow the process described in [SECURITY.md](SECURITY.md).
 
+For anything that does not belong in a public issue, write to CDGet at [cdget.com/contact](https://cdget.com/contact).
+
+## Sponsor
+
+qsu is free to use and maintained in the open. If it saves you time, you can support the work at [cdget.com/donate](https://cdget.com/donate) or through the Sponsor button on GitHub.
+
 ## License
 
 Please see the [LICENSE](LICENSE) file for more information about project owners, usage rights, and more.
