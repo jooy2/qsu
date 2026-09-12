@@ -1,20 +1,18 @@
-import type { PositiveNumber } from '../_types/global.js';
+import type { FileSizeOptions, PositiveNumber } from '../_types/global.js';
+import { fileSizeParts, resolveUnitTable, unitLabel } from './fileSizeParts.js';
 
 export function fileSizeFormat<N extends number>(
 	bytes: PositiveNumber<N>,
 	decimals = 2,
-	ceil = false
+	ceil = false,
+	options?: FileSizeOptions
 ): string {
-	const sizeUnits = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+	const { standard, unitDisplay } = { ...options };
+	const { value, exponent } = fileSizeParts(bytes, options);
 
-	if (bytes < 1) {
-		return `0 ${sizeUnits[0]}`;
-	}
+	const rounded = ceil ? Math.ceil(value) : parseFloat(value.toFixed(decimals < 0 ? 0 : decimals));
 
-	const byteCalc = Math.floor(Math.log(bytes) / Math.log(1024));
-	const byteResult = bytes / 1024 ** byteCalc;
-
-	return `${ceil ? Math.ceil(byteResult) : parseFloat(byteResult.toFixed(decimals < 0 ? 0 : decimals))} ${
-		sizeUnits[byteCalc]
-	}`;
+	// The label is taken from the rounded number, so a value that rounds to one is not
+	// written as `1 Megabytes`.
+	return `${rounded} ${unitLabel(resolveUnitTable(standard), exponent, unitDisplay, rounded)}`;
 }

@@ -11,14 +11,40 @@ export type AnyValueObject = { [key: string]: any };
 export type DurationUnitName =
 	'Year' | 'Month' | 'Day' | 'Hour' | 'Minute' | 'Second' | 'Millisecond';
 
-export type DurationOptions = {
-	useShortString?: boolean;
-	useSpace?: boolean;
+// The options that decide which units a duration is broken into, shared by `duration`
+// and `durationParts`. The rest of `DurationOptions` only decides how the pieces are
+// written, which `durationParts` leaves to the caller.
+export type DurationPartsOptions = {
 	withZeroValue?: boolean;
-	separator?: string;
 	withMilliSeconds?: boolean;
 	maxUnitCount?: number;
 	unit?: DurationUnitName;
+};
+
+export type DurationOptions = DurationPartsOptions & {
+	useShortString?: boolean;
+	useSpace?: boolean;
+	separator?: string;
+};
+
+export type DurationPart = {
+	value: number;
+	unit: DurationUnitName;
+};
+
+export type FileSizeStandard = 'jedec' | 'iec' | 'si';
+
+export type FileSizeUnitDisplay = 'short' | 'long';
+
+export type FileSizeOptions = {
+	standard?: FileSizeStandard;
+	unitDisplay?: FileSizeUnitDisplay;
+};
+
+export type FileSizeParts = {
+	value: number;
+	unit: string;
+	exponent: number;
 };
 
 export type RetryOptions = {

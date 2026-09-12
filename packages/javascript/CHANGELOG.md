@@ -1,6 +1,15 @@
 # Changelog (JavaScript)
 
-## 1.18.0 (2026--)
+## 1.19.0 (2026-09-12)
+
+### Changes
+
+- `durationParts`: Added. Breaks a duration into its units and hands them back as `{ value, unit }` rather than a string, so a duration can be written in a language this package does not know. `duration` labels the units in English and builds the plural by adding an `s`, which is a rule only English follows: Polish has three plural forms and Arabic six. `Intl.DurationFormat` turns the pieces into `14 Tage, 6 Stunden, 56 Minuten und 7 Sekunden`. It takes the options of `duration` that decide which units are used, and `duration` is now built on it, so the two cannot disagree
+- `fileSizeParts`: Added. Splits a file size in bytes into the scaled number and the unit it belongs to, and hands both back rather than a string, so a size can be written in a language this package does not know. `Intl.NumberFormat` turns `{ value: 1.177, exponent: 2 }` into `1,18 MB` in German and `1,18 Mo` in French, which no arrangement of the old return value could produce. The value is deliberately left unrounded, so the caller's own formatter rounds it once instead of rounding an already rounded number
+- `fileSizeFormat`: Two options were added as a fourth argument. `standard` picks the divisor and the unit names: `jedec` (the default) divides by 1024 and writes `KB` as it always has, `iec` divides by 1024 and writes `KiB`, and `si` divides by 1000 and writes `kB`. `unitDisplay` writes the unit as an abbreviation (`1.18 MB`) or as a whole word (`1.18 Megabytes`), taking the singular when the rounded number is one. Leaving both out returns exactly the string it returned before, which the tests now pin
+- `fileSizeFormat`: A size past the largest unit no longer runs off the end of the unit table. `fileSizeFormat(1024 ** 9)` returned `1 undefined`, where the Dart and Python packages threw on the same input; the exponent is now held at the last unit, so it reads `1024 YB`
+
+## 1.18.0 (2026-08-29)
 
 - The package is now declared side-effect free, and the lookup tables that `deburr`, `hasBadWords`, `sortNumeric`, `sortByObjectKey` and `numberFormat` used to build at import time are built on the first call that needs them instead. A bundler has to keep any module that runs code when it is loaded, so `import { arrUnique } from 'qsu'` dragged two `Intl.Collator` instances, an `Intl.NumberFormat` and the `deburr` and `hasBadWords` tables along with it. Bundling a single function with esbuild now comes to 251 bytes rather than 2665, and importing the package in Node costs 22.7ms rather than 33.2ms. This changes no behavior and no API
 - Every category now has a subpath export of its own: `qsu/array`, `qsu/date`, `qsu/format`, `qsu/math`, `qsu/misc`, `qsu/object`, `qsu/string`, `qsu/verify` and `qsu/web`, plus `qsu/node/crypto`, `qsu/node/file`, `qsu/node/misc`, `qsu/node/net` and `qsu/node/os` under the Node.js runtime. Only `.`, `./types` and `./node` were reachable before, so anything not running a bundler had to load the whole root barrel (171 modules, 33.2ms in Node) to reach one function, where `qsu/array` costs 7.4ms. `qsu/package.json` is exported as well, for tools that read it
