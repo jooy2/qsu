@@ -26,7 +26,6 @@ CONTRIBUTING.md
 terser.config.json
 .eslintignore
 eslint.config.ts
-pnpm-workspace.yaml
 .prettierignore
 .prettierrc
 tsconfig.json
