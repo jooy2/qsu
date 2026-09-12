@@ -31,6 +31,20 @@ const STRINGS: Record<string, Record<string, string>> = {
 	},
 	/** Between the last two items of a list of names. */
 	listJoin: { en: ' and ', ko: ', ' },
+	/* The home page. `LangTabs.vue` stands in for the sidebar switch, which the
+	   home layout has no sidebar to hold. */
+	examplesLanguage: { en: 'Examples in', ko: '예제 언어' },
+	/* `CategoryGrid.vue`. The category names are the folder names the sidebar
+	   and the URLs already use, so they are not translated. */
+	functionCount: { en: '{count} functions', ko: '함수 {count}개' },
+	functionCountOne: { en: '{count} function', ko: '함수 {count}개' },
+	categoryUnavailable: { en: 'Not in {language}', ko: '{language} 미지원' },
+	categorySummary: {
+		en: '{count} functions across {categories} categories',
+		ko: '{categories}개 카테고리, 함수 {count}개'
+	},
+	/** `StartCards.vue`, on the card that opens the installation page. */
+	startAction: { en: 'Get started', ko: '시작하기' },
 	/* `ParamsTable.vue`. The parameter names themselves are never translated:
 	   they are what the reader types. */
 	paramName: { en: 'Name', ko: '이름' },

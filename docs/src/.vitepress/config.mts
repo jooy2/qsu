@@ -1,6 +1,6 @@
 import container from 'markdown-it-container';
 import { readdirSync, readFileSync } from 'node:fs';
-import { dirname, join, relative, resolve, sep } from 'node:path';
+import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig, type MarkdownRenderer, UserConfig } from 'vitepress';
 import { withSidebar } from 'vitepress-sidebar';
@@ -119,6 +119,43 @@ function collectFunctionLanguages(): Record<string, string[]> {
 }
 
 const functionLanguages = collectFunctionLanguages();
+
+/**
+ * How many functions each category documents, per language.
+ *
+ * The home page draws its catalogue from this rather than from a list kept by
+ * hand, so a function added to a package is a number that moves on its own. It
+ * is counted per language for the same reason the sidebar marks entries: a
+ * category qsu has not ported everywhere is a different size in Dart than it is
+ * in JavaScript, and one it has not ported at all counts zero.
+ *
+ * A page's `::: lang` blocks are the answer here too. See
+ * `collectFunctionLanguages`, which reads the same pages for the same reason.
+ */
+function collectCategoryCounts(): Record<string, Record<string, number>> {
+	const counts: Record<string, Record<string, number>> = {};
+
+	for (const path of markdownFiles(join(srcDir, defaultLocale, 'reference'))) {
+		const implemented = blocksOf(path);
+
+		// `reference/index.md`, which documents no function of its own.
+		if (implemented.length === 0) {
+			continue;
+		}
+
+		const category = basename(dirname(path));
+
+		counts[category] ??= Object.fromEntries(CODE_LANGUAGE_IDS.map((id) => [id, 0]));
+
+		for (const id of implemented) {
+			counts[category][id] += 1;
+		}
+	}
+
+	return counts;
+}
+
+const categoryCounts = collectCategoryCounts();
 
 const commonSidebarConfig: VitePressSidebarOptions = {
 	debugPrint: true,
@@ -267,6 +304,8 @@ const vitePressConfigs: UserConfig = {
 	themeConfig: {
 		// Read by `LangNotice.vue` and by the sidebar marks in `Layout.vue`.
 		functionLanguages,
+		// Read by `CategoryGrid.vue`, which draws the catalogue on the home page.
+		categoryCounts,
 		siteTitle: false,
 		logo: { src: '/logo-text.webp' },
 		socialLinks: [

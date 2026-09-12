@@ -1,0 +1,182 @@
+/**
+ * The home page.
+ *
+ * The sections below the hero are written in Markdown, in each locale's own
+ * `index.md`, so their code samples are highlighted by the same pipeline the
+ * reference uses and their examples answer to the same language switch. What is
+ * here is the part Markdown cannot say: the shape of the grids, and the few
+ * places where a landing page should not look like a document.
+ *
+ * Everything is scoped to `.VPHome`, so a rule written for the landing page
+ * cannot reach the pages that have to keep the default theme.
+ */
+
+/*
+ * The hero.
+ *
+ * The gradient is the logo's cyan into the theme's own brand blue, which is what
+ * every button and link on the site is already drawn in. It is set here rather
+ * than in the theme variables because it belongs to this page: the rest of the
+ * site is a reference, and a reference does not need a glow behind it.
+ */
+.VPHome {
+	--vp-home-hero-name-color: transparent;
+	--vp-home-hero-name-background: linear-gradient(120deg, #1da5be 30%, var(--vp-c-brand-1));
+	--vp-home-hero-image-background-image: linear-gradient(-45deg, #1da5be 45%, var(--vp-c-brand-1));
+	--vp-home-hero-image-filter: blur(44px);
+}
+
+@media (min-width: 640px) {
+	.VPHome {
+		--vp-home-hero-image-filter: blur(56px);
+	}
+}
+
+@media (min-width: 960px) {
+	.VPHome {
+		--vp-home-hero-image-filter: blur(68px);
+	}
+}
+
+/* ---------------------------------------------------------------------------
+ * The feature cards
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The icons are inline SVG in the front matter, which arrives as raw markup and
+ * so carries none of the theme's scoping attributes. That is why their size is
+ * set here: the card has no rule that can reach them.
+ */
+.VPHome .VPFeature .icon {
+	background: linear-gradient(135deg, var(--vp-c-brand-soft), var(--vp-c-default-soft));
+	color: var(--vp-c-brand-1);
+}
+
+.VPHome .VPFeature .icon svg {
+	width: 26px;
+	height: 26px;
+}
+
+.VPHome .VPFeature {
+	border-color: var(--vp-c-divider);
+	transition:
+		border-color 0.25s,
+		transform 0.25s;
+}
+
+.VPHome .VPFeature:hover {
+	border-color: var(--vp-c-brand-1);
+	transform: translateY(-3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.VPHome .VPFeature:hover {
+		transform: none;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+ * The sections under the features
+ * ------------------------------------------------------------------------- */
+
+/*
+ * A section heading here opens a part of a landing page rather than a part of a
+ * document, so it loses the rule above it that the reference draws and gains the
+ * room a page break would otherwise give it.
+ */
+.VPHome .vp-doc h2 {
+	margin: 80px 0 0;
+	padding-top: 0;
+	border-top: none;
+	font-size: 30px;
+	line-height: 1.3;
+	letter-spacing: -0.02em;
+	text-align: center;
+}
+
+/* A centered heading has nowhere to put the anchor the reference gives every
+   heading: it floats to the far left of the page, away from the words it
+   belongs to. The home page is one screenful of sections rather than something
+   anyone links into, so it does without. */
+.VPHome .vp-doc h2 .header-anchor {
+	display: none;
+}
+
+/* The sentence under a heading, which every section here opens with. */
+.VPHome .vp-doc h2 + p {
+	max-width: 640px;
+	margin: 12px auto 0;
+	text-align: center;
+	color: var(--vp-c-text-2);
+}
+
+.VPHome .vp-doc h3 {
+	margin: 32px 0 0;
+	font-size: 17px;
+}
+
+/* ---------------------------------------------------------------------------
+ * The three languages, side by side
+ * ------------------------------------------------------------------------- */
+
+/*
+ * The one place on the site that shows every language at once. Everywhere else
+ * the switch picks one, because a reader reading is reading in a language; here
+ * the three columns standing next to each other are the point being made.
+ */
+.home-parity {
+	display: grid;
+	gap: 16px;
+	margin-top: 28px;
+}
+
+/* Three columns only once a column is wide enough for the sample to sit in it
+   without scrolling. Below that the three stack, which is the same comparison
+   read one after the other rather than side by side. */
+@media (min-width: 1100px) {
+	.home-parity {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.VPHome .vp-doc .home-parity div[class*='language-'] {
+	margin: 0;
+	height: 100%;
+}
+
+.VPHome .vp-doc .home-note {
+	margin: 14px 0 0;
+	text-align: center;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--vp-c-text-3);
+}
+
+/* ---------------------------------------------------------------------------
+ * The links that close a section
+ * ------------------------------------------------------------------------- */
+
+.VPHome .vp-doc .home-cta {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 28px;
+}
+
+.VPHome .vp-doc .home-cta a {
+	padding: 8px 20px;
+	border: 1px solid var(--vp-c-brand-1);
+	border-radius: 20px;
+	font-size: 14px;
+	font-weight: 600;
+	text-decoration: none;
+	transition:
+		color 0.25s,
+		background-color 0.25s;
+}
+
+.VPHome .vp-doc .home-cta a:hover {
+	background-color: var(--vp-c-brand-1);
+	color: var(--vp-c-white);
+}

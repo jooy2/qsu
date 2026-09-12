@@ -6,30 +6,241 @@ titleTemplate: 강력한 유틸리티 라이브러리
 
 hero:
   name: QSU
-  text: 강력한 유틸 라이브러리
-  tagline: qsu는 유용하고 자주 쓰는 함수를 모아둔 유틸리티 라이브러리입니다. array, object, string 데이터 처리 등의 유용한 함수들이 있습니다. 원하는 프로그래밍 언어와 최신 개발 환경에서 시작하세요.
+  text: Quick & Simple Utility
+  tagline: 프로젝트마다 직접 만들게 되는 유틸리티 함수를 모았습니다. slug, 대소문자 변환, 날짜 계산, 파일 크기, 깊은 복사와 병합, 검증, 해시를 JavaScript와 Dart, Python에서 같은 이름과 같은 동작으로 씁니다.
   actions:
     - theme: brand
-      text: 소개
-      link: ko/introduction
-    - theme: alt
-      text: 설치하기
+      text: 시작하기
       link: ko/installation
     - theme: alt
       text: 레퍼런스
       link: ko/reference
+    - theme: alt
+      text: 소개
+      link: ko/introduction
   image:
     src: /icon.png
-    alt: Utility
+    alt: qsu
 
 features:
-  - icon: <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="96px" height="96px"><path fill="#35c1f1" d="M28.967,8.099c-0.607,0.41-1.176,0.878-1.7,1.402l-13.81,13.81	c-3.415,3.415-4.418,8.711-2.626,13.859h0c5.148,1.792,10.444,0.789,13.859-2.626l13.81-13.81c0.494-0.494,0.939-1.029,1.332-1.598	C41.86,16.199,31.89,6.125,28.967,8.099z"/><path fill="#199be2" d="M18.02,18.747l-4.564,4.564c-3.415,3.415-4.418,8.711-2.626,13.859l0,0l7.992-7.992L18.02,18.747z"/><path fill="#199be2" d="M29.253,29.98l-4.564,4.564c-3.415,3.415-8.711,4.418-13.859,2.626l0,0l7.992-7.992L29.253,29.98z"/><path fill="#50e6ff" d="M41.585,8.444l-0.319-1.339c-0.044-0.184-0.187-0.327-0.371-0.371l-1.339-0.319	c-4.178-0.995-8.281-0.177-11.283,2.193l0.794,10.325l10.325,0.794C41.762,16.726,42.58,12.622,41.585,8.444z"/><linearGradient id="brJTimU9iDLd5xgY1p0K7a" x1="35.718" x2="4.815" y1="13.389" y2="42.216" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0176d0"/><stop offset="1" stop-color="#16538c"/></linearGradient><path fill="url(#brJTimU9iDLd5xgY1p0K7a)" d="M33.174,14.826c-0.195-0.195-0.451-0.293-0.707-0.293s-0.512,0.098-0.707,0.293l-3.378,3.378	l-7.415,7.415l-4.88,4.88l-7.415,7.415l-3.378,3.378c-0.391,0.391-0.391,1.023,0,1.414C5.488,42.902,5.744,43,6,43	s0.512-0.098,0.707-0.293l3.378-3.378l7.415-7.415l4.88-4.88l7.415-7.415l3.378-3.378C33.564,15.85,33.564,15.217,33.174,14.826z"/></svg>
-    title: 가볍고 빠릅니다!
-    details: 작은 설치 공간과 빠른 성능을 목표로 합니다. 모던 프로그래밍에 이상적입니다.
-  - icon: <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 120 120" width="240px" height="240px" baseProfile="basic"><polygon points="106,94 60,116 14,94 14,34 60,12 106,34" opacity=".35"/><polygon fill="#0075ff" points="106,90 60,112 14,90 14,30 60,8 106,30"/><polygon points="35,81.005 35,47.005 60,34.995 85,47.005 85,81.005 60,93.005" opacity=".35"/><polygon fill="#a4e2f1" points="35,77.005 35,43.005 60,30.995 85,43.005 85,77.005 60,89.005"/><polygon points="106,34.05 60,56.7 14,34.05 14,42.83 56,63.45 56,110.087 60,112 64,110.087 64,63.474 106,42.7" opacity=".35"/><polygon fill="#52afff" points="106,30.05 60,52.7 14,30.05 14,38.83 56,59.45 56,110.087 60,112 64,110.087 64,59.474 106,38.7"/></svg>
-    title: 다양한 유틸리티 기능으로 프로그래밍 속도를 높일 수 있습니다.
-    details: qsu에서 사용할 수 있는 기능을 만나보세요. 반복적인 유틸리티 작성을 최소화하세요.
-  - icon: <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 32 32" width="64px" height="64px"><circle cx="16" cy="17" r="5" fill="#ed0049"/><path fill="#ed0049" d="M23,31H9v0c0-3.866,3.134-7,7-7h0C19.866,24,23,27.134,23,31L23,31z"/><path fill="#0f518c" d="M19,4c0-1.657-1.343-3-3-3s-3,1.343-3,3c0,0.885,0.391,1.672,1,2.222V10h4V6.222 C18.609,5.672,19,4.885,19,4z"/><path fill="#0f518c" d="M7.061,8.318c-1.171-1.171-3.071-1.171-4.243,0s-1.171,3.071,0,4.243 c0.626,0.626,1.459,0.906,2.278,0.864l2.672,2.672l2.828-2.828l-2.672-2.672C7.967,9.777,7.686,8.944,7.061,8.318z"/><path fill="#0f518c" d="M24.879,8.318c1.171-1.171,3.071-1.171,4.243,0s1.171,3.071,0,4.243 c-0.626,0.626-1.459,0.906-2.278,0.864l-2.672,2.672l-2.828-2.828l2.672-2.672C23.972,9.777,24.253,8.944,24.879,8.318z"/><path fill="#0f518c" d="M24.879,27.218c1.171,1.171,3.071,1.171,4.243,0c1.171-1.171,1.171-3.071,0-4.243 c-0.626-0.626-1.459-0.906-2.278-0.864l-2.672-2.672l-2.828,2.828l2.672,2.672C23.972,25.759,24.253,26.592,24.879,27.218z"/><g><path fill="#0f518c" d="M7.061,27.218c-1.171,1.171-3.071,1.171-4.243,0c-1.171-1.171-1.171-3.071,0-4.243 c0.626-0.626,1.459-0.906,2.278-0.864l2.672-2.672l2.828,2.828L7.925,24.94C7.967,25.759,7.686,26.592,7.061,27.218z"/></g></svg>
-    title: 안정적인 유지 관리 지원
-    details: 실제 사용 사례도 많고 기술 지원도 신속하게 제공합니다.
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h14"/><path d="m14 5 3 3-3 3"/><path d="M21 16H7"/><path d="m10 13-3 3 3 3"/></svg>
+    title: 하나의 API, 세 가지 언어
+    details: 세 패키지가 같은 camelCase 이름과 같은 인자, 같은 결과를 씁니다. Node.js 서버와 Flutter 앱, Python 스크립트를 오가도 쓰던 함수를 다시 익힐 일이 없습니다.
+    link: /ko/introduction
+    linkText: qsu는 무엇인가
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" fill="currentColor" opacity="0.25"/></svg>
+    title: 13개 카테고리
+    details: 배열과 객체, 문자열, 날짜, 수학, 포맷, 검증, 해시, 파일, 시스템, 웹까지 다룹니다. 함수마다 파라미터와 반환 타입, 예제를 담은 문서가 따로 있습니다.
+    link: /ko/reference
+    linkText: 레퍼런스 보기
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h-.5A3.5 3.5 0 0 0 5 7.5v2A2.5 2.5 0 0 1 2.5 12 2.5 2.5 0 0 1 5 14.5v2A3.5 3.5 0 0 0 8.5 20H9"/><path d="M15 4h.5A3.5 3.5 0 0 1 19 7.5v2a2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0-2.5 2.5v2a3.5 3.5 0 0 1-3.5 3.5H15"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>
+    title: 모든 패키지에 타입이 있습니다
+    details: npm 패키지는 TypeScript 선언을 함께 배포하고, Dart는 모든 시그니처에 타입을 적었습니다. Python 패키지는 py.typed로 표시해 mypy와 편집기가 그대로 읽습니다.
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V7"/><path d="m12 13 3.6-3.6"/><path d="M12 16 8.4 12.4" stroke-dasharray="2 2.6"/><circle cx="12" cy="5" r="2"/><circle cx="17" cy="8" r="2"/></svg>
+    title: 가져다 쓴 것만 들어갑니다
+    details: JavaScript 패키지는 ESM이고 런타임 의존성이 없으며 부수 효과가 없다고 표시합니다. 번들러가 호출한 함수만 남기고 나머지를 지웁니다. 카테고리마다 따로 가져오는 경로도 있습니다.
+    link: /ko/installation
+    linkText: 설치 방법
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 5.8v5.9c0 4.2 3.2 7.4 7.5 8.3 4.3-.9 7.5-4.1 7.5-8.3V5.8L12 3Z"/><path d="m9 12 2 2 4-4"/></svg>
+    title: 모든 플랫폼에서 테스트합니다
+    details: 패키지마다 Linux와 macOS, Windows에서 여러 런타임 버전으로 테스트를 돌립니다. 세 테스트는 서로를 옮겨 적은 것이라 같은 동작을 검사합니다.
+  - icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7.2C10.6 5.8 8.6 5.2 4.5 5.2v12c4.1 0 6.1.6 7.5 2 1.4-1.4 3.4-2 7.5-2v-12c-4.1 0-6.1.6-7.5 2Z"/><path d="M12 7.2v12"/></svg>
+    title: 문서는 영어와 한국어로
+    details: 모든 레퍼런스 문서를 영어와 한국어로 씁니다. 고른 패키지에 맞춰 예제와 파라미터 설명, 타입 이름까지 바뀝니다.
+    link: /ko/reference
+    linkText: 레퍼런스 읽기
 ---
+
+## 유틸리티 한 벌, 세 가지 언어
+
+프로젝트마다 비슷한 유틸리티 폴더가 생기고, 언어를 옮기면 그 폴더를 처음부터 다시 만듭니다. qsu는 그 폴더를 한 번만 만들어 npm과 pub.dev, PyPI에 올려 둔 라이브러리입니다. 스택이 바뀌어도 쓰던 함수를 그대로 씁니다.
+
+<div class="home-parity">
+
+```javascript
+// JavaScript / Node.js
+import { getSlug } from 'qsu';
+
+getSlug('Hello World!');
+// 'hello-world'
+```
+
+```dart
+// Dart / Flutter
+import 'package:qsu/qsu.dart';
+
+getSlug('Hello World!');
+// 'hello-world'
+```
+
+```python
+# Python
+from qsu import getSlug
+
+getSlug('Hello World!')
+# 'hello-world'
+```
+
+</div>
+
+<p class="home-note">이름도, 인자도, 결과도 같습니다.</p>
+
+## 실제로 쓰는 모습
+
+여기에서 언어를 고르면 아래 예제가 모두 그 언어로 바뀝니다. 레퍼런스의 모든 문서도 마찬가지입니다.
+
+<LangTabs />
+
+### 문자열과 slug, 대소문자
+
+::: lang js
+
+```javascript
+import { getSlug, strToCamelCase, truncate } from 'qsu';
+
+getSlug('Hello World'); // 'hello-world'
+strToCamelCase('--foo-bar--'); // 'fooBar'
+truncate('hello', 2, '...'); // 'he...'
+```
+
+:::
+
+::: lang dart
+
+```dart
+import 'package:qsu/qsu.dart';
+
+getSlug('Hello World'); // 'hello-world'
+strToCamelCase('--foo-bar--'); // 'fooBar'
+truncate('hello', 2, ellipsis: '...'); // 'he...'
+```
+
+:::
+
+::: lang python
+
+```python
+from qsu import getSlug, strToCamelCase, truncate
+
+getSlug('Hello World')  # 'hello-world'
+strToCamelCase('--foo-bar--')  # 'fooBar'
+truncate('hello', 2, '...')  # 'he...'
+```
+
+:::
+
+### 날짜와 크기, 기간
+
+::: lang js
+
+```javascript
+import { today, dayDiff, fileSizeFormat, duration } from 'qsu';
+
+today(); // 'YYYY-MM-DD'
+dayDiff(new Date('2021-01-01'), new Date('2021-01-03')); // 2
+fileSizeFormat(100000000, 3); // '95.367 MB'
+duration(604800000); // '7 Days'
+```
+
+:::
+
+::: lang dart
+
+```dart
+import 'package:qsu/qsu.dart';
+
+today(); // 'YYYY-MM-DD'
+dayDiff(DateTime(2021, 1, 1), DateTime(2021, 1, 3)); // 2
+fileSizeFormat(100000000, decimals: 3); // '95.367 MB'
+duration(604800000); // '7 Days'
+```
+
+:::
+
+::: lang python
+
+```python
+from datetime import datetime
+from qsu import today, dayDiff, fileSizeFormat, duration
+
+today()  # 'YYYY-MM-DD'
+dayDiff(datetime(2021, 1, 1), datetime(2021, 1, 3))  # 2
+fileSizeFormat(100000000, 3)  # '95.367 MB'
+duration(604800000)  # '7 Days'
+```
+
+:::
+
+### 배열과 객체, 검증
+
+::: lang js
+
+```javascript
+import { arrUnique, objMerge, isEmail } from 'qsu';
+
+arrUnique([1, 2, 2, 3]); // [1, 2, 3]
+objMerge({ a: { b: 1 } }, { a: { c: 2 } }); // { a: { b: 1, c: 2 } }
+isEmail('abc@def.com'); // true
+```
+
+:::
+
+::: lang dart
+
+```dart
+import 'package:qsu/qsu.dart';
+
+arrUnique([1, 2, 2, 3]); // [1, 2, 3]
+objMerge([{'a': {'b': 1}}, {'a': {'c': 2}}]); // {'a': {'b': 1, 'c': 2}}
+isEmail('abc@def.com'); // true
+```
+
+:::
+
+::: lang python
+
+```python
+from qsu import arrUnique, objMerge, isEmail
+
+arrUnique([1, 2, 2, 3])  # [1, 2, 3]
+objMerge({'a': {'b': 1}}, {'a': {'c': 2}})  # {'a': {'b': 1, 'c': 2}}
+isEmail('abc@def.com')  # True
+```
+
+:::
+
+## 무엇이 들어 있나
+
+카테고리는 13개이고, 아래 개수는 지금 읽고 있는 언어 기준입니다. 그 패키지에 없는 카테고리는 개수 대신 미지원이라고 적습니다.
+
+<CategoryGrid :rows="[
+	{ name: 'array', desc: '생성과 정렬, 추출, 중복 제거, 묶기.' },
+	{ name: 'crypto', desc: '해시와 base64, 대칭 암호화, 아이디 생성.' },
+	{ name: 'date', desc: '검증과 형식 변환, 기간 계산.' },
+	{ name: 'file', desc: '파일과 디렉터리 조회, 경로 처리, 읽기와 쓰기.' },
+	{ name: 'format', desc: '읽기 좋은 크기와 기간, 숫자. 예외를 던지지 않는 파싱.' },
+	{ name: 'math', desc: '인자 목록이나 배열에 대한 사칙연산과 난수.' },
+	{ name: 'misc', desc: 'debounce와 throttle, retry, sleep처럼 함수를 다루는 도구.' },
+	{ name: 'net', desc: '네트워크 요청.' },
+	{ name: 'object', desc: '탐색과 병합, 평탄화, 변환.' },
+	{ name: 'os', desc: '프로세스가 도는 컴퓨터의 정보.' },
+	{ name: 'string', desc: '변환과 대소문자, 공백 제거, 자르기.' },
+	{ name: 'verify', desc: '타입과 동등성, 범위, 형식 검증.' },
+	{ name: 'web', desc: 'URL과 slug, 사용자 에이전트처럼 브라우저에서 쓰는 도구.' }
+]" />
+
+## 언어를 골라 시작하기
+
+필요한 패키지를 설치하세요. 여기에서 고른 언어로 설치 문서가 열리고, 그다음에 여는 문서도 같은 언어를 따릅니다.
+
+<StartCards :cards="[
+	{ id: 'js', note: 'Node.js 18 이상. ESM 전용이고, 런타임이 필요한 함수는 Node.js 전용 경로로 가져옵니다.', install: 'npm install qsu', link: '/ko/installation' },
+	{ id: 'dart', note: 'Dart 3.5 이상. Flutter 3.24 이상이면 이미 들어 있습니다.', install: 'dart pub add qsu', link: '/ko/installation' },
+	{ id: 'python', note: 'Python 3.8 이상. pip와 uv, Poetry, PDM으로 설치합니다.', install: 'pip install qsu', link: '/ko/installation' }
+]" />
+
+<div class="home-cta">
+
+[소개](/ko/introduction) [레퍼런스](/ko/reference/index.md) [Changelog](/changelog/)
+
+</div>
