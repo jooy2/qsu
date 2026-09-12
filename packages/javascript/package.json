@@ -1,6 +1,6 @@
 {
 	"name": "qsu",
-	"version": "1.18.0",
+	"version": "1.19.0",
 	"description": "Everyday helpers you would otherwise write yourself: slugs, text case, date math, number and file size formatting, deep clone and merge, email and URL validation, debounce, throttle and hashing. No dependencies.",
 	"author": "CDGet (https://cdget.com)",
 	"license": "MIT",
