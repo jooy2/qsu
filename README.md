@@ -142,10 +142,10 @@ Clone the repository and work inside the package you want to change:
 | [Dart](packages/dart)             | `dart pub get`            | `dart test` | `dart analyze` / `dart format .`  |
 | [Python](packages/python)         | `pip install -e ".[dev]"` | `pytest`    | `mypy`                            |
 
-The documentation site uses pnpm and requires Node.js 18 or later:
+The documentation site requires Node.js 18 or later:
 
 ```bash
-cd docs && pnpm install && pnpm run dev
+cd docs && npm install && npm run dev
 ```
 
 A change to a shared function usually touches all three packages plus both documentation locales. See [CLAUDE.md](CLAUDE.md) for the full checklist.

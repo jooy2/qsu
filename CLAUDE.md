@@ -81,8 +81,8 @@ newer Node when running docs commands, or the build fails during Vite config res
 - **Locales:** configured in `docs/src/.vitepress/config.mts` via `supportedLocale`
   (`en` default at root, `ko` under `/ko/`). English is the fallback; per
   `CONTRIBUTING.md`, you may write new‑language docs in your own language without translating.
-- **Package manager:** pnpm. Common commands (run inside `docs/`): `pnpm install`,
-  `pnpm run dev`, `pnpm run build`, `pnpm run format`.
+- **Package manager:** npm, which is what the CI workflows run. Common commands (run
+  inside `docs/`): `npm install`, `npm run dev`, `npm run build`, `npm run format`.
 - **Custom Vue components** (`docs/src/.vitepress/components`, registered in `theme/index.ts`):
   - `LangLogo` — a language's logo, used by the switch, the chips and the banners.
   - `LangSelect` / `Layout` — the language switch above the sidebar menu, and the layout that
@@ -121,7 +121,7 @@ Two rules follow from this:
   to build `functionLanguages`, which the sidebar marks, the notice and the fallback below all
   depend on, so a package with no `::: lang` block on a page is a package the docs report as
   not having it. The translations have to agree with the default locale, and
-  `collectFunctionLanguages` checks that, failing `pnpm run build` and warning in the dev
+  `collectFunctionLanguages` checks that, failing `npm run build` and warning in the dev
   server.
 - **A page a package does not implement falls back to the first one it does.** A reader on
   Dart looking at `os/getCpu` gets the JavaScript documentation with a notice above it, rather

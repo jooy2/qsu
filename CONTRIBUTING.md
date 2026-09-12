@@ -30,10 +30,10 @@ Work inside the package you are changing:
 | [Dart](packages/dart)             | `dart pub get`            | `dart test` | `dart analyze` / `dart format .`  |
 | [Python](packages/python)         | `pip install -e ".[dev]"` | `pytest`    | `mypy`                            |
 
-The documentation site uses pnpm and needs Node.js 18 or later:
+The documentation site needs Node.js 18 or later:
 
 ```bash
-cd docs && pnpm install && pnpm run dev
+cd docs && npm install && npm run dev
 ```
 
 Every reference page lives under both `docs/src/en/reference` and `docs/src/ko/reference`, and each package's example is written in its own `::: lang` block. A package with no block on a page is a package the sidebar reports as not having that function, so a missing example is a wrong answer rather than a gap.
