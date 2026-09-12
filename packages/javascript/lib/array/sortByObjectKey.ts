@@ -1,8 +1,4 @@
-let numericCollator: Intl.Collator | undefined;
-
-// Creating an `Intl.Collator` is expensive, so build it on first use and reuse it.
-const getNumericCollator = (): Intl.Collator =>
-	(numericCollator ??= new Intl.Collator([], { numeric: true }));
+import { compareNaturalKey, naturalKey } from './_naturalCompare.js';
 
 export function sortByObjectKey(
 	array: any[],
@@ -13,11 +9,16 @@ export function sortByObjectKey(
 	// Sort a copy: `Array.prototype.sort` reorders in place. Flip the comparison for
 	// descending order instead of reversing, which would also flip equal elements.
 	if (numerically) {
-		const collator = getNumericCollator();
+		// Build each key once rather than once per comparison.
+		const decorated = array.map((item) => ({ item, sortKey: naturalKey(item[key]) }));
 
-		return [...array].sort((a: any, b: any) =>
-			descending ? collator.compare(b[key], a[key]) : collator.compare(a[key], b[key])
-		);
+		decorated.sort((a, b) => {
+			const order = compareNaturalKey(a.sortKey, b.sortKey);
+
+			return descending ? -order : order;
+		});
+
+		return decorated.map((entry) => entry.item);
 	}
 
 	return [...array].sort((a: any, b: any) => {

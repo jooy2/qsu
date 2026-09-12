@@ -2,6 +2,9 @@
 
 ## 1.19.0 (2026-09-12)
 
+### Breaking changes
+
+- `sortNumeric`, `sortByObjectKey`: The order no longer depends on the machine or on the package. A string is cut into runs of digits and runs of everything else, and the runs are compared in three passes over the whole string: the letters, then the accents on them, then upper against lower case. Whitespace sorts before punctuation, punctuation before numbers and numbers before letters, and a run of digits is compared by length before value, so a number too long for a number type still sorts correctly. The three packages now return the same order for the same input, which they never did. `Intl.Collator` used to decide it here, with an empty locale list, so the same array came back in a different order on a machine set to Swedish than on one set to English, and neither Dart nor Python matched either. Ordinary lists of file names and labels are unaffected, the ordering being identical to what `Intl.Collator` produced for them; a string starting with punctuation is where the two part company. Sort with `Intl.Collator` yourself if you need the collation of one named locale
 ### Changes
 
 - `durationParts`: Added. Breaks a duration into its units and hands them back as `{ value, unit }` rather than a string, so a duration can be written in a language this package does not know. `duration` labels the units in English and builds the plural by adding an `s`, which is a rule only English follows: Polish has three plural forms and Arabic six. `Intl.DurationFormat` turns the pieces into `14 Tage, 6 Stunden, 56 Minuten und 7 Sekunden`. It takes the options of `duration` that decide which units are used, and `duration` is now built on it, so the two cannot disagree

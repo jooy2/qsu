@@ -275,6 +275,72 @@ describe('Array', () => {
 		]);
 	});
 
+	// The ordering below has to be identical in the Dart and Python packages. It used to
+	// come from `Intl.Collator` here, which answered differently depending on the locale
+	// of the machine, and neither of the other two packages matched it.
+	it('sortNumeric (ordering is the same in every package)', () => {
+		// Case is a tie-break, not the first thing compared, so the numbers still decide.
+		assert.deepStrictEqual(sortNumeric(['item2', 'Item10', 'item1']), ['item1', 'item2', 'Item10']);
+		assert.deepStrictEqual(sortNumeric(['file-1.txt', 'File-3.txt', 'file-10.txt', 'file-2.txt']), [
+			'file-1.txt',
+			'file-2.txt',
+			'File-3.txt',
+			'file-10.txt'
+		]);
+		// Lower case comes before upper case when nothing else separates them.
+		assert.deepStrictEqual(sortNumeric(['Apple', 'apple', 'Banana', 'banana']), [
+			'apple',
+			'Apple',
+			'banana',
+			'Banana'
+		]);
+		assert.deepStrictEqual(sortNumeric(['a', 'A', 'b', 'B']), ['a', 'A', 'b', 'B']);
+		// An accent is a tie-break too, so `äpple` sits next to `apple` and not after `z`.
+		assert.deepStrictEqual(sortNumeric(['zebra', 'äpple', 'apple', 'Zebra']), [
+			'apple',
+			'äpple',
+			'zebra',
+			'Zebra'
+		]);
+		assert.deepStrictEqual(sortNumeric(['résumé', 'resume', 'Resume']), [
+			'resume',
+			'Resume',
+			'résumé'
+		]);
+		// Whitespace, then punctuation, then digits, then letters.
+		assert.deepStrictEqual(sortNumeric(['1file', '.gitignore', 'apple', '_private']), [
+			'.gitignore',
+			'_private',
+			'1file',
+			'apple'
+		]);
+		// A run of digits is compared by length first, so it stays exact past
+		// `Number.MAX_SAFE_INTEGER`.
+		assert.deepStrictEqual(sortNumeric(['12345678901234567891', '12345678901234567890', '2']), [
+			'2',
+			'12345678901234567890',
+			'12345678901234567891'
+		]);
+		// Leading zeros do not change the value, so the raw string breaks the tie.
+		assert.deepStrictEqual(sortNumeric(['007', '7', '08', '8']), ['007', '7', '08', '8']);
+		assert.deepStrictEqual(sortNumeric(['b', 'a', 'c'], true), ['c', 'b', 'a']);
+	});
+
+	it('sortByObjectKey (numerically uses the same ordering)', () => {
+		const rows = [{ n: 'item2' }, { n: 'Item10' }, { n: 'item1' }];
+
+		assert.deepStrictEqual(sortByObjectKey(rows, 'n', false, true), [
+			{ n: 'item1' },
+			{ n: 'item2' },
+			{ n: 'Item10' }
+		]);
+		assert.deepStrictEqual(sortByObjectKey(rows, 'n', true, true), [
+			{ n: 'Item10' },
+			{ n: 'item2' },
+			{ n: 'item1' }
+		]);
+	});
+
 	it('arrGroupByMaxCount', () => {
 		assert.deepStrictEqual(arrGroupByMaxCount([1, 2, 3], 1), [[1], [2], [3]]);
 		assert.deepStrictEqual(arrGroupByMaxCount([1, 2, [], 4, [[]]], 2), [[1, 2], [[], 4], [[[]]]]);
