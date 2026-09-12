@@ -1,5 +1,14 @@
 # Changelog (Python)
 
+## 1.4.0 (2026-09-12)
+
+### Changes
+
+- `durationParts`: Added. Breaks a duration into its units and hands them back as a list of `{'value', 'unit'}` rather than a string, so a duration can be written in a language this package does not know. `duration` labels the units in English and builds the plural by adding an `s`, which is a rule only English follows: Polish has three plural forms and Arabic six. `babel`'s `format_unit` knows the plural rules for each language. It takes the options of `duration` that decide which units are used, and `duration` is now built on it, so the two cannot disagree
+- `fileSizeParts`: Added. Splits a file size in bytes into the scaled number and the unit it belongs to, returning a `dict` rather than a string, so a size can be written in a language this package does not know. Hand `value` to `babel`'s `format_decimal` and take the unit name from `exponent`; the value is deliberately left unrounded, so that formatter rounds it once instead of rounding an already rounded number
+- `fileSizeFormat`: Two keyword arguments were added. `standard` picks the divisor and the unit names: `jedec` (the default) divides by 1024 and writes `KB` as it always has, `iec` divides by 1024 and writes `KiB`, and `si` divides by 1000 and writes `kB`. `unitDisplay` writes the unit as an abbreviation (`1.18 MB`) or as a whole word (`1.18 Megabytes`), taking the singular when the rounded number is one. Leaving both out returns exactly the string it returned before, which the tests now pin
+- `fileSizeFormat`: A size past the largest unit no longer raises `IndexError` by indexing past the end of the unit table. `fileSizeFormat(1024 ** 9)` now reads `1024 YB`, matching what the JavaScript and Dart packages now do
+
 ## 1.3.0 (2026-08-29)
 
 - The package now ships a `py.typed` marker, so a type checker reads the annotations every function already carried. Without it those annotations were ignored in an installed package (PEP 561), and because functions are imported on demand, a checker following `from qsu.array import arrUnique` landed on the module of that name rather than the function in it. Each category now spells its re-exports out under `if TYPE_CHECKING`, which costs nothing at runtime, so `qsu.arrUnique`, `from qsu.array import arrUnique` and `from qsu.array.arrUnique import arrUnique` all carry the real signature

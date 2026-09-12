@@ -1,4 +1,7 @@
 import math
+from typing import Optional
+
+from .fileSizeParts import _unitLabel, _unitTable, fileSizeParts
 
 
 def _numStr(value: float) -> str:
@@ -13,18 +16,22 @@ def _toFixed(value: float, digits: int) -> float:
 	return float(formatted)
 
 
-def fileSizeFormat(bytes: float, decimals: int = 2, ceil: bool = False) -> str:
-	sizeUnits = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-
-	if bytes < 1:
-		return f'0 {sizeUnits[0]}'
-
-	byteCalc = math.floor(math.log(bytes) / math.log(1024))
-	byteResult = bytes / 1024 ** byteCalc
+def fileSizeFormat(
+	bytes: float,
+	decimals: int = 2,
+	ceil: bool = False,
+	standard: Optional[str] = None,
+	unitDisplay: Optional[str] = None,
+) -> str:
+	parts = fileSizeParts(bytes, standard, unitDisplay)
 
 	if ceil:
-		value = math.ceil(byteResult)
+		value = math.ceil(parts['value'])
 	else:
-		value = _toFixed(byteResult, 0 if decimals < 0 else decimals)
+		value = _toFixed(parts['value'], 0 if decimals < 0 else decimals)
 
-	return f'{_numStr(value)} {sizeUnits[byteCalc]}'
+	# The label is taken from the rounded number, so a value that rounds to one is not
+	# written as `1 Megabytes`.
+	label = _unitLabel(_unitTable(standard), parts['exponent'], unitDisplay, value)
+
+	return f'{_numStr(value)} {label}'
