@@ -2,6 +2,10 @@
 
 ## 1.4.0 (2026-09-12)
 
+### Breaking changes
+
+- `sortNumeric`, `sortByObjectKey`: The order no longer depends on the machine or on the package. A string is cut into runs of digits and runs of everything else, and the runs are compared in three passes over the whole string: the letters, then the accents on them, then upper against lower case. Whitespace sorts before punctuation, punctuation before numbers and numbers before letters, and a run of digits is compared by length before value, so a number too long for a number type still sorts correctly. The three packages now return the same order for the same input, which they never did. The key used to compare code points, so `Apple`, `Banana` and `Zebra` all came before `apple`, and `File-3.txt` came before `file-1.txt`
+
 ### Changes
 
 - `durationParts`: Added. Breaks a duration into its units and hands them back as a list of `{'value', 'unit'}` rather than a string, so a duration can be written in a language this package does not know. `duration` labels the units in English and builds the plural by adding an `s`, which is a rule only English follows: Polish has three plural forms and Arabic six. `babel`'s `format_unit` knows the plural rules for each language. It takes the options of `duration` that decide which units are used, and `duration` is now built on it, so the two cannot disagree

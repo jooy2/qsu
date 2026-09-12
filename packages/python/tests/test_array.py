@@ -185,6 +185,69 @@ def test_sortNumeric():
 	]
 
 
+# The ordering below has to be identical in the JavaScript and Dart packages. It used to
+# be a plain code point comparison here, which none of the three packages agreed on.
+def test_sortNumeric_ordering_is_the_same_in_every_package():
+	# Case is a tie-break, not the first thing compared, so the numbers still decide.
+	assert sortNumeric(['item2', 'Item10', 'item1']) == ['item1', 'item2', 'Item10']
+	assert sortNumeric(['file-1.txt', 'File-3.txt', 'file-10.txt', 'file-2.txt']) == [
+		'file-1.txt',
+		'file-2.txt',
+		'File-3.txt',
+		'file-10.txt',
+	]
+	# Lower case comes before upper case when nothing else separates them.
+	assert sortNumeric(['Apple', 'apple', 'Banana', 'banana']) == [
+		'apple',
+		'Apple',
+		'banana',
+		'Banana',
+	]
+	assert sortNumeric(['a', 'A', 'b', 'B']) == ['a', 'A', 'b', 'B']
+	# An accent is a tie-break too, so `äpple` sits next to `apple` and not after `z`.
+	assert sortNumeric(['zebra', 'äpple', 'apple', 'Zebra']) == [
+		'apple',
+		'äpple',
+		'zebra',
+		'Zebra',
+	]
+	assert sortNumeric(['résumé', 'resume', 'Resume']) == ['resume', 'Resume', 'résumé']
+	# Whitespace, then punctuation, then digits, then letters.
+	assert sortNumeric(['1file', '.gitignore', 'apple', '_private']) == [
+		'.gitignore',
+		'_private',
+		'1file',
+		'apple',
+	]
+	# A run of digits is compared by length first, so it stays exact at any size.
+	assert sortNumeric(['12345678901234567891', '12345678901234567890', '2']) == [
+		'2',
+		'12345678901234567890',
+		'12345678901234567891',
+	]
+	# Leading zeros do not change the value, so the raw string breaks the tie.
+	assert sortNumeric(['007', '7', '08', '8']) == ['007', '7', '08', '8']
+	assert sortNumeric(['b', 'a', 'c'], True) == ['c', 'b', 'a']
+	# A digit from another script is not an ASCII digit run, so it sorts among the letters
+	# rather than with the numbers.
+	assert sortNumeric(['\u0663', 'a', '1']) == ['1', 'a', '\u0663']
+
+
+def test_sortByObjectKey_numerically_uses_the_same_ordering():
+	rows = [{'n': 'item2'}, {'n': 'Item10'}, {'n': 'item1'}]
+
+	assert sortByObjectKey(rows, 'n', False, True) == [
+		{'n': 'item1'},
+		{'n': 'item2'},
+		{'n': 'Item10'},
+	]
+	assert sortByObjectKey(rows, 'n', True, True) == [
+		{'n': 'Item10'},
+		{'n': 'item2'},
+		{'n': 'item1'},
+	]
+
+
 def test_arrGroupByMaxCount():
 	assert arrGroupByMaxCount([1, 2, 3], 1) == [[1], [2], [3]]
 	assert arrGroupByMaxCount([1, 2, [], 4, [[]]], 2) == [[1, 2], [[], 4], [[[]]]]
