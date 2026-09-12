@@ -1,5 +1,14 @@
 # Changelog (Dart)
 
+## 1.7.0 (2026-09-12)
+
+### Changes
+
+- `durationParts`: Added. Breaks a duration into its units and hands them back as a `List<DurationPart>` rather than a string, so a duration can be written in a language this package does not know. `duration` labels the units in English and builds the plural by adding an `s`, which is a rule only English follows: Polish has three plural forms and Arabic six. It takes the named parameters of `duration` that decide which units are used, and `duration` is now built on it, so the two cannot disagree
+- `fileSizeParts`: Added. Splits a file size in bytes into the scaled number and the unit it belongs to, returning a `FileSizeParts` rather than a string, so a size can be written in a language this package does not know. Hand `value` to a `NumberFormat` from `intl` and take the unit name from `exponent`; the value is deliberately left unrounded, so that formatter rounds it once instead of rounding an already rounded number
+- `fileSizeFormat`: Two named parameters were added. `standard` picks the divisor and the unit names: `jedec` (the default) divides by 1024 and writes `KB` as it always has, `iec` divides by 1024 and writes `KiB`, and `si` divides by 1000 and writes `kB`. `unitDisplay` writes the unit as an abbreviation (`1.18 MB`) or as a whole word (`1.18 Megabytes`), taking the singular when the rounded number is one. Leaving both out returns exactly the string it returned before, which the tests now pin
+- `fileSizeFormat`: A size past the largest unit no longer throws a `RangeError` by indexing past the end of the unit table. The exponent is held at the last unit instead, matching what the JavaScript and Python packages now do
+
 ## 1.6.0 (2026-08-29)
 
 - `truncate`, `truncateExpect`: The length is now counted in code points, as `pad` already did, so a character outside the Basic Multilingual Plane counts as one in every language. A Dart string is indexed in UTF-16 units, so `truncate('a👋b', 2)` used to cut between the two halves of the emoji and hand back a broken character, and `truncateExpect` stopped at a different sentence than Python did on the same text
