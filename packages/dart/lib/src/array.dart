@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:collection/collection.dart';
+import 'package:unorm_dart/unorm_dart.dart';
 import 'package:qsu/src/verify.dart';
 
 /// Shuffle the order of the given array and return.
@@ -167,11 +167,188 @@ List<List<T>> arrGroupByMaxCount<T>(List<T> array, int maxLengthPerGroup) {
   return result;
 }
 
+// Natural ordering used by [sortNumeric].
+//
+// A string is cut into runs of digits and runs of everything else, and the runs are
+// compared in three passes over the whole string, the way a collation algorithm does:
+// letters first, then the accents on them, then upper against lower case. Without the
+// passes, `Item10` would land before `item1`, because the case difference in the first
+// run would decide the order before the numbers were ever reached.
+
+// `[0-9]` rather than `\d`, which matches every Unicode digit in Python.
+final RegExp _asciiDigit = RegExp(r'[0-9]');
+final RegExp _leadingZeros = RegExp(r'^0+(?=[0-9])');
+final RegExp _whitespace = RegExp(r'\s');
+final RegExp _letter = RegExp(r'[\p{L}\p{M}\p{N}]', unicode: true);
+final RegExp _combining = RegExp(r'[̀-ͯ]');
+
+// Whitespace, then punctuation and symbols, then numbers, then letters. Ranking the
+// classes above the characters inside them is what puts `.gitignore` before `1file`,
+// where comparing code points alone would put both after it.
+const int _whitespaceClass = 0;
+const int _symbolClass = 1;
+const int _numberClass = 2;
+const int _letterClass = 3;
+
+// Only a run of ASCII digits is ever `_numberClass`, so a class 2 run is always compared
+// as a number and never as text. A digit from another script sorts among the letters.
+int _characterClass(String character) {
+  if (_whitespace.hasMatch(character)) {
+    return _whitespaceClass;
+  }
+
+  return _letter.hasMatch(character) ? _letterClass : _symbolClass;
+}
+
+class _NaturalRun {
+  final int group;
+  final bool isDigits;
+  String text;
+
+  _NaturalRun(this.group, this.text, this.isDigits);
+}
+
+class _NaturalKey {
+  final List<_NaturalRun> runs;
+  final String accents;
+  final String caseBits;
+  final String raw;
+
+  const _NaturalKey(this.runs, this.accents, this.caseBits, this.raw);
+}
+
+_NaturalKey _naturalKey(String raw) {
+  final List<_NaturalRun> runs = [];
+  final StringBuffer accents = StringBuffer();
+  final StringBuffer caseBits = StringBuffer();
+
+  // Dart has no `String.normalize`, so the accents are read off the characters that
+  // `unorm_dart` decomposes them into, exactly as the other two packages do. The string
+  // is walked by rune rather than split on a pattern: `String.split` drops a captured
+  // group, where the JavaScript and Python packages keep the digits it matched.
+  final List<String> characters = [
+    for (final int rune in nfd(raw).runes) String.fromCharCode(rune)
+  ];
+
+  int index = 0;
+
+  while (index < characters.length) {
+    final String character = characters[index];
+
+    if (_asciiDigit.hasMatch(character)) {
+      final StringBuffer digits = StringBuffer();
+
+      while (index < characters.length &&
+          _asciiDigit.hasMatch(characters[index])) {
+        digits.write(characters[index]);
+        index++;
+      }
+
+      // Kept as digits rather than parsed, so that the length decides first and a run of
+      // any size stays exact.
+      String stripped = digits.toString().replaceFirst(_leadingZeros, '');
+
+      if (stripped.isEmpty) {
+        stripped = '0';
+      }
+
+      runs.add(_NaturalRun(_numberClass, stripped, true));
+      continue;
+    }
+
+    if (_combining.hasMatch(character)) {
+      accents.write(character);
+      index++;
+      continue;
+    }
+
+    final String lowered = character.toLowerCase();
+    final int group = _characterClass(character);
+
+    caseBits.write(character == lowered ? '0' : '1');
+
+    if (runs.isNotEmpty && runs.last.group == group && !runs.last.isDigits) {
+      runs.last.text += lowered;
+    } else {
+      runs.add(_NaturalRun(group, lowered, false));
+    }
+
+    index++;
+  }
+
+  return _NaturalKey(runs, accents.toString(), caseBits.toString(), raw);
+}
+
+int _compareDigits(String a, String b) {
+  if (a.length != b.length) {
+    return a.length < b.length ? -1 : 1;
+  }
+
+  return a.compareTo(b);
+}
+
+int _compareNaturalKey(_NaturalKey a, _NaturalKey b) {
+  final int length =
+      a.runs.length > b.runs.length ? a.runs.length : b.runs.length;
+
+  for (int index = 0; index < length; index++) {
+    if (index >= a.runs.length || index >= b.runs.length) {
+      return index >= a.runs.length ? -1 : 1;
+    }
+
+    final _NaturalRun left = a.runs[index];
+    final _NaturalRun right = b.runs[index];
+
+    if (left.group != right.group) {
+      return left.group < right.group ? -1 : 1;
+    }
+
+    final int order = left.isDigits
+        ? _compareDigits(left.text, right.text)
+        : left.text.compareTo(right.text);
+
+    if (order != 0) {
+      return order;
+    }
+  }
+
+  // Only reached when the letters and the numbers are the same, so an accent or a capital
+  // is all that is left to separate the two.
+  final int accentOrder = a.accents.compareTo(b.accents);
+
+  if (accentOrder != 0) {
+    return accentOrder;
+  }
+
+  final int caseOrder = a.caseBits.compareTo(b.caseBits);
+
+  return caseOrder != 0 ? caseOrder : a.raw.compareTo(b.raw);
+}
+
 /// When sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names. For example, given the array `['1-a', '100-a', '10-a', '2-a']`, it returns `['1-a', '2-a', '10-a', '100-a']` with the smaller numbers at the front.
 List<String> sortNumeric(List<String> array, {bool descending = false}) {
-  final List<String> result = List<String>.from(array)..sort(compareNatural);
+  // Build each key once rather than once per comparison: `sort` calls the comparator
+  // O(n log n) times and the key is the expensive part of it. The original position is
+  // carried along because `List.sort` is not stable, and two entries compare equal only
+  // when the strings are identical.
+  final List<MapEntry<int, _NaturalKey>> decorated = [
+    for (int index = 0; index < array.length; index++)
+      MapEntry(index, _naturalKey(array[index]))
+  ];
 
-  return descending ? result.reversed.toList() : result;
+  decorated.sort((MapEntry<int, _NaturalKey> a, MapEntry<int, _NaturalKey> b) {
+    final int order = _compareNaturalKey(a.value, b.value);
+
+    if (order != 0) {
+      return descending ? -order : order;
+    }
+
+    return a.key - b.key;
+  });
+
+  return [
+    for (final MapEntry<int, _NaturalKey> entry in decorated) array[entry.key]
+  ];
 }
 
 /// Returns a new array with every falsy value removed.

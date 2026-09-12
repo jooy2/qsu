@@ -200,6 +200,52 @@ void main() {
           ['1', '2', '3', '10', '11', '15', '100']);
     });
 
+    // The ordering below has to be identical in the JavaScript and Python packages. It
+    // used to come from `compareNatural`, which none of the three packages agreed on.
+    test('sortNumeric (ordering is the same in every package)', () {
+      // Case is a tie-break, not the first thing compared, so the numbers still decide.
+      expect(sortNumeric(['item2', 'Item10', 'item1']),
+          ['item1', 'item2', 'Item10']);
+      expect(
+          sortNumeric(
+              ['file-1.txt', 'File-3.txt', 'file-10.txt', 'file-2.txt']),
+          ['file-1.txt', 'file-2.txt', 'File-3.txt', 'file-10.txt']);
+      // Lower case comes before upper case when nothing else separates them.
+      expect(sortNumeric(['Apple', 'apple', 'Banana', 'banana']),
+          ['apple', 'Apple', 'banana', 'Banana']);
+      expect(sortNumeric(['a', 'A', 'b', 'B']), ['a', 'A', 'b', 'B']);
+      // An accent is a tie-break too, so `äpple` sits next to `apple` and not after `z`.
+      expect(sortNumeric(['zebra', 'äpple', 'apple', 'Zebra']),
+          ['apple', 'äpple', 'zebra', 'Zebra']);
+      expect(sortNumeric(['résumé', 'resume', 'Resume']),
+          ['resume', 'Resume', 'résumé']);
+      // Whitespace, then punctuation, then digits, then letters.
+      expect(sortNumeric(['1file', '.gitignore', 'apple', '_private']),
+          ['.gitignore', '_private', '1file', 'apple']);
+      // A run of digits is compared by length first, so it stays exact past the range a
+      // number could hold.
+      expect(sortNumeric(['12345678901234567891', '12345678901234567890', '2']),
+          ['2', '12345678901234567890', '12345678901234567891']);
+      // Leading zeros do not change the value, so the raw string breaks the tie.
+      expect(sortNumeric(['007', '7', '08', '8']), ['007', '7', '08', '8']);
+      expect(sortNumeric(['b', 'a', 'c'], descending: true), ['c', 'b', 'a']);
+    });
+
+    test('sortNumeric (descending is the exact reverse)', () {
+      final List<String> input = [
+        'file-10.txt',
+        'file-1.txt',
+        'File-3.txt',
+        'b',
+        'b'
+      ];
+      final List<String> ascending = sortNumeric(input);
+
+      expect(sortNumeric(input, descending: true), ascending.reversed.toList());
+      // A repeated value survives rather than being collapsed.
+      expect(ascending.where((String e) => e == 'b').length, 2);
+    });
+
     test('arrCompact', () {
       expect(arrCompact([0, 1, false, 2, '', 3, null, double.nan]), [1, 2, 3]);
       expect(arrCompact([false, 0, '', null, double.nan]), []);

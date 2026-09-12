@@ -2,8 +2,13 @@
 
 ## 1.7.0 (2026-09-12)
 
+### Breaking changes
+
+- `sortNumeric`: The order no longer depends on the package. A string is cut into runs of digits and runs of everything else, and the runs are compared in three passes over the whole string: the letters, then the accents on them, then upper against lower case. Whitespace sorts before punctuation, punctuation before numbers and numbers before letters, and a run of digits is compared by length before value, so a number too long for a number type still sorts correctly. The three packages now return the same order for the same input, which they never did. `compareNatural` from `package:collection` used to decide it, which compared code points, so `Apple`, `Banana` and `Zebra` all came before `apple`, and `File-3.txt` came before `file-1.txt`
+
 ### Changes
 
+- `package:collection` is no longer a dependency. `compareNatural` was the only thing this package used it for, and `sortNumeric` no longer calls it, so the package now rests on `path`, `crypto` and `unorm_dart` alone
 - `durationParts`: Added. Breaks a duration into its units and hands them back as a `List<DurationPart>` rather than a string, so a duration can be written in a language this package does not know. `duration` labels the units in English and builds the plural by adding an `s`, which is a rule only English follows: Polish has three plural forms and Arabic six. It takes the named parameters of `duration` that decide which units are used, and `duration` is now built on it, so the two cannot disagree
 - `fileSizeParts`: Added. Splits a file size in bytes into the scaled number and the unit it belongs to, returning a `FileSizeParts` rather than a string, so a size can be written in a language this package does not know. Hand `value` to a `NumberFormat` from `intl` and take the unit name from `exponent`; the value is deliberately left unrounded, so that formatter rounds it once instead of rounding an already rounded number
 - `fileSizeFormat`: Two named parameters were added. `standard` picks the divisor and the unit names: `jedec` (the default) divides by 1024 and writes `KB` as it always has, `iec` divides by 1024 and writes `KiB`, and `si` divides by 1000 and writes `kB`. `unitDisplay` writes the unit as an abbreviation (`1.18 MB`) or as a whole word (`1.18 Megabytes`), taking the singular when the rounded number is one. Leaving both out returns exactly the string it returned before, which the tests now pin
