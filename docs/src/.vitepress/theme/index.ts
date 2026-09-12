@@ -9,6 +9,7 @@ import ParamsTable from '../components/ParamsTable.vue';
 import ReturnType from '../components/ReturnType.vue';
 import StartCards from '../components/StartCards.vue';
 import Val from '../components/Val.vue';
+import './brand.css';
 import './home.css';
 import './lang.css';
 

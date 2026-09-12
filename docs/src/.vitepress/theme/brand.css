@@ -1,0 +1,43 @@
+/**
+ * The site's colours.
+ *
+ * The default theme is indigo, and the logo is cyan, so every button and link on
+ * the site used to be a colour qsu does not otherwise use. These override the
+ * brand scale the theme draws from, which is all it takes: links, buttons, the
+ * active sidebar entry, inline code, custom blocks and the search highlight are
+ * all written in terms of `--vp-c-brand-*`.
+ *
+ * The logo's own `#1da5be` is too light to be read as text on white, so the
+ * scale is that hue taken darker for the light theme and lighter for the dark
+ * one. Each value below carries the contrast it holds against the surface it is
+ * used on, and none of them is under the default theme's own.
+ */
+
+:root {
+	/* Text and accents on the page — 5.85 on white. */
+	--vp-c-brand-1: #0b6e86;
+	/* Hover, for both a link and a brand button — 7.66. */
+	--vp-c-brand-2: #095b70;
+	/* The filled button, under white text — 4.65, where the theme's own is 4.48. */
+	--vp-c-brand-3: #087f9b;
+	--vp-c-brand-soft: rgba(29, 165, 190, 0.14);
+}
+
+/*
+ * The dark theme inverts the filled button rather than darkening it. A cyan dark
+ * enough to carry white text disappears into a dark page, so the button becomes
+ * the bright end of the scale with the ink written on top — 7.99, against the
+ * 5.21 the default theme has here.
+ */
+.dark {
+	--vp-c-brand-1: #5fd0e3;
+	--vp-c-brand-2: #2ec5dd;
+	--vp-c-brand-3: #2ec5dd;
+	--vp-c-brand-soft: rgba(29, 165, 190, 0.18);
+
+	--vp-button-brand-text: #06222a;
+	--vp-button-brand-hover-text: #06222a;
+	--vp-button-brand-hover-bg: #5fd0e3;
+	--vp-button-brand-active-text: #06222a;
+	--vp-button-brand-active-bg: #2ec5dd;
+}
