@@ -98,7 +98,9 @@ File and directory inspection, path handling and I/O. In JavaScript these functi
 Human-readable formatting and safe parsing.
 
 - [duration](https://qsu.cdget.com/reference/format/duration) (JavaScript, Dart, Python): Displays the given millisecond value in human-readable time. For example, the value of `604800000` (7 days) is displayed as `7 Days`.
+- [durationParts](https://qsu.cdget.com/reference/format/durationParts) (JavaScript, Dart, Python): Breaks a duration in milliseconds into its units and returns them, leaving the caller to decide how to write them.
 - [fileSizeFormat](https://qsu.cdget.com/reference/format/fileSizeFormat) (JavaScript, Dart, Python): Returns the given file size (in bytes) as a human-readable string.
+- [fileSizeParts](https://qsu.cdget.com/reference/format/fileSizeParts) (JavaScript, Dart, Python): Splits a file size in bytes into the scaled number and the unit it belongs to, leaving the caller to decide how to write them.
 - [numberFormat](https://qsu.cdget.com/reference/format/numberFormat) (JavaScript, Dart, Python): Returns the given number formatted for easy reading, including commas.
 - [safeJSONParse](https://qsu.cdget.com/reference/format/safeJSONParse) (JavaScript, Dart, Python): Attempts to parse without returning an error, even if the argument value is of the wrong type or in `JSON` format. If parsing fails, it will be replaced with the object set in `fallback`.
 - [safeParseInt](https://qsu.cdget.com/reference/format/safeParseInt) (JavaScript, Dart, Python): Any argument value will be attempted to be parsed as a Number type without returning an error. If parsing fails, it is replaced by the number set in `fallback`.

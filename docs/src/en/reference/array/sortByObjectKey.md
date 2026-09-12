@@ -1,7 +1,7 @@
 # sortByObjectKey
 Sort array values by a specific key value in an array containing multiple objects. It does not affect the order or value of elements within an object.
 
-If the `numerically` option is `true`, when sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names.
+If the `numerically` option is `true`, when sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names. That ordering is the one [sortNumeric](/reference/array/sortNumeric) describes.
 
 ## Parameters
 

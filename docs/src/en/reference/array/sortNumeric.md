@@ -8,6 +8,14 @@ When sorting an array consisting of strings, it sorts first by the numbers conta
 	{ name: 'descending', type: 'boolean', default: 'false', named: true }
 ]" />
 
+## Ordering
+
+A string is cut into runs of digits and runs of everything else, and the runs are compared in three passes over the whole string: the letters first, then the accents on them, then upper against lower case. Because case is only reached once the letters and the numbers are equal, `item1` comes before `Item10`, where comparing character by character would put `Item10` first.
+
+Within a pass, whitespace sorts before punctuation and symbols, those before numbers, and numbers before letters, so `.gitignore` comes before `1file`. A run of digits is compared by its length before its digits, so a number longer than the language can hold in a number type still sorts correctly.
+
+The result is identical in all three packages and does not depend on the locale of the machine.
+
 ## Returns
 
 <ReturnType type="string[]" />

@@ -3,6 +3,8 @@
 
 한 달은 30일, 1년은 365일을 기준으로 계산합니다.
 
+단위 이름은 영어이고 복수형은 `s`를 붙이는데, 이렇게 복수형을 만드는 언어는 영어뿐입니다. 다른 언어로 시간을 쓰려면 [durationParts](/ko/reference/format/durationParts)로 쪼갠 다음, 그 언어를 아는 포매터에 넘기세요.
+
 ## Parameters
 
 <ParamsTable :rows="[

@@ -3,6 +3,8 @@ Displays the given millisecond value in human-readable time. For example, the va
 
 A month is treated as 30 days and a year as 365 days.
 
+The unit names are English and the plural is an `s`, which is a rule only English follows. To write a duration in another language, take it apart with [durationParts](/reference/format/durationParts) and hand the pieces to a formatter that knows the language.
+
 ## Parameters
 
 <ParamsTable :rows="[
