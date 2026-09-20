@@ -81,6 +81,7 @@ describe('OS', () => {
 		const { platform } = process;
 
 		if (platform !== 'win32' && platform !== 'darwin') {
+			await assert.rejects(getSid(), /Not supported on this operating system/);
 			return;
 		}
 
