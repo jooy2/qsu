@@ -7,6 +7,7 @@ if TYPE_CHECKING:
 	# here lets a type checker follow a name to the function behind it.
 	from .getArch import getArch as getArch
 	from .getCpu import getCpu as getCpu
+	from .getCpuCount import getCpuCount as getCpuCount
 	from .getEndianness import getEndianness as getEndianness
 	from .getHostname import getHostname as getHostname
 	from .getKernelVersion import getKernelVersion as getKernelVersion
@@ -20,6 +21,7 @@ if TYPE_CHECKING:
 __all__ = [
 	'getArch',
 	'getCpu',
+	'getCpuCount',
 	'getEndianness',
 	'getHostname',
 	'getKernelVersion',

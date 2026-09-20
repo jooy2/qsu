@@ -4,6 +4,7 @@
 
 ### Changes
 
+- `getCpuCount`: Added. The number of processor cores this process may use. A CPU affinity mask narrows it, where `os.cpu_count()` counts every core on the machine whether the process may use it or not
 - `getPlatform`: Added. Names the operating system the process runs on as `windows`, `macos`, `linux` or `freebsd`, and `unknown` for anything else. `sys.platform` calls Windows `win32` and writes its major version into the FreeBSD name, so a comparison against it has to know both; this answers with the same name the JavaScript package does
 - `getArch`: Added. The processor architecture the running program was built for, such as `x64` or `arm64`. `platform.machine()` answers in whatever name the system uses — `AMD64`, `x86_64` and `aarch64` are three names for two architectures — and that is translated into the vocabulary the JavaScript package uses, so the two agree on the same machine
 - `getKernelVersion`: Added. The version of the operating system kernel, such as `25.6.0` on macOS 26 and `10.0.26100` on Windows 11. It tells kernels apart; it is not a version to show a reader

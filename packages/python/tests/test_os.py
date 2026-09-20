@@ -8,6 +8,7 @@ import pytest
 from qsu.os import (
 	getArch,
 	getCpu,
+	getCpuCount,
 	getEndianness,
 	getKernelVersion,
 	getPlatform,
@@ -151,6 +152,15 @@ def test_getPlatform():
 
 def test_getArch():
 	assert getArch() in _ARCHITECTURES
+
+
+def test_getCpuCount():
+	count = getCpuCount()
+
+	assert isinstance(count, int)
+	assert count >= 1
+	# The same machine answers with the same number, whichever call asks.
+	assert getCpuCount() == count
 
 
 def test_getKernelVersion():
