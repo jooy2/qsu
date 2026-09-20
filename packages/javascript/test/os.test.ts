@@ -281,6 +281,12 @@ describe('OS', () => {
 		assert.strictEqual(version.length > 0, true);
 		assert.notEqual(version, 'Unknown');
 		assert.match(version, /\d/);
+
+		// The kernel version, not the name the system is sold under. Windows is
+		// where the two part company: `10.0.26100` against `11`.
+		if (process.platform === 'win32') {
+			assert.match(version, /^\d+\.\d+\.\d+/);
+		}
 	});
 
 	it('getEndianness', () => {
