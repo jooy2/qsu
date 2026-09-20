@@ -269,6 +269,15 @@ int cpuSpeed() {
   return kilohertz == null ? 0 : kilohertz ~/ 1000;
 }
 
+/// The address this machine would leave from, for a route to [target].
+///
+/// Nothing is sent to it. The other packages ask the same question the same way,
+/// so all three name the interface that would actually carry traffic out rather
+/// than the first one that happens to be configured.
+String? routedAddress(String target, int port) => Platform.isWindows
+    ? windows.routedAddress(target, port)
+    : posix.routedAddress(target, port);
+
 /// The machine id Windows records in the registry. The other platforms keep
 /// theirs in a file or behind a tool, which the caller reads for itself.
 String? machineId() => Platform.isWindows

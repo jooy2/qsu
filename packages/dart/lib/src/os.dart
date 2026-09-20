@@ -28,6 +28,15 @@ const Map<String, String> _architectures = <String, String>{
   'riscv64': 'riscv64',
 };
 
+/// Reserved for documentation by RFC 5737, so it is nobody's real address.
+/// Nothing is sent to it: a datagram socket is connected, which only asks the
+/// kernel which route it would take, and closed again.
+const String _routeProbeAddress = '192.0.2.1';
+const int _routeProbePort = 53;
+
+const String _loopback = '127.0.0.1';
+const String _unspecified = '0.0.0.0';
+
 /// Returns the operating system the process is running on, as one of
 /// `windows`, `macos`, `linux`, `android` and `ios`. Anything else is `unknown`.
 String getPlatform() {
@@ -259,18 +268,15 @@ String getShell() {
 
 /// Returns the IPv4 address this machine is reachable at on its own network.
 Future<String> getLocalIp() async {
-  final List<NetworkInterface> interfaces = await NetworkInterface.list(
-      type: InternetAddressType.IPv4, includeLoopback: false);
+  final String? routed =
+      platform.routedAddress(_routeProbeAddress, _routeProbePort);
 
-  for (final NetworkInterface item in interfaces) {
-    for (final InternetAddress address in item.addresses) {
-      if (!address.isLoopback) {
-        return address.address;
-      }
-    }
+  if (routed != null && routed != _unspecified && routed != _loopback) {
+    return routed;
   }
 
-  return '127.0.0.1';
+  // No route to anywhere, which is what a machine with no network looks like.
+  return _loopback;
 }
 
 /// Returns the unique UUID of the current device.

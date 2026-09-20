@@ -40,6 +40,22 @@ typedef _RegGetValueDart = int Function(int, Pointer<Utf16>, Pointer<Utf16>,
 typedef _RtlGetVersionNative = Int32 Function(Pointer<Uint8>);
 typedef _RtlGetVersionDart = int Function(Pointer<Uint8>);
 
+typedef _WSAStartupNative = Int32 Function(Uint16, Pointer<Uint8>);
+typedef _WSAStartupDart = int Function(int, Pointer<Uint8>);
+
+typedef _SocketNative = IntPtr Function(Int32, Int32, Int32);
+typedef _SocketDart = int Function(int, int, int);
+
+typedef _ConnectNative = Int32 Function(IntPtr, Pointer<Uint8>, Int32);
+typedef _ConnectDart = int Function(int, Pointer<Uint8>, int);
+
+typedef _GetSockNameNative = Int32 Function(
+    IntPtr, Pointer<Uint8>, Pointer<Int32>);
+typedef _GetSockNameDart = int Function(int, Pointer<Uint8>, Pointer<Int32>);
+
+typedef _CloseSocketNative = Int32 Function(IntPtr);
+typedef _CloseSocketDart = int Function(int);
+
 const int _hkeyLocalMachine = 0x80000002;
 const int _restrictToString = 0x00000002;
 const int _restrictToNumber = 0x00000010;
@@ -222,7 +238,76 @@ String? kernelVersion() {
   }
 }
 
+/// The address a socket would leave this machine from, for a route to [target].
+///
+/// Nothing is sent. Connecting a datagram socket only asks the stack which
+/// interface would carry the traffic, and the address it picks is the answer.
+String? routedAddress(String target, int port) {
+  const int afInet = 2;
+  const int sockDgram = 2;
+  const int sockaddrBytes = 16;
+  const int winsockDataBytes = 408;
+
+  final Pointer<Uint8> winsockData = calloc<Uint8>(winsockDataBytes);
+
+  try {
+    // Winsock is reference counted, so asking for it again is free where
+    // `dart:io` has already started it.
+    if (_wsaStartup(0x0202, winsockData) != 0) {
+      return null;
+    }
+  } finally {
+    calloc.free(winsockData);
+  }
+
+  final int handle = _socket(afInet, sockDgram, 0);
+
+  if (handle == -1) {
+    return null;
+  }
+
+  final Pointer<Uint8> address = calloc<Uint8>(sockaddrBytes);
+  final Pointer<Int32> length = calloc<Int32>()..value = sockaddrBytes;
+
+  try {
+    final ByteData view =
+        ByteData.sublistView(address.asTypedList(sockaddrBytes));
+
+    view.setUint16(0, afInet, Endian.host);
+    view.setUint16(2, port, Endian.big);
+
+    for (final (int index, String part) in target.split('.').indexed) {
+      view.setUint8(4 + index, int.parse(part));
+    }
+
+    if (_connect(handle, address, sockaddrBytes) != 0) {
+      return null;
+    }
+
+    final Pointer<Uint8> local = calloc<Uint8>(sockaddrBytes);
+
+    try {
+      if (_getSockName(handle, local, length) != 0) {
+        return null;
+      }
+
+      final Uint8List bytes = local.asTypedList(sockaddrBytes);
+
+      return '${bytes[4]}.${bytes[5]}.${bytes[6]}.${bytes[7]}';
+    } finally {
+      calloc.free(local);
+    }
+  } on FormatException {
+    return null;
+  } finally {
+    _closeSocket(handle);
+    calloc.free(address);
+    calloc.free(length);
+  }
+}
+
 final DynamicLibrary _kernel32 = DynamicLibrary.open('kernel32.dll');
+final DynamicLibrary _ws2 = DynamicLibrary.open('ws2_32.dll');
 final DynamicLibrary _advapi32 = DynamicLibrary.open('advapi32.dll');
 final DynamicLibrary _ntdll = DynamicLibrary.open('ntdll.dll');
 
@@ -254,3 +339,18 @@ final _RegGetValueDart _regGetValue = _advapi32
 
 final _RtlGetVersionDart _rtlGetVersion = _ntdll
     .lookupFunction<_RtlGetVersionNative, _RtlGetVersionDart>('RtlGetVersion');
+
+final _WSAStartupDart _wsaStartup =
+    _ws2.lookupFunction<_WSAStartupNative, _WSAStartupDart>('WSAStartup');
+
+final _SocketDart _socket =
+    _ws2.lookupFunction<_SocketNative, _SocketDart>('socket');
+
+final _ConnectDart _connect =
+    _ws2.lookupFunction<_ConnectNative, _ConnectDart>('connect');
+
+final _GetSockNameDart _getSockName =
+    _ws2.lookupFunction<_GetSockNameNative, _GetSockNameDart>('getsockname');
+
+final _CloseSocketDart _closeSocket =
+    _ws2.lookupFunction<_CloseSocketNative, _CloseSocketDart>('closesocket');

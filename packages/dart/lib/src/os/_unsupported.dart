@@ -21,6 +21,8 @@ String? cpuModel() => null;
 
 int cpuSpeed() => 0;
 
+String? routedAddress(String target, int port) => null;
+
 String? machineId() => null;
 
 String? kernelVersion() => null;

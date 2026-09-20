@@ -35,6 +35,19 @@ typedef _HostStatisticsDart = int Function(
 typedef _MachHostSelfNative = Uint32 Function();
 typedef _MachHostSelfDart = int Function();
 
+typedef _SocketNative = Int32 Function(Int32, Int32, Int32);
+typedef _SocketDart = int Function(int, int, int);
+
+typedef _ConnectNative = Int32 Function(Int32, Pointer<Uint8>, Uint32);
+typedef _ConnectDart = int Function(int, Pointer<Uint8>, int);
+
+typedef _GetSockNameNative = Int32 Function(
+    Int32, Pointer<Uint8>, Pointer<Uint32>);
+typedef _GetSockNameDart = int Function(int, Pointer<Uint8>, Pointer<Uint32>);
+
+typedef _CloseNative = Int32 Function(Int32);
+typedef _CloseDart = int Function(int);
+
 final DynamicLibrary _process = DynamicLibrary.process();
 
 /// `statvfs` writes a struct whose layout differs between the two systems. Only
@@ -253,6 +266,72 @@ double? darwinProcessStartTime() {
   }
 }
 
+/// The address a socket would leave this machine from, for a route to [target].
+///
+/// Nothing is sent. Connecting a datagram socket only asks the kernel which
+/// interface would carry the traffic, and the address it picks is the answer.
+/// `dart:io` has no datagram `connect`, so the two calls are made directly and
+/// the packages agree on which interface they name.
+String? routedAddress(String target, int port) {
+  const int afInet = 2;
+  const int sockDgram = 2;
+  const int sockaddrBytes = 16;
+
+  final int handle = _socket(afInet, sockDgram, 0);
+
+  if (handle < 0) {
+    return null;
+  }
+
+  final Pointer<Uint8> address = calloc<Uint8>(sockaddrBytes);
+  final Pointer<Uint32> length = calloc<Uint32>()..value = sockaddrBytes;
+
+  try {
+    // `sockaddr_in` on both systems: the family, the port in network order and
+    // then the four bytes of the address. Darwin spends the first byte on the
+    // struct length, which Linux leaves as the high half of a 16-bit family.
+    final ByteData view =
+        ByteData.sublistView(address.asTypedList(sockaddrBytes));
+
+    if (Platform.isMacOS || Platform.isIOS) {
+      view.setUint8(0, sockaddrBytes);
+      view.setUint8(1, afInet);
+    } else {
+      view.setUint16(0, afInet, Endian.host);
+    }
+
+    view.setUint16(2, port, Endian.big);
+
+    for (final (int index, String part) in target.split('.').indexed) {
+      view.setUint8(4 + index, int.parse(part));
+    }
+
+    if (_connect(handle, address, sockaddrBytes) != 0) {
+      return null;
+    }
+
+    final Pointer<Uint8> local = calloc<Uint8>(sockaddrBytes);
+
+    try {
+      if (_getSockName(handle, local, length) != 0) {
+        return null;
+      }
+
+      final Uint8List bytes = local.asTypedList(sockaddrBytes);
+
+      return '${bytes[4]}.${bytes[5]}.${bytes[6]}.${bytes[7]}';
+    } finally {
+      calloc.free(local);
+    }
+  } on FormatException {
+    return null;
+  } finally {
+    _close(handle);
+    calloc.free(address);
+    calloc.free(length);
+  }
+}
+
 final _SysctlByNameDart _sysctlByName = _process
     .lookupFunction<_SysctlByNameNative, _SysctlByNameDart>('sysctlbyname');
 
@@ -271,3 +350,15 @@ final _HostStatisticsDart _hostStatistics =
 
 final _MachHostSelfDart _machHostSelf = _process
     .lookupFunction<_MachHostSelfNative, _MachHostSelfDart>('mach_host_self');
+
+final _SocketDart _socket =
+    _process.lookupFunction<_SocketNative, _SocketDart>('socket');
+
+final _ConnectDart _connect =
+    _process.lookupFunction<_ConnectNative, _ConnectDart>('connect');
+
+final _GetSockNameDart _getSockName = _process
+    .lookupFunction<_GetSockNameNative, _GetSockNameDart>('getsockname');
+
+final _CloseDart _close =
+    _process.lookupFunction<_CloseNative, _CloseDart>('close');
