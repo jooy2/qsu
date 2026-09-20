@@ -116,6 +116,22 @@ def windowsRegistryString(path: str, name: str) -> Optional[str]:
 	return value.strip() or None
 
 
+def windowsRegistryNumber(path: str, name: str) -> Optional[int]:
+	"""One numeric value under `HKEY_LOCAL_MACHINE`, read without running a command."""
+	if sys.platform != 'win32':
+		return None
+
+	import winreg
+
+	try:
+		with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, path) as key:
+			value = winreg.QueryValueEx(key, name)[0]
+	except OSError:
+		return None
+
+	return value if isinstance(value, int) else None
+
+
 def memorySize() -> Optional[Tuple[int, int]]:
 	"""The physical memory in bytes, as a total and the part of it still available.
 
@@ -204,6 +220,214 @@ def _sysconfMemorySize() -> Optional[Tuple[int, int]]:
 
 		return os.sysconf('SC_PHYS_PAGES') * pageSize, os.sysconf('SC_AVPHYS_PAGES') * pageSize
 	except (ValueError, OSError):
+		return None
+
+
+# The frequency libuv reports on an Apple Silicon Mac. Apple does not publish the
+# real one, so the JavaScript package answers with this and so does this package,
+# rather than the two disagreeing about the same machine.
+_APPLE_SILICON_MHZ = 2400
+
+_LINUX_CPU_FREQUENCY = '/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq'
+
+_WINDOWS_CPU_KEY = r'HARDWARE\DESCRIPTION\System\CentralProcessor\0'
+
+# `host_statistics` counts ticks in this order, and idle is the third of them.
+_MACH_CPU_STATES = 4
+_MACH_CPU_STATE_IDLE = 2
+_MACH_HOST_CPU_LOAD_INFO = 3
+
+
+def cpuSpeed() -> int:
+	"""The clock speed of the first processor, in megahertz, or zero when unknown."""
+	if sys.platform == 'win32':
+		return windowsRegistryNumber(_WINDOWS_CPU_KEY, '~MHz') or 0
+
+	if sys.platform == 'darwin':
+		hertz = sysctlUnsigned('hw.cpufrequency')
+
+		return hertz // 1000000 if hertz else _APPLE_SILICON_MHZ
+
+	try:
+		with open(_LINUX_CPU_FREQUENCY, 'rb') as handle:
+			# The file is in kilohertz.
+			return int(handle.read().strip()) // 1000
+	except (OSError, ValueError):
+		return 0
+
+
+def cpuTicks() -> Optional[Tuple[int, int]]:
+	"""Processor time since boot, as a total and the part of it spent idle.
+
+	The units differ between platforms and mean nothing on their own. Two readings
+	a moment apart are what says how busy the processor was in between.
+	"""
+	if sys.platform == 'win32':
+		return _windowsCpuTicks()
+
+	if sys.platform == 'darwin':
+		return _darwinCpuTicks()
+
+	return _procCpuTicks()
+
+
+def _windowsCpuTicks() -> Optional[Tuple[int, int]]:
+	if sys.platform != 'win32':
+		return None
+
+	import ctypes
+	from ctypes import wintypes
+
+	kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
+	idle, kernel, user = (wintypes.FILETIME() for _ in range(3))
+
+	if not kernel32.GetSystemTimes(ctypes.byref(idle), ctypes.byref(kernel), ctypes.byref(user)):
+		return None
+
+	def intervals(value) -> int:
+		return (value.dwHighDateTime << 32) | value.dwLowDateTime
+
+	# The kernel figure already counts the idle time inside it.
+	return intervals(kernel) + intervals(user), intervals(idle)
+
+
+def _darwinCpuTicks() -> Optional[Tuple[int, int]]:
+	library = _libc()
+
+	if library is None:
+		return None
+
+	import ctypes
+
+	class HostCpuLoadInfo(ctypes.Structure):
+		_fields_ = [('cpu_ticks', ctypes.c_uint * _MACH_CPU_STATES)]
+
+	library.mach_host_self.restype = ctypes.c_uint
+	info = HostCpuLoadInfo()
+	count = ctypes.c_uint(_MACH_CPU_STATES)
+
+	if library.host_statistics(
+		library.mach_host_self(), _MACH_HOST_CPU_LOAD_INFO, ctypes.byref(info), ctypes.byref(count)
+	) != 0:
+		return None
+
+	ticks = list(info.cpu_ticks)
+
+	return sum(ticks), ticks[_MACH_CPU_STATE_IDLE]
+
+
+def _procCpuTicks() -> Optional[Tuple[int, int]]:
+	try:
+		with open('/proc/stat', 'rb') as handle:
+			fields = handle.readline().split()
+	except OSError:
+		return None
+
+	if len(fields) < 7 or fields[0] != b'cpu':
+		return None
+
+	try:
+		# user, nice, system, idle and irq, which is the set the JavaScript package
+		# counts. The time waiting on I/O and the time stolen by a hypervisor sit
+		# between them in the file and are left out of both.
+		user, nice, system, idle, _, irq = (int(field) for field in fields[1:7])
+	except ValueError:
+		return None
+
+	return user + nice + system + idle + irq, idle
+
+
+# `task_info` answers in this shape, and the resident size is its second member.
+_MACH_TASK_BASIC_INFO = 20
+
+
+def residentSetSize() -> Optional[int]:
+	"""The physical memory this process currently occupies, in bytes."""
+	if sys.platform == 'win32':
+		return _windowsResidentSetSize()
+
+	if sys.platform == 'darwin':
+		return _darwinResidentSetSize()
+
+	return _procResidentSetSize()
+
+
+def _windowsResidentSetSize() -> Optional[int]:
+	if sys.platform != 'win32':
+		return None
+
+	import ctypes
+	from ctypes import wintypes
+
+	class PROCESS_MEMORY_COUNTERS(ctypes.Structure):
+		_fields_ = [
+			('cb', wintypes.DWORD),
+			('PageFaultCount', wintypes.DWORD),
+			('PeakWorkingSetSize', ctypes.c_size_t),
+			('WorkingSetSize', ctypes.c_size_t),
+			('QuotaPeakPagedPoolUsage', ctypes.c_size_t),
+			('QuotaPagedPoolUsage', ctypes.c_size_t),
+			('QuotaPeakNonPagedPoolUsage', ctypes.c_size_t),
+			('QuotaNonPagedPoolUsage', ctypes.c_size_t),
+			('PagefileUsage', ctypes.c_size_t),
+			('PeakPagefileUsage', ctypes.c_size_t),
+		]
+
+	kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
+	kernel32.GetCurrentProcess.restype = wintypes.HANDLE
+	counters = PROCESS_MEMORY_COUNTERS()
+	counters.cb = ctypes.sizeof(PROCESS_MEMORY_COUNTERS)
+
+	if not ctypes.WinDLL('psapi', use_last_error=True).GetProcessMemoryInfo(
+		kernel32.GetCurrentProcess(), ctypes.byref(counters), counters.cb
+	):
+		return None
+
+	return int(counters.WorkingSetSize)
+
+
+def _darwinResidentSetSize() -> Optional[int]:
+	library = _libc()
+
+	if library is None:
+		return None
+
+	import ctypes
+
+	class TimeValue(ctypes.Structure):
+		_fields_ = [('seconds', ctypes.c_int), ('microseconds', ctypes.c_int)]
+
+	class MachTaskBasicInfo(ctypes.Structure):
+		_fields_ = [
+			('virtual_size', ctypes.c_uint64),
+			('resident_size', ctypes.c_uint64),
+			('resident_size_max', ctypes.c_uint64),
+			('user_time', TimeValue),
+			('system_time', TimeValue),
+			('policy', ctypes.c_int),
+			('suspend_count', ctypes.c_int),
+		]
+
+	library.mach_task_self.restype = ctypes.c_uint
+	info = MachTaskBasicInfo()
+	count = ctypes.c_uint(ctypes.sizeof(MachTaskBasicInfo) // ctypes.sizeof(ctypes.c_int))
+
+	if library.task_info(
+		library.mach_task_self(), _MACH_TASK_BASIC_INFO, ctypes.byref(info), ctypes.byref(count)
+	) != 0:
+		return None
+
+	return int(info.resident_size)
+
+
+def _procResidentSetSize() -> Optional[int]:
+	try:
+		with open('/proc/self/statm', 'rb') as handle:
+			# The second field is the resident set, counted in pages.
+			pages = int(handle.read().split()[1])
+
+		return pages * os.sysconf('SC_PAGE_SIZE')
+	except (OSError, ValueError, IndexError):
 		return None
 
 

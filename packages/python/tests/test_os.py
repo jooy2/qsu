@@ -22,6 +22,11 @@ from qsu.os import (
 	getHostname,
 	getKernelVersion,
 	getMachineId,
+	getCpuSpeed,
+	getCpuUsage,
+	getLocalIp,
+	getOsName,
+	getProcessMemoryUsage,
 	getPlatform,
 	getRamSize,
 	getRamUsage,
@@ -272,6 +277,54 @@ def test_getShell():
 		assert re.search(r'\\|\.exe$', shell, re.IGNORECASE)
 	else:
 		assert shell.startswith('/')
+
+
+def test_getCpuSpeed():
+	speed = getCpuSpeed()
+
+	assert isinstance(speed, int)
+	assert speed >= 0
+
+
+def test_getCpuUsage():
+	usage = getCpuUsage(50)
+
+	assert isinstance(usage, (int, float))
+	assert 0 <= usage <= 100
+	assert isinstance(getCpuUsage(50, 0), int)
+	# Nothing is sampled over no time at all, so there is nothing to report.
+	assert getCpuUsage(0) == 0
+
+
+def test_getLocalIp():
+	address = getLocalIp()
+
+	assert re.match(r'^(\d{1,3}\.){3}\d{1,3}$', address)
+	assert address != '0.0.0.0'
+	# The same machine answers with the same address, whichever call asks.
+	assert getLocalIp() == address
+
+
+def test_getOsName():
+	name = getOsName()
+
+	assert len(name) > 0
+
+	if sys.platform == 'darwin':
+		assert name.startswith('macOS')
+	elif sys.platform == 'win32':
+		assert name.startswith('Windows')
+	elif sys.platform.startswith('linux'):
+		# The name the distribution gives itself, not the bare word `Linux`, which is
+		# what is left when `os-release` could not be read.
+		assert name != 'Linux'
+
+
+def test_getProcessMemoryUsage():
+	size = getProcessMemoryUsage()
+
+	assert re.match(r'^\d+\s[A-Z]+$', size)
+	assert size != '0 B'
 
 
 def test_getPlatform():

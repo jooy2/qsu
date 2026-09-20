@@ -9,6 +9,8 @@ if TYPE_CHECKING:
 	from .getBootTime import getBootTime as getBootTime
 	from .getCpu import getCpu as getCpu
 	from .getCpuCount import getCpuCount as getCpuCount
+	from .getCpuSpeed import getCpuSpeed as getCpuSpeed
+	from .getCpuUsage import getCpuUsage as getCpuUsage
 	from .getDiskSize import getDiskSize as getDiskSize
 	from .getDiskUsage import getDiskUsage as getDiskUsage
 	from .getEndianness import getEndianness as getEndianness
@@ -17,8 +19,11 @@ if TYPE_CHECKING:
 	from .getHomeDir import getHomeDir as getHomeDir
 	from .getHostname import getHostname as getHostname
 	from .getKernelVersion import getKernelVersion as getKernelVersion
+	from .getLocalIp import getLocalIp as getLocalIp
 	from .getMachineId import getMachineId as getMachineId
+	from .getOsName import getOsName as getOsName
 	from .getPlatform import getPlatform as getPlatform
+	from .getProcessMemoryUsage import getProcessMemoryUsage as getProcessMemoryUsage
 	from .getRamSize import getRamSize as getRamSize
 	from .getRamUsage import getRamUsage as getRamUsage
 	from .getShell import getShell as getShell
@@ -35,6 +40,8 @@ __all__ = [
 	'getBootTime',
 	'getCpu',
 	'getCpuCount',
+	'getCpuSpeed',
+	'getCpuUsage',
 	'getDiskSize',
 	'getDiskUsage',
 	'getEndianness',
@@ -43,8 +50,11 @@ __all__ = [
 	'getHomeDir',
 	'getHostname',
 	'getKernelVersion',
+	'getLocalIp',
 	'getMachineId',
+	'getOsName',
 	'getPlatform',
+	'getProcessMemoryUsage',
 	'getRamSize',
 	'getRamUsage',
 	'getShell',
