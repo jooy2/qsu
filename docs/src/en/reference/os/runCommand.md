@@ -9,6 +9,8 @@ The command runs through the system shell, so anything the shell understands is 
 
 There is no timeout, so a command that never returns leaves the call pending forever.
 
+The command is given no standard input. One that reads it, such as `sort` with no file, sees an empty input instead of waiting for one.
+
 ::: lang js
 
 The output is also limited by the default `maxBuffer` (1 MB), and the call fails once it is exceeded.
