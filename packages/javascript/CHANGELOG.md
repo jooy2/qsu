@@ -4,6 +4,10 @@
 
 ### Changes
 
+- `getShell`: Added. The shell recorded for the current account, which is the one a login starts rather than the one the caller happens to be typing into. Windows has no login shell, so the command interpreter is reported there
+- `getTempDir`: Added. The directory the system puts temporary files in, without a trailing separator. macOS gives each session a folder of its own, so this is not `/tmp` there
+- `getHomeDir`: Added. The current user's home directory
+- `getUsername`: Added. The name the system has on record for the account the process runs as, which is not the display name and not what the environment claims
 - `getBootTime`: Added. The moment the machine last booted, as the current time less the uptime
 - `getSystemUptime`: Added. How long the machine has been running since it booted, taking the same `floor` and `format` options as `getUptime`, which counts the process rather than the machine
 - `getDiskUsage`: Added. The share of the filesystem holding a path that is in use, as a percentage, with the number of decimal places to keep as its argument

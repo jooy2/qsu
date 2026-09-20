@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
@@ -14,15 +15,19 @@ import {
 	getEndianness,
 	getKernelVersion,
 	getPlatform,
+	getHomeDir,
 	getHostname,
 	getMachineId,
+	getShell,
 	getSid,
 	getSystemUptime,
 	getRamSize,
 	getRamUsage,
 	getFreeRamSize,
 	getUsedRamSize,
-	getUptime
+	getTempDir,
+	getUptime,
+	getUsername
 } from '../dist/node';
 import { contains } from '../dist/verify';
 
@@ -208,6 +213,36 @@ describe('OS', () => {
 		const fromUptime = Date.now() - (getSystemUptime() as number) * 1000;
 
 		assert.strictEqual(Math.abs(bootTime.getTime() - fromUptime) < 2000, true);
+	});
+
+	it('getUsername', () => {
+		const username = getUsername();
+
+		assert.strictEqual(username.length > 0, true);
+		assert.notEqual(username, 'Unknown');
+		assert.strictEqual(username, username.trim());
+	});
+
+	it('getHomeDir', () => {
+		const home = getHomeDir();
+
+		assert.strictEqual(home.length > 0, true);
+		assert.strictEqual(existsSync(home), true);
+	});
+
+	it('getTempDir', () => {
+		const temp = getTempDir();
+
+		assert.strictEqual(temp.length > 0, true);
+		assert.strictEqual(existsSync(temp), true);
+	});
+
+	it('getShell', () => {
+		const shell = getShell();
+
+		assert.strictEqual(shell.length > 0, true);
+		// A path to a program rather than a bare name, on either kind of system.
+		assert.match(shell, process.platform === 'win32' ? /\\|\.exe$/i : /^\//);
 	});
 
 	it('getPlatform', () => {
