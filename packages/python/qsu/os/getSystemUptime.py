@@ -5,13 +5,14 @@ from ..format.numberFormat import numberFormat
 from ._system import systemUptime
 
 
-def getSystemUptime(opt: Optional[dict] = None) -> Union[int, float, str]:
+def getSystemUptime(opt: Optional[dict] = None, **kwargs) -> Union[int, float, str]:
+	opts = {**(opt or {}), **kwargs}
 	t = systemUptime()
 
 	if not t:
 		return 0
 
-	if opt and opt.get('floor'):
+	if opts.get('floor'):
 		t = math.floor(t)
 
-	return numberFormat(t) if opt and opt.get('format') else t
+	return numberFormat(t) if opts.get('format') else t

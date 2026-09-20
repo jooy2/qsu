@@ -70,6 +70,13 @@ def test_fetchData_get(server):
 	assert response['title'] == 'foo'
 
 
+def test_fetchData_accepts_keyword_arguments(server):
+	# The options may arrive as keyword arguments instead of as a dict.
+	response = fetchData('/posts/1', host=server)
+
+	assert response['id'] == 1
+
+
 def test_fetchData_post_with_json_body(server):
 	response = fetchData(
 		'/posts',

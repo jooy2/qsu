@@ -4,6 +4,7 @@
 
 ### Changes
 
+- `duration`, `fetchData`, `objMergeNewKey`, `getUptime`, `getSystemUptime`: Options may now be passed as keyword arguments as well as in a `dict`, so `duration(1000, unit='Hour')` reads the way the rest of the package already did. Both the documentation and the package guide described the two forms as equivalent, and `durationParts`, `objClone`, `objGet`, `pad`, `retry` and `throttle` accepted both; these five took a `dict` and nothing else
 - `getShell`: Added. The shell recorded for the current account, which is the one a login starts rather than the one the caller happens to be typing into. Windows has no login shell, so the command interpreter is reported there
 - `getTempDir`: Added. The directory the system puts temporary files in, without a trailing separator. macOS gives each session a folder of its own, so this is not `/tmp` there
 - `getHomeDir`: Added. The current user's home directory

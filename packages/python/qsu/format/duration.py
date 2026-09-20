@@ -21,8 +21,8 @@ def _label(value, name: str, useShortString: bool, useSpace: bool) -> str:
 	return f'{_numStr(value)}{space}{suffix}'
 
 
-def duration(milliseconds: float, options: Optional[dict] = None) -> str:
-	opts = {**(options or {})}
+def duration(milliseconds: float, options: Optional[dict] = None, **kwargs) -> str:
+	opts = {**(options or {}), **kwargs}
 	useShortString = opts.get('useShortString', False)
 	useSpace = opts.get('useSpace', True)
 	separator = opts.get('separator', ' ')

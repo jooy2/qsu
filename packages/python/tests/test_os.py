@@ -142,6 +142,16 @@ def test_getUptime():
 	assert getUptime() >= 0
 
 
+def test_uptime_options_accept_keyword_arguments():
+	# The options may arrive as a dict or as keyword arguments, and the two mean the
+	# same thing. This is what stands in for the JavaScript options object.
+	for call in (getUptime, getSystemUptime):
+		assert isinstance(call(format=True), str)
+		assert '.' not in str(call(floor=True))
+		# A keyword wins over the same key in the dict.
+		assert isinstance(call({'format': False}, format=True), str)
+
+
 def test_getUptime_counts_from_the_process_start():
 	# `qsu` is imported after the wait, so a count that starts at import time reads
 	# as zero here. JavaScript has `process.uptime()` and needs no equivalent test;

@@ -12,16 +12,17 @@ from ._system import processStartTime
 _IMPORTED_AT = time.monotonic()
 
 
-def getUptime(opt: Optional[dict] = None) -> Union[int, float, str]:
+def getUptime(opt: Optional[dict] = None, **kwargs) -> Union[int, float, str]:
+	opts = {**(opt or {}), **kwargs}
 	t = _elapsed()
 
 	if not t:
 		return 0
 
-	if opt and opt.get('floor'):
+	if opts.get('floor'):
 		t = math.floor(t)
 
-	return numberFormat(t) if opt and opt.get('format') else t
+	return numberFormat(t) if opts.get('format') else t
 
 
 def _elapsed() -> float:

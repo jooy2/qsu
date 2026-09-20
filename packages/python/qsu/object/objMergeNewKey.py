@@ -1,13 +1,14 @@
 from ..verify.isObject import isObject
 
 
-def objMergeNewKey(obj, obj2, options=None):
+def objMergeNewKey(obj, obj2, options=None, **kwargs):
 	if not isinstance(obj, dict) or not isinstance(obj2, dict):
 		return None
 
+	opts = {**(options or {}), **kwargs}
 	merged = {**obj}
 
-	arrayAction = options.get('arrayAction') if options else None
+	arrayAction = opts.get('arrayAction')
 
 	for key in obj2.keys():
 		data = obj2[key]
@@ -24,10 +25,10 @@ def objMergeNewKey(obj, obj2, options=None):
 						update = data[i]
 
 						if isObject(update):
-							newList[i] = objMergeNewKey(newList[i], update, options)
+							newList[i] = objMergeNewKey(newList[i], update, opts)
 					merged[key] = newList
 			elif isObject(merged[key]) and isObject(data):
-				merged[key] = objMergeNewKey(merged[key], data, options)
+				merged[key] = objMergeNewKey(merged[key], data, opts)
 			else:
 				merged[key] = data
 		else:

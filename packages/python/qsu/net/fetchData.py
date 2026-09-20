@@ -79,8 +79,8 @@ def _isFileResponse(contentType: str, contentDisposition: str) -> bool:
 	)
 
 
-def fetchData(url: str, options=None):
-	opt = options or {}
+def fetchData(url: str, options=None, **kwargs):
+	opt = {**(options or {}), **kwargs}
 	queryString = (
 		f'?{objToQueryString(opt.get("queryParameters"))}'
 		if opt.get('queryParameters')

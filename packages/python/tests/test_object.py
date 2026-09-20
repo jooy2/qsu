@@ -226,6 +226,16 @@ def test_objMergeNewKey():
 		'b': {'ba': 1, 'bb': [1, 2], 'bc': 3},
 		'c': 1,
 	}
+	# The options may arrive as keyword arguments instead of as a dict.
+	assert objMergeNewKey(
+		{'a': 1, 'b': {'ba': 1, 'bb': [1, 2, 3, 4]}},
+		{'b': {'bb': [5, 6, 7], 'bc': 3}, 'c': 1},
+		arrayAction='append',
+	) == objMergeNewKey(
+		{'a': 1, 'b': {'ba': 1, 'bb': [1, 2, 3, 4]}},
+		{'b': {'bb': [5, 6, 7], 'bc': 3}, 'c': 1},
+		{'arrayAction': 'append'},
+	)
 	assert objMergeNewKey(
 		{'a': 1, 'b': {'ba': 1, 'bb': [1, 2, 3, 4]}},
 		{'b': {'bb': [5, 6, 7], 'bc': 3}, 'c': 1},

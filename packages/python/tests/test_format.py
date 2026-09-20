@@ -151,6 +151,17 @@ def test_duration():
 	assert duration(604800000, {'useShortString': True}) == '7 D'
 
 
+def test_duration_accepts_keyword_arguments():
+	# The options may arrive as a dict or as keyword arguments, and the two mean the
+	# same thing. This is what stands in for the JavaScript options object.
+	assert duration(1234567890, withMilliSeconds=True) == duration(
+		1234567890, {'withMilliSeconds': True}
+	)
+	assert duration(172800000, unit='Hour') == '48 Hours'
+	# A keyword wins over the same key in the dict.
+	assert duration(34560000000, {'maxUnitCount': 3}, maxUnitCount=2) == '1 Year 1 Month'
+
+
 def test_duration_months_and_years():
 	# A month is 30 days, a year is 365 days.
 	assert duration(2592000000) == '1 Month'
