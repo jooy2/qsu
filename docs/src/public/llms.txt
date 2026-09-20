@@ -139,7 +139,7 @@ Function-level helpers that do not belong to another category.
 
 Network requests. In JavaScript these functions require a Node.js runtime and are imported from `qsu/node`.
 
-- [fetchData](https://qsu.cdget.com/reference/net/fetchData) (JavaScript, Python): This function is used to make `node:fetch` easier to use while ensuring data is returned regardless of the response status.
+- [fetchData](https://qsu.cdget.com/reference/net/fetchData) (JavaScript, Dart, Python): This function is used to make `node:fetch` easier to use while ensuring data is returned regardless of the response status.
 
 ## object
 

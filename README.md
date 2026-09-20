@@ -67,7 +67,7 @@ pip install qsu
 
 ## What's inside
 
-Functions are grouped into categories. JavaScript and Python ship 175+ functions, Dart 160+ — a handful are language-specific, and every reference page states which languages implement it.
+Functions are grouped into categories. JavaScript and Python ship 175+ functions, Dart 170+ — a handful are language-specific, and every reference page states which languages implement it.
 
 | Category | JavaScript    | Dart | Python | Examples                                            |
 | -------- | ------------- | ---- | ------ | --------------------------------------------------- |
@@ -78,7 +78,7 @@ Functions are grouped into categories. JavaScript and Python ship 175+ functions
 | `format` | ✅            | ✅   | ✅     | `numberFormat`, `fileSizeFormat`, `duration`        |
 | `math`   | ✅            | ✅   | ✅     | `sum`, `clamp`, `round`, `numPick`                  |
 | `misc`   | ✅            | ✅   | ✅     | `debounce`, `throttle`, `retry`, `sleep`            |
-| `net`    | ✅ `qsu/node` | —    | ✅     | `fetchData`                                         |
+| `net`    | ✅ `qsu/node` | ✅   | ✅     | `fetchData`                                         |
 | `object` | ✅            | ✅   | ✅     | `objClone`, `objMerge`, `objPick`, `objGet`         |
 | `os`     | ✅ `qsu/node` | ✅   | ✅     | `getCpu`, `getRamSize`, `getDiskSize`, `runCommand` |
 | `string` | ✅            | ✅   | ✅     | `trim`, `truncate`, `strToCamelCase`, `pad`         |
@@ -104,7 +104,7 @@ The rules that keep the packages interchangeable:
 - **Names are `camelCase` in every language**, including Dart and Python. This is deliberate and non-idiomatic, so that `getSlug` is `getSlug` wherever you are.
 - **Behavior and test cases are ported, not just implementations.** When a function changes, the tests change in all packages.
 - **Optional arguments follow each language's convention.** JavaScript takes an options object, Dart takes named parameters, and Python accepts either a `dict` or keyword arguments.
-- **Not every function exists everywhere.** Dart has no `net` category, and a few individual functions are JavaScript-only. The language badge at the top of each reference page is the source of truth.
+- **Not every function exists everywhere.** `getMacAddress` and `getTimezone` are JavaScript-only. The language badge at the top of each reference page is the source of truth.
 
 The same call, with the same result, in each language:
 

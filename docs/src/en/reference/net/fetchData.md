@@ -2,13 +2,19 @@
 
 <NodeRequired en />
 
-This function is used to make `node:fetch` easier to use while ensuring data is returned regardless of the response status. By default, it uses the `GET` method, but other methods such as `POST` can also be used with separate options.
+This function makes an HTTP request and hands back the response already decoded, whatever the response status was. By default, it uses the `GET` method, but other methods such as `POST` can also be used with separate options.
 
 Depending on the `Content-Type` of the request URL, the returned data can be either a string or an object.
 
 If the request fails, returns a `204 (No Content)` status code, or an error occurs, it returns `null` without throwing a separate exception.
 
 However, you can receive error details via the `onError` event.
+
+::: lang dart
+
+This function needs a platform with networking of its own, so it works on Windows, macOS, Linux, Android and iOS and throws an `UnsupportedError` on the web.
+
+:::
 
 ## Parameters
 
@@ -49,7 +55,19 @@ However, you can receive error details via the `onError` event.
 ::: lang js
 
 ```javascript
-console.log(await fetchData('https://github.com'), { get: true });
+console.log(await fetchData('https://github.com', { get: true }));
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(await fetchData('https://github.com', get: true));
+
+// The response is decoded by what it says it is: a `Map` for JSON, a `String`
+// for text, and a `List<int>` for a file.
+final dynamic user = await fetchData('/users/1', host: 'https://example.com');
 ```
 
 :::
@@ -57,7 +75,7 @@ console.log(await fetchData('https://github.com'), { get: true });
 ::: lang python
 
 ```python
-print(fetchData('https://github.com'), { 'get': True })
+print(fetchData('https://github.com', {'get': True}))
 ```
 
 :::

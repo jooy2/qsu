@@ -2,13 +2,19 @@
 
 <NodeRequired ko />
 
-이 함수는 `node:fetch`를 조금 더 쉽게 사용하면서도 응답 상태에 상관 없이 데이터를 반환받기 위해 사용됩니다. 기본적으로 `GET` method를 사용하지만 별도 옵션으로 `POST` 등의 method도 사용할 수 있습니다.
+이 함수는 HTTP 요청을 보내고, 응답 상태와 관계없이 이미 해석된 응답을 돌려줍니다. 기본적으로 `GET` method를 사용하지만 별도 옵션으로 `POST` 등의 method도 사용할 수 있습니다.
 
 요청 URL의 `Content-Type`에 따라 반환하는 데이터 형식이 string이거나 object일 수 있습니다.
 
 응답에 실패했거나 `204 (No Content)` 응답 코드일 때, 에러가 발생했을 때에도 별도의 exception 없이 `null`을 반환합니다.
 
 다만 onError 이벤트를 통해 에러를 받아볼 수 있습니다.
+
+::: lang dart
+
+This function needs a platform with networking of its own, so it works on Windows, macOS, Linux, Android and iOS and throws an `UnsupportedError` on the web.
+
+:::
 
 ## Parameters
 
@@ -49,7 +55,19 @@
 ::: lang js
 
 ```javascript
-console.log(await fetchData('https://github.com'), { get: true });
+console.log(await fetchData('https://github.com', { get: true }));
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(await fetchData('https://github.com', get: true));
+
+// The response is decoded by what it says it is: a `Map` for JSON, a `String`
+// for text, and a `List<int>` for a file.
+final dynamic user = await fetchData('/users/1', host: 'https://example.com');
 ```
 
 :::
@@ -57,7 +75,7 @@ console.log(await fetchData('https://github.com'), { get: true });
 ::: lang python
 
 ```python
-print(fetchData('https://github.com'), { 'get': True })
+print(fetchData('https://github.com', {'get': True}))
 ```
 
 :::
