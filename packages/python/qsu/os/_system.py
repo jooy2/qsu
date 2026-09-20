@@ -375,10 +375,21 @@ def _windowsResidentSetSize() -> Optional[int]:
 
 	kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
 	kernel32.GetCurrentProcess.restype = wintypes.HANDLE
+
+	psapi = ctypes.WinDLL('psapi', use_last_error=True)
+	# Without these, the handle is passed as a C `int`. `GetCurrentProcess` answers
+	# with a pseudo-handle of all ones, which does not fit in one.
+	psapi.GetProcessMemoryInfo.argtypes = [
+		wintypes.HANDLE,
+		ctypes.POINTER(PROCESS_MEMORY_COUNTERS),
+		wintypes.DWORD,
+	]
+	psapi.GetProcessMemoryInfo.restype = wintypes.BOOL
+
 	counters = PROCESS_MEMORY_COUNTERS()
 	counters.cb = ctypes.sizeof(PROCESS_MEMORY_COUNTERS)
 
-	if not ctypes.WinDLL('psapi', use_last_error=True).GetProcessMemoryInfo(
+	if not psapi.GetProcessMemoryInfo(
 		kernel32.GetCurrentProcess(), ctypes.byref(counters), counters.cb
 	):
 		return None
