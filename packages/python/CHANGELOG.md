@@ -1,5 +1,11 @@
 # Changelog (Python)
 
+## vNext (2026--)
+
+### Changes
+
+- `runCommand`: The command no longer inherits the caller's standard input. A command that reads it, such as `sort` with no file, waited for the caller's own input or consumed it; it now reads an empty input and returns
+
 ## 1.4.0 (2026-09-12)
 
 ### Breaking changes

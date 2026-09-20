@@ -1,5 +1,6 @@
 import re
 import sys
+import threading
 
 from qsu.os import (
 	getCpu,
@@ -15,6 +16,20 @@ from qsu.os import (
 def test_runCommand():
 	assert runCommand('echo a') == 'a'
 	assert runCommand('echo b') == 'b'
+
+
+def test_runCommand_does_not_wait_on_standard_input():
+	# `sort` reads standard input on every supported platform, so it never returns
+	# while that pipe is open. Running it on a thread keeps a regression from hanging
+	# the whole suite.
+	output = []
+	thread = threading.Thread(target=lambda: output.append(runCommand('sort')), daemon=True)
+
+	thread.start()
+	thread.join(10)
+
+	assert not thread.is_alive()
+	assert output == ['']
 
 
 def test_getCpu():

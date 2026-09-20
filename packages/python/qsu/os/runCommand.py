@@ -9,6 +9,9 @@ def runCommand(command: str) -> Optional[str]:
 		shell=True,
 		capture_output=True,
 		encoding='utf8',
+		# Without this the command inherits the caller's standard input. One that
+		# reads it would wait for the caller's own input, or steal it.
+		stdin=subprocess.DEVNULL,
 	)
 
 	if result.returncode != 0:
