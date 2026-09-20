@@ -4,6 +4,7 @@
 
 ### Changes
 
+- `getCpu`: The processor is now named rather than described by its architecture. The name is read from the system directly: a `sysctl` on macOS, the registry on Windows and `/proc/cpuinfo` on Linux, so no command is run for it. `platform.processor()` answered with `arm` on an Apple Silicon Mac where the JavaScript package answered with `Apple M1 Max`, and with nothing at all on most Linux systems. It remains the fallback for a platform none of the three cover
 - `getUptime`: The count now starts when the process started, which is what the JavaScript package's `process.uptime()` has always measured. It used to start when `qsu.os.getUptime` was first imported, and because the package imports a function on first use, that was normally the moment of the first call: the value was a few microseconds on a process that had been running for hours. The start time is read from the operating system directly, through `GetProcessTimes` on Windows, a `sysctl` on macOS and `/proc/self/stat` on Linux, so nothing is spawned to get it. A platform that cannot answer still counts from the import, as before
 - `runCommand`: The command no longer inherits the caller's standard input. A command that reads it, such as `sort` with no file, waited for the caller's own input or consumed it; it now reads an empty input and returns
 

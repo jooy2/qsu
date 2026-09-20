@@ -27,6 +27,48 @@ def _libc():
 	return ctypes.CDLL(name, use_errno=True) if name else None
 
 
+def sysctlString(name: str) -> Optional[str]:
+	"""One textual `sysctl`, read by name. macOS and the BSDs."""
+	library = _libc()
+
+	if library is None:
+		return None
+
+	import ctypes
+
+	size = ctypes.c_size_t(0)
+
+	# The first call asks how long the value is, the second reads it.
+	if library.sysctlbyname(name.encode(), None, ctypes.byref(size), None, 0) != 0 or not size.value:
+		return None
+
+	buffer = ctypes.create_string_buffer(size.value)
+
+	if library.sysctlbyname(name.encode(), buffer, ctypes.byref(size), None, 0) != 0:
+		return None
+
+	return buffer.value.decode(errors='replace').strip() or None
+
+
+def windowsRegistryString(path: str, name: str) -> Optional[str]:
+	"""One string value under `HKEY_LOCAL_MACHINE`, read without running a command."""
+	if sys.platform != 'win32':
+		return None
+
+	import winreg
+
+	try:
+		with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, path) as key:
+			value = winreg.QueryValueEx(key, name)[0]
+	except OSError:
+		return None
+
+	if not isinstance(value, str):
+		return None
+
+	return value.strip() or None
+
+
 def processStartTime() -> Optional[float]:
 	"""When this process started, as a Unix timestamp in seconds."""
 	if sys.platform == 'win32':

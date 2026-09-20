@@ -39,6 +39,12 @@ def test_getCpu():
 	assert len(cpuName) > 0
 	assert re.search(r'[a-zA-Z0-9]+', cpuName)
 	assert cpuName != 'Unknown'
+	# The model of the processor, not the architecture the process was built for.
+	# Both packages answer with the same string, and an architecture name here means
+	# the lookup fell through to a last resort.
+	assert not re.fullmatch(
+		r'(arm|arm64|aarch64|x86|x86_64|amd64|i[3-6]86)', cpuName, re.IGNORECASE
+	)
 
 
 def test_getHostname():
