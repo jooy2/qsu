@@ -18,13 +18,24 @@ from typing import Optional, Tuple
 _SECONDS_FROM_1601_TO_1970 = 11644473600
 
 
+_libcHandle = None
+_libcLoaded = False
+
+
 def _libc():
-	import ctypes
-	import ctypes.util
+	"""The C library, opened on the first call that needs it and then kept."""
+	global _libcHandle, _libcLoaded
 
-	name = ctypes.util.find_library('c')
+	if not _libcLoaded:
+		_libcLoaded = True
 
-	return ctypes.CDLL(name, use_errno=True) if name else None
+		import ctypes
+		import ctypes.util
+
+		name = ctypes.util.find_library('c')
+		_libcHandle = ctypes.CDLL(name, use_errno=True) if name else None
+
+	return _libcHandle
 
 
 def sysctlUnsigned(name: str) -> Optional[int]:
@@ -330,13 +341,15 @@ def _darwinProcessStartTime() -> Optional[float]:
 
 def _procProcessStartTime() -> Optional[float]:
 	"""Linux and anything else carrying a `/proc` filesystem."""
+	bootedSecondsAgo = _procSystemUptime()
+
+	if bootedSecondsAgo is None:
+		return None
+
 	try:
 		with open('/proc/self/stat', 'rb') as handle:
 			fields = handle.read()
-
-		with open('/proc/uptime', 'rb') as handle:
-			systemUptime = float(handle.read().split()[0])
-	except (OSError, ValueError, IndexError):
+	except OSError:
 		return None
 
 	# The second field is the executable name in brackets and may hold spaces of its
@@ -355,4 +368,4 @@ def _procProcessStartTime() -> Optional[float]:
 	if ticksPerSecond <= 0:
 		return None
 
-	return time.time() - systemUptime + startedTicks / ticksPerSecond
+	return time.time() - bootedSecondsAgo + startedTicks / ticksPerSecond
