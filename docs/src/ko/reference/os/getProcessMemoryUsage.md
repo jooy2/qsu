@@ -11,7 +11,9 @@
 <PlatformSupport :rows="[
 	{ os: 'windows', note: '프로세스의 작업 집합입니다.' },
 	{ os: 'macos', note: '`ps`가 `RSS` 항목에 출력하는 값과 같은 resident size입니다.' },
-	{ os: 'linux', note: '`/proc/self/statm`의 resident set입니다. 다른 프로세스와 공유하는 메모리도 전부 세므로, 여러 프로세스의 값을 더하면 기기가 실제로 쓰는 양보다 커집니다.' }
+	{ os: 'linux', note: '`/proc/self/statm`의 resident set입니다. 다른 프로세스와 공유하는 메모리도 전부 세므로, 여러 프로세스의 값을 더하면 기기가 실제로 쓰는 양보다 커집니다.' },
+	{ os: 'android', note: '리눅스와 같은 `/proc` 파일을 읽습니다.' },
+	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: '맥OS와 같은 시스템 호출로 답합니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
 ]" />
 
 ## Parameters
@@ -28,6 +30,14 @@
 
 ```javascript
 console.log(getProcessMemoryUsage()); // Returns '52 MB'
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getProcessMemoryUsage()); // Returns '52 MB'
 ```
 
 :::

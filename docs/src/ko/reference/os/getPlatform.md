@@ -11,7 +11,9 @@
 <PlatformSupport :rows="[
 	{ os: 'windows', note: '`win32`, `cygwin`, `msys`는 모두 `windows`로 보고합니다.' },
 	{ os: 'macos', note: '`darwin`은 `macos`로 보고합니다.' },
-	{ os: 'linux', note: '`linux`와 `android`는 모두 `linux`로 보고합니다.' }
+	{ os: 'linux', note: '`linux`와 `android`는 모두 `linux`로 보고합니다.' },
+	{ os: 'android', note: '`linux`가 아니라 `android`입니다. 프로그램이 할 수 있는 일이 달라 별도의 값으로 둡니다.' },
+	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: '`ios`입니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
 ]" />
 
 ## Parameters
@@ -31,6 +33,18 @@ console.log(getPlatform()); // Returns 'macos'
 
 if (getPlatform() === 'windows') {
 	// ...
+}
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getPlatform()); // Returns 'macos'
+
+if (getPlatform() == 'windows') {
+  // ...
 }
 ```
 

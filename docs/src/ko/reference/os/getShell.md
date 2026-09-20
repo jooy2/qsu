@@ -11,7 +11,9 @@
 <PlatformSupport :rows="[
 	{ os: 'windows', note: '윈도우에는 로그인 셸이 없어 명령 해석기를 대신 돌려줍니다. 일반적인 설치에서 `C:\\Windows\\system32\\cmd.exe`인 `ComSpec` 값입니다. 사용자가 무엇을 열든 PowerShell은 나오지 않습니다.' },
 	{ os: 'macos', note: '`/bin/zsh` 같은 계정 레코드의 셸입니다.' },
-	{ os: 'linux', note: '`/bin/bash` 같은 패스워드 데이터베이스의 셸입니다. 항목이 없으면 환경 변수 `SHELL`을 보고, 그것도 없으면 `/bin/sh`를 씁니다.' }
+	{ os: 'linux', note: '`/bin/bash` 같은 패스워드 데이터베이스의 셸입니다. 항목이 없으면 환경 변수 `SHELL`을 보고, 그것도 없으면 `/bin/sh`를 씁니다.' },
+	{ os: 'android', note: '`SHELL`이 설정돼 있으면 그 값입니다. 앱 프로세스에는 보통 없어 `/bin/sh`가 나옵니다.' },
+	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: 'iOS에는 셸이 없습니다. 최후의 값으로 `/bin/sh`를 돌려줍니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
 ]" />
 
 ## Parameters
@@ -28,6 +30,14 @@
 
 ```javascript
 console.log(getShell()); // Returns '/bin/zsh'
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getShell()); // Returns '/bin/zsh'
 ```
 
 :::

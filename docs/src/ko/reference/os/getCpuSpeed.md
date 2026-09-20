@@ -11,7 +11,9 @@
 <PlatformSupport :rows="[
 	{ os: 'windows', note: '펌웨어가 레지스트리에 기록한 `~MHz` 값입니다.' },
 	{ os: 'macos', support: 'partial', note: '인텔 맥에서는 `hw.cpufrequency` 값입니다. 애플 실리콘은 클럭 속도를 공개하지 않아 `2400`을 돌려줍니다. 측정값이 아니라 고정값이며, JavaScript 런타임 자체가 쓰는 값과 같습니다.' },
-	{ os: 'linux', support: 'partial', note: 'cpufreq 드라이버가 보고하는 최대 주파수입니다. 가상 머신처럼 이 드라이버가 없는 환경에서는 `0`이 나옵니다.' }
+	{ os: 'linux', support: 'partial', note: 'cpufreq 드라이버가 보고하는 최대 주파수입니다. 가상 머신처럼 이 드라이버가 없는 환경에서는 `0`이 나옵니다.' },
+	{ os: 'android', support: 'partial', note: '안드로이드 빌드에 따라 cpufreq 드라이버를 읽을 수 없으며, 그런 경우 `0`을 돌려줍니다.' },
+	{ os: 'ios', support: { js: 'no', dart: 'partial', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: 'iOS는 클럭 속도를 공개하지 않아 애플 실리콘용 고정값을 돌려줍니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
 ]" />
 
 ## Parameters
@@ -28,6 +30,14 @@
 
 ```javascript
 console.log(getCpuSpeed()); // Returns 2400
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getCpuSpeed()); // Returns 2400
 ```
 
 :::

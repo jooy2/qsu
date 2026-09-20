@@ -11,7 +11,9 @@ Returns the number of seconds the current process has been running.
 <PlatformSupport :rows="[
 	{ os: 'windows', note: { js: 'Counted from the moment the process started.', python: 'Counted from the creation time `GetProcessTimes` reports for the process.' } },
 	{ os: 'macos', note: { js: 'Counted from the moment the process started.', python: 'Counted from the start time the kernel records for the process.' } },
-	{ os: 'linux', note: { js: 'Counted from the moment the process started.', python: 'Counted from the start time in `/proc/self/stat`. Where `/proc` is not mounted, the count starts when `qsu` was first imported instead.' } }
+	{ os: 'linux', note: { js: 'Counted from the moment the process started.', python: 'Counted from the start time in `/proc/self/stat`. Where `/proc` is not mounted, the count starts when `qsu` was first imported instead.' } },
+	{ os: 'android', note: 'Reads the same `/proc` files as Linux.' },
+	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'Answers the same system call as macOS.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
 ]" />
 
 ## Parameters
@@ -38,6 +40,17 @@ console.log(getUptime()); // Returns 1234.123456789
 console.log(getUptime({ floor: true })); // Returns 1234
 console.log(getUptime({ format: true })); // Returns '1,234.123456789'
 console.log(getUptime({ floor: true, format: true })); // Returns '1,234'
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getUptime()); // Returns 1234.123456789
+print(getUptime(floor: true)); // Returns 1234
+print(getUptime(format: true)); // Returns '1,234.123456789'
+print(getUptime(floor: true, format: true)); // Returns '1,234'
 ```
 
 :::

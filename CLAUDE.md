@@ -28,10 +28,11 @@ When you add or change a function, treat all three packages as one logical chang
 - **Same behavior and same test cases.** Port the tests too, not just the implementation.
 - **Same category.** Functions are grouped into categories (`array`, `crypto`, `date`,
   `file`, `format`, `math`, `misc`, `net`, `object`, `os`, `string`, `verify`, `web`).
-- Not every function exists in every language (e.g. `fetchData` and the `os/*` functions are
-  JS + Python only; Dart has no `net`/`os`). A page only carries a `::: lang` block for the
-  packages that have the function, and the docs mark the rest. Don't invent parity that the
-  sources don't have — verify against the actual signatures.
+- Not every function exists in every language (e.g. `fetchData` is JS + Python only, Dart
+  having no `net` category, and `getMacAddress` and `getTimezone` are JavaScript only). A
+  page only carries a `::: lang` block for the packages that have the function, and the docs
+  mark the rest. Don't invent parity that the sources don't have — verify against the actual
+  signatures.
 
 ## Packages
 
@@ -59,6 +60,16 @@ When you add or change a function, treat all three packages as one logical chang
   `package:test` (`group`/`test`/`expect`).
 - **Format/analyze:** `dart format .`, `dart analyze`.
 - **SDK:** `^3.5.0`.
+- **The `os` category is split by platform.** `lib/src/os.dart` holds the public functions and
+  imports its platform layer conditionally:
+  `import 'package:qsu/src/os/_unsupported.dart' if (dart.library.ffi) 'package:qsu/src/os/_native.dart'`.
+  `dart:ffi` cannot be imported on the web at all, so anything touching it has to sit behind
+  that boundary or the package stops compiling there. `_native.dart` dispatches on
+  `Platform.is*` and reaches `_posix.dart` (macOS, iOS) or `_windows.dart`; Linux and Android
+  read `/proc` and need no FFI. Keep the two platform files' exported names identical.
+- **Android and iOS share the desktop implementations** — Android takes the Linux path and iOS
+  the macOS one — so CI on ubuntu/macos/windows covers their code. What differs is what their
+  sandbox permits, which each reference page states per platform.
 
 ### Python — `packages/python`
 

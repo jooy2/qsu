@@ -11,7 +11,9 @@
 <PlatformSupport :rows="[
 	{ os: 'windows', note: '프로세스 친화성 마스크에 포함된 코어 수입니다.' },
 	{ os: 'macos', note: '하이퍼스레딩으로 늘어난 것까지 포함한 논리 코어 전체입니다. 맥OS에는 이를 줄일 프로세스별 친화성 설정이 없습니다.' },
-	{ os: 'linux', note: '`taskset`이 정하는 친화성 마스크에 포함된 코어 수입니다. 마스크가 아니라 CPU 점유율로 제한된 컨테이너에서는 호스트의 코어 전체가 그대로 보입니다.' }
+	{ os: 'linux', note: '`taskset`이 정하는 친화성 마스크에 포함된 코어 수입니다. 마스크가 아니라 CPU 점유율로 제한된 컨테이너에서는 호스트의 코어 전체가 그대로 보입니다.' },
+	{ os: 'android', note: '리눅스와 같은 `/proc` 파일을 읽습니다.' },
+	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: '기기의 코어 수입니다. 고성능 코어와 고효율 코어가 있는 기기는 둘 다 셉니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
 ]" />
 
 ## Parameters
@@ -28,6 +30,14 @@
 
 ```javascript
 console.log(getCpuCount()); // Returns 10
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getCpuCount()); // Returns 10
 ```
 
 :::

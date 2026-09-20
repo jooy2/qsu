@@ -11,7 +11,9 @@ It matters when reading or writing a binary format that does not record the orde
 <PlatformSupport :rows="[
 	{ os: 'windows', note: '`LE` on every architecture Windows runs on.' },
 	{ os: 'macos', note: '`LE` on every architecture macOS runs on.' },
-	{ os: 'linux', note: '`LE` on x86 and on ARM. A big-endian build, such as one for `s390x`, reports `BE`.' }
+	{ os: 'linux', note: '`LE` on x86 and on ARM. A big-endian build, such as one for `s390x`, reports `BE`.' },
+	{ os: 'android', note: '`LE` on every device Android runs on.' },
+	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: '`LE` on every device iOS runs on.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
 ]" />
 
 ## Parameters
@@ -28,6 +30,14 @@ No required parameters
 
 ```javascript
 console.log(getEndianness()); // Returns 'LE'
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getEndianness()); // Returns 'LE'
 ```
 
 :::

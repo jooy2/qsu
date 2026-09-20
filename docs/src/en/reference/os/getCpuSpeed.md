@@ -11,7 +11,9 @@ It is the rated speed the system records, not what the processor is running at t
 <PlatformSupport :rows="[
 	{ os: 'windows', note: 'The `~MHz` value the firmware writes into the registry.' },
 	{ os: 'macos', support: 'partial', note: 'The `hw.cpufrequency` control, on an Intel Mac. Apple Silicon does not publish its clock speed at all, and `2400` is reported there instead. That is a placeholder rather than a measurement, and it is the same one the JavaScript runtime itself reports.' },
-	{ os: 'linux', support: 'partial', note: 'The maximum frequency the cpufreq driver reports. A machine with no such driver, which is the usual case inside a virtual machine, reports `0`.' }
+	{ os: 'linux', support: 'partial', note: 'The maximum frequency the cpufreq driver reports. A machine with no such driver, which is the usual case inside a virtual machine, reports `0`.' },
+	{ os: 'android', support: 'partial', note: 'The cpufreq driver is not readable on every Android build, and `0` is returned where it is not.' },
+	{ os: 'ios', support: { js: 'no', dart: 'partial', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'iOS does not publish its clock speed, and the placeholder for Apple Silicon is returned.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
 ]" />
 
 ## Parameters
@@ -28,6 +30,14 @@ No required parameters
 
 ```javascript
 console.log(getCpuSpeed()); // Returns 2400
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getCpuSpeed()); // Returns 2400
 ```
 
 :::

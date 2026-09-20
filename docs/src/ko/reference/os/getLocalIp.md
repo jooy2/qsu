@@ -11,7 +11,9 @@
 <PlatformSupport :rows="[
 	{ os: 'windows', note: '기본 경로가 쓰는 주소입니다. VPN이 기본 경로를 차지하고 있으면 물리 어댑터 대신 VPN 쪽이 나옵니다.' },
 	{ os: 'macos', note: '기본 경로가 쓰는 주소입니다. 와이파이가 활성 인터페이스면 와이파이 주소가, 이더넷으로 넘어가면 이더넷 주소가 나옵니다.' },
-	{ os: 'linux', note: '기본 경로가 쓰는 주소입니다. 컨테이너 안에서는 호스트 주소가 아니라 컨테이너가 브리지에서 받은 주소가 나옵니다.' }
+	{ os: 'linux', note: '기본 경로가 쓰는 주소입니다. 컨테이너 안에서는 호스트 주소가 아니라 컨테이너가 브리지에서 받은 주소가 나옵니다.' },
+	{ os: 'android', note: '활성 인터페이스의 주소입니다. 와이파이가 꺼져 있으면 이동통신망 주소가 나옵니다.' },
+	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: '활성 인터페이스의 주소입니다. 와이파이가 꺼져 있으면 이동통신망 주소가 나옵니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
 ]" />
 
 ## Parameters
@@ -28,6 +30,14 @@
 
 ```javascript
 console.log(await getLocalIp()); // Returns '192.168.0.14'
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(await getLocalIp()); // Returns '192.168.0.14'
 ```
 
 :::

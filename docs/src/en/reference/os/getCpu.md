@@ -9,7 +9,9 @@ This function returns the name of the CPU currently used by the system. Dependin
 <PlatformSupport :rows="[
 	{ os: 'windows', note: 'The name recorded as `ProcessorNameString` in the registry.' },
 	{ os: 'macos', note: 'The name the `machdep.cpu.brand_string` system control reports.' },
-	{ os: 'linux', support: 'partial', note: { js: 'The `model name` in `/proc/cpuinfo`. An `arm64` kernel writes a numeric `CPU part` instead, which is translated to a core name such as `Cortex-A72`.', python: 'The `model name` in `/proc/cpuinfo`. An `arm64` kernel writes no such field, so the board name is used, and the architecture when there is not one of those either.' } }
+	{ os: 'linux', support: 'partial', note: { js: 'The `model name` in `/proc/cpuinfo`. An `arm64` kernel writes a numeric `CPU part` instead, which is translated to a core name such as `Cortex-A72`.', python: 'The `model name` in `/proc/cpuinfo`. An `arm64` kernel writes no such field, so the board name is used, and the architecture when there is not one of those either.' } },
+	{ os: 'android', note: 'Reads the same `/proc` files as Linux.' },
+	{ os: 'ios', support: { js: 'no', dart: 'partial', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'iOS does not publish the name of its processor, so `Unknown` is returned.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
 ]" />
 
 ## Parameters
@@ -26,6 +28,14 @@ No required parameters
 
 ```javascript
 console.log(getCpu()); // e.g. 'Apple M1'...
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getCpu()); // e.g. 'Apple M1'...
 ```
 
 :::

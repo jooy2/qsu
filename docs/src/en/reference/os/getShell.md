@@ -11,7 +11,9 @@ That is the shell a login starts, which is not always the one the caller is typi
 <PlatformSupport :rows="[
 	{ os: 'windows', note: 'Windows has no login shell, so the command interpreter is reported instead: `ComSpec`, which is `C:\\Windows\\system32\\cmd.exe` on a normal installation. PowerShell is never reported, whatever the user opens.' },
 	{ os: 'macos', note: 'The shell in the account record, such as `/bin/zsh`.' },
-	{ os: 'linux', note: 'The shell in the password database, such as `/bin/bash`. An account with no entry falls back to `SHELL` in the environment, and then to `/bin/sh`.' }
+	{ os: 'linux', note: 'The shell in the password database, such as `/bin/bash`. An account with no entry falls back to `SHELL` in the environment, and then to `/bin/sh`.' },
+	{ os: 'android', note: '`SHELL` where it is set. An app process usually has none, and `/bin/sh` is returned.' },
+	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'iOS has no shell. `/bin/sh` is returned as the last resort.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
 ]" />
 
 ## Parameters
@@ -28,6 +30,14 @@ No required parameters
 
 ```javascript
 console.log(getShell()); // Returns '/bin/zsh'
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getShell()); // Returns '/bin/zsh'
 ```
 
 :::

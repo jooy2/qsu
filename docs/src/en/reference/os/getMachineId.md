@@ -13,7 +13,9 @@ This method returns the same value for every user on the system.
 <PlatformSupport :rows="[
 	{ os: 'windows', note: 'The `MachineGuid` value under `HKLM\\SOFTWARE\\Microsoft\\Cryptography`.' },
 	{ os: 'macos', note: 'The `IOPlatformUUID` property, read with `ioreg`.' },
-	{ os: 'linux', support: 'partial', note: 'The contents of `/var/lib/dbus/machine-id` or `/etc/machine-id`. A system carrying neither falls back to the hostname, which is not unique and can be changed.' }
+	{ os: 'linux', support: 'partial', note: 'The contents of `/var/lib/dbus/machine-id` or `/etc/machine-id`. A system carrying neither falls back to the hostname, which is not unique and can be changed.' },
+	{ os: 'android', note: '`/etc/machine-id` is not part of Android, so the call fails.' },
+	{ os: 'ios', support: 'no', note: 'iOS does not allow a program to start another one, which this needs.' }
 ]" />
 
 ## Parameters
@@ -30,6 +32,14 @@ No required parameters
 
 ```javascript
 console.log(await getMachineId()); // Returns 'a642d9e1-6063-4da7-8ea8-2298f989d01d'
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(await getMachineId()); // Returns 'a642d9e1-6063-4da7-8ea8-2298f989d01d'
 ```
 
 :::

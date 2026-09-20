@@ -11,7 +11,9 @@ What counts as available is the system's own answer, and the systems do not coun
 <PlatformSupport :rows="[
 	{ os: 'windows', note: 'What `GlobalMemoryStatusEx` reports as available physical memory.' },
 	{ os: 'macos', note: 'The free and speculative pages. macOS keeps a large inactive cache that is reclaimable but is not counted here, so this figure is far smaller than what Activity Monitor calls available.' },
-	{ os: 'linux', note: '`MemAvailable` from `/proc/meminfo`, which counts the page cache the kernel would drop rather than swap. It is much larger than `MemFree`, and it is the number to decide whether an allocation will fit.' }
+	{ os: 'linux', note: '`MemAvailable` from `/proc/meminfo`, which counts the page cache the kernel would drop rather than swap. It is much larger than `MemFree`, and it is the number to decide whether an allocation will fit.' },
+	{ os: 'android', note: 'Reads the same `/proc` files as Linux.' },
+	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'Answers the same system call as macOS.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
 ]" />
 
 ## Parameters
@@ -28,6 +30,14 @@ No required parameters
 
 ```javascript
 console.log(getFreeRamSize()); // Returns '2 GB'
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getFreeRamSize()); // Returns '2 GB'
 ```
 
 :::

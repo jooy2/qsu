@@ -11,7 +11,9 @@
 <PlatformSupport :rows="[
 	{ os: 'windows', note: '`TEMP` 값입니다. 모두가 공유하는 폴더가 아니라 `C:\\Users\\Sam\\AppData\\Local\\Temp`처럼 프로필 안의 폴더입니다.' },
 	{ os: 'macos', note: '`TMPDIR` 값입니다. 맥OS는 세션마다 `/var/folders/b7/.../T` 같은 전용 폴더를 줍니다. `/tmp`가 아닙니다.' },
-	{ os: 'linux', note: '`TMPDIR`이 설정돼 있으면 그 값, 아니면 `/tmp`입니다. 기기의 모든 계정이 함께 씁니다.' }
+	{ os: 'linux', note: '`TMPDIR`이 설정돼 있으면 그 값, 아니면 `/tmp`입니다. 기기의 모든 계정이 함께 씁니다.' },
+	{ os: 'android', note: '앱의 캐시 디렉터리이며, 시스템이 언제든 비울 수 있습니다.' },
+	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: '앱 샌드박스 안의 임시 디렉터리입니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
 ]" />
 
 ## Parameters
@@ -28,6 +30,14 @@
 
 ```javascript
 console.log(getTempDir()); // Returns '/var/folders/b7/.../T'
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(getTempDir()); // Returns '/var/folders/b7/.../T'
 ```
 
 :::

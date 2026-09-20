@@ -21,7 +21,9 @@ The output is also limited by the default `maxBuffer` (1 MB), and the call fails
 <PlatformSupport :rows="[
 	{ os: 'windows', note: 'The command runs through `cmd.exe`, so it has to be written in its syntax.' },
 	{ os: 'macos', note: 'The command runs through `/bin/sh`.' },
-	{ os: 'linux', note: 'The command runs through `/bin/sh`.' }
+	{ os: 'linux', note: 'The command runs through `/bin/sh`.' },
+	{ os: 'android', note: 'A command runs, but an app may only reach the few binaries its sandbox allows.' },
+	{ os: 'ios', support: 'no', note: 'iOS does not allow a program to start another one, which this needs.' }
 ]" />
 
 ## Parameters
@@ -40,6 +42,14 @@ The output is also limited by the default `maxBuffer` (1 MB), and the call fails
 
 ```javascript
 console.log(await runCommand('echo a')); // Returns 'a'
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(await runCommand('echo a')); // Returns 'a'
 ```
 
 :::

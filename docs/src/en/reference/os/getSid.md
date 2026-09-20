@@ -13,7 +13,9 @@ This value can be changed by the user.
 <PlatformSupport :rows="[
 	{ os: 'windows', note: 'The SID of the profile whose folder is this user\'s home directory.' },
 	{ os: 'macos', support: 'partial', note: 'The SID the directory service generated for the account. It is not a Windows SID and means nothing outside this machine.' },
-	{ os: 'linux', support: 'no', note: 'Linux has no SID. The call throws.' }
+	{ os: 'linux', support: 'no', note: 'Linux has no SID. The call throws.' },
+	{ os: 'android', support: 'no', note: 'Android has no SID. The call throws.' },
+	{ os: 'ios', support: 'no', note: 'iOS has no SID. The call throws.' }
 ]" />
 
 ## Parameters
@@ -30,6 +32,14 @@ No required parameters
 
 ```javascript
 console.log(await getSid()); // Returns 'S-1-5-21-406418252-5582013529-1321253100-2001'
+```
+
+:::
+
+::: lang dart
+
+```dart
+print(await getSid()); // Returns 'S-1-5-21-406418252-5582013529-1321253100-2001'
 ```
 
 :::
