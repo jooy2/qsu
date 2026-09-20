@@ -193,7 +193,9 @@ def test_getDiskUsage():
 	usage = getDiskUsage()
 
 	assert isinstance(usage, (int, float))
-	assert 0 <= usage <= 100
+	# A disk with an operating system on it is never empty, and a reading that came
+	# back as nothing would leave zero here rather than failing outright.
+	assert 0 < usage <= 100
 	assert isinstance(getDiskUsage(None, 0), int)
 
 
