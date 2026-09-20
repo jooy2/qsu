@@ -37,6 +37,19 @@ getGroupKeys('abc {d#e  f}', '{', '}', true); // Returns ['d#e  f']
 
 :::
 
+::: lang dart
+
+```dart
+getGroupKeys('abc {def} ghi {{jkl}}', '{', '}'); // Returns [def]
+getGroupKeys('abc {{def}} ghi {jkl}', '{{', '}}'); // Returns [def]
+getGroupKeys('abc {} {}', '{', '}'); // Returns [, ]
+getGroupKeys('abc [[def] [ghi] [jkl ', '[', ']'); // Returns [ghi]
+getGroupKeys('abc {d#e  f}', '{', '}', ignoreValidation: true);
+// Returns [d#e  f]
+```
+
+:::
+
 ::: lang python
 
 ```python

@@ -29,6 +29,15 @@ logBox('hello', { a: 1 });
 
 :::
 
+::: lang dart
+
+```dart
+logBox([1, 2, 3, 4, 5]);
+logBox(<dynamic>['hello', {'a': 1}]);
+```
+
+:::
+
 ::: lang python
 
 ```python

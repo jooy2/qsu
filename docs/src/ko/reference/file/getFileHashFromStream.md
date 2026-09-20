@@ -20,7 +20,22 @@ Node.js ReadableStream 객체의 파일을 특정 알고리즘으로 해시된 �
 ::: lang js
 
 ```javascript
-await getFileHashFromStream('/home/user/text.txt', 'sha1'); // '38851813f75627d581c593f3ccfb7061dd013fbd'
+import { createReadStream } from 'node:fs';
+
+await getFileHashFromStream(createReadStream('/home/user/text.txt'), 'sha1');
+// '38851813f75627d581c593f3ccfb7061dd013fbd'
+```
+
+:::
+
+::: lang dart
+
+```dart
+import 'dart:io';
+
+await getFileHashFromStream(File('/home/user/text.txt').openRead(),
+    algorithm: 'sha1');
+// '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```
 
 :::
@@ -28,7 +43,8 @@ await getFileHashFromStream('/home/user/text.txt', 'sha1'); // '38851813f75627d5
 ::: lang python
 
 ```python
-getFileHashFromStream('/home/user/text.txt', 'sha1') # '38851813f75627d581c593f3ccfb7061dd013fbd'
+with open('/home/user/text.txt', 'rb') as file:
+	getFileHashFromStream(file, 'sha1')  # '38851813f75627d581c593f3ccfb7061dd013fbd'
 ```
 
 :::

@@ -76,7 +76,7 @@ File and directory inspection, path handling and I/O. In JavaScript these functi
 - [getCopyFileName](https://qsu.cdget.com/reference/file/getCopyFileName) (JavaScript, Dart, Python): This function scans an array containing a list of names and displays an alternative name if any duplicates are found. If no duplicates are found, the names are returned as is.
 - [getFileExtension](https://qsu.cdget.com/reference/file/getFileExtension) (JavaScript, Dart, Python): Returns the file extension from the given file path. An empty string value is returned for files without extension.
 - [getFileHashFromPath](https://qsu.cdget.com/reference/file/getFileHashFromPath) (JavaScript, Dart, Python): Returns the file in the specified path as a value hashed by a specific algorithm. The default algorithm is `md5`. This method uses a `Promise` to return a valid hash value.
-- [getFileHashFromStream](https://qsu.cdget.com/reference/file/getFileHashFromStream) (JavaScript, Python): Returns a file in a Node.js ReadableStream object as a value hashed with a specific algorithm. The default algorithm is `md5`.
+- [getFileHashFromStream](https://qsu.cdget.com/reference/file/getFileHashFromStream) (JavaScript, Dart, Python): Returns a file in a Node.js ReadableStream object as a value hashed with a specific algorithm. The default algorithm is `md5`.
 - [getFileInfo](https://qsu.cdget.com/reference/file/getFileInfo) (JavaScript, Dart, Python): Returns file or directory information as an easy-to-understand object.
 - [getFileName](https://qsu.cdget.com/reference/file/getFileName) (JavaScript, Dart, Python): Returns the file name within the path.
 - [getFilePathLevel](https://qsu.cdget.com/reference/file/getFilePathLevel) (JavaScript, Dart, Python): Determine how many steps the current path is. The root path (`/` or `C:\`) begins with step 1.
@@ -129,7 +129,7 @@ Function-level helpers that do not belong to another category.
 - [console](https://qsu.cdget.com/reference/misc/console) (Dart): Ensure that text is displayed in full without being truncated in Dart's `print`.
 - [debounce](https://qsu.cdget.com/reference/misc/debounce) (JavaScript, Dart, Python): When the given function is executed repeatedly, the function is called if it has not been called again within the specified timeout.
 - [funcTimes](https://qsu.cdget.com/reference/misc/funcTimes) (JavaScript, Dart, Python): Repeat iteratee n (times argument value) times. After the return result of each function is stored in the array in order, the final array is returned.
-- [logBox](https://qsu.cdget.com/reference/misc/logBox) (JavaScript, Python): Prints the given values to the console as a bordered table, one row per argument, so that long or structured values stay readable.
+- [logBox](https://qsu.cdget.com/reference/misc/logBox) (JavaScript, Dart, Python): Prints the given values to the console as a bordered table, one row per argument, so that long or structured values stay readable.
 - [retry](https://qsu.cdget.com/reference/misc/retry) (JavaScript, Dart, Python): Runs the given function and, if it fails, runs it again until it succeeds or the attempts run out, with `times`, `delay` and `backoff` options.
 - [sleep](https://qsu.cdget.com/reference/misc/sleep) (JavaScript, Dart, Python): Sleep function using Promise.
 
@@ -206,7 +206,7 @@ String transformation, capitalization, trimming and truncation.
 - [capitalizeFirst](https://qsu.cdget.com/reference/string/capitalizeFirst) (JavaScript, Dart, Python): Converts the first letter of the entire string to uppercase and returns.
 - [deburr](https://qsu.cdget.com/reference/string/deburr) (JavaScript, Dart, Python): Replaces accented Latin letters with their unaccented equivalents, so `déjà vu` becomes `deja vu`. Covers the Latin-1 Supplement and Latin Extended-A blocks plus combining marks.
 - [escapeRegExp](https://qsu.cdget.com/reference/string/escapeRegExp) (JavaScript, Dart, Python): Escapes every regular expression metacharacter in the given string, so the value can be dropped into a pattern and matched literally.
-- [getGroupKeys](https://qsu.cdget.com/reference/string/getGroupKeys) (JavaScript, Python): Returns a text key enclosed between the start and end characters in the given string. This can be useful for identifying template string keys in strings that follow i18n syntax.
+- [getGroupKeys](https://qsu.cdget.com/reference/string/getGroupKeys) (JavaScript, Dart, Python): Returns a text key enclosed between the start and end characters in the given string. This can be useful for identifying template string keys in strings that follow i18n syntax.
 - [getStrBytes](https://qsu.cdget.com/reference/string/getStrBytes) (JavaScript, Dart, Python): Returns the number of bytes in the given string.
 - [pad](https://qsu.cdget.com/reference/string/pad) (JavaScript, Dart, Python): Pads a string until it reaches the given length. One `position` option covers `start`, `end` and `both`, replacing Lodash's `pad`, `padStart` and `padEnd`.
 - [removeNewLine](https://qsu.cdget.com/reference/string/removeNewLine) (JavaScript, Dart, Python): Removes `\n`, `\r` characters or replaces them with specified characters.
