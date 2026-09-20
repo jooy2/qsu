@@ -26,7 +26,7 @@ objMerge({ a: { b: 1 } }, { a: { c: 2 } }); // { a: { b: 1, c: 2 } }
 
 ## Installation
 
-**qsu** requires `Node.js 18` or later.
+**qsu** requires `Node.js 20` or later.
 
 ```bash
 npm install qsu
