@@ -8,7 +8,10 @@ if TYPE_CHECKING:
 	from .getArch import getArch as getArch
 	from .getCpu import getCpu as getCpu
 	from .getCpuCount import getCpuCount as getCpuCount
+	from .getDiskSize import getDiskSize as getDiskSize
+	from .getDiskUsage import getDiskUsage as getDiskUsage
 	from .getEndianness import getEndianness as getEndianness
+	from .getFreeDiskSize import getFreeDiskSize as getFreeDiskSize
 	from .getFreeRamSize import getFreeRamSize as getFreeRamSize
 	from .getHostname import getHostname as getHostname
 	from .getKernelVersion import getKernelVersion as getKernelVersion
@@ -25,7 +28,10 @@ __all__ = [
 	'getArch',
 	'getCpu',
 	'getCpuCount',
+	'getDiskSize',
+	'getDiskUsage',
 	'getEndianness',
+	'getFreeDiskSize',
 	'getFreeRamSize',
 	'getHostname',
 	'getKernelVersion',

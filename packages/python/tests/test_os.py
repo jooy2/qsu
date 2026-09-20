@@ -1,6 +1,8 @@
+import os
 import re
 import subprocess
 import sys
+import tempfile
 import threading
 
 import pytest
@@ -8,6 +10,9 @@ import pytest
 from qsu.os import (
 	getArch,
 	getCpu,
+	getDiskSize,
+	getDiskUsage,
+	getFreeDiskSize,
 	getCpuCount,
 	getEndianness,
 	getKernelVersion,
@@ -162,6 +167,35 @@ def test_getRamUsage():
 	assert isinstance(getRamUsage(0), int)
 	# The argument is how many decimal places are kept.
 	assert len(str(getRamUsage(3)).partition('.')[2]) <= 3
+
+
+def test_getDiskSize():
+	size = getDiskSize()
+
+	assert re.match(r'^\d+\s[A-Z]+$', size)
+	assert size != '0 B'
+	# The current working directory is the default, named or not.
+	assert getDiskSize(os.getcwd()) == size
+
+
+def test_getFreeDiskSize():
+	assert re.match(r'^\d+\s[A-Z]+$', getFreeDiskSize())
+
+
+def test_getDiskUsage():
+	usage = getDiskUsage()
+
+	assert isinstance(usage, (int, float))
+	assert 0 <= usage <= 100
+	assert isinstance(getDiskUsage(None, 0), int)
+
+
+def test_disk_functions_report_a_path_that_is_not_there():
+	missing = os.path.join(tempfile.gettempdir(), 'qsu-no-such-directory-8f21')
+
+	for call in (getDiskSize, getFreeDiskSize, getDiskUsage):
+		with pytest.raises(OSError):
+			call(missing)
 
 
 def test_getPlatform():
