@@ -1,7 +1,6 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { setTimeout } from 'timers/promises';
-import { sleep, funcTimes, debounce, arrWithDefault, throttle, retry } from '../dist';
+import { sleep, funcTimes, debounce, throttle, retry } from '../dist';
 import { logBox } from '../dist/node';
 
 describe('Misc', () => {
@@ -28,37 +27,24 @@ describe('Misc', () => {
 		);
 	});
 
-	it('debounce', () => {
-		const debounceResult: boolean[] = [];
-		const debounceFunc = debounce(() => {
-			debounceResult.push(true);
-		}, 5);
-		const runningFunctions: Promise<boolean>[] = [];
+	it('debounce', async () => {
+		const calls: number[] = [];
+		const debounced = debounce((value: number) => calls.push(value), 30);
 
-		for (let i = 0; i < 100; i += 1) {
-			let waitDelay: number;
+		// Calls made inside the window collapse into one, which runs once the window
+		// has passed and carries the arguments of the last of them.
+		debounced(1);
+		debounced(2);
+		debounced(3);
+		assert.deepStrictEqual(calls, []);
 
-			if (i === 25 || i === 50 || i === 75) {
-				waitDelay = 10;
-			} else {
-				waitDelay = 1;
-			}
+		await sleep(80);
+		assert.deepStrictEqual(calls, [3]);
 
-			runningFunctions.push(
-				new Promise((resolve) => {
-					setTimeout(waitDelay * i).then(() => {
-						debounceFunc();
-						resolve(true);
-					});
-				})
-			);
-		}
-
-		Promise.all(runningFunctions).then(() => {
-			sleep(10).then(() => {
-				assert.deepStrictEqual(debounceResult, arrWithDefault(true, 4));
-			});
-		});
+		// A call after that window has closed opens a new one.
+		debounced(4);
+		await sleep(80);
+		assert.deepStrictEqual(calls, [3, 4]);
 	});
 
 	it('throttle', async () => {
