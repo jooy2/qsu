@@ -3,6 +3,8 @@ import subprocess
 import sys
 import threading
 
+import pytest
+
 from qsu.os import (
 	getCpu,
 	getHostname,
@@ -76,6 +78,9 @@ def test_getRamSize():
 
 def test_getSid():
 	if sys.platform not in ('win32', 'darwin'):
+		with pytest.raises(RuntimeError, match='Not supported on this operating system'):
+			getSid()
+
 		return
 
 	sidResult = getSid()
