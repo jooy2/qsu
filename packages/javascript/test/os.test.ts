@@ -38,7 +38,7 @@ import {
 } from '../dist/node';
 import { contains } from '../dist/verify';
 
-const PLATFORM_NAMES = ['windows', 'macos', 'linux', 'freebsd', 'unknown'];
+const PLATFORM_NAMES = ['windows', 'macos', 'linux', 'android', 'ios', 'freebsd', 'unknown'];
 
 // Node's own vocabulary, which is the one the Python package normalises into.
 const ARCHITECTURES = [
