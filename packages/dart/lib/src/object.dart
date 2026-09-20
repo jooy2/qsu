@@ -416,3 +416,135 @@ dynamic objClone(dynamic obj, {bool deep = true}) {
 
   return _cloneValue(obj, Map<Object, dynamic>.identity());
 }
+
+/// Return the object as indented JSON, for showing to a person rather than for
+/// sending anywhere.
+String objToPrettyStr(Map<String, dynamic> obj) =>
+    const JsonEncoder.withIndent('\t').convert(obj);
+
+/// Walk a tree of objects and return the first one whose [searchKey] holds
+/// [searchValue]. Children are looked for under [childKey], and `null` comes
+/// back when nothing in the tree matches.
+Map<String, dynamic>? objFindItemRecursiveByKey(
+    dynamic obj, String searchKey, dynamic searchValue, String childKey) {
+  final List<dynamic> items = obj is List<dynamic> ? obj : <dynamic>[obj];
+
+  for (final dynamic item in items) {
+    if (item is! Map) {
+      continue;
+    }
+
+    if (item[searchKey] == searchValue) {
+      return Map<String, dynamic>.from(item);
+    }
+
+    if (!isEmpty(item[childKey])) {
+      final Map<String, dynamic>? child = objFindItemRecursiveByKey(
+          item[childKey], searchKey, searchValue, childKey);
+
+      if (child != null) {
+        return child;
+      }
+    }
+  }
+
+  return null;
+}
+
+/// Merge [obj2] into [obj], going down through nested objects, and return a new
+/// object. [arrayAction] decides what happens to a key both sides hold a list
+/// for: `append` joins them, `replace` takes the new one, and the default merges
+/// them item by item when the two are the same length.
+Map<String, dynamic>? objMergeNewKey(
+    Map<String, dynamic>? obj, Map<String, dynamic>? obj2,
+    {String? arrayAction}) {
+  if (obj == null || obj2 == null) {
+    return null;
+  }
+
+  final Map<String, dynamic> merged = Map<String, dynamic>.from(obj);
+
+  for (final String key in obj2.keys) {
+    final dynamic data = obj2[key];
+
+    if (!merged.containsKey(key)) {
+      merged[key] = data;
+      continue;
+    }
+
+    final dynamic current = merged[key];
+
+    if (current is List && data is List) {
+      if (arrayAction == 'append') {
+        // A new list rather than `addAll`: the copy above is shallow, so
+        // growing this one would grow the caller's.
+        merged[key] = <dynamic>[...current, ...data];
+      } else if (arrayAction == 'replace') {
+        merged[key] = data;
+      } else if (current.length == data.length) {
+        final List<dynamic> items = List<dynamic>.from(current);
+
+        for (int index = 0; index < items.length; index += 1) {
+          final dynamic update = data[index];
+
+          if (isObject(update)) {
+            items[index] = objMergeNewKey(
+                Map<String, dynamic>.from(items[index] as Map),
+                Map<String, dynamic>.from(update as Map),
+                arrayAction: arrayAction);
+          }
+        }
+
+        merged[key] = items;
+      }
+    } else if (isObject(current) && isObject(data)) {
+      merged[key] = objMergeNewKey(Map<String, dynamic>.from(current as Map),
+          Map<String, dynamic>.from(data as Map),
+          arrayAction: arrayAction);
+    } else {
+      merged[key] = data;
+    }
+  }
+
+  return merged;
+}
+
+/// Set [key] to [value] in a new copy of [obj]. With [recursive] the key is set
+/// wherever it appears further down, and with [upsert] it is added when the
+/// object did not hold it at all.
+Map<String, dynamic>? objUpdate(
+    Map<String, dynamic>? obj, String key, dynamic value,
+    {bool recursive = false, bool upsert = false}) {
+  if (obj == null) {
+    return null;
+  }
+
+  bool updated = false;
+
+  // Work on copies, so the caller's object and every object inside it are left
+  // as they were.
+  Map<String, dynamic> update(Map<String, dynamic> current) {
+    final Map<String, dynamic> result = Map<String, dynamic>.from(current);
+
+    for (final String each in result.keys.toList()) {
+      if (recursive && isObject(result[each])) {
+        result[each] = update(Map<String, dynamic>.from(result[each] as Map));
+      }
+    }
+
+    if (result.containsKey(key)) {
+      result[key] = value;
+      updated = true;
+    }
+
+    return result;
+  }
+
+  final Map<String, dynamic> result = update(obj);
+
+  if (!updated && upsert) {
+    result[key] = value;
+  }
+
+  return result;
+}

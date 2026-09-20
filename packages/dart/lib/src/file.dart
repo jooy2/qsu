@@ -5,6 +5,10 @@ import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 import 'package:path/path.dart';
 import 'package:qsu/src/format.dart';
+// The same platform layer the `os` functions use; `dart:ffi` cannot be imported
+// on the web, so anything that touches it has to sit behind this boundary.
+import 'package:qsu/src/os/_unsupported.dart'
+    if (dart.library.ffi) 'package:qsu/src/os/_native.dart' as platform;
 import 'package:unorm_dart/unorm_dart.dart';
 
 /// Creates a directory with the specified path. Ignores the operation if the directory already exists.
@@ -691,4 +695,15 @@ class FileInfo {
     required this.created,
     required this.modified,
   });
+}
+
+/// Whether the file at [filePath] is hidden. Pass [isWindows] to ask the system
+/// for the hidden attribute it keeps; everywhere else a name beginning with a
+/// dot is what makes a file hidden, and the path alone answers that.
+Future<bool> isFileHidden(String filePath, {bool isWindows = false}) async {
+  if (isWindows) {
+    return platform.fileIsHidden(filePath) ?? false;
+  }
+
+  return RegExp(r'(^|/)\.[^/.]').hasMatch(filePath.split('/').last);
 }

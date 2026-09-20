@@ -410,5 +410,80 @@ void main() {
       objInvert(original);
       expect(original, {'a': 1});
     });
+
+    test('objToPrettyStr', () {
+      expect(objToPrettyStr(<String, dynamic>{'a': 1}), '{\n\t"a": 1\n}');
+    });
+
+    test('objFindItemRecursiveByKey', () {
+      final List<Map<String, dynamic>> tree = <Map<String, dynamic>>[
+        <String, dynamic>{
+          'id': 1,
+          'children': <Map<String, dynamic>>[
+            <String, dynamic>{'id': 2, 'children': <dynamic>[]},
+            <String, dynamic>{
+              'id': 3,
+              'children': <Map<String, dynamic>>[
+                <String, dynamic>{'id': 4, 'children': <dynamic>[]},
+              ],
+            },
+          ],
+        },
+      ];
+
+      expect(objFindItemRecursiveByKey(tree, 'id', 4, 'children')?['id'], 4);
+      expect(objFindItemRecursiveByKey(tree, 'id', 9, 'children'), isNull);
+    });
+
+    test('objMergeNewKey', () {
+      expect(
+          objMergeNewKey(<String, dynamic>{'a': 1}, <String, dynamic>{'b': 2}),
+          <String, dynamic>{'a': 1, 'b': 2});
+      expect(
+          objMergeNewKey(<String, dynamic>{
+            'a': <int>[1, 2]
+          }, <String, dynamic>{
+            'a': <int>[3]
+          }, arrayAction: 'append'),
+          <String, dynamic>{
+            'a': <int>[1, 2, 3]
+          });
+      expect(
+          objMergeNewKey(<String, dynamic>{
+            'a': <int>[1, 2]
+          }, <String, dynamic>{
+            'a': <int>[3]
+          }, arrayAction: 'replace'),
+          <String, dynamic>{
+            'a': <int>[3]
+          });
+      // A nested object is merged rather than replaced whole.
+      expect(
+          objMergeNewKey(<String, dynamic>{
+            'a': <String, dynamic>{'x': 1}
+          }, <String, dynamic>{
+            'a': <String, dynamic>{'y': 2}
+          }),
+          <String, dynamic>{
+            'a': <String, dynamic>{'x': 1, 'y': 2}
+          });
+      expect(objMergeNewKey(null, <String, dynamic>{'a': 1}), isNull);
+    });
+
+    test('objUpdate', () {
+      final Map<String, dynamic> source = <String, dynamic>{
+        'a': 1,
+        'b': <String, dynamic>{'a': 2},
+      };
+
+      expect(objUpdate(source, 'a', 9)?['a'], 9);
+      // Without `recursive` the nested copy keeps its own value.
+      expect((objUpdate(source, 'a', 9)?['b'] as Map)['a'], 2);
+      expect((objUpdate(source, 'a', 9, recursive: true)?['b'] as Map)['a'], 9);
+      expect(objUpdate(source, 'z', 1)?.containsKey('z'), isFalse);
+      expect(objUpdate(source, 'z', 1, upsert: true)?['z'], 1);
+      // The caller's object is left as it was.
+      expect(source['a'], 1);
+    });
   });
 }

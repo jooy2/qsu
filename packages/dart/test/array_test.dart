@@ -454,5 +454,32 @@ void main() {
       expect(nanResult, hasLength(1));
       expect((nanResult[0] as double).isNaN, true);
     });
+
+    test('sortByObjectKey', () {
+      final List<Map<String, dynamic>> people = <Map<String, dynamic>>[
+        <String, dynamic>{'name': 'File-10'},
+        <String, dynamic>{'name': 'File-9'},
+        <String, dynamic>{'name': 'File-1'},
+      ];
+
+      expect(
+          sortByObjectKey(people, 'name')
+              .map((dynamic item) => item['name'])
+              .toList(),
+          <String>['File-1', 'File-10', 'File-9']);
+      // Numerically, the digits are compared as numbers rather than as text.
+      expect(
+          sortByObjectKey(people, 'name', numerically: true)
+              .map((dynamic item) => item['name'])
+              .toList(),
+          <String>['File-1', 'File-9', 'File-10']);
+      expect(
+          sortByObjectKey(people, 'name', numerically: true, descending: true)
+              .map((dynamic item) => item['name'])
+              .toList(),
+          <String>['File-10', 'File-9', 'File-1']);
+      // The caller's list is left as it was.
+      expect(people.first['name'], 'File-10');
+    });
   });
 }

@@ -21,6 +21,8 @@ String? cpuModel() => null;
 
 int cpuSpeed() => 0;
 
+bool? fileIsHidden(String path) => null;
+
 String? routedAddress(String target, int port) => null;
 
 String? machineId() => null;

@@ -472,3 +472,42 @@ List<dynamic> arrIntersection(List<List<dynamic>>? arrays) {
 
   return result;
 }
+
+/// Sort a list of objects by the value one key holds. Set [descending] to sort
+/// the other way, and [numerically] to compare the values the way [sortNumeric]
+/// does, so `File-10` comes after `File-9`.
+List<dynamic> sortByObjectKey(List<dynamic> array, String key,
+    {bool descending = false, bool numerically = false}) {
+  // Sort a copy: `List.sort` reorders in place. Flip the comparison for a
+  // descending order rather than reversing, which would also flip equal items.
+  if (numerically) {
+    // Build each key once rather than once per comparison.
+    final List<MapEntry<dynamic, _NaturalKey>> decorated = array
+        .map((dynamic item) =>
+            MapEntry<dynamic, _NaturalKey>(item, _naturalKey('${item[key]}')))
+        .toList();
+
+    decorated.sort(
+        (MapEntry<dynamic, _NaturalKey> a, MapEntry<dynamic, _NaturalKey> b) {
+      final int order = _compareNaturalKey(a.value, b.value);
+
+      return descending ? -order : order;
+    });
+
+    return decorated
+        .map((MapEntry<dynamic, _NaturalKey> entry) => entry.key)
+        .toList();
+  }
+
+  final List<dynamic> sorted = List<dynamic>.from(array);
+
+  sorted.sort((dynamic a, dynamic b) {
+    final Comparable<dynamic> left = a[key] as Comparable<dynamic>;
+    final Comparable<dynamic> right = b[key] as Comparable<dynamic>;
+    final int order = left.compareTo(right);
+
+    return descending ? -order : order;
+  });
+
+  return sorted;
+}

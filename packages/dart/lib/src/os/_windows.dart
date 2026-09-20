@@ -40,6 +40,9 @@ typedef _RegGetValueDart = int Function(int, Pointer<Utf16>, Pointer<Utf16>,
 typedef _RtlGetVersionNative = Int32 Function(Pointer<Uint8>);
 typedef _RtlGetVersionDart = int Function(Pointer<Uint8>);
 
+typedef _GetFileAttributesNative = Uint32 Function(Pointer<Utf16>);
+typedef _GetFileAttributesDart = int Function(Pointer<Utf16>);
+
 typedef _WSAStartupNative = Int32 Function(Uint16, Pointer<Uint8>);
 typedef _WSAStartupDart = int Function(int, Pointer<Uint8>);
 
@@ -238,6 +241,22 @@ String? kernelVersion() {
   }
 }
 
+/// Whether Windows has marked [path] hidden.
+bool? fileIsHidden(String path) {
+  const int invalidAttributes = 0xFFFFFFFF;
+  const int hidden = 0x2;
+
+  final Pointer<Utf16> target = path.toNativeUtf16();
+
+  try {
+    final int attributes = _getFileAttributes(target);
+
+    return attributes == invalidAttributes ? null : attributes & hidden != 0;
+  } finally {
+    calloc.free(target);
+  }
+}
+
 /// The address a socket would leave this machine from, for a route to [target].
 ///
 /// Nothing is sent. Connecting a datagram socket only asks the stack which
@@ -354,3 +373,7 @@ final _GetSockNameDart _getSockName =
 
 final _CloseSocketDart _closeSocket =
     _ws2.lookupFunction<_CloseSocketNative, _CloseSocketDart>('closesocket');
+
+final _GetFileAttributesDart _getFileAttributes =
+    _kernel32.lookupFunction<_GetFileAttributesNative, _GetFileAttributesDart>(
+        'GetFileAttributesW');

@@ -981,5 +981,14 @@ void edgeCaseTests() {
       expect(await isFileExists(p('linked/shortcut')), false);
       expect(await isFileExists(p('keep/precious.txt')), true);
     });
+
+    test('isFileHidden', () async {
+      expect(await isFileHidden('/tmp/.hidden'), isTrue);
+      expect(await isFileHidden('.hidden'), isTrue);
+      expect(await isFileHidden('/tmp/visible.txt'), isFalse);
+      // A dot that only separates the extension does not hide anything.
+      expect(await isFileHidden('/tmp/a.b'), isFalse);
+      expect(await isFileHidden('/tmp/..'), isFalse);
+    });
   });
 }

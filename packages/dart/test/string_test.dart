@@ -363,5 +363,16 @@ st'''), 'test');
       expect(RegExp(escapeRegExp('a.b')).hasMatch('a.b'), true);
       expect(RegExp(escapeRegExp('a.b')).hasMatch('axb'), false);
     });
+
+    test('strBlindRandom', () {
+      final String masked = strBlindRandom('abcdefghij', 4);
+
+      expect(masked.length, 10);
+      expect('*'.allMatches(masked).length, 4);
+      expect(strBlindRandom('', 3), '');
+      // Only letters are masked, so the punctuation survives.
+      expect(strBlindRandom('...', 3), '...');
+      expect(strBlindRandom('abcd', 2, blindStr: '#').contains('#'), isTrue);
+    });
   });
 }

@@ -269,6 +269,12 @@ int cpuSpeed() {
   return kilohertz == null ? 0 : kilohertz ~/ 1000;
 }
 
+/// Whether the system has marked [path] hidden. Only Windows keeps such a flag;
+/// everywhere else a name beginning with a dot is the convention, which the
+/// caller checks for itself.
+bool? fileIsHidden(String path) =>
+    Platform.isWindows ? windows.fileIsHidden(path) : null;
+
 /// The address this machine would leave from, for a route to [target].
 ///
 /// Nothing is sent to it. The other packages ask the same question the same way,

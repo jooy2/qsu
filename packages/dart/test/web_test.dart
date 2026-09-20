@@ -312,5 +312,34 @@ void main() {
       expect(getSlug('!!!'), '');
       expect(getSlug('', baseUrl: 'https://example.com'), '');
     });
+
+    test('generateLicense', () {
+      final String mit = generateLicense(
+          author: 'Sam',
+          yearStart: 2024,
+          type: 'mit',
+          email: 'sam@example.com');
+
+      expect(mit, startsWith('Copyright (c) 2024 Sam <sam@example.com>'));
+      expect(mit.contains('WITHOUT WARRANTY OF ANY KIND'), isTrue);
+      // The type is matched without its punctuation, so `apache 2.0` finds it.
+      expect(
+          generateLicense(author: 'Sam', yearStart: 2024, type: 'apache 2.0'),
+          startsWith('Copyright 2024 Sam'));
+      expect(
+          generateLicense(author: 'Sam', yearStart: 2024, type: 'bsd-3')
+              .contains('Redistribution and use'),
+          isTrue);
+      // `htmlBr` swaps the newline for a tag.
+      expect(
+          generateLicense(
+                  author: 'Sam', yearStart: 2024, type: 'mit', htmlBr: true)
+              .contains('<br/>'),
+          isTrue);
+      expect(
+          generateLicense(
+              author: 'Sam', yearStart: 2024, yearEnd: '2026', type: 'mit'),
+          startsWith('Copyright (c) 2024-2026 Sam'));
+    });
   });
 }

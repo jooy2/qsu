@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:qsu/src/math.dart';
 import 'package:qsu/src/verify.dart';
 
 /// (Private) A single generator, reused. Creating a `Random` per call is far more
@@ -780,4 +781,34 @@ String pad(String? str, int length,
   return _buildPad(padChar, startLength) +
       text +
       _buildPad(padChar, total - startLength);
+}
+
+/// Replace [blindLength] letters of [str] with [blindStr], picked at random.
+/// Only letters are masked, so punctuation and spaces keep the shape of the
+/// text. Nothing is masked past the end of the string.
+String strBlindRandom(String? str, int blindLength, {String blindStr = '*'}) {
+  if (str == null || str.isEmpty) {
+    return '';
+  }
+
+  final RegExp maskable = RegExp(r'[a-zA-Z가-힣]');
+  final int totalLength = str.length;
+
+  String current = str;
+  int hidden = 0;
+  int checked = 0;
+
+  while (hidden < blindLength && checked < totalLength) {
+    final int index = numPick(0, totalLength - 1);
+
+    if (maskable.hasMatch(current.substring(index, index + 1))) {
+      current =
+          current.substring(0, index) + blindStr + current.substring(index + 1);
+      hidden += 1;
+    }
+
+    checked += 1;
+  }
+
+  return current;
 }
