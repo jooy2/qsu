@@ -229,29 +229,38 @@ Future<String> getFileHashFromPath(String filePath,
     throw ArgumentError('Invalid file path');
   }
 
-  Hash hashAlgorithm;
-
-  switch (algorithm) {
-    case 'md5':
-      hashAlgorithm = md5;
-      break;
-    case 'sha1':
-      hashAlgorithm = sha1;
-      break;
-    case 'sha256':
-      hashAlgorithm = sha256;
-      break;
-    case 'sha512':
-      hashAlgorithm = sha512;
-      break;
-    default:
-      throw ArgumentError('Invalid hash algorithm: $algorithm');
-  }
-
   final File file = File(filePath);
   final Stream<List<int>> inputStream = file.openRead();
 
-  final Digest digest = await inputStream.transform(hashAlgorithm).first;
+  final Digest digest =
+      await inputStream.transform(_hashAlgorithm(algorithm)).first;
+
+  return digest.toString();
+}
+
+/// (Private) The hash the two file hashing functions were asked for.
+Hash _hashAlgorithm(String? algorithm) {
+  switch (algorithm) {
+    case 'md5':
+      return md5;
+    case 'sha1':
+      return sha1;
+    case 'sha256':
+      return sha256;
+    case 'sha512':
+      return sha512;
+    default:
+      throw ArgumentError('Invalid hash algorithm: $algorithm');
+  }
+}
+
+/// Returns the contents of [fileStream] hashed by a specific algorithm. The
+/// default algorithm is `md5`. Use this where the bytes are already a stream,
+/// such as an upload; [getFileHashFromPath] opens a path for you.
+Future<String> getFileHashFromStream(Stream<List<int>> fileStream,
+    {String? algorithm = 'md5'}) async {
+  final Digest digest =
+      await fileStream.transform(_hashAlgorithm(algorithm)).first;
 
   return digest.toString();
 }

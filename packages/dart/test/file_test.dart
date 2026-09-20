@@ -211,6 +211,18 @@ void main() {
           hashTable['sha512']);
     });
 
+    test('getFileHashFromStream', () async {
+      final File file = File('$testTargetPath/STATIC_FILE.txt');
+
+      // The same bytes hash the same whether they arrive as a path or as a
+      // stream, which is the only difference between the two functions.
+      expect(await getFileHashFromStream(file.openRead()), hashTable['md5']);
+      expect(await getFileHashFromStream(file.openRead(), algorithm: 'sha256'),
+          hashTable['sha256']);
+      expect(() => getFileHashFromStream(file.openRead(), algorithm: 'nope'),
+          throwsArgumentError);
+    });
+
     test('toPosixFilePath', () {
       expect(toPosixFilePath('\\\\Shared'), '/Shared');
       expect(toPosixFilePath('C:\\'), 'C:/');

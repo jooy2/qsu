@@ -812,3 +812,119 @@ String strBlindRandom(String? str, int blindLength, {String blindStr = '*'}) {
 
   return current;
 }
+
+/// Collect the keys a template holds between [groupStart] and [groupEnd], such
+/// as the `name` in `Hello {name}`. A pair that is escaped with a backslash is
+/// skipped, and so is a doubled delimiter, which is how a template writes the
+/// delimiter itself.
+///
+/// A key may hold letters, digits, `_`, `$` and `-`; anything else is passed
+/// over unless [ignoreValidation] is set.
+List<String> getGroupKeys(String? str, String groupStart, String groupEnd,
+    {bool ignoreValidation = false}) {
+  if (str == null || str.isEmpty) {
+    return <String>[];
+  }
+
+  if (groupStart.isEmpty || groupEnd.isEmpty) {
+    throw ArgumentError('`groupStart` and `groupEnd` must be non-empty.');
+  }
+
+  if (groupStart == groupEnd) {
+    throw ArgumentError('`groupStart` and `groupEnd` must be different.');
+  }
+
+  if (groupStart.length == 1 && groupEnd.length != 1) {
+    throw ArgumentError('When `groupStart` is a single character, '
+        '`groupEnd` must also be a single character.');
+  }
+
+  if (groupEnd.length == 1 && groupStart.length != 1) {
+    throw ArgumentError('When `groupEnd` is a single character, '
+        '`groupStart` must also be a single character.');
+  }
+
+  final List<String> found = <String>[];
+  final int length = str.length;
+  final int startLength = groupStart.length;
+  final int endLength = groupEnd.length;
+  final bool single = startLength == 1 && endLength == 1;
+  final RegExp validKey = RegExp(r'^[A-Za-z0-9_$-]*$');
+
+  bool escapedAt(int index) {
+    int slashes = 0;
+
+    for (int at = index - 1; at >= 0 && str[at] == r'\'; at -= 1) {
+      slashes += 1;
+    }
+
+    return slashes.isOdd;
+  }
+
+  bool delimiterAt(int index, String delimiter) {
+    final int width = delimiter.length;
+
+    if (index < 0 || index + width > length) {
+      return false;
+    }
+
+    if (str.substring(index, index + width) != delimiter || escapedAt(index)) {
+      return false;
+    }
+
+    // A doubled delimiter is the template writing the delimiter itself.
+    if (single) {
+      if (index > 0 && str[index - 1] == delimiter) {
+        return false;
+      }
+
+      if (index + 1 < length && str[index + 1] == delimiter) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  bool keyIsValid(String key) {
+    if (key.contains('\n') || key.contains('\r')) {
+      return false;
+    }
+
+    if (key.contains(groupStart) || key.contains(groupEnd)) {
+      return false;
+    }
+
+    return ignoreValidation || validKey.hasMatch(key);
+  }
+
+  for (int index = 0; index <= length - startLength; index += 1) {
+    if (!delimiterAt(index, groupStart)) {
+      continue;
+    }
+
+    final int begin = index + startLength;
+    int endAt = -1;
+
+    for (int at = begin; at <= length - endLength; at += 1) {
+      if (delimiterAt(at, groupEnd)) {
+        endAt = at;
+        break;
+      }
+    }
+
+    if (endAt == -1) {
+      continue;
+    }
+
+    final String key = str.substring(begin, endAt);
+
+    if (keyIsValid(key)) {
+      found.add(key);
+    }
+
+    index = endAt + endLength - 1;
+  }
+
+  return found;
+}

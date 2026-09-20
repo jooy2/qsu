@@ -374,5 +374,27 @@ st'''), 'test');
       expect(strBlindRandom('...', 3), '...');
       expect(strBlindRandom('abcd', 2, blindStr: '#').contains('#'), isTrue);
     });
+
+    test('getGroupKeys', () {
+      expect(getGroupKeys('Hello {name}, you are {age}', '{', '}'),
+          <String>['name', 'age']);
+      // A backslash escapes the pair, and a doubled delimiter is the template
+      // writing the delimiter itself.
+      expect(
+          getGroupKeys('Escaped \\{skip} and {{literal}} and {ok}', '{', '}'),
+          <String>['ok']);
+      expect(getGroupKeys('no keys here', '{', '}'), <String>[]);
+      expect(getGroupKeys('', '{', '}'), <String>[]);
+      // A key may hold letters, digits, `_`, `$` and `-` and nothing else.
+      expect(
+          getGroupKeys('{bad key} and {good-1}', '{', '}'), <String>['good-1']);
+      expect(getGroupKeys('{bad key}', '{', '}', ignoreValidation: true),
+          <String>['bad key']);
+      expect(getGroupKeys(r'a ${one} b ${two}', r'${', '}}'), <String>[]);
+      expect(() => getGroupKeys('a', '{', '{'), throwsArgumentError);
+      expect(() => getGroupKeys('a', '', '}'), throwsArgumentError);
+      // A multi-character delimiter may not be paired with a single one.
+      expect(() => getGroupKeys('a', r'${', '}'), throwsArgumentError);
+    });
   });
 }

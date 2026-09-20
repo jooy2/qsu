@@ -165,5 +165,21 @@ void main() {
         ),
       );
     });
+
+    test('logBox', () {
+      // It prints rather than returning, so what is checked is that every shape
+      // of input draws a box instead of throwing: no arguments, a wide
+      // character that counts as two columns, and a value that is not a string.
+      expect(() => logBox(<dynamic>[1, 2, 3]), returnsNormally);
+      expect(() => logBox(<dynamic>[]), returnsNormally);
+      expect(() => logBox(<dynamic>['한글과 emoji 🎉']), returnsNormally);
+      expect(
+          () => logBox(<dynamic>[
+                <String, dynamic>{'a': 1},
+                null,
+                'x' * 500,
+              ]),
+          returnsNormally);
+    });
   });
 }

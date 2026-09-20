@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:math';
 
 /// Sleep function using Promise.
 Future<void> sleep(int delay) async {
@@ -142,4 +144,221 @@ Future<T> retry<T>(
   }
 
   Error.throwWithStackTrace(lastError!, lastStackTrace);
+}
+
+/// (Private) The box drawing characters [logBox] frames its table with.
+const Map<String, String> _border = <String, String>{
+  'tl': '┌',
+  'tr': '┐',
+  'bl': '└',
+  'br': '┘',
+  'h': '─',
+  'v': '│',
+  'lt': '├',
+  'rt': '┤',
+  'tt': '┬',
+  'bt': '┴',
+  'x': '┼',
+};
+
+/// (Private) How many columns a character takes in a terminal. The ranges are
+/// the wide ones: the CJK blocks, Hangul, the full-width forms and the emoji.
+int _charWidth(int codePoint) {
+  if (codePoint == 0 ||
+      codePoint < 32 ||
+      (codePoint >= 0x7f && codePoint < 0xa0)) {
+    return 0;
+  }
+
+  const List<List<int>> wide = <List<int>>[
+    <int>[0x1100, 0x115f],
+    <int>[0x2e80, 0x303e],
+    <int>[0x3041, 0x33ff],
+    <int>[0x3400, 0x4dbf],
+    <int>[0x4e00, 0x9fff],
+    <int>[0xa000, 0xa4cf],
+    <int>[0xac00, 0xd7a3],
+    <int>[0xf900, 0xfaff],
+    <int>[0xfe30, 0xfe4f],
+    <int>[0xff00, 0xff60],
+    <int>[0xffe0, 0xffe6],
+    <int>[0x1f300, 0x1faff],
+    <int>[0x20000, 0x3fffd],
+  ];
+
+  for (final List<int> range in wide) {
+    if (codePoint >= range[0] && codePoint <= range[1]) {
+      return 2;
+    }
+  }
+
+  return 1;
+}
+
+/// (Private) How many columns a string takes, counting by code point so a wide
+/// character is not mistaken for one column.
+int _stringWidth(String str) {
+  int width = 0;
+
+  for (final int codePoint in str.runes) {
+    width += _charWidth(codePoint);
+  }
+
+  return width;
+}
+
+String _padEndVisual(String str, int width) {
+  final int pad = width - _stringWidth(str);
+
+  return pad > 0 ? str + ' ' * pad : str;
+}
+
+String _centerVisual(String str, int width) {
+  final int total = width - _stringWidth(str);
+
+  if (total <= 0) {
+    return str;
+  }
+
+  final int left = total ~/ 2;
+
+  return ' ' * left + str + ' ' * (total - left);
+}
+
+List<String> _wrapVisual(String text, int width) {
+  final List<String> lines = <String>[];
+  final int limit = max(1, width);
+
+  for (final String rawLine in text.split('\n')) {
+    if (rawLine.isEmpty) {
+      lines.add('');
+      continue;
+    }
+
+    StringBuffer current = StringBuffer();
+    int currentWidth = 0;
+
+    for (final int codePoint in rawLine.runes) {
+      final String character = String.fromCharCode(codePoint);
+      final int characterWidth = _charWidth(codePoint);
+
+      if (currentWidth + characterWidth > limit) {
+        lines.add(current.toString());
+        current = StringBuffer(character);
+        currentWidth = characterWidth;
+      } else {
+        current.write(character);
+        currentWidth += characterWidth;
+      }
+    }
+
+    lines.add(current.toString());
+  }
+
+  return lines;
+}
+
+/// (Private) The width to draw the box at. Anything that cannot answer, which
+/// includes the web, leaves the conventional 80 columns.
+int _terminalWidth() {
+  try {
+    if (stdout.hasTerminal && stdout.terminalColumns > 0) {
+      return stdout.terminalColumns;
+    }
+  } on Object {
+    // No terminal is attached, or there is no such thing on this platform.
+  }
+
+  try {
+    final int? columns = int.tryParse(Platform.environment['COLUMNS'] ?? '');
+
+    if (columns != null && columns > 0) {
+      return columns;
+    }
+  } on Object {
+    // The environment is not readable either.
+  }
+
+  return 80;
+}
+
+/// Print the given values as a table, one row each, framed in a box that fits
+/// the terminal. Wide characters are counted as two columns, so a row holding
+/// Korean or an emoji still lines up.
+///
+/// A value that is not a string is written with Dart's own `toString()`, which
+/// is not the same shape the other packages' inspectors produce.
+void logBox(List<dynamic> args) {
+  final int terminal = max(_terminalWidth(), 10);
+
+  const String headerIndex = '#';
+  const String headerValue = 'value';
+
+  final List<String> indexes =
+      List<String>.generate(args.length, (int index) => '$index');
+  final int indexContentWidth = <int>[
+    _stringWidth(headerIndex),
+    ...indexes.map(_stringWidth),
+    1,
+  ].reduce(max);
+  final int indexCellWidth = indexContentWidth + 2;
+
+  int valueCellWidth = terminal - indexCellWidth - 3;
+
+  if (valueCellWidth < 3) {
+    valueCellWidth = 3;
+  }
+
+  final int valueContentWidth = valueCellWidth - 2;
+
+  String line(String left, String middle, String right) =>
+      left +
+      _border['h']! * indexCellWidth +
+      middle +
+      _border['h']! * valueCellWidth +
+      right;
+
+  final String top = line(_border['tl']!, _border['tt']!, _border['tr']!);
+  final String separator = line(_border['lt']!, _border['x']!, _border['rt']!);
+  final String bottom = line(_border['bl']!, _border['bt']!, _border['br']!);
+
+  String row(String indexCell, String valueCell) =>
+      '${_border['v']} $indexCell ${_border['v']} $valueCell ${_border['v']}';
+
+  final List<String> out = <String>[
+    top,
+    row(_centerVisual(headerIndex, indexContentWidth),
+        _padEndVisual(headerValue, valueContentWidth)),
+    separator,
+  ];
+
+  if (args.isEmpty) {
+    out.add(row(_centerVisual('-', indexContentWidth),
+        _padEndVisual('(no arguments)', valueContentWidth)));
+    out.add(bottom);
+    out.forEach(print);
+
+    return;
+  }
+
+  for (int index = 0; index < args.length; index += 1) {
+    final dynamic value = args[index];
+    final String text = value is String ? value : '$value';
+    final List<String> wrapped = _wrapVisual(text, valueContentWidth);
+
+    for (int line = 0; line < wrapped.length; line += 1) {
+      final String indexCell = line == 0
+          ? _centerVisual(indexes[index], indexContentWidth)
+          : ' ' * indexContentWidth;
+
+      out.add(row(indexCell, _padEndVisual(wrapped[line], valueContentWidth)));
+    }
+
+    if (index < args.length - 1) {
+      out.add(separator);
+    }
+  }
+
+  out.add(bottom);
+  out.forEach(print);
 }
