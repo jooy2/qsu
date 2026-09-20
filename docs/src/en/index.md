@@ -234,7 +234,7 @@ Thirteen categories, counted for the language you are reading in. A package that
 Install the package you need. The documentation follows the language you take here, and so does every page you open after it.
 
 <StartCards :cards="[
-	{ id: 'js', note: 'Node.js 18 or later. ESM only, with a Node.js subpath for the functions that need a runtime.', install: 'npm install qsu', link: '/installation' },
+	{ id: 'js', note: 'Node.js 20 or later. ESM only, with a Node.js subpath for the functions that need a runtime.', install: 'npm install qsu', link: '/installation' },
 	{ id: 'dart', note: 'Dart 3.5 or later, which Flutter 3.24 and up already ship.', install: 'dart pub add qsu', link: '/installation' },
 	{ id: 'python', note: 'Python 3.8 or later, installable with pip, uv, Poetry or PDM.', install: 'pip install qsu', link: '/installation' }
 ]" />

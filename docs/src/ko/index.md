@@ -234,7 +234,7 @@ isEmail('abc@def.com')  # True
 필요한 패키지를 설치하세요. 여기에서 고른 언어로 설치 문서가 열리고, 그다음에 여는 문서도 같은 언어를 따릅니다.
 
 <StartCards :cards="[
-	{ id: 'js', note: 'Node.js 18 이상. ESM 전용이고, 런타임이 필요한 함수는 Node.js 전용 경로로 가져옵니다.', install: 'npm install qsu', link: '/ko/installation' },
+	{ id: 'js', note: 'Node.js 20 이상. ESM 전용이고, 런타임이 필요한 함수는 Node.js 전용 경로로 가져옵니다.', install: 'npm install qsu', link: '/ko/installation' },
 	{ id: 'dart', note: 'Dart 3.5 이상. Flutter 3.24 이상이면 이미 들어 있습니다.', install: 'dart pub add qsu', link: '/ko/installation' },
 	{ id: 'python', note: 'Python 3.8 이상. pip와 uv, Poetry, PDM으로 설치합니다.', install: 'pip install qsu', link: '/ko/installation' }
 ]" />

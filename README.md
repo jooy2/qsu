@@ -142,7 +142,7 @@ Clone the repository and work inside the package you want to change:
 | [Dart](packages/dart)             | `dart pub get`            | `dart test` | `dart analyze` / `dart format .`  |
 | [Python](packages/python)         | `pip install -e ".[dev]"` | `pytest`    | `mypy`                            |
 
-The documentation site requires Node.js 18 or later:
+The documentation site requires Node.js 20 or later:
 
 ```bash
 cd docs && npm install && npm run dev

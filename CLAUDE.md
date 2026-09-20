@@ -47,7 +47,7 @@ When you add or change a function, treat all three packages as one logical chang
 - **Test:** `npm run test` (builds, then `node --test` over `test/**/*.test.ts`). Tests use
   `node:test` + `assert`, one `*.test.ts` per category, importing from `../dist`.
 - **Lint/format:** `npm run lint` / `npm run lint:fix` (ESLint), `npm run format:fix` (Prettier).
-- **Engine:** Node >= 18.
+- **Engine:** Node >= 20.
 
 ### Dart — `packages/dart`
 

@@ -6,7 +6,7 @@
 
 ::: lang js
 
-**qsu** requires `Node.js 18.x` or later. For security and high compatibility, it is recommended to use the latest LTS version of Node.js.
+**qsu** requires `Node.js 20.x` or later. For security and high compatibility, it is recommended to use the latest LTS version of Node.js.
 
 **qsu** is **ESM only**. To load the module, you must use `import` instead of `require`. There is a workaround that can be used for CommonJS, but it is recommended to use ESM in line with recent JavaScript trends.
 
