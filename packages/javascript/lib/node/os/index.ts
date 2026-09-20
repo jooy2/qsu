@@ -1,7 +1,10 @@
 export { getArch } from './getArch.js';
 export { getCpu } from './getCpu.js';
 export { getCpuCount } from './getCpuCount.js';
+export { getDiskSize } from './getDiskSize.js';
+export { getDiskUsage } from './getDiskUsage.js';
 export { getEndianness } from './getEndianness.js';
+export { getFreeDiskSize } from './getFreeDiskSize.js';
 export { getFreeRamSize } from './getFreeRamSize.js';
 export { getHostname } from './getHostname.js';
 export { getKernelVersion } from './getKernelVersion.js';

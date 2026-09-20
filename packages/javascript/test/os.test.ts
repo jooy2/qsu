@@ -1,9 +1,14 @@
 import assert from 'assert';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { describe, it } from 'node:test';
 import {
 	runCommand,
 	getArch,
 	getCpu,
+	getDiskSize,
+	getDiskUsage,
+	getFreeDiskSize,
 	getCpuCount,
 	getEndianness,
 	getKernelVersion,
@@ -149,6 +154,35 @@ describe('OS', () => {
 		assert.strictEqual(Number.isInteger(getRamUsage(0)), true);
 		// The argument is how many decimal places are kept.
 		assert.strictEqual((getRamUsage(3).toString().split('.')[1] || '').length <= 3, true);
+	});
+
+	it('getDiskSize', async () => {
+		const size = await getDiskSize();
+
+		assert.match(size, /^\d+ [A-Z]+$/);
+		assert.notEqual(size, '0 B');
+		// The current working directory is the default, named or not.
+		assert.strictEqual(await getDiskSize(process.cwd()), size);
+	});
+
+	it('getFreeDiskSize', async () => {
+		assert.match(await getFreeDiskSize(), /^\d+ [A-Z]+$/);
+	});
+
+	it('getDiskUsage', async () => {
+		const usage = await getDiskUsage();
+
+		assert.strictEqual(typeof usage === 'number', true);
+		assert.strictEqual(usage >= 0 && usage <= 100, true);
+		assert.strictEqual(Number.isInteger(await getDiskUsage(undefined, 0)), true);
+	});
+
+	it('the disk functions report a path that is not there', async () => {
+		const missing = join(tmpdir(), 'qsu-no-such-directory-8f21');
+
+		await assert.rejects(getDiskSize(missing));
+		await assert.rejects(getFreeDiskSize(missing));
+		await assert.rejects(getDiskUsage(missing));
 	});
 
 	it('getPlatform', () => {

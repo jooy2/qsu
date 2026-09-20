@@ -4,6 +4,9 @@
 
 ### Changes
 
+- `getDiskUsage`: Added. The share of the filesystem holding a path that is in use, as a percentage, with the number of decimal places to keep as its argument
+- `getFreeDiskSize`: Added. The space still writable on the filesystem holding a path. On Linux and macOS the blocks a filesystem holds back for the superuser are not counted, so this is what the caller may actually write rather than every unused byte, which is the same split `df` shows
+- `getDiskSize`: Added. The total size of the filesystem holding a path, as readable text with its unit, defaulting to the current working directory. The three read the filesystem through `fs.statfs`, so nothing is spawned for them, and the numbers match what the Python package reports for the same path on the same machine
 - `getRamUsage`: Added. The share of physical memory in use, as a percentage, with the number of decimal places to keep as its argument. It is the figure behind `getUsedRamSize` before rounding turns it into text, so it is the one to compare against a threshold
 - `getUsedRamSize`: Added. The physical memory in use, as readable text with its unit, rounded the way `getRamSize` rounds
 - `getFreeRamSize`: Added. The physical memory still available, as readable text with its unit. What each system counts as available is not the same thing — macOS leaves its reclaimable cache out where Linux counts it in — so the documentation sets that out per platform rather than presenting one number as comparable across machines
