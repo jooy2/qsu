@@ -4,6 +4,10 @@
 
 ### Changes
 
+- `getPlatform`: Added. Names the operating system the process runs on as `windows`, `macos`, `linux` or `freebsd`, and `unknown` for anything else. `process.platform` calls Windows `win32` and macOS `darwin`, which a reader has to know before a comparison against it means anything, and which the Python package spells differently again
+- `getArch`: Added. The processor architecture the running program was built for, such as `x64` or `arm64`. It is the architecture of the program rather than of the machine, so a 32-bit build on a 64-bit machine reports `ia32`
+- `getKernelVersion`: Added. The version of the operating system kernel, such as `25.6.0` on macOS 26 and `10.0.26100` on Windows 11. It tells kernels apart; it is not a version to show a reader
+- `getEndianness`: Added. The byte order of the processor, as `LE` or `BE`, for reading a binary format that does not record which order it was written in
 - `getHostname`: A name is now always returned. The macOS lookup falls back to the kernel hostname when `scutil` cannot answer, and Linux reads `/etc/hostname` rather than running `hostnamectl`, which is part of systemd and missing from Alpine, from a plain container and from a WSL distribution that does not run it; its `hostname` subcommand also only exists from systemd 249. Each of those threw an error where the kernel had a perfectly good name to give. FreeBSD was running `hostnamectl` too, which it never has, so the call could only fail there
 - `getMachineId`: The id is read from `/etc/machine-id` directly on Linux rather than through a shell pipeline of `cat`, `hostname` and `head`, and macOS runs `ioreg` once instead of piping it through `awk` and `cut`. The value is the same; what changes is that Linux now spawns nothing at all, and neither platform depends on those tools being installed. On Windows the registry value is matched in code rather than by a `for /f` loop over `findstr`
 - `getSid`: A failure now says that the SID could not be read. Every failure path reported `Failed to get machine id`, which named a different function and sent the reader looking in the wrong place

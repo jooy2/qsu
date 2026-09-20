@@ -106,6 +106,9 @@ export interface HTTPRequestOption {
 	onError?: (error: any) => void;
 }
 
+/** What qsu calls the operating systems it knows, in `getPlatform`. */
+export type PlatformName = 'windows' | 'macos' | 'linux' | 'freebsd' | 'unknown';
+
 export interface GetUptimeOption {
 	format?: boolean;
 	floor?: boolean;

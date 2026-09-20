@@ -2,7 +2,11 @@ import assert from 'assert';
 import { describe, it } from 'node:test';
 import {
 	runCommand,
+	getArch,
 	getCpu,
+	getEndianness,
+	getKernelVersion,
+	getPlatform,
 	getHostname,
 	getMachineId,
 	getSid,
@@ -10,6 +14,24 @@ import {
 	getUptime
 } from '../dist/node';
 import { contains } from '../dist/verify';
+
+const PLATFORM_NAMES = ['windows', 'macos', 'linux', 'freebsd', 'unknown'];
+
+// Node's own vocabulary, which is the one the Python package normalises into.
+const ARCHITECTURES = [
+	'arm',
+	'arm64',
+	'ia32',
+	'loong64',
+	'mips',
+	'mipsel',
+	'ppc',
+	'ppc64',
+	'riscv64',
+	's390',
+	's390x',
+	'x64'
+];
 
 describe('OS', () => {
 	it('runCommand', async () => {
@@ -100,5 +122,36 @@ describe('OS', () => {
 		assert.strictEqual(typeof getUptime({ format: true }) === 'string', true);
 		assert.strictEqual(getUptime({ floor: true }).toString().indexOf('.') === -1, true);
 		assert.strictEqual((getUptime() as number) >= 0, true);
+	});
+
+	it('getPlatform', () => {
+		const name = getPlatform();
+
+		assert.strictEqual(PLATFORM_NAMES.includes(name), true);
+		// Every system these tests run on is one the table covers, so `unknown` here
+		// means a name fell out of it.
+		assert.notEqual(name, 'unknown');
+		assert.strictEqual(name === 'windows', process.platform === 'win32');
+		assert.strictEqual(name === 'macos', process.platform === 'darwin');
+		assert.strictEqual(name === 'linux', process.platform === 'linux');
+	});
+
+	it('getArch', () => {
+		const architecture = getArch();
+
+		assert.strictEqual(ARCHITECTURES.includes(architecture), true);
+		assert.strictEqual(architecture, process.arch);
+	});
+
+	it('getKernelVersion', () => {
+		const version = getKernelVersion();
+
+		assert.strictEqual(version.length > 0, true);
+		assert.notEqual(version, 'Unknown');
+		assert.match(version, /\d/);
+	});
+
+	it('getEndianness', () => {
+		assert.strictEqual(['BE', 'LE'].includes(getEndianness()), true);
 	});
 });

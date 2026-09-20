@@ -1,6 +1,10 @@
+export { getArch } from './getArch.js';
 export { getCpu } from './getCpu.js';
+export { getEndianness } from './getEndianness.js';
 export { getHostname } from './getHostname.js';
+export { getKernelVersion } from './getKernelVersion.js';
 export { getMachineId } from './getMachineId.js';
+export { getPlatform } from './getPlatform.js';
 export { getRamSize } from './getRamSize.js';
 export { getSid } from './getSid.js';
 export { getUptime } from './getUptime.js';
