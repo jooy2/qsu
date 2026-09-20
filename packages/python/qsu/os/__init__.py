@@ -14,16 +14,20 @@ if TYPE_CHECKING:
 	from .getEndianness import getEndianness as getEndianness
 	from .getFreeDiskSize import getFreeDiskSize as getFreeDiskSize
 	from .getFreeRamSize import getFreeRamSize as getFreeRamSize
+	from .getHomeDir import getHomeDir as getHomeDir
 	from .getHostname import getHostname as getHostname
 	from .getKernelVersion import getKernelVersion as getKernelVersion
 	from .getMachineId import getMachineId as getMachineId
 	from .getPlatform import getPlatform as getPlatform
 	from .getRamSize import getRamSize as getRamSize
 	from .getRamUsage import getRamUsage as getRamUsage
+	from .getShell import getShell as getShell
 	from .getSid import getSid as getSid
 	from .getSystemUptime import getSystemUptime as getSystemUptime
+	from .getTempDir import getTempDir as getTempDir
 	from .getUptime import getUptime as getUptime
 	from .getUsedRamSize import getUsedRamSize as getUsedRamSize
+	from .getUsername import getUsername as getUsername
 	from .runCommand import runCommand as runCommand
 
 __all__ = [
@@ -36,16 +40,20 @@ __all__ = [
 	'getEndianness',
 	'getFreeDiskSize',
 	'getFreeRamSize',
+	'getHomeDir',
 	'getHostname',
 	'getKernelVersion',
 	'getMachineId',
 	'getPlatform',
 	'getRamSize',
 	'getRamUsage',
+	'getShell',
 	'getSid',
 	'getSystemUptime',
+	'getTempDir',
 	'getUptime',
 	'getUsedRamSize',
+	'getUsername',
 	'runCommand',
 ]
 

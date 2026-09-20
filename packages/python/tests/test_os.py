@@ -19,15 +19,19 @@ from qsu.os import (
 	getEndianness,
 	getKernelVersion,
 	getPlatform,
+	getHomeDir,
 	getHostname,
 	getMachineId,
 	getFreeRamSize,
 	getRamSize,
 	getRamUsage,
 	getUsedRamSize,
+	getShell,
 	getSid,
 	getSystemUptime,
+	getTempDir,
 	getUptime,
+	getUsername,
 	runCommand,
 )
 
@@ -222,6 +226,40 @@ def test_getBootTime():
 	fromUptime = datetime.now() - timedelta(seconds=getSystemUptime())
 
 	assert abs((bootTime - fromUptime).total_seconds()) < 2
+
+
+def test_getUsername():
+	username = getUsername()
+
+	assert len(username) > 0
+	assert username != 'Unknown'
+	assert username == username.strip()
+
+
+def test_getHomeDir():
+	home = getHomeDir()
+
+	assert len(home) > 0
+	assert os.path.isdir(home)
+
+
+def test_getTempDir():
+	temp = getTempDir()
+
+	assert len(temp) > 0
+	assert os.path.isdir(temp)
+
+
+def test_getShell():
+	shell = getShell()
+
+	assert len(shell) > 0
+
+	# A path to a program rather than a bare name, on either kind of system.
+	if sys.platform == 'win32':
+		assert re.search(r'\\|\.exe$', shell, re.IGNORECASE)
+	else:
+		assert shell.startswith('/')
 
 
 def test_getPlatform():
