@@ -4,6 +4,7 @@
 
 ### Changes
 
+- `encrypt`, `decrypt`: The `ofb` and `cfb` modes are read from where `cryptography` moved them. Reading them from where they used to live warned on every call, and that location is due to stop working, which would have taken both modes with it. The ciphertext is unchanged, and a `cryptography` older than the move still resolves. A test now fails if the warning ever comes back
 - `fetchData`: The documented example closed the call one bracket early, so the options went to `print` rather than to `fetchData` and the request was made with none of them. The function is unchanged
 - `getFileHashFromStream`: The documented example passed a path where a file object is expected, which raises rather than hashing anything. The example now opens the file first. The function is unchanged
 - `getOsName`: Added. The operating system as a person would say it — `macOS 26.6.2`, `Windows 11`, `Ubuntu 24.04.2 LTS` — for printing, where `getKernelVersion` answers with a number that means something different on each platform and `getPlatform` answers with a name to compare against in code. Windows is worked out from the build number rather than from the registry, which still calls Windows 11 `Windows 10`

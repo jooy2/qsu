@@ -1,5 +1,13 @@
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
+try:
+	# Both were moved here, and reading them from their old home warns and is due to
+	# stop working. The fallback is for a `cryptography` older than that move, where
+	# the old home is the only one and does not warn.
+	from cryptography.hazmat.decrepit.ciphers.modes import CFB, OFB
+except ImportError:  # pragma: no cover - depends on the installed version
+	from cryptography.hazmat.primitives.ciphers.modes import CFB, OFB
+
 # AEAD modes produce an authentication tag that is required to decrypt, so the tag has
 # to be carried alongside the ciphertext.
 AEAD_MODES = ('gcm',)
@@ -38,9 +46,9 @@ def buildCipher(key: bytes, modeName: str, iv: bytes, tag=None) -> Cipher:
 	elif modeName == 'ctr':
 		mode = modes.CTR(iv)
 	elif modeName == 'ofb':
-		mode = modes.OFB(iv)
+		mode = OFB(iv)
 	elif modeName == 'cfb':
-		mode = modes.CFB(iv)
+		mode = CFB(iv)
 	else:
 		raise ValueError(f'Unsupported algorithm mode: {modeName}')
 

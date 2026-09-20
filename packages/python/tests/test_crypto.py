@@ -1,3 +1,5 @@
+import warnings
+
 from qsu.crypto import (
 	decodeBase64,
 	decrypt,
@@ -104,3 +106,24 @@ def test_numberHash():
 
 def test_objectId():
 	assert len(objectId()) == 24
+
+def test_encrypt_uses_no_deprecated_cipher_mode():
+	# `cryptography` moved OFB and CFB and warns when they are read from where they
+	# used to live. The warning is the only notice before the old names stop working,
+	# so it has to stay silent.
+	secret = '12345678901234567890123456789012'
+
+	with warnings.catch_warnings(record=True) as caught:
+		warnings.simplefilter('always')
+
+		for mode in ('cbc', 'gcm', 'ctr', 'ofb', 'cfb'):
+			algorithm = f'aes-256-{mode}'
+			assert decrypt(encrypt('test', secret, algorithm), secret, algorithm) == 'test'
+
+	deprecations = [
+		str(item.message)
+		for item in caught
+		if 'Deprecation' in type(item.message).__name__
+	]
+
+	assert deprecations == []
