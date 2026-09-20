@@ -1,5 +1,15 @@
 # Changelog (Dart)
 
+## vNext (2026--)
+
+### Changes
+
+- The `os` category was added, with 29 of the 31 functions the other packages carry. It reports the machine the program runs on: the platform, the architecture, the processor and how busy it is, the memory and the disk, how long the machine and the process have been running, the host name, the user and the directories that belong to them. `getMacAddress` and `getTimezone` have no Dart port, for the reasons the documentation gives on their pages
+- The `os` functions ask the operating system directly rather than running commands, through `sysctl` on macOS and iOS, `/proc` on Linux and Android, and the system libraries on Windows. That is what lets them work on iOS, which forbids a program from starting another one. Only `getHostname` on macOS, `getMachineId` on macOS and `getSid` run a command, and each says so on its page
+- Android and iOS are not separate implementations: Android reads the same `/proc` files as Linux and iOS answers the same system calls as macOS. What differs is what their sandbox permits, which every `os` page sets out per platform
+- The package still compiles for the web, where the whole `os` category throws an `UnsupportedError`. `dart:ffi` cannot be imported there at all, so the platform layer behind these functions is chosen at compile time and the web gets one that answers nothing
+- `package:ffi` was added as a dependency. It is the Dart team's own package, and it is what the `os` functions allocate the buffers for a system call with
+
 ## 1.7.0 (2026-09-12)
 
 ### Breaking changes
