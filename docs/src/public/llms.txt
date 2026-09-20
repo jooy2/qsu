@@ -44,9 +44,9 @@ Array creation, sorting, sampling, deduplication and grouping.
 Hashing, base64, symmetric encryption and id generation. In JavaScript these functions require a Node.js runtime and are imported from `qsu/node`.
 
 - [decodeBase64](https://qsu.cdget.com/reference/crypto/decodeBase64) (JavaScript, Dart, Python): Decodes an encoded base64 string to a plain string.
-- [decrypt](https://qsu.cdget.com/reference/crypto/decrypt) (JavaScript, Python): Decrypt with the specified algorithm (default: `aes-256-cbc`) using a string and a secret (secret).
+- [decrypt](https://qsu.cdget.com/reference/crypto/decrypt) (JavaScript, Dart, Python): Decrypt with the specified algorithm (default: `aes-256-cbc`) using a string and a secret (secret).
 - [encodeBase64](https://qsu.cdget.com/reference/crypto/encodeBase64) (JavaScript, Dart, Python): Base64-encode the given string.
-- [encrypt](https://qsu.cdget.com/reference/crypto/encrypt) (JavaScript, Python): Encrypt with the algorithm of your choice (algorithm default: `aes-256-cbc`, ivSize default: `16`) using a string and a secret (secret).
+- [encrypt](https://qsu.cdget.com/reference/crypto/encrypt) (JavaScript, Dart, Python): Encrypt with the algorithm of your choice (algorithm default: `aes-256-cbc`, ivSize default: `16`) using a string and a secret (secret).
 - [md5Hash](https://qsu.cdget.com/reference/crypto/md5Hash) (JavaScript, Dart, Python): Converts String data to md5 hash value and returns it.
 - [numberHash](https://qsu.cdget.com/reference/crypto/numberHash) (JavaScript, Dart, Python): Returns the specified string as a hash value of type number. The return value can also be negative.
 - [objectId](https://qsu.cdget.com/reference/crypto/objectId) (JavaScript, Dart, Python): Returns a random string hash of the ObjectId format (primarily utilized by MongoDB).

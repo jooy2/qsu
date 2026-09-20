@@ -34,6 +34,18 @@ decrypt(encrypt('test', secret, 'aes-256-gcm', 12), secret, 'aes-256-gcm'); // '
 
 :::
 
+::: lang dart
+
+```dart
+const String secret = '12345678901234567890123456789012'; // 32 bytes
+
+decrypt('61ba43b65fc...', secret);
+decrypt(encrypt('test', secret, algorithm: 'aes-256-gcm', ivSize: 12), secret,
+    algorithm: 'aes-256-gcm'); // 'test'
+```
+
+:::
+
 ::: lang python
 
 ```python

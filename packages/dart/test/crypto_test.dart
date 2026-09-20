@@ -78,5 +78,64 @@ void main() {
       expect(numberHash('hello'), 99162322);
       expect(numberHash('ABCDEFGHIJKLMNOPQRSTUVWXYZ' * 10000), 285059024);
     });
+
+    test('encrypt / decrypt', () {
+      const String secret = '12345678901234567890123456789012';
+      const String text = 'hello qsu, a message longer than one block';
+
+      // Every mode round-trips, in both encodings. The ciphertext these produce
+      // is the same one the JavaScript and Python packages produce, which is
+      // what lets a value cross between them.
+      for (final String mode in <String>['cbc', 'gcm', 'ctr', 'ofb', 'cfb']) {
+        for (final bool toBase64 in <bool>[false, true]) {
+          final String algorithm = 'aes-256-$mode';
+          final String encrypted = encrypt(text, secret,
+              algorithm: algorithm,
+              ivSize: mode == 'gcm' ? 12 : 16,
+              toBase64: toBase64);
+
+          expect(
+              decrypt(encrypted, secret,
+                  algorithm: algorithm, toBase64: toBase64),
+              text);
+          // An authenticating mode carries its tag between the two.
+          expect(encrypted.split(':').length, mode == 'gcm' ? 3 : 2);
+        }
+      }
+
+      // A fresh initialisation vector every time, so the same text does not
+      // encrypt to the same string twice.
+      expect(encrypt(text, secret), isNot(encrypt(text, secret)));
+      expect(encrypt('', secret), '');
+      expect(decrypt('', secret), '');
+    });
+
+    test('decrypt reads what the other packages wrote', () {
+      const String secret = '12345678901234567890123456789012';
+
+      // Produced by the JavaScript package with the same key.
+      expect(
+          decrypt(
+              '61ba43b65fc3fc2bdbd0d1ad8576344d'
+              ':1831d7c37d12b3bf7ee73195d31af91b',
+              secret),
+          'test');
+    });
+
+    test('encrypt rejects a key or a name it cannot use', () {
+      const String secret = '12345678901234567890123456789012';
+
+      expect(() => encrypt('a', secret, algorithm: 'aes-999-cbc'),
+          throwsArgumentError);
+      expect(() => encrypt('a', secret, algorithm: 'des-256-cbc'),
+          throwsArgumentError);
+      expect(() => encrypt('a', secret, algorithm: 'aes-256-xyz'),
+          throwsArgumentError);
+      // The key has to be as long as the name says.
+      expect(() => encrypt('a', 'short', algorithm: 'aes-256-cbc'),
+          throwsArgumentError);
+      // `decrypt` needs the shape `encrypt` returns.
+      expect(() => decrypt('no-colon-here', secret), throwsArgumentError);
+    });
   });
 }

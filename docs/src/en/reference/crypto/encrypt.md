@@ -35,6 +35,18 @@ encrypt('test', secret, 'aes-256-gcm', 12); // 'iv:authTag:encrypted'
 
 :::
 
+::: lang dart
+
+```dart
+const String secret = '12345678901234567890123456789012'; // 32 bytes
+
+encrypt('test', secret); // 'iv:encrypted'
+encrypt('test', secret, algorithm: 'aes-256-gcm', ivSize: 12);
+// 'iv:authTag:encrypted'
+```
+
+:::
+
 ::: lang python
 
 ```python
