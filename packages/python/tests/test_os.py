@@ -66,6 +66,8 @@ def test_getMachineId():
 		regex = r'^[0-9a-zA-Z]{8}-?[0-9a-zA-Z]{4}-?[0-9a-zA-Z]{4}-?[0-9a-zA-Z]{4}-?[0-9a-zA-Z]{12}'
 
 	assert re.match(regex, mId)
+	# The same machine answers with the same id, whichever call asks.
+	assert getMachineId() == mId
 
 
 def test_getRamSize():

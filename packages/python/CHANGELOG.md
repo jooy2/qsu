@@ -4,6 +4,7 @@
 
 ### Changes
 
+- `getMachineId`: The id is read from `/etc/machine-id` directly on Linux and from the registry on Windows, so neither spawns a process any more, and macOS runs `ioreg` once instead of piping it through `awk` and `cut`. The Windows read asks for the 64-bit registry view explicitly, which a 32-bit interpreter was not getting, so it no longer fails there
 - `getSid`: A failure now says that the SID could not be read. Every failure path reported `Failed to get machine id`, which named a different function and sent the reader looking in the wrong place
 - `getSid`: The profile list is read straight from the registry on Windows rather than by running `REG QUERY` and parsing its output, so nothing is spawned and no column alignment can throw the parse off. The profile path is matched against the home directory without case, as Windows compares paths
 - `getCpu`: The processor is now named rather than described by its architecture. The name is read from the system directly: a `sysctl` on macOS, the registry on Windows and `/proc/cpuinfo` on Linux, so no command is run for it. `platform.processor()` answered with `arm` on an Apple Silicon Mac where the JavaScript package answered with `Apple M1 Max`, and with nothing at all on most Linux systems. It remains the fallback for a platform none of the three cover
