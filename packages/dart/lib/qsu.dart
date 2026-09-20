@@ -7,6 +7,7 @@ export 'src/file.dart';
 export 'src/format.dart';
 export 'src/math.dart';
 export 'src/misc.dart';
+export 'src/net.dart';
 export 'src/object.dart';
 export 'src/os.dart';
 export 'src/string.dart';

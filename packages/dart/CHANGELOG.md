@@ -4,6 +4,8 @@
 
 ### Changes
 
+- The `net` category was added, with `fetchData`. It takes the same options the other packages take, names the method either with `method` or with one of the `get`, `post`, `put`, `delete` and `patch` flags, and decodes the response by what it says it is: a `Map` or `List` for JSON, a `String` for text, a `List<int>` for a file and the raw stream with `toStream`. A request that fails returns `null`, after `onError` is called. It needs a platform with networking of its own, so it throws an `UnsupportedError` on the web
+- Every function the other packages have is now in this one, apart from `getMacAddress` and `getTimezone`, whose pages say why
 - `encrypt` and `decrypt` were added. They take the same `aes-<bits>-<mode>` names the other packages take, with `cbc`, `gcm`, `ctr`, `ofb` and `cfb`, and produce the same `iv:encrypted` (or `iv:authTag:encrypted`) string byte for byte, so a value encrypted in one package reads back in either of the others. The test suite decrypts a ciphertext the JavaScript package produced, to keep it that way
 - `pointycastle` was added as a dependency. It is the only pure Dart library carrying all five of those modes, and it is what the ciphers run on
 - `logBox`, `getGroupKeys` and `getFileHashFromStream` were ported as well, which leaves `encrypt`, `decrypt` and `fetchData` as the only functions the other packages have and this one does not. `logBox` counts a wide character as two columns, so a row holding Korean or an emoji still lines up, and it falls back to 80 columns where there is no terminal to ask, including on the web. A value that is not a string is written with Dart's own `toString()` rather than with the inspector the JavaScript package uses
