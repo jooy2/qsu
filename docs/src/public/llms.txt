@@ -165,12 +165,16 @@ Object traversal, merging, flattening and conversion.
 
 Information about the machine the process runs on. In JavaScript these functions require a Node.js runtime and are imported from `qsu/node`.
 
+- [getArch](https://qsu.cdget.com/reference/os/getArch) (JavaScript, Python): Returns the processor architecture the running program was built for, such as `x64` or `arm64`. A name the system spells its own way, such as `aarch64` or `AMD64`, is translated so both packages report the same value.
 - [getCpu](https://qsu.cdget.com/reference/os/getCpu) (JavaScript, Python): This function returns the name of the CPU currently used by the system. Depending on the OS, the name may be incorrect or may not be retrievable.
+- [getEndianness](https://qsu.cdget.com/reference/os/getEndianness) (JavaScript, Python): Returns the byte order of the processor: `LE` for little-endian and `BE` for big-endian.
 - [getHostname](https://qsu.cdget.com/reference/os/getHostname) (JavaScript, Python): Retrieves the host name of the current device. This is usually the name of the system that was automatically set on the desktop or changed by the user.
+- [getKernelVersion](https://qsu.cdget.com/reference/os/getKernelVersion) (JavaScript, Python): Returns the version of the operating system kernel, which is not the version a user would name: macOS 26 reports the Darwin version `25.6.0`.
 - [getMachineId](https://qsu.cdget.com/reference/os/getMachineId) (JavaScript, Python): Gets the unique UUID of the current device. Throws an error if the value is not retrieved. Returns a `Promise` object, so use `await` or `.then()` to wait for the operation to complete and get the correct value.
+- [getPlatform](https://qsu.cdget.com/reference/os/getPlatform) (JavaScript, Python): Returns the operating system the process is running on, as one of `windows`, `macos`, `linux` and `freebsd`. Anything else is `unknown`.
 - [getRamSize](https://qsu.cdget.com/reference/os/getRamSize) (JavaScript, Python): Retrieves the total RAM size of the current device. Returns it as readable text including the unit. Decimal places are rounded up.
 - [getSid](https://qsu.cdget.com/reference/os/getSid) (JavaScript, Python): Gets the Security Identifier (SID) value for the current user on the device. Throws an error if the value is not obtained.
-- [getUptime](https://qsu.cdget.com/reference/os/getUptime) (JavaScript, Python): Returns the number of seconds the Node.js process has been running.
+- [getUptime](https://qsu.cdget.com/reference/os/getUptime) (JavaScript, Python): Returns the number of seconds the current process has been running. `floor` drops the fraction and `format` groups the digits in thousands.
 - [runCommand](https://qsu.cdget.com/reference/os/runCommand) (JavaScript, Python): It returns the result that is output after entering and executing the command prompt command.
 
 ## string
