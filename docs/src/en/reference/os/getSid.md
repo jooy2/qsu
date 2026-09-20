@@ -1,13 +1,20 @@
 # getSid
+
 <NodeRequired en />
 
 Gets the Security Identifier (SID) value for the current user on the device. Throws an error if the value is not obtained.
 
-The SID value is only supported on Windows and macOS. Other OSes throw an error.
-
-Also, the SID value used on macOS is a value created for the directory service. If you don't trust this value, use the [getMachineId](/reference/os/getMachineId) method instead.
+The SID macOS returns is a value created for the directory service. Where that is not what you want, [getMachineId](/reference/os/getMachineId) identifies the machine instead.
 
 This value can be changed by the user.
+
+## Platform support
+
+<PlatformSupport :rows="[
+	{ os: 'windows', note: 'The SID of the profile whose folder is this user\'s home directory.' },
+	{ os: 'macos', support: 'partial', note: 'The SID the directory service generated for the account. It is not a Windows SID and means nothing outside this machine.' },
+	{ os: 'linux', support: 'no', note: 'Linux has no SID. The call throws.' }
+]" />
 
 ## Parameters
 

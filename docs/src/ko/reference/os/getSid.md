@@ -1,13 +1,20 @@
 # getSid
+
 <NodeRequired ko />
 
 장치의 현재 사용자에 대한 보안 식별자(SID) 값을 가져옵니다. 값을 가져오지 못하면 에러를 발생시킵니다.
 
-SID 값은 윈도우와 맥OS에서만 지원됩니다. 다른 운영 체제에서는 오류가 발생합니다.
-
-또한, 맥OS에서 사용되는 SID 값은 디렉토리 서비스를 위해 생성된 값입니다. 이 값을 신뢰하지 않는다면, 대신 [getMachineId](/ko/reference/os/getMachineId) 메소드를 사용하십시오.
+맥OS가 돌려주는 SID는 디렉터리 서비스를 위해 만들어진 값입니다. 이 값이 필요한 게 아니라면 [getMachineId](/ko/reference/os/getMachineId)로 기기를 식별하십시오.
 
 이 값은 사용자가 변경할 수 있습니다.
+
+## Platform support
+
+<PlatformSupport :rows="[
+	{ os: 'windows', note: '홈 디렉터리를 소유한 프로필의 SID입니다.' },
+	{ os: 'macos', support: 'partial', note: '디렉터리 서비스가 계정에 부여한 SID입니다. 윈도우의 SID가 아니며 이 기기 밖에서는 의미가 없습니다.' },
+	{ os: 'linux', support: 'no', note: '리눅스에는 SID가 없습니다. 호출하면 에러가 발생합니다.' }
+]" />
 
 ## Parameters
 

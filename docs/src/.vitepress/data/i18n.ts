@@ -45,6 +45,14 @@ const STRINGS: Record<string, Record<string, string>> = {
 	},
 	/** `StartCards.vue`, on the card that opens the installation page. */
 	startAction: { en: 'Get started', ko: '시작하기' },
+	/* `PlatformSupport.vue`. The platform names are product names and are not
+	   translated, the same way the category names are not. */
+	platformName: { en: 'Platform', ko: '플랫폼' },
+	platformSupport: { en: 'Support', ko: '지원' },
+	platformNote: { en: 'Notes', ko: '비고' },
+	supportYes: { en: 'Supported', ko: '지원' },
+	supportPartial: { en: 'Partial', ko: '일부' },
+	supportNo: { en: 'Unsupported', ko: '미지원' },
 	/* `ParamsTable.vue`. The parameter names themselves are never translated:
 	   they are what the reader types. */
 	paramName: { en: 'Name', ko: '이름' },

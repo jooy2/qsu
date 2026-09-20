@@ -6,6 +6,7 @@ import LangTabs from '../components/LangTabs.vue';
 import Layout from '../components/Layout.vue';
 import NodeRequired from '../components/NodeRequired.vue';
 import ParamsTable from '../components/ParamsTable.vue';
+import PlatformSupport from '../components/PlatformSupport.vue';
 import ReturnType from '../components/ReturnType.vue';
 import StartCards from '../components/StartCards.vue';
 import Val from '../components/Val.vue';
@@ -24,6 +25,7 @@ export default {
 		app.component('LangTabs', LangTabs);
 		app.component('NodeRequired', NodeRequired);
 		app.component('ParamsTable', ParamsTable);
+		app.component('PlatformSupport', PlatformSupport);
 		app.component('ReturnType', ReturnType);
 		app.component('StartCards', StartCards);
 		app.component('Val', Val);
