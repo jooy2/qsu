@@ -4,30 +4,30 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, it } from 'node:test';
 import {
-	runCommand,
 	getArch,
 	getBootTime,
 	getCpu,
+	getCpuCount,
 	getDiskSize,
 	getDiskUsage,
-	getFreeDiskSize,
-	getCpuCount,
 	getEndianness,
-	getKernelVersion,
-	getPlatform,
+	getFreeDiskSize,
+	getFreeRamSize,
 	getHomeDir,
 	getHostname,
+	getKernelVersion,
 	getMachineId,
+	getPlatform,
+	getRamSize,
+	getRamUsage,
 	getShell,
 	getSid,
 	getSystemUptime,
-	getRamSize,
-	getRamUsage,
-	getFreeRamSize,
-	getUsedRamSize,
 	getTempDir,
 	getUptime,
-	getUsername
+	getUsedRamSize,
+	getUsername,
+	runCommand
 } from '../dist/node';
 import { contains } from '../dist/verify';
 
