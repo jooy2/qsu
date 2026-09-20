@@ -5,6 +5,7 @@ import { describe, it } from 'node:test';
 import {
 	runCommand,
 	getArch,
+	getBootTime,
 	getCpu,
 	getDiskSize,
 	getDiskUsage,
@@ -16,6 +17,7 @@ import {
 	getHostname,
 	getMachineId,
 	getSid,
+	getSystemUptime,
 	getRamSize,
 	getRamUsage,
 	getFreeRamSize,
@@ -183,6 +185,29 @@ describe('OS', () => {
 		await assert.rejects(getDiskSize(missing));
 		await assert.rejects(getFreeDiskSize(missing));
 		await assert.rejects(getDiskUsage(missing));
+	});
+
+	it('getSystemUptime', () => {
+		const seconds = getSystemUptime() as number;
+
+		assert.strictEqual(typeof seconds === 'number', true);
+		assert.strictEqual(seconds > 0, true);
+		// The machine has been running at least as long as this process has.
+		assert.strictEqual(seconds >= (getUptime() as number), true);
+		assert.strictEqual(typeof getSystemUptime({ format: true }) === 'string', true);
+		assert.strictEqual(getSystemUptime({ floor: true }).toString().indexOf('.') === -1, true);
+	});
+
+	it('getBootTime', () => {
+		const bootTime = getBootTime();
+
+		assert.strictEqual(bootTime instanceof Date, true);
+		assert.strictEqual(bootTime.getTime() < Date.now(), true);
+		// The boot time and the uptime are two readings of the same thing, so they
+		// agree to within the moment it takes to read them twice.
+		const fromUptime = Date.now() - (getSystemUptime() as number) * 1000;
+
+		assert.strictEqual(Math.abs(bootTime.getTime() - fromUptime) < 2000, true);
 	});
 
 	it('getPlatform', () => {

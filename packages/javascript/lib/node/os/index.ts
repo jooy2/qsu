@@ -1,4 +1,5 @@
 export { getArch } from './getArch.js';
+export { getBootTime } from './getBootTime.js';
 export { getCpu } from './getCpu.js';
 export { getCpuCount } from './getCpuCount.js';
 export { getDiskSize } from './getDiskSize.js';
@@ -13,6 +14,7 @@ export { getPlatform } from './getPlatform.js';
 export { getRamSize } from './getRamSize.js';
 export { getRamUsage } from './getRamUsage.js';
 export { getSid } from './getSid.js';
+export { getSystemUptime } from './getSystemUptime.js';
 export { getUptime } from './getUptime.js';
 export { getUsedRamSize } from './getUsedRamSize.js';
 export { runCommand } from './runCommand.js';
