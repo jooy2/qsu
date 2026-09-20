@@ -41,7 +41,15 @@ from qsu.os import (
 )
 
 
-_PLATFORM_NAMES = ('windows', 'macos', 'linux', 'freebsd', 'unknown')
+_PLATFORM_NAMES = (
+	'windows',
+	'macos',
+	'linux',
+	'android',
+	'ios',
+	'freebsd',
+	'unknown',
+)
 
 # Node's own vocabulary, which is what this package normalises its answer into.
 _ARCHITECTURES = (
