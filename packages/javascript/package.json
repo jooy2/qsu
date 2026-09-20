@@ -17,7 +17,7 @@
 	"types": "dist/index.d.ts",
 	"scripts": {
 		"build": "tsc --project tsconfig.prod.json && npm run minify",
-		"test": "npm run build && node --import tsx --test \"./test/**/*.test.ts\"",
+		"test": "npm run build && node test/run.js",
 		"lint": "eslint . --ext .js,.ts .",
 		"lint:fix": "eslint . --ext .js,.ts --fix .",
 		"minify": "terser-glob 'dist/**/*.js' --config-file terser.config.json",
