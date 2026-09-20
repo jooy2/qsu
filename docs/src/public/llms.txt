@@ -9,7 +9,7 @@ Things worth knowing before answering questions about qsu:
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
 - In JavaScript, the `crypto`, `file`, `net` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as does `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
-- 171 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
+- 178 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
 ## Getting started
 
@@ -169,6 +169,8 @@ Information about the machine the process runs on. In JavaScript these functions
 - [getBootTime](https://qsu.cdget.com/reference/os/getBootTime) (JavaScript, Python): Returns the moment the machine last booted, as the current time less the system uptime.
 - [getCpu](https://qsu.cdget.com/reference/os/getCpu) (JavaScript, Python): This function returns the name of the CPU currently used by the system. Depending on the OS, the name may be incorrect or may not be retrievable.
 - [getCpuCount](https://qsu.cdget.com/reference/os/getCpuCount) (JavaScript, Python): Returns the number of processor cores this process may use, which a CPU affinity mask can narrow below the number the machine has.
+- [getCpuSpeed](https://qsu.cdget.com/reference/os/getCpuSpeed) (JavaScript, Python): Returns the rated clock speed of the first processor core in megahertz. Apple Silicon reports a placeholder of 2400 because Apple does not publish the real figure, and a machine with no cpufreq driver reports 0.
+- [getCpuUsage](https://qsu.cdget.com/reference/os/getCpuUsage) (JavaScript, Python): Returns the share of processor time spent working rather than idle, sampled over an interval given in milliseconds.
 - [getDiskSize](https://qsu.cdget.com/reference/os/getDiskSize) (JavaScript, Python): Returns the total size of the filesystem holding the given path, as readable text with its unit. Defaults to the current working directory.
 - [getDiskUsage](https://qsu.cdget.com/reference/os/getDiskUsage) (JavaScript, Python): Returns the share of the filesystem holding the given path that is in use, as a percentage between 0 and 100.
 - [getEndianness](https://qsu.cdget.com/reference/os/getEndianness) (JavaScript, Python): Returns the byte order of the processor: `LE` for little-endian and `BE` for big-endian.
@@ -177,14 +179,19 @@ Information about the machine the process runs on. In JavaScript these functions
 - [getHomeDir](https://qsu.cdget.com/reference/os/getHomeDir) (JavaScript, Python): Returns the current user's home directory, taken from the environment first and from the account record otherwise.
 - [getHostname](https://qsu.cdget.com/reference/os/getHostname) (JavaScript, Python): Retrieves the host name of the current device. This is usually the name of the system that was automatically set on the desktop or changed by the user.
 - [getKernelVersion](https://qsu.cdget.com/reference/os/getKernelVersion) (JavaScript, Python): Returns the version of the operating system kernel, which is not the version a user would name: macOS 26 reports the Darwin version `25.6.0`.
+- [getLocalIp](https://qsu.cdget.com/reference/os/getLocalIp) (JavaScript, Python): Returns the IPv4 address this machine is reachable at behind its default route. No packet is sent to find it.
+- [getMacAddress](https://qsu.cdget.com/reference/os/getMacAddress) (JavaScript): Returns the hardware address of the first network interface that is not loopback. Not available in Python, where the standard library names a different interface than the JavaScript runtime does.
 - [getMachineId](https://qsu.cdget.com/reference/os/getMachineId) (JavaScript, Python): Gets the unique UUID of the current device. Throws an error if the value is not retrieved. Returns a `Promise` object, so use `await` or `.then()` to wait for the operation to complete and get the correct value.
+- [getOsName](https://qsu.cdget.com/reference/os/getOsName) (JavaScript, Python): Returns the name of the operating system as a person would say it, such as `macOS 26.6.2`, `Windows 11` or `Ubuntu 24.04.2 LTS`.
 - [getPlatform](https://qsu.cdget.com/reference/os/getPlatform) (JavaScript, Python): Returns the operating system the process is running on, as one of `windows`, `macos`, `linux` and `freebsd`. Anything else is `unknown`.
+- [getProcessMemoryUsage](https://qsu.cdget.com/reference/os/getProcessMemoryUsage) (JavaScript, Python): Returns the physical memory this process currently occupies, as readable text with its unit.
 - [getRamSize](https://qsu.cdget.com/reference/os/getRamSize) (JavaScript, Python): Retrieves the total RAM size of the current device. Returns it as readable text including the unit. Decimal places are rounded up.
 - [getRamUsage](https://qsu.cdget.com/reference/os/getRamUsage) (JavaScript, Python): Returns the share of physical memory in use, as a percentage between 0 and 100, with the number of decimal places to keep as its argument.
 - [getShell](https://qsu.cdget.com/reference/os/getShell) (JavaScript, Python): Returns the path to the shell recorded for the current account, which is the one a login starts rather than the one the caller is typing into. Windows reports the command interpreter instead.
 - [getSid](https://qsu.cdget.com/reference/os/getSid) (JavaScript, Python): Gets the Security Identifier (SID) value for the current user on the device. Throws an error if the value is not obtained.
 - [getSystemUptime](https://qsu.cdget.com/reference/os/getSystemUptime) (JavaScript, Python): Returns the number of seconds the machine has been running since it last booted, with the same `floor` and `format` options `getUptime` takes.
 - [getTempDir](https://qsu.cdget.com/reference/os/getTempDir) (JavaScript, Python): Returns the directory the system puts temporary files in, without a trailing separator. On macOS this is a per-session folder rather than `/tmp`.
+- [getTimezone](https://qsu.cdget.com/reference/os/getTimezone) (JavaScript): Returns the IANA name of the system time zone, such as `Asia/Seoul`. Not available in Python, whose standard library has no way to resolve it.
 - [getUptime](https://qsu.cdget.com/reference/os/getUptime) (JavaScript, Python): Returns the number of seconds the current process has been running. `floor` drops the fraction and `format` groups the digits in thousands.
 - [getUsedRamSize](https://qsu.cdget.com/reference/os/getUsedRamSize) (JavaScript, Python): Returns the physical memory in use, as readable text with its unit.
 - [getUsername](https://qsu.cdget.com/reference/os/getUsername) (JavaScript, Python): Returns the name the system has on record for the account the process runs as, or `Unknown` when the account cannot be named.
