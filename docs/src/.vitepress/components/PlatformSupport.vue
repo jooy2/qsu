@@ -18,8 +18,10 @@ import { localeOf, t } from '../data/i18n';
 //     { os: 'linux', support: 'partial', note: 'Falls back to the hostname.' }
 //   ]" />
 //
-// `support` is `yes` unless the row says otherwise. A `note` may be written per
-// language, for the rows where the packages really do differ.
+// `support` is `yes` unless the row says otherwise, and both it and `note` may
+// be written per language, for the rows where the packages really do differ:
+//
+//   { os: 'ios', support: { js: 'no', dart: 'yes' }, note: { … } }
 const props = defineProps({
 	rows: {
 		type: Array,
@@ -33,6 +35,8 @@ const OS_LABELS = {
 	windows: 'Windows',
 	macos: 'macOS',
 	linux: 'Linux',
+	android: 'Android',
+	ios: 'iOS',
 	freebsd: 'FreeBSD'
 };
 
@@ -47,8 +51,18 @@ const locale = computed(() => localeOf(lang.value));
 const implemented = usePageLanguages();
 
 const labelOf = (os) => OS_LABELS[os] ?? os;
-const supportOf = (row) => (row.support in SUPPORT_KEYS ? row.support : 'yes');
-const wordOf = (row) => t(locale.value, SUPPORT_KEYS[supportOf(row)]);
+const supportIn = (row, language) => {
+	const value = valueIn(row.support ?? 'yes', language);
+
+	return value in SUPPORT_KEYS ? value : 'yes';
+};
+// One entry per distinct answer, so a row that says the same thing to every
+// language holds one chip rather than three.
+const supportsOf = (row) =>
+	variantsOf(implemented.value, (language) => supportIn(row, language)).map((variant) => ({
+		...variant,
+		word: t(locale.value, SUPPORT_KEYS[variant.text])
+	}));
 // A note is prose, so nothing is translated: a row either says one thing or
 // names the languages it says something else to.
 const notesOf = (note) =>
@@ -71,7 +85,14 @@ const format = (text) => formatInline(text, implemented.value);
 					<tr v-for="row in rows" :key="row.os">
 						<td class="col-os">{{ labelOf(row.os) }}</td>
 						<td class="col-support">
-							<span class="support" :class="`support-${supportOf(row)}`">{{ wordOf(row) }}</span>
+							<span
+								v-for="variant in supportsOf(row)"
+								:key="variant.text"
+								class="support lang-only"
+								:class="`support-${variant.text}`"
+								:data-code-lang="variant.languages.join(' ')"
+								>{{ variant.word }}</span
+							>
 						</td>
 						<td class="col-note">
 							<span
@@ -86,6 +107,12 @@ const format = (text) => formatInline(text, implemented.value);
 				</tbody>
 			</table>
 		</div>
+
+		<p
+			class="platform-note lang-only"
+			data-code-lang="dart"
+			v-html="format(t(locale, 'platformWebNote'))"
+		></p>
 	</div>
 </template>
 
@@ -142,6 +169,12 @@ const format = (text) => formatInline(text, implemented.value);
 
 .col-note :deep(code) {
 	font-size: 0.95em;
+}
+
+.platform-note {
+	margin: 8px 0 0;
+	font-size: 0.8rem;
+	color: var(--vp-c-text-2);
 }
 
 .support {

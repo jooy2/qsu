@@ -53,6 +53,10 @@ const STRINGS: Record<string, Record<string, string>> = {
 	supportYes: { en: 'Supported', ko: '지원' },
 	supportPartial: { en: 'Partial', ko: '일부' },
 	supportNo: { en: 'Unsupported', ko: '미지원' },
+	platformWebNote: {
+		en: 'On the web there is no operating system to ask, and every function in this category throws an `UnsupportedError`.',
+		ko: '웹에는 물어볼 운영 체제가 없어, 이 카테고리의 모든 함수는 `UnsupportedError`를 발생시킵니다.'
+	},
 	/* `ParamsTable.vue`. The parameter names themselves are never translated:
 	   they are what the reader types. */
 	paramName: { en: 'Name', ko: '이름' },
