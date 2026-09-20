@@ -16,7 +16,7 @@ No required parameters
 ::: lang js
 
 ```javascript
-console.log(await getCpu()); // e.g. 'Apple M1'...
+console.log(getCpu()); // e.g. 'Apple M1'...
 ```
 
 :::
