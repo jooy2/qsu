@@ -4,6 +4,7 @@
 
 ### Changes
 
+- `getFileHashFromStream`: The documented example passed a path where a stream is expected. Nothing failed: `pipeline` walked the path string and returned the hash of its characters, so anyone following it hashed the file name rather than the file. The example now opens the file first. The function is unchanged
 - `getOsName`: Added. The operating system as a person would say it — `macOS 26.6.2`, `Windows 11`, `Ubuntu 24.04.2 LTS` — for printing, where `getKernelVersion` answers with a number that means something different on each platform and `getPlatform` answers with a name to compare against in code. Windows is worked out from the build number rather than from the registry, which still calls Windows 11 `Windows 10`
 - `getCpuSpeed`: Added. The rated clock speed of the first processor core, in megahertz. Two platforms cannot answer honestly and the documentation says so per platform: Apple Silicon does not publish its clock speed, so the placeholder the runtime itself uses is reported, and a machine with no cpufreq driver reports `0`
 - `getCpuUsage`: Added. The share of processor time spent working rather than idle. There is no usage at an instant, so the counters are read, the call waits for the interval given in milliseconds, and they are read again; a longer interval gives a steadier figure. An interval of zero returns `0`, there being no time to measure over. It covers every core together, not the calling process
