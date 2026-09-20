@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useData } from 'vitepress';
 import LangLogo from './LangLogo.vue';
-import { isLiteral, literalHtml, literalVariants, typeVariants } from '../data/types';
+import { formatInline, literalVariants, typeVariants } from '../data/types';
 import { displayLanguages, valueIn, variantsOf } from '../data/languages';
 import { usePageLanguages } from '../data/pageLanguages';
 import { localeOf, t } from '../data/i18n';
@@ -65,23 +65,9 @@ const named = computed(() =>
 
 const hasNamed = computed(() => props.rows.some((row) => row.named));
 
-// Escape HTML, then render inline `code` and **strong**. Content is authored
-// in-repo (trusted). A literal inside a description is written per language, the
-// same way the Markdown renderer writes one inside a paragraph.
-function format(text) {
-	if (!text) {
-		return '';
-	}
-
-	return String(text)
-		.replace(/&/g, '&amp;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;')
-		.replace(/`([^`]+)`/g, (match, code) =>
-			isLiteral(code) ? literalHtml(code, implemented.value) : `<code>${code}</code>`
-		)
-		.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-}
+// A literal inside a description is written per language, the same way the
+// Markdown renderer writes one inside a paragraph.
+const format = (text) => formatInline(text, implemented.value);
 </script>
 
 <template>

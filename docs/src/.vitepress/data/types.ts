@@ -221,3 +221,26 @@ export function literalHtml(value: string, implemented: string[] | null): string
 		)
 		.join('');
 }
+
+/**
+ * Inline `code` and `**strong**` from a string a reference page wrote.
+ *
+ * A description in a table is not run through the Markdown renderer, so the two
+ * pieces of inline syntax the reference actually uses are rendered here instead.
+ * The text is escaped first; it is authored in this repository, so this guards
+ * against a stray `<` rather than against an attacker.
+ */
+export function formatInline(text: string, implemented: string[] | null): string {
+	if (!text) {
+		return '';
+	}
+
+	return String(text)
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/`([^`]+)`/g, (match, code: string) =>
+			isLiteral(code) ? literalHtml(code, implemented) : `<code>${code}</code>`
+		)
+		.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+}
