@@ -67,7 +67,7 @@ pip install qsu
 
 ## What's inside
 
-Functions are grouped into categories. JavaScript and Python ship 170+ functions, Dart 130+ — a handful are language-specific, and every reference page states which languages implement it.
+Functions are grouped into categories. JavaScript and Python ship 175+ functions, Dart 130+ — a handful are language-specific, and every reference page states which languages implement it.
 
 | Category | JavaScript    | Dart | Python | Examples                                            |
 | -------- | ------------- | ---- | ------ | --------------------------------------------------- |
