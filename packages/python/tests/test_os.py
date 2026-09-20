@@ -306,6 +306,11 @@ def test_getKernelVersion():
 	assert version != 'Unknown'
 	assert re.search(r'\d', version)
 
+	# The kernel version, not the name the system is sold under. Windows is where
+	# the two part company: `10.0.26100` against `11`.
+	if sys.platform == 'win32':
+		assert re.match(r'^\d+\.\d+\.\d+', version)
+
 
 def test_getEndianness():
 	assert getEndianness() in ('BE', 'LE')
