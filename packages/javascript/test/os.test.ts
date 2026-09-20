@@ -30,6 +30,10 @@ describe('OS', () => {
 		assert.strictEqual(cpuName.length > 0, true);
 		assert.match(cpuName, /[a-zA-Z0-9]+/);
 		assert.notEqual(cpuName, 'Unknown');
+		// The model of the processor, not the architecture the process was built for.
+		// Both packages answer with the same string, and an architecture name here
+		// means the lookup fell through to a last resort.
+		assert.doesNotMatch(cpuName, /^(arm|arm64|aarch64|x86|x86_64|amd64|i[3-6]86)$/i);
 	});
 
 	it('getHostname', async () => {
