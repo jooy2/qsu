@@ -1,4 +1,5 @@
 # floor
+
 Rounds a number **down**, to the given number of decimal places. A negative `precision` rounds down to tens, hundreds and so on: `floor(4060, -2)` returns `4000`.
 
 Rounding goes toward negative infinity, not toward zero, so a negative value falls: `floor(-4.006)` returns `-5`.

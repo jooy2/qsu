@@ -1,4 +1,5 @@
 # numPick
+
 Returns a randomly selected number between the min and max values.
 
 ## Parameters

@@ -1,4 +1,5 @@
 # strShuffle
+
 Randomly shuffles the received string and returns it.
 
 ## Parameters

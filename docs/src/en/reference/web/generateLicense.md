@@ -1,4 +1,5 @@
 # generateLicense
+
 Returns text in a specific license format based on the author information of the given argument. The argument uses the Object type.
 
 ## Parameters
@@ -33,6 +34,21 @@ generateLicense({
 	yearEnd: 2021,
 	htmlBr: true
 });
+```
+
+:::
+
+::: lang dart
+
+```dart
+generateLicense(
+  type: 'mit',
+  author: 'example',
+  email: 'example@example.com',
+  yearStart: 2020,
+  yearEnd: '2021',
+  htmlBr: true,
+);
 ```
 
 :::

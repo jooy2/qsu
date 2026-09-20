@@ -1,13 +1,14 @@
 # unescapeHtml
+
 Turns the five HTML entities that [escapeHtml](./escapeHtml) produces back into the characters they stand for.
 
-| Entity | Becomes |
-| --- | --- |
-| `&amp;` | `&` |
-| `&lt;` | `<` |
-| `&gt;` | `>` |
-| `&quot;` | `"` |
-| `&#39;` | `'` |
+| Entity   | Becomes |
+| -------- | ------- |
+| `&amp;`  | `&`     |
+| `&lt;`   | `<`     |
+| `&gt;`   | `>`     |
+| `&quot;` | `"`     |
+| `&#39;`  | `'`     |
 
 The string is walked **once**, not replaced five times in a row. Turning `&amp;` into `&` first and `&lt;` into `<` afterwards would read `&amp;lt;` as `<`, where it has to come back as the literal text `&lt;`.
 

@@ -1,4 +1,5 @@
 # arrWithDefault
+
 특정 길이의 기본값으로 배열을 초기화합니다.
 
 ## Parameters

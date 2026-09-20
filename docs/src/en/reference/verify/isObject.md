@@ -1,4 +1,5 @@
 # isObject
+
 Returns `true` when the given value is an object, and `false` for every other type, an array included.
 
 ## Parameters

@@ -1,4 +1,5 @@
 # uncapitalizeFirst
+
 Converts the first letter of the entire string to lowercase and returns. This is the inverse of `capitalizeFirst`.
 
 Only the first character is touched, so the rest of the string keeps its case: `'TEST'` becomes `'tEST'`.

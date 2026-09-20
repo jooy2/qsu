@@ -1,4 +1,5 @@
 # getStrBytes
+
 주어진 문자열의 바이트 수를 계산하여 리턴합니다.
 
 ## Parameters

@@ -1,4 +1,5 @@
 # split
+
 Splits a string based on the specified character and returns it as an Array. Unlike the existing split, it splits the values provided as multiple parameters (array or multiple arguments) at once.
 
 ## Parameters

@@ -1,4 +1,5 @@
 # arrWithDefault
+
 Initialize an array with a default value of a specific length.
 
 ## Parameters

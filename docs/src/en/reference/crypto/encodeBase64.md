@@ -1,4 +1,5 @@
 # encodeBase64
+
 <NodeRequired en />
 
 Base64-encode the given string.

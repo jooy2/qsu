@@ -1,4 +1,5 @@
 # truncateExpect
+
 The string ignores truncation until the ending character (`endStringChar`). If the expected length is reached, return the truncated string until after the ending character.
 
 Several ending characters may be given as an array, and the whole sentence that crosses the expected length is still kept.

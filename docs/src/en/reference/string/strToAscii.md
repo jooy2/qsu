@@ -1,4 +1,5 @@
 # strToAscii
+
 Converts the given string to ascii code and returns it as an array.
 
 ## Parameters

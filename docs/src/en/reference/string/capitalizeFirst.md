@@ -1,4 +1,5 @@
 # capitalizeFirst
+
 Converts the first letter of the entire string to uppercase and returns.
 
 ## Parameters

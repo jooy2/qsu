@@ -1,4 +1,5 @@
 # fileSizeParts
+
 Splits a file size in bytes into the scaled number and the unit it belongs to, leaving the caller to decide how to write them.
 
 [fileSizeFormat](/reference/format/fileSizeFormat) joins the two with a space and English unit names, which is the wrong string in most of the world: German writes the decimal separator as a comma, and French calls a megabyte a `Mo`. This function hands back the pieces so a formatter that knows the locale can put them together.

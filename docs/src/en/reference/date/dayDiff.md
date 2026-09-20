@@ -1,4 +1,5 @@
 # dayDiff
+
 Calculates the difference between two given dates and returns the number of days.
 
 ## Parameters

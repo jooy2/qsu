@@ -1,4 +1,5 @@
 # objectId
+
 <NodeRequired ko />
 
 ObjectId 형식의 임의의 문자열 해시를 반환합니다(주로 MongoDB에서 사용됨).

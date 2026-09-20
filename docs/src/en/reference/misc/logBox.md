@@ -1,4 +1,5 @@
 # logBox
+
 <NodeRequired en />
 
 Prints the given values to the console as a bordered table, one row per argument, so that long or structured values stay readable. The box is sized to the terminal width, and objects are expanded rather than shown as `[object Object]`.

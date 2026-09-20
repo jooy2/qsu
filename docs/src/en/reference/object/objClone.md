@@ -1,4 +1,5 @@
 # objClone
+
 Copies an object. The copy is deep by default, so nothing inside it is shared with the original; pass `deep: false` to copy the top level only.
 
 A structure that points back at itself is handled: every container is remembered while it is being copied, so a cycle is rebuilt with the same shape instead of recursing until the stack runs out.
@@ -9,7 +10,7 @@ Values that are not containers are returned as they are, so `objClone(5)` is `5`
 
 Containers are rebuilt; anything that cannot be rebuilt without knowing how it was made is handed back as it is.
 
-| | JavaScript | Dart | Python |
+|  | JavaScript | Dart | Python |
 | --- | --- | --- | --- |
 | Rebuilt, contents copied | plain object, `Array`, `Map`, `Set` | `Map`, `List`, `Set` | `dict`, `list`, `tuple` |
 | Fresh copy | `Date`, `RegExp` | — | `set` (its members are immutable) |

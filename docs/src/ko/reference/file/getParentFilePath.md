@@ -1,4 +1,5 @@
 # getParentFilePath
+
 <NodeRequired ko />
 
 지정된 경로보다 한 단계 위의 상위 경로를 반환합니다.

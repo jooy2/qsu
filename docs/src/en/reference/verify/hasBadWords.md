@@ -1,4 +1,5 @@
 # hasBadWords
+
 Returns `true` when the given text contains one of the banned words. The word list comes entirely from the caller; this function does not ship one.
 
 Matching is case-insensitive, and a banned word found inside a longer word still counts (`pineapple` contains `apple`).

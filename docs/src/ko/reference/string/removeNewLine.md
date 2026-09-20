@@ -1,4 +1,5 @@
 # removeNewLine
+
 `\n`, `\r` 문자를 제거하거나 지정된 문자로 대체합니다.
 
 ## Parameters

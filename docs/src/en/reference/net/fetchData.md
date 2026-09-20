@@ -1,4 +1,5 @@
 # fetchData
+
 <NodeRequired en />
 
 This function is used to make `node:fetch` easier to use while ensuring data is returned regardless of the response status. By default, it uses the `GET` method, but other methods such as `POST` can also be used with separate options.

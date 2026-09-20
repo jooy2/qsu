@@ -1,4 +1,5 @@
 # capitalizeEachWords
+
 Converts every word with spaces to uppercase. If the naturally argument is true, only some special cases (such as prepositions) are kept lowercase.
 
 ## Parameters

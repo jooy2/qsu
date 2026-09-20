@@ -1,4 +1,5 @@
 # sha512Hash
+
 <NodeRequired ko />
 
 문자열 데이터를 sha512 해시 값으로 변환하여 반환합니다.

@@ -1,4 +1,5 @@
 # strBlindRandom
+
 Replace strings at random locations with a specified number of characters (default 1) with characters (default \*).
 
 ## Parameters
@@ -19,6 +20,14 @@ Replace strings at random locations with a specified number of characters (defau
 
 ```javascript
 strBlindRandom('hello', 2, '#'); // e.g. '#el#o'
+```
+
+:::
+
+::: lang dart
+
+```dart
+strBlindRandom('hello', 2, blindStr: '#'); // e.g. '#el#o'
 ```
 
 :::

@@ -1,4 +1,5 @@
 # isObject
+
 주어진 값이 객체이면 `true`를, 배열을 포함한 그 밖의 모든 타입에는 `false`를 반환합니다.
 
 ## Parameters

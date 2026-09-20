@@ -1,4 +1,5 @@
 # arrCount
+
 Returns the number of duplicates for each unique value in the given array. The array values can only be of type `String` or `Number`.
 
 ## Parameters

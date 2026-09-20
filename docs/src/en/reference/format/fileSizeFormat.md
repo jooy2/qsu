@@ -1,4 +1,5 @@
 # fileSizeFormat
+
 Returns the given file size (in bytes) as a human-readable string.
 
 ## Parameters

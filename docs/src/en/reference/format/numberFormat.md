@@ -1,4 +1,5 @@
 # numberFormat
+
 Returns the given number formatted for easy reading, including commas.
 
 ## Parameters

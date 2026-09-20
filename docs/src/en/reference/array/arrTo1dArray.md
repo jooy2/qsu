@@ -1,4 +1,5 @@
 # arrTo1dArray
+
 Merges all elements of a multidimensional array into a one-dimensional array.
 
 ## Parameters

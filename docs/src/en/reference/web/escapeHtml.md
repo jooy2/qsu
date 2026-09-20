@@ -1,13 +1,14 @@
 # escapeHtml
+
 Escapes the five characters that carry meaning in HTML, so a value can be dropped into a page as text rather than read as markup.
 
-| Character | Becomes |
-| --- | --- |
-| `&` | `&amp;` |
-| `<` | `&lt;` |
-| `>` | `&gt;` |
-| `"` | `&quot;` |
-| `'` | `&#39;` |
+| Character | Becomes  |
+| --------- | -------- |
+| `&`       | `&amp;`  |
+| `<`       | `&lt;`   |
+| `>`       | `&gt;`   |
+| `"`       | `&quot;` |
+| `'`       | `&#39;`  |
 
 `'` is written as `&#39;` rather than `&apos;`, which HTML 4 never defined and which therefore does not survive every parser. Python's built-in `html.escape` writes `&#x27;` instead, so this function is not a wrapper around it.
 

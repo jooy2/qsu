@@ -1,4 +1,5 @@
 # sha1Hash
+
 <NodeRequired en />
 
 Converts String data to sha1 hash value and returns it.

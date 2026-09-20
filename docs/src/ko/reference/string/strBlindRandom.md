@@ -1,4 +1,5 @@
 # strBlindRandom
+
 임의의 위치에 있는 문자열을 지정된 문자 수(기본값 1)로 대체합니다(기본값 \*).
 
 ## Parameters
@@ -19,6 +20,14 @@
 
 ```javascript
 strBlindRandom('hello', 2, '#'); // e.g. '#el#o'
+```
+
+:::
+
+::: lang dart
+
+```dart
+strBlindRandom('hello', 2, blindStr: '#'); // e.g. '#el#o'
 ```
 
 :::

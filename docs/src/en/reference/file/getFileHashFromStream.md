@@ -1,4 +1,5 @@
 # getFileHashFromStream
+
 <NodeRequired en />
 
 Returns a file in a Node.js ReadableStream object as a value hashed with a specific algorithm. The default algorithm is `md5`. This method uses `Promise` to return a valid hash value.

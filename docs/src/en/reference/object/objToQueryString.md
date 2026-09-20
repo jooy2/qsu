@@ -1,4 +1,5 @@
 # objToQueryString
+
 Converts the given object data to a URL query string.
 
 ## Parameters

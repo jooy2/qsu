@@ -1,4 +1,5 @@
 # funcTimes
+
 Repeat iteratee n (times argument value) times. After the return result of each function is stored in the array in order, the final array is returned.
 
 ## Parameters

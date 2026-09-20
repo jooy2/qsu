@@ -1,4 +1,5 @@
 # objUpdate
+
 Changes the value matching a specific key name in the given object. If the `recursive` option is `true`, it will also search in child object items. This changes the value of the same key found in both the parent and child items. If the `upsert` option is `true`, add it as a new attribute to the top-level item when the key is not found.
 
 ## Parameters
@@ -37,6 +38,19 @@ const result = objUpdate(
 );
 
 console.log(result); // Returns { a: 1, b: { a: 1, b: 2, c: 5 }, c: 5 }
+```
+
+:::
+
+::: lang dart
+
+```dart
+objUpdate({'a': 1, 'b': {'a': 1}}, 'a', 9);
+// Returns {a: 9, b: {a: 1}}
+objUpdate({'a': 1, 'b': {'a': 1}}, 'a', 9, recursive: true);
+// Returns {a: 9, b: {a: 9}}
+objUpdate({'a': 1}, 'z', 1, upsert: true);
+// Returns {a: 1, z: 1}
 ```
 
 :::

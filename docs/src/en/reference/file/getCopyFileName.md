@@ -1,4 +1,5 @@
 # getCopyFileName
+
 <NodeRequired en />
 
 This function scans an array containing a list of names and displays an alternative name if any duplicates are found. If no duplicates are found, the names are returned as is.

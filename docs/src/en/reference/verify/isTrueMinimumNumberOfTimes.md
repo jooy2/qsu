@@ -1,4 +1,5 @@
 # isTrueMinimumNumberOfTimes
+
 Returns `true` if the values given in the `conditions` array are true at least `minimumCount` times.
 
 ## Parameters

@@ -1,4 +1,5 @@
 # today
+
 Returns today's date.
 
 ## Parameters

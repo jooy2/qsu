@@ -1,4 +1,5 @@
 # average
+
 Returns the average of all numeric values in an array.
 
 ## Parameters

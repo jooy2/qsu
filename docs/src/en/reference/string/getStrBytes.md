@@ -1,4 +1,5 @@
 # getStrBytes
+
 Returns the number of bytes in the given string.
 
 ## Parameters

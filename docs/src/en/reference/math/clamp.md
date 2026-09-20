@@ -1,4 +1,5 @@
 # clamp
+
 Restricts a number to an inclusive range. Returns `min` when the value falls below it, `max` when it rises above it, and the value itself otherwise.
 
 The upper bound is applied first and the lower bound second, so `min` wins when the two bounds are passed the wrong way round: `clamp(5, 10, 1)` returns `10`. Lodash resolves an inverted range the same way.

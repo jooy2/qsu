@@ -1,4 +1,5 @@
 # numberHash
+
 <NodeRequired en />
 
 Returns the specified string as a hash value of type number. The return value can also be negative.
