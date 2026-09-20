@@ -42,6 +42,9 @@ describe('OS', () => {
 		assert.strictEqual(hostname.length > 0, true);
 		assert.match(hostname, /[a-zA-Z0-9]+/);
 		assert.notEqual(hostname, 'Unknown');
+		// A name may hold spaces of its own, but never around itself and never a
+		// line ending left over from whatever was asked for it.
+		assert.strictEqual(hostname, hostname.trim());
 	});
 
 	/*
