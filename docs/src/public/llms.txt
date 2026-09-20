@@ -166,6 +166,7 @@ Object traversal, merging, flattening and conversion.
 Information about the machine the process runs on. In JavaScript these functions require a Node.js runtime and are imported from `qsu/node`.
 
 - [getArch](https://qsu.cdget.com/reference/os/getArch) (JavaScript, Python): Returns the processor architecture the running program was built for, such as `x64` or `arm64`. A name the system spells its own way, such as `aarch64` or `AMD64`, is translated so both packages report the same value.
+- [getBootTime](https://qsu.cdget.com/reference/os/getBootTime) (JavaScript, Python): Returns the moment the machine last booted, as the current time less the system uptime.
 - [getCpu](https://qsu.cdget.com/reference/os/getCpu) (JavaScript, Python): This function returns the name of the CPU currently used by the system. Depending on the OS, the name may be incorrect or may not be retrievable.
 - [getCpuCount](https://qsu.cdget.com/reference/os/getCpuCount) (JavaScript, Python): Returns the number of processor cores this process may use, which a CPU affinity mask can narrow below the number the machine has.
 - [getDiskSize](https://qsu.cdget.com/reference/os/getDiskSize) (JavaScript, Python): Returns the total size of the filesystem holding the given path, as readable text with its unit. Defaults to the current working directory.
@@ -180,6 +181,7 @@ Information about the machine the process runs on. In JavaScript these functions
 - [getRamSize](https://qsu.cdget.com/reference/os/getRamSize) (JavaScript, Python): Retrieves the total RAM size of the current device. Returns it as readable text including the unit. Decimal places are rounded up.
 - [getRamUsage](https://qsu.cdget.com/reference/os/getRamUsage) (JavaScript, Python): Returns the share of physical memory in use, as a percentage between 0 and 100, with the number of decimal places to keep as its argument.
 - [getSid](https://qsu.cdget.com/reference/os/getSid) (JavaScript, Python): Gets the Security Identifier (SID) value for the current user on the device. Throws an error if the value is not obtained.
+- [getSystemUptime](https://qsu.cdget.com/reference/os/getSystemUptime) (JavaScript, Python): Returns the number of seconds the machine has been running since it last booted, with the same `floor` and `format` options `getUptime` takes.
 - [getUptime](https://qsu.cdget.com/reference/os/getUptime) (JavaScript, Python): Returns the number of seconds the current process has been running. `floor` drops the fraction and `format` groups the digits in thousands.
 - [getUsedRamSize](https://qsu.cdget.com/reference/os/getUsedRamSize) (JavaScript, Python): Returns the physical memory in use, as readable text with its unit.
 - [runCommand](https://qsu.cdget.com/reference/os/runCommand) (JavaScript, Python): It returns the result that is output after entering and executing the command prompt command.
