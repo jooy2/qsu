@@ -4,11 +4,13 @@ import subprocess
 import sys
 import tempfile
 import threading
+from datetime import datetime, timedelta
 
 import pytest
 
 from qsu.os import (
 	getArch,
+	getBootTime,
 	getCpu,
 	getDiskSize,
 	getDiskUsage,
@@ -24,6 +26,7 @@ from qsu.os import (
 	getRamUsage,
 	getUsedRamSize,
 	getSid,
+	getSystemUptime,
 	getUptime,
 	runCommand,
 )
@@ -196,6 +199,29 @@ def test_disk_functions_report_a_path_that_is_not_there():
 	for call in (getDiskSize, getFreeDiskSize, getDiskUsage):
 		with pytest.raises(OSError):
 			call(missing)
+
+
+def test_getSystemUptime():
+	seconds = getSystemUptime()
+
+	assert isinstance(seconds, (int, float))
+	assert seconds > 0
+	# The machine has been running at least as long as this process has.
+	assert seconds >= getUptime()
+	assert isinstance(getSystemUptime({'format': True}), str)
+	assert '.' not in str(getSystemUptime({'floor': True}))
+
+
+def test_getBootTime():
+	bootTime = getBootTime()
+
+	assert isinstance(bootTime, datetime)
+	assert bootTime < datetime.now()
+	# The boot time and the uptime are two readings of the same thing, so they agree
+	# to within the moment it takes to read them twice.
+	fromUptime = datetime.now() - timedelta(seconds=getSystemUptime())
+
+	assert abs((bootTime - fromUptime).total_seconds()) < 2
 
 
 def test_getPlatform():

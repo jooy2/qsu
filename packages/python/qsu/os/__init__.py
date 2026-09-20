@@ -6,6 +6,7 @@ if TYPE_CHECKING:
 	# Imported at runtime only when the name is first read. Spelling the imports out
 	# here lets a type checker follow a name to the function behind it.
 	from .getArch import getArch as getArch
+	from .getBootTime import getBootTime as getBootTime
 	from .getCpu import getCpu as getCpu
 	from .getCpuCount import getCpuCount as getCpuCount
 	from .getDiskSize import getDiskSize as getDiskSize
@@ -20,12 +21,14 @@ if TYPE_CHECKING:
 	from .getRamSize import getRamSize as getRamSize
 	from .getRamUsage import getRamUsage as getRamUsage
 	from .getSid import getSid as getSid
+	from .getSystemUptime import getSystemUptime as getSystemUptime
 	from .getUptime import getUptime as getUptime
 	from .getUsedRamSize import getUsedRamSize as getUsedRamSize
 	from .runCommand import runCommand as runCommand
 
 __all__ = [
 	'getArch',
+	'getBootTime',
 	'getCpu',
 	'getCpuCount',
 	'getDiskSize',
@@ -40,6 +43,7 @@ __all__ = [
 	'getRamSize',
 	'getRamUsage',
 	'getSid',
+	'getSystemUptime',
 	'getUptime',
 	'getUsedRamSize',
 	'runCommand',

@@ -45,6 +45,24 @@ def sysctlUnsigned(name: str) -> Optional[int]:
 	return int(value.value)
 
 
+def sysctlBytes(name: str, size: int) -> Optional[bytes]:
+	"""One `sysctl` read as raw bytes, for a value that is a struct. macOS and the BSDs."""
+	library = _libc()
+
+	if library is None:
+		return None
+
+	import ctypes
+
+	buffer = ctypes.create_string_buffer(size)
+	length = ctypes.c_size_t(size)
+
+	if library.sysctlbyname(name.encode(), buffer, ctypes.byref(length), None, 0) != 0:
+		return None
+
+	return buffer.raw[: length.value]
+
+
 def sysctlString(name: str) -> Optional[str]:
 	"""One textual `sysctl`, read by name. macOS and the BSDs."""
 	library = _libc()
@@ -175,6 +193,65 @@ def _sysconfMemorySize() -> Optional[Tuple[int, int]]:
 
 		return os.sysconf('SC_PHYS_PAGES') * pageSize, os.sysconf('SC_AVPHYS_PAGES') * pageSize
 	except (ValueError, OSError):
+		return None
+
+
+def systemUptime() -> Optional[float]:
+	"""Seconds since the machine booted.
+
+	Each branch computes it the way libuv does, so the value matches what the
+	JavaScript package reports on the same machine, down to the granularity: whole
+	seconds on macOS, fractions of one on Windows and Linux.
+	"""
+	if sys.platform == 'win32':
+		return _windowsSystemUptime()
+
+	if sys.platform == 'darwin':
+		return _darwinSystemUptime()
+
+	return _procSystemUptime()
+
+
+def _windowsSystemUptime() -> Optional[float]:
+	if sys.platform != 'win32':
+		return None
+
+	import ctypes
+
+	kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
+	kernel32.GetTickCount64.restype = ctypes.c_uint64
+
+	return kernel32.GetTickCount64() / 1000.0
+
+
+def _darwinSystemUptime() -> Optional[float]:
+	# `kern.boottime` is a `timeval`. Both sides of the subtraction are whole
+	# seconds, which is why macOS answers in whole seconds and the other two do not.
+	value = sysctlBytes('kern.boottime', 16)
+
+	if value is None or len(value) < 12:
+		return None
+
+	bootSeconds = struct.unpack_from('q', value, 0)[0]
+
+	return float(int(time.time()) - bootSeconds)
+
+
+def _procSystemUptime() -> Optional[float]:
+	try:
+		with open('/proc/uptime', 'rb') as handle:
+			return float(handle.read().split()[0])
+	except (OSError, ValueError, IndexError):
+		pass
+
+	clock = getattr(time, 'CLOCK_BOOTTIME', None)
+
+	if clock is None:
+		return None
+
+	try:
+		return float(int(time.clock_gettime(clock)))
+	except OSError:
 		return None
 
 

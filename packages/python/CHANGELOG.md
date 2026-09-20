@@ -4,6 +4,8 @@
 
 ### Changes
 
+- `getBootTime`: Added. The moment the machine last booted, as the current time less the uptime
+- `getSystemUptime`: Added. How long the machine has been running since it booted, taking the same `floor` and `format` options as `getUptime`, which counts the process rather than the machine. Each platform is read the way libuv reads it for the JavaScript package, down to the granularity: whole seconds on macOS, fractions of one on Windows and Linux
 - `getDiskUsage`: Added. The share of the filesystem holding a path that is in use, as a percentage, with the number of decimal places to keep as its argument
 - `getFreeDiskSize`: Added. The space still writable on the filesystem holding a path. On Linux and macOS the blocks a filesystem holds back for the superuser are not counted, so this is what the caller may actually write rather than every unused byte, which is the same split `df` shows
 - `getDiskSize`: Added. The total size of the filesystem holding a path, as readable text with its unit, defaulting to the current working directory. The three read the filesystem through `shutil.disk_usage`, so nothing is spawned for them, and the numbers match what the JavaScript package reports for the same path on the same machine
