@@ -2,6 +2,8 @@
 
 ## vNext (2026--)
 
+## 1.20.0 (2026-09-20)
+
 ### Changes
 
 - `fetchData`: The documented example closed the call one bracket early, so the options went to `console.log` rather than to `fetchData` and the request was made with none of them. The function is unchanged
