@@ -1,4 +1,5 @@
 import re
+import subprocess
 import sys
 import threading
 
@@ -84,3 +85,14 @@ def test_getUptime():
 	assert isinstance(getUptime({'format': True}), str)
 	assert '.' not in str(getUptime({'floor': True}))
 	assert getUptime() >= 0
+
+
+def test_getUptime_counts_from_the_process_start():
+	# `qsu` is imported after the wait, so a count that starts at import time reads
+	# as zero here. JavaScript has `process.uptime()` and needs no equivalent test;
+	# this one guards the platform calls that stand in for it.
+	code = 'import time\ntime.sleep(0.5)\nfrom qsu.os import getUptime\nprint(getUptime())'
+	result = subprocess.run([sys.executable, '-c', code], capture_output=True, text=True)
+
+	assert result.returncode == 0, result.stderr
+	assert float(result.stdout) >= 0.5
