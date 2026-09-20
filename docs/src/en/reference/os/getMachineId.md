@@ -14,8 +14,8 @@ This method returns the same value for every user on the system.
 	{ os: 'windows', note: 'The `MachineGuid` value under `HKLM\\SOFTWARE\\Microsoft\\Cryptography`.' },
 	{ os: 'macos', note: 'The `IOPlatformUUID` property, read with `ioreg`.' },
 	{ os: 'linux', support: 'partial', note: 'The contents of `/var/lib/dbus/machine-id` or `/etc/machine-id`. A system carrying neither falls back to the hostname, which is not unique and can be changed.' },
-	{ os: 'android', note: '`/etc/machine-id` is not part of Android, so the call fails.' },
-	{ os: 'ios', support: 'no', note: 'iOS does not allow a program to start another one, which this needs.' }
+	{ os: 'android', languages: 'dart', note: '`/etc/machine-id` is not part of Android, so the call fails.' },
+	{ os: 'ios', languages: 'dart', support: 'no', note: 'iOS does not allow a program to start another one, which this needs.' }
 ]" />
 
 ## Parameters

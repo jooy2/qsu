@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useData } from 'vitepress';
 import { formatInline } from '../data/types';
-import { valueIn, variantsOf } from '../data/languages';
+import { displayLanguages, valueIn, variantsOf } from '../data/languages';
 import { usePageLanguages } from '../data/pageLanguages';
 import { localeOf, t } from '../data/i18n';
 
@@ -22,6 +22,12 @@ import { localeOf, t } from '../data/i18n';
 // be written per language, for the rows where the packages really do differ:
 //
 //   { os: 'ios', support: { js: 'no', dart: 'yes' }, note: { … } }
+//
+// A whole row may belong to one language. Only the Dart package is built for
+// Android and iOS, so those rows are written for its reader and nobody else is
+// shown a verdict about a platform their package does not run on:
+//
+//   { os: 'android', languages: 'dart', note: '…' }
 const props = defineProps({
 	rows: {
 		type: Array,
@@ -67,6 +73,10 @@ const supportsOf = (row) =>
 // names the languages it says something else to.
 const notesOf = (note) =>
 	variantsOf(implemented.value, (language) => valueIn(note ?? '', language));
+// A row without `languages` is shown to every reader, so it carries no scope at
+// all rather than one listing all three.
+const scopeOf = (row) =>
+	row.languages ? displayLanguages(implemented.value, row.languages.split(' ')).join(' ') : null;
 const format = (text) => formatInline(text, implemented.value);
 </script>
 
@@ -82,7 +92,12 @@ const format = (text) => formatInline(text, implemented.value);
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="row in rows" :key="row.os">
+					<tr
+						v-for="row in rows"
+						:key="row.os"
+						:class="{ 'lang-only': row.languages }"
+						:data-code-lang="scopeOf(row)"
+					>
 						<td class="col-os">{{ labelOf(row.os) }}</td>
 						<td class="col-support">
 							<span

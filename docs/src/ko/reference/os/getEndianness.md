@@ -12,8 +12,8 @@
 	{ os: 'windows', note: '윈도우가 도는 모든 아키텍처에서 `LE`입니다.' },
 	{ os: 'macos', note: '맥OS가 도는 모든 아키텍처에서 `LE`입니다.' },
 	{ os: 'linux', note: 'x86과 ARM에서는 `LE`입니다. `s390x`처럼 빅 엔디언으로 빌드된 환경에서는 `BE`가 나옵니다.' },
-	{ os: 'android', note: '안드로이드가 도는 모든 기기에서 `LE`입니다.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: 'iOS가 도는 모든 기기에서 `LE`입니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
+	{ os: 'android', languages: 'dart', note: '안드로이드가 도는 모든 기기에서 `LE`입니다.' },
+	{ os: 'ios', languages: 'dart', note: 'iOS가 도는 모든 기기에서 `LE`입니다.' }
 ]" />
 
 ## Parameters

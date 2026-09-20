@@ -12,8 +12,8 @@ It is the current time less [getSystemUptime](/reference/os/getSystemUptime), so
 	{ os: 'windows', note: 'Counted with `GetTickCount64`, which is reset by a restart but not by a sleep, so a machine woken from sleep reports the time it spent asleep as well.' },
 	{ os: 'macos', note: 'Counted from the recorded boot time, in whole seconds. macOS is the one platform where the fraction is not available, so a value here never has a decimal part.' },
 	{ os: 'linux', note: 'Counted from `/proc/uptime`, which includes the time the machine spent suspended.' },
-	{ os: 'android', note: 'Reads the same `/proc` files as Linux.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'Answers the same system call as macOS.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
+	{ os: 'android', languages: 'dart', note: 'Reads the same `/proc` files as Linux.' },
+	{ os: 'ios', languages: 'dart', note: 'Answers the same system call as macOS.' }
 ]" />
 
 ## Parameters

@@ -14,8 +14,8 @@
 	{ os: 'windows', note: '홈 디렉터리를 소유한 프로필의 SID입니다.' },
 	{ os: 'macos', support: 'partial', note: '디렉터리 서비스가 계정에 부여한 SID입니다. 윈도우의 SID가 아니며 이 기기 밖에서는 의미가 없습니다.' },
 	{ os: 'linux', support: 'no', note: '리눅스에는 SID가 없습니다. 호출하면 에러가 발생합니다.' },
-	{ os: 'android', support: 'no', note: '안드로이드에는 SID가 없습니다. 호출하면 에러가 발생합니다.' },
-	{ os: 'ios', support: 'no', note: 'iOS에는 SID가 없습니다. 호출하면 에러가 발생합니다.' }
+	{ os: 'android', languages: 'dart', support: 'no', note: '안드로이드에는 SID가 없습니다. 호출하면 에러가 발생합니다.' },
+	{ os: 'ios', languages: 'dart', support: 'no', note: 'iOS에는 SID가 없습니다. 호출하면 에러가 발생합니다.' }
 ]" />
 
 ## Parameters

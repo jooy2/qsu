@@ -12,8 +12,8 @@
 	{ os: 'windows', note: { js: '프로세스가 시작된 시점부터 셉니다.', python: '`GetProcessTimes`가 보고하는 프로세스 생성 시각부터 셉니다.' } },
 	{ os: 'macos', note: { js: '프로세스가 시작된 시점부터 셉니다.', python: '커널이 기록한 프로세스 시작 시각부터 셉니다.' } },
 	{ os: 'linux', note: { js: '프로세스가 시작된 시점부터 셉니다.', python: '`/proc/self/stat`의 시작 시각부터 셉니다. `/proc`이 마운트되지 않은 환경에서는 `qsu`를 처음 불러온 시점부터 셉니다.' } },
-	{ os: 'android', note: '리눅스와 같은 `/proc` 파일을 읽습니다.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: '맥OS와 같은 시스템 호출로 답합니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
+	{ os: 'android', languages: 'dart', note: '리눅스와 같은 `/proc` 파일을 읽습니다.' },
+	{ os: 'ios', languages: 'dart', note: '맥OS와 같은 시스템 호출로 답합니다.' }
 ]" />
 
 ## Parameters

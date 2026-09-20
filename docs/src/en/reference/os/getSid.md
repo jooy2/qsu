@@ -14,8 +14,8 @@ This value can be changed by the user.
 	{ os: 'windows', note: 'The SID of the profile whose folder is this user\'s home directory.' },
 	{ os: 'macos', support: 'partial', note: 'The SID the directory service generated for the account. It is not a Windows SID and means nothing outside this machine.' },
 	{ os: 'linux', support: 'no', note: 'Linux has no SID. The call throws.' },
-	{ os: 'android', support: 'no', note: 'Android has no SID. The call throws.' },
-	{ os: 'ios', support: 'no', note: 'iOS has no SID. The call throws.' }
+	{ os: 'android', languages: 'dart', support: 'no', note: 'Android has no SID. The call throws.' },
+	{ os: 'ios', languages: 'dart', support: 'no', note: 'iOS has no SID. The call throws.' }
 ]" />
 
 ## Parameters

@@ -12,8 +12,8 @@ This is the one to print. [getKernelVersion](/reference/os/getKernelVersion) ans
 	{ os: 'windows', note: 'Worked out from the build number: `Windows 11` from build 22000 up and `Windows 10` below it. The registry is not used, because it still calls Windows 11 `Windows 10`. The edition is not included.' },
 	{ os: 'macos', note: 'The product version Apple markets, such as `macOS 26.6.2`, read from the system version file. The Darwin version is several numbers lower.' },
 	{ os: 'linux', note: '`PRETTY_NAME` from `/etc/os-release`, which is the name a distribution gives itself. A system carrying no such file reports `Linux`.' },
-	{ os: 'android', note: '`PRETTY_NAME` where the build carries `os-release`, and `Android` otherwise. It is not the Android version a person would name.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'The iOS version, such as `iOS 18.5`.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
+	{ os: 'android', languages: 'dart', note: '`PRETTY_NAME` where the build carries `os-release`, and `Android` otherwise. It is not the Android version a person would name.' },
+	{ os: 'ios', languages: 'dart', note: 'The iOS version, such as `iOS 18.5`.' }
 ]" />
 
 ## Parameters

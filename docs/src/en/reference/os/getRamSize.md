@@ -10,8 +10,8 @@ Retrieves the total RAM size of the current device. Returns it as readable text 
 	{ os: 'windows', note: 'The installed physical memory, as `GlobalMemoryStatusEx` reports it.' },
 	{ os: 'macos', note: 'The installed physical memory.' },
 	{ os: 'linux', note: 'The physical memory the kernel manages. It is a little under what is installed, because firmware and the kernel reserve part of it.' },
-	{ os: 'android', note: 'Reads the same `/proc` files as Linux.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'Answers the same system call as macOS.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
+	{ os: 'android', languages: 'dart', note: 'Reads the same `/proc` files as Linux.' },
+	{ os: 'ios', languages: 'dart', note: 'Answers the same system call as macOS.' }
 ]" />
 
 ## Parameters

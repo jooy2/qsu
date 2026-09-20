@@ -12,8 +12,8 @@ It is the name to hand to a date library, which is why it is an IANA name rather
 	{ os: 'windows', note: 'Windows keeps a name of its own, such as `Korea Standard Time`. The runtime maps it to the IANA name, so the answer is the same as on the other platforms.' },
 	{ os: 'macos', note: 'The time zone set in System Settings.' },
 	{ os: 'linux', note: 'The `TZ` environment variable where it is set, and what `/etc/localtime` points at otherwise.' },
-	{ os: 'android', note: 'The IANA name the runtime resolves from the system setting.' },
-	{ os: 'ios', support: 'no', note: 'Neither the JavaScript nor the Python package runs on iOS.' }
+	{ os: 'android', languages: 'dart', note: 'The IANA name the runtime resolves from the system setting.' },
+	{ os: 'ios', languages: 'dart', support: 'no', note: 'Neither the JavaScript nor the Python package runs on iOS.' }
 ]" />
 
 ## Parameters

@@ -22,8 +22,8 @@ The output is also limited by the default `maxBuffer` (1 MB), and the call fails
 	{ os: 'windows', note: 'The command runs through `cmd.exe`, so it has to be written in its syntax.' },
 	{ os: 'macos', note: 'The command runs through `/bin/sh`.' },
 	{ os: 'linux', note: 'The command runs through `/bin/sh`.' },
-	{ os: 'android', note: 'A command runs, but an app may only reach the few binaries its sandbox allows.' },
-	{ os: 'ios', support: 'no', note: 'iOS does not allow a program to start another one, which this needs.' }
+	{ os: 'android', languages: 'dart', note: 'A command runs, but an app may only reach the few binaries its sandbox allows.' },
+	{ os: 'ios', languages: 'dart', support: 'no', note: 'iOS does not allow a program to start another one, which this needs.' }
 ]" />
 
 ## Parameters

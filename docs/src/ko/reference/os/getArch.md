@@ -14,8 +14,8 @@
 	{ os: 'windows', note: '`AMD64`는 `x64`로, `ARM64`는 `arm64`로 보고합니다. 64비트 기기라도 32비트 프로그램은 `ia32`가 나옵니다.' },
 	{ os: 'macos', note: '인텔 맥은 `x64`, 애플 실리콘은 `arm64`입니다. 로제타로 실행 중인 프로그램은 빌드된 대로 `x64`가 나옵니다.' },
 	{ os: 'linux', note: '`x86_64`는 `x64`로, `aarch64`는 `arm64`로, `armv7l`은 `arm`으로 보고합니다.' },
-	{ os: 'android', note: '리눅스와 같은 `/proc` 파일을 읽습니다.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: '맥OS와 같은 시스템 호출로 답합니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
+	{ os: 'android', languages: 'dart', note: '리눅스와 같은 `/proc` 파일을 읽습니다.' },
+	{ os: 'ios', languages: 'dart', note: '맥OS와 같은 시스템 호출로 답합니다.' }
 ]" />
 
 ## Parameters

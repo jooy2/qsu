@@ -12,8 +12,8 @@
 	{ os: 'windows', note: '`C:\\Users\\Sam` 같은 `USERPROFILE` 값이며, 없으면 시스템이 계정에 대해 기록해 둔 경로를 씁니다.' },
 	{ os: 'macos', note: '`/Users/sam` 같은 `HOME` 값이며, 없으면 계정 레코드의 경로를 씁니다.' },
 	{ os: 'linux', note: '`/home/sam` 같은 `HOME` 값이며, 없으면 패스워드 데이터베이스의 경로를 씁니다.' },
-	{ os: 'android', note: '`HOME` 값이며, 앱에서는 자기 샌드박스 안의 디렉터리입니다.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: '`HOME` 값이며 앱의 샌드박스입니다. 사용자가 탐색하는 디렉터리가 아닙니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
+	{ os: 'android', languages: 'dart', note: '`HOME` 값이며, 앱에서는 자기 샌드박스 안의 디렉터리입니다.' },
+	{ os: 'ios', languages: 'dart', note: '`HOME` 값이며 앱의 샌드박스입니다. 사용자가 탐색하는 디렉터리가 아닙니다.' }
 ]" />
 
 ## Parameters

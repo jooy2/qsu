@@ -12,8 +12,8 @@ There is no such thing as usage at an instant, so the figure is sampled: the pro
 	{ os: 'windows', note: 'Taken from the system-wide processor times, in which the kernel figure already includes the idle time.' },
 	{ os: 'macos', note: 'Taken from the kernel\'s own tick counters, summed over every core.' },
 	{ os: 'linux', note: 'Taken from `/proc/stat`. The time spent waiting on I/O, and the time a hypervisor stole from this machine, are counted as neither work nor idle, so a busy virtual machine can read lower here than its host would say.' },
-	{ os: 'android', note: 'Reads the same `/proc` files as Linux.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'Answers the same system call as macOS.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
+	{ os: 'android', languages: 'dart', note: 'Reads the same `/proc` files as Linux.' },
+	{ os: 'ios', languages: 'dart', note: 'Answers the same system call as macOS.' }
 ]" />
 
 ## Parameters

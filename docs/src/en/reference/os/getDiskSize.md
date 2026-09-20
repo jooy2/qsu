@@ -10,8 +10,8 @@ Returns the total size of the filesystem holding the given path, as readable tex
 	{ os: 'windows', note: 'The volume holding the path. The figures honour a disk quota set on the account, so a user under a quota is told what is left of the quota rather than of the volume.' },
 	{ os: 'macos', note: 'The filesystem holding the path. A mount point reports the mounted filesystem, not the one it sits in.' },
 	{ os: 'linux', note: 'The filesystem holding the path. The free size leaves out the blocks reserved for the superuser, which is usually five per cent of the filesystem, so the free and the used size do not add up to the total. `df` shows the same split.' },
-	{ os: 'android', note: 'The filesystem holding the path, which for an app is the one its own storage sits on.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'Apple counts the disk space APIs as requiring a declared reason, so an app that ships this has to say why in its privacy manifest.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
+	{ os: 'android', languages: 'dart', note: 'The filesystem holding the path, which for an app is the one its own storage sits on.' },
+	{ os: 'ios', languages: 'dart', note: 'Apple counts the disk space APIs as requiring a declared reason, so an app that ships this has to say why in its privacy manifest.' }
 ]" />
 
 ## Parameters

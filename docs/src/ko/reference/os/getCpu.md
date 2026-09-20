@@ -10,8 +10,8 @@
 	{ os: 'windows', note: '레지스트리의 `ProcessorNameString` 값입니다.' },
 	{ os: 'macos', note: '`machdep.cpu.brand_string` 시스템 컨트롤이 보고하는 이름입니다.' },
 	{ os: 'linux', support: 'partial', note: { js: '`/proc/cpuinfo`의 `model name`입니다. `arm64` 커널은 이 항목 대신 숫자 `CPU part`를 쓰며, 이는 `Cortex-A72` 같은 코어 이름으로 변환됩니다.', python: '`/proc/cpuinfo`의 `model name`입니다. `arm64` 커널에는 이 항목이 없어 보드 이름을 쓰고, 그것도 없으면 아키텍처 이름을 씁니다.' } },
-	{ os: 'android', note: '리눅스와 같은 `/proc` 파일을 읽습니다.' },
-	{ os: 'ios', support: { js: 'no', dart: 'partial', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: 'iOS는 프로세서 이름을 공개하지 않아 `Unknown`을 돌려줍니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
+	{ os: 'android', languages: 'dart', note: '리눅스와 같은 `/proc` 파일을 읽습니다.' },
+	{ os: 'ios', languages: 'dart', support: 'partial', note: 'iOS는 프로세서 이름을 공개하지 않아 `Unknown`을 돌려줍니다.' }
 ]" />
 
 ## Parameters

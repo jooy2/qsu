@@ -22,8 +22,8 @@
 	{ os: 'windows', note: '명령은 `cmd.exe`로 실행되므로 그 문법으로 써야 합니다.' },
 	{ os: 'macos', note: '명령은 `/bin/sh`로 실행됩니다.' },
 	{ os: 'linux', note: '명령은 `/bin/sh`로 실행됩니다.' },
-	{ os: 'android', note: '명령은 실행되지만, 앱은 샌드박스가 허용하는 소수의 실행 파일에만 접근할 수 있습니다.' },
-	{ os: 'ios', support: 'no', note: 'iOS는 프로그램이 다른 프로그램을 실행하는 것을 허용하지 않아 이 함수는 동작하지 않습니다.' }
+	{ os: 'android', languages: 'dart', note: '명령은 실행되지만, 앱은 샌드박스가 허용하는 소수의 실행 파일에만 접근할 수 있습니다.' },
+	{ os: 'ios', languages: 'dart', support: 'no', note: 'iOS는 프로그램이 다른 프로그램을 실행하는 것을 허용하지 않아 이 함수는 동작하지 않습니다.' }
 ]" />
 
 ## Parameters

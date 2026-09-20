@@ -12,8 +12,8 @@
 	{ os: 'windows', note: '`10.0.26100` 같은 NT 버전입니다. 윈도우 10과 11이 모두 `10.0`이므로, 둘을 가르는 것은 뒤의 빌드 번호입니다.' },
 	{ os: 'macos', note: '`25.6.0` 같은 다윈 커널 버전입니다. 맥OS 버전이 아니며, 맥OS 쪽 숫자가 몇 단계 더 큽니다.' },
 	{ os: 'linux', note: '`6.8.0-45-generic` 같은 커널 릴리스입니다. 대부분의 배포판이 여기에 자기 접미사를 붙입니다.' },
-	{ os: 'android', note: '기기에 탑재된 리눅스 커널 릴리스입니다.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.', dart: '맥OS와 마찬가지로 다윈 커널 버전입니다.', python: 'JavaScript와 Python 패키지는 iOS에서 동작하지 않습니다.' } }
+	{ os: 'android', languages: 'dart', note: '기기에 탑재된 리눅스 커널 릴리스입니다.' },
+	{ os: 'ios', languages: 'dart', note: '맥OS와 마찬가지로 다윈 커널 버전입니다.' }
 ]" />
 
 ## Parameters

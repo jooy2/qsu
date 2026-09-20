@@ -12,8 +12,8 @@ Nothing is written to it, and nothing in it is guaranteed to survive: the system
 	{ os: 'windows', note: '`TEMP`, which is a folder inside the profile rather than one shared by everybody, such as `C:\\Users\\Sam\\AppData\\Local\\Temp`.' },
 	{ os: 'macos', note: '`TMPDIR`, which macOS gives each session a private folder for, such as `/var/folders/b7/.../T`. It is not `/tmp`.' },
 	{ os: 'linux', note: '`TMPDIR` where it is set, and `/tmp` otherwise, which every account on the machine shares.' },
-	{ os: 'android', note: 'The app\'s own cache directory, which the system may empty at any time.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'The app\'s own temporary directory inside its sandbox.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
+	{ os: 'android', languages: 'dart', note: 'The app\'s own cache directory, which the system may empty at any time.' },
+	{ os: 'ios', languages: 'dart', note: 'The app\'s own temporary directory inside its sandbox.' }
 ]" />
 
 ## Parameters

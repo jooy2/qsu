@@ -12,8 +12,8 @@ That is not always the number of cores the machine has. A CPU affinity mask narr
 	{ os: 'windows', note: 'The cores in the process affinity mask.' },
 	{ os: 'macos', note: 'Every logical core, including the ones hyper-threading adds. macOS has no per-process affinity to narrow it.' },
 	{ os: 'linux', note: 'The cores in the affinity mask, as `taskset` sets it. A container limited by CPU shares rather than by a mask still reads every core on the host.' },
-	{ os: 'android', note: 'Reads the same `/proc` files as Linux.' },
-	{ os: 'ios', support: { js: 'no', dart: 'yes', python: 'no' }, note: { js: 'Neither the JavaScript nor the Python package runs on iOS.', dart: 'The cores the device has. A phone with performance and efficiency cores counts both.', python: 'Neither the JavaScript nor the Python package runs on iOS.' } }
+	{ os: 'android', languages: 'dart', note: 'Reads the same `/proc` files as Linux.' },
+	{ os: 'ios', languages: 'dart', note: 'The cores the device has. A phone with performance and efficiency cores counts both.' }
 ]" />
 
 ## Parameters

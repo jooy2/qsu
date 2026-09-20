@@ -14,8 +14,8 @@ UUID는 시스템을 재설치하거나 가상 머신의 환경이 변경될 때
 	{ os: 'windows', note: '`HKLM\\SOFTWARE\\Microsoft\\Cryptography` 아래의 `MachineGuid` 값입니다.' },
 	{ os: 'macos', note: '`ioreg`로 읽은 `IOPlatformUUID` 속성입니다.' },
 	{ os: 'linux', support: 'partial', note: '`/var/lib/dbus/machine-id` 또는 `/etc/machine-id`의 내용입니다. 둘 다 없으면 호스트 이름을 쓰는데, 이 값은 고유하지 않고 바뀔 수 있습니다.' },
-	{ os: 'android', note: '안드로이드에는 `/etc/machine-id`가 없어 호출이 실패합니다.' },
-	{ os: 'ios', support: 'no', note: 'iOS는 프로그램이 다른 프로그램을 실행하는 것을 허용하지 않아 이 함수는 동작하지 않습니다.' }
+	{ os: 'android', languages: 'dart', note: '안드로이드에는 `/etc/machine-id`가 없어 호출이 실패합니다.' },
+	{ os: 'ios', languages: 'dart', support: 'no', note: 'iOS는 프로그램이 다른 프로그램을 실행하는 것을 허용하지 않아 이 함수는 동작하지 않습니다.' }
 ]" />
 
 ## Parameters
