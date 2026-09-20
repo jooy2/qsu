@@ -12,10 +12,13 @@ export function runCommand(command: string): Promise<string | null> {
 					return;
 				}
 
-				execCommandProcess?.stdin?.end();
-
 				resolve(stdout.replace(new RegExp(`${EOL}$`), ''));
 			}
 		);
+
+		// Closing the pipe here rather than in the callback, which only runs once the
+		// command has already exited. A command that reads standard input would
+		// otherwise wait on a pipe nothing ever writes to, and never return.
+		execCommandProcess.stdin?.end();
 	});
 }

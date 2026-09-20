@@ -17,6 +17,13 @@ describe('OS', () => {
 		assert.strictEqual(await runCommand('echo b'), 'b');
 	});
 
+	// `sort` reads standard input on every supported platform, so it never returns
+	// while that pipe is open. The timeout is what fails the test: a regression here
+	// hangs rather than throwing.
+	it('runCommand does not wait on standard input', { timeout: 10000 }, async () => {
+		assert.strictEqual(await runCommand('sort'), '');
+	});
+
 	it('getCpu', () => {
 		const cpuName = getCpu();
 
