@@ -2,6 +2,8 @@
 
 ## vNext (2026--)
 
+## 1.8.0 (2026-09-20)
+
 ### Changes
 
 - The `net` category was added, with `fetchData`. It takes the same options the other packages take, names the method either with `method` or with one of the `get`, `post`, `put`, `delete` and `patch` flags, and decodes the response by what it says it is: a `Map` or `List` for JSON, a `String` for text, a `List<int>` for a file and the raw stream with `toStream`. A request that fails returns `null`, after `onError` is called. It needs a platform with networking of its own, so it throws an `UnsupportedError` on the web
