@@ -174,16 +174,20 @@ Information about the machine the process runs on. In JavaScript these functions
 - [getEndianness](https://qsu.cdget.com/reference/os/getEndianness) (JavaScript, Python): Returns the byte order of the processor: `LE` for little-endian and `BE` for big-endian.
 - [getFreeRamSize](https://qsu.cdget.com/reference/os/getFreeRamSize) (JavaScript, Python): Returns the physical memory still available, as readable text with its unit. What counts as available differs between Windows, macOS and Linux, and the page sets out how.
 - [getFreeDiskSize](https://qsu.cdget.com/reference/os/getFreeDiskSize) (JavaScript, Python): Returns the space still writable on the filesystem holding the given path. On Linux and macOS the blocks reserved for the superuser are not counted.
+- [getHomeDir](https://qsu.cdget.com/reference/os/getHomeDir) (JavaScript, Python): Returns the current user's home directory, taken from the environment first and from the account record otherwise.
 - [getHostname](https://qsu.cdget.com/reference/os/getHostname) (JavaScript, Python): Retrieves the host name of the current device. This is usually the name of the system that was automatically set on the desktop or changed by the user.
 - [getKernelVersion](https://qsu.cdget.com/reference/os/getKernelVersion) (JavaScript, Python): Returns the version of the operating system kernel, which is not the version a user would name: macOS 26 reports the Darwin version `25.6.0`.
 - [getMachineId](https://qsu.cdget.com/reference/os/getMachineId) (JavaScript, Python): Gets the unique UUID of the current device. Throws an error if the value is not retrieved. Returns a `Promise` object, so use `await` or `.then()` to wait for the operation to complete and get the correct value.
 - [getPlatform](https://qsu.cdget.com/reference/os/getPlatform) (JavaScript, Python): Returns the operating system the process is running on, as one of `windows`, `macos`, `linux` and `freebsd`. Anything else is `unknown`.
 - [getRamSize](https://qsu.cdget.com/reference/os/getRamSize) (JavaScript, Python): Retrieves the total RAM size of the current device. Returns it as readable text including the unit. Decimal places are rounded up.
 - [getRamUsage](https://qsu.cdget.com/reference/os/getRamUsage) (JavaScript, Python): Returns the share of physical memory in use, as a percentage between 0 and 100, with the number of decimal places to keep as its argument.
+- [getShell](https://qsu.cdget.com/reference/os/getShell) (JavaScript, Python): Returns the path to the shell recorded for the current account, which is the one a login starts rather than the one the caller is typing into. Windows reports the command interpreter instead.
 - [getSid](https://qsu.cdget.com/reference/os/getSid) (JavaScript, Python): Gets the Security Identifier (SID) value for the current user on the device. Throws an error if the value is not obtained.
 - [getSystemUptime](https://qsu.cdget.com/reference/os/getSystemUptime) (JavaScript, Python): Returns the number of seconds the machine has been running since it last booted, with the same `floor` and `format` options `getUptime` takes.
+- [getTempDir](https://qsu.cdget.com/reference/os/getTempDir) (JavaScript, Python): Returns the directory the system puts temporary files in, without a trailing separator. On macOS this is a per-session folder rather than `/tmp`.
 - [getUptime](https://qsu.cdget.com/reference/os/getUptime) (JavaScript, Python): Returns the number of seconds the current process has been running. `floor` drops the fraction and `format` groups the digits in thousands.
 - [getUsedRamSize](https://qsu.cdget.com/reference/os/getUsedRamSize) (JavaScript, Python): Returns the physical memory in use, as readable text with its unit.
+- [getUsername](https://qsu.cdget.com/reference/os/getUsername) (JavaScript, Python): Returns the name the system has on record for the account the process runs as, or `Unknown` when the account cannot be named.
 - [runCommand](https://qsu.cdget.com/reference/os/runCommand) (JavaScript, Python): It returns the result that is output after entering and executing the command prompt command.
 
 ## string
