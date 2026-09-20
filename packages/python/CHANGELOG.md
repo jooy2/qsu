@@ -2,6 +2,8 @@
 
 ## vNext (2026--)
 
+## 1.5.0 (2026-09-20)
+
 ### Changes
 
 - `encrypt`, `decrypt`: The `ofb` and `cfb` modes are read from where `cryptography` moved them. Reading them from where they used to live warned on every call, and that location is due to stop working, which would have taken both modes with it. The ciphertext is unchanged, and a `cryptography` older than the move still resolves. A test now fails if the warning ever comes back
