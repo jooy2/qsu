@@ -55,6 +55,9 @@ def test_getHostname():
 	assert len(hostname) > 0
 	assert re.search(r'[a-zA-Z0-9]+', hostname)
 	assert hostname != 'Unknown'
+	# A name may hold spaces of its own, but never around itself and never a line
+	# ending left over from whatever was asked for it.
+	assert hostname == hostname.strip()
 
 
 def test_getMachineId():
