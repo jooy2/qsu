@@ -12,6 +12,9 @@ import {
 	getMachineId,
 	getSid,
 	getRamSize,
+	getRamUsage,
+	getFreeRamSize,
+	getUsedRamSize,
 	getUptime
 } from '../dist/node';
 import { contains } from '../dist/verify';
@@ -123,6 +126,29 @@ describe('OS', () => {
 		assert.strictEqual(typeof getUptime({ format: true }) === 'string', true);
 		assert.strictEqual(getUptime({ floor: true }).toString().indexOf('.') === -1, true);
 		assert.strictEqual((getUptime() as number) >= 0, true);
+	});
+
+	it('getFreeRamSize', () => {
+		const size = getFreeRamSize();
+
+		assert.match(size, /^\d+ [A-Z]+$/);
+		// A running machine always has some memory free, so a zero here is a read
+		// that failed rather than a machine that is full.
+		assert.notEqual(size, '0 B');
+	});
+
+	it('getUsedRamSize', () => {
+		assert.match(getUsedRamSize(), /^\d+ [A-Z]+$/);
+	});
+
+	it('getRamUsage', () => {
+		const usage = getRamUsage();
+
+		assert.strictEqual(typeof usage === 'number', true);
+		assert.strictEqual(usage >= 0 && usage <= 100, true);
+		assert.strictEqual(Number.isInteger(getRamUsage(0)), true);
+		// The argument is how many decimal places are kept.
+		assert.strictEqual((getRamUsage(3).toString().split('.')[1] || '').length <= 3, true);
 	});
 
 	it('getPlatform', () => {

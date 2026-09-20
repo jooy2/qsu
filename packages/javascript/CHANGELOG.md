@@ -4,6 +4,9 @@
 
 ### Changes
 
+- `getRamUsage`: Added. The share of physical memory in use, as a percentage, with the number of decimal places to keep as its argument. It is the figure behind `getUsedRamSize` before rounding turns it into text, so it is the one to compare against a threshold
+- `getUsedRamSize`: Added. The physical memory in use, as readable text with its unit, rounded the way `getRamSize` rounds
+- `getFreeRamSize`: Added. The physical memory still available, as readable text with its unit. What each system counts as available is not the same thing — macOS leaves its reclaimable cache out where Linux counts it in — so the documentation sets that out per platform rather than presenting one number as comparable across machines
 - `getCpuCount`: Added. The number of processor cores this process may use. It is `os.availableParallelism()`, so a CPU affinity mask narrows it, where the length of `os.cpus()` counts every core on the machine whether the process may use it or not
 - The package now requires Node.js 18.15 or newer. 18.0 was declared before, and the os functions added in this version call `os.availableParallelism()` and `fs.statfs()`, which arrived in 18.14 and 18.15. Node 18 itself reached end of life in April 2025
 - `getPlatform`: Added. Names the operating system the process runs on as `windows`, `macos`, `linux` or `freebsd`, and `unknown` for anything else. `process.platform` calls Windows `win32` and macOS `darwin`, which a reader has to know before a comparison against it means anything, and which the Python package spells differently again
