@@ -14,7 +14,10 @@ from qsu.os import (
 	getPlatform,
 	getHostname,
 	getMachineId,
+	getFreeRamSize,
 	getRamSize,
+	getRamUsage,
+	getUsedRamSize,
 	getSid,
 	getUptime,
 	runCommand,
@@ -136,6 +139,29 @@ def test_getUptime_counts_from_the_process_start():
 
 	assert result.returncode == 0, result.stderr
 	assert float(result.stdout) >= 0.5
+
+
+def test_getFreeRamSize():
+	size = getFreeRamSize()
+
+	assert re.match(r'^\d+\s[A-Z]+$', size)
+	# A running machine always has some memory free, so a zero here is a read that
+	# failed rather than a machine that is full.
+	assert size != '0 B'
+
+
+def test_getUsedRamSize():
+	assert re.match(r'^\d+\s[A-Z]+$', getUsedRamSize())
+
+
+def test_getRamUsage():
+	usage = getRamUsage()
+
+	assert isinstance(usage, (int, float))
+	assert 0 <= usage <= 100
+	assert isinstance(getRamUsage(0), int)
+	# The argument is how many decimal places are kept.
+	assert len(str(getRamUsage(3)).partition('.')[2]) <= 3
 
 
 def test_getPlatform():

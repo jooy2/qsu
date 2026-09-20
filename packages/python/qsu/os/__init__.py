@@ -9,13 +9,16 @@ if TYPE_CHECKING:
 	from .getCpu import getCpu as getCpu
 	from .getCpuCount import getCpuCount as getCpuCount
 	from .getEndianness import getEndianness as getEndianness
+	from .getFreeRamSize import getFreeRamSize as getFreeRamSize
 	from .getHostname import getHostname as getHostname
 	from .getKernelVersion import getKernelVersion as getKernelVersion
 	from .getMachineId import getMachineId as getMachineId
 	from .getPlatform import getPlatform as getPlatform
 	from .getRamSize import getRamSize as getRamSize
+	from .getRamUsage import getRamUsage as getRamUsage
 	from .getSid import getSid as getSid
 	from .getUptime import getUptime as getUptime
+	from .getUsedRamSize import getUsedRamSize as getUsedRamSize
 	from .runCommand import runCommand as runCommand
 
 __all__ = [
@@ -23,13 +26,16 @@ __all__ = [
 	'getCpu',
 	'getCpuCount',
 	'getEndianness',
+	'getFreeRamSize',
 	'getHostname',
 	'getKernelVersion',
 	'getMachineId',
 	'getPlatform',
 	'getRamSize',
+	'getRamUsage',
 	'getSid',
 	'getUptime',
+	'getUsedRamSize',
 	'runCommand',
 ]
 

@@ -4,6 +4,10 @@
 
 ### Changes
 
+- `getRamUsage`: Added. The share of physical memory in use, as a percentage, with the number of decimal places to keep as its argument. It is the figure behind `getUsedRamSize` before rounding turns it into text, so it is the one to compare against a threshold
+- `getUsedRamSize`: Added. The physical memory in use, as readable text with its unit, rounded the way `getRamSize` rounds
+- `getFreeRamSize`: Added. The physical memory still available, as readable text with its unit. Each platform is read through the same counter the JavaScript package reads, so the two report the same number on the same machine: `GlobalMemoryStatusEx` on Windows, the free and speculative page counts on macOS, and `MemAvailable` on Linux
+- `getRamSize`: The total is now read from `/proc/meminfo` on Linux and from `hw.memsize` on macOS, which are the numbers the JavaScript package reads. `os.sysconf` reported the same total on both, so the value does not change. A system that cannot answer at all now raises a `RuntimeError` saying so, rather than letting a `ValueError` from `os.sysconf` escape
 - `getCpuCount`: Added. The number of processor cores this process may use. A CPU affinity mask narrows it, where `os.cpu_count()` counts every core on the machine whether the process may use it or not
 - `getPlatform`: Added. Names the operating system the process runs on as `windows`, `macos`, `linux` or `freebsd`, and `unknown` for anything else. `sys.platform` calls Windows `win32` and writes its major version into the FreeBSD name, so a comparison against it has to know both; this answers with the same name the JavaScript package does
 - `getArch`: Added. The processor architecture the running program was built for, such as `x64` or `arm64`. `platform.machine()` answers in whatever name the system uses — `AMD64`, `x86_64` and `aarch64` are three names for two architectures — and that is translated into the vocabulary the JavaScript package uses, so the two agree on the same machine
