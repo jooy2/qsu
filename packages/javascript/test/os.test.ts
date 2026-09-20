@@ -180,7 +180,9 @@ describe('OS', () => {
 		const usage = await getDiskUsage();
 
 		assert.strictEqual(typeof usage === 'number', true);
-		assert.strictEqual(usage >= 0 && usage <= 100, true);
+		// A disk with an operating system on it is never empty, and a reading that
+		// came back as `NaN` would leave zero here rather than failing outright.
+		assert.strictEqual(usage > 0 && usage <= 100, true);
 		assert.strictEqual(Number.isInteger(await getDiskUsage(undefined, 0)), true);
 	});
 
