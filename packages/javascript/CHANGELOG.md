@@ -4,6 +4,8 @@
 
 ### Changes
 
+- `getCpuCount`: Added. The number of processor cores this process may use. It is `os.availableParallelism()`, so a CPU affinity mask narrows it, where the length of `os.cpus()` counts every core on the machine whether the process may use it or not
+- The package now requires Node.js 18.15 or newer. 18.0 was declared before, and the os functions added in this version call `os.availableParallelism()` and `fs.statfs()`, which arrived in 18.14 and 18.15. Node 18 itself reached end of life in April 2025
 - `getPlatform`: Added. Names the operating system the process runs on as `windows`, `macos`, `linux` or `freebsd`, and `unknown` for anything else. `process.platform` calls Windows `win32` and macOS `darwin`, which a reader has to know before a comparison against it means anything, and which the Python package spells differently again
 - `getArch`: Added. The processor architecture the running program was built for, such as `x64` or `arm64`. It is the architecture of the program rather than of the machine, so a 32-bit build on a 64-bit machine reports `ia32`
 - `getKernelVersion`: Added. The version of the operating system kernel, such as `25.6.0` on macOS 26 and `10.0.26100` on Windows 11. It tells kernels apart; it is not a version to show a reader

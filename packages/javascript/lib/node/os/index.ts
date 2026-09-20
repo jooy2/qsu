@@ -1,5 +1,6 @@
 export { getArch } from './getArch.js';
 export { getCpu } from './getCpu.js';
+export { getCpuCount } from './getCpuCount.js';
 export { getEndianness } from './getEndianness.js';
 export { getHostname } from './getHostname.js';
 export { getKernelVersion } from './getKernelVersion.js';

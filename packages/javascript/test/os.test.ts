@@ -4,6 +4,7 @@ import {
 	runCommand,
 	getArch,
 	getCpu,
+	getCpuCount,
 	getEndianness,
 	getKernelVersion,
 	getPlatform,
@@ -141,6 +142,15 @@ describe('OS', () => {
 
 		assert.strictEqual(ARCHITECTURES.includes(architecture), true);
 		assert.strictEqual(architecture, process.arch);
+	});
+
+	it('getCpuCount', () => {
+		const count = getCpuCount();
+
+		assert.strictEqual(Number.isInteger(count), true);
+		assert.strictEqual(count >= 1, true);
+		// The same machine answers with the same number, whichever call asks.
+		assert.strictEqual(getCpuCount(), count);
 	});
 
 	it('getKernelVersion', () => {
