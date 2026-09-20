@@ -6,13 +6,36 @@ import threading
 import pytest
 
 from qsu.os import (
+	getArch,
 	getCpu,
+	getEndianness,
+	getKernelVersion,
+	getPlatform,
 	getHostname,
 	getMachineId,
 	getRamSize,
 	getSid,
 	getUptime,
 	runCommand,
+)
+
+
+_PLATFORM_NAMES = ('windows', 'macos', 'linux', 'freebsd', 'unknown')
+
+# Node's own vocabulary, which is what this package normalises its answer into.
+_ARCHITECTURES = (
+	'arm',
+	'arm64',
+	'ia32',
+	'loong64',
+	'mips',
+	'mipsel',
+	'ppc',
+	'ppc64',
+	'riscv64',
+	's390',
+	's390x',
+	'x64',
 )
 
 
@@ -112,3 +135,31 @@ def test_getUptime_counts_from_the_process_start():
 
 	assert result.returncode == 0, result.stderr
 	assert float(result.stdout) >= 0.5
+
+
+def test_getPlatform():
+	name = getPlatform()
+
+	assert name in _PLATFORM_NAMES
+	# Every system these tests run on is one the table covers, so `unknown` here
+	# means a name fell out of it.
+	assert name != 'unknown'
+	assert (name == 'windows') == (sys.platform == 'win32')
+	assert (name == 'macos') == (sys.platform == 'darwin')
+	assert (name == 'linux') == sys.platform.startswith('linux')
+
+
+def test_getArch():
+	assert getArch() in _ARCHITECTURES
+
+
+def test_getKernelVersion():
+	version = getKernelVersion()
+
+	assert len(version) > 0
+	assert version != 'Unknown'
+	assert re.search(r'\d', version)
+
+
+def test_getEndianness():
+	assert getEndianness() in ('BE', 'LE')
