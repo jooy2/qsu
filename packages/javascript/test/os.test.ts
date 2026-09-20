@@ -17,6 +17,11 @@ import {
 	getHostname,
 	getKernelVersion,
 	getMachineId,
+	getCpuSpeed,
+	getCpuUsage,
+	getLocalIp,
+	getMacAddress,
+	getOsName,
 	getPlatform,
 	getRamSize,
 	getRamUsage,
@@ -27,6 +32,8 @@ import {
 	getUptime,
 	getUsedRamSize,
 	getUsername,
+	getProcessMemoryUsage,
+	getTimezone,
 	runCommand
 } from '../dist/node';
 import { contains } from '../dist/verify';
@@ -245,6 +252,71 @@ describe('OS', () => {
 		assert.strictEqual(shell.length > 0, true);
 		// A path to a program rather than a bare name, on either kind of system.
 		assert.match(shell, process.platform === 'win32' ? /\\|\.exe$/i : /^\//);
+	});
+
+	it('getCpuSpeed', () => {
+		const speed = getCpuSpeed();
+
+		assert.strictEqual(Number.isInteger(speed), true);
+		assert.strictEqual(speed >= 0, true);
+	});
+
+	it('getCpuUsage', async () => {
+		const usage = await getCpuUsage(50);
+
+		assert.strictEqual(typeof usage === 'number', true);
+		assert.strictEqual(usage >= 0 && usage <= 100, true);
+		assert.strictEqual(Number.isInteger(await getCpuUsage(50, 0)), true);
+		// Nothing is sampled over no time at all, so there is nothing to report.
+		assert.strictEqual(await getCpuUsage(0), 0);
+	});
+
+	it('getLocalIp', async () => {
+		const address = await getLocalIp();
+
+		assert.match(address, /^(\d{1,3}\.){3}\d{1,3}$/);
+		assert.notEqual(address, '0.0.0.0');
+		// The same machine answers with the same address, whichever call asks.
+		assert.strictEqual(await getLocalIp(), address);
+	});
+
+	it('getMacAddress', () => {
+		const address = getMacAddress();
+
+		assert.match(address, /^[0-9a-f]{2}(:[0-9a-f]{2}){5}$/);
+		// A machine with a network interface has an address on it.
+		assert.notEqual(address, '00:00:00:00:00:00');
+	});
+
+	it('getOsName', async () => {
+		const name = await getOsName();
+
+		assert.strictEqual(name.length > 0, true);
+
+		if (process.platform === 'darwin') {
+			assert.match(name, /^macOS/);
+		} else if (process.platform === 'win32') {
+			assert.match(name, /^Windows/);
+		} else if (process.platform === 'linux') {
+			// The name the distribution gives itself, not the bare word `Linux`,
+			// which is what is left when `os-release` could not be read.
+			assert.notEqual(name, 'Linux');
+		}
+	});
+
+	it('getProcessMemoryUsage', () => {
+		const size = getProcessMemoryUsage();
+
+		assert.match(size, /^\d+ [A-Z]+$/);
+		assert.notEqual(size, '0 B');
+	});
+
+	it('getTimezone', () => {
+		const timezone = getTimezone();
+
+		assert.strictEqual(timezone.length > 0, true);
+		// An IANA name, such as `Asia/Seoul`, or one of the bare ones like `UTC`.
+		assert.match(timezone, /^[A-Za-z]+(\/[A-Za-z0-9_+-]+)*$/);
 	});
 
 	it('getPlatform', () => {
