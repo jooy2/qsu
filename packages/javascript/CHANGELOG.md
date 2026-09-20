@@ -4,6 +4,7 @@
 
 ### Changes
 
+- `getMachineId`: The id is read from `/etc/machine-id` directly on Linux rather than through a shell pipeline of `cat`, `hostname` and `head`, and macOS runs `ioreg` once instead of piping it through `awk` and `cut`. The value is the same; what changes is that Linux now spawns nothing at all, and neither platform depends on those tools being installed. On Windows the registry value is matched in code rather than by a `for /f` loop over `findstr`
 - `getSid`: A failure now says that the SID could not be read. Every failure path reported `Failed to get machine id`, which named a different function and sent the reader looking in the wrong place
 - `getSid`: The profile list is parsed on the run of spaces `REG QUERY` puts between its columns rather than on exactly four of them, and the profile path is matched against the home directory without case, as Windows compares paths. A machine whose registry lines are spaced differently, or which records the profile with different capitalisation, used to fall through to an error
 - `runCommand`: The command's standard input is now closed as soon as it starts. A command that reads it, such as `sort` with no file, waited on a pipe nothing ever wrote to, so the returned promise never settled; it now reads an empty input and returns

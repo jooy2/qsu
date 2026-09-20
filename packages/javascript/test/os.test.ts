@@ -67,6 +67,8 @@ describe('OS', () => {
 		}
 
 		assert.match(mId, regex);
+		// The same machine answers with the same id, whichever call asks.
+		assert.strictEqual(await getMachineId(), mId);
 	});
 
 	it('getRamSize', async () => {
