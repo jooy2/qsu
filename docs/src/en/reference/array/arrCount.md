@@ -5,8 +5,7 @@ Returns the number of duplicates for each unique value in the given array. The a
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'array', type: { js: 'string[] | number[]', dart: 'List<dynamic>' }, required: true },
-	{ name: 'count', type: 'number', required: true }
+	{ name: 'array', type: { js: 'string[] | number[]', dart: 'List<dynamic>' }, required: true }
 ]" />
 
 ## Returns
