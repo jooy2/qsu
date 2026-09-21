@@ -144,6 +144,7 @@ Functions are grouped into categories, each with an import subpath of its own.
 | `format` | `qsu/format` | `numberFormat`, `fileSizeFormat`, `duration` |
 | `math` | `qsu/math` | `sum`, `clamp`, `round`, `numPick` |
 | `misc` | `qsu/misc` | `debounce`, `throttle`, `retry`, `sleep` |
+| `net` | `qsu/net` | `parseAddress` |
 | `object` | `qsu/object` | `objClone`, `objMerge`, `objPick`, `objGet` |
 | `string` | `qsu/string` | `trim`, `truncate`, `strToCamelCase`, `pad` |
 | `verify` | `qsu/verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqual` |
@@ -154,7 +155,7 @@ Functions are grouped into categories, each with an import subpath of its own.
 | `net` | `qsu/node/net` | `fetchData` |
 | `os` | `qsu/node/os` | `getCpu`, `getRamSize`, `runCommand` |
 
-The categories in the top half are exported from `qsu` and are safe to bundle for the browser. The `crypto`, `file`, `net` and `os` categories, and `logBox`, need a Node.js runtime and are exported from `qsu/node`.
+The categories in the top half are exported from `qsu` and are safe to bundle for the browser. The `crypto`, `file` and `os` categories, and `fetchData` and `logBox`, need a Node.js runtime and are exported from `qsu/node`.
 
 ## Documentation
 

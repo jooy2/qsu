@@ -113,8 +113,8 @@ Functions are grouped into categories, all exported from `package:qsu/qsu.dart`.
 | `math`   | `sum`, `clamp`, `round`, `numPick`                  |
 | `misc`   | `debounce`, `throttle`, `retry`, `sleep`            |
 | `object` | `objClone`, `objMerge`, `objPick`, `objGet`         |
-| `net`    | `fetchData`                                          |
-| `os`     | `getCpu`, `getRamSize`, `getDiskSize`, `runCommand`  |
+| `net`    | `fetchData`, `parseAddress`                         |
+| `os`     | `getCpu`, `getRamSize`, `getDiskSize`, `runCommand` |
 | `string` | `trim`, `truncate`, `strToCamelCase`, `pad`         |
 | `verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqual`            |
 | `web`    | `getSlug`, `escapeHtml`, `isMobile`, `isBotAgent`   |

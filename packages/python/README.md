@@ -133,7 +133,7 @@ Functions are grouped into categories. Each one is importable from the top-level
 | `format` | `qsu.format` | `numberFormat`, `fileSizeFormat`, `duration`        |
 | `math`   | `qsu.math`   | `sum`, `clamp`, `round`, `numPick`                  |
 | `misc`   | `qsu.misc`   | `debounce`, `throttle`, `retry`, `sleep`            |
-| `net`    | `qsu.net`    | `fetchData`                                         |
+| `net`    | `qsu.net`    | `fetchData`, `parseAddress`                         |
 | `object` | `qsu.object` | `objClone`, `objMerge`, `objPick`, `objGet`         |
 | `os`     | `qsu.os`     | `getCpu`, `getRamSize`, `runCommand`                |
 | `string` | `qsu.string` | `trim`, `truncate`, `strToCamelCase`, `pad`         |

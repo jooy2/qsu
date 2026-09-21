@@ -7,7 +7,7 @@ Things worth knowing before answering questions about qsu:
 - Every public function is named in `camelCase` in all three languages, including Python and Dart. This is deliberate and non-idiomatic, so that the API stays identical across languages.
 - Not every function exists in every language. Each entry below lists the languages that actually implement it; do not assume parity that is not listed.
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
-- In JavaScript, the `crypto`, `file`, `net` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as does `logBox`. Everything else is browser-safe and imported from `qsu`.
+- In JavaScript, the `crypto`, `file` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as do `fetchData` and `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
 - 178 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
@@ -137,9 +137,10 @@ Function-level helpers that do not belong to another category.
 
 ## net
 
-Network requests. In JavaScript these functions require a Node.js runtime and are imported from `qsu/node`.
+Network requests and address parsing. In JavaScript `fetchData` requires a Node.js runtime and is imported from `qsu/node`, while `parseAddress` is browser-safe and imported from `qsu`.
 
 - [fetchData](https://qsu.cdget.com/reference/net/fetchData) (JavaScript, Dart, Python): This function is used to make `node:fetch` easier to use while ensuring data is returned regardless of the response status.
+- [parseAddress](https://qsu.cdget.com/reference/net/parseAddress) (JavaScript, Dart, Python): Parses an address string into its parts and returns them as an object. It handles ordinary web URLs as well as host-only addresses, IPv4, IPv6 (bare or wrapped in `[]`), and SSH-style connection strings that carry user information such as `ssh://user:pass@host:port`.
 
 ## object
 
@@ -255,7 +256,6 @@ URLs, slugs, user agents and other web-oriented helpers.
 
 - [escapeHtml](https://qsu.cdget.com/reference/web/escapeHtml) (JavaScript, Dart, Python): Escapes the five characters that carry meaning in HTML (`&`, `<`, `>`, `"`, `'`), so a value can be dropped into a page as text rather than read as markup.
 - [generateLicense](https://qsu.cdget.com/reference/web/generateLicense) (JavaScript, Dart, Python): Returns text in a specific license format based on the author information of the given argument. The argument uses the Object type.
-- [getParsedInfoFromAddress](https://qsu.cdget.com/reference/web/getParsedInfoFromAddress) (JavaScript, Dart, Python): Parses an address string into its parts and returns them as an object. It handles ordinary web URLs as well as host-only addresses, IPv4, IPv6 (bare or wrapped in `[]`), and SSH-style connection strings that carry user information such as `ssh://user:pass@host:port`.
 - [getSlug](https://qsu.cdget.com/reference/web/getSlug) (JavaScript, Dart, Python): Converts a string into a URL-friendly slug. The input is trimmed, split into words on whitespace and any existing `-`/`_` characters, and joined back together with the chosen separator.
 - [isBotAgent](https://qsu.cdget.com/reference/web/isBotAgent) (JavaScript, Dart, Python): Analyze the user agent value to determine if it's a bot for a search engine. Returns `true` if it's a bot.
 - [isMatchPathname](https://qsu.cdget.com/reference/web/isMatchPathname) (JavaScript, Dart, Python): You can check if the URL path in the first argument value is matched against the second set of rules. The matching rules can take a string or an array of strings, where both arguments are paths that start with `/`.
