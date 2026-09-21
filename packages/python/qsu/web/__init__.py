@@ -7,7 +7,6 @@ if TYPE_CHECKING:
 	# here lets a type checker follow a name to the function behind it.
 	from .escapeHtml import escapeHtml as escapeHtml
 	from .generateLicense import generateLicense as generateLicense
-	from .getParsedInfoFromAddress import getParsedInfoFromAddress as getParsedInfoFromAddress
 	from .getSlug import getSlug as getSlug
 	from .isBotAgent import isBotAgent as isBotAgent
 	from .isMatchPathname import isMatchPathname as isMatchPathname
@@ -18,7 +17,6 @@ if TYPE_CHECKING:
 __all__ = [
 	'escapeHtml',
 	'generateLicense',
-	'getParsedInfoFromAddress',
 	'getSlug',
 	'isBotAgent',
 	'isMatchPathname',

@@ -6,9 +6,11 @@ if TYPE_CHECKING:
 	# Imported at runtime only when the name is first read. Spelling the imports out
 	# here lets a type checker follow a name to the function behind it.
 	from .fetchData import fetchData as fetchData
+	from .parseAddress import parseAddress as parseAddress
 
 __all__ = [
 	'fetchData',
+	'parseAddress',
 ]
 
 lazy(__name__)

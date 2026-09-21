@@ -2,6 +2,19 @@
 
 ## vNext (2026--)
 
+### Breaking changes
+
+- `getParsedInfoFromAddress` was renamed to `parseAddress` and moved from the `web` category to `net`. Import it from `qsu.net` and change the call; the address it reads and the parts it reports are the same ones, with more of them
+- The returned `dict` gained `isIP` and `isIPv6`, which are always a `bool`, and nine other keys. Code that compared the whole result against a literal has them to name
+
+### Changes
+
+- `parseAddress`: `hostname` was added, which is the host without the brackets a bracketed IPv6 address is written in. `host` keeps them, as it did
+- `parseAddress`: `path`, `query`, `params` and `hash` were added. Everything from the first `/`, `?` or `#` used to be dropped, so `file:///etc/hosts` reported nothing but its scheme. `query` is the raw string and `params` is it read into a `dict`, where a repeated key keeps its last value and a pair with no key is left out
+- `parseAddress`: `defaultPort` was added, the port the scheme is served on when the address does not name one. It is reported separately from `port`, so an address that carried a port can still be told from one that did not. 28 schemes are known, from `ssh` and `https` to `postgres` and `redis`
+- `parseAddress`: `isIP` and `isIPv6` were added. They read the hostname, so `256.1.1.1` and `[gggg::1]` are hosts like any other rather than addresses, and `::ffff:192.168.1.1` is an IPv6 address
+- `parseAddress`: The user, the password and the query values are percent-decoded, so `ssh://us%40er:p%40ss@host` reports the user and password a person would type. A value carrying a sequence that is not an escape, or escapes that do not spell valid UTF-8, is returned as it was written rather than half-decoded. Pass `decode=False` to keep every value raw
+
 ## 1.5.0 (2026-09-20)
 
 ### Changes
