@@ -3,6 +3,7 @@ export * from './date/index.js';
 export * from './format/index.js';
 export * from './math/index.js';
 export * from './misc/index.js';
+export * from './net/index.js';
 export * from './object/index.js';
 export * from './string/index.js';
 export * from './verify/index.js';

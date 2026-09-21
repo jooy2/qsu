@@ -64,6 +64,11 @@
 			"module": "./dist/misc/index.js",
 			"default": "./dist/misc/index.js"
 		},
+		"./net": {
+			"types": "./dist/net/index.d.ts",
+			"module": "./dist/net/index.js",
+			"default": "./dist/net/index.js"
+		},
 		"./object": {
 			"types": "./dist/object/index.d.ts",
 			"module": "./dist/object/index.js",

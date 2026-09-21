@@ -6,6 +6,8 @@ export type PositiveNumber<N extends number> = number extends N
 
 export type NumberValueObject = { [key: string]: number };
 
+export type StringValueObject = { [key: string]: string };
+
 export type AnyValueObject = { [key: string]: any };
 
 export type DurationUnitName =
@@ -119,9 +121,21 @@ export interface ParsedAddress {
 	error: boolean;
 	protocol?: string;
 	host?: string;
+	hostname?: string;
 	port?: number;
+	defaultPort?: number;
 	user?: string;
 	pass?: string;
+	path?: string;
+	query?: string;
+	params?: StringValueObject;
+	hash?: string;
+	isIP: boolean;
+	isIPv6: boolean;
+}
+
+export interface ParseAddressOptions {
+	decode?: boolean;
 }
 
 export interface SlugOptions {
