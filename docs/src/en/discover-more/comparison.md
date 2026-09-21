@@ -36,69 +36,13 @@ Pick a language in the sidebar and the comparison follows it. Each library also 
 
 :::
 
-## What each one covers
+## Feature sheet
 
-The rows are qsu's own categories, so the point of the table is the other columns. **Partial** means the library covers a corner of the area rather than the area.
+Every row is one question, asked of qsu and of the two libraries beside it. The sheet follows the language switch, so the columns are the ones your ecosystem has, and a question only one ecosystem can answer — certificates in Dart, atomic writes in Python — appears only on that sheet.
 
-::: lang js
+Read a mark as a starting point rather than a verdict. Two functions can both earn a check and still differ in their arguments, their defaults or their edge cases, which is what the migration guides are for.
 
-| Area                  | Lodash                           | Underscore.js                      |
-| --------------------- | -------------------------------- | ---------------------------------- |
-| array                 | Yes                              | Yes                                |
-| object                | Yes                              | Yes                                |
-| string                | Yes                              | Partial, `escape` and `template`   |
-| math                  | Yes                              | Partial, `max`, `min` and `random` |
-| verify (type checks)  | Yes                              | Yes                                |
-| misc (debounce, …)    | Yes                              | Yes                                |
-| date                  | No, `now` only                   | No, `now` only                     |
-| format (sizes, spans) | No                               | No                                 |
-| web (slugs, agents)   | Partial, `escape` and `unescape` | Partial, `escape` and `unescape`   |
-| crypto                | No                               | No                                 |
-| file                  | No                               | No                                 |
-| net                   | No                               | No                                 |
-| os                    | No                               | No                                 |
-
-:::
-
-::: lang dart
-
-| Area | quiver | basic_utils |
-| --- | --- | --- |
-| array | Yes, `quiver.iterables` | Yes, `IterableUtils` |
-| object | Partial, `BiMap`, `Multimap`, `LruMap` | No |
-| string | Partial, blank and case-insensitive tests | Yes, `StringUtils` |
-| math | No | Partial, `MathUtils` |
-| verify (type checks) | Partial, `quiver.check` | Partial, `EmailUtils`, `DomainUtils` |
-| misc (debounce, …) | Partial, caches and async helpers | No |
-| date | Partial, an injectable `Clock` | Partial, two conversions |
-| format (sizes, spans) | No | No |
-| web (slugs, agents) | No | Partial, domains and colors |
-| crypto | No | Yes, certificate-oriented |
-| file | No | No |
-| net | No | Yes, `HttpUtils` and `DnsUtils` |
-| os | No | No |
-
-:::
-
-::: lang python
-
-| Area                  | pydash                    | boltons                               |
-| --------------------- | ------------------------- | ------------------------------------- |
-| array                 | Yes                       | Yes, `iterutils`                      |
-| object                | Yes                       | Partial, `dictutils` types            |
-| string                | Yes                       | Yes, `strutils`                       |
-| math                  | Yes                       | Partial, `mathutils` and `statsutils` |
-| verify (type checks)  | Yes                       | Partial, `typeutils`                  |
-| misc (debounce, …)    | Yes                       | Partial, `cacheutils`, `funcutils`    |
-| date                  | No                        | Partial, `timeutils`                  |
-| format (sizes, spans) | Partial, `number_format`  | Partial, `bytes2human`                |
-| web (slugs, agents)   | Partial, `url`, `slugify` | Partial, `urlutils`, `html2text`      |
-| crypto                | No                        | No                                    |
-| file                  | No                        | Yes, `fileutils`                      |
-| net                   | No                        | Partial, `socketutils`                |
-| os                    | No                        | No                                    |
-
-:::
+<FeatureMatrix />
 
 ## What qsu does not do
 

@@ -268,7 +268,7 @@ URLs, slugs, user agents and other web-oriented helpers.
 How qsu compares with other utility libraries, and how to move a project from one of them. These pages are prose rather than function reference.
 
 - [Discover more](https://qsu.cdget.com/discover-more): Index of the comparison and the migration guides.
-- [Comparison](https://qsu.cdget.com/discover-more/comparison): qsu next to Lodash, Underscore.js, quiver, basic_utils, pydash and boltons, area by area: what each covers, how its API is shaped, where it runs, and when another library is the better answer.
+- [Comparison](https://qsu.cdget.com/discover-more/comparison): qsu next to Lodash, Underscore.js, quiver, basic_utils, pydash and boltons. Carries a feature sheet of around 85 capabilities marked supported, partial or unsupported per library, then covers API shape, runtime and packaging, and when another library is the better answer.
 - [Migrating from Lodash](https://qsu.cdget.com/discover-more/lodash) (JavaScript): Lodash functions mapped to their qsu counterparts, the pairs that behave differently, and what has no counterpart.
 - [Migrating from Underscore.js](https://qsu.cdget.com/discover-more/underscore) (JavaScript): The same for Underscore.js, whose overlap with qsu is smaller.
 - [Migrating from quiver](https://qsu.cdget.com/discover-more/quiver) (Dart): What moves from quiver to qsu, and what quiver keeps doing that qsu has no answer for.

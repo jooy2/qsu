@@ -57,6 +57,10 @@ const STRINGS: Record<string, Record<string, string>> = {
 		en: 'On the web there is no operating system to ask, and every function in this category throws an `UnsupportedError`.',
 		ko: '웹에는 물어볼 운영 체제가 없어, 이 카테고리의 모든 함수는 `UnsupportedError`를 발생시킵니다.'
 	},
+	/* `FeatureMatrix.vue`, the feature sheet on the comparison page. The three
+	   verdicts reuse `supportYes`, `supportPartial` and `supportNo` above. */
+	featureName: { en: 'Feature', ko: '기능' },
+	featureTally: { en: 'Fully covered:', ko: '완전히 지원하는 항목:' },
 	/* `ParamsTable.vue`. The parameter names themselves are never translated:
 	   they are what the reader types. */
 	paramName: { en: 'Name', ko: '이름' },

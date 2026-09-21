@@ -237,6 +237,12 @@ quiver and basic_utils for Dart, pydash and boltons for Python).
   means JavaScript, so those pages use plain fenced code blocks rather than `::: lang` ones,
   and every reader sees the same page. The comparison page is the other way round: it has a
   `::: lang` block per language, because the question it answers differs per ecosystem.
+- **The feature sheet is data, not Markdown.** `comparison.md` writes `<FeatureMatrix />` and
+  nothing else; the rows live in `docs/src/.vitepress/data/features.ts`, keyed by documentation
+  locale, with one verdict per column (`y`, `p`, `n`) per code language. A row may name the code
+  languages it is asked of, so a question only one ecosystem has does not become three crosses
+  on the other two sheets. Every verdict must come from the library's own documentation or
+  source; the counts under each sheet are derived from the rows.
 - **Watch the literals.** `` `null` ``, `` `true` `` and `` `false` `` in inline code are
   rewritten per language everywhere on the site, which is wrong on a page about one language's
   spelling of them. Write `<code>true</code>` there.

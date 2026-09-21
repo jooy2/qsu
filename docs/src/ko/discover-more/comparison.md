@@ -36,69 +36,13 @@ qsu는 세 언어 어디에서도 최초의 유틸리티 라이브러리가 아�
 
 :::
 
-## 영역별로 무엇을 다루는가
+## 기능 시트
 
-표의 행은 qsu의 카테고리이므로, 볼 것은 나머지 열입니다. **일부**는 그 영역 전체가 아니라 한 귀퉁이만 다룬다는 뜻입니다.
+각 행은 질문 하나이고, qsu와 그 옆의 두 라이브러리에 같은 질문을 던집니다. 시트는 언어 스위치를 따르므로 열은 지금 고른 생태계의 것이고, 한 생태계에서만 의미가 있는 질문(Dart의 인증서, Python의 원자적 쓰기)은 그 시트에만 나옵니다.
 
-::: lang js
+표시는 결론이 아니라 출발점입니다. 두 함수가 모두 체크를 받아도 인자나 기본값, 경계 동작은 다를 수 있습니다. 그 차이를 다루는 것이 마이그레이션 문서입니다.
 
-| 영역                  | Lodash                      | Underscore.js               |
-| --------------------- | --------------------------- | --------------------------- |
-| array                 | 있음                        | 있음                        |
-| object                | 있음                        | 있음                        |
-| string                | 있음                        | 일부, `escape`와 `template` |
-| math                  | 있음                        | 일부, `max`·`min`·`random`  |
-| verify (타입 검사)    | 있음                        | 있음                        |
-| misc (debounce 등)    | 있음                        | 있음                        |
-| date                  | 없음, `now`뿐               | 없음, `now`뿐               |
-| format (용량·시간)    | 없음                        | 없음                        |
-| web (슬러그·에이전트) | 일부, `escape`와 `unescape` | 일부, `escape`와 `unescape` |
-| crypto                | 없음                        | 없음                        |
-| file                  | 없음                        | 없음                        |
-| net                   | 없음                        | 없음                        |
-| os                    | 없음                        | 없음                        |
-
-:::
-
-::: lang dart
-
-| 영역                  | quiver                            | basic_utils                      |
-| --------------------- | --------------------------------- | -------------------------------- |
-| array                 | 있음, `quiver.iterables`          | 있음, `IterableUtils`            |
-| object                | 일부, `BiMap`·`Multimap`·`LruMap` | 없음                             |
-| string                | 일부, 공백·대소문자 무시 비교     | 있음, `StringUtils`              |
-| math                  | 없음                              | 일부, `MathUtils`                |
-| verify (타입 검사)    | 일부, `quiver.check`              | 일부, `EmailUtils`·`DomainUtils` |
-| misc (debounce 등)    | 일부, 캐시와 비동기 헬퍼          | 없음                             |
-| date                  | 일부, 주입 가능한 `Clock`         | 일부, 변환 두 개                 |
-| format (용량·시간)    | 없음                              | 없음                             |
-| web (슬러그·에이전트) | 없음                              | 일부, 도메인과 색상              |
-| crypto                | 없음                              | 있음, 인증서 중심                |
-| file                  | 없음                              | 없음                             |
-| net                   | 없음                              | 있음, `HttpUtils`와 `DnsUtils`   |
-| os                    | 없음                              | 없음                             |
-
-:::
-
-::: lang python
-
-| 영역                  | pydash                  | boltons                          |
-| --------------------- | ----------------------- | -------------------------------- |
-| array                 | 있음                    | 있음, `iterutils`                |
-| object                | 있음                    | 일부, `dictutils`의 타입들       |
-| string                | 있음                    | 있음, `strutils`                 |
-| math                  | 있음                    | 일부, `mathutils`와 `statsutils` |
-| verify (타입 검사)    | 있음                    | 일부, `typeutils`                |
-| misc (debounce 등)    | 있음                    | 일부, `cacheutils`·`funcutils`   |
-| date                  | 없음                    | 일부, `timeutils`                |
-| format (용량·시간)    | 일부, `number_format`   | 일부, `bytes2human`              |
-| web (슬러그·에이전트) | 일부, `url`과 `slugify` | 일부, `urlutils`와 `html2text`   |
-| crypto                | 없음                    | 없음                             |
-| file                  | 없음                    | 있음, `fileutils`                |
-| net                   | 없음                    | 일부, `socketutils`              |
-| os                    | 없음                    | 없음                             |
-
-:::
+<FeatureMatrix />
 
 ## qsu가 하지 않는 일
 

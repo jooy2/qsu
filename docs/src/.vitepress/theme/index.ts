@@ -1,6 +1,7 @@
 import DefaultTheme from 'vitepress/theme';
 
 import CategoryGrid from '../components/CategoryGrid.vue';
+import FeatureMatrix from '../components/FeatureMatrix.vue';
 import LangLogo from '../components/LangLogo.vue';
 import LangTabs from '../components/LangTabs.vue';
 import Layout from '../components/Layout.vue';
@@ -21,6 +22,7 @@ export default {
 	Layout,
 	enhanceApp({ app }: { app: any }) {
 		app.component('CategoryGrid', CategoryGrid);
+		app.component('FeatureMatrix', FeatureMatrix);
 		app.component('LangLogo', LangLogo);
 		app.component('LangTabs', LangTabs);
 		app.component('NodeRequired', NodeRequired);
