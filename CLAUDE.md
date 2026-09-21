@@ -220,6 +220,29 @@ The **Returns** section is `<ReturnType type="string" />`, which renders `string
 <ReturnType :type="{ js: 'number', dart: 'num', python: 'float' }" />
 ```
 
+### The `Discover more` section
+
+`docs/src/<locale>/discover-more` is the last group in the sidebar: a comparison page and one
+migration guide per third-party utility library (Lodash and Underscore.js for JavaScript,
+quiver and basic_utils for Dart, pydash and boltons for Python).
+
+- **Order comes from frontmatter.** The group sits last because `discover-more/index.md`
+  carries `order: 10`, above the `frontmatterOrderDefaultValue` of 9 that everything else uses.
+  Inside the group, each page's `order` places it, grouped by language in the switch's order.
+- **`menuTitle` names the sidebar entry.** The heading of a migration guide is a sentence and
+  the menu needs one word, so these pages set `menuTitle: Lodash` and leave `title` alone —
+  `title` is what VitePress puts in `<title>`, and the `<h1>` is what it falls back to. This is
+  `frontmatterTitleFieldName` in `config.mts`; no other page needs it.
+- **A migration guide is written for one language and does not follow the switch.** "Lodash"
+  means JavaScript, so those pages use plain fenced code blocks rather than `::: lang` ones,
+  and every reader sees the same page. The comparison page is the other way round: it has a
+  `::: lang` block per language, because the question it answers differs per ecosystem.
+- **Watch the literals.** `` `null` ``, `` `true` `` and `` `false` `` in inline code are
+  rewritten per language everywhere on the site, which is wrong on a page about one language's
+  spelling of them. Write `<code>true</code>` there.
+- **Check a claim about another library against that library**, not against memory. Its
+  published API, its dependencies and its supported versions all move.
+
 ## Commit conventions
 
 Follow the existing history: `[scope] tag: message`.

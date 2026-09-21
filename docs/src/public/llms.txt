@@ -263,6 +263,19 @@ URLs, slugs, user agents and other web-oriented helpers.
 - [removeLocalePrefix](https://qsu.cdget.com/reference/web/removeLocalePrefix) (JavaScript, Dart, Python): Removes the first-level path from a URL or pathname. Use this when you need a locale-free path in special cases in a URL that normally uses locale prefixes.
 - [unescapeHtml](https://qsu.cdget.com/reference/web/unescapeHtml) (JavaScript, Dart, Python): Turns the five HTML entities that `escapeHtml` produces back into the characters they stand for, in a single pass so `&amp;lt;` comes back as the literal text `&lt;`.
 
+## Discover more
+
+How qsu compares with other utility libraries, and how to move a project from one of them. These pages are prose rather than function reference.
+
+- [Discover more](https://qsu.cdget.com/discover-more): Index of the comparison and the migration guides.
+- [Comparison](https://qsu.cdget.com/discover-more/comparison): qsu next to Lodash, Underscore.js, quiver, basic_utils, pydash and boltons, area by area: what each covers, how its API is shaped, where it runs, and when another library is the better answer.
+- [Migrating from Lodash](https://qsu.cdget.com/discover-more/lodash) (JavaScript): Lodash functions mapped to their qsu counterparts, the pairs that behave differently, and what has no counterpart.
+- [Migrating from Underscore.js](https://qsu.cdget.com/discover-more/underscore) (JavaScript): The same for Underscore.js, whose overlap with qsu is smaller.
+- [Migrating from quiver](https://qsu.cdget.com/discover-more/quiver) (Dart): What moves from quiver to qsu, and what quiver keeps doing that qsu has no answer for.
+- [Migrating from basic_utils](https://qsu.cdget.com/discover-more/basic-utils) (Dart): basic_utils classes mapped to qsu functions, including the certificate half that does not move.
+- [Migrating from pydash](https://qsu.cdget.com/discover-more/pydash) (Python): pydash functions mapped to their qsu counterparts, and the naming differences that come with them.
+- [Migrating from boltons](https://qsu.cdget.com/discover-more/boltons) (Python): What moves from boltons to qsu, and where boltons remains the better tool.
+
 ## Optional
 
 - [Changelog](https://qsu.cdget.com/changelog/): Release history of each package, per language.

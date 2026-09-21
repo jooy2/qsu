@@ -165,6 +165,9 @@ const commonSidebarConfig: VitePressSidebarOptions = {
 	collapsed: false,
 	useTitleFromFileHeading: true,
 	useTitleFromFrontmatter: true,
+	// A page whose heading is a sentence still needs a short entry in the menu.
+	// `title` is left alone so that it stays the one VitePress puts in `<title>`.
+	frontmatterTitleFieldName: 'menuTitle',
 	useFolderTitleFromIndexFile: true,
 	useFolderLinkFromIndexFile: true,
 	useFolderLinkFromSameNameSubFile: true,
@@ -196,6 +199,7 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 			nav: [
 				{ text: 'Getting Started', link: '/installation' },
 				{ text: 'Reference', link: '/reference' },
+				{ text: 'Discover more', link: '/discover-more' },
 				{ text: 'Changelog', link: '/changelog/' }
 			]
 		},
@@ -203,6 +207,7 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 			nav: [
 				{ text: '시작하기', link: '/ko/installation' },
 				{ text: '레퍼런스', link: '/ko/reference' },
+				{ text: '더 알아보기', link: '/ko/discover-more' },
 				{ text: 'Changelog', link: '/changelog/' }
 			]
 		}
