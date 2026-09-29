@@ -78,6 +78,23 @@ describe('Array', () => {
 		);
 	});
 
+	it('arrUnique compares by value', () => {
+		const first = { a: 1 };
+		const result = arrUnique([first, { a: 1 }, { a: 2 }]);
+
+		// Objects with the same contents are duplicates, and the first one is kept as it is.
+		assert.deepStrictEqual(result, [{ a: 1 }, { a: 2 }]);
+		assert.strictEqual(result[0], first);
+
+		const nested = [1];
+
+		assert.deepStrictEqual(arrUnique([nested, [1], 1]), [[1], 1]);
+		assert.strictEqual(arrUnique([nested, [1]])[0], nested);
+		// No type coercion, and `1.0` is the number `1`.
+		assert.deepStrictEqual(arrUnique([1, 1.0, true, '1']), [1, true, '1']);
+		assert.strictEqual(arrUnique([NaN, NaN]).length, 1);
+	});
+
 	it('arrWithNumber', () => {
 		assert.deepStrictEqual(arrWithNumber(1, 2), [1, 2]);
 		assert.throws(() => arrWithNumber(2, 1));

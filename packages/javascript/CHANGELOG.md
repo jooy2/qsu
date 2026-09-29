@@ -6,6 +6,7 @@
 
 - `getParsedInfoFromAddress` was renamed to `parseAddress` and moved from the `web` category to `net`. Replace the import and the call; the address it reads and the parts it reports are the same ones, with more of them. It is still browser-safe and ships from `qsu` and from the new `qsu/net` subpath, not from `qsu/node`
 - `ParsedAddress` gained `isIP` and `isIPv6`, which are always a boolean. Code that compared a whole result object against a literal has two more keys to name
+- `arrUnique` compares values by value, as `arrDifference` and `arrIntersection` do, so that all three packages agree. Objects in a flat array with the same contents are now duplicates, where they used to be compared by reference. To keep reference comparison, use `[...new Set(array)]`
 
 ### Changes
 
