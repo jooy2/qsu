@@ -133,6 +133,9 @@ void main() {
       expect(average([1, 3, 5, 7, 9]), 5);
       expect(average([1, 5, 15, 50]), 17.75);
       expect(average([5, -5]), 0);
+      // A list of `int` is accepted, and an empty list has no average.
+      expect(average(<int>[1, 2]), 1.5);
+      expect(average([]).isNaN, true);
     });
 
     test('arrMove', () {

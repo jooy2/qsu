@@ -16,6 +16,7 @@
 - `parseAddress`: `isIP` and `isIPv6` were added. They read the hostname, so `256.1.1.1` and `[gggg::1]` are hosts like any other rather than addresses, and `::ffff:192.168.1.1` is an IPv6 address
 - `parseAddress`: The user, the password and the query values are percent-decoded, so `ssh://us%40er:p%40ss@host` reports the user and password a person would type. A value carrying a sequence that is not an escape, or escapes that do not spell valid UTF-8, is returned as it was written rather than half-decoded. Pass `decode: false` to keep every value raw
 - `isEqual`, `isEqualStrict`: An explicit `null` operand is compared as a value. A `null` argument was taken for one that was not passed, so `isEqual(5, null)` returned `true`; it now returns `false`, as it does in JavaScript and Python
+- `average`: Takes a `List<num>`, so a `List<int>` can be passed as well. An empty list returns `NaN`, as it does in JavaScript, instead of throwing a `StateError`
 - `objInvert`: A whole `double` from `1e18` up to `1e21` becomes the key JavaScript writes for it, `'100000000000000000000'` rather than `'100000000000000000000.0'`. `objInvert` and `arrGroupBy` now share one rule for turning a value into a key
 
 ## 1.8.0 (2026-09-20)

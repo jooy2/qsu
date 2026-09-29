@@ -57,8 +57,21 @@ List<dynamic> arrUnique(List<dynamic> array) {
 }
 
 /// Returns the average of all numeric values in an array.
-double average(List<double> array) {
-  return array.reduce((p, c) => p + c) / array.length;
+/// An empty array has no average and returns `NaN`, as it does in JavaScript, rather than throwing.
+double average(List<num> array) {
+  if (array.isEmpty) {
+    return double.nan;
+  }
+
+  // A loop rather than `reduce`: a `List<int>` passed in here would reject a `num` callback
+  // at run time.
+  num total = 0;
+
+  for (final num value in array) {
+    total += value;
+  }
+
+  return total / array.length;
 }
 
 /// Moves the position of a specific element in an array to the specified position. (Position starts from 0.)
