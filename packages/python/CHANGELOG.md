@@ -6,6 +6,7 @@
 
 - `getParsedInfoFromAddress` was renamed to `parseAddress` and moved from the `web` category to `net`. Import it from `qsu.net` and change the call; the address it reads and the parts it reports are the same ones, with more of them
 - The returned `dict` gained `isIP` and `isIPv6`, which are always a `bool`, and nine other keys. Code that compared the whole result against a literal has them to name
+- `arrUnique` compares values by value, as `arrDifference` and `arrIntersection` do, so that all three packages agree. `1` and `1.0` are now one value, as they are in JavaScript, and a list of lists returns the original lists rather than copies decoded from JSON
 
 ### Changes
 

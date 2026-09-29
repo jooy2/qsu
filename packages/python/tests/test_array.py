@@ -66,6 +66,24 @@ def test_arrUnique():
 	]
 
 
+def test_arrUnique_by_value():
+	first = {'a': 1}
+	result = arrUnique([first, {'a': 1}, {'a': 2}])
+
+	# Dicts with the same contents are duplicates, and the first one is kept as it is.
+	assert result == [{'a': 1}, {'a': 2}]
+	assert result[0] is first
+
+	nested = [1]
+
+	assert arrUnique([nested, [1], 1]) == [[1], 1]
+	assert arrUnique([nested, [1]])[0] is nested
+	# No type coercion, and `1.0` is the number `1`, as it is in JavaScript.
+	result = arrUnique([1, 1.0, True, '1'])
+	assert result == [1, True, '1'] and [type(item) for item in result] == [int, bool, str]
+	assert len(arrUnique([float('nan'), float('nan')])) == 1
+
+
 def test_arrWithNumber():
 	assert arrWithNumber(1, 2) == [1, 2]
 	with pytest.raises(Exception):

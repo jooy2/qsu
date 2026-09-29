@@ -1,28 +1,18 @@
-import json
-
-from ..verify.is2dArray import is2dArray
+from ._comparableKey import _comparableKey
 
 
 def arrUnique(array: list) -> list:
-	if is2dArray(array):
-		seenKeys = set()
-		result = []
-
-		for item in array:
-			key = json.dumps(item, separators=(',', ':'))
-
-			if key not in seenKeys:
-				seenKeys.add(key)
-				result.append(json.loads(key))
-
-		return result
-
-	seen: list = []
+	seenKeys = set()
 	result = []
 
+	# Compared by value, as `arrDifference` and `arrIntersection` compare, so a dict or a nested
+	# list with the same contents is a duplicate, and `1` and `1.0` are one value as they are in
+	# JavaScript. The first of each is kept as it is rather than rebuilt from its JSON form.
 	for item in array:
-		if not any(existing is item or (type(existing) is type(item) and existing == item) for existing in seen):
-			seen.append(item)
+		key = _comparableKey(item)
+
+		if key not in seenKeys:
+			seenKeys.add(key)
 			result.append(item)
 
 	return result
