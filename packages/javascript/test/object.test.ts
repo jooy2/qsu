@@ -15,7 +15,10 @@ import {
 	objPick,
 	objGet,
 	objMerge,
-	objClone
+	objClone,
+	objOmit,
+	objSet,
+	arrGroupBy
 } from '../dist';
 
 describe('Misc', () => {
@@ -713,6 +716,84 @@ describe('Misc', () => {
 		assert.strictEqual(objPick('abc' as any, 'a'), null);
 	});
 
+	it('objOmit', () => {
+		assert.deepStrictEqual(objOmit({ a: 1, b: 2, c: 3 }, ['a', 'c']), { b: 2 });
+		assert.deepStrictEqual(objOmit({ a: 1, b: 2 }, 'a'), { b: 2 });
+		// A key that is not there is ignored.
+		assert.deepStrictEqual(objOmit({ a: 1 }, ['x']), { a: 1 });
+
+		// With nothing to omit, the result is still a new object.
+		const whole = { a: 1 };
+		const copy = objOmit(whole, []);
+
+		assert.deepStrictEqual(copy, { a: 1 });
+		assert.notStrictEqual(copy, whole);
+
+		// The nested value is carried over as it is, and the source is not modified.
+		const source = { a: { b: 1 }, c: 2 };
+		const result = objOmit(source, 'c') as any;
+
+		assert.strictEqual(result.a, source.a);
+		assert.deepStrictEqual(source, { a: { b: 1 }, c: 2 });
+		assert.strictEqual(objOmit(null as any, 'a'), null);
+		assert.strictEqual(objOmit('abc' as any, 'a'), null);
+	});
+
+	it('objSet', () => {
+		assert.deepStrictEqual(objSet({ a: { b: 1 } }, 'a.b', 2), { a: { b: 2 } });
+		// Missing levels are created.
+		assert.deepStrictEqual(objSet({}, 'a.b.c', 1), { a: { b: { c: 1 } } });
+		// A value on the path that cannot hold a key is replaced by an object.
+		assert.deepStrictEqual(objSet({ a: 1 }, 'a.b', 2), { a: { b: 2 } });
+		assert.deepStrictEqual(objSet({ a: null }, 'a.b', 2), { a: { b: 2 } });
+
+		// Only the containers on the path are copied; everything else is shared.
+		const withList = { list: [{ x: 1 }, { x: 2 }] };
+		const listResult = objSet(withList, 'list[1].x', 9) as any;
+
+		assert.strictEqual(listResult.list[1].x, 9);
+		assert.strictEqual(listResult.list[0], withList.list[0]);
+		assert.strictEqual(withList.list[1].x, 2);
+
+		// An index equal to the length appends, and anything further throws.
+		assert.deepStrictEqual(objSet({ list: [1] }, 'list[1]', 2), { list: [1, 2] });
+		assert.deepStrictEqual(objSet({ list: [1] }, 'list[0]', 5), { list: [5] });
+		assert.throws(() => objSet({ list: [1] }, 'list[5]', 2), {
+			name: 'RangeError',
+			message: '`path` does not name an index of the list at `5`.'
+		});
+		assert.throws(() => objSet({ list: [1] }, 'list.x', 2), {
+			name: 'RangeError',
+			message: '`path` does not name an index of the list at `x`.'
+		});
+
+		// A missing level is an object even under a numeric segment.
+		assert.deepStrictEqual(objSet({}, 'a[0]', 1), { a: { '0': 1 } });
+		assert.deepStrictEqual(objSet({}, 'a["b.c"]', 1), { a: { 'b.c': 1 } });
+
+		// The source is not modified, and a branch off the path is shared with it.
+		const source = { a: { b: 1 }, c: { d: 2 } };
+		const result = objSet(source, 'a.b', 3) as any;
+
+		assert.strictEqual(result.c, source.c);
+		assert.strictEqual(source.a.b, 1);
+		assert.strictEqual(objSet(null as any, 'a', 1), null);
+		assert.strictEqual(objSet([] as any, '0', 1), null);
+
+		// `__proto__` is written as an own key, and `Object.prototype` is left alone.
+		const protoResult = objSet({}, '__proto__.polluted', 1) as any;
+
+		assert.strictEqual(Object.hasOwn(protoResult, '__proto__'), true);
+		assert.strictEqual(({} as any).polluted, undefined);
+		assert.strictEqual(Object.getPrototypeOf(protoResult), Object.prototype);
+
+		// Inherited keys count as missing, so the walk never enters a prototype.
+		const constructorResult = objSet({}, 'constructor.prototype.polluted', 1) as any;
+
+		assert.strictEqual(({} as any).polluted, undefined);
+		assert.deepStrictEqual(constructorResult, { constructor: { prototype: { polluted: 1 } } });
+	});
+
 	it('objPickBy', () => {
 		assert.deepStrictEqual(
 			objPickBy({ a: 1, b: 2, c: 3 }, (value) => value > 1),
@@ -787,6 +868,33 @@ describe('Misc', () => {
 	});
 
 	it('objInvert', () => {
+		// A number becomes the key `String()` writes for it, which the Dart and Python packages
+		// reproduce for these same values.
+		assert.deepStrictEqual(
+			objInvert({
+				a: 1e20,
+				b: 1.2345678901234568e20,
+				c: 1e21,
+				d: 1e-7,
+				e: 0.000001,
+				f: -0,
+				g: 100,
+				h: 1.5
+			}),
+			{
+				'100000000000000000000': 'a',
+				'123456789012345680000': 'b',
+				'1e+21': 'c',
+				'1e-7': 'd',
+				'0.000001': 'e',
+				'0': 'f',
+				'100': 'g',
+				'1.5': 'h'
+			}
+		);
+		assert.deepStrictEqual(Object.keys(arrGroupBy([1e20], (value) => value)), [
+			'100000000000000000000'
+		]);
 		assert.deepStrictEqual(objInvert({ a: 1, b: 2 }), { '1': 'a', '2': 'b' });
 		assert.deepStrictEqual(objInvert({ a: 'x', b: 'y' }), { x: 'a', y: 'b' });
 		// Two entries sharing a value land on the same key, so the later one wins.
@@ -815,6 +923,7 @@ describe('Misc', () => {
 
 		assert.ok(isOwnData(objPick(source, ['__proto__', 'a'])));
 		assert.ok(isOwnData(objPickBy(source, () => true)));
+		assert.ok(isOwnData(objOmit(source, 'a')));
 		assert.ok(isOwnData(objClone(source, { deep: true })));
 		assert.ok(isOwnData(objMerge({}, source)));
 		assert.ok(isOwnData(objMergeNewKey({}, source)));

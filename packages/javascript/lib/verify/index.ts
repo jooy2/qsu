@@ -5,6 +5,7 @@ export { is2dArray } from './is2dArray.js';
 export { isEmail } from './isEmail.js';
 export { isEmpty } from './isEmpty.js';
 export { isEqual } from './isEqual.js';
+export { isEqualDeep } from './isEqualDeep.js';
 export { isEqualStrict } from './isEqualStrict.js';
 export { isObject } from './isObject.js';
 export { isTrueMinimumNumberOfTimes } from './isTrueMinimumNumberOfTimes.js';

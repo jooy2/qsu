@@ -17,7 +17,9 @@ import {
 	arrPick,
 	arrCompact,
 	arrDifference,
-	arrIntersection
+	arrIntersection,
+	arrGroupBy,
+	median
 } from '../dist';
 
 describe('Array', () => {
@@ -125,6 +127,25 @@ describe('Array', () => {
 		assert.deepStrictEqual(average([5, -5]), 0);
 		// An empty array has no average.
 		assert.ok(Number.isNaN(average([])));
+	});
+
+	it('median', () => {
+		assert.strictEqual(median([3, 1, 2]), 2);
+		assert.strictEqual(median([4, 1, 3, 2]), 2.5);
+		assert.strictEqual(median([5]), 5);
+		assert.strictEqual(median([1, 3]), 2);
+		assert.strictEqual(median([-1, -5, 0]), -1);
+		assert.strictEqual(median([1.5, 2.5]), 2);
+		// `NaN` is skipped, as `min` and `max` skip it.
+		assert.strictEqual(median([NaN, 1, 3]), 2);
+		assert.strictEqual(median([]), null);
+		assert.strictEqual(median([NaN]), null);
+
+		// The input keeps its order.
+		const input = [3, 1, 2];
+
+		median(input);
+		assert.deepStrictEqual(input, [3, 1, 2]);
 	});
 
 	it('arrMove', () => {
@@ -400,6 +421,84 @@ describe('Array', () => {
 			[1, 1],
 			[1, 1]
 		]);
+	});
+
+	it('arrGroupBy', () => {
+		assert.deepStrictEqual(arrGroupBy([1.2, 1.8, 2.1], Math.floor), {
+			'1': [1.2, 1.8],
+			'2': [2.1]
+		});
+		assert.deepStrictEqual(
+			arrGroupBy(['one', 'two', 'three'], (item) => item.length),
+			{ '3': ['one', 'two'], '5': ['three'] }
+		);
+
+		// The grouped items are the input's own, not copies.
+		const first = { type: 'a', v: 1 };
+		const second = { type: 'b', v: 2 };
+		const third = { type: 'a', v: 3 };
+		const byType = arrGroupBy([first, second, third], (item) => item.type);
+
+		assert.deepStrictEqual(byType, { a: [first, third], b: [second] });
+		assert.strictEqual(byType.a[0], first);
+		assert.strictEqual(byType.a[1], third);
+		assert.strictEqual(byType.b[0], second);
+
+		// A key is the callback's result written as a string.
+		assert.deepStrictEqual(
+			arrGroupBy(['x'], () => 1.0),
+			{ '1': ['x'] }
+		);
+		assert.deepStrictEqual(
+			arrGroupBy(['x'], () => true as any),
+			{ true: ['x'] }
+		);
+		assert.deepStrictEqual(
+			arrGroupBy(['x'], () => null as any),
+			{ null: ['x'] }
+		);
+
+		// Groups keep the order their key was first seen in.
+		assert.deepStrictEqual(Object.keys(arrGroupBy(['b', 'a', 'b'], (item) => item)), ['b', 'a']);
+		assert.deepStrictEqual(
+			arrGroupBy(['b', 'a', 'b'], (item) => item),
+			{ b: ['b', 'b'], a: ['a'] }
+		);
+
+		assert.deepStrictEqual(
+			arrGroupBy([], (item) => item),
+			{}
+		);
+		assert.deepStrictEqual(
+			arrGroupBy(null as any, (item: any) => item),
+			{}
+		);
+		assert.deepStrictEqual(
+			arrGroupBy('abc' as any, (item: any) => item),
+			{}
+		);
+
+		// The callback receives the item and nothing else.
+		const calls: any[][] = [];
+
+		arrGroupBy([1, 2], (...args: any[]) => {
+			calls.push(args);
+
+			return 1;
+		});
+		assert.deepStrictEqual(calls, [[1], [2]]);
+
+		// A key named `__proto__` is a group, not the prototype of the result.
+		const protoGroups = arrGroupBy(['__proto__'], (item) => item);
+
+		assert.strictEqual(Object.hasOwn(protoGroups, '__proto__'), true);
+		assert.strictEqual(Object.getPrototypeOf(protoGroups), Object.prototype);
+
+		// The input is not modified.
+		const input = [3, 1, 2];
+
+		arrGroupBy(input, (item) => item % 2);
+		assert.deepStrictEqual(input, [3, 1, 2]);
 	});
 
 	it('arrCompact', () => {

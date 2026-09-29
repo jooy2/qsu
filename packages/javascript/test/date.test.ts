@@ -1,7 +1,15 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
 import dayjs from 'dayjs';
-import { dayDiff, today, isValidDate, dateToYYYYMMDD, createDateListFromRange } from '../dist';
+import {
+	dayDiff,
+	today,
+	isValidDate,
+	dateToYYYYMMDD,
+	createDateListFromRange,
+	isLeapYear,
+	getDaysInMonth
+} from '../dist';
 
 describe('Date', () => {
 	it('dayDiff', () => {
@@ -31,6 +39,34 @@ describe('Date', () => {
 	it('dateToYYYYMMDD', () => {
 		assert.strictEqual(dateToYYYYMMDD(new Date('2023-05-15T01:01:00Z')), '2023-05-15');
 		assert.strictEqual(dateToYYYYMMDD(new Date(2023, 11, 31), '/'), '2023/12/31');
+	});
+
+	it('isLeapYear', () => {
+		assert.strictEqual(isLeapYear(2024), true);
+		assert.strictEqual(isLeapYear(2023), false);
+		assert.strictEqual(isLeapYear(1900), false);
+		assert.strictEqual(isLeapYear(2000), true);
+		// The rule carries on to year 0 and to negative years.
+		assert.strictEqual(isLeapYear(0), true);
+		assert.strictEqual(isLeapYear(-4), true);
+		assert.strictEqual(isLeapYear(-100), false);
+	});
+
+	it('getDaysInMonth', () => {
+		assert.strictEqual(getDaysInMonth(2024, 2), 29);
+		assert.strictEqual(getDaysInMonth(2023, 2), 28);
+		assert.strictEqual(getDaysInMonth(1900, 2), 28);
+		assert.strictEqual(getDaysInMonth(2000, 2), 29);
+		assert.strictEqual(getDaysInMonth(2024, 1), 31);
+		assert.strictEqual(getDaysInMonth(2024, 4), 30);
+		assert.strictEqual(getDaysInMonth(2024, 12), 31);
+
+		// `month` counts from 1, so 0 is out of range as well as 13.
+		const monthError = { name: 'RangeError', message: '`month` must be an integer from 1 to 12.' };
+
+		assert.throws(() => getDaysInMonth(2024, 0), monthError);
+		assert.throws(() => getDaysInMonth(2024, 13), monthError);
+		assert.throws(() => getDaysInMonth(2024, 1.5), monthError);
 	});
 
 	it('createDateListFromRange', () => {

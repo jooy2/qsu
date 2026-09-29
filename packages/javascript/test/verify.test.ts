@@ -4,6 +4,7 @@ import {
 	isObject,
 	isEqual,
 	isEqualStrict,
+	isEqualDeep,
 	isEmpty,
 	isUrl,
 	contains,
@@ -56,6 +57,54 @@ describe('Verify', () => {
 		assert.strictEqual(isEqualStrict('123', ['123', 123]), false);
 		assert.strictEqual(isEqualStrict('123', ['123', '123']), true);
 		assert.strictEqual(isEqualStrict(123, '123', 123), false);
+	});
+
+	it('isEqualDeep', () => {
+		assert.strictEqual(isEqualDeep(1, 1), true);
+		assert.strictEqual(isEqualDeep(1, 1.0), true);
+		assert.strictEqual(isEqualDeep(0, -0), true);
+		assert.strictEqual(isEqualDeep(NaN, NaN), true);
+		// No type coercion between a number and anything else.
+		assert.strictEqual(isEqualDeep(true, 1), false);
+		assert.strictEqual(isEqualDeep('1', 1), false);
+		assert.strictEqual(isEqualDeep('a', 'a'), true);
+		assert.strictEqual(isEqualDeep(null, null), true);
+		assert.strictEqual(isEqualDeep(null, 0), false);
+		assert.strictEqual(isEqualDeep(null, undefined), false);
+		// An array is a value to compare, not a list of operands.
+		assert.strictEqual(isEqualDeep([1, 2], [1, 2]), true);
+		assert.strictEqual(isEqualDeep([1, 2], [2, 1]), false);
+		assert.strictEqual(isEqualDeep([1], [1, 1]), false);
+		// Key order is ignored.
+		assert.strictEqual(isEqualDeep({ a: 1, b: 2 }, { b: 2, a: 1 }), true);
+		assert.strictEqual(isEqualDeep({ a: 1 }, { a: 1, b: 2 }), false);
+		assert.strictEqual(isEqualDeep({ a: 1 }, { a: '1' }), false);
+		assert.strictEqual(isEqualDeep({ a: [1, { b: [2] }] }, { a: [1, { b: [2] }] }), true);
+		// An array is never equal to an object, and neither is equal to a primitive.
+		assert.strictEqual(isEqualDeep([], {}), false);
+		assert.strictEqual(isEqualDeep({}, []), false);
+		assert.strictEqual(isEqualDeep([], null), false);
+		// Dates compare by the moment they hold.
+		assert.strictEqual(
+			isEqualDeep(new Date('2024-01-01T00:00:00Z'), new Date('2024-01-01T00:00:00Z')),
+			true
+		);
+		assert.strictEqual(
+			isEqualDeep(new Date('2024-01-01T00:00:00Z'), new Date('2024-01-02T00:00:00Z')),
+			false
+		);
+		assert.strictEqual(isEqualDeep(new Date('invalid'), new Date('also invalid')), true);
+
+		// A structure that points back at itself does not recurse forever.
+		const a: any = {};
+		const b: any = {};
+
+		a.self = a;
+		b.self = b;
+		assert.strictEqual(isEqualDeep(a, b), true);
+		// Both are plain objects, so their keys decide. A `Map` is compared by identity.
+		assert.strictEqual(isEqualDeep({}, Object.create(null)), true);
+		assert.strictEqual(isEqualDeep(new Map(), new Map()), false);
 	});
 
 	it('isEmpty', () => {

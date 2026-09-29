@@ -1,6 +1,7 @@
 export { arrCompact } from './arrCompact.js';
 export { arrCount } from './arrCount.js';
 export { arrDifference } from './arrDifference.js';
+export { arrGroupBy } from './arrGroupBy.js';
 export { arrGroupByMaxCount } from './arrGroupByMaxCount.js';
 export { arrIntersection } from './arrIntersection.js';
 export { arrMove } from './arrMove.js';
@@ -12,5 +13,6 @@ export { arrUnique } from './arrUnique.js';
 export { arrWithDefault } from './arrWithDefault.js';
 export { arrWithNumber } from './arrWithNumber.js';
 export { average } from './average.js';
+export { median } from './median.js';
 export { sortByObjectKey } from './sortByObjectKey.js';
 export { sortNumeric } from './sortNumeric.js';
