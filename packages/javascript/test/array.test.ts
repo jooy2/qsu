@@ -100,6 +100,23 @@ describe('Array', () => {
 		assert.throws(() => arrWithNumber(2, 1));
 		assert.deepStrictEqual(arrWithNumber(0, 5), [0, 1, 2, 3, 4, 5]);
 		assert.deepStrictEqual(arrWithNumber(1, 1), [1]);
+		assert.deepStrictEqual(arrWithNumber(1, 5), [1, 2, 3, 4, 5]);
+		assert.deepStrictEqual(arrWithNumber(3, 3), [3]);
+		// The end is included only when a step lands on it.
+		assert.deepStrictEqual(arrWithNumber(0, 10, { step: 3 }), [0, 3, 6, 9]);
+		assert.deepStrictEqual(arrWithNumber(0, 10, { step: 5 }), [0, 5, 10]);
+		assert.deepStrictEqual(arrWithNumber(1, 2, { step: 10 }), [1]);
+		assert.deepStrictEqual(arrWithNumber(-5, 5, { step: 5 }), [-5, 0, 5]);
+		assert.throws(() => arrWithNumber(5, 1), {
+			name: 'RangeError',
+			message: '`start` is greater than `end`.'
+		});
+
+		const stepError = { name: 'RangeError', message: '`step` must be a positive integer.' };
+
+		assert.throws(() => arrWithNumber(0, 10, { step: 0 }), stepError);
+		assert.throws(() => arrWithNumber(0, 10, { step: -1 }), stepError);
+		assert.throws(() => arrWithNumber(0, 10, { step: 1.5 }), stepError);
 	});
 
 	it('average', () => {
