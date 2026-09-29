@@ -11,9 +11,7 @@ An interface that is configured but has nothing attached reports an address of a
 <PlatformSupport :rows="[
 	{ os: 'windows', note: 'The first adapter that is not loopback, in the order Windows lists them.' },
 	{ os: 'macos', support: 'partial', note: 'The address currently assigned to the interface, which macOS randomises for Wi-Fi by default. It changes from one network to the next and is not the address printed on the machine.' },
-	{ os: 'linux', note: 'The first interface that is not loopback, which is normally the one carrying the default route.' },
-	{ os: 'android', languages: 'dart', note: 'Android reports a randomised address rather than the hardware one.' },
-	{ os: 'ios', languages: 'dart', support: 'no', note: 'Neither the JavaScript nor the Python package runs on iOS.' }
+	{ os: 'linux', note: 'The first interface that is not loopback, which is normally the one carrying the default route.' }
 ]" />
 
 ## Parameters
