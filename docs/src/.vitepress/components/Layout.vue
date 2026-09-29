@@ -5,7 +5,7 @@ import { computed, nextTick, onMounted, watch } from 'vue';
 import LangNotice from './LangNotice.vue';
 import LangSelect from './LangSelect.vue';
 import { codeLanguage, syncCodeLanguage } from '../data/language';
-import { CODE_LANGUAGES, languagesOf } from '../data/languages';
+import { CODE_LANGUAGES, languagesOf, pageEntry } from '../data/languages';
 import { list, localeOf, t } from '../data/i18n';
 
 // The default layout, plus the two things the language switch needs from the
@@ -21,29 +21,42 @@ const { lang, theme } = useData();
 const locale = computed(() => localeOf(lang.value));
 
 /**
- * Marks the sidebar entries the selected language cannot use.
+ * Marks the sidebar entries the selected language cannot use, and, in
+ * JavaScript, the ones that ship under `qsu/node`.
  *
- * The default theme has no slot inside a sidebar item, so the mark is a class
- * and a `data-lang-badge` attribute written onto the rendered link; `lang.css`
+ * The default theme has no slot inside a sidebar item, so each mark is a class
+ * and a `data-*-badge` attribute written onto the rendered link; `lang.css`
  * draws the badge from the attribute. Re-applied whenever the page or the
  * language changes, which is also when the sidebar rebuilds itself.
  */
 function syncSidebar() {
 	const implemented = theme.value.functionLanguages;
 
-	if (!implemented) {
-		return;
-	}
-
 	for (const link of document.querySelectorAll('.VPSidebarItem .link')) {
-		const languages = languagesOf(implemented, link.getAttribute('href') ?? '');
+		const href = link.getAttribute('href') ?? '';
+		const languages = languagesOf(implemented, href);
 		const missing = Boolean(languages) && !languages.includes(codeLanguage.value);
+		// The subpath is a JavaScript concern: Dart and Python import these
+		// functions like any other, so their readers see no mark.
+		const node =
+			!missing && codeLanguage.value === 'js' && Boolean(pageEntry(theme.value.nodeRequired, href));
 		const text = link.querySelector('.text');
 
 		link.classList.toggle('lang-unavailable', missing);
+		link.classList.toggle('requires-node', node);
+
+		if (node) {
+			link.setAttribute('title', t(locale.value, 'nodeLink'));
+			link.setAttribute('data-node-badge', t(locale.value, 'nodeBadge'));
+		} else {
+			link.removeAttribute('data-node-badge');
+		}
 
 		if (!missing) {
-			link.removeAttribute('title');
+			if (!node) {
+				link.removeAttribute('title');
+			}
+
 			text?.removeAttribute('data-lang-badge');
 			continue;
 		}

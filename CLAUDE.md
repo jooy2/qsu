@@ -99,6 +99,8 @@ newer Node when running docs commands, or the build fails during Vite config res
     places it (see next section).
   - `LangNotice` — the "not available in *language*" banner above a function a package lacks.
   - `NodeRequired` — the "requires a Node.js runtime (`qsu/node`)" banner. JavaScript only.
+    `config.mts` collects the pages that carry it into `nodeRequired`, and the sidebar marks
+    the same entries with a `Node` badge while JavaScript is selected.
   - `ParamsTable` — the parameter tables (see below).
   - `ReturnType` — the **Returns** section.
   - `Val` — a value that differs between packages, inline in a sentence.

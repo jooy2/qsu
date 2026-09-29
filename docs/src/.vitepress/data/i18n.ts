@@ -29,6 +29,12 @@ const STRINGS: Record<string, Record<string, string>> = {
 		en: 'Not available in {language}. Implemented in {languages}.',
 		ko: '{language}에서는 제공하지 않습니다. {languages}에서 제공합니다.'
 	},
+	/** On a sidebar entry that ships under `qsu/node`. A product name, not translated. */
+	nodeBadge: { en: 'Node', ko: 'Node' },
+	nodeLink: {
+		en: 'Requires a Node.js runtime. Import it from qsu/node.',
+		ko: 'Node.js 런타임이 필요합니다. qsu/node에서 가져옵니다.'
+	},
 	/** Between the last two items of a list of names. */
 	listJoin: { en: ' and ', ko: ', ' },
 	/* The home page. `LangTabs.vue` stands in for the sidebar switch, which the

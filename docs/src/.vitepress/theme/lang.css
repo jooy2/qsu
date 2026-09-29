@@ -343,3 +343,35 @@ html[data-code-lang='python'] .lang-notice:not([data-code-lang~='python']) {
 	vertical-align: 1px;
 	color: var(--vp-c-text-3);
 }
+
+/* ---------------------------------------------------------------------------
+ * A function the JavaScript package ships under `qsu/node`
+ * ------------------------------------------------------------------------- */
+
+/*
+ * Set by `Layout.vue` while JavaScript is selected. The badge sits at the right
+ * edge of the entry rather than after the name, so that a column of them reads
+ * as a column. A name too long to share its line with the badge pushes it onto
+ * a line of its own, still on the right, instead of pushing it out of the
+ * sidebar.
+ */
+.VPSidebarItem .link.requires-node {
+	flex-wrap: wrap;
+	column-gap: 6px;
+}
+
+.VPSidebarItem .link.requires-node::after {
+	content: attr(data-node-badge);
+	flex: none;
+	margin-left: auto;
+	padding: 1px 5px;
+	border: 1px solid var(--vp-badge-warning-border);
+	border-radius: 999px;
+	background-color: var(--vp-badge-warning-bg);
+	font-size: 9px;
+	font-weight: 700;
+	line-height: 1.4;
+	letter-spacing: 0.02em;
+	white-space: nowrap;
+	color: var(--vp-badge-warning-text);
+}

@@ -43,22 +43,32 @@ export const CODE_LANGUAGE_STORAGE_KEY = 'qsu-code-language';
 export const CODE_LANGUAGE_HEAD_SCRIPT = `(function(){var ids=${JSON.stringify(CODE_LANGUAGE_IDS)},stored;try{stored=localStorage.getItem(${JSON.stringify(CODE_LANGUAGE_STORAGE_KEY)})}catch(e){}document.documentElement.dataset.codeLang=ids.indexOf(stored)<0?${JSON.stringify(DEFAULT_CODE_LANGUAGE)}:stored})()`;
 
 /**
- * Which languages implement the page at `path`, or `null` when every one does.
+ * What `map` holds for the page at `path`, or `null` when it holds nothing.
  *
- * `map` is `themeConfig.functionLanguages`, which lists only the pages that are
- * not implemented everywhere. The path is a route, so it carries the locale
- * prefix of every locale but the default one — hence the second lookup.
+ * The maps in `themeConfig` are keyed by the default locale's routes. The path
+ * is a route too, so it carries the locale prefix of every locale but the
+ * default one — hence the second lookup.
  */
-export function languagesOf(
-	map: Record<string, string[]> | undefined,
-	path: string
-): string[] | null {
+export function pageEntry<T>(map: Record<string, T> | undefined, path: string): T | null {
 	const page = path
 		.replace(/[?#].*$/, '')
 		.replace(/\.html$/, '')
 		.replace(/\/$/, '');
 
 	return map?.[page] ?? map?.[page.replace(/^\/[^/]+/, '')] ?? null;
+}
+
+/**
+ * Which languages implement the page at `path`, or `null` when every one does.
+ *
+ * `map` is `themeConfig.functionLanguages`, which lists only the pages that are
+ * not implemented everywhere.
+ */
+export function languagesOf(
+	map: Record<string, string[]> | undefined,
+	path: string
+): string[] | null {
+	return pageEntry(map, path);
 }
 
 /**

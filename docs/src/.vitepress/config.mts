@@ -157,6 +157,25 @@ function collectCategoryCounts(): Record<string, Record<string, number>> {
 
 const categoryCounts = collectCategoryCounts();
 
+/**
+ * The reference pages whose JavaScript function ships under `qsu/node`.
+ *
+ * A page says so with `<NodeRequired>`, the banner under its title, and the
+ * sidebar marks the same entries so that a reader writing for the browser sees
+ * which functions are out of reach before opening one. Reading the banner rather
+ * than the package keeps the two from disagreeing. The default locale is the
+ * source, as it is for `collectFunctionLanguages`.
+ */
+function collectNodeRequired(): Record<string, true> {
+	return Object.fromEntries(
+		markdownFiles(join(srcDir, defaultLocale, 'reference'))
+			.filter((path) => /<NodeRequired\b/.test(readFileSync(path, 'utf8')))
+			.map((path) => [pageOf(defaultLocale, path), true])
+	);
+}
+
+const nodeRequired = collectNodeRequired();
+
 const commonSidebarConfig: VitePressSidebarOptions = {
 	debugPrint: true,
 	documentRootPath: 'src',
@@ -309,6 +328,8 @@ const vitePressConfigs: UserConfig = {
 	themeConfig: {
 		// Read by `LangNotice.vue` and by the sidebar marks in `Layout.vue`.
 		functionLanguages,
+		// Read by the sidebar marks in `Layout.vue`.
+		nodeRequired,
 		// Read by `CategoryGrid.vue`, which draws the catalogue on the home page.
 		categoryCounts,
 		siteTitle: false,
