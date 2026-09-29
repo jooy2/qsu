@@ -62,7 +62,7 @@ import { sha256Hash, getFileSize } from 'qsu/node';
 | `compact` | [arrCompact](/ko/reference/array/arrCompact) | 세 패키지가 같은 답을 내도록, JavaScript의 truthy 판정 대신 제거할 값을 고정해 두었습니다. |
 | `difference` | [arrDifference](/ko/reference/array/arrDifference) |  |
 | `intersection` | [arrIntersection](/ko/reference/array/arrIntersection) |  |
-| `uniq` | [arrUnique](/ko/reference/array/arrUnique) |  |
+| `uniq` | [arrUnique](/ko/reference/array/arrUnique) | **다릅니다.** qsu는 내용이 같은 객체와 중첩 배열을 중복으로 보고, Lodash는 참조로 비교합니다. |
 | `flattenDeep` | [arrTo1dArray](/ko/reference/array/arrTo1dArray) | 한 단계만 펴는 `_.flatten`은 `array.flat()`입니다. |
 | `shuffle` | [arrShuffle](/ko/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/ko/reference/array/arrPick) | `_.sampleSize`에 해당하는 것은 없습니다. |

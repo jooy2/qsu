@@ -28,7 +28,7 @@ There is no `_.chain(…).value()`, no `_.iteratee` shorthand and no `_.template
 | `chunk` | [arrGroupByMaxCount](/reference/array/arrGroupByMaxCount) |  |
 | `difference` | [arrDifference](/reference/array/arrDifference) |  |
 | `intersection` | [arrIntersection](/reference/array/arrIntersection) |  |
-| `uniq` | [arrUnique](/reference/array/arrUnique) |  |
+| `uniq` | [arrUnique](/reference/array/arrUnique) | **Different.** Objects and nested arrays with the same contents are duplicates in qsu; Underscore compares them by reference. |
 | `flatten` | [arrTo1dArray](/reference/array/arrTo1dArray) | Both go all the way down. qsu takes no depth argument. |
 | `shuffle` | [arrShuffle](/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/reference/array/arrPick) | qsu returns one element and takes no count. |

@@ -63,7 +63,7 @@ qsu.round(2.675, 2)
 | `compact` | [arrCompact](/ko/reference/array/arrCompact) | **다릅니다.** 세 패키지가 같은 답을 내도록, falsy한 값 전부가 아니라 정해진 값만 제거합니다. |
 | `difference` | [arrDifference](/ko/reference/array/arrDifference) |  |
 | `intersection` | [arrIntersection](/ko/reference/array/arrIntersection) |  |
-| `uniq` | [arrUnique](/ko/reference/array/arrUnique) |  |
+| `uniq` | [arrUnique](/ko/reference/array/arrUnique) | **다릅니다.** qsu는 `True`를 `1`로 보지 않으므로 `[1, True]`는 둘 다 남습니다. |
 | `flatten_deep` | [arrTo1dArray](/ko/reference/array/arrTo1dArray) | 한 단계만 펴는 `flatten`에 해당하는 것은 없습니다. |
 | `shuffle` | [arrShuffle](/ko/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/ko/reference/array/arrPick) | `sample_size`에 해당하는 것은 없습니다. |

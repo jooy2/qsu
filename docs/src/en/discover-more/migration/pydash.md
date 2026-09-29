@@ -63,7 +63,7 @@ Options arrive as keyword arguments, or as a single `dict` in their place.
 | `compact` | [arrCompact](/reference/array/arrCompact) | **Different.** qsu rejects a fixed set of values so that all three packages agree, rather than everything falsy. |
 | `difference` | [arrDifference](/reference/array/arrDifference) |  |
 | `intersection` | [arrIntersection](/reference/array/arrIntersection) |  |
-| `uniq` | [arrUnique](/reference/array/arrUnique) |  |
+| `uniq` | [arrUnique](/reference/array/arrUnique) | **Different.** qsu never treats `True` as `1`, so `[1, True]` keeps both. |
 | `flatten_deep` | [arrTo1dArray](/reference/array/arrTo1dArray) | `flatten`, which goes one level deep, has no counterpart. |
 | `shuffle` | [arrShuffle](/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/reference/array/arrPick) | `sample_size` has no counterpart. |

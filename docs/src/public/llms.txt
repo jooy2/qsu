@@ -33,10 +33,10 @@ Array creation, sorting, sampling, deduplication and grouping.
 - [arrRepeat](https://qsu.cdget.com/reference/array/arrRepeat) (JavaScript, Dart, Python): Repeats the data of an `Array` or `Object` a specific number of times and returns it as a 1d array.
 - [arrShuffle](https://qsu.cdget.com/reference/array/arrShuffle) (JavaScript, Dart, Python): Shuffle the order of the given array and return.
 - [arrTo1dArray](https://qsu.cdget.com/reference/array/arrTo1dArray) (JavaScript, Dart, Python): Merges all elements of a multidimensional array into a one-dimensional array.
-- [arrUnique](https://qsu.cdget.com/reference/array/arrUnique) (JavaScript, Dart, Python): Remove duplicate values from array and two-dimensional array data. In the case of 2d arrays, json type data duplication is not removed.
+- [arrUnique](https://qsu.cdget.com/reference/array/arrUnique) (JavaScript, Dart, Python): Returns a new array with duplicate values removed, keeping the first of each. Values are compared by value, so nested arrays and objects with the same contents are duplicates.
 - [arrWithDefault](https://qsu.cdget.com/reference/array/arrWithDefault) (JavaScript, Dart, Python): Initialize an array with a default value of a specific length.
 - [arrWithNumber](https://qsu.cdget.com/reference/array/arrWithNumber) (JavaScript, Dart, Python): Returns an array of the numbers from `start` to `end`, counting up by the `step` option (default `1`). `end` is included when a step lands on it.
-- [average](https://qsu.cdget.com/reference/array/average) (JavaScript, Dart, Python): Returns the average of all numeric values in an array.
+- [average](https://qsu.cdget.com/reference/array/average) (JavaScript, Dart, Python): Returns the average of all numeric values in an array. An empty array returns `NaN`.
 - [median](https://qsu.cdget.com/reference/array/median) (JavaScript, Dart, Python): Returns the middle value of an array of numbers, or the mean of the two middle values when the count is even. `NaN` is skipped and an empty array returns `null`.
 - [sortByObjectKey](https://qsu.cdget.com/reference/array/sortByObjectKey) (JavaScript, Dart, Python): Sort array values by a specific key value in an array containing multiple objects. It does not affect the order or value of elements within an object.
 - [sortNumeric](https://qsu.cdget.com/reference/array/sortNumeric) (JavaScript, Dart, Python): When sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names.

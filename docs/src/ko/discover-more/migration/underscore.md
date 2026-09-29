@@ -28,7 +28,7 @@ import { arrUnique, strToKebabCase } from 'qsu';
 | `chunk` | [arrGroupByMaxCount](/ko/reference/array/arrGroupByMaxCount) |  |
 | `difference` | [arrDifference](/ko/reference/array/arrDifference) |  |
 | `intersection` | [arrIntersection](/ko/reference/array/arrIntersection) |  |
-| `uniq` | [arrUnique](/ko/reference/array/arrUnique) |  |
+| `uniq` | [arrUnique](/ko/reference/array/arrUnique) | **다릅니다.** qsu는 내용이 같은 객체와 중첩 배열을 중복으로 보고, Underscore는 참조로 비교합니다. |
 | `flatten` | [arrTo1dArray](/ko/reference/array/arrTo1dArray) | 둘 다 끝까지 폅니다. qsu는 깊이 인자를 받지 않습니다. |
 | `shuffle` | [arrShuffle](/ko/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/ko/reference/array/arrPick) | qsu는 하나만 돌려주고 개수를 받지 않습니다. |

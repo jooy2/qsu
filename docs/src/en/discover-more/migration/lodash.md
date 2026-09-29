@@ -62,7 +62,7 @@ There is no chained form. `_.chain(x).map(f).uniq().value()` has no counterpart,
 | `compact` | [arrCompact](/reference/array/arrCompact) | The rejected set is fixed rather than left to JavaScript truthiness, so that all three packages agree. |
 | `difference` | [arrDifference](/reference/array/arrDifference) |  |
 | `intersection` | [arrIntersection](/reference/array/arrIntersection) |  |
-| `uniq` | [arrUnique](/reference/array/arrUnique) |  |
+| `uniq` | [arrUnique](/reference/array/arrUnique) | **Different.** Objects and nested arrays with the same contents are duplicates in qsu; Lodash compares them by reference. |
 | `flattenDeep` | [arrTo1dArray](/reference/array/arrTo1dArray) | `_.flatten`, which goes one level deep, is `array.flat()`. |
 | `shuffle` | [arrShuffle](/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/reference/array/arrPick) | `_.sampleSize` has no counterpart. |
