@@ -74,6 +74,90 @@ bool isEqualStrict(dynamic leftOperand,
   return true;
 }
 
+/// (Private) Compares two values for [isEqualDeep]. [pairs] holds the pairs of containers
+/// being compared further up, so a structure that points back at itself ends the walk
+/// instead of recursing until the stack runs out.
+bool _isEqualDeep(dynamic left, dynamic right, List<(Object, Object)> pairs) {
+  if (left is num || right is num) {
+    if (left is! num || right is! num) {
+      return false;
+    }
+
+    return left == right || (left.isNaN && right.isNaN);
+  }
+
+  final bool bothLists = left is List && right is List;
+  final bool bothMaps = left is Map && right is Map;
+
+  if (!bothLists && !bothMaps) {
+    // A list is never equal to a map, and neither is equal to anything else.
+    if (left is List || right is List || left is Map || right is Map) {
+      return false;
+    }
+
+    if (left is DateTime && right is DateTime) {
+      return left.isAtSameMomentAs(right);
+    }
+
+    return left == right;
+  }
+
+  for (final (Object, Object) pair in pairs) {
+    if (identical(pair.$1, left) && identical(pair.$2, right)) {
+      return true;
+    }
+  }
+
+  pairs.add((left, right));
+
+  final bool result = bothLists
+      ? _isEqualDeepList(left, right, pairs)
+      : _isEqualDeepMap(left, right, pairs);
+
+  pairs.removeLast();
+
+  return result;
+}
+
+bool _isEqualDeepList(
+    List<dynamic> left, List<dynamic> right, List<(Object, Object)> pairs) {
+  if (left.length != right.length) {
+    return false;
+  }
+
+  for (int i = 0; i < left.length; i++) {
+    if (!_isEqualDeep(left[i], right[i], pairs)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool _isEqualDeepMap(Map<dynamic, dynamic> left, Map<dynamic, dynamic> right,
+    List<(Object, Object)> pairs) {
+  if (left.length != right.length) {
+    return false;
+  }
+
+  for (final dynamic key in left.keys) {
+    if (!right.containsKey(key) ||
+        !_isEqualDeep(left[key], right[key], pairs)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/// Returns `true` when the two values have the same structure and the same contents. It takes exactly two values, and unlike [isEqual], a list is a value to compare rather than a list of operands.
+/// Numbers are compared by value, so `1` equals `1.0` and `NaN` equals `NaN`, but a number never equals a string or a `bool`.
+/// Lists are compared item by item, maps by their keys in any order, and a `DateTime` by the moment it represents. Anything else is compared with `==`.
+/// A structure that points back at itself is compared without recursing forever.
+bool isEqualDeep(dynamic left, dynamic right) {
+  return _isEqualDeep(left, right, []);
+}
+
 /// Returns true if the passed data is empty or has a length of 0.
 bool isEmpty(dynamic data) {
   if (data == null) {

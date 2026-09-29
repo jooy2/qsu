@@ -32,6 +32,35 @@ void main() {
       expect(isValidDate('0000-01-01'), false);
     });
 
+    test('isLeapYear', () {
+      expect(isLeapYear(2024), true);
+      expect(isLeapYear(2023), false);
+      expect(isLeapYear(1900), false);
+      expect(isLeapYear(2000), true);
+      // The rule applies to year `0` and negative years as well.
+      expect(isLeapYear(0), true);
+      expect(isLeapYear(-4), true);
+      expect(isLeapYear(-100), false);
+    });
+
+    test('getDaysInMonth', () {
+      expect(getDaysInMonth(2024, 2), 29);
+      expect(getDaysInMonth(2023, 2), 28);
+      expect(getDaysInMonth(1900, 2), 28);
+      expect(getDaysInMonth(2000, 2), 29);
+      expect(getDaysInMonth(2024, 1), 31);
+      expect(getDaysInMonth(2024, 4), 30);
+      expect(getDaysInMonth(2024, 12), 31);
+      expect(
+          () => getDaysInMonth(2024, 0),
+          throwsA(isA<RangeError>().having((RangeError e) => e.message,
+              'message', '`month` must be an integer from 1 to 12.')));
+      expect(
+          () => getDaysInMonth(2024, 13),
+          throwsA(isA<RangeError>().having((RangeError e) => e.message,
+              'message', '`month` must be an integer from 1 to 12.')));
+    });
+
     test('dateToYYYYMMDD', () {
       expect(dateToYYYYMMDD(DateTime.utc(2023, 5, 15, 1, 1, 0)), '2023-05-15');
       expect(dateToYYYYMMDD(DateTime(2023, 12, 31), '/'), '2023/12/31');

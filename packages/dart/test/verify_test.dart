@@ -63,6 +63,64 @@ void main() {
       expect(isEqualStrict(1, [1, '1']), false);
     });
 
+    test('isEqualDeep', () {
+      expect(isEqualDeep(1, 1), true);
+      expect(isEqualDeep(1, 1.0), true);
+      expect(isEqualDeep(0, -0.0), true);
+      expect(isEqualDeep(double.nan, double.nan), true);
+      expect(isEqualDeep(true, 1), false);
+      expect(isEqualDeep('1', 1), false);
+      expect(isEqualDeep('a', 'a'), true);
+      expect(isEqualDeep(null, null), true);
+      expect(isEqualDeep(null, 0), false);
+
+      expect(isEqualDeep([1, 2], [1, 2]), true);
+      expect(isEqualDeep([1, 2], [2, 1]), false);
+      expect(isEqualDeep([1], [1, 1]), false);
+
+      // Key order is ignored.
+      expect(isEqualDeep({'a': 1, 'b': 2}, {'b': 2, 'a': 1}), true);
+      expect(isEqualDeep({'a': 1}, {'a': 1, 'b': 2}), false);
+      expect(isEqualDeep({'a': 1}, {'a': '1'}), false);
+      expect(
+          isEqualDeep({
+            'a': [
+              1,
+              {
+                'b': [2]
+              }
+            ]
+          }, {
+            'a': [
+              1,
+              {
+                'b': [2]
+              }
+            ]
+          }),
+          true);
+
+      // A list is never equal to a map, and neither is equal to a primitive.
+      expect(isEqualDeep([], {}), false);
+      expect(isEqualDeep({}, []), false);
+      expect(isEqualDeep([], null), false);
+
+      // Dates are compared by the moment they represent.
+      final DateTime moment = DateTime.utc(2024, 1, 1, 12);
+
+      expect(isEqualDeep(moment, DateTime.utc(2024, 1, 1, 12)), true);
+      expect(isEqualDeep(moment, moment.toLocal()), true);
+      expect(isEqualDeep(moment, DateTime.utc(2024, 1, 1, 13)), false);
+
+      // A structure that points back at itself does not recurse forever.
+      final Map<String, dynamic> a = {};
+      final Map<String, dynamic> b = {};
+
+      a['self'] = a;
+      b['self'] = b;
+      expect(isEqualDeep(a, b), true);
+    });
+
     test('isEmpty', () {
       expect(isEmpty(''), true);
       expect(isEmpty('1234'), false);

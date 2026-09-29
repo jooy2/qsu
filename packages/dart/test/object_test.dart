@@ -320,6 +320,91 @@ void main() {
       expect(objGet({'a.b': 1}, "['a.b']"), 1);
     });
 
+    test('objSet', () {
+      final Map<String, dynamic> nested = {
+        'a': {'b': 1}
+      };
+      final Map<String, dynamic>? written = objSet(nested, 'a.b', 2);
+
+      expect(written, {
+        'a': {'b': 2}
+      });
+      // A copied map stays a `Map<String, dynamic>`, so it can be read back as one.
+      expect(written!['a'], isA<Map<String, dynamic>>());
+      expect(objSet({}, 'a.b.c', 1), {
+        'a': {
+          'b': {'c': 1}
+        }
+      });
+      // A value on the path that is not a map or a list is replaced by a new map.
+      expect(objSet({'a': 1}, 'a.b', 2), {
+        'a': {'b': 2}
+      });
+      expect(objSet({'a': null}, 'a.b', 2), {
+        'a': {'b': 2}
+      });
+
+      final Map<String, dynamic> withList = {
+        'list': [
+          {'x': 1},
+          {'x': 2}
+        ]
+      };
+      final Map<String, dynamic>? listResult = objSet(withList, 'list[1].x', 9);
+
+      expect(listResult!['list'][1]['x'], 9);
+      expect(identical(listResult['list'][0], withList['list'][0]), true);
+      expect(withList['list'][1]['x'], 2);
+
+      // The length of a list appends a new element.
+      expect(
+          objSet({
+            'list': [1]
+          }, 'list[1]', 2),
+          {
+            'list': [1, 2]
+          });
+      expect(
+          objSet({
+            'list': [1]
+          }, 'list[0]', 5),
+          {
+            'list': [5]
+          });
+      expect(
+          () => objSet({
+                'list': [1]
+              }, 'list[5]', 2),
+          throwsA(isA<RangeError>().having((RangeError e) => e.message,
+              'message', '`path` does not name an index of the list at `5`.')));
+      expect(
+          () => objSet({
+                'list': [1]
+              }, 'list.x', 2),
+          throwsA(isA<RangeError>().having((RangeError e) => e.message,
+              'message', '`path` does not name an index of the list at `x`.')));
+
+      // A missing level is always a map, even when its segment is a number.
+      expect(objSet({}, 'a[0]', 1), {
+        'a': {'0': 1}
+      });
+      expect(objSet({}, 'a["b.c"]', 1), {
+        'a': {'b.c': 1}
+      });
+
+      // Everything off the path is shared, and the source is not modified.
+      final Map<String, dynamic> source = {
+        'a': {'b': 1},
+        'c': {'d': 2}
+      };
+      final Map<String, dynamic>? updated = objSet(source, 'a.b', 3);
+
+      expect(updated!['a'], {'b': 3});
+      expect(identical(updated['c'], source['c']), true);
+      expect(source['a']['b'], 1);
+      expect(objSet(null, 'a', 1), isNull);
+    });
+
     test('objPick', () {
       expect(objPick({'a': 1, 'b': 2, 'c': 3}, ['a', 'c']), {'a': 1, 'c': 3});
       expect(objPick({'a': 1, 'b': 2}, 'a'), {'a': 1});
@@ -340,6 +425,34 @@ void main() {
         'c': 2
       });
       expect(objPick(null, 'a'), isNull);
+    });
+
+    test('objOmit', () {
+      expect(objOmit({'a': 1, 'b': 2, 'c': 3}, ['a', 'c']), {'b': 2});
+      expect(objOmit({'a': 1, 'b': 2}, 'a'), {'b': 2});
+      // A key that is not there is ignored.
+      expect(objOmit({'a': 1}, ['x']), {'a': 1});
+
+      // Omitting nothing still returns a new object.
+      final Map<String, dynamic> single = {'a': 1};
+      final Map<String, dynamic>? copy = objOmit(single, []);
+
+      expect(copy, {'a': 1});
+      expect(identical(copy, single), false);
+
+      // The nested value is carried over as it is, and the source is not modified.
+      final Map<String, dynamic> source = {
+        'a': {'b': 1},
+        'c': 2
+      };
+      final Map<String, dynamic>? omitted = objOmit(source, 'c');
+
+      expect(identical(omitted!['a'], source['a']), true);
+      expect(source, {
+        'a': {'b': 1},
+        'c': 2
+      });
+      expect(objOmit(null, 'a'), isNull);
     });
 
     test('objPickBy', () {
@@ -416,6 +529,8 @@ void main() {
             '100': 'g',
             '1.5': 'h'
           });
+      expect(arrGroupBy([1e20], (double value) => value).keys,
+          ['100000000000000000000']);
       expect(objInvert({'a': 1, 'b': 2}), {'1': 'a', '2': 'b'});
       expect(objInvert({'a': 'x', 'b': 'y'}), {'x': 'a', 'y': 'b'});
       // Two entries sharing a value land on the same key, so the later one wins.

@@ -183,6 +183,29 @@ Map<String, dynamic>? objPick(Map<String, dynamic>? obj, dynamic keys) {
   return result;
 }
 
+/// Returns a new object with every key except the listed ones. It is the inverse of [objPick]. A single key or a list of keys is accepted.
+/// Only the top level is inspected, and a listed key the map does not have is ignored.
+/// Values are carried over as they are, so a nested map is shared with the source rather than copied.
+/// The original map is not modified. If the first argument is `null`, `null` is returned.
+Map<String, dynamic>? objOmit(Map<String, dynamic>? obj, dynamic keys) {
+  if (obj == null) {
+    return null;
+  }
+
+  final Set<String> keySet = keys is String
+      ? <String>{keys}
+      : (keys as Iterable).map((dynamic key) => key.toString()).toSet();
+  final Map<String, dynamic> result = {};
+
+  obj.forEach((String key, dynamic value) {
+    if (!keySet.contains(key)) {
+      result[key] = value;
+    }
+  });
+
+  return result;
+}
+
 /// (Private) Turns `a.b[0].c` into `['a', 'b', '0', 'c']`. A bracket may carry a quoted
 /// key, so `a["b.c"]` reads one key `b.c` instead of two.
 List<String> _parsePath(String path) {
@@ -284,6 +307,83 @@ dynamic objGet(Map<String, dynamic>? obj, String path, {dynamic fallback}) {
   }
 
   return current;
+}
+
+final RegExp _digitsOnly = RegExp(r'^[0-9]+$');
+
+/// (Private) Reads the list index a path segment names for [objSet]. The length of the list
+/// is allowed and means a new element is appended; anything past it, or a segment that is
+/// not a run of digits, throws.
+int _listIndex(List<dynamic> list, String segment) {
+  final int? index =
+      _digitsOnly.hasMatch(segment) ? int.tryParse(segment) : null;
+
+  if (index == null || index > list.length) {
+    throw RangeError(
+        '`path` does not name an index of the list at `$segment`.');
+  }
+
+  return index;
+}
+
+/// (Private) The container [objSet] steps into on its way down. A map or a list is copied,
+/// so the source is never modified, and anything else is replaced by a new map.
+dynamic _copyForPath(dynamic value) {
+  // `Map.of` would infer its types from `dynamic` and build a `Map<dynamic, dynamic>`,
+  // which is not a `Map<String, dynamic>` and would fail wherever one is expected.
+  if (value is Map) {
+    return Map<String, dynamic>.from(value);
+  }
+
+  if (value is List) {
+    return List.of(value);
+  }
+
+  return <String, dynamic>{};
+}
+
+/// Returns a copy of the object with [value] written at [path], creating every level that is missing on the way. It is the write counterpart of [objGet] and reads the path the same way.
+/// Every map and list on the path is copied, so the source is never modified, and everything off the path is shared with it.
+/// A missing level is always created as a map, even when its segment is a number, and a value on the path that is neither a map nor a list, `null` included, is replaced by a new map.
+/// In a list, the segment must name an index from `0` to the length of the list, and the length appends a new element. Anything else throws a `RangeError`.
+/// If the first argument is `null`, `null` is returned.
+Map<String, dynamic>? objSet(
+    Map<String, dynamic>? obj, String path, dynamic value) {
+  if (obj == null) {
+    return null;
+  }
+
+  final List<String> segments = _parsePath(path);
+  final Map<String, dynamic> result = Map<String, dynamic>.of(obj);
+  dynamic current = result;
+
+  for (int i = 0; i < segments.length; i++) {
+    final String segment = segments[i];
+    final bool isLast = i == segments.length - 1;
+
+    if (current is Map) {
+      final dynamic next = isLast ? value : _copyForPath(current[segment]);
+
+      current[segment] = next;
+      current = next;
+      continue;
+    }
+
+    final List<dynamic> list = current as List<dynamic>;
+    final int index = _listIndex(list, segment);
+    final dynamic next =
+        isLast ? value : _copyForPath(index < list.length ? list[index] : null);
+
+    if (index == list.length) {
+      list.add(next);
+    } else {
+      list[index] = next;
+    }
+
+    current = next;
+  }
+
+  return result;
 }
 
 /// Merges any number of objects into one new object, going down through nested objects. When two sources carry the same key, the later one wins.

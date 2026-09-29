@@ -48,6 +48,28 @@ bool isValidDate(String dateYYYYMMDD) {
   return day <= maxDay;
 }
 
+/// Returns `true` when the given year is a leap year in the Gregorian calendar: divisible by 4, and either not divisible by 100 or divisible by 400.
+/// The rule is applied to every year, `0` and negative years included.
+bool isLeapYear(int year) {
+  return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+}
+
+const List<int> _daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+/// Returns the number of days in the given month of the given year. [month] runs from `1` (January) to `12` (December), and February follows [isLeapYear].
+/// A month outside that range throws a `RangeError`.
+int getDaysInMonth(int year, int month) {
+  if (month < 1 || month > 12) {
+    throw RangeError('`month` must be an integer from 1 to 12.');
+  }
+
+  if (month == 2) {
+    return isLeapYear(year) ? 29 : 28;
+  }
+
+  return _daysInMonth[month - 1];
+}
+
 /// Returns the date data of a Date object in the format `YYYY-MM-DD`.
 String dateToYYYYMMDD(DateTime date, [String separator = '-']) {
   final int month = date.month;

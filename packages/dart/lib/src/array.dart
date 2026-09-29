@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:unorm_dart/unorm_dart.dart';
+import 'package:qsu/src/_key_string.dart';
 import 'package:qsu/src/verify.dart';
 
 /// Shuffle the order of the given array and return.
@@ -78,6 +79,26 @@ double average(List<num> array) {
   }
 
   return total / array.length;
+}
+
+/// Returns the middle value of an array of numbers. When the count is even, the mean of the two middle values is returned.
+/// Values that are `NaN` are skipped, as `min` and `max` do, and `null` is returned when nothing is left.
+/// The values are sorted in a copy, so the original array is not modified.
+num? median(List<num> array) {
+  final List<num> sorted = array.where((num value) => !value.isNaN).toList()
+    ..sort();
+
+  if (sorted.isEmpty) {
+    return null;
+  }
+
+  final int middle = sorted.length ~/ 2;
+
+  if (sorted.length.isOdd) {
+    return sorted[middle];
+  }
+
+  return (sorted[middle - 1] + sorted[middle]) / 2;
 }
 
 /// Moves the position of a specific element in an array to the specified position. (Position starts from 0.)
@@ -177,6 +198,21 @@ List<List<T>> arrGroupByMaxCount<T>(List<T> array, int maxLengthPerGroup) {
 
   if (tempArray.isNotEmpty) {
     result.add(tempArray);
+  }
+
+  return result;
+}
+
+/// Groups the items of an array by the key the callback returns for each of them. The callback receives the item only.
+/// The key is the callback's result as a string: a whole `double` is written without its fractional part (`1.0` becomes `'1'`), a `bool` becomes `'true'` or `'false'`, and `null` becomes `'null'`.
+/// Groups keep the order in which their key was first seen, and items keep their original order inside a group. The original array is not modified.
+/// To split an array into chunks of a fixed size instead, use [arrGroupByMaxCount].
+Map<String, List<T>> arrGroupBy<T>(
+    List<T> array, Object? Function(T item) callback) {
+  final Map<String, List<T>> result = {};
+
+  for (final T item in array) {
+    result.putIfAbsent(toKeyString(callback(item)), () => <T>[]).add(item);
   }
 
   return result;

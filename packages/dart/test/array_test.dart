@@ -156,6 +156,25 @@ void main() {
       expect(average([]).isNaN, true);
     });
 
+    test('median', () {
+      expect(median([3, 1, 2]), 2);
+      expect(median([4, 1, 3, 2]), 2.5);
+      expect(median([5]), 5);
+      expect(median([1, 3]), 2);
+      expect(median([-1, -5, 0]), -1);
+      expect(median([1.5, 2.5]), 2);
+      // `NaN` is skipped, as `min` and `max` do.
+      expect(median([double.nan, 1, 3]), 2);
+      expect(median([]), isNull);
+      expect(median([double.nan]), isNull);
+
+      // The values are sorted in a copy.
+      final List<num> input = [3, 1, 2];
+
+      median(input);
+      expect(input, [3, 1, 2]);
+    });
+
     test('arrMove', () {
       expect(arrMove([1, 3, 5, 7, 9], 0, 3), [3, 5, 7, 1, 9]);
       expect(arrMove([5, 10, 15], 1, 2), [5, 15, 10]);
@@ -249,6 +268,51 @@ void main() {
         [1, 1],
         [1, 1]
       ]);
+    });
+
+    test('arrGroupBy', () {
+      expect(arrGroupBy([1.2, 1.8, 2.1], (double n) => n.floor()), {
+        '1': [1.2, 1.8],
+        '2': [2.1]
+      });
+      expect(
+          arrGroupBy(['one', 'two', 'three'], (String item) => item.length), {
+        '3': ['one', 'two'],
+        '5': ['three']
+      });
+
+      // The grouped items are the input's own instances.
+      final List<Map<String, dynamic>> items = [
+        {'type': 'a', 'v': 1},
+        {'type': 'b', 'v': 2},
+        {'type': 'a', 'v': 3}
+      ];
+      final Map<String, List<Map<String, dynamic>>> byType =
+          arrGroupBy(items, (Map<String, dynamic> item) => item['type']);
+
+      expect(byType, {
+        'a': [items[0], items[2]],
+        'b': [items[1]]
+      });
+      expect(identical(byType['a']![0], items[0]), true);
+      expect(identical(byType['a']![1], items[2]), true);
+      expect(identical(byType['b']![0], items[1]), true);
+
+      // The key is the callback's result as a string.
+      expect(arrGroupBy(['x'], (String item) => 1.0), {
+        '1': ['x']
+      });
+      expect(arrGroupBy(['x'], (String item) => true), {
+        'true': ['x']
+      });
+      expect(arrGroupBy(['x'], (String item) => null), {
+        'null': ['x']
+      });
+
+      // Groups keep the order in which their key was first seen.
+      expect(arrGroupBy(['b', 'a', 'b'], (String item) => item).keys.toList(),
+          ['b', 'a']);
+      expect(arrGroupBy(<int>[], (int item) => item), {});
     });
 
     test('sortNumeric', () {
