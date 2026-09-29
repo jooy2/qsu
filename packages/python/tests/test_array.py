@@ -96,6 +96,8 @@ def test_average():
 	assert average([1, 3, 5, 7, 9]) == 5
 	assert average([1, 5, 15, 50]) == 17.75
 	assert average([5, -5]) == 0
+	# An empty list has no average.
+	assert math.isnan(average([]))
 
 
 def test_arrMove():
