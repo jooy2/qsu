@@ -1,5 +1,6 @@
 import type { AnyValueObject } from '../_types/global.js';
 import { isObject } from '../verify/isObject.js';
+import { getOwn, setOwn } from './_ownProperty.js';
 
 export function objMerge(...objects: AnyValueObject[]): AnyValueObject | null {
 	if (objects.length === 0) {
@@ -25,10 +26,15 @@ export function objMerge(...objects: AnyValueObject[]): AnyValueObject | null {
 			// shared with the result. Everything else, arrays included, is replaced whole by
 			// the later value. Lodash merges arrays index by index instead, which quietly
 			// keeps elements the caller meant to drop.
-			result[key] =
-				isObject(result[key]) && isObject(value)
-					? (objMerge(result[key], value) as AnyValueObject)
-					: value;
+			const existing = getOwn(result, key);
+
+			setOwn(
+				result,
+				key,
+				isObject(existing) && isObject(value)
+					? (objMerge(existing, value) as AnyValueObject)
+					: value
+			);
 		}
 	}
 

@@ -1,4 +1,5 @@
 import type { AnyValueObject } from '../_types/global.js';
+import { setOwn } from './_ownProperty.js';
 
 export function objPickBy(
 	obj: AnyValueObject,
@@ -16,7 +17,7 @@ export function objPickBy(
 		const key = keys[i];
 
 		if (predicate(obj[key], key)) {
-			result[key] = obj[key];
+			setOwn(result, key, obj[key]);
 		}
 	}
 

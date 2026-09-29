@@ -22,6 +22,17 @@ describe('Net', () => {
 		assert.deepStrictEqual(responsePost.id, 101);
 	});
 
+	it('parseAddress keeps a __proto__ parameter as data', () => {
+		const params = parseAddress('https://example.com/?__proto__=x&a=1').params as Record<
+			string,
+			string
+		>;
+
+		assert.strictEqual(Object.hasOwn(params, '__proto__'), true);
+		assert.strictEqual(Object.getPrototypeOf(params), Object.prototype);
+		assert.strictEqual(params.a, '1');
+	});
+
 	it('parseAddress', () => {
 		type Expected = {
 			error: boolean;

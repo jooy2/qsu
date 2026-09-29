@@ -803,4 +803,27 @@ describe('Misc', () => {
 		objInvert(original);
 		assert.deepStrictEqual(original, { a: 1 });
 	});
+
+	it('keeps a key named __proto__ as data', () => {
+		// `JSON.parse` makes `__proto__` an own key. Assigning it to a new object would replace
+		// that object's prototype instead of copying the key.
+		const source = JSON.parse('{"__proto__": {"polluted": true}, "a": 1}');
+		const isOwnData = (result: any): boolean =>
+			Object.hasOwn(result, '__proto__') &&
+			Object.getPrototypeOf(result) === Object.prototype &&
+			result.polluted === undefined;
+
+		assert.ok(isOwnData(objPick(source, ['__proto__', 'a'])));
+		assert.ok(isOwnData(objPickBy(source, () => true)));
+		assert.ok(isOwnData(objClone(source, { deep: true })));
+		assert.ok(isOwnData(objMerge({}, source)));
+		assert.ok(isOwnData(objMergeNewKey({}, source)));
+		assert.ok(isOwnData(objUpdate(source, '__proto__', { polluted: true })));
+		assert.ok(isOwnData(objUpdate({}, '__proto__', { polluted: true }, false, true)));
+		assert.ok(isOwnData(objDeleteKeyByValue(source, 1, true)));
+		assert.ok(isOwnData(objMapKeys({ a: { polluted: true } }, () => '__proto__')));
+		assert.ok(isOwnData(objInvert({ a: '__proto__' })));
+		assert.ok(isOwnData(objTo1d(JSON.parse('{"__proto__": 1, "a": {"b": 2}}'))));
+		assert.strictEqual(({} as any).polluted, undefined);
+	});
 });

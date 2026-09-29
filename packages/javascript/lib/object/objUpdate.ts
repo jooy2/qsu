@@ -1,5 +1,6 @@
 import type { AnyValueObject } from '../_types/global.js';
 import { isObject } from '../verify/isObject.js';
+import { setOwn } from './_ownProperty.js';
 
 export function objUpdate(
 	obj: AnyValueObject,
@@ -26,14 +27,14 @@ export function objUpdate(
 			const currentKey = keys[i];
 
 			if (recursive && result[currentKey] && isObject(result[currentKey])) {
-				result[currentKey] = updateObject(result[currentKey]);
+				setOwn(result, currentKey, updateObject(result[currentKey]));
 			}
 		}
 
 		// Assign once per object. The old code repeated this identical assignment for every
 		// key in the object.
 		if (Object.hasOwn(result, key)) {
-			result[key] = value;
+			setOwn(result, key, value);
 			hasUpdated = true;
 		}
 
@@ -43,7 +44,7 @@ export function objUpdate(
 	const newObj = updateObject(obj);
 
 	if (!hasUpdated && upsert) {
-		newObj[key] = value;
+		setOwn(newObj, key, value);
 	}
 
 	return newObj;

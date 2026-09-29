@@ -1,4 +1,5 @@
 import type { AnyValueObject } from '../_types/global.js';
+import { setOwn } from './_ownProperty.js';
 
 export function objInvert(obj: AnyValueObject): { [key: string]: string } | null {
 	if (!obj || typeof obj !== 'object') {
@@ -13,7 +14,7 @@ export function objInvert(obj: AnyValueObject): { [key: string]: string } | null
 	for (let i = 0, keysLength = keys.length; i < keysLength; i += 1) {
 		const key = keys[i];
 
-		result[String(obj[key])] = key;
+		setOwn(result, String(obj[key]), key);
 	}
 
 	return result;

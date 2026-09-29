@@ -142,6 +142,20 @@ describe('Array', () => {
 		]);
 	});
 
+	it('arrCount keeps inherited names as values', () => {
+		const counted = arrCount(['__proto__', '__proto__', 'a']);
+
+		// Counted as data rather than written over the prototype of the result.
+		assert.strictEqual(Object.hasOwn(counted, '__proto__'), true);
+		assert.strictEqual(Object.getPrototypeOf(counted), Object.prototype);
+		assert.deepStrictEqual(Object.entries(counted), [
+			['__proto__', 2],
+			['a', 1]
+		]);
+		// `constructor` is inherited, so it must not read as a count the array already had.
+		assert.deepStrictEqual(arrCount(['constructor']), { constructor: 1 });
+	});
+
 	it('arrCount', () => {
 		assert.deepStrictEqual(arrCount([]), {});
 		assert.deepStrictEqual(arrCount([1, 2, 3, 3, 4, 5, 5, 5]), {

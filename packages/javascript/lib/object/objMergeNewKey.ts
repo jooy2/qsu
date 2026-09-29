@@ -1,5 +1,6 @@
 import type { AnyValueObject } from '../_types/global.js';
 import { isObject } from '../verify/isObject.js';
+import { setOwn } from './_ownProperty.js';
 
 export function objMergeNewKey(
 	obj: AnyValueObject,
@@ -20,9 +21,9 @@ export function objMergeNewKey(
 				if (options?.arrayAction === 'append') {
 					// `concat` builds a new array. `push` grew the caller's array, because
 					// the `{ ...obj }` copy above is shallow and shares it.
-					merged[key] = merged[key].concat(data);
+					setOwn(merged, key, merged[key].concat(data));
 				} else if (options?.arrayAction === 'replace') {
-					merged[key] = data;
+					setOwn(merged, key, data);
 				} else if (merged[key].length === data.length) {
 					const mergedArray = [...merged[key]];
 
@@ -34,15 +35,15 @@ export function objMergeNewKey(
 						}
 					}
 
-					merged[key] = mergedArray;
+					setOwn(merged, key, mergedArray);
 				}
 			} else if (isObject(merged[key]) && isObject(data)) {
-				merged[key] = objMergeNewKey(merged[key], data, options);
+				setOwn(merged, key, objMergeNewKey(merged[key], data, options));
 			} else {
-				merged[key] = data;
+				setOwn(merged, key, data);
 			}
 		} else {
-			merged[key] = data;
+			setOwn(merged, key, data);
 		}
 	});
 

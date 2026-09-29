@@ -1,4 +1,5 @@
 import type { ParseAddressOptions, ParsedAddress, StringValueObject } from '../_types/global.js';
+import { setOwn } from '../object/_ownProperty.js';
 
 /**
  * (Private) The port each scheme is served on when the address does not name one. It is
@@ -134,7 +135,7 @@ function parseQuery(query: string, decode: boolean): StringValueObject | undefin
 
 		// A key that repeats keeps its last value, which is what reading the string left to
 		// right into an object gives.
-		params[decode ? percentDecode(key) : key] = decode ? percentDecode(value) : value;
+		setOwn(params, decode ? percentDecode(key) : key, decode ? percentDecode(value) : value);
 		found = true;
 	}
 

@@ -1,5 +1,6 @@
 import type { AnyValueObject } from '../_types/global.js';
 import { isObject } from '../verify/isObject.js';
+import { setOwn } from './_ownProperty.js';
 
 export function objTo1d(obj: AnyValueObject, separator = '.'): AnyValueObject {
 	if (!separator || separator.length < 1) {
@@ -7,7 +8,7 @@ export function objTo1d(obj: AnyValueObject, separator = '.'): AnyValueObject {
 	}
 
 	const convertObjectTo1d = (o: AnyValueObject, objPath = ''): AnyValueObject => {
-		let result: AnyValueObject = {};
+		const result: AnyValueObject = {};
 		// Build the key list once. Calling `Object.keys` inside the loop rebuilt the whole
 		// array on every iteration, making this O(n^2).
 		const keys = Object.keys(o);
@@ -19,10 +20,16 @@ export function objTo1d(obj: AnyValueObject, separator = '.'): AnyValueObject {
 			const newObjPath = `${objPath}${isFirstDepth ? '' : separator}${key}`;
 
 			if (isObject(value)) {
-				result = Object.assign(result, convertObjectTo1d(value, newObjPath));
+				const nested = convertObjectTo1d(value, newObjPath);
+				const nestedKeys = Object.keys(nested);
+
+				for (let j = 0, nestedLength = nestedKeys.length; j < nestedLength; j += 1) {
+					setOwn(result, nestedKeys[j], nested[nestedKeys[j]]);
+				}
+
 				delete result[key];
 			} else {
-				result[newObjPath] = value;
+				setOwn(result, newObjPath, value);
 			}
 		}
 

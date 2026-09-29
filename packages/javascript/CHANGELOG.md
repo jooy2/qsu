@@ -14,6 +14,8 @@
 - `parseAddress`: `defaultPort` was added, the port the scheme is served on when the address does not name one. It is reported separately from `port`, so an address that carried a port can still be told from one that did not. 28 schemes are known, from `ssh` and `https` to `postgres` and `redis`
 - `parseAddress`: `isIP` and `isIPv6` were added. They read the hostname, so `256.1.1.1` and `[gggg::1]` are hosts like any other rather than addresses, and `::ffff:192.168.1.1` is an IPv6 address
 - `parseAddress`: The user, the password and the query values are percent-decoded, so `ssh://us%40er:p%40ss@host` reports the user and password a person would type. A value carrying a sequence that is not an escape, or escapes that do not spell valid UTF-8, is returned as it was written rather than half-decoded. Pass `decode: false` to keep every value raw
+- `objPick`, `objPickBy`, `objInvert`, `objMapKeys`, `objClone`, `objMerge`, `objMergeNewKey`, `objUpdate`, `objDeleteKeyByValue`, `objTo1d`, `arrCount` and `parseAddress`: A key named `__proto__`, which `JSON.parse` or a query string can produce, is stored as an ordinary key. Writing it replaced the prototype of the returned object instead, so the key disappeared and the result inherited whatever value it carried. `Object.prototype` itself was never touched
+- `arrCount`: A value named after an inherited property, such as `constructor`, is counted from `1`. It used to start from the inherited function and produce a string
 
 ## 1.20.0 (2026-09-20)
 

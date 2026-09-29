@@ -1,5 +1,6 @@
 import type { AnyValueObject } from '../_types/global.js';
 import { isObject } from '../verify/isObject.js';
+import { setOwn } from './_ownProperty.js';
 
 export function objDeleteKeyByValue(
 	obj: AnyValueObject,
@@ -22,7 +23,7 @@ export function objDeleteKeyByValue(
 		const key = keys[i];
 
 		if (recursive && newObj[key] && isObject(newObj[key])) {
-			newObj[key] = objDeleteKeyByValue(newObj[key], searchValue, recursive);
+			setOwn(newObj, key, objDeleteKeyByValue(newObj[key], searchValue, recursive));
 		} else if (newObj[key] === searchValue) {
 			delete newObj[key];
 		}

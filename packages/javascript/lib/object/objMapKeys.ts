@@ -1,4 +1,5 @@
 import type { AnyValueObject } from '../_types/global.js';
+import { setOwn } from './_ownProperty.js';
 
 export function objMapKeys(
 	obj: AnyValueObject,
@@ -16,7 +17,7 @@ export function objMapKeys(
 	for (let i = 0, keysLength = keys.length; i < keysLength; i += 1) {
 		const key = keys[i];
 
-		result[iteratee(obj[key], key)] = obj[key];
+		setOwn(result, iteratee(obj[key], key), obj[key]);
 	}
 
 	return result;

@@ -1,5 +1,6 @@
 import type { AnyValueObject } from '../_types/global.js';
 import { isObject } from '../verify/isObject.js';
+import { setOwn } from './_ownProperty.js';
 
 // `seen` maps every container already copied to its copy, so a structure that points back
 // at itself is rebuilt with the same shape instead of recursing until the stack runs out.
@@ -59,7 +60,7 @@ function cloneValue(value: any, seen: WeakMap<object, any>): any {
 
 		seen.set(value, copy);
 		Object.keys(value).forEach((key: string) => {
-			copy[key] = cloneValue(value[key], seen);
+			setOwn(copy, key, cloneValue(value[key], seen));
 		});
 
 		return copy;

@@ -1,4 +1,5 @@
 import type { AnyValueObject } from '../_types/global.js';
+import { setOwn } from './_ownProperty.js';
 
 export function objPick(obj: AnyValueObject, keys: string | string[]): AnyValueObject | null {
 	if (!obj || typeof obj !== 'object') {
@@ -15,7 +16,7 @@ export function objPick(obj: AnyValueObject, keys: string | string[]): AnyValueO
 		const key = keyList[i];
 
 		if (Object.hasOwn(obj, key)) {
-			result[key] = obj[key];
+			setOwn(result, key, obj[key]);
 		}
 	}
 
