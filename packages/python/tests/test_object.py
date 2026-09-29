@@ -1,3 +1,6 @@
+import pytest
+
+from qsu.array import arrGroupBy
 from qsu.object import (
 	objClone,
 	objDeleteKeyByValue,
@@ -7,8 +10,10 @@ from qsu.object import (
 	objMapKeys,
 	objMerge,
 	objMergeNewKey,
+	objOmit,
 	objPick,
 	objPickBy,
+	objSet,
 	objTo1d,
 	objToArray,
 	objToPrettyStr,
@@ -387,6 +392,78 @@ def test_objPick():
 	assert objPick('abc', 'a') is None
 
 
+def test_objOmit():
+	assert objOmit({'a': 1, 'b': 2, 'c': 3}, ['a', 'c']) == {'b': 2}
+	assert objOmit({'a': 1, 'b': 2}, 'a') == {'b': 2}
+	# A key the object does not have is ignored.
+	assert objOmit({'a': 1}, ['x']) == {'a': 1}
+
+	# Nothing to omit still gives a new dict.
+	original = {'a': 1}
+	omitted = objOmit(original, [])
+
+	assert omitted == {'a': 1}
+	assert omitted is not original
+
+	# The nested value is shared with the source, and the source is not modified.
+	source = {'a': {'b': 1}, 'c': 2}
+	result = objOmit(source, 'c')
+
+	assert result == {'a': {'b': 1}}
+	assert result['a'] is source['a']
+	assert source == {'a': {'b': 1}, 'c': 2}
+
+	assert objOmit(None, 'a') is None
+	assert objOmit('abc', 'a') is None
+
+
+def test_objSet():
+	assert objSet({'a': {'b': 1}}, 'a.b', 2) == {'a': {'b': 2}}
+	# Missing levels are created.
+	assert objSet({}, 'a.b.c', 1) == {'a': {'b': {'c': 1}}}
+	# A value on the path that cannot hold a key is replaced.
+	assert objSet({'a': 1}, 'a.b', 2) == {'a': {'b': 2}}
+	assert objSet({'a': None}, 'a.b', 2) == {'a': {'b': 2}}
+
+	# Only the containers on the path are copied.
+	listSource = {'list': [{'x': 1}, {'x': 2}]}
+	listResult = objSet(listSource, 'list[1].x', 9)
+
+	assert listResult == {'list': [{'x': 1}, {'x': 9}]}
+	assert listResult['list'][0] is listSource['list'][0]
+	assert listSource == {'list': [{'x': 1}, {'x': 2}]}
+
+	# The length of a list appends.
+	assert objSet({'list': [1]}, 'list[1]', 2) == {'list': [1, 2]}
+	assert objSet({'list': [1]}, 'list[0]', 5) == {'list': [5]}
+
+	with pytest.raises(IndexError) as error:
+		objSet({'list': [1]}, 'list[5]', 2)
+	assert str(error.value) == '`path` does not name an index of the list at `5`.'
+
+	with pytest.raises(IndexError) as error:
+		objSet({'list': [1]}, 'list.x', 2)
+	assert str(error.value) == '`path` does not name an index of the list at `x`.'
+
+	# A missing level is always a dict, even under an index.
+	assert objSet({}, 'a[0]', 1) == {'a': {'0': 1}}
+	assert objSet({}, 'a["b.c"]', 1) == {'a': {'b.c': 1}}
+
+	# Everything off the path is shared, and the source is not modified.
+	source = {'a': {'b': 1}, 'c': {'d': 2}}
+	result = objSet(source, 'a.b', 3)
+
+	assert result == {'a': {'b': 3}, 'c': {'d': 2}}
+	assert result['c'] is source['c']
+	assert source['a']['b'] == 1
+
+	# A tuple on the path stays a tuple.
+	assert objSet({'t': (1, {'a': 1})}, 't[1].a', 2) == {'t': (1, {'a': 2})}
+
+	assert objSet(None, 'a', 1) is None
+	assert objSet([], '0', 1) is None
+
+
 def test_objPickBy():
 	assert objPickBy({'a': 1, 'b': 2, 'c': 3}, lambda value, key: value > 1) == {
 		'b': 2,
@@ -435,6 +512,7 @@ def test_objMapKeys():
 def test_objInvert():
 	# A number becomes the key JavaScript's `String()` writes for it.
 	assert objInvert({'a': 1e20, 'b': 123456789012345678901.0, 'c': 1e21, 'd': 1e-7, 'e': 0.000001, 'f': -0.0, 'g': 100.0, 'h': 1.5}) == {'100000000000000000000': 'a', '123456789012345680000': 'b', '1e+21': 'c', '1e-7': 'd', '0.000001': 'e', '0': 'f', '100': 'g', '1.5': 'h'}
+	assert list(arrGroupBy([1e20], lambda value: value)) == ['100000000000000000000']
 	assert objInvert({'a': 1, 'b': 2}) == {'1': 'a', '2': 'b'}
 	assert objInvert({'a': 'x', 'b': 'y'}) == {'x': 'a', 'y': 'b'}
 	# Two entries sharing a value land on the same key, so the later one wins.

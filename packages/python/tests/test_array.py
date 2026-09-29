@@ -6,6 +6,7 @@ from qsu.array import (
 	arrCompact,
 	arrCount,
 	arrDifference,
+	arrGroupBy,
 	arrGroupByMaxCount,
 	arrIntersection,
 	arrMove,
@@ -17,6 +18,7 @@ from qsu.array import (
 	arrWithDefault,
 	arrWithNumber,
 	average,
+	median,
 	sortByObjectKey,
 	sortNumeric,
 )
@@ -123,6 +125,25 @@ def test_average():
 	assert average([5, -5]) == 0
 	# An empty list has no average.
 	assert math.isnan(average([]))
+
+
+def test_median():
+	assert median([3, 1, 2]) == 2
+	assert median([4, 1, 3, 2]) == 2.5
+	assert median([5]) == 5
+	assert median([1, 3]) == 2
+	assert median([-1, -5, 0]) == -1
+	assert median([1.5, 2.5]) == 2
+	# `nan` is skipped, as `min` and `max` skip it.
+	assert median([float('nan'), 1, 3]) == 2
+	assert median([]) is None
+	assert median([float('nan')]) is None
+
+	# The input keeps its original order.
+	source = [3, 1, 2]
+
+	median(source)
+	assert source == [3, 1, 2]
 
 
 def test_arrMove():
@@ -291,6 +312,42 @@ def test_sortByObjectKey_numerically_uses_the_same_ordering():
 		{'n': 'item2'},
 		{'n': 'item1'},
 	]
+
+
+def test_arrGroupBy():
+	assert arrGroupBy([1.2, 1.8, 2.1], math.floor) == {'1': [1.2, 1.8], '2': [2.1]}
+	assert arrGroupBy(['one', 'two', 'three'], lambda item: len(item)) == {
+		'3': ['one', 'two'],
+		'5': ['three'],
+	}
+
+	# The grouped items are the input's own, not copies.
+	first = {'type': 'a', 'v': 1}
+	second = {'type': 'b', 'v': 2}
+	third = {'type': 'a', 'v': 3}
+	grouped = arrGroupBy([first, second, third], lambda item: item['type'])
+
+	assert grouped == {'a': [first, third], 'b': [second]}
+	assert grouped['a'][0] is first
+	assert grouped['a'][1] is third
+	assert grouped['b'][0] is second
+
+	# A key is written the way JavaScript's `String()` writes it.
+	assert arrGroupBy([1], lambda item: 1.0) == {'1': [1]}
+	assert arrGroupBy([1], lambda item: True) == {'true': [1]}
+	assert arrGroupBy([1], lambda item: False) == {'false': [1]}
+	assert arrGroupBy([1], lambda item: None) == {'null': [1]}
+
+	# Groups come out in the order their key was first seen.
+	ordered = arrGroupBy(['b', 'a', 'b'], lambda item: item)
+
+	assert list(ordered) == ['b', 'a']
+	assert ordered == {'b': ['b', 'b'], 'a': ['a']}
+
+	assert arrGroupBy((1, 2), lambda item: item % 2) == {'1': [1], '0': [2]}
+	assert arrGroupBy([], lambda item: item) == {}
+	assert arrGroupBy(None, lambda item: item) == {}
+	assert arrGroupBy('abc', lambda item: item) == {}
 
 
 def test_arrGroupByMaxCount():

@@ -8,6 +8,8 @@ if TYPE_CHECKING:
 	from .createDateListFromRange import createDateListFromRange as createDateListFromRange
 	from .dateToYYYYMMDD import dateToYYYYMMDD as dateToYYYYMMDD
 	from .dayDiff import dayDiff as dayDiff
+	from .getDaysInMonth import getDaysInMonth as getDaysInMonth
+	from .isLeapYear import isLeapYear as isLeapYear
 	from .isValidDate import isValidDate as isValidDate
 	from .today import today as today
 
@@ -15,6 +17,8 @@ __all__ = [
 	'createDateListFromRange',
 	'dateToYYYYMMDD',
 	'dayDiff',
+	'getDaysInMonth',
+	'isLeapYear',
 	'isValidDate',
 	'today',
 ]

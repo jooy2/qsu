@@ -6,6 +6,8 @@ from qsu.date import (
 	createDateListFromRange,
 	dateToYYYYMMDD,
 	dayDiff,
+	getDaysInMonth,
+	isLeapYear,
 	isValidDate,
 	today,
 )
@@ -38,6 +40,34 @@ def test_isValidDate():
 	assert isValidDate('2021-03-32') is False
 	assert isValidDate('2021-13-01') is False
 	assert isValidDate('0000-01-01') is False
+
+
+def test_isLeapYear():
+	assert isLeapYear(2024) is True
+	assert isLeapYear(2023) is False
+	assert isLeapYear(1900) is False
+	assert isLeapYear(2000) is True
+	# The rule holds for year 0 and the negative years too.
+	assert isLeapYear(0) is True
+	assert isLeapYear(-4) is True
+	assert isLeapYear(-100) is False
+
+
+def test_getDaysInMonth():
+	assert getDaysInMonth(2024, 2) == 29
+	assert getDaysInMonth(2023, 2) == 28
+	assert getDaysInMonth(1900, 2) == 28
+	assert getDaysInMonth(2000, 2) == 29
+	assert getDaysInMonth(2024, 1) == 31
+	assert getDaysInMonth(2024, 4) == 30
+	assert getDaysInMonth(2024, 12) == 31
+	# A float holding a whole number is that number.
+	assert getDaysInMonth(2024, 2.0) == 29
+
+	for month in (0, 13, True, 1.5):
+		with pytest.raises(ValueError) as error:
+			getDaysInMonth(2024, month)
+		assert str(error.value) == '`month` must be an integer from 1 to 12.'
 
 
 def test_dateToYYYYMMDD():

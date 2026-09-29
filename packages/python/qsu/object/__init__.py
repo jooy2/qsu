@@ -13,8 +13,10 @@ if TYPE_CHECKING:
 	from .objMapKeys import objMapKeys as objMapKeys
 	from .objMerge import objMerge as objMerge
 	from .objMergeNewKey import objMergeNewKey as objMergeNewKey
+	from .objOmit import objOmit as objOmit
 	from .objPick import objPick as objPick
 	from .objPickBy import objPickBy as objPickBy
+	from .objSet import objSet as objSet
 	from .objTo1d import objTo1d as objTo1d
 	from .objToArray import objToArray as objToArray
 	from .objToPrettyStr import objToPrettyStr as objToPrettyStr
@@ -30,8 +32,10 @@ __all__ = [
 	'objMapKeys',
 	'objMerge',
 	'objMergeNewKey',
+	'objOmit',
 	'objPick',
 	'objPickBy',
+	'objSet',
 	'objTo1d',
 	'objToArray',
 	'objToPrettyStr',

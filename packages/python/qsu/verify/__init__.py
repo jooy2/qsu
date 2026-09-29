@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 	from .isEmail import isEmail as isEmail
 	from .isEmpty import isEmpty as isEmpty
 	from .isEqual import isEqual as isEqual
+	from .isEqualDeep import isEqualDeep as isEqualDeep
 	from .isEqualStrict import isEqualStrict as isEqualStrict
 	from .isObject import isObject as isObject
 	from .isTrueMinimumNumberOfTimes import isTrueMinimumNumberOfTimes as isTrueMinimumNumberOfTimes
@@ -26,6 +27,7 @@ __all__ = [
 	'isEmail',
 	'isEmpty',
 	'isEqual',
+	'isEqualDeep',
 	'isEqualStrict',
 	'isObject',
 	'isTrueMinimumNumberOfTimes',

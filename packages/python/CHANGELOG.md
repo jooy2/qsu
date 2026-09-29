@@ -17,6 +17,13 @@
 - `parseAddress`: The user, the password and the query values are percent-decoded, so `ssh://us%40er:p%40ss@host` reports the user and password a person would type. A value carrying a sequence that is not an escape, or escapes that do not spell valid UTF-8, is returned as it was written rather than half-decoded. Pass `decode=False` to keep every value raw
 - `isEqualStrict`: A `dict` passed as the second argument is compared as a value, as `isEqual` already did. It was read as the list of operands, and iterating a dict yields its keys, so `isEqualStrict('a', {'a': 1})` returned `True`
 - `arrWithNumber`: A `step` option was added, passed as a keyword or in a `dict`. It takes a whole number of at least `1`, and `end` is included when a step lands on it. The error raised when `start` is greater than `end` said the opposite, `` `end` is greater than `start`. ``; it now reads `` `start` is greater than `end`. `` and is a `ValueError`, which is still an `Exception`
+- `arrGroupBy`: Added. Groups the items of a list by the key a callback returns, in the order each key was first seen. Keys are written as JavaScript writes them, so `1.0` becomes `'1'` and `True` becomes `'true'`. `arrGroupByMaxCount` is unchanged and still splits a list into groups of a fixed size
+- `median`: Added. The middle value of a list of numbers, or the mean of the two middle values when the count is even. `nan` is skipped as `min` and `max` skip it, and an empty list returns `None`
+- `objOmit`: Added. The opposite of `objPick`: a new dict without the listed top-level keys
+- `objSet`: Added. The writing counterpart of `objGet`: a copy of the dict with a value written at a path, where missing levels are created as dicts. The source is not modified
+- `isEqualDeep`: Added. Compares two values by their contents: lists and tuples item by item, dicts key by key in any order and dates with `==`, with no type coercion, so `True` is not `1` and `nan` equals `nan`. Unlike `isEqual`, a list argument is a value to compare rather than a list of operands
+- `isLeapYear`: Added. Whether a year is a leap year in the Gregorian calendar
+- `getDaysInMonth`: Added. The number of days in a month of a given year, with `month` counted from `1`. A month outside `1` to `12` raises a `ValueError`
 - `average`: An empty list returns `nan`, as it does in JavaScript, instead of raising a `ZeroDivisionError`
 - `objInvert`: A float becomes the key JavaScript writes for it wherever the two used to differ: `1e20` is `'100000000000000000000'` rather than `'1e+20'`, and `1e-7` is `'1e-7'` rather than `'1e-07'`. `objInvert` and `arrGroupBy` now share one rule for turning a value into a key
 

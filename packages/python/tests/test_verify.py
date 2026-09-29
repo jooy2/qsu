@@ -1,3 +1,5 @@
+from datetime import date, datetime, timedelta, timezone
+
 from qsu.verify import (
 	between,
 	contains,
@@ -6,6 +8,7 @@ from qsu.verify import (
 	isEmail,
 	isEmpty,
 	isEqual,
+	isEqualDeep,
 	isEqualStrict,
 	isObject,
 	isTrueMinimumNumberOfTimes,
@@ -55,6 +58,53 @@ def test_isEqualStrict():
 	assert isEqualStrict('a', {'a': 1}) is False
 	assert isEqualStrict({'a': 1}, {'a': 1}) is True
 	assert isEqualStrict(1, [1, 1]) is True
+
+
+def test_isEqualDeep():
+	assert isEqualDeep(1, 1) is True
+	assert isEqualDeep(1, 1.0) is True
+	assert isEqualDeep(0, -0.0) is True
+	assert isEqualDeep(float('nan'), float('nan')) is True
+	# A bool is never a number, and a string is never a number.
+	assert isEqualDeep(True, 1) is False
+	assert isEqualDeep('1', 1) is False
+	assert isEqualDeep('a', 'a') is True
+	assert isEqualDeep(None, None) is True
+	assert isEqualDeep(None, 0) is False
+
+	assert isEqualDeep([1, 2], [1, 2]) is True
+	assert isEqualDeep([1, 2], [2, 1]) is False
+	assert isEqualDeep([1], [1, 1]) is False
+	# A list and a tuple are both arrays.
+	assert isEqualDeep([1, 2], (1, 2)) is True
+
+	# Key order is ignored.
+	assert isEqualDeep({'a': 1, 'b': 2}, {'b': 2, 'a': 1}) is True
+	assert isEqualDeep({'a': 1}, {'a': 1, 'b': 2}) is False
+	assert isEqualDeep({'a': 1}, {'a': '1'}) is False
+	assert isEqualDeep({'a': [1, {'b': [2]}]}, {'a': [1, {'b': [2]}]}) is True
+
+	# An array is never a dict, and neither is a primitive.
+	assert isEqualDeep([], {}) is False
+	assert isEqualDeep({}, []) is False
+	assert isEqualDeep([], None) is False
+
+	# Dates compare by the moment they represent.
+	assert isEqualDeep(datetime(2024, 1, 1, 12), datetime(2024, 1, 1, 12)) is True
+	assert isEqualDeep(
+		datetime(2024, 1, 1, 12, tzinfo=timezone.utc),
+		datetime(2024, 1, 1, 21, tzinfo=timezone(timedelta(hours=9))),
+	) is True
+	assert isEqualDeep(datetime(2024, 1, 1), datetime(2024, 1, 2)) is False
+	assert isEqualDeep(date(2024, 1, 1), date(2024, 1, 1)) is True
+
+	# A structure that contains itself is compared without recursing forever.
+	left: dict = {}
+	left['self'] = left
+	right: dict = {}
+	right['self'] = right
+
+	assert isEqualDeep(left, right) is True
 
 
 def test_isEmpty():

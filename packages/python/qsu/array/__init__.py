@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 	from .arrCompact import arrCompact as arrCompact
 	from .arrCount import arrCount as arrCount
 	from .arrDifference import arrDifference as arrDifference
+	from .arrGroupBy import arrGroupBy as arrGroupBy
 	from .arrGroupByMaxCount import arrGroupByMaxCount as arrGroupByMaxCount
 	from .arrIntersection import arrIntersection as arrIntersection
 	from .arrMove import arrMove as arrMove
@@ -19,6 +20,7 @@ if TYPE_CHECKING:
 	from .arrWithDefault import arrWithDefault as arrWithDefault
 	from .arrWithNumber import arrWithNumber as arrWithNumber
 	from .average import average as average
+	from .median import median as median
 	from .sortByObjectKey import sortByObjectKey as sortByObjectKey
 	from .sortNumeric import sortNumeric as sortNumeric
 
@@ -26,6 +28,7 @@ __all__ = [
 	'arrCompact',
 	'arrCount',
 	'arrDifference',
+	'arrGroupBy',
 	'arrGroupByMaxCount',
 	'arrIntersection',
 	'arrMove',
@@ -37,6 +40,7 @@ __all__ = [
 	'arrWithDefault',
 	'arrWithNumber',
 	'average',
+	'median',
 	'sortByObjectKey',
 	'sortNumeric',
 ]
