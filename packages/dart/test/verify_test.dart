@@ -32,6 +32,14 @@ void main() {
       expect(isEqual('123', ['123', 123]), true);
       expect(isEqual('123', ['123', 123, 123, 123]), true);
       expect(isEqual(123, '123'), true);
+
+      // An explicit `null` is a value to compare, not a missing operand.
+      expect(isEqual(5, null), false);
+      expect(isEqual(null, null), true);
+      expect(isEqual(5), true);
+      expect(isEqual(5, 5, null), false);
+      expect(isEqual(null, null, null), true);
+      expect(isEqual(1, [1, '1']), true);
     });
 
     test('isEqualStrict', () {
@@ -44,6 +52,15 @@ void main() {
       expect(isEqualStrict('123', ['123', 123]), false);
       expect(isEqualStrict('123', ['123', '123']), true);
       expect(isEqualStrict(123, '123'), false);
+
+      // An explicit `null` is a value to compare, not a missing operand.
+      expect(isEqualStrict(5, null), false);
+      expect(isEqualStrict(null, null), true);
+      expect(isEqualStrict(5), true);
+      expect(isEqualStrict(5, 5, null), false);
+      expect(isEqualStrict(null, null, null), true);
+      expect(isEqualStrict(1, [1, 1]), true);
+      expect(isEqualStrict(1, [1, '1']), false);
     });
 
     test('isEmpty', () {

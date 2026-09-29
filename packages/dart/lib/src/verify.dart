@@ -4,15 +4,20 @@ bool isObject(dynamic data) {
   return data != null && data is Map;
 }
 
+/// (Private) The default of an operand that was not passed, so that an explicit `null` is
+/// still compared as a value.
+const Object _omitted = Object();
+
 /// It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
-bool isEqual(dynamic leftOperand, [dynamic right1, dynamic right2]) {
-  if (right1 == null && right2 == null) {
+bool isEqual(dynamic leftOperand,
+    [dynamic right1 = _omitted, dynamic right2 = _omitted]) {
+  if (identical(right1, _omitted) && identical(right2, _omitted)) {
     return true;
   }
 
   final List<dynamic> rightOperands;
 
-  if (right2 == null) {
+  if (identical(right2, _omitted)) {
     rightOperands = (right1 is List) ? right1 : [right1];
   } else {
     rightOperands = [right1, right2];
@@ -42,14 +47,15 @@ bool isEqual(dynamic leftOperand, [dynamic right1, dynamic right2]) {
 
 /// It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
 /// `isEqual` returns `true` even if the data types do not match, but `isEqualStrict` returns `true` only when the data types of all argument values match.
-bool isEqualStrict(dynamic leftOperand, [dynamic right1, dynamic right2]) {
-  if (right1 == null && right2 == null) {
+bool isEqualStrict(dynamic leftOperand,
+    [dynamic right1 = _omitted, dynamic right2 = _omitted]) {
+  if (identical(right1, _omitted) && identical(right2, _omitted)) {
     return true;
   }
 
   final List<dynamic> rightOperands;
 
-  if (right2 == null) {
+  if (identical(right2, _omitted)) {
     rightOperands = (right1 is List) ? right1 : [right1];
   } else {
     rightOperands = [right1, right2];
