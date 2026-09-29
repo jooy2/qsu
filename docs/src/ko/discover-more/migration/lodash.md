@@ -1,6 +1,6 @@
 ---
-order: 2
-menuTitle: Lodash
+order: 1
+menuTitle: Lodash에서 qsu로
 description: JavaScript 프로젝트를 Lodash에서 qsu로 옮기는 방법을 함수 단위로 정리했습니다. 동작이 다른 짝도 함께 표시합니다.
 ---
 
@@ -8,7 +8,7 @@ description: JavaScript 프로젝트를 Lodash에서 qsu로 옮기는 방법을 
 
 Lodash와 qsu는 겹치는 부분이 있지만, qsu는 Lodash를 그대로 갈아 끼울 수 있는 대체재가 아닙니다. 이 문서는 qsu에 대응 함수가 있는 Lodash 함수를 정리하고, 이름만 비슷하고 동작이 다른 짝을 표시하며, 대응되는 것이 아예 없는 함수도 그대로 적어 둡니다.
 
-아직 도입을 고민하는 단계라면 함수 목록 대신 두 라이브러리의 성격을 다루는 [비교](./comparison)를 먼저 읽으세요.
+아직 도입을 고민하는 단계라면 함수 목록 대신 두 라이브러리의 성격을 다루는 [비교](../comparison)를 먼저 읽으세요.
 
 ## 시작하기 전에
 

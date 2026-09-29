@@ -1,6 +1,6 @@
 ---
-order: 5
-menuTitle: basic_utils
+order: 4
+menuTitle: basic_utils to qsu
 description: Moving a Dart project from basic_utils to qsu, with the function map and the differences that matter.
 ---
 
@@ -8,7 +8,7 @@ description: Moving a Dart project from basic_utils to qsu, with the function ma
 
 basic_utils is the Dart package closest in spirit to qsu: a bag of finished helpers for strings, numbers, iterables, email addresses and domains. It also carries a large certificate and cryptography section built on X.509, PKCS12 and ASN.1, and that half has no counterpart here at all.
 
-So the move is usually partial. The string, math and iterable helpers map well; the certificate work, the DNS lookups and the colour handling do not. [Comparison](./comparison) has the wider picture.
+So the move is usually partial. The string, math and iterable helpers map well; the certificate work, the DNS lookups and the colour handling do not. [Comparison](../comparison) has the wider picture.
 
 ## Before you start
 

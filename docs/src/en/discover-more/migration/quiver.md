@@ -1,6 +1,6 @@
 ---
-order: 4
-menuTitle: quiver
+order: 3
+menuTitle: quiver to qsu
 description: What moves from quiver to qsu in a Dart project, and what quiver keeps doing that qsu has no answer for.
 ---
 
@@ -8,7 +8,7 @@ description: What moves from quiver to qsu in a Dart project, and what quiver ke
 
 quiver and qsu are answers to different questions. quiver fills gaps in the Dart SDK: collection types it lacks, iterables in the shape of Python's `itertools`, argument checks, caches and an injectable clock. qsu is a utility belt of finished helpers that happens to be written for three languages.
 
-The result is that this page is as much about what does not move as about what does. Most projects that use quiver should keep using it and add qsu for the parts quiver was never about. [Comparison](./comparison) has the wider picture.
+The result is that this page is as much about what does not move as about what does. Most projects that use quiver should keep using it and add qsu for the parts quiver was never about. [Comparison](../comparison) has the wider picture.
 
 ## Before you start
 

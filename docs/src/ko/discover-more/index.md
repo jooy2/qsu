@@ -9,19 +9,4 @@ description: 이미 쓰고 있는 유틸리티 라이브러리와 qsu를 비교�
 
 [비교](./comparison)는 언어별로 가장 널리 쓰이는 유틸리티 라이브러리와 qsu를 나란히 놓고, 각각 어디까지 다루는지, API가 어떤 모양인지, 어디에서 돌아가는지 정리합니다.
 
-마이그레이션 문서는 라이브러리마다 하나씩 있습니다. 해당 라이브러리의 함수를 qsu 함수에 대응시키고, 이름만 비슷하고 동작이 다른 짝을 표시하며, qsu에 대응 함수가 없는 것도 그대로 적어 둡니다. 어느 것도 그대로 갈아 끼울 수 있는 대체재는 아니니, 무언가를 지우기 전에 비고를 읽으세요.
-
-## JavaScript
-
-- [Lodash](./lodash)
-- [Underscore.js](./underscore)
-
-## Dart
-
-- [quiver](./quiver)
-- [basic_utils](./basic-utils)
-
-## Python
-
-- [pydash](./pydash)
-- [boltons](./boltons)
+[마이그레이션](./migration/)에는 라이브러리별 문서가 있습니다. JavaScript는 [Lodash](./migration/lodash)와 [Underscore.js](./migration/underscore), Dart는 [quiver](./migration/quiver)와 [basic_utils](./migration/basic-utils), Python은 [pydash](./migration/pydash)와 [boltons](./migration/boltons)를 다룹니다.

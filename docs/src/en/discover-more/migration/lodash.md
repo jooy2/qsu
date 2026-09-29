@@ -1,6 +1,6 @@
 ---
-order: 2
-menuTitle: Lodash
+order: 1
+menuTitle: Lodash to qsu
 description: Moving a JavaScript project from Lodash to qsu, function by function, including the pairs that behave differently.
 ---
 
@@ -8,7 +8,7 @@ description: Moving a JavaScript project from Lodash to qsu, function by functio
 
 Lodash and qsu overlap, but qsu is not a drop-in replacement for it. This page maps the Lodash functions that have a qsu counterpart, marks the pairs that look alike and behave differently, and says plainly which Lodash functions have no answer here.
 
-If you are still deciding, [Comparison](./comparison) covers the shape of the two libraries rather than their function lists.
+If you are still deciding, [Comparison](../comparison) covers the shape of the two libraries rather than their function lists.
 
 ## Before you start
 

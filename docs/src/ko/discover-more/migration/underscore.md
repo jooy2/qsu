@@ -1,6 +1,6 @@
 ---
-order: 3
-menuTitle: Underscore.js
+order: 2
+menuTitle: Underscore.js에서 qsu로
 description: JavaScript 프로젝트를 Underscore.js에서 qsu로 옮기는 방법과, 주의해야 할 동작 차이를 정리했습니다.
 ---
 

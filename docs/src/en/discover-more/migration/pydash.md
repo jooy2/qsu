@@ -1,6 +1,6 @@
 ---
-order: 6
-menuTitle: pydash
+order: 5
+menuTitle: pydash to qsu
 description: Moving a Python project from pydash to qsu, function by function, including the pairs that behave differently.
 ---
 
@@ -8,7 +8,7 @@ description: Moving a Python project from pydash to qsu, function by function, i
 
 pydash is a port of Lodash, so its names are Lodash's in `snake_case` and its arguments follow Lodash's. qsu is a port of its own JavaScript package, which was written in the same tradition. The two therefore agree on a lot, and the places where they do not are worth knowing before you swap one call for another.
 
-pydash is also wider than qsu on collections and functional composition, and narrower on formatting, hashing, files and the machine. [Comparison](./comparison) has the wider picture.
+pydash is also wider than qsu on collections and functional composition, and narrower on formatting, hashing, files and the machine. [Comparison](../comparison) has the wider picture.
 
 ## Before you start
 

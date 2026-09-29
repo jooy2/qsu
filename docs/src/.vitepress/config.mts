@@ -218,7 +218,7 @@ const vitePressI18nConfigs: VitePressI18nOptions = {
 			nav: [
 				{ text: 'Getting Started', link: '/installation' },
 				{ text: 'Reference', link: '/reference' },
-				{ text: 'Discover more', link: '/discover-more' },
+				{ text: 'Discover More', link: '/discover-more' },
 				{ text: 'Changelog', link: '/changelog/' }
 			]
 		},

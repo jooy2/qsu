@@ -1,6 +1,6 @@
 ---
-order: 7
-menuTitle: boltons
+order: 6
+menuTitle: boltons에서 qsu로
 description: Python 프로젝트에서 boltons 대신 qsu를 쓸 수 있는 부분과, boltons를 그대로 둬야 하는 부분을 정리했습니다.
 ---
 
@@ -8,7 +8,7 @@ description: Python 프로젝트에서 boltons 대신 qsu를 쓸 수 있는 부�
 
 boltons는 "쓰이지 않은 표준 라이브러리"입니다. 자기만의 API를 만들기보다 표준 라이브러리의 이름 관례를 따르며 빈자리를 채우는 순수 Python 모듈 모음입니다. qsu는 세 언어에서 같은 API를 쓰는 유틸리티 모음입니다. 둘은 문자열과 이터러블, 파일과 수학의 일부에서 겹치고 나머지에서는 갈라집니다.
 
-boltons를 쓰는 프로젝트라면 대부분 그대로 두는 편이 낫습니다. 이 문서는 어떤 호출에 qsu 대응이 있는지, 어떤 것이 이름만 닮았는지, 어디에서 boltons가 그냥 더 나은지를 정리합니다. 전체 그림은 [비교](./comparison)에 있습니다.
+boltons를 쓰는 프로젝트라면 대부분 그대로 두는 편이 낫습니다. 이 문서는 어떤 호출에 qsu 대응이 있는지, 어떤 것이 이름만 닮았는지, 어디에서 boltons가 그냥 더 나은지를 정리합니다. 전체 그림은 [비교](../comparison)에 있습니다.
 
 ## 시작하기 전에
 

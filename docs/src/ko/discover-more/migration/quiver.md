@@ -1,6 +1,6 @@
 ---
-order: 4
-menuTitle: quiver
+order: 3
+menuTitle: quiver에서 qsu로
 description: Dart 프로젝트에서 quiver 대신 qsu를 쓸 수 있는 부분과, quiver를 그대로 둬야 하는 부분을 정리했습니다.
 ---
 
@@ -8,7 +8,7 @@ description: Dart 프로젝트에서 quiver 대신 qsu를 쓸 수 있는 부분�
 
 quiver와 qsu는 서로 다른 질문에 답합니다. quiver는 Dart SDK의 빈자리를 채웁니다. SDK에 없는 컬렉션 타입, Python `itertools`를 닮은 이터러블, 인자 검사, 캐시, 주입 가능한 시계가 거기 있습니다. qsu는 완성된 헬퍼를 모아 둔 도구 모음이고, 마침 세 언어로 쓰여 있습니다.
 
-그래서 이 문서는 옮길 수 있는 것만큼 옮길 수 없는 것도 다룹니다. quiver를 쓰는 프로젝트라면 대개 quiver를 그대로 두고, quiver가 처음부터 다루지 않은 영역에 qsu를 더하는 편이 맞습니다. 전체 그림은 [비교](./comparison)에 있습니다.
+그래서 이 문서는 옮길 수 있는 것만큼 옮길 수 없는 것도 다룹니다. quiver를 쓰는 프로젝트라면 대개 quiver를 그대로 두고, quiver가 처음부터 다루지 않은 영역에 qsu를 더하는 편이 맞습니다. 전체 그림은 [비교](../comparison)에 있습니다.
 
 ## 시작하기 전에
 

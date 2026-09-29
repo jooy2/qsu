@@ -1,6 +1,6 @@
 ---
-order: 7
-menuTitle: boltons
+order: 6
+menuTitle: boltons to qsu
 description: What moves from boltons to qsu in a Python project, and what boltons keeps doing that qsu has no answer for.
 ---
 
@@ -8,7 +8,7 @@ description: What moves from boltons to qsu in a Python project, and what bolton
 
 boltons is "the standard library that was never written": pure-Python modules that follow `stdlib` naming and fill gaps rather than build an API of their own. qsu is a utility belt with one API in three languages. The two overlap on strings, iterables and a little of the file and maths work, and diverge everywhere else.
 
-Most projects using boltons should keep it. This page says which calls have a qsu counterpart, which look alike and are not, and where boltons is simply the better tool. [Comparison](./comparison) has the wider picture.
+Most projects using boltons should keep it. This page says which calls have a qsu counterpart, which look alike and are not, and where boltons is simply the better tool. [Comparison](../comparison) has the wider picture.
 
 ## Before you start
 

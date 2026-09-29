@@ -8,7 +8,7 @@ description: qsu next to Lodash, Underscore.js, quiver, basic_utils, pydash and 
 
 qsu is not the first utility library any of its three languages has had, and for most projects it will not be the only one. This page says what it covers, what the better-known alternatives cover, and which of them is the right answer for a given job.
 
-Pick a language in the sidebar and the comparison follows it. Each library also has a [migration guide](/discover-more/) of its own.
+Pick a language in the sidebar and the comparison follows it. Each library also has a [migration guide](/discover-more/migration/) of its own.
 
 ## The libraries compared
 

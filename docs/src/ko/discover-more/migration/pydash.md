@@ -1,6 +1,6 @@
 ---
-order: 6
-menuTitle: pydash
+order: 5
+menuTitle: pydash에서 qsu로
 description: Python 프로젝트를 pydash에서 qsu로 옮기는 방법을 함수 단위로 정리했습니다. 동작이 다른 짝도 함께 표시합니다.
 ---
 
@@ -8,7 +8,7 @@ description: Python 프로젝트를 pydash에서 qsu로 옮기는 방법을 함�
 
 pydash는 Lodash의 이식판이라 이름이 Lodash를 `snake_case`로 옮긴 것이고 인자도 Lodash를 따릅니다. qsu는 같은 전통에서 쓰인 자기 JavaScript 패키지의 이식판입니다. 그래서 겹치는 부분이 많고, 겹치지 않는 자리를 아는 편이 호출을 바꾸기 전에 도움이 됩니다.
 
-pydash는 컬렉션과 함수 합성에서 qsu보다 넓고, 형식화와 해시, 파일, 시스템 정보에서는 좁습니다. 전체 그림은 [비교](./comparison)에 있습니다.
+pydash는 컬렉션과 함수 합성에서 qsu보다 넓고, 형식화와 해시, 파일, 시스템 정보에서는 좁습니다. 전체 그림은 [비교](../comparison)에 있습니다.
 
 ## 시작하기 전에
 

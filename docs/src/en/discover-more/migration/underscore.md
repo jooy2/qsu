@@ -1,6 +1,6 @@
 ---
-order: 3
-menuTitle: Underscore.js
+order: 2
+menuTitle: Underscore.js to qsu
 description: Moving a JavaScript project from Underscore.js to qsu, with the function map and the differences that matter.
 ---
 
