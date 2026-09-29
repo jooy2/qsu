@@ -90,6 +90,31 @@ def test_arrWithNumber():
 		arrWithNumber(2, 1)
 	assert arrWithNumber(0, 5) == [0, 1, 2, 3, 4, 5]
 	assert arrWithNumber(1, 1) == [1]
+	assert arrWithNumber(1, 5) == [1, 2, 3, 4, 5]
+	assert arrWithNumber(3, 3) == [3]
+
+	with pytest.raises(ValueError) as error:
+		arrWithNumber(5, 1)
+	assert str(error.value) == '`start` is greater than `end`.'
+
+
+def test_arrWithNumber_step():
+	# The step may arrive as a dict or as a keyword argument.
+	assert arrWithNumber(0, 10, {'step': 3}) == [0, 3, 6, 9]
+	assert arrWithNumber(0, 10, step=3) == [0, 3, 6, 9]
+	# The end is included when a step lands on it.
+	assert arrWithNumber(0, 10, step=5) == [0, 5, 10]
+	assert arrWithNumber(1, 2, step=10) == [1]
+	assert arrWithNumber(-5, 5, step=5) == [-5, 0, 5]
+	# A float holding a whole number is that number.
+	assert arrWithNumber(0, 10, step=2.0) == [0, 2, 4, 6, 8, 10]
+	# `None` is the default, as `null` is for the JavaScript option.
+	assert arrWithNumber(1, 3, step=None) == [1, 2, 3]
+
+	for step in (0, -1, 1.5, True, '2'):
+		with pytest.raises(ValueError) as error:
+			arrWithNumber(0, 10, step=step)
+		assert str(error.value) == '`step` must be a positive integer.'
 
 
 def test_average():
