@@ -78,6 +78,24 @@ void main() {
       expect(arrWithNumber(1, 2), [1, 2]);
       expect(arrWithNumber(0, 5), [0, 1, 2, 3, 4, 5]);
       expect(arrWithNumber(1, 1), [1]);
+      expect(arrWithNumber(1, 5), [1, 2, 3, 4, 5]);
+      expect(arrWithNumber(3, 3), [3]);
+      expect(arrWithNumber(0, 10, step: 3), [0, 3, 6, 9]);
+      expect(arrWithNumber(0, 10, step: 5), [0, 5, 10]);
+      expect(arrWithNumber(1, 2, step: 10), [1]);
+      expect(arrWithNumber(-5, 5, step: 5), [-5, 0, 5]);
+      expect(
+          () => arrWithNumber(5, 1),
+          throwsA(isA<ArgumentError>().having((ArgumentError e) => e.message,
+              'message', '`start` is greater than `end`.')));
+      expect(
+          () => arrWithNumber(0, 10, step: 0),
+          throwsA(isA<ArgumentError>().having((ArgumentError e) => e.message,
+              'message', '`step` must be a positive integer.')));
+      expect(
+          () => arrWithNumber(0, 10, step: -1),
+          throwsA(isA<ArgumentError>().having((ArgumentError e) => e.message,
+              'message', '`step` must be a positive integer.')));
     });
 
     test('arrPick', () {

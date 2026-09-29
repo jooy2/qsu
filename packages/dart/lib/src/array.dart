@@ -32,12 +32,18 @@ List<dynamic> arrWithDefault(dynamic defaultValue, int length) {
 }
 
 /// Creates and returns an Array in the order of start...end values.
-List<int> arrWithNumber(int start, int end) {
+/// [step] is the distance between two values and must be `1` or more. The `end` value is included only when a step lands on it, so `arrWithNumber(0, 10, step: 3)` returns `[0, 3, 6, 9]`.
+List<int> arrWithNumber(int start, int end, {int step = 1}) {
   if (start > end) {
-    throw ArgumentError('`end` is greater than `start`.');
+    throw ArgumentError('`start` is greater than `end`.');
   }
 
-  return List<int>.generate(end - start + 1, (index) => start + index);
+  if (step < 1) {
+    throw ArgumentError('`step` must be a positive integer.');
+  }
+
+  return List<int>.generate(
+      (end - start) ~/ step + 1, (index) => start + index * step);
 }
 
 /// Returns a new list with duplicate values removed, keeping the first of each in its original place.
