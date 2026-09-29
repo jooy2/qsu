@@ -50,6 +50,11 @@ def test_isEqualStrict():
 	assert isEqualStrict('123', ['123', 123]) is False
 	assert isEqualStrict('123', ['123', '123']) is True
 	assert isEqualStrict(123, '123', 123) is False
+	# A dict is a value to compare, not the list of operands, so its keys are not read as
+	# operands.
+	assert isEqualStrict('a', {'a': 1}) is False
+	assert isEqualStrict({'a': 1}, {'a': 1}) is True
+	assert isEqualStrict(1, [1, 1]) is True
 
 
 def test_isEmpty():
