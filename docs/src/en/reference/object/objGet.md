@@ -8,6 +8,8 @@ Whether a step exists is decided by the presence of the key, not by the value be
 
 Arrays are walked with their numeric index. The fallback is returned as soon as a step is missing, when the path runs into a value that cannot be walked any further, or when the object itself is not an object.
 
+To write a value at a path, use [objSet](./objSet).
+
 ## Parameters
 
 <ParamsTable :rows="[

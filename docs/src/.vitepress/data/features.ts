@@ -129,6 +129,10 @@ export const FEATURES: FeatureRow[] = [
 		support: { js: 'y y y', dart: 'y n y', python: 'y y n' }
 	},
 	{
+		name: { en: 'Group items by a key', ko: '키로 항목 묶기' },
+		support: { js: 'y y y', dart: 'y y n', python: 'y y y' }
+	},
+	{
 		name: { en: 'Split into fixed-size chunks', ko: '고정 크기로 묶기' },
 		support: { js: 'y y y', dart: 'y y y', python: 'y y y' }
 	},
@@ -182,7 +186,14 @@ export const FEATURES: FeatureRow[] = [
 		support: { js: 'y y y', dart: 'y n n', python: 'y y y' }
 	},
 	{
-		name: { en: 'Pick keys, or pick by a test', ko: '키 또는 조건으로 골라내기' },
+		name: { en: 'Write a nested value by path', ko: '경로로 중첩 값 쓰기' },
+		support: { js: 'y y n', dart: 'y n n', python: 'y y n' }
+	},
+	{
+		name: {
+			en: 'Pick or omit keys, or pick by a test',
+			ko: '키로 골라내거나 빼기, 조건으로 골라내기'
+		},
 		support: { js: 'y y y', dart: 'y n n', python: 'y y p' }
 	},
 	{
@@ -229,8 +240,7 @@ export const FEATURES: FeatureRow[] = [
 	},
 	{
 		name: { en: 'Median, variance and other statistics', ko: '중앙값·분산 등의 통계' },
-		languages: 'dart python',
-		support: { dart: 'n n y', python: 'n y y' }
+		support: { js: 'p n n', dart: 'p n y', python: 'p y y' }
 	},
 
 	{ group: { en: 'Validation', ko: '검증' } },
@@ -240,7 +250,7 @@ export const FEATURES: FeatureRow[] = [
 	},
 	{
 		name: { en: 'Deep equality', ko: '깊은 동등성 비교' },
-		support: { js: 'n y y', dart: 'n p n', python: 'y y n' }
+		support: { js: 'y y y', dart: 'y p n', python: 'y y n' }
 	},
 	{
 		name: { en: 'Email validation', ko: '이메일 주소 검증' },
@@ -296,8 +306,7 @@ export const FEATURES: FeatureRow[] = [
 	},
 	{
 		name: { en: 'Calendar helpers such as leap years', ko: '윤년 같은 달력 계산' },
-		languages: 'dart',
-		support: { dart: 'n y p' }
+		support: { js: 'y n n', dart: 'y y p', python: 'y n n' }
 	},
 	{
 		name: { en: 'An injectable clock for tests', ko: '테스트용으로 주입하는 시계' },

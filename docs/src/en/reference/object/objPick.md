@@ -6,7 +6,7 @@ Only the top level is inspected, and a key that the object does not have is skip
 
 The original object is not modified. If the first argument is not an object, `null` is returned.
 
-For the predicate form, use [objPickBy](./objPickBy).
+For the predicate form, use [objPickBy](./objPickBy). To leave the listed keys out instead, use [objOmit](./objOmit).
 
 ## Parameters
 

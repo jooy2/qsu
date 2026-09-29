@@ -2,6 +2,8 @@
 
 Changes the value matching a specific key name in the given object. If the `recursive` option is `true`, it will also search in child object items. This changes the value of the same key found in both the parent and child items. If the `upsert` option is `true`, add it as a new attribute to the top-level item when the key is not found.
 
+To write a value at one exact path instead, use [objSet](./objSet).
+
 ## Parameters
 
 <ParamsTable :rows="[

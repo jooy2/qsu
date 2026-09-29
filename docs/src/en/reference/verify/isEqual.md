@@ -6,6 +6,8 @@ It compares the first argument value as the left operand and the argument values
 
 Passing an array as the second argument is treated as "the right operands were given as a list". Any other object is compared as a value, using the host language's own equality rules: JavaScript and Dart compare objects by reference, so two objects with identical contents are **not** equal, while Python compares `dict` contents, so they **are** equal.
 
+To compare arrays and objects by their contents in every language, use [isEqualDeep](./isEqualDeep).
+
 ## Parameters
 
 <ParamsTable :rows="[

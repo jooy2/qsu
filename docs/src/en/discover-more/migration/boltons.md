@@ -55,7 +55,8 @@ Options arrive as keyword arguments, or as a single `dict` in their place. Unlik
 | `same` | [isEqual](/reference/verify/isEqual) | **Different.** `isEqual(first, rest)` compares one value against the others. |
 | `backoff` | [retry](/reference/misc/retry) | **Different.** boltons hands you the delays; qsu's `retry` runs the function and waits between attempts itself. |
 | `remap`, `research` | — | [objFindItemRecursiveByKey](/reference/object/objFindItemRecursiveByKey) and [objUpdate](/reference/object/objUpdate) with `recursive` cover a corner of this, and nothing covers `remap` in general. Keep boltons. |
-| `bucketize`, `partition`, `windowed`, `pairwise`, `first`, `one`, `split`, `strip`, `soft_sorted`, `frange`, `is_iterable`, `is_scalar`, `is_collection` | — | No counterpart. |
+| `bucketize` | [arrGroupBy](/reference/array/arrGroupBy) | **Different.** boltons keeps each key as the function returns it; qsu turns every key into a string. The key function is required, where boltons defaults to `bool`. |
+| `partition`, `windowed`, `pairwise`, `first`, `one`, `split`, `strip`, `soft_sorted`, `frange`, `is_iterable`, `is_scalar`, `is_collection` | — | No counterpart. |
 | — | [arrDifference](/reference/array/arrDifference), [arrIntersection](/reference/array/arrIntersection), [arrCompact](/reference/array/arrCompact), [arrShuffle](/reference/array/arrShuffle), [arrPick](/reference/array/arrPick), [arrMove](/reference/array/arrMove), [sortByObjectKey](/reference/array/sortByObjectKey), [sortNumeric](/reference/array/sortNumeric) | No boltons counterpart. |
 
 ## fileutils, mathutils and timeutils
@@ -66,7 +67,7 @@ Options arrive as keyword arguments, or as a single `dict` in their place. Unlik
 | `fileutils.atomic_save`, `AtomicSaver`, `atomic_rename`, `copytree`, `iter_find_files`, `rotate_file`, `FilePerms` | — | No counterpart. This is what boltons is for; qsu does not attempt atomic writes. |
 | `mathutils.clamp` | [clamp](/reference/math/clamp) | **Different.** qsu requires both bounds. |
 | `mathutils.ceil`, `floor` | [ceil](/reference/math/ceil), [floor](/reference/math/floor) | **Different.** boltons snaps to a value from a list; qsu rounds to a number of decimal places. |
-| `statsutils` | [average](/reference/array/average) | **Different.** `average` is the mean and nothing else. Keep `statsutils` for the median, the variance and the quantiles. |
+| `statsutils` | [average](/reference/array/average), [median](/reference/array/median) | **Different.** qsu has the mean and the median and nothing else. Keep `statsutils` for the variance and the quantiles. |
 | `timeutils.daterange` | [createDateListFromRange](/reference/date/createDateListFromRange) | **Different.** boltons yields `date` objects and takes a step; qsu returns every day in the range as `YYYY-MM-DD` strings. |
 | `timeutils.relative_time` | [duration](/reference/format/duration) | **Different.** `relative_time` writes the distance from now; `duration` writes a span given in milliseconds. |
 | `timeutils.isoparse`, `strpdate`, `parse_timedelta`, `dt_to_timestamp` | — | No counterpart. |

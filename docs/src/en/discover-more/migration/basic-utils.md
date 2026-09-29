@@ -35,7 +35,7 @@ Optional arguments are named parameters in both packages, so that part of a call
 | `StringUtils.countChars` | [strCount](/reference/string/strCount) | **Different.** qsu counts a substring of any length and is always case-sensitive. |
 | `StringUtils.inList` | [contains](/reference/verify/contains) | **Different.** The list comes first: `contains(list, s)`. There is no case-insensitive form. |
 | `StringUtils.isNullOrEmpty` | [isEmpty](/reference/verify/isEmpty) | qsu's takes any value, not only a `String`. |
-| `StringUtils.generateRandomString` | [strRandom](/reference/string/strRandom) | **Different.** qsu takes a length and nothing else: letters and digits, no alphabet options. |
+| `StringUtils.generateRandomString` | [strRandom](/reference/string/strRandom) | **Different.** qsu draws from lowercase letters and digits, and `additionalCharacters` adds to that set but cannot shrink it. basic_utils turns letters, digits, special characters and case on and off, or draws from the characters you pass as `from`. |
 | `StringUtils.hidePartial` | [strBlindRandom](/reference/string/strBlindRandom) | **Different.** basic_utils masks a range you choose; qsu masks positions it picks at random. |
 | `StringUtils.equalsIgnoreCase`, `isAscii`, `isDigit`, `isLowerCase`, `isUpperCase`, `isPalindrome`, `reverse`, `chunk`, `addCharAtPosition`, `removeCharAtPosition`, `removeExp`, `pickOnly`, `defaultString` | — | No counterpart. |
 | — | [deburr](/reference/string/deburr), [pad](/reference/string/pad), [trim](/reference/string/trim), [words](/reference/string/words), [removeSpecialChar](/reference/string/removeSpecialChar), [removeNewLine](/reference/string/removeNewLine), [replaceBetween](/reference/string/replaceBetween), [getStrBytes](/reference/string/getStrBytes), [escapeRegExp](/reference/string/escapeRegExp) | No basic_utils counterpart. |
@@ -62,7 +62,8 @@ Optional arguments are named parameters in both packages, so that part of a call
 | `MathUtils.round` | [round](/reference/math/round) | qsu also has [ceil](/reference/math/ceil) and [floor](/reference/math/floor) with the same arguments, and ties go away from zero. |
 | `MathUtils.mean` | [average](/reference/array/average) |  |
 | `MathUtils.getRandomNumber` | [numPick](/reference/math/numPick) | **Different.** `min` and `max` are positional and both are required. |
-| `MathUtils.median`, `log10`, `log2`, `logBase`, the geometry and unit conversions | — | No counterpart. |
+| `MathUtils.median` | [median](/reference/array/median) | qsu skips `NaN` and returns <code>null</code> for an empty list. |
+| `MathUtils.log10`, `log2`, `logBase`, the geometry and unit conversions | — | No counterpart. |
 | — | [sum](/reference/math/sum), [sub](/reference/math/sub), [mul](/reference/math/mul), [div](/reference/math/div), [clamp](/reference/math/clamp), [max](/reference/math/max), [min](/reference/math/min), [numUnique](/reference/math/numUnique) | No basic_utils counterpart. |
 
 ## Addresses, dates and the rest
@@ -73,7 +74,7 @@ Optional arguments are named parameters in both packages, so that part of a call
 | `DomainUtils` | [parseAddress](/reference/net/parseAddress) | **Different.** `parseAddress` splits a whole address into its parts, including IPv4, IPv6 and SSH-style strings. It has no public-suffix list, so it cannot tell a subdomain from a domain. |
 | `HttpUtils` | [fetchData](/reference/net/fetchData) | qsu's returns the body whatever the status, rather than throwing. |
 | `CryptoUtils.getHash` | [sha256Hash](/reference/crypto/sha256Hash) and the other hashes | **Different.** qsu hashes a string, not a byte list. |
-| `DateUtils` | — | Neither of its two methods has a counterpart. qsu's [date](/reference/date/today) category does different work: [today](/reference/date/today), [dateToYYYYMMDD](/reference/date/dateToYYYYMMDD), [dayDiff](/reference/date/dayDiff), [isValidDate](/reference/date/isValidDate), [createDateListFromRange](/reference/date/createDateListFromRange). |
+| `DateUtils` | — | Neither of its two methods has a counterpart. qsu's [date](/reference/date/today) category does different work: [today](/reference/date/today), [dateToYYYYMMDD](/reference/date/dateToYYYYMMDD), [dayDiff](/reference/date/dayDiff), [isValidDate](/reference/date/isValidDate), [createDateListFromRange](/reference/date/createDateListFromRange), [isLeapYear](/reference/date/isLeapYear), [getDaysInMonth](/reference/date/getDaysInMonth). |
 | `X509Utils`, `PKCS12Utils`, `ASN1Utils`, `HexUtils`, `DnsUtils`, `ColorUtils`, `EnumUtils`, `BooleanUtils`, `SortUtils` | — | No counterpart. Keep basic_utils for these. |
 
 ## What qsu adds

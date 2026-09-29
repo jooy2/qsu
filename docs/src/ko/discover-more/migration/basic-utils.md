@@ -35,7 +35,7 @@ import 'package:qsu/qsu.dart';
 | `StringUtils.countChars` | [strCount](/ko/reference/string/strCount) | **다릅니다.** qsu는 길이에 상관없이 부분 문자열을 세고, 항상 대소문자를 구분합니다. |
 | `StringUtils.inList` | [contains](/ko/reference/verify/contains) | **다릅니다.** 목록이 먼저 옵니다. `contains(list, s)`로 쓰며, 대소문자를 무시하는 형태는 없습니다. |
 | `StringUtils.isNullOrEmpty` | [isEmpty](/ko/reference/verify/isEmpty) | qsu 쪽은 `String` 말고 어떤 값이든 받습니다. |
-| `StringUtils.generateRandomString` | [strRandom](/ko/reference/string/strRandom) | **다릅니다.** qsu는 길이만 받습니다. 영문자와 숫자로만 만들고 문자 집합 옵션이 없습니다. |
+| `StringUtils.generateRandomString` | [strRandom](/ko/reference/string/strRandom) | **다릅니다.** qsu는 영문 소문자와 숫자에서 뽑고, `additionalCharacters`로 문자를 더할 수는 있지만 뺄 수는 없습니다. basic_utils는 영문자, 숫자, 특수 문자, 대소문자를 각각 켜고 끄거나 `from`으로 넘긴 문자에서 뽑습니다. |
 | `StringUtils.hidePartial` | [strBlindRandom](/ko/reference/string/strBlindRandom) | **다릅니다.** basic_utils는 지정한 구간을 가리고, qsu는 무작위 위치를 가립니다. |
 | `StringUtils.equalsIgnoreCase`, `isAscii`, `isDigit`, `isLowerCase`, `isUpperCase`, `isPalindrome`, `reverse`, `chunk`, `addCharAtPosition`, `removeCharAtPosition`, `removeExp`, `pickOnly`, `defaultString` | — | 대응되는 것이 없습니다. |
 | — | [deburr](/ko/reference/string/deburr), [pad](/ko/reference/string/pad), [trim](/ko/reference/string/trim), [words](/ko/reference/string/words), [removeSpecialChar](/ko/reference/string/removeSpecialChar), [removeNewLine](/ko/reference/string/removeNewLine), [replaceBetween](/ko/reference/string/replaceBetween), [getStrBytes](/ko/reference/string/getStrBytes), [escapeRegExp](/ko/reference/string/escapeRegExp) | basic_utils에 대응되는 것이 없습니다. |
@@ -62,7 +62,8 @@ import 'package:qsu/qsu.dart';
 | `MathUtils.round` | [round](/ko/reference/math/round) | 같은 인자를 받는 [ceil](/ko/reference/math/ceil)과 [floor](/ko/reference/math/floor)도 있고, 중간값은 0에서 먼 쪽으로 갑니다. |
 | `MathUtils.mean` | [average](/ko/reference/array/average) |  |
 | `MathUtils.getRandomNumber` | [numPick](/ko/reference/math/numPick) | **다릅니다.** `min`과 `max`가 위치 인자이고 둘 다 필수입니다. |
-| `MathUtils.median`, `log10`, `log2`, `logBase`, 도형과 단위 변환 | — | 대응되는 것이 없습니다. |
+| `MathUtils.median` | [median](/ko/reference/array/median) | qsu는 `NaN`을 건너뛰고, 빈 리스트에는 <code>null</code>을 돌려줍니다. |
+| `MathUtils.log10`, `log2`, `logBase`, 도형과 단위 변환 | — | 대응되는 것이 없습니다. |
 | — | [sum](/ko/reference/math/sum), [sub](/ko/reference/math/sub), [mul](/ko/reference/math/mul), [div](/ko/reference/math/div), [clamp](/ko/reference/math/clamp), [max](/ko/reference/math/max), [min](/ko/reference/math/min), [numUnique](/ko/reference/math/numUnique) | basic_utils에 대응되는 것이 없습니다. |
 
 ## 주소와 날짜, 그 밖
@@ -73,7 +74,7 @@ import 'package:qsu/qsu.dart';
 | `DomainUtils` | [parseAddress](/ko/reference/net/parseAddress) | **다릅니다.** `parseAddress`는 IPv4와 IPv6, SSH 형식까지 포함해 주소 전체를 부분으로 나눕니다. 공개 접미사 목록이 없어서 서브도메인과 도메인을 구분하지는 못합니다. |
 | `HttpUtils` | [fetchData](/ko/reference/net/fetchData) | qsu 쪽은 예외를 던지는 대신 상태 코드와 무관하게 본문을 돌려줍니다. |
 | `CryptoUtils.getHash` | [sha256Hash](/ko/reference/crypto/sha256Hash) 등 해시 | **다릅니다.** qsu는 바이트 리스트가 아니라 문자열을 해시합니다. |
-| `DateUtils` | — | 두 메서드 모두 대응되는 것이 없습니다. qsu의 [date](/ko/reference/date/today) 카테고리는 다른 일을 합니다. [today](/ko/reference/date/today), [dateToYYYYMMDD](/ko/reference/date/dateToYYYYMMDD), [dayDiff](/ko/reference/date/dayDiff), [isValidDate](/ko/reference/date/isValidDate), [createDateListFromRange](/ko/reference/date/createDateListFromRange)가 있습니다. |
+| `DateUtils` | — | 두 메서드 모두 대응되는 것이 없습니다. qsu의 [date](/ko/reference/date/today) 카테고리는 다른 일을 합니다. [today](/ko/reference/date/today), [dateToYYYYMMDD](/ko/reference/date/dateToYYYYMMDD), [dayDiff](/ko/reference/date/dayDiff), [isValidDate](/ko/reference/date/isValidDate), [createDateListFromRange](/ko/reference/date/createDateListFromRange), [isLeapYear](/ko/reference/date/isLeapYear), [getDaysInMonth](/ko/reference/date/getDaysInMonth)가 있습니다. |
 | `X509Utils`, `PKCS12Utils`, `ASN1Utils`, `HexUtils`, `DnsUtils`, `ColorUtils`, `EnumUtils`, `BooleanUtils`, `SortUtils` | — | 대응되는 것이 없습니다. 이 영역은 basic_utils를 그대로 두세요. |
 
 ## qsu가 더 주는 것

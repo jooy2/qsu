@@ -55,7 +55,8 @@ qsu.round(2.675, 2)
 | `same` | [isEqual](/ko/reference/verify/isEqual) | **다릅니다.** `isEqual(first, rest)`는 값 하나를 나머지와 비교합니다. |
 | `backoff` | [retry](/ko/reference/misc/retry) | **다릅니다.** boltons는 대기 시간 목록을 돌려주고, qsu의 `retry`는 함수를 직접 실행하며 시도 사이에 기다립니다. |
 | `remap`, `research` | — | [objFindItemRecursiveByKey](/ko/reference/object/objFindItemRecursiveByKey)와 `recursive`를 켠 [objUpdate](/ko/reference/object/objUpdate)가 일부를 덮을 뿐, `remap` 전체를 대신하는 것은 없습니다. boltons를 그대로 두세요. |
-| `bucketize`, `partition`, `windowed`, `pairwise`, `first`, `one`, `split`, `strip`, `soft_sorted`, `frange`, `is_iterable`, `is_scalar`, `is_collection` | — | 대응되는 것이 없습니다. |
+| `bucketize` | [arrGroupBy](/ko/reference/array/arrGroupBy) | **다릅니다.** boltons는 함수가 돌려준 키를 그대로 쓰고, qsu는 모든 키를 문자열로 바꿉니다. 키 함수가 꼭 있어야 하며, boltons는 생략하면 `bool`을 씁니다. |
+| `partition`, `windowed`, `pairwise`, `first`, `one`, `split`, `strip`, `soft_sorted`, `frange`, `is_iterable`, `is_scalar`, `is_collection` | — | 대응되는 것이 없습니다. |
 | — | [arrDifference](/ko/reference/array/arrDifference), [arrIntersection](/ko/reference/array/arrIntersection), [arrCompact](/ko/reference/array/arrCompact), [arrShuffle](/ko/reference/array/arrShuffle), [arrPick](/ko/reference/array/arrPick), [arrMove](/ko/reference/array/arrMove), [sortByObjectKey](/ko/reference/array/sortByObjectKey), [sortNumeric](/ko/reference/array/sortNumeric) | boltons에 대응되는 것이 없습니다. |
 
 ## fileutils와 mathutils, timeutils
@@ -66,7 +67,7 @@ qsu.round(2.675, 2)
 | `fileutils.atomic_save`, `AtomicSaver`, `atomic_rename`, `copytree`, `iter_find_files`, `rotate_file`, `FilePerms` | — | 대응되는 것이 없습니다. boltons를 쓰는 이유가 이쪽이고, qsu는 원자적 쓰기를 시도하지 않습니다. |
 | `mathutils.clamp` | [clamp](/ko/reference/math/clamp) | **다릅니다.** qsu는 양쪽 경계를 모두 요구합니다. |
 | `mathutils.ceil`, `floor` | [ceil](/ko/reference/math/ceil), [floor](/ko/reference/math/floor) | **다릅니다.** boltons는 주어진 목록의 값으로 맞추고, qsu는 소수점 자릿수로 반올림합니다. |
-| `statsutils` | [average](/ko/reference/array/average) | **다릅니다.** `average`는 평균만 냅니다. 중앙값과 분산, 분위수는 `statsutils`를 그대로 쓰세요. |
+| `statsutils` | [average](/ko/reference/array/average), [median](/ko/reference/array/median) | **다릅니다.** qsu에는 평균과 중앙값만 있습니다. 분산과 분위수는 `statsutils`를 그대로 쓰세요. |
 | `timeutils.daterange` | [createDateListFromRange](/ko/reference/date/createDateListFromRange) | **다릅니다.** boltons는 `date` 객체를 내놓고 step을 받습니다. qsu는 범위의 모든 날짜를 `YYYY-MM-DD` 문자열로 돌려줍니다. |
 | `timeutils.relative_time` | [duration](/ko/reference/format/duration) | **다릅니다.** `relative_time`은 지금과의 거리를 쓰고, `duration`은 밀리초로 받은 길이를 씁니다. |
 | `timeutils.isoparse`, `strpdate`, `parse_timedelta`, `dt_to_timestamp` | — | 대응되는 것이 없습니다. |

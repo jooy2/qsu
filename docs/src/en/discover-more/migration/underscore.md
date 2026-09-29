@@ -6,7 +6,7 @@ description: Moving a JavaScript project from Underscore.js to qsu, with the fun
 
 # Moving from Underscore.js to qsu
 
-Underscore is the smaller of the two libraries qsu is usually compared with, and the overlap is smaller with it too. Underscore's strength is collection work — `each`, `map`, `reduce`, `groupBy`, `pluck` — and almost all of that is in the language now. qsu does not attempt it.
+Underscore is the smaller of the two libraries qsu is usually compared with, and the overlap is smaller with it too. Underscore's strength is collection work — `each`, `map`, `reduce`, `filter`, `pluck` — and almost all of that is in the language now. qsu does not attempt it.
 
 What is left after that is a short list, so this page is short. [Lodash](./lodash) covers the names the two libraries share in more detail; where a function has the same name in both, the notes there apply here as well.
 
@@ -33,13 +33,15 @@ There is no `_.chain(…).value()`, no `_.iteratee` shorthand and no `_.template
 | `shuffle` | [arrShuffle](/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/reference/array/arrPick) | qsu returns one element and takes no count. |
 | `countBy` | [arrCount](/reference/array/arrCount) | **Different.** No iteratee, and the values must be strings or numbers. |
-| `range` | [arrWithNumber](/reference/array/arrWithNumber) | **Different.** qsu includes the end value and takes no step. |
+| `range` | [arrWithNumber](/reference/array/arrWithNumber) | **Different.** qsu includes the end value, and its `step` option takes a positive whole number, so it cannot count down or step by fractions. |
 | `sortBy` | [sortByObjectKey](/reference/array/sortByObjectKey) | For one key of an array of objects. An iteratee has no counterpart. |
 | `size` | [len](/reference/verify/len) | Works on any value; a missing one counts as `0`. |
 | `contains` | [contains](/reference/verify/contains) | **Different.** qsu takes a string as well as a list, and the second argument may be a list of candidates. |
 | `without` | — | `arrDifference(array, [value])`. |
 | `union` | — | `arrUnique([...a, ...b])`. |
-| `each`, `map`, `reduce`, `filter`, `find`, `every`, `some`, `pluck`, `groupBy`, `indexBy`, `partition`, `zip`, `first`, `last` | — | Already in the language. |
+| `each`, `map`, `reduce`, `filter`, `find`, `every`, `some`, `pluck`, `first`, `last` | — | Already in the language. |
+| `groupBy` | [arrGroupBy](/reference/array/arrGroupBy) | The callback is required; a property name in its place is not accepted. |
+| `indexBy`, `partition`, `zip` | — | No counterpart. |
 
 ## Objects
 
@@ -53,9 +55,10 @@ There is no `_.chain(…).value()`, no `_.iteratee` shorthand and no `_.template
 | `pairs` | [objToArray](/reference/object/objToArray) |  |
 | `get` | [objGet](/reference/object/objGet) | Dot and bracket paths both work. The default is passed as `{ fallback }`. |
 | `isEmpty` | [isEmpty](/reference/verify/isEmpty) |  |
-| `isEqual` | [isEqual](/reference/verify/isEqual) | **Different, and this one bites.** Underscore compares objects deeply. qsu compares them the way JavaScript does, by reference. |
-| `omit`, `mapObject`, `findKey`, `keys`, `values`, `has` | — | No counterpart, or already in the language. |
-| — | [objTo1d](/reference/object/objTo1d), [objToQueryString](/reference/object/objToQueryString), [objUpdate](/reference/object/objUpdate) | No Underscore counterpart. |
+| `isEqual` | [isEqualDeep](/reference/verify/isEqualDeep) | **Different.** Arrays, plain objects and dates compare by content, as in Underscore. Other objects are compared with `===`. Do not reach for qsu's [isEqual](/reference/verify/isEqual): it compares objects by reference. |
+| `omit` | [objOmit](/reference/object/objOmit) | Underscore also takes a test function in place of the keys; for that, invert the test and use [objPickBy](/reference/object/objPickBy). |
+| `mapObject`, `findKey`, `keys`, `values`, `has` | — | No counterpart, or already in the language. |
+| — | [objTo1d](/reference/object/objTo1d), [objToQueryString](/reference/object/objToQueryString), [objUpdate](/reference/object/objUpdate), [objSet](/reference/object/objSet) | No Underscore counterpart. |
 
 ## Utilities
 

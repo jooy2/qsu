@@ -20,7 +20,7 @@ import 'package:qsu/qsu.dart';
 
 선택 인자는 Dart의 named 파라미터이므로 `truncate(text, 40, ellipsis: '…')`는 quiver 호출과 같은 방식으로 읽힙니다. 이름은 `camelCase`이고 일부러 Dart답지 않게 지었습니다. 확장 메서드가 아니라 `strToCamelCase`인 이유는 Dart 패키지가 JavaScript·Python 패키지와 똑같이 읽혀야 하기 때문입니다.
 
-`os` 카테고리는 `dart:ffi`와 `/proc`으로 운영 체제에 접근하므로 웹에서는 `UnsupportedError`를 던집니다. 나머지는 웹에서도 동작합니다.
+`os` 카테고리는 `dart:ffi`와 `/proc`으로 운영 체제에 접근하므로 웹에서는 `UnsupportedError`를 던집니다. `file` 카테고리와 [fetchData](/ko/reference/net/fetchData), [logBox](/ko/reference/misc/logBox)도 `dart:io` 위에 만들어져 웹에서 실행되지 않습니다. 나머지는 웹에서도 동작합니다.
 
 ## 문자열
 
@@ -40,7 +40,7 @@ qsu의 문자열 카테고리는 quiver보다 훨씬 크고, 그중 어느 것�
 | quiver | qsu | 비고 |
 | --- | --- | --- |
 | `partition` | [arrGroupByMaxCount](/ko/reference/array/arrGroupByMaxCount) | 같은 개념입니다. 고정 크기로 묶고 마지막 묶음만 짧습니다. |
-| `range` | [arrWithNumber](/ko/reference/array/arrWithNumber) | **다릅니다.** qsu는 끝 값을 포함하고 step을 받지 않습니다. |
+| `range` | [arrWithNumber](/ko/reference/array/arrWithNumber) | **다릅니다.** qsu는 끝 값을 포함하고, `step` 옵션은 양의 정수만 받아 거꾸로 세거나 소수 간격으로 셀 수 없습니다. |
 | `max`, `min` | [max](/ko/reference/math/max), [min](/ko/reference/math/min) | **다릅니다.** qsu 쪽은 숫자 전용이고 `List<num>`을 받으며 비교 함수를 받지 않습니다. `dart:math`의 같은 이름을 가리므로, 둘 다 필요한 파일에서는 한쪽을 prefix로 가져와야 합니다. |
 | `concat` | — | `expand`나 스프레드 연산자를 쓰세요. |
 | `zip`, `cycle`, `enumerate`, `count`, `generate`, `extent`, `merge` | — | 대응되는 것이 없습니다. |
@@ -56,13 +56,13 @@ qsu의 문자열 카테고리는 quiver보다 훨씬 크고, 그중 어느 것�
 
 ## 컬렉션, 캐시, 비동기, 시간
 
-이 영역은 옮길 것이 없습니다.
+이 영역은 대부분 옮길 것이 없습니다.
 
 `BiMap`, `Multimap`, `LruMap`, `TreeSet`, `Delegating*` 래퍼, `MapCache`는 자료구조이고 qsu에는 자료구조가 없습니다. `quiver.core`의 `Optional`과 `hash*` 헬퍼도 마찬가지입니다. [numberHash](/ko/reference/crypto/numberHash)는 문자열을 숫자로 해시하는 함수이지 `hashCode`를 만드는 도구가 아닙니다.
 
-`listsEqual`, `mapsEqual`, `setsEqual`은 [isEqual](/ko/reference/verify/isEqual)처럼 보이지만 같지 않습니다. qsu의 `isEqual`은 Dart의 `==`로 비교하므로 내용이 같은 두 리스트는 같지 **않습니다**. quiver 쪽을 그대로 두세요.
+`listsEqual`과 `mapsEqual`은 한 단계만 `==`로 비교합니다. [isEqualDeep](/ko/reference/verify/isEqualDeep)은 리스트와 맵을 모든 깊이에서 내용으로 비교하므로, 평평한 데이터에서는 같은 답을 내고 두 함수가 `==`로 비교하는 중첩 리스트와 맵까지 들여다봅니다. qsu는 `Set`을 `==`로 비교하므로 `setsEqual`에는 대응되는 것이 없습니다. quiver 쪽을 그대로 두세요. 어느 경우든 [isEqual](/ko/reference/verify/isEqual)은 쓰지 마세요. Dart의 `==`로 비교하므로 내용이 같은 두 리스트도 같지 **않습니다**.
 
-`quiver.time`은 시간에 의존하는 코드를 주입 가능한 `Clock`으로 테스트하기 위해 있고, `quiver.testing`의 `FakeAsync`도 같은 이유로 있습니다. qsu의 [date](/ko/reference/date/today) 카테고리는 날짜를 형식화하고 비교할 뿐 시계를 제어하지 않습니다.
+`quiver.time`의 `isLeapYear`와 `daysInMonth`는 [isLeapYear](/ko/reference/date/isLeapYear)와 [getDaysInMonth](/ko/reference/date/getDaysInMonth)로 옮기면 됩니다. 인자가 같고, 월도 똑같이 1부터 셉니다. `quiver.time`의 나머지는 시간에 의존하는 코드를 주입 가능한 `Clock`으로 테스트하기 위해 있고, `quiver.testing`의 `FakeAsync`도 같은 이유로 있습니다. qsu의 [date](/ko/reference/date/today) 카테고리는 날짜를 형식화하고 비교할 뿐 시계를 제어하지 않습니다.
 
 ## qsu가 더 주는 것
 

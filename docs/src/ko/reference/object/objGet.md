@@ -8,6 +8,8 @@
 
 배열은 숫자 인덱스로 접근합니다. 중간 단계가 없거나, 더 이상 내려갈 수 없는 값을 만나거나, 첫 번째 인수가 객체가 아니면 `fallback`을 반환합니다.
 
+경로에 값을 쓰려면 [objSet](./objSet)을 사용하세요.
+
 ## Parameters
 
 <ParamsTable :rows="[

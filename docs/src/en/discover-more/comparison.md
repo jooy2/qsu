@@ -52,7 +52,7 @@ qsu has no chaining, no currying and no callback shorthand. Every function is ca
 
 It has no higher-order function toolkit either: nothing for `memoize`, `once`, `curry`, `partial` or function composition. `debounce`, `throttle` and `retry` are there because they solve a timing problem, not because qsu wraps functions in general.
 
-It leaves to the language whatever the language already does well. Mapping, filtering, reducing, sorting, slicing, grouping and joining are all one call in modern JavaScript, Dart and Python, so qsu does not reimplement them.
+It leaves to the language whatever the language already does well. Mapping, filtering, reducing, sorting, slicing and joining are all one call in modern JavaScript, Dart and Python, so qsu does not reimplement them. Grouping is the exception: `Object.groupBy` needs Node 21 while qsu supports Node 20, Dart has `groupBy` only in `package:collection`, and Python's `itertools.groupby` only groups runs of adjacent items, so qsu has [arrGroupBy](/reference/array/arrGroupBy).
 
 ::: lang js
 
@@ -80,7 +80,7 @@ Every qsu function is a plain function with a `camelCase` name. Optional argumen
 
 ::: lang js
 
-Lodash and Underscore both put the data first and return a new value, which is the same shape as a qsu call. What differs is the layer above it. Lodash accepts a property name, an object or an array where a callback is expected, and `_.get` and `_.set` read a path written as a string. qsu takes callbacks as callbacks; only [objGet](/reference/object/objGet) reads a path.
+Lodash and Underscore both put the data first and return a new value, which is the same shape as a qsu call. What differs is the layer above it. Lodash accepts a property name, an object or an array where a callback is expected, and `_.get` and `_.set` read a path written as a string. qsu takes callbacks as callbacks; only [objGet](/reference/object/objGet) and [objSet](/reference/object/objSet) read a path.
 
 :::
 
@@ -112,7 +112,7 @@ Lodash's published entry point is a single CommonJS file with no `exports` map; 
 
 ::: lang dart
 
-qsu needs Dart 3.5 or later and depends on `path`, `crypto`, `unorm_dart`, `ffi` and `pointycastle`. The `os` category reaches the operating system through `dart:ffi` on macOS and Windows and through `/proc` on Linux and Android, so it throws an `UnsupportedError` on the web while the rest of the package keeps working there.
+qsu needs Dart 3.5 or later and depends on `path`, `crypto`, `unorm_dart`, `ffi` and `pointycastle`. The `os` category reaches the operating system through `dart:ffi` on macOS and Windows and through `/proc` on Linux and Android, so it throws an `UnsupportedError` on the web. The `file` category, [fetchData](/reference/net/fetchData) and [logBox](/reference/misc/logBox) are built on `dart:io`, which has no web implementation, so they cannot run there either. The rest of the package works on the web.
 
 quiver is pure Dart and carries one dependency. basic_utils is pure Dart as well but pulls in several of its own, including an HTTP client and a cryptography implementation, which is what the certificate half of the package is built on.
 

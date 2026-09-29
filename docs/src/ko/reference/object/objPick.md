@@ -6,7 +6,7 @@
 
 원본 객체는 변경되지 않습니다. 첫 번째 인수가 객체가 아니면 `null`을 반환합니다.
 
-콜백으로 걸러내려면 [objPickBy](./objPickBy)를 사용하세요.
+콜백으로 걸러내려면 [objPickBy](./objPickBy)를, 지정한 키를 빼려면 [objOmit](./objOmit)을 사용하세요.
 
 ## Parameters
 

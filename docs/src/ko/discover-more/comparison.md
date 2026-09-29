@@ -52,7 +52,7 @@ qsu에는 체이닝도, 커링도, 콜백 축약 표기도 없습니다. 모든 
 
 고차 함수 도구도 없습니다. `memoize`, `once`, `curry`, `partial`, 함수 합성에 해당하는 것이 하나도 없습니다. `debounce`와 `throttle`, `retry`가 있는 이유는 타이밍 문제를 풀기 때문이지, qsu가 함수를 감싸는 일을 하기 때문이 아닙니다.
 
-언어가 이미 잘하는 일은 언어에 맡깁니다. 매핑, 필터링, 리듀스, 정렬, 자르기, 묶기, 이어 붙이기는 요즘 JavaScript와 Dart, Python에서 모두 한 번의 호출이므로 qsu는 다시 만들지 않습니다.
+언어가 이미 잘하는 일은 언어에 맡깁니다. 매핑, 필터링, 리듀스, 정렬, 자르기, 이어 붙이기는 요즘 JavaScript와 Dart, Python에서 모두 한 번의 호출이므로 qsu는 다시 만들지 않습니다. 키로 묶기는 예외입니다. `Object.groupBy`는 Node 21부터 있는데 qsu는 Node 20을 지원하고, Dart는 `groupBy`가 `package:collection`에만 있으며, Python의 `itertools.groupby`는 이웃한 항목끼리만 묶습니다. 그래서 qsu에는 [arrGroupBy](/ko/reference/array/arrGroupBy)가 있습니다.
 
 ::: lang js
 
@@ -80,7 +80,7 @@ qsu의 모든 함수는 `camelCase` 이름을 가진 평범한 함수입니다. 
 
 ::: lang js
 
-Lodash와 Underscore도 데이터를 먼저 받고 새 값을 돌려주므로, 호출의 모양 자체는 qsu와 같습니다. 다른 것은 그 위의 계층입니다. Lodash는 콜백 자리에 속성 이름이나 객체, 배열을 받고, `_.get`과 `_.set`은 문자열로 쓴 경로를 읽습니다. qsu는 콜백을 콜백으로만 받고, 경로를 읽는 것은 [objGet](/ko/reference/object/objGet)뿐입니다.
+Lodash와 Underscore도 데이터를 먼저 받고 새 값을 돌려주므로, 호출의 모양 자체는 qsu와 같습니다. 다른 것은 그 위의 계층입니다. Lodash는 콜백 자리에 속성 이름이나 객체, 배열을 받고, `_.get`과 `_.set`은 문자열로 쓴 경로를 읽습니다. qsu는 콜백을 콜백으로만 받고, 경로를 읽는 것은 [objGet](/ko/reference/object/objGet)과 [objSet](/ko/reference/object/objSet)뿐입니다.
 
 :::
 
@@ -112,7 +112,7 @@ Lodash가 배포하는 진입점은 `exports` 맵이 없는 CommonJS 파일 하�
 
 ::: lang dart
 
-qsu는 Dart 3.5 이상이 필요하고 `path`, `crypto`, `unorm_dart`, `ffi`, `pointycastle`에 의존합니다. `os` 카테고리는 macOS와 Windows에서 `dart:ffi`로, Linux와 Android에서 `/proc`으로 운영 체제에 접근하므로 웹에서는 `UnsupportedError`를 던집니다. 나머지는 웹에서도 그대로 동작합니다.
+qsu는 Dart 3.5 이상이 필요하고 `path`, `crypto`, `unorm_dart`, `ffi`, `pointycastle`에 의존합니다. `os` 카테고리는 macOS와 Windows에서 `dart:ffi`로, Linux와 Android에서 `/proc`으로 운영 체제에 접근하므로 웹에서는 `UnsupportedError`를 던집니다. `file` 카테고리와 [fetchData](/ko/reference/net/fetchData), [logBox](/ko/reference/misc/logBox)는 웹 구현이 없는 `dart:io` 위에 만들어져 웹에서 실행되지 않습니다. 나머지는 웹에서도 그대로 동작합니다.
 
 quiver는 순수 Dart이고 의존성이 하나입니다. basic_utils도 순수 Dart이지만 HTTP 클라이언트와 암호 구현을 포함해 여러 의존성을 함께 가져옵니다. 인증서 쪽 기능이 그 위에 올라가 있습니다.
 

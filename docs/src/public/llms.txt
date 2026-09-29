@@ -25,6 +25,7 @@ Array creation, sorting, sampling, deduplication and grouping.
 - [arrCompact](https://qsu.cdget.com/reference/array/arrCompact) (JavaScript, Dart, Python): Returns a new array with every falsy value removed. The rejected set is fixed across languages: `null`, `false`, `0`, the empty string and `NaN`.
 - [arrCount](https://qsu.cdget.com/reference/array/arrCount) (JavaScript, Dart, Python): Returns the number of duplicates for each unique value in the given array. The array values can only be of type `String` or `Number`.
 - [arrDifference](https://qsu.cdget.com/reference/array/arrDifference) (JavaScript, Dart, Python): Returns the values of the first array that are not contained in any of the other arrays. Values are compared by value, so nested arrays and objects are matched as well.
+- [arrGroupBy](https://qsu.cdget.com/reference/array/arrGroupBy) (JavaScript, Dart, Python): Groups the items of an array by the key the callback returns for each of them. Keys are strings, and groups keep the order their key was first seen.
 - [arrGroupByMaxCount](https://qsu.cdget.com/reference/array/arrGroupByMaxCount) (JavaScript, Dart, Python): Separates the data in the given array into a two-dimensional array containing only the maximum number of elements. For example, if you have an array of 6 data in 2 groups, this function will create a 2-dimensional array with 3 lengths.
 - [arrIntersection](https://qsu.cdget.com/reference/array/arrIntersection) (JavaScript, Dart, Python): Returns the values that are present in every one of the given arrays. The result is unique and keeps the order of the first array.
 - [arrMove](https://qsu.cdget.com/reference/array/arrMove) (JavaScript, Dart, Python): Moves the position of a specific element in an array to the specified position. (Position starts from 0.)
@@ -34,8 +35,9 @@ Array creation, sorting, sampling, deduplication and grouping.
 - [arrTo1dArray](https://qsu.cdget.com/reference/array/arrTo1dArray) (JavaScript, Dart, Python): Merges all elements of a multidimensional array into a one-dimensional array.
 - [arrUnique](https://qsu.cdget.com/reference/array/arrUnique) (JavaScript, Dart, Python): Remove duplicate values from array and two-dimensional array data. In the case of 2d arrays, json type data duplication is not removed.
 - [arrWithDefault](https://qsu.cdget.com/reference/array/arrWithDefault) (JavaScript, Dart, Python): Initialize an array with a default value of a specific length.
-- [arrWithNumber](https://qsu.cdget.com/reference/array/arrWithNumber) (JavaScript, Dart, Python): Creates and returns an Array in the order of start...end values.
+- [arrWithNumber](https://qsu.cdget.com/reference/array/arrWithNumber) (JavaScript, Dart, Python): Returns an array of the numbers from `start` to `end`, counting up by the `step` option (default `1`). `end` is included when a step lands on it.
 - [average](https://qsu.cdget.com/reference/array/average) (JavaScript, Dart, Python): Returns the average of all numeric values in an array.
+- [median](https://qsu.cdget.com/reference/array/median) (JavaScript, Dart, Python): Returns the middle value of an array of numbers, or the mean of the two middle values when the count is even. `NaN` is skipped and an empty array returns `null`.
 - [sortByObjectKey](https://qsu.cdget.com/reference/array/sortByObjectKey) (JavaScript, Dart, Python): Sort array values by a specific key value in an array containing multiple objects. It does not affect the order or value of elements within an object.
 - [sortNumeric](https://qsu.cdget.com/reference/array/sortNumeric) (JavaScript, Dart, Python): When sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names.
 
@@ -56,11 +58,13 @@ Hashing, base64, symmetric encryption and id generation. In JavaScript these fun
 
 ## date
 
-Date validation, formatting and range calculation.
+Date validation, formatting, ranges and calendar calculation.
 
 - [createDateListFromRange](https://qsu.cdget.com/reference/date/createDateListFromRange) (JavaScript, Dart, Python): Create an array list of all dates from `startDate` to `endDate` in the format `YYYY-MM-DD`.
 - [dateToYYYYMMDD](https://qsu.cdget.com/reference/date/dateToYYYYMMDD) (JavaScript, Dart, Python): Returns the date data of a Date object in the format `YYYY-MM-DD`.
 - [dayDiff](https://qsu.cdget.com/reference/date/dayDiff) (JavaScript, Dart, Python): Calculates the difference between two given dates and returns the number of days.
+- [getDaysInMonth](https://qsu.cdget.com/reference/date/getDaysInMonth) (JavaScript, Dart, Python): Returns the number of days in a month of a given year, from 28 to 31. `month` runs from 1 for January to 12 for December.
+- [isLeapYear](https://qsu.cdget.com/reference/date/isLeapYear) (JavaScript, Dart, Python): Returns `true` when the year is a leap year in the Gregorian calendar.
 - [isValidDate](https://qsu.cdget.com/reference/date/isValidDate) (JavaScript, Dart, Python): Checks if a given date actually exists. Check only in `YYYY-MM-DD` format.
 - [today](https://qsu.cdget.com/reference/date/today) (JavaScript, Dart, Python): Returns today's date.
 
@@ -154,8 +158,10 @@ Object traversal, merging, flattening and conversion.
 - [objMapKeys](https://qsu.cdget.com/reference/object/objMapKeys) (JavaScript, Dart, Python): Returns a new object whose keys are the values returned by the callback. The callback receives `(value, key)` and the values are carried over untouched.
 - [objMerge](https://qsu.cdget.com/reference/object/objMerge) (JavaScript, Dart, Python): Merges any number of objects into one new object, going down through nested objects, with the later source winning. Arrays are replaced whole rather than merged index by index as Lodash does.
 - [objMergeNewKey](https://qsu.cdget.com/reference/object/objMergeNewKey) (JavaScript, Dart, Python): Merge two object data into one object. The key to this method is to compare the two objects and add the newly added key data, if any.
+- [objOmit](https://qsu.cdget.com/reference/object/objOmit) (JavaScript, Dart, Python): Returns a new object without the listed keys, accepting a single key or an array of keys. The opposite of `objPick`; only the top level is inspected.
 - [objPick](https://qsu.cdget.com/reference/object/objPick) (JavaScript, Dart, Python): Returns a new object containing only the listed keys, accepting a single key or an array of keys. Only the top level is inspected and a missing key is skipped.
 - [objPickBy](https://qsu.cdget.com/reference/object/objPickBy) (JavaScript, Dart, Python): Returns a new object containing only the entries for which the callback returns `true`. The callback receives `(value, key)` and only the top level is inspected.
+- [objSet](https://qsu.cdget.com/reference/object/objSet) (JavaScript, Dart, Python): Returns a copy of an object with a value written at a dot and/or bracket path, creating missing levels as objects. The source is not modified.
 - [objTo1d](https://qsu.cdget.com/reference/object/objTo1d) (JavaScript, Dart, Python): Merges objects from the given object to the top level of the child items and displays the key names in steps, using a delimiter (`.` by default) instead of the existing keys.
 - [objToArray](https://qsu.cdget.com/reference/object/objToArray) (JavaScript, Dart, Python): Converts the given object to array format. The resulting array is a two-dimensional array with one key value stored as follows: `[key, value]`.
 - [objToPrettyStr](https://qsu.cdget.com/reference/object/objToPrettyStr) (JavaScript, Dart, Python): Recursively output all the steps of the JSON object (`JSON.stringify`) and then output the JSON object with newlines and tab characters to make it easier to read in a `console` function, for example.
@@ -244,6 +250,7 @@ Type, equality, range and format validation.
 - [isEmail](https://qsu.cdget.com/reference/verify/isEmail) (JavaScript, Dart, Python): Checks if the given argument value is a valid email.
 - [isEmpty](https://qsu.cdget.com/reference/verify/isEmpty) (JavaScript, Dart, Python): Returns true if the passed data is empty or has a length of 0.
 - [isEqual](https://qsu.cdget.com/reference/verify/isEqual) (JavaScript, Dart, Python): It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
+- [isEqualDeep](https://qsu.cdget.com/reference/verify/isEqualDeep) (JavaScript, Dart, Python): Compares two values by their contents: arrays item by item, objects key by key in any order, dates by the moment. No type coercion, and `NaN` equals `NaN`.
 - [isEqualStrict](https://qsu.cdget.com/reference/verify/isEqualStrict) (JavaScript, Dart, Python): It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
 - [isObject](https://qsu.cdget.com/reference/verify/isObject) (JavaScript, Dart, Python): Check whether the given data is of type `Object`. Returns `false` for other data types including `Array`.
 - [isTrueMinimumNumberOfTimes](https://qsu.cdget.com/reference/verify/isTrueMinimumNumberOfTimes) (JavaScript, Dart, Python): Returns `true` if the values given in the `conditions` array are true at least `minimumCount` times.
@@ -268,7 +275,7 @@ URLs, slugs, user agents and other web-oriented helpers.
 How qsu compares with other utility libraries, and how to move a project from one of them. These pages are prose rather than function reference.
 
 - [Discover More](https://qsu.cdget.com/discover-more): Index of the comparison and the migration guides.
-- [Comparison](https://qsu.cdget.com/discover-more/comparison): qsu next to Lodash, Underscore.js, quiver, basic_utils, pydash and boltons. Carries a feature sheet of around 85 capabilities marked supported, partial or unsupported per library, then covers API shape, runtime and packaging, and when another library is the better answer.
+- [Comparison](https://qsu.cdget.com/discover-more/comparison): qsu next to Lodash, Underscore.js, quiver, basic_utils, pydash and boltons. Carries a feature sheet of around 90 capabilities marked supported, partial or unsupported per library, then covers API shape, runtime and packaging, and when another library is the better answer.
 - [Migration](https://qsu.cdget.com/discover-more/migration): Index of the migration guides, grouped by language.
 - [Migrating from Lodash](https://qsu.cdget.com/discover-more/migration/lodash) (JavaScript): Lodash functions mapped to their qsu counterparts, the pairs that behave differently, and what has no counterpart.
 - [Migrating from Underscore.js](https://qsu.cdget.com/discover-more/migration/underscore) (JavaScript): The same for Underscore.js, whose overlap with qsu is smaller.

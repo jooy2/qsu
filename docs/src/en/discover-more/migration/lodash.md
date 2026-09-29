@@ -67,12 +67,13 @@ There is no chained form. `_.chain(x).map(f).uniq().value()` has no counterpart,
 | `shuffle` | [arrShuffle](/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/reference/array/arrPick) | `_.sampleSize` has no counterpart. |
 | `countBy` | [arrCount](/reference/array/arrCount) | **Different.** No iteratee, and the values must be strings or numbers. |
-| `range` | [arrWithNumber](/reference/array/arrWithNumber) | **Different.** qsu includes the end value and takes no step. |
+| `range` | [arrWithNumber](/reference/array/arrWithNumber) | **Different.** qsu includes the end value, and its `step` option takes a positive whole number, so it cannot count down or step by fractions. |
 | `fill` | [arrWithDefault](/reference/array/arrWithDefault) | **Different.** qsu builds a new array of the given length instead of writing into an existing one. |
 | `sortBy` | [sortByObjectKey](/reference/array/sortByObjectKey) | For one key of an array of objects. Several keys, or an iteratee, have no counterpart. |
 | `mean` | [average](/reference/array/average) |  |
 | `without` | — | `arrDifference(array, [value])`. |
-| `zip`, `unzip`, `take`, `drop`, `head`, `last`, `nth`, `pull`, `remove`, `orderBy`, `groupBy`, `keyBy`, `partition` | — | No counterpart. |
+| `groupBy` | [arrGroupBy](/reference/array/arrGroupBy) | The callback is required; a property name in its place is not accepted. Keys are strings, as they are in Lodash. |
+| `zip`, `unzip`, `take`, `drop`, `head`, `last`, `nth`, `pull`, `remove`, `orderBy`, `keyBy`, `partition` | — | No counterpart. |
 | — | [sortNumeric](/reference/array/sortNumeric) | Sorts strings by the numbers inside them. |
 | — | [arrMove](/reference/array/arrMove), [arrRepeat](/reference/array/arrRepeat), [is2dArray](/reference/verify/is2dArray) | No Lodash counterpart. |
 
@@ -90,9 +91,11 @@ There is no chained form. `_.chain(x).map(f).uniq().value()` has no counterpart,
 | `mapKeys` | [objMapKeys](/reference/object/objMapKeys) |  |
 | `pick` | [objPick](/reference/object/objPick) | Top level only. |
 | `pickBy` | [objPickBy](/reference/object/objPickBy) | Top level only. |
-| `omit`, `omitBy` | — | Invert the test and use `objPickBy`. |
+| `omit` | [objOmit](/reference/object/objOmit) | **Different.** Top-level keys only; Lodash also takes deep paths. |
+| `omitBy` | — | Invert the test and use `objPickBy`. |
 | `toPairs` | [objToArray](/reference/object/objToArray) |  |
-| `set`, `update` | [objUpdate](/reference/object/objUpdate) | **Different.** qsu finds a key by name, optionally through the whole tree, rather than walking a path. |
+| `set` | [objSet](/reference/object/objSet) | **Different.** qsu returns a new object and leaves the one you pass alone, where Lodash writes into it. A missing level is always created as an object, even for a numeric key such as `[0]`, where Lodash creates an array. |
+| `update` | [objGet](/reference/object/objGet), then [objSet](/reference/object/objSet) | Read the value, compute the new one and write it back. qsu has no updater callback. |
 | `unset` | — | [objDeleteKeyByValue](/reference/object/objDeleteKeyByValue) deletes by value, not by key. |
 | `keys`, `values`, `has`, `mapValues`, `forOwn` | — | Already in the language. |
 | — | [objTo1d](/reference/object/objTo1d) | Flattens a nested object into one level of dotted keys. |
@@ -127,7 +130,7 @@ There is no chained form. `_.chain(x).map(f).uniq().value()` has no counterpart,
 | Lodash | qsu | Notes |
 | --- | --- | --- |
 | `isEmpty` | [isEmpty](/reference/verify/isEmpty) |  |
-| `isEqual` | [isEqual](/reference/verify/isEqual), [isEqualStrict](/reference/verify/isEqualStrict) | **Different, and this one bites.** Lodash compares objects deeply. qsu compares them the way JavaScript does, by reference, so two objects with the same contents are not equal. `isEqual` ignores the type and `isEqualStrict` does not. |
+| `isEqual` | [isEqualDeep](/reference/verify/isEqualDeep) | **Different.** Arrays, plain objects and dates compare by content, as in Lodash. A `Map`, a `Set` or a class instance is compared with `===`, where Lodash compares those by content too. Do not reach for qsu's [isEqual](/reference/verify/isEqual): it compares objects by reference. |
 | `isObject` | [isObject](/reference/verify/isObject) | **Different.** `_.isObject([])` is <code>true</code>; qsu answers <code>false</code> for an array. |
 | `size` | [len](/reference/verify/len) | A missing value counts as `0`. |
 | `includes` | [contains](/reference/verify/contains) | qsu also takes a list of candidates and an `exact` option. |
@@ -181,4 +184,4 @@ The last line is the point of the exercise: the arithmetic was the workaround, a
 
 Both libraries can sit in a project at once. They share no global state and no prototype patching, so there is nothing to keep them apart.
 
-A workable order is to replace the string and formatting calls first, because that is where qsu covers the most ground and the behavioral differences are the easiest to see in a test. Leave `_.isEqual`, `_.set` and anything chained until last, since those are the ones that need the call rewritten rather than renamed.
+A workable order is to replace the string and formatting calls first, because that is where qsu covers the most ground and the behavioral differences are the easiest to see in a test. Leave `_.set` and anything chained until last, since those are the ones that need the call rewritten rather than renamed: [objSet](/reference/object/objSet) returns a new object where `_.set` changed the one it was given.

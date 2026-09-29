@@ -68,12 +68,13 @@ qsu.round(2.675, 2)
 | `shuffle` | [arrShuffle](/ko/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/ko/reference/array/arrPick) | `sample_size`에 해당하는 것은 없습니다. |
 | `count_by` | [arrCount](/ko/reference/array/arrCount) | **다릅니다.** iteratee가 없고, 값은 문자열이나 숫자여야 합니다. |
-| `range_` | [arrWithNumber](/ko/reference/array/arrWithNumber) | **다릅니다.** qsu는 끝 값을 포함하고 step을 받지 않습니다. |
+| `range_` | [arrWithNumber](/ko/reference/array/arrWithNumber) | **다릅니다.** qsu는 끝 값을 포함하고, `step` 옵션은 양의 정수만 받아 거꾸로 세거나 소수 간격으로 셀 수 없습니다. |
 | `sort_by` | [sortByObjectKey](/ko/reference/array/sortByObjectKey) | dict 리스트의 키 하나가 기준입니다. |
 | `mean` | [average](/ko/reference/array/average) |  |
 | `size` | [len](/ko/reference/verify/len) |  |
 | `without` | — | `arrDifference(items, [value])`로 씁니다. |
-| `group_by`, `key_by`, `order_by`, `partition`, `zip_`, `take`, `drop`, `flat_map` | — | 대응되는 것이 없습니다. `itertools`와 컴프리헨션을 쓰세요. |
+| `group_by` | [arrGroupBy](/ko/reference/array/arrGroupBy) | **다릅니다.** qsu는 모든 키를 문자열로 바꾸므로 `1`로 묶인 그룹은 `'1'` 아래에 들어갑니다. 콜백이 꼭 있어야 하고, 그 자리에 속성 이름을 넘길 수 없습니다. |
+| `key_by`, `order_by`, `partition`, `zip_`, `take`, `drop`, `flat_map` | — | 대응되는 것이 없습니다. `itertools`와 컴프리헨션을 쓰세요. |
 | — | [arrMove](/ko/reference/array/arrMove), [arrRepeat](/ko/reference/array/arrRepeat), [sortNumeric](/ko/reference/array/sortNumeric), [is2dArray](/ko/reference/verify/is2dArray) | pydash에 대응되는 것이 없습니다. |
 
 ## dict
@@ -90,9 +91,11 @@ qsu.round(2.675, 2)
 | `pick` | [objPick](/ko/reference/object/objPick) | 최상위만 봅니다. |
 | `pick_by` | [objPickBy](/ko/reference/object/objPickBy) | 최상위만 봅니다. |
 | `to_pairs` | [objToArray](/ko/reference/object/objToArray) |  |
-| `set_`, `update` | [objUpdate](/ko/reference/object/objUpdate) | **다릅니다.** qsu는 경로를 따라가는 대신 키 이름을 찾고, 옵션으로 하위 항목까지 훑습니다. |
+| `set_` | [objSet](/ko/reference/object/objSet) | **다릅니다.** qsu는 넘긴 dict를 그대로 두고 새 dict를 돌려주지만, pydash는 넘긴 dict에 직접 씁니다. 없는 단계는 `[0]` 같은 숫자 키라도 항상 dict로 만듭니다. |
+| `update` | [objGet](/ko/reference/object/objGet) 다음 [objSet](/ko/reference/object/objSet) | 값을 읽고 새 값을 계산해 다시 씁니다. qsu에는 갱신 콜백이 없습니다. |
 | `parse_int` | [safeParseInt](/ko/reference/format/safeParseInt) | 예외를 올리는 대신 fallback을 돌려줍니다. |
-| `omit`, `omit_by`, `unset`, `map_values`, `rename_keys` | — | 조건을 뒤집어 `objPickBy`를 쓰거나 컴프리헨션으로 쓰세요. |
+| `omit` | [objOmit](/ko/reference/object/objOmit) | **다릅니다.** 최상위 키만 다룹니다. pydash는 깊은 경로도 받습니다. |
+| `omit_by`, `unset`, `map_values`, `rename_keys` | — | 조건을 뒤집어 `objPickBy`를 쓰거나 컴프리헨션으로 쓰세요. |
 | — | [objTo1d](/ko/reference/object/objTo1d), [objToQueryString](/ko/reference/object/objToQueryString), [objToPrettyStr](/ko/reference/object/objToPrettyStr), [objFindItemRecursiveByKey](/ko/reference/object/objFindItemRecursiveByKey) | pydash에 대응되는 것이 없습니다. |
 
 ## 숫자와 검사, 타이밍
@@ -107,9 +110,10 @@ qsu.round(2.675, 2)
 | `in_range` | [between](/ko/reference/verify/between) | **다릅니다.** 범위를 쌍으로 먼저 받고, `inclusive`를 주지 않으면 양 끝을 제외합니다. |
 | `random` | [numPick](/ko/reference/math/numPick) | 정수만 냅니다. |
 | `unique_id` | [numUnique](/ko/reference/math/numUnique) | **다릅니다.** 시계에서 만든 숫자이고 접두사 인자가 없습니다. |
-| `median`, `variance`, `std_deviation`, `power`, `scale`, `transpose` | — | 대응되는 것이 없습니다. |
+| `median` | [median](/ko/reference/array/median) | qsu는 `NaN`을 건너뛰고, 빈 리스트에는 `None`을 돌려줍니다. |
+| `variance`, `std_deviation`, `power`, `scale`, `transpose` | — | 대응되는 것이 없습니다. |
 | `is_empty` | [isEmpty](/ko/reference/verify/isEmpty) |  |
-| `is_equal` | [isEqual](/ko/reference/verify/isEqual), [isEqualStrict](/ko/reference/verify/isEqualStrict) | qsu는 Python의 `==`로 비교하므로 dict와 list는 내용으로 비교됩니다. `isEqual`은 타입을 무시하고 `isEqualStrict`는 무시하지 않습니다. |
+| `is_equal` | [isEqualDeep](/ko/reference/verify/isEqualDeep) | **다릅니다.** pydash는 Python의 `==`로 비교합니다. qsu는 항목이 같은 list와 tuple을 같다고 보고, `True`를 `1`로 보지 않으며, `NaN`은 자기 자신과 같다고 봅니다. [isEqual](/ko/reference/verify/isEqual)은 대신 쓸 수 없습니다. 두 번째 인자로 넘긴 list를 비교할 값의 목록으로 읽기 때문입니다. |
 | `is_dict` | [isObject](/ko/reference/verify/isObject) |  |
 | `debounce`, `throttle` | [debounce](/ko/reference/misc/debounce), [throttle](/ko/reference/misc/throttle) |  |
 | `times` | [funcTimes](/ko/reference/misc/funcTimes) |  |

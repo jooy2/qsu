@@ -6,7 +6,7 @@ description: JavaScript 프로젝트를 Underscore.js에서 qsu로 옮기는 방
 
 # Underscore.js에서 qsu로 옮기기
 
-Underscore는 qsu와 비교되는 두 라이브러리 중 작은 쪽이고, 겹치는 부분도 그만큼 적습니다. Underscore가 잘하는 것은 `each`, `map`, `reduce`, `groupBy`, `pluck` 같은 컬렉션 작업인데, 그 대부분은 이제 언어에 들어 있습니다. qsu는 그 영역을 시도하지 않습니다.
+Underscore는 qsu와 비교되는 두 라이브러리 중 작은 쪽이고, 겹치는 부분도 그만큼 적습니다. Underscore가 잘하는 것은 `each`, `map`, `reduce`, `filter`, `pluck` 같은 컬렉션 작업인데, 그 대부분은 이제 언어에 들어 있습니다. qsu는 그 영역을 시도하지 않습니다.
 
 그러고 나면 남는 목록이 짧아서 이 문서도 짧습니다. 두 라이브러리가 공유하는 이름은 [Lodash](./lodash) 문서에서 더 자세히 다루며, 이름이 같은 함수라면 거기의 비고가 그대로 적용됩니다.
 
@@ -33,13 +33,15 @@ import { arrUnique, strToKebabCase } from 'qsu';
 | `shuffle` | [arrShuffle](/ko/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/ko/reference/array/arrPick) | qsu는 하나만 돌려주고 개수를 받지 않습니다. |
 | `countBy` | [arrCount](/ko/reference/array/arrCount) | **다릅니다.** iteratee가 없고, 값은 문자열이나 숫자여야 합니다. |
-| `range` | [arrWithNumber](/ko/reference/array/arrWithNumber) | **다릅니다.** qsu는 끝 값을 포함하고 step을 받지 않습니다. |
+| `range` | [arrWithNumber](/ko/reference/array/arrWithNumber) | **다릅니다.** qsu는 끝 값을 포함하고, `step` 옵션은 양의 정수만 받아 거꾸로 세거나 소수 간격으로 셀 수 없습니다. |
 | `sortBy` | [sortByObjectKey](/ko/reference/array/sortByObjectKey) | 객체 배열의 키 하나가 기준입니다. iteratee는 지원하지 않습니다. |
 | `size` | [len](/ko/reference/verify/len) | 어떤 값이든 받고, 값이 없으면 `0`입니다. |
 | `contains` | [contains](/ko/reference/verify/contains) | **다릅니다.** qsu는 배열뿐 아니라 문자열도 받고, 두 번째 인자로 후보 목록을 받습니다. |
 | `without` | — | `arrDifference(array, [value])`로 씁니다. |
 | `union` | — | `arrUnique([...a, ...b])`로 씁니다. |
-| `each`, `map`, `reduce`, `filter`, `find`, `every`, `some`, `pluck`, `groupBy`, `indexBy`, `partition`, `zip`, `first`, `last` | — | 언어에 이미 있습니다. |
+| `each`, `map`, `reduce`, `filter`, `find`, `every`, `some`, `pluck`, `first`, `last` | — | 언어에 이미 있습니다. |
+| `groupBy` | [arrGroupBy](/ko/reference/array/arrGroupBy) | 콜백이 꼭 있어야 하고, 그 자리에 속성 이름을 넘길 수 없습니다. |
+| `indexBy`, `partition`, `zip` | — | 대응되는 것이 없습니다. |
 
 ## 객체
 
@@ -53,9 +55,10 @@ import { arrUnique, strToKebabCase } from 'qsu';
 | `pairs` | [objToArray](/ko/reference/object/objToArray) |  |
 | `get` | [objGet](/ko/reference/object/objGet) | 점 표기와 대괄호 표기를 모두 받습니다. 기본값은 `{ fallback }`으로 넘깁니다. |
 | `isEmpty` | [isEmpty](/ko/reference/verify/isEmpty) |  |
-| `isEqual` | [isEqual](/ko/reference/verify/isEqual) | **다르고, 여기서 사고가 납니다.** Underscore는 객체를 깊게 비교하지만 qsu는 JavaScript와 같이 참조로 비교합니다. |
-| `omit`, `mapObject`, `findKey`, `keys`, `values`, `has` | — | 대응되는 것이 없거나 언어에 이미 있습니다. |
-| — | [objTo1d](/ko/reference/object/objTo1d), [objToQueryString](/ko/reference/object/objToQueryString), [objUpdate](/ko/reference/object/objUpdate) | Underscore에 대응되는 것이 없습니다. |
+| `isEqual` | [isEqualDeep](/ko/reference/verify/isEqualDeep) | **다릅니다.** 배열과 일반 객체, 날짜는 Underscore처럼 내용으로 비교합니다. 그 밖의 객체는 `===`로 비교합니다. qsu의 [isEqual](/ko/reference/verify/isEqual)은 쓰지 마세요. 객체를 참조로 비교합니다. |
+| `omit` | [objOmit](/ko/reference/object/objOmit) | Underscore는 키 대신 조건 함수도 받습니다. 그럴 때는 조건을 뒤집어 [objPickBy](/ko/reference/object/objPickBy)를 쓰세요. |
+| `mapObject`, `findKey`, `keys`, `values`, `has` | — | 대응되는 것이 없거나 언어에 이미 있습니다. |
+| — | [objTo1d](/ko/reference/object/objTo1d), [objToQueryString](/ko/reference/object/objToQueryString), [objUpdate](/ko/reference/object/objUpdate), [objSet](/ko/reference/object/objSet) | Underscore에 대응되는 것이 없습니다. |
 
 ## 유틸리티
 

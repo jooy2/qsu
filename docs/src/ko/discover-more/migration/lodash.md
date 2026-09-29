@@ -67,12 +67,13 @@ import { sha256Hash, getFileSize } from 'qsu/node';
 | `shuffle` | [arrShuffle](/ko/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/ko/reference/array/arrPick) | `_.sampleSize`에 해당하는 것은 없습니다. |
 | `countBy` | [arrCount](/ko/reference/array/arrCount) | **다릅니다.** iteratee가 없고, 값은 문자열이나 숫자여야 합니다. |
-| `range` | [arrWithNumber](/ko/reference/array/arrWithNumber) | **다릅니다.** qsu는 끝 값을 포함하고 step을 받지 않습니다. |
+| `range` | [arrWithNumber](/ko/reference/array/arrWithNumber) | **다릅니다.** qsu는 끝 값을 포함하고, `step` 옵션은 양의 정수만 받아 거꾸로 세거나 소수 간격으로 셀 수 없습니다. |
 | `fill` | [arrWithDefault](/ko/reference/array/arrWithDefault) | **다릅니다.** qsu는 기존 배열에 써 넣는 대신 주어진 길이의 새 배열을 만듭니다. |
 | `sortBy` | [sortByObjectKey](/ko/reference/array/sortByObjectKey) | 객체 배열의 키 하나를 기준으로 정렬합니다. 키 여러 개나 iteratee는 지원하지 않습니다. |
 | `mean` | [average](/ko/reference/array/average) |  |
 | `without` | — | `arrDifference(array, [value])`로 씁니다. |
-| `zip`, `unzip`, `take`, `drop`, `head`, `last`, `nth`, `pull`, `remove`, `orderBy`, `groupBy`, `keyBy`, `partition` | — | 대응되는 것이 없습니다. |
+| `groupBy` | [arrGroupBy](/ko/reference/array/arrGroupBy) | 콜백이 꼭 있어야 하고, 그 자리에 속성 이름을 넘길 수 없습니다. 키는 Lodash와 같이 문자열입니다. |
+| `zip`, `unzip`, `take`, `drop`, `head`, `last`, `nth`, `pull`, `remove`, `orderBy`, `keyBy`, `partition` | — | 대응되는 것이 없습니다. |
 | — | [sortNumeric](/ko/reference/array/sortNumeric) | 문자열을 그 안의 숫자 기준으로 정렬합니다. |
 | — | [arrMove](/ko/reference/array/arrMove), [arrRepeat](/ko/reference/array/arrRepeat), [is2dArray](/ko/reference/verify/is2dArray) | Lodash에 대응되는 것이 없습니다. |
 
@@ -90,9 +91,11 @@ import { sha256Hash, getFileSize } from 'qsu/node';
 | `mapKeys` | [objMapKeys](/ko/reference/object/objMapKeys) |  |
 | `pick` | [objPick](/ko/reference/object/objPick) | 최상위만 봅니다. |
 | `pickBy` | [objPickBy](/ko/reference/object/objPickBy) | 최상위만 봅니다. |
-| `omit`, `omitBy` | — | 조건을 뒤집어 `objPickBy`를 쓰세요. |
+| `omit` | [objOmit](/ko/reference/object/objOmit) | **다릅니다.** 최상위 키만 다룹니다. Lodash는 깊은 경로도 받습니다. |
+| `omitBy` | — | 조건을 뒤집어 `objPickBy`를 쓰세요. |
 | `toPairs` | [objToArray](/ko/reference/object/objToArray) |  |
-| `set`, `update` | [objUpdate](/ko/reference/object/objUpdate) | **다릅니다.** qsu는 경로를 따라가는 대신 키 이름을 찾고, 옵션으로 하위 항목까지 훑습니다. |
+| `set` | [objSet](/ko/reference/object/objSet) | **다릅니다.** qsu는 넘긴 객체를 그대로 두고 새 객체를 돌려주지만, Lodash는 넘긴 객체에 직접 씁니다. 없는 단계는 `[0]` 같은 숫자 키라도 항상 객체로 만드는데, Lodash는 이때 배열을 만듭니다. |
+| `update` | [objGet](/ko/reference/object/objGet) 다음 [objSet](/ko/reference/object/objSet) | 값을 읽고 새 값을 계산해 다시 씁니다. qsu에는 갱신 콜백이 없습니다. |
 | `unset` | — | [objDeleteKeyByValue](/ko/reference/object/objDeleteKeyByValue)는 키가 아니라 값으로 지웁니다. |
 | `keys`, `values`, `has`, `mapValues`, `forOwn` | — | 언어에 이미 있습니다. |
 | — | [objTo1d](/ko/reference/object/objTo1d) | 중첩 객체를 점으로 이은 키 하나의 단계로 폅니다. |
@@ -127,7 +130,7 @@ import { sha256Hash, getFileSize } from 'qsu/node';
 | Lodash | qsu | 비고 |
 | --- | --- | --- |
 | `isEmpty` | [isEmpty](/ko/reference/verify/isEmpty) |  |
-| `isEqual` | [isEqual](/ko/reference/verify/isEqual), [isEqualStrict](/ko/reference/verify/isEqualStrict) | **다르고, 여기서 사고가 납니다.** Lodash는 객체를 깊게 비교합니다. qsu는 JavaScript와 같이 참조로 비교하므로 내용이 같은 두 객체는 같지 않습니다. `isEqual`은 타입을 무시하고 `isEqualStrict`는 무시하지 않습니다. |
+| `isEqual` | [isEqualDeep](/ko/reference/verify/isEqualDeep) | **다릅니다.** 배열과 일반 객체, 날짜는 Lodash처럼 내용으로 비교합니다. `Map`과 `Set`, 클래스 인스턴스는 `===`로 비교하는데, Lodash는 이것들도 내용으로 비교합니다. qsu의 [isEqual](/ko/reference/verify/isEqual)은 쓰지 마세요. 객체를 참조로 비교합니다. |
 | `isObject` | [isObject](/ko/reference/verify/isObject) | **다릅니다.** `_.isObject([])`는 <code>true</code>이지만 qsu는 배열에 <code>false</code>를 돌려줍니다. |
 | `size` | [len](/ko/reference/verify/len) | 값이 없으면 `0`입니다. |
 | `includes` | [contains](/ko/reference/verify/contains) | qsu는 후보 목록과 `exact` 옵션도 받습니다. |
@@ -181,4 +184,4 @@ const label = fileSizeFormat(bytes, 1);
 
 두 라이브러리는 한 프로젝트에 같이 둘 수 있습니다. 공유하는 전역 상태도, 프로토타입을 건드리는 부분도 없어서 떼어 놓을 이유가 없습니다.
 
-문자열과 형식 관련 호출부터 바꾸는 편이 좋습니다. qsu가 가장 많이 덮는 영역이고, 동작 차이도 테스트에서 가장 빨리 드러납니다. `_.isEqual`과 `_.set`, 체인으로 엮인 코드는 마지막에 손대세요. 이름만 바꾸는 것이 아니라 호출 자체를 다시 써야 하는 것들입니다.
+문자열과 형식 관련 호출부터 바꾸는 편이 좋습니다. qsu가 가장 많이 덮는 영역이고, 동작 차이도 테스트에서 가장 빨리 드러납니다. `_.set`과 체인으로 엮인 코드는 마지막에 손대세요. 이름만 바꾸는 것이 아니라 호출 자체를 다시 써야 하는 것들입니다. `_.set`은 넘긴 객체를 바꾸지만 [objSet](/ko/reference/object/objSet)은 새 객체를 돌려줍니다.

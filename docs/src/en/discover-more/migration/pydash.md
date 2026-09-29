@@ -68,12 +68,13 @@ Options arrive as keyword arguments, or as a single `dict` in their place.
 | `shuffle` | [arrShuffle](/reference/array/arrShuffle) |  |
 | `sample` | [arrPick](/reference/array/arrPick) | `sample_size` has no counterpart. |
 | `count_by` | [arrCount](/reference/array/arrCount) | **Different.** No iteratee, and the values must be strings or numbers. |
-| `range_` | [arrWithNumber](/reference/array/arrWithNumber) | **Different.** qsu includes the end value and takes no step. |
+| `range_` | [arrWithNumber](/reference/array/arrWithNumber) | **Different.** qsu includes the end value, and its `step` option takes a positive whole number, so it cannot count down or step by fractions. |
 | `sort_by` | [sortByObjectKey](/reference/array/sortByObjectKey) | For one key of a list of dicts. |
 | `mean` | [average](/reference/array/average) |  |
 | `size` | [len](/reference/verify/len) |  |
 | `without` | — | `arrDifference(items, [value])`. |
-| `group_by`, `key_by`, `order_by`, `partition`, `zip_`, `take`, `drop`, `flat_map` | — | No counterpart. Use `itertools` and comprehensions. |
+| `group_by` | [arrGroupBy](/reference/array/arrGroupBy) | **Different.** qsu turns every key into a string, so a group keyed by `1` comes back under `'1'`. The callback is required; a property name in its place is not accepted. |
+| `key_by`, `order_by`, `partition`, `zip_`, `take`, `drop`, `flat_map` | — | No counterpart. Use `itertools` and comprehensions. |
 | — | [arrMove](/reference/array/arrMove), [arrRepeat](/reference/array/arrRepeat), [sortNumeric](/reference/array/sortNumeric), [is2dArray](/reference/verify/is2dArray) | No pydash counterpart. |
 
 ## Dicts
@@ -90,9 +91,11 @@ Options arrive as keyword arguments, or as a single `dict` in their place.
 | `pick` | [objPick](/reference/object/objPick) | Top level only. |
 | `pick_by` | [objPickBy](/reference/object/objPickBy) | Top level only. |
 | `to_pairs` | [objToArray](/reference/object/objToArray) |  |
-| `set_`, `update` | [objUpdate](/reference/object/objUpdate) | **Different.** qsu finds a key by name, optionally through the whole tree, rather than walking a path. |
+| `set_` | [objSet](/reference/object/objSet) | **Different.** qsu returns a new dict and leaves the one you pass alone, where pydash writes into it. A missing level is always created as a dict, even for a numeric key such as `[0]`. |
+| `update` | [objGet](/reference/object/objGet), then [objSet](/reference/object/objSet) | Read the value, compute the new one and write it back. qsu has no updater callback. |
 | `parse_int` | [safeParseInt](/reference/format/safeParseInt) | Returns the fallback instead of raising. |
-| `omit`, `omit_by`, `unset`, `map_values`, `rename_keys` | — | Invert the test and use `objPickBy`, or write the comprehension. |
+| `omit` | [objOmit](/reference/object/objOmit) | **Different.** Top-level keys only; pydash also takes deep paths. |
+| `omit_by`, `unset`, `map_values`, `rename_keys` | — | Invert the test and use `objPickBy`, or write the comprehension. |
 | — | [objTo1d](/reference/object/objTo1d), [objToQueryString](/reference/object/objToQueryString), [objToPrettyStr](/reference/object/objToPrettyStr), [objFindItemRecursiveByKey](/reference/object/objFindItemRecursiveByKey) | No pydash counterpart. |
 
 ## Numbers, checks and timing
@@ -107,9 +110,10 @@ Options arrive as keyword arguments, or as a single `dict` in their place.
 | `in_range` | [between](/reference/verify/between) | **Different.** The range comes first as a pair, and both ends are excluded unless you pass `inclusive`. |
 | `random` | [numPick](/reference/math/numPick) | Whole numbers only. |
 | `unique_id` | [numUnique](/reference/math/numUnique) | **Different.** A number derived from the clock, with no prefix argument. |
-| `median`, `variance`, `std_deviation`, `power`, `scale`, `transpose` | — | No counterpart. |
+| `median` | [median](/reference/array/median) | qsu skips `NaN` and returns `None` for an empty list. |
+| `variance`, `std_deviation`, `power`, `scale`, `transpose` | — | No counterpart. |
 | `is_empty` | [isEmpty](/reference/verify/isEmpty) |  |
-| `is_equal` | [isEqual](/reference/verify/isEqual), [isEqualStrict](/reference/verify/isEqualStrict) | qsu compares with Python's own `==`, so dicts and lists compare by contents. `isEqual` ignores the type and `isEqualStrict` does not. |
+| `is_equal` | [isEqualDeep](/reference/verify/isEqualDeep) | **Different.** pydash compares with Python's `==`. qsu treats a list and a tuple with the same items as equal, never treats `True` as `1`, and counts `NaN` as equal to itself. [isEqual](/reference/verify/isEqual) is not the replacement: a list passed as its second argument is read as the values to compare against. |
 | `is_dict` | [isObject](/reference/verify/isObject) |  |
 | `debounce`, `throttle` | [debounce](/reference/misc/debounce), [throttle](/reference/misc/throttle) |  |
 | `times` | [funcTimes](/reference/misc/funcTimes) |  |

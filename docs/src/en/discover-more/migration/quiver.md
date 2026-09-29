@@ -20,7 +20,7 @@ import 'package:qsu/qsu.dart';
 
 Optional arguments are Dart named parameters, so `truncate(text, 40, ellipsis: '…')` reads the way a quiver call does. The names are `camelCase` and deliberately not idiomatic Dart — `strToCamelCase` rather than an extension method — because the Dart package has to read the same as the JavaScript and Python ones.
 
-The `os` category reaches the operating system through `dart:ffi` and `/proc`, so it throws an `UnsupportedError` on the web. The rest of the package runs there.
+The `os` category reaches the operating system through `dart:ffi` and `/proc`, so it throws an `UnsupportedError` on the web. The `file` category, [fetchData](/reference/net/fetchData) and [logBox](/reference/misc/logBox) are built on `dart:io` and cannot run there either. The rest of the package runs on the web.
 
 ## Strings
 
@@ -40,7 +40,7 @@ qsu's string category is much larger than quiver's, and none of it has a quiver 
 | quiver | qsu | Notes |
 | --- | --- | --- |
 | `partition` | [arrGroupByMaxCount](/reference/array/arrGroupByMaxCount) | Same idea: fixed-size groups, the last one short. |
-| `range` | [arrWithNumber](/reference/array/arrWithNumber) | **Different.** qsu includes the end value and takes no step. |
+| `range` | [arrWithNumber](/reference/array/arrWithNumber) | **Different.** qsu includes the end value, and its `step` option takes a positive whole number, so it cannot count down or step by fractions. |
 | `max`, `min` | [max](/reference/math/max), [min](/reference/math/min) | **Different.** qsu's are numeric, take a `List<num>` and accept no comparator. They also shadow the ones in `dart:math`, so a file that needs both has to import one of them with a prefix. |
 | `concat` | — | Use `expand` or the spread operator. |
 | `zip`, `cycle`, `enumerate`, `count`, `generate`, `extent`, `merge` | — | No counterpart. |
@@ -56,13 +56,13 @@ qsu's string category is much larger than quiver's, and none of it has a quiver 
 
 ## Collections, caches, async and time
 
-None of this moves.
+Most of this does not move.
 
 `BiMap`, `Multimap`, `LruMap`, `TreeSet`, the `Delegating*` wrappers and `MapCache` are data structures, and qsu has none. `Optional` and the `hash*` helpers in `quiver.core` have no counterpart either; [numberHash](/reference/crypto/numberHash) hashes a string to a number and is not a `hashCode` builder.
 
-`listsEqual`, `mapsEqual` and `setsEqual` look like [isEqual](/reference/verify/isEqual), and they are not. qsu's `isEqual` compares with Dart's own `==`, so two lists with the same contents are **not** equal. Keep quiver's.
+`listsEqual` and `mapsEqual` compare one level deep with `==`. [isEqualDeep](/reference/verify/isEqualDeep) compares lists and maps by content at every depth, so it agrees with them on flat data and also looks inside the nested lists and maps they compare with `==`. `setsEqual` has no counterpart, since qsu compares a `Set` with `==`; keep quiver's. Do not reach for [isEqual](/reference/verify/isEqual) for any of them: it compares with Dart's own `==`, so two lists with the same contents are **not** equal.
 
-`quiver.time` exists so that time-dependent code can be tested against an injectable `Clock`, and `FakeAsync` in `quiver.testing` exists for the same reason. qsu's [date](/reference/date/today) category formats and compares dates; it does not control the clock.
+`isLeapYear` and `daysInMonth` from `quiver.time` move to [isLeapYear](/reference/date/isLeapYear) and [getDaysInMonth](/reference/date/getDaysInMonth), which take the same arguments and also count months from 1. The rest of `quiver.time` exists so that time-dependent code can be tested against an injectable `Clock`, and `FakeAsync` in `quiver.testing` exists for the same reason. qsu's [date](/reference/date/today) category formats and compares dates; it does not control the clock.
 
 ## What qsu adds
 
