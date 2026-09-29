@@ -394,6 +394,28 @@ void main() {
     });
 
     test('objInvert', () {
+      // A number becomes the key JavaScript's `String()` writes for it.
+      expect(
+          objInvert({
+            'a': 1e20,
+            'b': 123456789012345678901.0,
+            'c': 1e21,
+            'd': 1e-7,
+            'e': 0.000001,
+            'f': -0.0,
+            'g': 100.0,
+            'h': 1.5
+          }),
+          {
+            '100000000000000000000': 'a',
+            '123456789012345680000': 'b',
+            '1e+21': 'c',
+            '1e-7': 'd',
+            '0.000001': 'e',
+            '0': 'f',
+            '100': 'g',
+            '1.5': 'h'
+          });
       expect(objInvert({'a': 1, 'b': 2}), {'1': 'a', '2': 'b'});
       expect(objInvert({'a': 'x', 'b': 'y'}), {'x': 'a', 'y': 'b'});
       // Two entries sharing a value land on the same key, so the later one wins.
