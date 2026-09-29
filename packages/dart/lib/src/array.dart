@@ -40,24 +40,20 @@ List<int> arrWithNumber(int start, int end) {
   return List<int>.generate(end - start + 1, (index) => start + index);
 }
 
-/// Remove duplicate values from array and two-dimensional array data. In the case of 2d arrays, json type data duplication is not removed.
+/// Returns a new list with duplicate values removed, keeping the first of each in its original place.
+/// Values are compared by value rather than by identity, as [arrDifference] and [arrIntersection] compare them, so nested lists and maps with the same contents are duplicates, and `1` and `1.0` are one value.
+/// The items kept are the original ones, not copies.
 List<dynamic> arrUnique(List<dynamic> array) {
-  if (is2dArray(array)) {
-    final Set<String> jsonSet = <String>{};
-    final List<dynamic> result = <dynamic>[];
+  final Set<String> seen = <String>{};
+  final List<dynamic> result = <dynamic>[];
 
-    for (dynamic item in array) {
-      final String jsonString = jsonEncode(item);
-
-      if (jsonSet.add(jsonString)) {
-        result.add(jsonDecode(jsonString));
-      }
+  for (final dynamic item in array) {
+    if (seen.add(_comparableKey(item))) {
+      result.add(item);
     }
-
-    return result;
-  } else {
-    return array.toSet().toList();
   }
+
+  return result;
 }
 
 /// Returns the average of all numeric values in an array.

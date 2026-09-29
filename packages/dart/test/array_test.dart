@@ -34,6 +34,46 @@ void main() {
       ]);
     });
 
+    test('arrUnique compares by value', () {
+      final Map<String, int> first = {'a': 1};
+      final List<dynamic> result = arrUnique([
+        first,
+        {'a': 1},
+        {'a': 2}
+      ]);
+
+      // Maps with the same contents are duplicates, and the first one is kept as it is.
+      expect(result, [
+        {'a': 1},
+        {'a': 2}
+      ]);
+      expect(identical(result[0], first), true);
+
+      final List<int> nested = [1];
+
+      expect(
+          arrUnique([
+            nested,
+            [1],
+            1
+          ]),
+          [
+            [1],
+            1
+          ]);
+      expect(
+          identical(
+              arrUnique([
+                nested,
+                [1]
+              ])[0],
+              nested),
+          true);
+      // No type coercion, and `1.0` is the number `1`.
+      expect(arrUnique([1, 1.0, true, '1']), [1, true, '1']);
+      expect(arrUnique([double.nan, double.nan]).length, 1);
+    });
+
     test('arrWithNumber', () {
       expect(arrWithNumber(1, 2), [1, 2]);
       expect(arrWithNumber(0, 5), [0, 1, 2, 3, 4, 5]);

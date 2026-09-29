@@ -6,6 +6,7 @@
 
 - `getParsedInfoFromAddress` was renamed to `parseAddress` and moved from the `web` category to `net`. Replace the call; the address it reads and the parts it reports are the same ones, with more of them. `ParsedAddress` moved with it and is still exported from `package:qsu/qsu.dart` under that name
 - `ParsedAddress` gained `isIP` and `isIPv6`, which are a `bool` rather than a `bool?`, and nine other fields
+- `arrUnique` compares values by value, as `arrDifference` and `arrIntersection` do, so that all three packages agree. Maps and lists in a flat list with the same contents are now duplicates, where they used to be compared by identity, and a list of lists returns the original lists rather than copies decoded from JSON
 
 ### Changes
 
