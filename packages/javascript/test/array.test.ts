@@ -106,6 +106,8 @@ describe('Array', () => {
 		assert.deepStrictEqual(average([1, 3, 5, 7, 9]), 5);
 		assert.deepStrictEqual(average([1, 5, 15, 50]), 17.75);
 		assert.deepStrictEqual(average([5, -5]), 0);
+		// An empty array has no average.
+		assert.ok(Number.isNaN(average([])));
 	});
 
 	it('arrMove', () => {
