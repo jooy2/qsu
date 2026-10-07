@@ -2,6 +2,8 @@
 
 ## vNext (2026--)
 
+## 1.21.0 (2026-10-07)
+
 ### Breaking changes
 
 - `getParsedInfoFromAddress` was renamed to `parseAddress` and moved from the `web` category to `net`. Replace the import and the call; the address it reads and the parts it reports are the same ones, with more of them. It is still browser-safe and ships from `qsu` and from the new `qsu/net` subpath, not from `qsu/node`
