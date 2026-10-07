@@ -2,6 +2,8 @@
 
 ## vNext (2026--)
 
+## 1.9.0 (2026-10-07)
+
 ### Breaking changes
 
 - `getParsedInfoFromAddress` was renamed to `parseAddress` and moved from the `web` category to `net`. Replace the call; the address it reads and the parts it reports are the same ones, with more of them. `ParsedAddress` moved with it and is still exported from `package:qsu/qsu.dart` under that name
