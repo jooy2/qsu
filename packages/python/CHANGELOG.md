@@ -26,6 +26,7 @@
 - `getDaysInMonth`: Added. The number of days in a month of a given year, with `month` counted from `1`. A month outside `1` to `12` raises a `ValueError`
 - `average`: An empty list returns `nan`, as it does in JavaScript, instead of raising a `ZeroDivisionError`
 - `objInvert`: A float becomes the key JavaScript writes for it wherever the two used to differ: `1e20` is `'100000000000000000000'` rather than `'1e+20'`, and `1e-7` is `'1e-7'` rather than `'1e-07'`. `objInvert` and `arrGroupBy` now share one rule for turning a value into a key
+- `__version__` names the version that is installed. It was left at `1.3.0` when 1.4.0 and 1.5.0 were released, so both reported `1.3.0`
 
 ## 1.5.0 (2026-09-20)
 
