@@ -113,3 +113,19 @@ When creating a pull request, keep the following in mind:
 - Please use English in all content.
 
 Typically, a project maintainer will review and test your code before merging it into the project. This process can take some time, and they may ask you for further edits or clarifications in the comments.
+
+## Releasing
+
+A maintainer releases each package on its own, from a tag of its own. The steps are the same for all three.
+
+1. **Cut the version** in one commit per package on `main`. Raise the version in every file that carries it:
+   - JavaScript: `version` in `packages/javascript/package.json`, and the same number twice at the top of `packages/javascript/package-lock.json`, as the file's own `version` and as `packages[""].version`. Running `npm version X.Y.Z --no-git-tag-version` in the package folder changes all three.
+   - Dart: `version` in `packages/dart/pubspec.yaml`.
+   - Python: `version` in `packages/python/pyproject.toml` and `__version__` in `packages/python/qsu/__init__.py`.
+
+   In the package's `CHANGELOG.md`, add `## X.Y.Z (YYYY-MM-DD)` with the day's date directly under `## vNext (YYYY--)`. The unreleased entries become the release, and the empty `vNext` stays on top for the next one. Push, and let CI pass on that commit.
+
+1. **Tag that commit** with the package's prefix, `javascript-v`, `dart-v` or `python-v`, and push the tag, as in `git tag javascript-v1.21.0` and `git push origin javascript-v1.21.0`.
+1. **`.github/workflows/release.yml` creates the GitHub release.** It checks the tag against every file listed in the first step, writes the notes from the changelog, builds the package the way its registry takes it, and attaches the build: the `npm pack` tarball for JavaScript, and the wheel and the source archive for Python. A Dart release carries no build, because pub has no command that writes its archive to a file; the job runs `dart pub publish --dry-run` instead. Pushing the tag again brings an existing release up to date.
+1. **The release notes are the version's whole changelog section**, followed by a link to the package's `CHANGELOG.md` at that tag. Preview them with `node .github/scripts/release-notes.mjs javascript-v1.21.0`, which also refuses a tag that the files do not agree with.
+1. **Publish to the registries by hand.** The workflow holds no token for any of them. Publish the files the release carries, so that the registry and the release page hold the same build: download them with `gh release download <tag>` into an empty folder, then run `npm publish qsu-X.Y.Z.tgz` for JavaScript and `twine upload *` for Python. For Dart, run `dart pub publish` in `packages/dart` on a checkout of the tag.

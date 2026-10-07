@@ -265,6 +265,24 @@ Follow the existing history: `[scope] tag: message`.
 - Prefer one logical change per commit; a cross‑language feature is often split into one
   commit per package.
 
+## Releasing
+
+Each package is released on its own, from a tag named after it: `javascript-v1.21.0`,
+`dart-v1.9.0`, `python-v1.6.0`. The steps are in `CONTRIBUTING.md` under "Releasing".
+
+- **The version lives in more than one file.** JavaScript: `package.json` and both versions
+  at the top of `package-lock.json`. Dart: `pubspec.yaml`. Python: `pyproject.toml` and
+  `__version__` in `qsu/__init__.py`. The bump commit is `[<scope>] package: bump the version
+  to \`X.Y.Z\``, one per package.
+- **The changelog keeps an empty `## vNext (YYYY--)` on top.** A release adds its dated
+  `## X.Y.Z (YYYY-MM-DD)` heading directly under it.
+- **A tag push runs `.github/workflows/release.yml`**, which creates the GitHub release with
+  the notes `.github/scripts/release-notes.mjs` cuts from the changelog, and attaches the npm
+  tarball or the Python wheel and source archive. The script refuses a tag that any of the
+  version files above disagrees with, or whose changelog section is undated or empty.
+- **The registries are published by hand**; the workflow holds no token for npm, pub.dev or
+  PyPI.
+
 ## Checklist when adding or changing a function
 
 1. Implement it in **all supported packages** (JS, Dart, Python) with the same `camelCase`
