@@ -2,6 +2,10 @@
 
 ## vNext (2026--)
 
+### Changes
+
+- The Changelog link on PyPI opens this file. It pointed at a page of the documentation site that does not exist
+
 ## 1.6.0 (2026-10-07)
 
 ### Breaking changes

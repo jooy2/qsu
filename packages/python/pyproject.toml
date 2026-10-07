@@ -59,7 +59,7 @@ classifiers = [
 Homepage = "https://qsu.cdget.com"
 Repository = "https://github.com/jooy2/qsu"
 "Bug Tracker" = "https://github.com/jooy2/qsu/issues"
-Changelog = "https://qsu.cdget.com/changelog/python"
+Changelog = "https://github.com/jooy2/qsu/blob/main/packages/python/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "mypy>=1.11"]
