@@ -276,12 +276,14 @@ Each package is released on its own, from a tag named after it: `javascript-v1.2
   to \`X.Y.Z\``, one per package.
 - **The changelog keeps an empty `## vNext (YYYY--)` on top.** A release adds its dated
   `## X.Y.Z (YYYY-MM-DD)` heading directly under it.
-- **A tag push runs `.github/workflows/release.yml`**, which creates the GitHub release with
-  the notes `.github/scripts/release-notes.mjs` cuts from the changelog, and attaches the npm
-  tarball or the Python wheel and source archive. The script refuses a tag that any of the
-  version files above disagrees with, or whose changelog section is undated or empty.
-- **The registries are published by hand**; the workflow holds no token for npm, pub.dev or
-  PyPI.
+- **A tag push runs `.github/workflows/release.yml`**, which builds the package, publishes it
+  to npm, pub.dev or PyPI, and then creates the GitHub release with the notes
+  `.github/scripts/release-notes.mjs` cuts from the changelog, attaching the npm tarball or
+  the Python wheel and source archive. The script refuses a tag that any of the version files
+  above disagrees with, or whose changelog section is undated or empty.
+- **Publishing uses trusted publishing (OIDC), with no stored token.** Each registry trusts
+  `release.yml` in the `release` environment, so renaming the workflow file or the
+  environment breaks publishing until the registry settings are changed to match.
 
 ## Checklist when adding or changing a function
 

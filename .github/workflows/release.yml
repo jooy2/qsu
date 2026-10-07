@@ -1,12 +1,16 @@
 name: release
 
-# A GitHub release for every package tag. Each package versions on its own, so
-# each is tagged on its own, as `javascript-v1.21.0`, `dart-v1.9.0` or
-# `python-v1.6.0`, once the commit that cut the version is on `main`. npm,
-# pub.dev and PyPI are published by hand, and this workflow holds no token for
-# any of them. What it adds is the check that the tag names the version that
-# was cut, the package built the way its registry takes it, and the release
-# written from that version's changelog section with the build attached.
+# Releases a package from its tag. Each package versions on its own, so each is
+# tagged on its own, as `javascript-v1.21.0`, `dart-v1.9.0` or `python-v1.6.0`,
+# once the commit that cut the version is on `main` and its CI has passed.
+#
+# `build` checks that the tag names the version that was cut, builds the
+# package the way its registry takes it, and writes the notes from the
+# changelog. One `publish-*` job then puts that build on its registry. No
+# registry token is stored anywhere: npm, pub.dev and PyPI each trust this
+# workflow file of this repository in the `release` environment, and trade the
+# job's OIDC token for one that lasts minutes. `github-release` runs last, so a
+# release page only appears for a version its registry already serves.
 #
 # The tests are not run again here: the tag goes on a `main` commit whose CI
 # has already passed. The test workflows filter their pushes by branch, so a
@@ -18,8 +22,9 @@ on:
       - 'dart-v*'
       - 'python-v*'
 
+# Each job asks for what it needs beyond this.
 permissions:
-  contents: write
+  contents: read
 
 # Two pushes of the same tag are the same release, so the second one waits.
 concurrency:
@@ -27,10 +32,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  release:
-    name: GitHub release for ${{ github.ref_name }}
+  build:
+    name: Build ${{ github.ref_name }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    outputs:
+      package: ${{ steps.tag.outputs.package }}
+      version: ${{ steps.tag.outputs.version }}
 
     steps:
       - uses: actions/checkout@v5
@@ -47,8 +55,8 @@ jobs:
       - name: Check the version and write the release notes
         id: tag
         run: |
-          node .github/scripts/release-notes.mjs "$GITHUB_REF_NAME" > "$RUNNER_TEMP/notes.md"
-          mkdir "$RUNNER_TEMP/assets"
+          mkdir -p "$RUNNER_TEMP/release/assets"
+          node .github/scripts/release-notes.mjs "$GITHUB_REF_NAME" > "$RUNNER_TEMP/release/notes.md"
           echo "package=${GITHUB_REF_NAME%%-v*}" >> "$GITHUB_OUTPUT"
           echo "version=${GITHUB_REF_NAME#*-v}" >> "$GITHUB_OUTPUT"
 
@@ -60,15 +68,15 @@ jobs:
         working-directory: packages/javascript
         run: |
           npm ci --ignore-scripts
-          npm pack --pack-destination "$RUNNER_TEMP/assets"
+          npm pack --pack-destination "$RUNNER_TEMP/release/assets"
 
       - uses: dart-lang/setup-dart@v1
         if: steps.tag.outputs.package == 'dart'
 
       # pub.dev's own checks on what `dart pub publish` would upload. Pub has
       # no command that writes that archive to a file, so a Dart release
-      # carries no build, and this check stands in for packing. A warning
-      # fails it; a hint does not.
+      # carries no build, and `publish-pub` uploads from the checkout. A
+      # warning fails this step; a hint does not.
       - name: Validate the Dart package for pub.dev
         if: steps.tag.outputs.package == 'dart'
         working-directory: packages/dart
@@ -89,26 +97,144 @@ jobs:
         working-directory: packages/python
         run: |
           pip install build twine
-          python -m build --outdir "$RUNNER_TEMP/assets"
-          twine check --strict "$RUNNER_TEMP"/assets/*
+          python -m build --outdir "$RUNNER_TEMP/release/assets"
+          twine check --strict "$RUNNER_TEMP"/release/assets/*
 
-      # Created, or brought up to date when the tag is pushed again after the
+      # The notes and the build, handed to the jobs below so that the registry
+      # and the release page carry the same files.
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release
+          path: ${{ runner.temp }}/release
+          if-no-files-found: error
+
+  # Each publish job is skipped when its version is already on the registry,
+  # so a re-run, or a version published by hand, does not fail on it.
+  publish-npm:
+    name: Publish to npm
+    needs: build
+    if: needs.build.outputs.package == 'javascript'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: release
+    permissions:
+      id-token: write
+
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: release
+          path: release
+
+      # npm 11.5.1 is the first to publish through OIDC, and Node 26 ships a
+      # later one. Provenance is attached without being asked for.
+      - uses: actions/setup-node@v6
+        name: Setup Node.js
+        with:
+          node-version: '26'
+
+      # npm refuses to make a pre-release `latest` on its own, so one goes out
+      # under `next`.
+      - name: Publish the tarball
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          if npm view "qsu@$VERSION" version > /dev/null 2>&1; then
+            echo "::notice::qsu $VERSION is already on npm."
+            exit 0
+          fi
+          tag="latest"
+          case "$VERSION" in *-*) tag="next" ;; esac
+          npm publish release/assets/*.tgz --tag "$tag"
+
+  publish-pub:
+    name: Publish to pub.dev
+    needs: build
+    if: needs.build.outputs.package == 'dart'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v5
+
+      # Besides installing the SDK, this trades the job's OIDC token for one
+      # pub.dev takes and hands it to `dart pub`.
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Publish the package
+        working-directory: packages/dart
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          if curl -sf "https://pub.dev/api/packages/qsu/versions/$VERSION" > /dev/null; then
+            echo "::notice::qsu $VERSION is already on pub.dev."
+            exit 0
+          fi
+          dart pub get
+          dart pub publish --force
+
+  publish-pypi:
+    name: Publish to PyPI
+    needs: build
+    if: needs.build.outputs.package == 'python'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: release
+    permissions:
+      id-token: write
+
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: release
+          path: release
+
+      # Attestations are attached without being asked for.
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: release/assets/
+          skip-existing: true
+
+  github-release:
+    name: GitHub release
+    needs: [build, publish-npm, publish-pub, publish-pypi]
+    # Two of the three publish jobs are skipped on every run, which would skip
+    # this one as well; it runs unless one of them failed.
+    if: ${{ !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: release
+          path: release
+
+      # Created, or brought up to date when the workflow runs again after the
       # release exists, so a re-run never fails on its own earlier success. A
       # version with a pre-release part is marked as one.
       - name: Publish the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          PACKAGE: ${{ steps.tag.outputs.package }}
-          VERSION: ${{ steps.tag.outputs.version }}
+          PACKAGE: ${{ needs.build.outputs.package }}
+          VERSION: ${{ needs.build.outputs.version }}
         run: |
           case "$PACKAGE" in
             javascript) title="JavaScript $VERSION" ;;
             dart) title="Dart $VERSION" ;;
             python) title="Python $VERSION" ;;
           esac
-          notes="$RUNNER_TEMP/notes.md"
-          assets=$(find "$RUNNER_TEMP/assets" -type f | sort)
+          notes="release/notes.md"
+          # A Dart build has no files, and an empty folder does not survive the
+          # artifact, so the search starts from the folder that always does.
+          assets=$(find release -path 'release/assets/*' -type f | sort)
           if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
             gh release edit "$GITHUB_REF_NAME" --title "$title" --notes-file "$notes"
             if [ -n "$assets" ]; then
