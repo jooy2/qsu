@@ -2,6 +2,8 @@
 
 ## vNext (2026--)
 
+## 1.6.0 (2026-10-07)
+
 ### Breaking changes
 
 - `getParsedInfoFromAddress` was renamed to `parseAddress` and moved from the `web` category to `net`. Import it from `qsu.net` and change the call; the address it reads and the parts it reports are the same ones, with more of them

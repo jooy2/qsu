@@ -32,7 +32,7 @@ if TYPE_CHECKING:
 	from .verify import *  # noqa: F401,F403
 	from .web import *  # noqa: F401,F403
 
-__version__ = '1.5.0'
+__version__ = '1.6.0'
 
 _CATEGORIES = (
 	'array',
