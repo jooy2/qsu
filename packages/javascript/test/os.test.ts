@@ -1,8 +1,9 @@
 import assert from 'assert';
 import { existsSync } from 'node:fs';
+import { mkdir, mkdtemp, realpath, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { describe, it } from 'node:test';
+import { after, before, describe, it } from 'node:test';
 import {
 	getArch,
 	getBootTime,
@@ -11,6 +12,7 @@ import {
 	getDiskSize,
 	getDiskUsage,
 	getEndianness,
+	getFonts,
 	getFreeDiskSize,
 	getFreeRamSize,
 	getHomeDir,
@@ -365,3 +367,429 @@ describe('OS', () => {
 		assert.strictEqual(['BE', 'LE'].includes(getEndianness()), true);
 	});
 });
+
+describe('getFonts', () => {
+	let root: string;
+
+	before(async () => {
+		root = await realpath(await mkdtemp(join(tmpdir(), 'qsu-fonts-')));
+	});
+
+	after(async () => {
+		await rm(root, { recursive: true, force: true });
+	});
+
+	// A directory of its own for each case, holding the given files.
+	const writeFonts = async (files: Record<string, Buffer | string>): Promise<string> => {
+		const directory = await mkdtemp(join(root, 'case-'));
+
+		for (const [name, content] of Object.entries(files)) {
+			await mkdir(join(directory, name, '..'), { recursive: true });
+			await writeFile(join(directory, name), content);
+		}
+
+		return directory;
+	};
+
+	it('reads the names, the style and the tables of a face', async () => {
+		const directory = await writeFonts({
+			'sample.ttf': buildFont([
+				{
+					names: {
+						1: 'Sample Legacy',
+						2: 'Bold Italic',
+						4: 'Sample Bold Italic',
+						5: 'Version 1.000',
+						6: 'Sample-BoldItalic',
+						8: 'Example Foundry',
+						9: 'Example Designer',
+						16: 'Sample',
+						17: 'Bold Italic'
+					},
+					os2: { weight: 700, width: 4, fsSelection: 1 },
+					tables: ['fvar', 'COLR']
+				}
+			])
+		});
+
+		assert.deepStrictEqual(await getFonts({ directories: [directory] }), [
+			{
+				family: 'Sample',
+				style: 'Bold Italic',
+				fullName: 'Sample Bold Italic',
+				postScriptName: 'Sample-BoldItalic',
+				version: 'Version 1.000',
+				manufacturer: 'Example Foundry',
+				designer: 'Example Designer',
+				weight: 700,
+				width: 4,
+				italic: true,
+				monospace: false,
+				variable: true,
+				color: true,
+				path: join(directory, 'sample.ttf'),
+				index: 0
+			}
+		]);
+	});
+
+	it('falls back when a face leaves a field out', async () => {
+		const directory = await writeFonts({
+			'plain.ttf': buildFont([{ names: { 1: 'Plain' }, os2: null, macStyle: 3 }]),
+			'slanted.ttf': buildFont([
+				{ names: { 1: 'Slanted' }, os2: { weight: 300, width: 5, fsSelection: 0x200 } }
+			])
+		});
+		const fonts = await getFonts({ directories: [directory] });
+
+		assert.deepStrictEqual(fonts[0], {
+			family: 'Plain',
+			style: 'Regular',
+			fullName: 'Plain Regular',
+			postScriptName: null,
+			version: null,
+			manufacturer: null,
+			designer: null,
+			weight: 700,
+			width: 5,
+			italic: true,
+			monospace: false,
+			variable: false,
+			color: false,
+			path: join(directory, 'plain.ttf'),
+			index: 0
+		});
+		// Bit 9 of `fsSelection` is oblique, which counts as italic.
+		assert.strictEqual(fonts[1].italic, true);
+		assert.strictEqual(fonts[1].weight, 300);
+	});
+
+	it('decodes the name records it prefers', async () => {
+		const directory = await writeFonts({
+			'mac.ttf': buildFont([{ macNames: { 1: 'Caf\x8e' } }]),
+			'both.ttf': buildFont([{ macNames: { 1: 'Mac Name' }, names: { 1: 'Windows Name' } }]),
+			'padded.ttf': buildFont([{ names: { 1: '  Padded\0' } }]),
+			'broken.ttf': buildFont([{ names: { 1: 'Broken\ud800' } }])
+		});
+		const fonts = await getFonts({ directories: [directory] });
+
+		assert.deepStrictEqual(
+			fonts.map((font) => font.family),
+			['Broken�', 'Café', 'Padded', 'Windows Name']
+		);
+	});
+
+	it('tells a monospace face by its flag or by its advances', async () => {
+		const proportional = (code: number) => 400 + code;
+		const even = () => 600;
+		const directory = await writeFonts({
+			'flagged.ttf': buildFont([
+				{ names: { 1: 'Flagged' }, fixedPitch: true, advance: proportional }
+			]),
+			'even.ttf': buildFont([{ names: { 1: 'Even' }, advance: even }]),
+			'uneven.ttf': buildFont([
+				{ names: { 1: 'Uneven' }, advance: (code) => (code === 0x69 ? 300 : 600) }
+			]),
+			'space.ttf': buildFont([
+				{ names: { 1: 'Space' }, advance: (code) => (code === 0x20 ? 300 : 600) }
+			]),
+			'gap.ttf': buildFont([{ names: { 1: 'Gap' }, advance: even, missing: [0x7e] }]),
+			'shared.ttf': buildFont([{ names: { 1: 'Shared' }, advance: proportional, metricCount: 2 }]),
+			'wide.ttf': buildFont([{ names: { 1: 'Wide' }, advance: even, cmapFormat: 12 }]),
+			'wide-gap.ttf': buildFont([
+				{ names: { 1: 'Wide Gap' }, advance: even, cmapFormat: 12, missing: [0x20] }
+			]),
+			'indexed.ttf': buildFont([{ names: { 1: 'Indexed' }, advance: even, cmapFormat: 'array' }]),
+			'indexed-gap.ttf': buildFont([
+				{ names: { 1: 'Indexed Gap' }, advance: even, cmapFormat: 'array', missing: [0x41] }
+			])
+		});
+		const fonts = await getFonts({ directories: [directory] });
+
+		assert.deepStrictEqual(Object.fromEntries(fonts.map((font) => [font.family, font.monospace])), {
+			Even: true,
+			Flagged: true,
+			Gap: false,
+			Indexed: true,
+			'Indexed Gap': false,
+			Shared: true,
+			Space: false,
+			Uneven: false,
+			Wide: true,
+			'Wide Gap': false
+		});
+	});
+
+	it('reads every face of a collection', async () => {
+		const directory = await writeFonts({
+			'pair.ttc': buildFont([
+				{ names: { 1: 'Pair', 2: 'Regular' } },
+				{ names: {} },
+				{ names: { 1: 'Pair', 2: 'Bold' }, os2: { weight: 700, width: 5, fsSelection: 0 } }
+			])
+		});
+		const fonts = await getFonts({ directories: [directory] });
+
+		// The face with no family is left out, and the others keep their place.
+		assert.deepStrictEqual(
+			fonts.map((font) => [font.style, font.weight, font.index]),
+			[
+				['Regular', 400, 0],
+				['Bold', 700, 2]
+			]
+		);
+	});
+
+	it('skips what it cannot read as a font', async () => {
+		const valid = buildFont([{ names: { 1: 'Valid' }, version: 0x4f54544f }]);
+		const directory = await writeFonts({
+			'valid.otf': valid,
+			'notes.ttf': 'This is not a font.',
+			'cut.ttf': valid.subarray(0, 40),
+			'unknown.ttf': buildFont([{ names: { 1: 'Unknown' }, version: 0x12345678 }]),
+			'hidden.ttf': buildFont([{ names: { 1: '.Hidden' } }]),
+			'valid.txt': valid
+		});
+
+		assert.deepStrictEqual(
+			(await getFonts({ directories: [directory] })).map((font) => [font.family, font.path]),
+			[['Valid', join(directory, 'valid.otf')]]
+		);
+		assert.deepStrictEqual(await getFonts({ directories: [join(root, 'missing')] }), []);
+	});
+
+	it('walks subdirectories, reads each file once and sorts by family', async () => {
+		const directory = await writeFonts({
+			'b/z.ttf': buildFont([{ names: { 1: 'Beta' } }]),
+			'a/nested/y.TTF': buildFont([{ names: { 1: 'Alpha' } }])
+		});
+		let linked = false;
+
+		try {
+			await symlink(join(directory, 'a'), join(directory, 'c'), 'dir');
+			await symlink(join(directory, 'b', 'z.ttf'), join(directory, 'alias.ttf'));
+			linked = true;
+		} catch {
+			// Creating a link needs a privilege on Windows. The rest still applies.
+		}
+
+		const fonts = await getFonts({ directories: [directory, join(directory, 'b')] });
+
+		assert.strictEqual(linked || process.platform === 'win32', true);
+		assert.deepStrictEqual(
+			fonts.map((font) => [font.family, font.path]),
+			[
+				['Alpha', join(directory, 'a', 'nested', 'y.TTF')],
+				['Beta', join(directory, 'b', 'z.ttf')]
+			]
+		);
+	});
+
+	it('reads the fonts installed on this machine', async () => {
+		const fonts = await getFonts();
+		const keys = [
+			'family',
+			'style',
+			'fullName',
+			'postScriptName',
+			'version',
+			'manufacturer',
+			'designer',
+			'weight',
+			'width',
+			'italic',
+			'monospace',
+			'variable',
+			'color',
+			'path',
+			'index'
+		];
+
+		// A server image may carry no fonts at all. A desktop system always does.
+		if (process.platform === 'darwin' || process.platform === 'win32') {
+			assert.strictEqual(fonts.length > 0, true);
+		}
+
+		for (const font of fonts) {
+			assert.deepStrictEqual(Object.keys(font), keys);
+			assert.strictEqual(typeof font.family, 'string');
+			assert.strictEqual(font.family.startsWith('.'), false);
+			assert.strictEqual(Number.isInteger(font.weight), true);
+			assert.strictEqual(typeof font.monospace, 'boolean');
+		}
+	});
+});
+
+interface TestFace {
+	names?: Record<number, string>;
+	macNames?: Record<number, string>;
+	fixedPitch?: boolean;
+	advance?: (code: number) => number;
+	missing?: number[];
+	cmapFormat?: 4 | 12 | 'array';
+	metricCount?: number;
+	os2?: { weight: number; width: number; fsSelection: number } | null;
+	macStyle?: number;
+	tables?: string[];
+	version?: number;
+}
+
+// Glyph 0 is `.notdef`, and each character from U+0020 to U+007E gets the next one.
+const PRINTABLE = Array.from({ length: 95 }, (_, i) => 0x20 + i);
+const GLYPH_COUNT = PRINTABLE.length + 1;
+
+function u16(...values: number[]): Buffer {
+	const buffer = Buffer.alloc(values.length * 2);
+
+	values.forEach((value, i) => buffer.writeUInt16BE(value & 0xffff, i * 2));
+
+	return buffer;
+}
+
+function u32(...values: number[]): Buffer {
+	const buffer = Buffer.alloc(values.length * 4);
+
+	values.forEach((value, i) => buffer.writeUInt32BE(value >>> 0, i * 4));
+
+	return buffer;
+}
+
+/**
+ * A TrueType file small enough to write by hand: the tables `getFonts` reads and
+ * nothing else, with no outlines. More than one face makes a collection.
+ */
+function buildFont(faces: TestFace[]): Buffer {
+	const tableSets = faces.map(buildTables);
+	const parts: Buffer[] = [];
+	const data: Buffer[] = [];
+	const directories: number[] = [];
+	let offset = faces.length > 1 ? 12 + faces.length * 4 : 0;
+
+	for (const tables of tableSets) {
+		directories.push(offset);
+		offset += 12 + tables.length * 16;
+	}
+
+	if (faces.length > 1) {
+		parts.push(Buffer.from('ttcf', 'latin1'), u32(0x00010000, faces.length, ...directories));
+	}
+
+	tableSets.forEach((tables, i) => {
+		parts.push(u32(faces[i].version ?? 0x00010000), u16(tables.length, 0, 0, 0));
+
+		for (const [tag, content] of tables) {
+			const padded = Buffer.concat([content, Buffer.alloc((4 - (content.length % 4)) % 4)]);
+
+			parts.push(Buffer.from(tag, 'latin1'), u32(0, offset, content.length));
+			data.push(padded);
+			offset += padded.length;
+		}
+	});
+
+	return Buffer.concat([...parts, ...data]);
+}
+
+function buildTables(face: TestFace): [string, Buffer][] {
+	const advance = face.advance ?? ((code: number) => 400 + code);
+	const metricCount = face.metricCount ?? GLYPH_COUNT;
+	const head = Buffer.alloc(54);
+	const hhea = Buffer.alloc(36);
+	const post = Buffer.alloc(32);
+	const metrics: number[] = [];
+
+	head.writeUInt16BE(face.macStyle ?? 0, 44);
+	hhea.writeUInt16BE(metricCount, 34);
+	post.writeUInt32BE(face.fixedPitch ? 1 : 0, 12);
+
+	for (let glyph = 0; glyph < metricCount; glyph++) {
+		metrics.push(glyph === 0 ? 500 : advance(PRINTABLE[glyph - 1]), 0);
+	}
+
+	const tables: [string, Buffer][] = [
+		['name', buildNameTable(face)],
+		['head', head],
+		['hhea', hhea],
+		['post', post],
+		['cmap', buildCmapTable(face)],
+		// The glyphs past the last full metric carry only a left side bearing.
+		['hmtx', Buffer.concat([u16(...metrics), Buffer.alloc((GLYPH_COUNT - metricCount) * 2)])]
+	];
+	const os2 = face.os2 === undefined ? { weight: 400, width: 5, fsSelection: 0 } : face.os2;
+
+	if (os2) {
+		const table = Buffer.alloc(78);
+
+		table.writeUInt16BE(os2.weight, 4);
+		table.writeUInt16BE(os2.width, 6);
+		table.writeUInt16BE(os2.fsSelection, 62);
+		tables.push(['OS/2', table]);
+	}
+
+	for (const tag of face.tables ?? []) {
+		tables.push([tag, Buffer.alloc(4)]);
+	}
+
+	return tables;
+}
+
+function buildNameTable(face: TestFace): Buffer {
+	const records: [number, number, number, number, Buffer][] = [];
+	const entries: Buffer[] = [];
+	const strings: Buffer[] = [];
+	let stored = 0;
+
+	for (const [id, text] of Object.entries(face.macNames ?? {})) {
+		records.push([1, 0, 0, Number(id), Buffer.from(text, 'latin1')]);
+	}
+
+	for (const [id, text] of Object.entries(face.names ?? {})) {
+		records.push([3, 1, 0x0409, Number(id), Buffer.from(text, 'utf16le').swap16()]);
+	}
+
+	for (const [platformId, encodingId, languageId, nameId, bytes] of records) {
+		entries.push(u16(platformId, encodingId, languageId, nameId, bytes.length, stored));
+		strings.push(bytes);
+		stored += bytes.length;
+	}
+
+	return Buffer.concat([u16(0, records.length, 6 + records.length * 12), ...entries, ...strings]);
+}
+
+function buildCmapTable(face: TestFace): Buffer {
+	const missing = new Set(face.missing ?? []);
+	const mapped = PRINTABLE.filter((code) => !missing.has(code));
+	const glyphOf = (code: number) => code - 0x1f;
+	let subtable: Buffer;
+
+	if (face.cmapFormat === 12) {
+		const groups = mapped.flatMap((code) => [code, code, glyphOf(code)]);
+
+		subtable = Buffer.concat([
+			u16(12, 0),
+			u32(16 + mapped.length * 12, 0, mapped.length),
+			u32(...groups)
+		]);
+	} else if (face.cmapFormat === 'array') {
+		// One segment for the whole range, read through the glyph index array, and
+		// the closing 0xFFFF segment. The range offset of 4 skips both offsets.
+		const glyphs = PRINTABLE.map((code) => (missing.has(code) ? 0 : glyphOf(code)));
+
+		subtable = u16(4, 16 + 8 * 2 + glyphs.length * 2, 0, 4, 0, 0, 0);
+		subtable = Buffer.concat([
+			subtable,
+			u16(0x7e, 0xffff, 0, 0x20, 0xffff, 0, 1, 4, 0),
+			u16(...glyphs)
+		]);
+	} else {
+		// One segment per character, each shifted to its glyph by idDelta.
+		const ends = [...mapped, 0xffff];
+		const deltas = [...mapped.map((code) => glyphOf(code) - code), 1];
+
+		subtable = Buffer.concat([
+			u16(4, 16 + ends.length * 8, 0, ends.length * 2, 0, 0, 0),
+			u16(...ends, 0, ...ends, ...deltas, ...ends.map(() => 0))
+		]);
+	}
+
+	return Buffer.concat([u16(0, 1, 3, face.cmapFormat === 12 ? 10 : 1), u32(12), subtable]);
+}

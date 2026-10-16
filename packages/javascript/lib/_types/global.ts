@@ -117,6 +117,29 @@ export interface GetUptimeOption {
 	floor?: boolean;
 }
 
+/** One face of an installed font file, as `getFonts` reports it. */
+export interface FontInfo {
+	family: string;
+	style: string;
+	fullName: string;
+	postScriptName: string | null;
+	version: string | null;
+	manufacturer: string | null;
+	designer: string | null;
+	weight: number;
+	width: number;
+	italic: boolean;
+	monospace: boolean;
+	variable: boolean;
+	color: boolean;
+	path: string;
+	index: number;
+}
+
+export interface GetFontsOptions {
+	directories?: string[];
+}
+
 export interface ParsedAddress {
 	error: boolean;
 	protocol?: string;

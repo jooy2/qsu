@@ -7,6 +7,7 @@ export { getCpuUsage } from './getCpuUsage.js';
 export { getDiskSize } from './getDiskSize.js';
 export { getDiskUsage } from './getDiskUsage.js';
 export { getEndianness } from './getEndianness.js';
+export { getFonts } from './getFonts.js';
 export { getFreeDiskSize } from './getFreeDiskSize.js';
 export { getFreeRamSize } from './getFreeRamSize.js';
 export { getHomeDir } from './getHomeDir.js';

@@ -2,6 +2,10 @@
 
 ## vNext (2026--)
 
+### Changes
+
+- `getFonts`: Added. Lists the fonts installed on the machine, one entry per face, with the names each font gives itself, its weight, width and slant, whether it is monospace and the file it was read from. The font files are read directly, so no font library is needed, and only the Windows registry is read through `reg`. It needs a Node.js runtime and ships from `qsu/node`, and its types are `FontInfo` and `GetFontsOptions` in `qsu/types`
+
 ## 1.21.0 (2026-10-07)
 
 ### Breaking changes
