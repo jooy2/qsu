@@ -2,6 +2,10 @@
 
 ## vNext (2026--)
 
+### Changes
+
+- `getFonts`: Added. Lists the fonts installed on the machine, one `FontInfo` per face, with the names each font gives itself, its weight, width and slant, whether it is monospace and the file it was read from. The font files are read directly, so neither a font library nor another process is needed, and they are read on an isolate of their own, so a Flutter app does not drop a frame waiting for them. Android reads `/system/fonts`
+
 ## 1.9.0 (2026-10-07)
 
 ### Breaking changes

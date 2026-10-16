@@ -28,3 +28,6 @@ String? routedAddress(String target, int port) => null;
 String? machineId() => null;
 
 String? kernelVersion() => null;
+
+List<String> registryStrings(String key, {bool currentUser = false}) =>
+    <String>[];

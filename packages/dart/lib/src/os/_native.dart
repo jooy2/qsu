@@ -290,6 +290,13 @@ String? machineId() => Platform.isWindows
     ? windows.registryString(r'SOFTWARE\Microsoft\Cryptography', 'MachineGuid')
     : null;
 
+/// The string values under a registry key, on Windows. The other platforms keep
+/// no registry and have none.
+List<String> registryStrings(String key, {bool currentUser = false}) =>
+    Platform.isWindows
+        ? windows.registryStrings(key, currentUser: currentUser)
+        : <String>[];
+
 /// The version of the operating system kernel.
 String? kernelVersion() {
   if (Platform.isWindows) {

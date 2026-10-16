@@ -37,6 +37,33 @@ typedef _RegGetValueNative = Int32 Function(IntPtr, Pointer<Utf16>,
 typedef _RegGetValueDart = int Function(int, Pointer<Utf16>, Pointer<Utf16>,
     int, Pointer<Uint32>, Pointer<Uint8>, Pointer<Uint32>);
 
+typedef _RegOpenKeyExNative = Int32 Function(
+    IntPtr, Pointer<Utf16>, Uint32, Uint32, Pointer<IntPtr>);
+typedef _RegOpenKeyExDart = int Function(
+    int, Pointer<Utf16>, int, int, Pointer<IntPtr>);
+
+typedef _RegEnumValueNative = Int32 Function(
+    IntPtr,
+    Uint32,
+    Pointer<Utf16>,
+    Pointer<Uint32>,
+    Pointer<Uint32>,
+    Pointer<Uint32>,
+    Pointer<Uint8>,
+    Pointer<Uint32>);
+typedef _RegEnumValueDart = int Function(
+    int,
+    int,
+    Pointer<Utf16>,
+    Pointer<Uint32>,
+    Pointer<Uint32>,
+    Pointer<Uint32>,
+    Pointer<Uint8>,
+    Pointer<Uint32>);
+
+typedef _RegCloseKeyNative = Int32 Function(IntPtr);
+typedef _RegCloseKeyDart = int Function(int);
+
 typedef _RtlGetVersionNative = Int32 Function(Pointer<Uint8>);
 typedef _RtlGetVersionDart = int Function(Pointer<Uint8>);
 
@@ -59,7 +86,12 @@ typedef _GetSockNameDart = int Function(int, Pointer<Uint8>, Pointer<Int32>);
 typedef _CloseSocketNative = Int32 Function(IntPtr);
 typedef _CloseSocketDart = int Function(int);
 
+const int _hkeyCurrentUser = 0x80000001;
 const int _hkeyLocalMachine = 0x80000002;
+const int _keyRead = 0x00020019;
+const int _key64BitView = 0x00000100;
+const int _regSz = 1;
+const int _errorMoreData = 234;
 const int _restrictToString = 0x00000002;
 const int _restrictToNumber = 0x00000010;
 
@@ -191,6 +223,86 @@ int? registryNumber(String key, String name) {
   } finally {
     calloc.free(value);
   }
+}
+
+/// The string values directly under a key of `HKEY_LOCAL_MACHINE`, or of
+/// `HKEY_CURRENT_USER` when [currentUser] is set. A key that does not exist has
+/// none.
+List<String> registryStrings(String key, {bool currentUser = false}) {
+  final Pointer<Utf16> subKey = key.toNativeUtf16();
+  final Pointer<IntPtr> handle = calloc<IntPtr>();
+
+  try {
+    // The 64-bit view, so a 32-bit process is not redirected to `Wow6432Node`.
+    final int opened = _regOpenKeyEx(
+        currentUser ? _hkeyCurrentUser : _hkeyLocalMachine,
+        subKey,
+        0,
+        _keyRead | _key64BitView,
+        handle);
+
+    if (opened != 0) {
+      return <String>[];
+    }
+
+    try {
+      return _stringValues(handle.value);
+    } finally {
+      _regCloseKey(handle.value);
+    }
+  } finally {
+    calloc.free(subKey);
+    calloc.free(handle);
+  }
+}
+
+List<String> _stringValues(int key) {
+  // The longest value name the registry allows, and more than any path needs.
+  const int nameChars = 16384;
+  const int dataBytes = 65536;
+  final Pointer<Utf16> name = calloc<Uint16>(nameChars).cast<Utf16>();
+  final Pointer<Uint32> nameLength = calloc<Uint32>();
+  final Pointer<Uint32> type = calloc<Uint32>();
+  final Pointer<Uint8> data = calloc<Uint8>(dataBytes);
+  final Pointer<Uint32> dataLength = calloc<Uint32>();
+  final List<String> values = <String>[];
+
+  try {
+    for (int index = 0;; index++) {
+      nameLength.value = nameChars;
+      dataLength.value = dataBytes;
+
+      final int result = _regEnumValue(
+          key, index, name, nameLength, nullptr, type, data, dataLength);
+
+      // A value too long for the buffer is skipped. Anything else, including
+      // the end of the list, stops the walk.
+      if (result == _errorMoreData) {
+        continue;
+      }
+
+      if (result != 0) {
+        break;
+      }
+
+      if (type.value == _regSz) {
+        final String text = data
+            .cast<Utf16>()
+            .toDartString(length: dataLength.value ~/ 2)
+            .replaceAll(RegExp(r'\x00+$'), '');
+
+        values.add(text);
+      }
+    }
+  } finally {
+    calloc.free(name);
+    calloc.free(nameLength);
+    calloc.free(type);
+    calloc.free(data);
+    calloc.free(dataLength);
+  }
+
+  return values;
 }
 
 Pointer<Uint8>? _registryValue(
@@ -355,6 +467,15 @@ final _GetDiskFreeSpaceExDart _getDiskFreeSpaceEx = _kernel32.lookupFunction<
 
 final _RegGetValueDart _regGetValue = _advapi32
     .lookupFunction<_RegGetValueNative, _RegGetValueDart>('RegGetValueW');
+
+final _RegOpenKeyExDart _regOpenKeyEx = _advapi32
+    .lookupFunction<_RegOpenKeyExNative, _RegOpenKeyExDart>('RegOpenKeyExW');
+
+final _RegEnumValueDart _regEnumValue = _advapi32
+    .lookupFunction<_RegEnumValueNative, _RegEnumValueDart>('RegEnumValueW');
+
+final _RegCloseKeyDart _regCloseKey = _advapi32
+    .lookupFunction<_RegCloseKeyNative, _RegCloseKeyDart>('RegCloseKey');
 
 final _RtlGetVersionDart _rtlGetVersion = _ntdll
     .lookupFunction<_RtlGetVersionNative, _RtlGetVersionDart>('RtlGetVersion');

@@ -1,11 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 import 'dart:typed_data';
 
+import 'package:path/path.dart' as p;
 import 'package:qsu/src/format.dart';
 import 'package:qsu/src/math.dart';
+import 'package:qsu/src/os/_font.dart';
 import 'package:qsu/src/os/_unsupported.dart'
     if (dart.library.ffi) 'package:qsu/src/os/_native.dart' as platform;
+
+export 'package:qsu/src/os/_font.dart' show FontInfo;
 
 /// The operating systems this package knows, in the order [getPlatform] names
 /// them. Anything outside the list is `unknown`.
@@ -36,6 +41,14 @@ const int _routeProbePort = 53;
 
 const String _loopback = '127.0.0.1';
 const String _unspecified = '0.0.0.0';
+
+const List<String> _fontExtensions = <String>['.ttf', '.otf', '.ttc', '.otc'];
+
+const String _darwinAssetDir = '/System/Library/AssetsV2';
+const String _darwinAssetPrefix = 'com_apple_MobileAsset_Font';
+
+const String _windowsFontKey =
+    r'SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts';
 
 /// Returns the operating system the process is running on, as one of
 /// `windows`, `macos`, `linux`, `android` and `ios`. Anything else is `unknown`.
@@ -344,6 +357,213 @@ Future<String> getSid() async {
   }
 
   throw UnsupportedError('Not supported on this operating system.');
+}
+
+/// Returns the faces of the font files installed on this machine, sorted by
+/// family. Pass [directories] to read those folders instead of the system's.
+Future<List<FontInfo>> getFonts({List<String>? directories}) async {
+  final List<String> searched = <String>[
+    for (final String directory in directories ?? _defaultFontDirectories())
+      p.absolute(directory),
+  ];
+  final bool readRegistry = directories == null && Platform.isWindows;
+
+  // Reading every font file takes tens of milliseconds, long enough to drop a
+  // frame in a Flutter app, so the files are read on an isolate of their own.
+  return Isolate.run(() => _readFonts(searched, readRegistry));
+}
+
+List<FontInfo> _readFonts(List<String> directories, bool readRegistry) {
+  final Set<String> files = _findFontFiles(directories);
+
+  if (readRegistry) {
+    files.addAll(_registeredFontFiles());
+  }
+
+  final List<FontInfo> faces = <FontInfo>[];
+
+  for (final String path in files) {
+    try {
+      faces.addAll(readFontFile(path));
+    } on FileSystemException {
+      // Not readable by this user.
+    } on FormatException {
+      // Not a font after all, or cut short.
+    }
+  }
+
+  // A family named with a leading dot is one macOS keeps for itself and hides
+  // from every font menu.
+  return faces.where((FontInfo face) => !face.family.startsWith('.')).toList()
+    ..sort((FontInfo a, FontInfo b) {
+      final int family = a.family.compareTo(b.family);
+
+      if (family != 0) {
+        return family;
+      }
+
+      final int path = a.path.compareTo(b.path);
+
+      return path != 0 ? path : a.index - b.index;
+    });
+}
+
+List<String> _defaultFontDirectories() {
+  final String home = getHomeDir();
+
+  if (Platform.isMacOS) {
+    return <String>[
+      '/System/Library/Fonts',
+      '/Library/Fonts',
+      p.join(home, 'Library', 'Fonts'),
+      // Fonts macOS downloads on demand, which it lists alongside its own.
+      ..._darwinAssetDirectories(),
+    ];
+  }
+
+  if (Platform.isIOS) {
+    return <String>['/System/Library/Fonts'];
+  }
+
+  if (Platform.isWindows) {
+    final Map<String, String> environment = Platform.environment;
+    final String windowsDir =
+        environment['WINDIR'] ?? environment['SystemRoot'] ?? r'C:\Windows';
+    final String? localAppData = environment['LOCALAPPDATA'];
+
+    return <String>[
+      p.join(windowsDir, 'Fonts'),
+      // Where a font installed for one user goes, since Windows 10 1809.
+      if (localAppData != null && localAppData.isNotEmpty)
+        p.join(localAppData, 'Microsoft', 'Windows', 'Fonts'),
+    ];
+  }
+
+  if (Platform.isAndroid) {
+    return <String>['/system/fonts'];
+  }
+
+  // The XDG base directories, which fontconfig reads as well. A relative path
+  // in either variable is invalid by that specification and ignored.
+  final String configuredHome = Platform.environment['XDG_DATA_HOME'] ?? '';
+  final String dataHome = p.isAbsolute(configuredHome)
+      ? configuredHome
+      : p.join(home, '.local', 'share');
+  final String configuredDirs = Platform.environment['XDG_DATA_DIRS'] ?? '';
+  final List<String> dataDirs =
+      (configuredDirs.isEmpty ? '/usr/local/share:/usr/share' : configuredDirs)
+          .split(':')
+          .where(p.isAbsolute)
+          .toList();
+
+  return <String>[
+    p.join(dataHome, 'fonts'),
+    for (final String directory in dataDirs) p.join(directory, 'fonts'),
+    p.join(home, '.fonts'),
+  ];
+}
+
+List<String> _darwinAssetDirectories() {
+  try {
+    return <String>[
+      for (final FileSystemEntity entry
+          in Directory(_darwinAssetDir).listSync(followLinks: false))
+        if (p.basename(entry.path).startsWith(_darwinAssetPrefix)) entry.path,
+    ];
+  } on FileSystemException {
+    return <String>[];
+  }
+}
+
+/// Every font file under [directories], as a real path, so a file reached
+/// through two links or two overlapping directories is read once.
+Set<String> _findFontFiles(List<String> directories) {
+  final Set<String> files = <String>{};
+  final Set<String> visited = <String>{};
+
+  void walk(String directory) {
+    final List<FileSystemEntity> entries;
+    final String realDirectory;
+
+    try {
+      realDirectory = Directory(directory).resolveSymbolicLinksSync();
+
+      if (!visited.add(realDirectory)) {
+        return;
+      }
+
+      entries = Directory(realDirectory).listSync(followLinks: false);
+    } on FileSystemException {
+      // A directory that does not exist or cannot be read holds no fonts.
+      return;
+    }
+
+    for (final FileSystemEntity entry in entries) {
+      final String name = p.basename(entry.path);
+      final String path = p.join(realDirectory, name);
+
+      if (entry is Link) {
+        final FileSystemEntityType target = FileSystemEntity.typeSync(path);
+
+        if (target == FileSystemEntityType.directory) {
+          walk(path);
+        } else if (target == FileSystemEntityType.file &&
+            _isFontFileName(name)) {
+          final String? real = _realFilePath(path);
+
+          if (real != null) {
+            files.add(real);
+          }
+        }
+      } else if (entry is Directory) {
+        walk(path);
+      } else if (entry is File && _isFontFileName(name)) {
+        files.add(path);
+      }
+    }
+  }
+
+  for (final String directory in directories) {
+    walk(directory);
+  }
+
+  return files;
+}
+
+/// The real path of a file, or `null` when the file or a link on the way to it
+/// is gone.
+String? _realFilePath(String path) {
+  try {
+    return File(path).resolveSymbolicLinksSync();
+  } on FileSystemException {
+    return null;
+  }
+}
+
+bool _isFontFileName(String name) =>
+    _fontExtensions.contains(p.extension(name).toLowerCase());
+
+/// Font files Windows has registered from outside its font directories. A
+/// value holding a bare file name is one in `%WINDIR%\Fonts`, which is read
+/// already.
+List<String> _registeredFontFiles() {
+  final List<String> files = <String>[];
+
+  for (final bool currentUser in <bool>[false, true]) {
+    for (final String value in platform.registryStrings(_windowsFontKey,
+        currentUser: currentUser)) {
+      final String? real = p.isAbsolute(value) && _isFontFileName(value)
+          ? _realFilePath(value)
+          : null;
+
+      // Registered, then removed without being unregistered, is skipped too.
+      if (real != null) {
+        files.add(real);
+      }
+    }
+  }
+
+  return files;
 }
 
 /// Returns the result of running [command] through the system shell.
