@@ -5,6 +5,7 @@
 ### Changes
 
 - The Changelog link on PyPI opens this file. It pointed at a page of the documentation site that does not exist
+- `getFonts`: Added. Lists the fonts installed on the machine, one `dict` per face, with the names each font gives itself, its weight, width and slant, whether it is monospace and the file it was read from. The font files are read directly, so neither a font library nor another process is needed
 
 ## 1.6.0 (2026-10-07)
 

@@ -14,6 +14,7 @@ if TYPE_CHECKING:
 	from .getDiskSize import getDiskSize as getDiskSize
 	from .getDiskUsage import getDiskUsage as getDiskUsage
 	from .getEndianness import getEndianness as getEndianness
+	from .getFonts import getFonts as getFonts
 	from .getFreeDiskSize import getFreeDiskSize as getFreeDiskSize
 	from .getFreeRamSize import getFreeRamSize as getFreeRamSize
 	from .getHomeDir import getHomeDir as getHomeDir
@@ -45,6 +46,7 @@ __all__ = [
 	'getDiskSize',
 	'getDiskUsage',
 	'getEndianness',
+	'getFonts',
 	'getFreeDiskSize',
 	'getFreeRamSize',
 	'getHomeDir',
