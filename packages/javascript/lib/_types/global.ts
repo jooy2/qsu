@@ -49,6 +49,12 @@ export type FileSizeParts = {
 	exponent: number;
 };
 
+// One language `detectLanguage` found, with the share of the letters written in it.
+export type DetectedLanguage = {
+	language: string;
+	ratio: number;
+};
+
 export type RetryOptions = {
 	times?: number;
 	delay?: number;

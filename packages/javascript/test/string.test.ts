@@ -22,6 +22,7 @@ import {
 	urlJoin,
 	words,
 	deburr,
+	detectLanguage,
 	escapeRegExp,
 	uncapitalizeFirst,
 	strToCamelCase,
@@ -413,6 +414,245 @@ st`),
 		// Anything outside Latin-1 Supplement and Latin Extended-A is left as it is.
 		assert.strictEqual(deburr('한글'), '한글');
 		assert.strictEqual(deburr('Ti\u1ebfng Vi\u1ec7t'), 'Ti\u1ebfng Vi\u1ec7t');
+	});
+
+	it('detectLanguage', () => {
+		const only = (language: string) => [{ language, ratio: 1 }];
+
+		// Nothing to count: no input, or no letter of a script the function knows.
+		assert.deepStrictEqual(detectLanguage(''), []);
+		assert.deepStrictEqual(detectLanguage(null), []);
+		assert.deepStrictEqual(detectLanguage('   '), []);
+		assert.deepStrictEqual(detectLanguage('12345'), []);
+		assert.deepStrictEqual(detectLanguage('!!! ???'), []);
+		assert.deepStrictEqual(detectLanguage('\u{1f389}'), []);
+
+		// A script only one language writes names that language.
+		const scripts: [string, string][] = [
+			['안녕하세요', 'ko'],
+			['ㅋㅋㅋ', 'ko'],
+			['こんにちは', 'ja'],
+			['ﾃｽﾄ', 'ja'],
+			['你好世界', 'zh'],
+			['สวัสดีครับ', 'th'],
+			['Καλημέρα', 'el'],
+			['שלום', 'he'],
+			['नमस्ते', 'hi'],
+			['გამარჯობა', 'ka'],
+			['Բարեւ', 'hy'],
+			['নমস্কার', 'bn'],
+			['ਸਤਿ', 'pa'],
+			['નમસ્તે', 'gu'],
+			['ନମସ୍କାର', 'or'],
+			['வணக்கம்', 'ta'],
+			['నమస్కారం', 'te'],
+			['ನಮಸ್ಕಾರ', 'kn'],
+			['നമസ്കാരം', 'ml'],
+			['ආයුබෝවන්', 'si'],
+			['ສະບາຍດີ', 'lo'],
+			['བཀྲ་ཤིས', 'bo'],
+			['မင်္ဂလာပါ', 'my'],
+			['ሰላም', 'am'],
+			['សួស្តី', 'km'],
+			['ᠮᠣᠩᠭᠣᠯ', 'mn']
+		];
+
+		for (const [text, language] of scripts) {
+			assert.deepStrictEqual(detectLanguage(text), only(language), text);
+		}
+
+		// Languages that share a script are told apart by their common words and letters.
+		const sentences: [string, string][] = [
+			['The weather is nice today, so we are going to the park.', 'en'],
+			['El tiempo está muy bien hoy, así que vamos al parque.', 'es'],
+			["Il fait beau aujourd'hui, alors nous allons au parc.", 'fr'],
+			['Das Wetter ist heute schön, also gehen wir in den Park.', 'de'],
+			['O tempo está bom hoje, então vamos ao parque.', 'pt'],
+			['Oggi il tempo è bello, quindi andiamo al parco.', 'it'],
+			['Avui fa bon temps, així que anem al parc.', 'ca'],
+			['Het weer is vandaag mooi, dus we gaan naar het park.', 'nl'],
+			['Vädret är fint idag, så vi går till parken.', 'sv'],
+			['Vejret er godt i dag, så vi går i parken.', 'da'],
+			['Hun sa at toget var forsinket igjen.', 'no'],
+			['Sää on tänään kaunis, joten menemme puistoon.', 'fi'],
+			['Pogoda jest dzisiaj ładna, więc idziemy do parku.', 'pl'],
+			['Počasí je dnes hezké, takže jdeme do parku.', 'cs'],
+			['Na tomto projekte pracujem už tri mesiace.', 'sk'],
+			['Danas je lijepo vrijeme, pa idemo u park.', 'hr'],
+			['Vremea este frumoasă astăzi, așa că mergem în parc.', 'ro'],
+			['Ma szép az idő, ezért elmegyünk a parkba.', 'hu'],
+			['Bugün hava çok güzel, bu yüzden parka gidiyoruz.', 'tr'],
+			['Hôm nay trời đẹp, vì vậy chúng tôi đi công viên.', 'vi'],
+			['Cuaca hari ini cerah, jadi kami pergi ke taman.', 'id'],
+			['Сегодня хорошая погода, поэтому мы идём в парк.', 'ru'],
+			['Сьогодні гарна погода, тому ми йдемо в парк.', 'uk'],
+			['Днес времето е хубаво, затова отиваме в парка.', 'bg'],
+			['Данас је лепо време, па идемо у парк.', 'sr'],
+			['الطقس جميل اليوم، لذلك سنذهب إلى الحديقة.', 'ar'],
+			['امروز هوا خوب است، پس به پارک می\u200cرویم.', 'fa'],
+			['آج موسم اچھا ہے، اس لیے ہم پارک جا رہے ہیں۔', 'ur']
+		];
+
+		for (const [text, language] of sentences) {
+			assert.deepStrictEqual(detectLanguage(text), only(language), text);
+		}
+
+		// A single word is enough when it belongs to one language.
+		const greetings: [string, string][] = [
+			['Hello', 'en'],
+			['Gracias', 'es'],
+			['Bonjour', 'fr'],
+			['Danke', 'de'],
+			['Obrigado', 'pt'],
+			['Grazie', 'it'],
+			['Gràcies', 'ca'],
+			['Dank je', 'nl'],
+			['Tack', 'sv'],
+			['Takk', 'no'],
+			['Kiitos', 'fi'],
+			['Dziękuję', 'pl'],
+			['Děkuji', 'cs'],
+			['Ďakujem', 'sk'],
+			['Hvala', 'hr'],
+			['Mulțumesc', 'ro'],
+			['Köszönöm', 'hu'],
+			['Merhaba', 'tr'],
+			['Xin chào', 'vi'],
+			['Terima kasih', 'id'],
+			['Привет, как дела?', 'ru'],
+			['Привіт, як справи?', 'uk'],
+			['Здравей, как си?', 'bg'],
+			['Здраво, како си?', 'sr'],
+			['مرحبا', 'ar'],
+			['سلام، حال شما چطور است؟', 'fa'],
+			['آپ کیسے ہیں؟', 'ur']
+		];
+
+		for (const [text, language] of greetings) {
+			assert.deepStrictEqual(detectLanguage(text), only(language), text);
+		}
+
+		// Endings and runs of letters speak for words that are on no list: `watched` and `night`
+		// outweigh `we` and `die`, which Dutch shares, and `naj-` and `sj` tell Slovak from Czech
+		// and Norwegian from Danish.
+		assert.deepStrictEqual(detectLanguage('We watched Die Hard last night.'), only('en'));
+		assert.deepStrictEqual(detectLanguage('Kde je najbližšia stanica?'), only('sk'));
+		assert.deepStrictEqual(
+			detectLanguage('Jeg har jobbet med dette prosjektet i tre måneder.'),
+			only('no')
+		);
+
+		// Close languages are told apart by the words that differ between them.
+		const pairs: [string, string][] = [
+			['Nevím', 'cs'],
+			['Neviem', 'sk'],
+			['Ne znam', 'hr'],
+			['Jeg ved det ikke', 'da'],
+			['Jeg vet ikke', 'no'],
+			['No lo sé', 'es'],
+			['No ho sé', 'ca']
+		];
+
+		for (const [text, language] of pairs) {
+			assert.deepStrictEqual(detectLanguage(text), only(language), text);
+		}
+
+		// With nothing to go by, a script falls back to its first language.
+		assert.deepStrictEqual(detectLanguage('getUserName'), only('en'));
+		assert.deepStrictEqual(detectLanguage('a'), only('en'));
+		assert.deepStrictEqual(detectLanguage('Иван'), only('ru'));
+		assert.deepStrictEqual(detectLanguage('محمد'), only('ar'));
+
+		// Han characters follow the kana or Hangul of their sentence, and are Chinese without.
+		assert.deepStrictEqual(detectLanguage('東京に行きます'), only('ja'));
+		assert.deepStrictEqual(detectLanguage('北京'), only('zh'));
+		assert.deepStrictEqual(detectLanguage('대한민국(大韓民國)'), only('ko'));
+		assert.deepStrictEqual(detectLanguage('東京に住んでいます。北京是中国的首都。'), [
+			{ language: 'ja', ratio: 9 / 17 },
+			{ language: 'zh', ratio: 8 / 17 }
+		]);
+		assert.deepStrictEqual(detectLanguage('도쿄는 東京です。'), [
+			{ language: 'ja', ratio: 4 / 7 },
+			{ language: 'ko', ratio: 3 / 7 }
+		]);
+
+		// The ratio counts letters only, and a tie goes to the language that appears first.
+		assert.deepStrictEqual(detectLanguage('안녕 Hello'), [
+			{ language: 'en', ratio: 5 / 7 },
+			{ language: 'ko', ratio: 2 / 7 }
+		]);
+		assert.deepStrictEqual(detectLanguage('안녕하세요 Hello'), [
+			{ language: 'ko', ratio: 0.5 },
+			{ language: 'en', ratio: 0.5 }
+		]);
+		assert.deepStrictEqual(detectLanguage('Hello 안녕하세요'), [
+			{ language: 'en', ratio: 0.5 },
+			{ language: 'ko', ratio: 0.5 }
+		]);
+		assert.deepStrictEqual(detectLanguage('오늘 회의는 Zoom으로 진행합니다.'), [
+			{ language: 'ko', ratio: 0.75 },
+			{ language: 'en', ratio: 0.25 }
+		]);
+		assert.deepStrictEqual(detectLanguage('abc 123 !!! 가나'), [
+			{ language: 'en', ratio: 0.6 },
+			{ language: 'ko', ratio: 0.4 }
+		]);
+		// The vowel signs of `नमस्ते` are combining marks, so it counts as four letters.
+		assert.deepStrictEqual(detectLanguage('नमस्ते abcd'), [
+			{ language: 'hi', ratio: 0.5 },
+			{ language: 'en', ratio: 0.5 }
+		]);
+		// Counted in code points, so a character outside the Basic Multilingual Plane is one.
+		assert.deepStrictEqual(detectLanguage('\u{20000}\u{20001} a'), [
+			{ language: 'zh', ratio: 2 / 3 },
+			{ language: 'en', ratio: 1 / 3 }
+		]);
+
+		// Each sentence is judged on its own.
+		assert.deepStrictEqual(detectLanguage("I live in Paris. C'est la vie."), [
+			{ language: 'en', ratio: 12 / 21 },
+			{ language: 'fr', ratio: 9 / 21 }
+		]);
+		assert.deepStrictEqual(detectLanguage('Das ist gut. This is good.'), [
+			{ language: 'en', ratio: 10 / 19 },
+			{ language: 'de', ratio: 9 / 19 }
+		]);
+		// A sentence too short to decide takes the language of the rest of the text, and one
+		// shared word does not move a sentence into another language.
+		assert.deepStrictEqual(detectLanguage('Hello. Bonjour le monde, comment ça va ?'), only('fr'));
+		assert.deepStrictEqual(
+			detectLanguage('We watched Die Hard last night and it was great.'),
+			only('en')
+		);
+
+		// Case, decomposed accents and Arabic vowel marks do not hide a word.
+		assert.deepStrictEqual(detectLanguage('DAS IST GUT'), only('de'));
+		assert.deepStrictEqual(detectLanguage("İstanbul'da hava çok güzel."), only('tr'));
+		assert.deepStrictEqual(
+			detectLanguage("Cafe\u0301 au lait, s'il vous plai\u0302t."),
+			only('fr')
+		);
+		assert.deepStrictEqual(
+			detectLanguage('Tie\u0302\u0301ng Vie\u0323\u0302t ra\u0302\u0301t hay.'),
+			only('vi')
+		);
+		assert.deepStrictEqual(detectLanguage('مِنْ فِي'), only('ar'));
+		assert.deepStrictEqual(detectLanguage('Ｈｅｌｌｏ'), only('en'));
+
+		// The ratios add up to 1 and run from the largest to the smallest.
+		const mixed = detectLanguage(
+			'This is a test. 안녕하세요. こんにちは。你好。Bonjour tout le monde, je suis là. Привет!'
+		);
+
+		assert.deepStrictEqual(
+			mixed.map((item) => item.language),
+			['fr', 'en', 'ru', 'ko', 'ja', 'zh']
+		);
+		assert.ok(Math.abs(mixed.reduce((sum, item) => sum + item.ratio, 0) - 1) < 1e-9);
+
+		for (let i = 1; i < mixed.length; i += 1) {
+			assert.ok(mixed[i - 1].ratio >= mixed[i].ratio);
+		}
 	});
 
 	it('escapeRegExp', () => {
