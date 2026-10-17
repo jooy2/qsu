@@ -349,6 +349,209 @@ st'''), 'test');
       expect(deburr('Ti\u1ebfng Vi\u1ec7t'), 'Ti\u1ebfng Vi\u1ec7t');
     });
 
+    test('detectLanguage', () {
+      List<(String, double)> detect(String? text) => [
+            for (final DetectedLanguage item in detectLanguage(text))
+              (item.language, item.ratio)
+          ];
+
+      List<(String, double)> only(String language) => [(language, 1.0)];
+
+      // Nothing to count: no input, or no letter of a script the function knows.
+      expect(detect(''), []);
+      expect(detect(null), []);
+      expect(detect('   '), []);
+      expect(detect('12345'), []);
+      expect(detect('!!! ???'), []);
+      expect(detect('\u{1f389}'), []);
+
+      // A script only one language writes names that language.
+      const List<(String, String)> scripts = [
+        ('안녕하세요', 'ko'),
+        ('ㅋㅋㅋ', 'ko'),
+        ('こんにちは', 'ja'),
+        ('ﾃｽﾄ', 'ja'),
+        ('你好世界', 'zh'),
+        ('สวัสดีครับ', 'th'),
+        ('Καλημέρα', 'el'),
+        ('שלום', 'he'),
+        ('नमस्ते', 'hi'),
+        ('გამარჯობა', 'ka'),
+        ('Բարեւ', 'hy'),
+        ('নমস্কার', 'bn'),
+        ('ਸਤਿ', 'pa'),
+        ('નમસ્તે', 'gu'),
+        ('ନମସ୍କାର', 'or'),
+        ('வணக்கம்', 'ta'),
+        ('నమస్కారం', 'te'),
+        ('ನಮಸ್ಕಾರ', 'kn'),
+        ('നമസ്കാരം', 'ml'),
+        ('ආයුබෝවන්', 'si'),
+        ('ສະບາຍດີ', 'lo'),
+        ('བཀྲ་ཤིས', 'bo'),
+        ('မင်္ဂလာပါ', 'my'),
+        ('ሰላም', 'am'),
+        ('សួស្តី', 'km'),
+        ('ᠮᠣᠩᠭᠣᠯ', 'mn'),
+      ];
+
+      for (final (String, String) row in scripts) {
+        expect(detect(row.$1), only(row.$2), reason: row.$1);
+      }
+
+      // Languages that share a script are told apart by their common words and letters.
+      const List<(String, String)> sentences = [
+        ('The weather is nice today, so we are going to the park.', 'en'),
+        ('El tiempo está muy bien hoy, así que vamos al parque.', 'es'),
+        ("Il fait beau aujourd'hui, alors nous allons au parc.", 'fr'),
+        ('Das Wetter ist heute schön, also gehen wir in den Park.', 'de'),
+        ('O tempo está bom hoje, então vamos ao parque.', 'pt'),
+        ('Oggi il tempo è bello, quindi andiamo al parco.', 'it'),
+        ('Avui fa bon temps, així que anem al parc.', 'ca'),
+        ('Het weer is vandaag mooi, dus we gaan naar het park.', 'nl'),
+        ('Vädret är fint idag, så vi går till parken.', 'sv'),
+        ('Vejret er godt i dag, så vi går i parken.', 'da'),
+        ('Hun sa at toget var forsinket igjen.', 'no'),
+        ('Sää on tänään kaunis, joten menemme puistoon.', 'fi'),
+        ('Pogoda jest dzisiaj ładna, więc idziemy do parku.', 'pl'),
+        ('Počasí je dnes hezké, takže jdeme do parku.', 'cs'),
+        ('Na tomto projekte pracujem už tri mesiace.', 'sk'),
+        ('Danas je lijepo vrijeme, pa idemo u park.', 'hr'),
+        ('Vremea este frumoasă astăzi, așa că mergem în parc.', 'ro'),
+        ('Ma szép az idő, ezért elmegyünk a parkba.', 'hu'),
+        ('Bugün hava çok güzel, bu yüzden parka gidiyoruz.', 'tr'),
+        ('Hôm nay trời đẹp, vì vậy chúng tôi đi công viên.', 'vi'),
+        ('Cuaca hari ini cerah, jadi kami pergi ke taman.', 'id'),
+        ('Сегодня хорошая погода, поэтому мы идём в парк.', 'ru'),
+        ('Сьогодні гарна погода, тому ми йдемо в парк.', 'uk'),
+        ('Днес времето е хубаво, затова отиваме в парка.', 'bg'),
+        ('Данас је лепо време, па идемо у парк.', 'sr'),
+        ('الطقس جميل اليوم، لذلك سنذهب إلى الحديقة.', 'ar'),
+        ('امروز هوا خوب است، پس به پارک می\u200cرویم.', 'fa'),
+        ('آج موسم اچھا ہے، اس لیے ہم پارک جا رہے ہیں۔', 'ur'),
+      ];
+
+      for (final (String, String) row in sentences) {
+        expect(detect(row.$1), only(row.$2), reason: row.$1);
+      }
+
+      // A single word is enough when it belongs to one language.
+      const List<(String, String)> greetings = [
+        ('Hello', 'en'),
+        ('Gracias', 'es'),
+        ('Bonjour', 'fr'),
+        ('Danke', 'de'),
+        ('Obrigado', 'pt'),
+        ('Grazie', 'it'),
+        ('Gràcies', 'ca'),
+        ('Dank je', 'nl'),
+        ('Tack', 'sv'),
+        ('Takk', 'no'),
+        ('Kiitos', 'fi'),
+        ('Dziękuję', 'pl'),
+        ('Děkuji', 'cs'),
+        ('Ďakujem', 'sk'),
+        ('Hvala', 'hr'),
+        ('Mulțumesc', 'ro'),
+        ('Köszönöm', 'hu'),
+        ('Merhaba', 'tr'),
+        ('Xin chào', 'vi'),
+        ('Terima kasih', 'id'),
+        ('Привет, как дела?', 'ru'),
+        ('Привіт, як справи?', 'uk'),
+        ('Здравей, как си?', 'bg'),
+        ('Здраво, како си?', 'sr'),
+        ('مرحبا', 'ar'),
+        ('سلام، حال شما چطور است؟', 'fa'),
+        ('آپ کیسے ہیں؟', 'ur'),
+      ];
+
+      for (final (String, String) row in greetings) {
+        expect(detect(row.$1), only(row.$2), reason: row.$1);
+      }
+
+      // Endings and runs of letters speak for words that are on no list: `watched` and `night`
+      // outweigh `we` and `die`, which Dutch shares, and `naj-` and `sj` tell Slovak from Czech
+      // and Norwegian from Danish.
+      expect(detect('We watched Die Hard last night.'), only('en'));
+      expect(detect('Kde je najbližšia stanica?'), only('sk'));
+      expect(detect('Jeg har jobbet med dette prosjektet i tre måneder.'),
+          only('no'));
+
+      // Close languages are told apart by the words that differ between them.
+      const List<(String, String)> pairs = [
+        ('Nevím', 'cs'),
+        ('Neviem', 'sk'),
+        ('Ne znam', 'hr'),
+        ('Jeg ved det ikke', 'da'),
+        ('Jeg vet ikke', 'no'),
+        ('No lo sé', 'es'),
+        ('No ho sé', 'ca'),
+      ];
+
+      for (final (String, String) row in pairs) {
+        expect(detect(row.$1), only(row.$2), reason: row.$1);
+      }
+
+      // With nothing to go by, a script falls back to its first language.
+      expect(detect('getUserName'), only('en'));
+      expect(detect('a'), only('en'));
+      expect(detect('Иван'), only('ru'));
+      expect(detect('محمد'), only('ar'));
+
+      // Han characters follow the kana or Hangul of their sentence, and are Chinese without.
+      expect(detect('東京に行きます'), only('ja'));
+      expect(detect('北京'), only('zh'));
+      expect(detect('대한민국(大韓民國)'), only('ko'));
+      expect(detect('東京に住んでいます。北京是中国的首都。'), [('ja', 9 / 17), ('zh', 8 / 17)]);
+      expect(detect('도쿄는 東京です。'), [('ja', 4 / 7), ('ko', 3 / 7)]);
+
+      // The ratio counts letters only, and a tie goes to the language that appears first.
+      expect(detect('안녕 Hello'), [('en', 5 / 7), ('ko', 2 / 7)]);
+      expect(detect('안녕하세요 Hello'), [('ko', 0.5), ('en', 0.5)]);
+      expect(detect('Hello 안녕하세요'), [('en', 0.5), ('ko', 0.5)]);
+      expect(detect('오늘 회의는 Zoom으로 진행합니다.'), [('ko', 0.75), ('en', 0.25)]);
+      expect(detect('abc 123 !!! 가나'), [('en', 0.6), ('ko', 0.4)]);
+      // The vowel signs of `नमस्ते` are combining marks, so it counts as four letters.
+      expect(detect('नमस्ते abcd'), [('hi', 0.5), ('en', 0.5)]);
+      // Counted in code points, so a character outside the Basic Multilingual Plane is one.
+      expect(detect('\u{20000}\u{20001} a'), [('zh', 2 / 3), ('en', 1 / 3)]);
+
+      // Each sentence is judged on its own.
+      expect(detect("I live in Paris. C'est la vie."),
+          [('en', 12 / 21), ('fr', 9 / 21)]);
+      expect(detect('Das ist gut. This is good.'),
+          [('en', 10 / 19), ('de', 9 / 19)]);
+      // A sentence too short to decide takes the language of the rest of the text, and one
+      // shared word does not move a sentence into another language.
+      expect(detect('Hello. Bonjour le monde, comment ça va ?'), only('fr'));
+      expect(detect('We watched Die Hard last night and it was great.'),
+          only('en'));
+
+      // Case, decomposed accents and Arabic vowel marks do not hide a word.
+      expect(detect('DAS IST GUT'), only('de'));
+      expect(detect("İstanbul'da hava çok güzel."), only('tr'));
+      expect(detect("Cafe\u0301 au lait, s'il vous plai\u0302t."), only('fr'));
+      expect(detect('Tie\u0302\u0301ng Vie\u0323\u0302t ra\u0302\u0301t hay.'),
+          only('vi'));
+      expect(detect('مِنْ فِي'), only('ar'));
+      expect(detect('Ｈｅｌｌｏ'), only('en'));
+
+      // The ratios add up to 1 and run from the largest to the smallest.
+      final List<DetectedLanguage> mixed = detectLanguage(
+          'This is a test. 안녕하세요. こんにちは。你好。Bonjour tout le monde, je suis là. Привет!');
+
+      expect(mixed.map((DetectedLanguage item) => item.language).toList(),
+          ['fr', 'en', 'ru', 'ko', 'ja', 'zh']);
+      expect(
+          mixed.fold(
+              0.0, (double sum, DetectedLanguage item) => sum + item.ratio),
+          closeTo(1, 1e-9));
+
+      for (int i = 1; i < mixed.length; i += 1) {
+        expect(mixed[i - 1].ratio, greaterThanOrEqualTo(mixed[i].ratio));
+      }
+    });
     test('escapeRegExp', () {
       expect(escapeRegExp(''), '');
       expect(escapeRegExp(null), '');
