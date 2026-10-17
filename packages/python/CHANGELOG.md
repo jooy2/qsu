@@ -6,6 +6,7 @@
 
 - The Changelog link on PyPI opens this file. It pointed at a page of the documentation site that does not exist
 - `getFonts`: Added. Lists the fonts installed on the machine, one `dict` per face, with the names each font gives itself, its weight, width and slant, whether it is monospace and the file it was read from. The font files are read directly, so neither a font library nor another process is needed
+- `detectLanguage`: Added. Detects the languages a string is written in and returns them from the most used to the least, each as a `dict` with its ISO 639-1 code under `language` and its share of the letters under `ratio`. 24 languages with a script of their own are recognized by that script, and 28 that share the Latin, Cyrillic or Arabic script are told apart sentence by sentence from their most common words, the letters only some of them write, and the endings and runs of letters typical of each. Only letters are counted, and the tables ship inside the package, so nothing is downloaded or sent anywhere
 
 ## 1.6.0 (2026-10-07)
 

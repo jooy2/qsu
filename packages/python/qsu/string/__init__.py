@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 	from .capitalizeEverySentence import capitalizeEverySentence as capitalizeEverySentence
 	from .capitalizeFirst import capitalizeFirst as capitalizeFirst
 	from .deburr import deburr as deburr
+	from .detectLanguage import detectLanguage as detectLanguage
 	from .escapeRegExp import escapeRegExp as escapeRegExp
 	from .getGroupKeys import getGroupKeys as getGroupKeys
 	from .getStrBytes import getStrBytes as getStrBytes
@@ -40,6 +41,7 @@ __all__ = [
 	'capitalizeEverySentence',
 	'capitalizeFirst',
 	'deburr',
+	'detectLanguage',
 	'escapeRegExp',
 	'getGroupKeys',
 	'getStrBytes',
