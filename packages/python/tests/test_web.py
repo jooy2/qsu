@@ -1,3 +1,5 @@
+import datetime
+
 import pytest
 
 from qsu.web import (
@@ -172,8 +174,73 @@ def test_removeLocalePrefix():
 
 
 def test_generateLicense():
-	assert generateLicense(type='mit', author='example', yearStart=2021)
-	assert generateLicense(type='apache20', author='example', yearStart=2021)
+	mit = generateLicense(type='mit', author='Sam', email='sam@example.com', yearStart=2024)
+
+	assert mit.startswith('Copyright (c) 2024 Sam <sam@example.com>\n\nPermission is hereby granted')
+	assert mit.endswith('OTHER DEALINGS IN THE SOFTWARE.')
+
+	# Each type starts with its own copyright line, and the GNU ones name their license.
+	expected = [
+		('isc', 'Copyright (c) 2024 Sam', 'Permission to use, copy, modify, and/or distribute'),
+		('apache20', 'Copyright 2024 Sam', 'Apache License, Version 2.0'),
+		('bsd2', 'Copyright 2024 Sam', '2. Redistributions in binary form'),
+		('bsd3', 'Copyright 2024 Sam', '3. Neither the name of the copyright holder'),
+		('mpl20', 'Copyright (c) 2024 Sam', 'https://mozilla.org/MPL/2.0/'),
+		('gpl3', 'Copyright (C) 2024 Sam', 'the GNU General Public License as published by'),
+		('lgpl3', 'Copyright (C) 2024 Sam', 'the GNU Lesser General Public License as published by'),
+		('agpl3', 'Copyright (C) 2024 Sam', 'the GNU Affero General Public License as published by'),
+	]
+
+	for licenseType, copyright, text in expected:
+		license = generateLicense(type=licenseType, author='Sam', yearStart=2024)
+
+		assert license.startswith(f'{copyright}\n\n'), licenseType
+		assert text in license, licenseType
+
+	assert '3. Neither' not in generateLicense(type='bsd2', author='Sam', yearStart=2024)
+
+	# SPDX identifiers, loose spellings and an options dict find the same text.
+	assert generateLicense(type='BSD-3-Clause', author='Sam', yearStart=2024) == generateLicense(
+		type='bsd3', author='Sam', yearStart=2024
+	)
+	assert generateLicense(type='GPL-3.0-or-later', author='Sam', yearStart=2024) == generateLicense(
+		type='gpl3', author='Sam', yearStart=2024
+	)
+	assert generateLicense(type='apache 2.0', author='Sam', yearStart=2024).startswith('Copyright 2024 Sam')
+	assert generateLicense({'type': 'isc', 'author': 'Sam', 'yearStart': 2024}).startswith(
+		'Copyright (c) 2024 Sam'
+	)
+
+	# An unknown type raises rather than falling back to MIT. `GPL-3.0` is the deprecated
+	# SPDX name for `GPL-3.0-only`, which the "or later" notice would misstate.
+	with pytest.raises(ValueError):
+		generateLicense(type='gpl-2', author='Sam')
+
+	with pytest.raises(ValueError):
+		generateLicense(type='GPL-3.0', author='Sam')
+
+	with pytest.raises(ValueError):
+		generateLicense(author='Sam')
+
+	# The year defaults to the current one, and a range ending in the same year collapses.
+	assert generateLicense(type='mit', author='Sam').startswith(
+		f'Copyright (c) {datetime.date.today().year} Sam'
+	)
+	assert generateLicense(type='mit', author='Sam', yearStart=2024, yearEnd=2026).startswith(
+		'Copyright (c) 2024-2026 Sam'
+	)
+	assert generateLicense(type='mit', author='Sam', yearStart=2024, yearEnd='2024').startswith(
+		'Copyright (c) 2024 Sam\n'
+	)
+
+	# `htmlBr` swaps the newlines for tags and escapes what HTML would read as markup.
+	html = generateLicense(
+		type='gpl3', author='Sam & Co', email='sam@example.com', yearStart=2024, htmlBr=True
+	)
+
+	assert html.startswith('Copyright (C) 2024 Sam &amp; Co &lt;sam@example.com&gt;<br/><br/>This program')
+	assert html.endswith('see &lt;https://www.gnu.org/licenses/&gt;.')
+	assert '\n' not in html
 
 
 def test_escapeHtml():
