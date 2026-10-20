@@ -8,10 +8,14 @@ if TYPE_CHECKING:
 	from .escapeHtml import escapeHtml as escapeHtml
 	from .generateLicense import generateLicense as generateLicense
 	from .getSlug import getSlug as getSlug
-	from .isBotAgent import isBotAgent as isBotAgent
+	from .isAiAgentBot import isAiAgentBot as isAiAgentBot
+	from .isAiSearchBot import isAiSearchBot as isAiSearchBot
+	from .isAiTrainingBot import isAiTrainingBot as isAiTrainingBot
+	from .isBot import isBot as isBot
 	from .isDesktopDeviceFromUA import isDesktopDeviceFromUA as isDesktopDeviceFromUA
 	from .isMatchPathname import isMatchPathname as isMatchPathname
 	from .isMobileDeviceFromUA import isMobileDeviceFromUA as isMobileDeviceFromUA
+	from .isSearchBot import isSearchBot as isSearchBot
 	from .isTabletDeviceFromUA import isTabletDeviceFromUA as isTabletDeviceFromUA
 	from .removeLocalePrefix import removeLocalePrefix as removeLocalePrefix
 	from .unescapeHtml import unescapeHtml as unescapeHtml
@@ -20,10 +24,14 @@ __all__ = [
 	'escapeHtml',
 	'generateLicense',
 	'getSlug',
-	'isBotAgent',
+	'isAiAgentBot',
+	'isAiSearchBot',
+	'isAiTrainingBot',
+	'isBot',
 	'isDesktopDeviceFromUA',
 	'isMatchPathname',
 	'isMobileDeviceFromUA',
+	'isSearchBot',
 	'isTabletDeviceFromUA',
 	'removeLocalePrefix',
 	'unescapeHtml',

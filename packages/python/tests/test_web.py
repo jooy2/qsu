@@ -1,4 +1,6 @@
 import datetime
+import json
+from pathlib import Path
 
 import pytest
 
@@ -6,10 +8,14 @@ from qsu.web import (
 	escapeHtml,
 	generateLicense,
 	getSlug,
-	isBotAgent,
+	isAiAgentBot,
+	isAiSearchBot,
+	isAiTrainingBot,
+	isBot,
 	isDesktopDeviceFromUA,
 	isMatchPathname,
 	isMobileDeviceFromUA,
+	isSearchBot,
 	isTabletDeviceFromUA,
 	removeLocalePrefix,
 	unescapeHtml,
@@ -91,12 +97,47 @@ def _assertDeviceType(fn, expected):
 			assert fn(userAgent) is (deviceType == expected), f'{deviceType}: {userAgent}'
 
 
-def test_isBotAgent():
-	assert isBotAgent(userAgentBot) is True
-	assert isBotAgent(userAgentDesktop) is False
-	assert isBotAgent(userAgentMobileIOS) is False
-	assert isBotAgent(userAgentMobileAndroid) is False
-	assert isBotAgent(userAgentTablet) is False
+# Every name and User-Agent in the fixture belongs to exactly one group. `other` is a bot
+# that none of the four categories claims, and `human` is not a bot at all.
+bots = json.loads((Path(__file__).parent / '_resources' / 'bots.json').read_text(encoding='utf-8'))
+
+
+def test_isBot():
+	for group, values in bots.items():
+		for value in values:
+			assert isBot(value) is (group != 'human'), f'{group}: {value}'
+
+	assert isBot('') is False
+	assert isBot(None) is False
+	assert isBot(userAgentBot) is True
+	assert isBot(userAgentDesktop) is False
+	assert isBot(userAgentMobileIOS) is False
+	assert isBot(userAgentMobileAndroid) is False
+	assert isBot(userAgentTablet) is False
+
+
+def _assertBotCategory(fn, category):
+	for group, values in bots.items():
+		for value in values:
+			assert fn(value) is (group == category), f'{group}: {value}'
+
+	assert fn('') is False
+
+
+def test_isSearchBot():
+	_assertBotCategory(isSearchBot, 'search')
+
+
+def test_isAiSearchBot():
+	_assertBotCategory(isAiSearchBot, 'aiSearch')
+
+
+def test_isAiAgentBot():
+	_assertBotCategory(isAiAgentBot, 'aiAgent')
+
+
+def test_isAiTrainingBot():
+	_assertBotCategory(isAiTrainingBot, 'aiTraining')
 
 
 def test_isMobileDeviceFromUA():
