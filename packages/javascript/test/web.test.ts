@@ -1,7 +1,12 @@
 import assert from 'assert';
+import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 import {
-	isBotAgent,
+	isBot,
+	isSearchBot,
+	isAiSearchBot,
+	isAiAgentBot,
+	isAiTrainingBot,
 	isMatchPathname,
 	generateLicense,
 	removeLocalePrefix,
@@ -80,13 +85,45 @@ const assertDeviceType = (fn: (userAgent: string) => boolean, expected: string):
 };
 
 describe('Web', () => {
-	it('isBotAgent', () => {
-		assert.strictEqual(isBotAgent(userAgentBot), true);
-		assert.strictEqual(isBotAgent(userAgentDesktop), false);
-		assert.strictEqual(isBotAgent(userAgentMobileIOS), false);
-		assert.strictEqual(isBotAgent(userAgentMobileAndroid), false);
-		assert.strictEqual(isBotAgent(userAgentTablet), false);
+	const bots: { [group: string]: string[] } = JSON.parse(
+		readFileSync('test/_resources/bots.json', 'utf8')
+	);
+
+	// Every name and User-Agent in the fixture belongs to exactly one group. `other` is a bot
+	// that none of the four categories claims, and `human` is not a bot at all.
+	const botCategories: [string, (text: string) => boolean][] = [
+		['search', isSearchBot],
+		['aiSearch', isAiSearchBot],
+		['aiAgent', isAiAgentBot],
+		['aiTraining', isAiTrainingBot]
+	];
+
+	it('isBot', () => {
+		for (const [group, values] of Object.entries(bots)) {
+			for (const value of values) {
+				assert.strictEqual(isBot(value), group !== 'human', `${group}: ${value}`);
+			}
+		}
+
+		assert.strictEqual(isBot(''), false);
+		assert.strictEqual(isBot(userAgentBot), true);
+		assert.strictEqual(isBot(userAgentDesktop), false);
+		assert.strictEqual(isBot(userAgentMobileIOS), false);
+		assert.strictEqual(isBot(userAgentMobileAndroid), false);
+		assert.strictEqual(isBot(userAgentTablet), false);
 	});
+
+	for (const [category, fn] of botCategories) {
+		it(fn.name, () => {
+			for (const [group, values] of Object.entries(bots)) {
+				for (const value of values) {
+					assert.strictEqual(fn(value), group === category, `${group}: ${value}`);
+				}
+			}
+
+			assert.strictEqual(fn(''), false);
+		});
+	}
 
 	it('isMobileDeviceFromUA', () => {
 		assertDeviceType(isMobileDeviceFromUA, 'mobile');

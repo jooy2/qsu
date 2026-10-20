@@ -4,12 +4,17 @@
 
 ### Breaking changes
 
+- `isBotAgent` was replaced by `isBot`, which takes a whole `User-Agent` header or just a bot's name, such as `GPTBot` or a robots.txt token. Replace the import and the call. It knows 1,012 names where `isBotAgent` had about 170 patterns, and words such as `bot`, `crawler` and `spider` also count, so more automated clients return `true`, among them ChatGPT-User and Claude-User. Bare words that real browsers send were dropped: a Pixel phone whose string says `google`, a Cubot phone and a feature-phone browser that declares `Java` were reported as bots and no longer are
 - `generateLicense`: An unknown `type` throws a `RangeError` instead of returning the MIT license. A typo used to produce a different license without a word, and so did an SPDX identifier such as `BSD-3-Clause`, which is now recognized
 - `generateLicense`: With `htmlBr`, `&`, `<` and `>` are escaped, so an email address written as `<user@example.com>` appears in the page rather than being read as a tag
 - `isMobile` was renamed to `isMobileDeviceFromUA`, so the name says that it reads a User-Agent string. Replace the import and the call. A Kindle now counts as a tablet rather than a phone, and a PlayStation Portable is no longer a phone: like a smart TV or a game console, it is none of the three device types. A phone that only says `Mobi` somewhere in its string, such as a Tizen phone, now counts as one
 
 ### Changes
 
+- `isSearchBot`: Added. Returns `true` for a crawler that indexes pages for a search engine, such as Googlebot, Bingbot, YandexBot, Baiduspider, Naver's Yeti or Daum's crawler. Bing's ads crawler, which links to `bingbot.htm`, is not one
+- `isAiSearchBot`: Added. Returns `true` for a crawler that indexes pages so an AI product can cite them in its answers and that its operator says does not train models, such as OAI-SearchBot, Claude-SearchBot or PerplexityBot
+- `isAiAgentBot`: Added. Returns `true` for a fetcher that visits a page only when a person asks an AI assistant or agent to, such as ChatGPT-User, Claude-User, Perplexity-User or Google-Agent
+- `isAiTrainingBot`: Added. Returns `true` for a crawler that collects pages to train AI models or to build datasets for that, such as GPTBot, ClaudeBot, CCBot or Bytespider, and for the robots.txt tokens `Google-Extended` and `Applebot-Extended`, which control training without crawling. The four category functions answer only for the names they know, and the lists follow each operator's own documentation where it exists
 - `generateLicense`: `isc`, `bsd2`, `mpl20`, `gpl3`, `lgpl3` and `agpl3` were added. ISC and the 2-clause BSD license are returned whole, as MIT and the 3-clause BSD license are. MPL 2.0 and the GNU licenses, like Apache 2.0, are returned as the notice their own text asks to be put at the top of each source file, under the copyright line. Each type is also accepted by its SPDX identifier, such as `Apache-2.0` or `GPL-3.0-or-later`. The `LicenseType` type in `qsu/types` lists every accepted value
 - `generateLicense`: `yearStart` defaults to the current year when it is left out, `yearEnd` takes a number as well as a string, and a `yearEnd` equal to `yearStart` is left out rather than written as `2026-2026`
 - `isTabletDeviceFromUA`: Added. Returns `true` when a User-Agent string comes from a tablet: an iPad, an Android tablet, a Kindle or Fire tablet, or a BlackBerry PlayBook. Safari on iPadOS 13 and later sends the same string as a Mac by default, which no User-Agent check can tell apart, so it is reported as a desktop

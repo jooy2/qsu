@@ -1,0 +1,1463 @@
+/*!
+ * (Private, not exported from the package) The names behind `isBot`, `isSearchBot`,
+ * `isAiSearchBot`, `isAiAgentBot` and `isAiTrainingBot`.
+ *
+ * Each entry is the source of a regular expression, matched without case anywhere in the
+ * string, and the three packages carry the same lists in the same order. A name is filed
+ * where its operator's own documentation puts it first. Where the operator says nothing,
+ * the verified bot directory of Cloudflare Radar decides.
+ *
+ * The AI names cover every name in the ai.robots.txt project, and many of the other names
+ * come from the crawler-user-agents project. Both are published under the MIT License:
+ *
+ * Copyright (c) 2024 ai.robots.txt
+ * Copyright (c) 2017 Martin Monperrus
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this
+ * software and associated documentation files (the "Software"), to deal in the Software
+ * without restriction, including without limitation the rights to use, copy, modify,
+ * merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+// Crawlers that index pages for a search engine.
+const SEARCH_BOTS: string[] = [
+	// Google
+	'googlebot',
+	'storebot-google',
+	'google-inspectiontool',
+	// Microsoft
+	'bingbot(?!\\.htm)',
+	'msnbot(?!\\.htm)',
+	// Apple
+	'applebot(?!-extended)',
+	// DuckDuckGo
+	'duckduckbot',
+	'duckduckgo-favicons-bot',
+	// Yandex
+	'yandexbot',
+	'yandeximages',
+	'yandexvideo',
+	'yandexmedia',
+	'yandexmobilebot',
+	'yandexrenderresourcesbot',
+	'yandexcombot',
+	'yandexfavicons',
+	'yandexblogs',
+	'yandeximageresizer',
+	'yandexontodb',
+	'yandexvertis',
+	'yandexverticals',
+	'yandexmarket',
+	'yandexsearchshop',
+	'yandexspravbot',
+	'yandexsitelinks',
+	// Baidu
+	'baiduspider(?!-ads|-cpro)',
+	// Sogou
+	'sogou web spider',
+	'sogou inst spider',
+	'sogou pic spider',
+	'sogou news spider',
+	'sogou orion spider',
+	'sogou head spider',
+	'sogou-test-spider',
+	// Qihoo 360
+	'360spider',
+	'haosouspider',
+	// Shenma (Alibaba/UC)
+	'yisouspider',
+	// ByteDance
+	'toutiaospider',
+	// Naver
+	'\\byeti\\b',
+	'naverbot',
+	// Kakao (Daum)
+	'\\bdaum\\b',
+	'daumoa',
+	// ZUM Internet
+	'zumbot',
+	// Seznam.cz
+	'seznambot',
+	'seznamhomepagecrawler',
+	'seznam-zbozi-robot',
+	// Qwant
+	'qwantbot',
+	'qwantify',
+	// Mojeek
+	'mojeekbot',
+	// Coc Coc
+	'coccocbot(?!-ads)',
+	// Huawei
+	'petalbot',
+	// Huawei (Aspiegel)
+	'aspiegelbot',
+	// Yahoo
+	'slurp',
+	// LY Corporation (Yahoo! JAPAN)
+	'y!?j-brw',
+	'y!?j-bru',
+	'y!?j-asr',
+	'y!?j-mmp',
+	'y!?j-wsc',
+	// NTT Docomo (goo)
+	'\\bichiro\\b',
+	// Exalead (Dassault)
+	'\\bexabot',
+	// Brave
+	'bravebot',
+	// Kagi
+	'kagibot',
+	// Marginalia
+	'search\\.marginalia\\.nu',
+	// Swisscows
+	'swisscows favicons',
+	// VK (Mail.ru)
+	'mail\\.ru_bot',
+	// SISTRIX
+	'seekport',
+	// LY Corporation (LINE)
+	'linespider',
+	// OpenWebSearch.eu
+	'owler \\(ows\\.eu',
+	// Stract
+	'stractbot',
+	// Alexandria.org
+	'alexandriaorgbot',
+	// Freespoke
+	'freespoke',
+	// Babbar (ibou.io)
+	'iboubot',
+	// Ison Search
+	'isonsearchbot',
+	// YaCy
+	'yacybot',
+	// Gigablast
+	'gigabot',
+	'gigablastopensource',
+	// Cliqz
+	'cliqzbot',
+	// Neeva
+	'neevabot',
+	// Tencent (Soso)
+	'sosospider',
+	// NetEase (Youdao)
+	'youdaobot',
+	// Easou
+	'easouspider',
+	// Ask.com
+	'teoma',
+	// Istella
+	'istellabot',
+	// Orange
+	'orangebot',
+	// Orange (Voila)
+	'voilabot',
+	// Acoon
+	'acoonbot',
+	// Findx
+	'findxbot',
+	// DeuSu
+	'deusu',
+	// TinEye (Idee)
+	'tineye-bot',
+	// Picsearch
+	'\\bpsbot\\b'
+];
+
+// Crawlers that index pages so an AI product can cite them, and that their operator says do
+// not train models.
+const AI_SEARCH_BOTS: string[] = [
+	// AddSearch
+	'addsearchbot',
+	// AgentData
+	'agentdatabot',
+	// Lyrenth
+	'aiwebindex(?!-agent)',
+	// Amazon (AWS)
+	'amazon-kendra',
+	'amazon-qbusiness',
+	'bedrockbot',
+	// Amazon
+	'amzn-searchbot',
+	// Andi
+	'andibot',
+	// Direqt
+	'anomura',
+	// Unknown
+	'aranet-searchbot',
+	// Atlassian
+	'atlassian-bot',
+	// Microsoft
+	'azureai-searchbot',
+	// Big Sur AI
+	'bigsur\\.ai',
+	// Bixel
+	'bixelbot',
+	// Channel3
+	'channel3bot',
+	// Anthropic
+	'claude-searchbot',
+	// Cloudflare
+	'cloudflare-ai-search',
+	'cloudflare-autorag',
+	// Google
+	'cloudvertexbot',
+	// Diffbot
+	'diffbot(?!-user)',
+	// ByteDance
+	'dola-searchbot',
+	// Exa
+	'exasearchbot',
+	// Valyu
+	'henkbot',
+	// iAsk
+	'iaskbot',
+	'iaskspider',
+	// ImageSift (Hive)
+	'imagesiftbot',
+	// Keenable
+	'keenable-searchbot',
+	'keenablebot',
+	// Moonshot AI
+	'kimi-searchbot',
+	// Klaviyo
+	'klaviyoaibot',
+	// Liner
+	'linerbot',
+	// Meta
+	'meta-webindexer',
+	// Mistral AI
+	'mistralai-index',
+	// Naget
+	'nagetbot',
+	// OpenAI
+	'oai-searchbot',
+	// Perplexity
+	'perplexitybot',
+	// ProRata.ai (Gist)
+	'proratainc',
+	// Qualified
+	'qualifiedbot',
+	// Querit
+	'querit-searchbot',
+	'queritbot',
+	// Parallel Web Systems
+	'shapbot',
+	// Tavily
+	'tavilybot',
+	// Ceramic AI
+	'terra cotta',
+	'terracotta',
+	// QuantumCloud
+	'wpbot',
+	// xAI
+	'xai-searchbot',
+	// Yandex
+	'yandexadditional',
+	// You.com
+	'youbot',
+	// Zanista
+	'zanistabot'
+];
+
+// Fetchers that visit a page only when a person asks an AI assistant or agent to, and the
+// robots.txt names of such fetchers.
+const AI_AGENT_BOTS: string[] = [
+	// Ai2
+	'ai2bot-deepresearcheval',
+	// Lyrenth
+	'aiwebindex-agent',
+	// Amazon
+	'amazonbuyforme',
+	'amzn-user',
+	'novaact',
+	// Apify
+	'apifybot',
+	'apifywebsitecontentcrawler',
+	// BuddyBot Learning
+	'buddybot',
+	// OpenAI
+	'chatgpt-user',
+	// Anthropic
+	'claude-user',
+	'claude-web',
+	// Cohere
+	'cohere-ai',
+	// unclecode/crawl4ai (open-source)
+	'crawl4ai',
+	// Crawlspace
+	'crawlspace',
+	// Cognition
+	'\\bdevin/',
+	// Diffbot
+	'diffbot-user',
+	// DuckDuckGo
+	'duckassistbot',
+	// Exa
+	'exauser',
+	// Firecrawl
+	'firecrawlagent',
+	// GeistHaus
+	'geisthaus-pagefetcher',
+	// Google
+	'gemini-deep-research',
+	'google-agent',
+	'google-gemini-cli',
+	'google-gemininotebook',
+	'google-pinpoint',
+	'googleagent-mariner',
+	'googleagent-urlcontext',
+	'notebooklm',
+	// xAI
+	'grok-agent',
+	'grok-deepsearch',
+	'grokagent',
+	'grokappandroid',
+	// Kagi
+	'kagi-fetcher',
+	// Keenable
+	'keenable-user',
+	// Moonshot AI
+	'kimi-agent',
+	'kimi-user',
+	// Lightpanda
+	'lightpanda',
+	// Butterfly Effect (Manus)
+	'manus-user',
+	// Meta
+	'meta-externalfetcher',
+	// Mistral AI
+	'mistralai-user',
+	// Mozilla (Tabstack)
+	'mozilla-tabstack',
+	// opencode
+	'opencode',
+	// Perplexity
+	'perplexity-user',
+	// Phind
+	'phindbot',
+	// Poggio
+	'poggio-citations',
+	// Qoder (Alibaba)
+	'qodercli',
+	// QuillBot
+	'quillbot',
+	// SB Intuitions (SoftBank)
+	'sbintuitions-searchbot',
+	// Semrush
+	'semrushbot-ocob',
+	// Parallel Web Systems
+	'shap-user',
+	// Alibaba
+	'tongyibot',
+	// Twin
+	'twinagent',
+	// Baidu
+	'yiyanbot'
+];
+
+// Crawlers that collect pages to train AI models or to build datasets for that, and the
+// robots.txt names that control such use.
+const AI_TRAINING_BOTS: string[] = [
+	// Ai2
+	'ai2bot(?!-deepresearcheval)',
+	'ai2bot-dolma',
+	// aiHit
+	'aihitbot',
+	// Amazon
+	'amazonbot',
+	// Anthropic
+	'anthropic-ai',
+	'claudebot',
+	// Apple
+	'applebot-extended',
+	// Bright Data
+	'brightbot',
+	// ByteDance
+	'bytespider',
+	'doubaobot',
+	'imagespider',
+	'tiktokspider',
+	// Common Crawl
+	'ccbot',
+	// Zhipu AI
+	'chatglm-spider',
+	// Cloudflare
+	'cloudflarebrowserrenderingcrawler',
+	// Cohere
+	'cohere-training-data-crawler',
+	'coherebot',
+	// ROIS-DS (Japan)
+	'cotoyogi',
+	// CragSoftware
+	'cragcrawler',
+	// DeepSeek
+	'deepseekbot',
+	// Echobox
+	'echobot bot',
+	// Baidu
+	'erniebot',
+	// Meta
+	'facebookbot',
+	'meta-externalagent',
+	// FactSet
+	'factset_spyderbot',
+	// Unknown
+	'friendlycrawler',
+	'kunatocrawler',
+	'laion-huggingface-processor',
+	'mycentralaiscraperbot',
+	// Google
+	'google-extended',
+	'googleother',
+	// OpenAI
+	'gptbot',
+	// xAI
+	'grokbot',
+	'xai-grok',
+	// Tencent
+	'hunyuan',
+	// NICT (Japan)
+	'icc-crawler',
+	// rom1504 (open-source tool)
+	'img2dataset',
+	// ISS Corporate
+	'isscyberriskcrawler',
+	// Kangaroo LLM
+	'kangaroo bot',
+	// Keenable
+	'keenable-extended',
+	// Moonshot AI
+	'kimibot',
+	'kimicrawler',
+	'moonshotbot',
+	'moonspider',
+	// LAION
+	'laiondownloader',
+	// Linguee (DeepL)
+	'linguee bot',
+	// Mistral AI
+	'mistralai-training',
+	'mistralbot',
+	// Webz.io
+	'omgili',
+	'webzio',
+	// Huawei
+	'pangubot',
+	// Panscient
+	'panscient',
+	// Poseidon Research
+	'poseidon research crawler',
+	// Alibaba
+	'qwenbot',
+	// Reflection AI
+	'reflectionbot',
+	// SB Intuitions (SoftBank)
+	'sbintuitionsbot',
+	// Sidetrade
+	'sidetrade indexer bot',
+	// Thinkbot
+	'thinkbot',
+	// Timpi
+	'timpibot',
+	// Velen
+	'velenpublicwebcrawler',
+	// Wrtn (Korea)
+	'wrtnbot',
+	// 01.AI
+	'\\byibot'
+];
+
+// Bots in none of the four categories: SEO tools, link previews, monitors, feed readers,
+// archivers, HTTP libraries and the like. A name that a generic word already matches is left
+// out of the code.
+const OTHER_BOTS: string[] = [
+	// The Agent Times
+	'agenttimes',
+	// Meta
+	'meta-externaltest',
+	'facebookexternalhit',
+	'meta-externalads',
+	'facebookcatalog',
+	// Ahrefs
+	'ahrefssiteaudit',
+	// DataForSEO
+	'rsiteauditor',
+	// Babbar
+	'barkrowler',
+	// SISTRIX
+	'sistrix optimizer',
+	'\\(compatible; optimizer\\)',
+	// MegaIndex
+	'megaindex',
+	// SEOkicks
+	'seokicks',
+	// Sitebulb
+	'sitebulb',
+	// Botify
+	'botify',
+	// Audisto
+	'audisto',
+	// Conductor (ContentKing)
+	'contentking',
+	// Search Atlas
+	'searchatlas',
+	// marketgoo
+	'marketgoo',
+	// WooRank
+	'woorankreview',
+	// Seoscanners.net
+	'seoscanners',
+	// SEOlizer
+	'seolizer',
+	// PR-CY
+	'pr-cy\\.ru',
+	// Alli AI
+	'alliai',
+	// Morningscore
+	'morningscore',
+	// Prerender.io
+	'prerender',
+	// Capsule Code
+	'seo4ajax',
+	// Wappalyzer
+	'wappalyzer',
+	// WhatCMS
+	'whatcms',
+	// 2IP
+	'2ip\\.ru',
+	// Pinterest
+	'pinterest/0\\.',
+	// Embedly
+	'embedly',
+	// Iframely
+	'iframely',
+	// Microsoft
+	'azure-logic-apps',
+	// Google
+	'google-pagerenderer',
+	'googlemessages',
+	'google favicon',
+	'googleimageproxy',
+	'chrome privacy preserving prefetch proxy',
+	'googleweblight',
+	'chrome-lighthouse',
+	'google page speed insights',
+	'google-structured-data-testing-tool',
+	'googleproducer',
+	'google-calendar-importer',
+	'google-xrawler',
+	'mediapartners-google',
+	'google-adwords-instant',
+	'google-adwords-express',
+	'google-travelads-live',
+	'google-ads-conversions',
+	'google-firebase',
+	'google-safety',
+	'google-site-verification',
+	'google-trust-services',
+	'googleassociationservice',
+	'google-businesslinkverification',
+	'google-cws',
+	'apis-google',
+	'google-read-aloud',
+	'google-speakr',
+	'google-apps-script',
+	'googledocs',
+	'google search console',
+	'google-certificates-bridge',
+	'playstore-google',
+	'duplexweb-google',
+	// VK
+	'vkshare',
+	// Kakao
+	'kakaotalk-scrap',
+	// LY Corporation (LINE)
+	'line-poker',
+	// Snap
+	'snapchatads',
+	// Bluesky
+	'bluesky cardyb',
+	// Matrix.org
+	'synapse \\(bot',
+	// Friendica (any instance)
+	'friendica',
+	// Discourse
+	'discourse forum onebox',
+	// OpenGraph.io
+	'opengraph\\.io',
+	// ClickUp
+	'clickuplinkunfurler',
+	// Yahoo
+	'yahoomailproxy',
+	'yahoocachesystem',
+	'yahoo ad monitoring',
+	'yahoo:linkexpander',
+	// Flipboard
+	'flipboardproxy',
+	'flipboardrss',
+	// Valve
+	'steamchat',
+	'valve/steam',
+	// Yandex
+	'yandexrca',
+	'yandexmetrika',
+	'yandexfeed',
+	'yandexcalendar',
+	'yandexdirect',
+	'yandexadnet',
+	'yandexpartner',
+	'yandexwebmaster',
+	'yandexpagechecker',
+	'yandexuserproxy',
+	// PagePeeker
+	'pagepeeker',
+	// Vercel
+	'vercel-screenshot',
+	// Seznam.cz
+	'seznamemailproxy',
+	// Rambler
+	'ramblermail',
+	// 37signals (HEY)
+	'hey\\.com/imageproxy',
+	// Fastmail
+	'fastmailua',
+	// GitHub
+	'github-camo',
+	'github-hookshot',
+	// Twilio
+	'twilioproxy',
+	// Startpage
+	'startpageprivateimageproxy',
+	// UKR.NET
+	'secureurl\\.fwdcdn\\.com',
+	// Cloudflare
+	'cloudflare-alwaysonline',
+	'cloudflare-amp',
+	'cloudflare-prefetch',
+	'cloudflare-healthchecks',
+	'cloudflare-traffic-manager',
+	'cloudflareobservatory',
+	'cloudflare speedtest',
+	'cloudflare-speedtest',
+	'cloudflare-csup',
+	'collapsify',
+	'cloudflare custom hostname verification',
+	'cloudflare-ssldetector',
+	// Google Cloud (customer code)
+	'appengine-google',
+	// Thumbor (self-hosted)
+	'thumbor',
+	// imgproxy (self-hosted)
+	'imgproxy',
+	// SolarWinds Pingdom
+	'pingdom',
+	// StatusCake
+	'statuscake',
+	// Zoho Site24x7
+	'site24x7',
+	// Datadog
+	'datadog synthetic',
+	'datadog agent',
+	// New Relic
+	'newrelicpinger',
+	'newrelicsynthetics',
+	// GTmetrix
+	'gtmetrix',
+	// WebPageTest (Catchpoint)
+	'ptst/',
+	// SpeedCurve
+	'speedcurve',
+	// Catchpoint
+	'catchpoint',
+	// Dynatrace
+	'ruxitsynthetic',
+	// Microsoft Azure
+	'appinsights',
+	// Dynatrace (Gomez)
+	'gomezagent',
+	// Dotcom-Monitor
+	'dmbrowser',
+	// SmartBear AlertSite
+	'dejaclick',
+	// SmartBear
+	'alertsite',
+	// Checkly
+	'checkly',
+	// Zabbix
+	'zabbix',
+	// Prometheus
+	'blackbox exporter',
+	'prometheus/',
+	// collectd
+	'collectd',
+	// Monit
+	'monit/',
+	// Xymon
+	'xymon',
+	// Uptime Kuma
+	'uptime-kuma',
+	// Freshworks
+	'freshping',
+	// HetrixTools
+	'hetrixtools',
+	// NodePing
+	'nodeping',
+	// updown.io
+	'updown\\.io',
+	// Oh Dear
+	'ohdear\\.app',
+	// Uptime.com
+	'www\\.uptime\\.com',
+	// Hydrozen
+	'hydrozen\\.io',
+	// Sentry
+	'sentry/',
+	// Honeybadger
+	'honeybadger',
+	// SmartBear BugSnag
+	'bugsnag',
+	// Montastic
+	'montastic',
+	// Netumo
+	'netumo',
+	// Panopta
+	'panopta',
+	// Paessler
+	'prtg network monitor',
+	// LogicMonitor
+	'logicmonitor',
+	// SolarWinds
+	'solarwinds',
+	// Splunk
+	'splunk synthetics',
+	// Grafana Labs
+	'synthetic-monitoring-agent',
+	// Gatus
+	'gatus',
+	// Uptrends
+	'uptrends',
+	// Uptimia
+	'uptimia',
+	// WebSitePulse
+	'websitepulse',
+	// SiteUptime
+	'siteuptime',
+	// Pulsetic
+	'pulsetic\\.com',
+	// Kubernetes
+	'kube-probe',
+	// AWS
+	'elb-healthchecker',
+	'amazon-route53-health-check-service',
+	'amazon simple notification service agent',
+	// Google Cloud
+	'googlestackdrivermonitoring',
+	'googlehc',
+	'google-cloud-scheduler',
+	'google-cloud-tasks',
+	// Automattic (Jetpack)
+	'jetmon',
+	// WPMU DEV
+	'wpmudev',
+	// BlogVault
+	'blogvault',
+	// WP Umbrella
+	'wpumbrella',
+	// ObservePoint
+	'observepoint',
+	// Hotjar
+	'hotjar',
+	// Crazy Egg
+	'crazy egg',
+	// Contentsquare
+	'contentsquare',
+	// DareBoost
+	'dareboost',
+	// Ghost Inspector
+	'ghost inspector',
+	// HostTracker
+	'hosttracker',
+	// Check-Host
+	'check-host\\.cc',
+	// changedetection.io
+	'changedetection',
+	// KeyCDN
+	'keycdn-tools',
+	// Acquia (Monsido)
+	'acquia optimize',
+	// Siteimprove
+	'siteimprove',
+	// W3C
+	'w3c-checklink',
+	'w3c_i18n-checker',
+	'w3c-mobileok',
+	'w3c_unicorn',
+	// Xenu
+	'xenu link sleuth',
+	// Dead Link Checker
+	'deadlinkchecker',
+	// brokenlinkcheck.com
+	'brokenlinkcheck\\.com',
+	// Dr. Link Check
+	'dlc/',
+	// LY Corporation (Yahoo! JAPAN)
+	'y!?j-dlc',
+	// Baidu
+	'baidu-yunguance',
+	'baidu-ads',
+	'baidu transcoder',
+	// 360Monitoring
+	'monitoring360',
+	// OnlineOrNot
+	'onlineornot',
+	// Semonto
+	'semonto',
+	// AccessStatus
+	'accessstatus',
+	// Feedly
+	'feedly',
+	// Feedbin
+	'feedbin',
+	// Inoreader
+	'inoreader',
+	// NewsBlur
+	'newsblur',
+	// Feedspot
+	'feedspot',
+	// The Old Reader
+	'theoldreader\\.com',
+	// BazQux Reader
+	'bazqux',
+	// Miniflux (self-hosted)
+	'miniflux',
+	// FreshRSS (self-hosted)
+	'freshrss',
+	// NetNewsWire
+	'netnewswire',
+	// Reeder
+	'reeder',
+	// ReadKit
+	'readkit',
+	// Liferea
+	'liferea',
+	// KDE Akregator
+	'akregator',
+	// Newsbeuter
+	'newsbeuter',
+	// CommaFeed
+	'commafeed',
+	// SimplePie (PHP library)
+	'simplepie',
+	// MagpieRSS (PHP library)
+	'magpierss',
+	// Python feedparser
+	'universalfeedparser',
+	// Superfeedr
+	'superfeedr',
+	// Netvibes
+	'netvibes',
+	// Bloglovin
+	'bloglovin',
+	// Blogtrottr
+	'blogtrottr',
+	// Google (FeedBurner)
+	'feedburner',
+	// Feeder
+	'feeder\\.co',
+	// MonitoRSS
+	'monitorss',
+	// IFTTT
+	'ifttt',
+	// dlvr.it
+	'dlvr\\.it',
+	// follow.it
+	'follow\\.it',
+	// FeedBlitz
+	'feedblitz',
+	// Buttondown
+	'buttondown',
+	// Overcast
+	'overcast/',
+	// Pocket Casts
+	'pocket casts',
+	'pocketcasts/',
+	// Apple (Apple Podcasts)
+	'^itms$',
+	// Podchaser
+	'podchaserparser',
+	// Downcast
+	'downcast/',
+	// Breaker
+	'breaker/',
+	// Spotify
+	'^spotify/1\\.0$',
+	// Apple
+	'apple-pubsub',
+	'swcd',
+	// RSSOwl
+	'rssowl',
+	// QuiteRSS
+	'quiterss',
+	// RSS Bandit
+	'rssbandit',
+	// FeedDemon
+	'feeddemon',
+	// Feed Wrangler
+	'feed wrangler',
+	// NewsGator
+	'newsgator',
+	// Bloglines
+	'bloglines',
+	// rss2tg
+	'rss2tg',
+	// FeedOtter
+	'feedotter',
+	// EchoFeed
+	'echofeed',
+	// Open RSS
+	'openrss',
+	// Protopage
+	'protopage',
+	// Feedwind
+	'feedwind',
+	// Internet Archive
+	'archive-it',
+	// Internet Archive (software)
+	'heritrix',
+	// Archive Team
+	'archiveteam',
+	// Library of Congress
+	'loc\\.gov/programs/web-archiving',
+	'library of congress web archiving',
+	// Royal Danish Library (Netarkivet)
+	'netarkivindsamling',
+	// National Library of New Zealand
+	'nlnz_iaharvester',
+	// Library and Archives Canada
+	'lac_iaharvester',
+	// National Library of Luxembourg
+	'nlux_iaharvester',
+	// Pagefreezer
+	'pagefreezer',
+	// ArchiveBox (self-hosted)
+	'archivebox',
+	// XY Archive Compliance
+	'xy-archive-compliance',
+	// NewsBank
+	'newsbank',
+	// Authory
+	'authory',
+	// HTTrack
+	'httrack',
+	// WebCopier
+	'webcopier',
+	// SiteSucker
+	'sitesucker',
+	// MetaProducts
+	'offline explorer',
+	// Spidersoft
+	'webzip',
+	// Cyotek
+	'cyotekwebcopy',
+	// GetRight
+	'getright/',
+	// Go!Zilla
+	'go!zilla',
+	// iGetter
+	'igetter/',
+	// Download Ninja
+	'download ninja',
+	// Outbrain
+	'outbrain',
+	// Comscore
+	'proximic',
+	// The Trade Desk
+	'ttd-content',
+	// Mediavine
+	'mediavinemetadataparser',
+	// Clickagy
+	'clickagy',
+	// Scope3
+	'scope3',
+	// Klaviyo
+	'klaviyo',
+	// Channable
+	'channable',
+	// Productsup
+	'productsup',
+	// Raptive
+	'raptivesiteinspector',
+	// curl
+	'\\bcurl(?:/|$)',
+	// Resty
+	'go-resty',
+	// AsyncHttpClient
+	'ahc/',
+	// Eclipse Jersey
+	'jersey/',
+	// Eclipse Jetty
+	'jetty/',
+	// Reactor Netty
+	'reactornetty',
+	// axios
+	'axios',
+	// node-fetch
+	'node-fetch',
+	// Node.js undici
+	'undici',
+	// got
+	'sindresorhus/got',
+	// superagent
+	'node-superagent',
+	// Deno
+	'deno/',
+	// Bun
+	'bun/',
+	// Dart (dart:io)
+	'dart/',
+	// PHP
+	'^php\\b|\\bphp/\\d',
+	// PHP Curl Class
+	'php-curl-class',
+	// WordPress HTTP API
+	'wordpress/',
+	// Ruby rest-client
+	'rest-client',
+	// Ruby Faraday
+	'faraday v',
+	// Typhoeus (Ruby)
+	'typhoeus',
+	// Mechanize (Perl/Ruby/Python)
+	'mechanize',
+	// LWP (Perl)
+	'lwp::',
+	'lwp-trivial',
+	// RestSharp (.NET)
+	'restsharp',
+	// Windows
+	'microsoft-cryptoapi',
+	'microsoft bits',
+	'windows-update-agent',
+	// Indy (Delphi)
+	'indy library',
+	// Alamofire (Swift)
+	'alamofire',
+	// Postman
+	'postmanruntime',
+	// Kong Insomnia
+	'insomnia/',
+	// Grafana k6
+	'k6/',
+	// Apache
+	'apachebench',
+	// gRPC
+	'grpc-',
+	// newspaper (Python)
+	'newspaper/',
+	// trafilatura (Python)
+	'trafilatura',
+	// Cypress
+	'cypress/',
+	// Scrapinghub Splash
+	'splash version/',
+	// Colly (Go)
+	'colly',
+	// Apache Nutch
+	'nutch',
+	// jsdom
+	'jsdom',
+	// Zombie.js
+	'zombie\\.js',
+	// SlimerJS
+	'slimerjs',
+	// TestLocally
+	'testlocally',
+	// Browsershots
+	'browsershots',
+	// webkit2png
+	'webkit2png',
+	// Censys
+	'censysinspect',
+	// ZMap Project
+	'zgrab',
+	// masscan
+	'masscan',
+	// Nmap
+	'nmap scripting engine',
+	// ProjectDiscovery
+	'nuclei',
+	// Palo Alto Networks (Cortex Xpanse)
+	'^expanse',
+	// sqlmap
+	'sqlmap',
+	// Nikto
+	'nikto',
+	// WPScan
+	'wpscan',
+	// Invicti (Acunetix)
+	'acunetix',
+	// Tenable
+	'nessus',
+	// Greenbone
+	'openvas',
+	// Qualys
+	'qualys',
+	// Detectify
+	'detectify',
+	// PortSwigger
+	'burpcollaborator',
+	// Arachni
+	'arachni',
+	// OWASP
+	'dirbuster',
+	// ffuf
+	'fuzz faster u fool',
+	// Jorgee scanner
+	'jorgee',
+	// ZmEu scanner
+	'zmeu',
+	// LeakIX
+	'l9tcpid',
+	'l9explore',
+	'l9scan',
+	// Netcraft
+	'netcraft',
+	// Modat
+	'modatscanner',
+	// CyberPatrol
+	'cyberpatrol',
+	// Google (VirusTotal)
+	'virustotal',
+	// Sucuri
+	'sucuri',
+	// SiteLock
+	'sitelock',
+	// WebTotem
+	'wtotem',
+	// Sansec
+	'sansec security monitor',
+	// Snyk (securityheaders.com)
+	'securityheaders',
+	// Qualys SSL Labs
+	'ssl labs',
+	// Red Sift (Hardenize)
+	'hardenize',
+	// Internet.nl
+	'internetnl',
+	// Venafi
+	'tlsprobe',
+	// watchTowr
+	'watchtowr',
+	// Wordfence
+	'wordfence central',
+	// CCN-CERT
+	'elsa-ccncert-scanner',
+	// Probely
+	'probelyspdr',
+	// Black Duck
+	'fastdast',
+	// Splunk Attack Analyzer
+	'twinwavescanner',
+	// Google (Project Shield)
+	'projectshield-urlcheck',
+	// Kaspersky
+	'kaspersky lab cfr link resolver',
+	// CookieHub
+	'cookiehub',
+	// Cookie Maestro
+	'cookie-maestro',
+	// ConsentCheck
+	'consentcheck',
+	// Usercentrics
+	'usercentrics',
+	// OneTrust
+	'onetrust',
+	// Termly
+	'termly',
+	// iubenda
+	'iubenda-radar',
+	// Legal Monster
+	'legalmonster',
+	// ActiveComply
+	'activecomply',
+	// Let's Encrypt
+	'letsencrypt\\.org',
+	// DigiCert
+	'digicert dcv',
+	// Sectigo
+	'sectigo dcv',
+	// Sectigo (Comodo)
+	'comodo dcv',
+	// Atlassian
+	'bitbucket-webhooks',
+	// Stripe
+	'stripe/',
+	// PayPal
+	'paypal ipn',
+	// Shopify
+	'shopify-captain-hook',
+	// Zapier
+	'zapier',
+	// Make
+	'integromat',
+	'make/production',
+	// Twilio SendGrid
+	'sendgrid event api',
+	// Bird (SparkPost)
+	'sparkpost',
+	// Svix
+	'svix-webhooks',
+	// Zendesk
+	'zendesk webhook',
+	// Zoom
+	'zoom marketplace',
+	// Adyen
+	'adyen',
+	// Recurly
+	'recurly webhooks',
+	// Chargebee
+	'chargebee',
+	// Trustly
+	'trustly/',
+	// Automattic
+	'akismet',
+	'vaultpress',
+	// Microsoft Power Automate
+	'microsoft-flow',
+	// Braze
+	'braze sender',
+	// cron-job.org
+	'cron-job\\.org',
+	// EasyCron
+	'easycron',
+	// FastCron
+	'fastcron',
+	// Notion
+	'notionautomation',
+	// Omnisend
+	'omnisend',
+	// MainWP
+	'mainwp',
+	// GoDaddy (ManageWP)
+	'managewp',
+	// WP Time Capsule
+	'wp time capsule',
+	// Snipcart
+	'snipcart',
+	// Metorik
+	'metorik',
+	// Verifone
+	'2checkout',
+	// Turnitin
+	'turnitin',
+	// University of Milan
+	'bubing',
+	// MaCoCu project
+	'macocu',
+	// CLASSLA
+	'classla-web',
+	// Aranea corpora project
+	'aranea',
+	// CISPA Helmholtz Center
+	'cispa',
+	// RWTH Aachen
+	'researchscan\\.comsys\\.rwth-aachen\\.de',
+	// Internet measurement researchers
+	'internetmeasurement',
+	// Net Systems Research
+	'netsystemsresearch',
+	// Carnegie Mellon University
+	'cmu-cylab',
+	// Johns Hopkins University
+	'omim-litrack',
+	// Anthology (Blackboard)
+	'blackboard safeassign',
+	// Chegg (EasyBib)
+	'easybib autocite',
+	// Wikimedia Foundation
+	'citoid/wmf',
+	'zoterotranslationserver',
+	// University of Georgia
+	'ugaresearchagent',
+	// University of Michigan
+	'web measure/',
+	// Dataprovider.com
+	'dataprovider',
+	// BuiltWith
+	'builtwith',
+	// ZoomInfo (Datanyze)
+	'datanyze',
+	// Brandwatch
+	'brandwatch',
+	// Meltwater
+	'meltwaternews',
+	// Awario
+	'awario',
+	// NewsNow
+	'newsnow',
+	// upday (Samsung news)
+	'upday/',
+	// Muck Rack
+	'muckrack',
+	// Mozilla (Pocket, closed 2025)
+	'pocketparser',
+	// Instapaper
+	'instapaper',
+	// Twingly
+	'twingly',
+	// Algolia
+	'algoliarecommend',
+	// Squiz
+	'funnelback',
+	// SEMKNOX
+	'sitesearch360',
+	// Cludo
+	'cludo',
+	// Mars Flag (MARS FINDER)
+	'\\(dbot\\)',
+	// Silktide
+	'silktide',
+	// A11y Pulse
+	'a11ypulse',
+	// GTranslate
+	'gtranslate-translation-proxy',
+	// Added Bytes (Readable)
+	'readable/',
+	// PDF24
+	'pdf24 url to pdf',
+	// PrintFriendly
+	'printfriendly\\.com',
+	// WhereGoes
+	'wheregoes\\.com',
+	// NETVIGIE
+	'netvigie',
+	// fediverse.observer
+	'poduptime',
+	// Uptime Doctor
+	'uptimedoctor',
+	// Hexometer
+	'hexometer',
+	// unknown synthetic monitor
+	'syntheticsagent',
+	// InfoTrust (Tag Inspector)
+	'taginspector',
+	// Cisco ThousandEyes
+	'thousandeyes',
+	// Sindup
+	'sindup',
+	// Stape
+	'stape',
+	// Attracta
+	'attracta',
+	// TraceMyFile
+	'tracemyfile',
+	// PRO Sitemaps
+	'pro-sitemaps',
+	// Criticalcss.com
+	'criticalcss\\.com',
+	// Asana
+	'websitemetadataretriever',
+	// Miniature.io
+	'miniature\\.io',
+	// Highwinds (StackPath)
+	'hwcdn',
+	// Cisco (ClamAV)
+	'clamav',
+	// Foregenix
+	'foregenix',
+	// Bit Discovery (Tenable)
+	'bitdiscovery',
+	// EmailWolf
+	'emailwolf',
+	// HUMAN (PerimeterX)
+	'perimeterx integration services',
+	// Impact.com
+	'impact\\.com agent',
+	// Adbeat
+	'adbeat\\.com',
+	// Xaxis
+	'xaxissemanticsclassifier',
+	// DataFeedWatch
+	'datafeedwatch',
+	// e.ventures
+	'evc-batch',
+	// Geedo
+	'geedoshopproductfinder',
+	// The New York Times
+	'new york times newsgathering',
+	// Nuzzel
+	'nuzzel',
+	// mnoGoSearch
+	'mnogosearch',
+	// Apache Sparkler
+	'sparkler',
+	// M2E Pro
+	'm2e pro cron service',
+	// Exodus
+	'exodusmovement',
+	// request-promise (npm)
+	'request-promise',
+	// OurFamilyWizard (Cozi)
+	'cozi-icalendar-feedreader',
+	// Kaleido (remove.bg)
+	'remove\\.bg'
+];
+
+// Words that only an automated client puts in its name. `isBot` reads them; the four
+// categories do not.
+const GENERIC_BOT_WORDS: string[] = [
+	'bots?(?:\\b|_)',
+	'crawl',
+	'spider',
+	'scrap(?:e|ing|y)',
+	'fetcher',
+	'headless',
+	'archiver',
+	'preview',
+	'validator',
+	'python',
+	'java(?!;|fx|script)',
+	'\\bperl\\b',
+	'\\bruby(?:/|$)',
+	'\\brss\\b',
+	'go-http-client',
+	'\\bcurl/|libcurl',
+	'\\bwget\\b',
+	'(?:^|[^b]|[^i]b|[^l]ib)http',
+	'@[a-z][\\w-]+\\.',
+	'^mozilla/\\d\\.\\d(?: \\(compatible\\))?$',
+	'phantomjs|selenium|playwright|puppeteer'
+];
+
+// Devices and apps whose names contain one of those words. They are taken out of the string
+// before the words are read.
+export const NOT_BOT_PATTERN = new RegExp('cubot', 'gi');
+
+export const SEARCH_BOT_PATTERN = new RegExp(SEARCH_BOTS.join('|'), 'i');
+export const AI_SEARCH_BOT_PATTERN = new RegExp(AI_SEARCH_BOTS.join('|'), 'i');
+export const AI_AGENT_BOT_PATTERN = new RegExp(AI_AGENT_BOTS.join('|'), 'i');
+export const AI_TRAINING_BOT_PATTERN = new RegExp(AI_TRAINING_BOTS.join('|'), 'i');
+export const BOT_PATTERN = new RegExp(
+	[
+		...SEARCH_BOTS,
+		...AI_SEARCH_BOTS,
+		...AI_AGENT_BOTS,
+		...AI_TRAINING_BOTS,
+		...OTHER_BOTS,
+		...GENERIC_BOT_WORDS
+	].join('|'),
+	'i'
+);

@@ -1,10 +1,14 @@
 export { escapeHtml } from './escapeHtml.js';
 export { generateLicense } from './generateLicense.js';
 export { getSlug } from './getSlug.js';
-export { isBotAgent } from './isBotAgent.js';
+export { isAiAgentBot } from './isAiAgentBot.js';
+export { isAiSearchBot } from './isAiSearchBot.js';
+export { isAiTrainingBot } from './isAiTrainingBot.js';
+export { isBot } from './isBot.js';
 export { isDesktopDeviceFromUA } from './isDesktopDeviceFromUA.js';
 export { isMatchPathname } from './isMatchPathname.js';
 export { isMobileDeviceFromUA } from './isMobileDeviceFromUA.js';
+export { isSearchBot } from './isSearchBot.js';
 export { isTabletDeviceFromUA } from './isTabletDeviceFromUA.js';
 export { removeLocalePrefix } from './removeLocalePrefix.js';
 export { unescapeHtml } from './unescapeHtml.js';
