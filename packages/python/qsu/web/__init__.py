@@ -9,8 +9,10 @@ if TYPE_CHECKING:
 	from .generateLicense import generateLicense as generateLicense
 	from .getSlug import getSlug as getSlug
 	from .isBotAgent import isBotAgent as isBotAgent
+	from .isDesktopDeviceFromUA import isDesktopDeviceFromUA as isDesktopDeviceFromUA
 	from .isMatchPathname import isMatchPathname as isMatchPathname
-	from .isMobile import isMobile as isMobile
+	from .isMobileDeviceFromUA import isMobileDeviceFromUA as isMobileDeviceFromUA
+	from .isTabletDeviceFromUA import isTabletDeviceFromUA as isTabletDeviceFromUA
 	from .removeLocalePrefix import removeLocalePrefix as removeLocalePrefix
 	from .unescapeHtml import unescapeHtml as unescapeHtml
 
@@ -19,8 +21,10 @@ __all__ = [
 	'generateLicense',
 	'getSlug',
 	'isBotAgent',
+	'isDesktopDeviceFromUA',
 	'isMatchPathname',
-	'isMobile',
+	'isMobileDeviceFromUA',
+	'isTabletDeviceFromUA',
 	'removeLocalePrefix',
 	'unescapeHtml',
 ]
