@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:qsu/src/web/_bots.dart';
+
 /// (Private) Compiled once. Building a `RegExp` inside a function recompiles the
 /// pattern on every call, and `getSlug` did it for every single character.
 final RegExp _trailingSlash = RegExp(r'/$');
@@ -16,17 +18,35 @@ String _escapeRegExp(String str) {
   return str.replaceAllMapped(_regExpSpecialCharacters, (m) => '\\${m[0]}');
 }
 
-/// (Private) Compiled once, and pruned: 84 of the original 172 alternatives were
-/// substrings of another one (`bot` already matches `naverbot`, `bingbot`, ...), so they
-/// could never change the outcome while every one of them was still scanned.
-final RegExp _botPattern = RegExp(
-  r'bot|google|Chrome-Lighthouse|slurp|java|wget|curl|Commons-HttpClient|Python-urllib|libwww|httpunit|nutch|phpcrawl|FAST Enterprise Crawler|biglotron|teoma|convera|gigablast|ia_archiver|GingerCrawler|webmon |httrack|webcrawler|grub.org|UsineNouvelleCrawler|netresearchserver|speedy|fluffy|bibnum.bnf|findlink|panscient|IOI|ips-agent|yanga|Voyager|CyberPatrol|baiduspider|postrank|page2rss|linkdex|ezooms|heritrix|findthatfile|europarchive.org|sistrix crawler|Aboundex|domaincrawler|summify|ec2linkfinder|facebookexternalhit|yeti|RetrevoPageAnalyzer|lb-spider|sogou|wotbox|ichiro|lssrocketcrawler|drupact|webcompanycrawler|openindexspider|gnam gnam spider|backlinkcrawler|coccoc|integromedb|content crawler spider|it2media-domain-crawler|ip-web-crawler.com|siteexplorer.info|proximic|changedetection|WeSEE:Search|360Spider|CC Metadata Scaper|g00g1e.net|GrapeshotCrawler|fr-crawler|binlar|SimpleCrawler|A6-Indexer|ADmantX|MegaIndex|ltx71|BUbiNG|Qwantify|crawler4j|lipperhey|y!j-asr|AddThis',
-  caseSensitive: false,
-);
+/// Returns `true` if [text] is, or comes from, an automated client: a search engine crawler, an AI crawler or agent, an SEO tool, a link preview fetcher, an uptime monitor, an HTTP library and the like.
+/// [text] can be a whole `User-Agent` header or just a bot's name as robots.txt writes it, such as `Googlebot` or `GPTBot`, and is matched without case.
+/// Besides the names it knows, words such as `bot`, `crawler` and `spider` count too, so a crawler it has never seen is still caught.
+bool isBot(String text) {
+  // The devices and apps whose names happen to contain a generic word, such as a Cubot
+  // phone, are taken out before the names are read.
+  return text.isNotEmpty &&
+      botPattern.hasMatch(text.replaceAll(notBotPattern, ''));
+}
 
-/// Analyze the user agent value to determine if it's a bot for a search engine. Returns `true` if it's a bot.
-bool isBotAgent(String userAgent) {
-  return _botPattern.hasMatch(userAgent);
+/// Returns `true` if [text] names a crawler that indexes pages for a search engine, such as Googlebot, Bingbot, YandexBot, Baiduspider or Naver's Yeti.
+/// Crawlers that index pages for an AI product are [isAiSearchBot] instead.
+bool isSearchBot(String text) {
+  return text.isNotEmpty && searchBotsPattern.hasMatch(text);
+}
+
+/// Returns `true` if [text] names a crawler that indexes pages so an AI product can cite them in its answers, and whose operator says it is not used for training, such as OAI-SearchBot, Claude-SearchBot or PerplexityBot.
+bool isAiSearchBot(String text) {
+  return text.isNotEmpty && aiSearchBotsPattern.hasMatch(text);
+}
+
+/// Returns `true` if [text] names a fetcher that visits a page only when a person asks an AI assistant or agent to, such as ChatGPT-User, Claude-User or Perplexity-User.
+bool isAiAgentBot(String text) {
+  return text.isNotEmpty && aiAgentBotsPattern.hasMatch(text);
+}
+
+/// Returns `true` if [text] names a crawler that collects pages to train AI models or to build datasets for that, such as GPTBot, ClaudeBot, CCBot or Bytespider, or a robots.txt token that controls such use, such as Google-Extended.
+bool isAiTrainingBot(String text) {
+  return text.isNotEmpty && aiTrainingBotsPattern.hasMatch(text);
 }
 
 /// You can check if the URL path in the first argument value is matched against the second set of rules.

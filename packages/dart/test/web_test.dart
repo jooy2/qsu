@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:qsu/qsu.dart';
 import 'package:test/test.dart' hide contains, isEmpty;
 
@@ -69,13 +72,44 @@ void main() {
   }
 
   group('Web', () {
-    test('isBotAgent', () {
-      expect(isBotAgent(userAgentBot), true);
-      expect(isBotAgent(userAgentDesktop), false);
-      expect(isBotAgent(userAgentMobileIOS), false);
-      expect(isBotAgent(userAgentMobileAndroid), false);
-      expect(isBotAgent(userAgentTablet), false);
+    // Every name and User-Agent in the fixture belongs to exactly one group. `other` is a
+    // bot that none of the four categories claims, and `human` is not a bot at all.
+    final Map<String, dynamic> bots =
+        jsonDecode(File('test/_resources/bots.json').readAsStringSync());
+    final List<(String, String, bool Function(String))> botCategories = [
+      ('search', 'isSearchBot', isSearchBot),
+      ('aiSearch', 'isAiSearchBot', isAiSearchBot),
+      ('aiAgent', 'isAiAgentBot', isAiAgentBot),
+      ('aiTraining', 'isAiTrainingBot', isAiTrainingBot),
+    ];
+
+    test('isBot', () {
+      bots.forEach((String group, dynamic values) {
+        for (final String value in values) {
+          expect(isBot(value), group != 'human', reason: '$group: $value');
+        }
+      });
+
+      expect(isBot(''), false);
+      expect(isBot(userAgentBot), true);
+      expect(isBot(userAgentDesktop), false);
+      expect(isBot(userAgentMobileIOS), false);
+      expect(isBot(userAgentMobileAndroid), false);
+      expect(isBot(userAgentTablet), false);
     });
+
+    for (final (String category, String name, bool Function(String) fn)
+        in botCategories) {
+      test(name, () {
+        bots.forEach((String group, dynamic values) {
+          for (final String value in values) {
+            expect(fn(value), group == category, reason: '$group: $value');
+          }
+        });
+
+        expect(fn(''), false);
+      });
+    }
 
     test('isMatchPathname', () {
       expect(isMatchPathname('/user/login', '/admin'), false);
