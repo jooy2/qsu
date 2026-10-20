@@ -2,8 +2,14 @@
 
 ## vNext (2026--)
 
+### Breaking changes
+
+- `isMobile` was renamed to `isMobileDeviceFromUA`, so the name says that it reads a User-Agent string. Replace the call. A Kindle now counts as a tablet rather than a phone, and a PlayStation Portable is no longer a phone: like a smart TV or a game console, it is none of the three device types. A phone that only says `Mobi` somewhere in its string, such as a Tizen phone, now counts as one
+
 ### Changes
 
+- `isTabletDeviceFromUA`: Added. Returns `true` when a User-Agent string comes from a tablet: an iPad, an Android tablet, a Kindle or Fire tablet, or a BlackBerry PlayBook. Safari on iPadOS 13 and later sends the same string as a Mac by default, which no User-Agent check can tell apart, so it is reported as a desktop
+- `isDesktopDeviceFromUA`: Added. Returns `true` when a User-Agent string comes from a computer running Windows, macOS, Linux, ChromeOS or a BSD. A string that names no operating system, as most crawlers and HTTP clients send, returns `false`, and so do smart TVs, game consoles and VR headsets that run Linux or Windows underneath. The three device functions read a string in the same order, so at most one of them returns `true` for it
 - `getFonts`: Added. Lists the fonts installed on the machine, one `FontInfo` per face, with the names each font gives itself, its weight, width and slant, whether it is monospace and the file it was read from. The font files are read directly, so neither a font library nor another process is needed, and they are read on an isolate of their own, so a Flutter app does not drop a frame waiting for them. Android reads `/system/fonts`
 - `detectLanguage`: Added. Detects the languages a string is written in and returns them from the most used to the least, each as a `DetectedLanguage` with its ISO 639-1 code and its share of the letters. 24 languages with a script of their own are recognized by that script, and 28 that share the Latin, Cyrillic or Arabic script are told apart sentence by sentence from their most common words, the letters only some of them write, and the endings and runs of letters typical of each. Only letters are counted, and the tables ship inside the package, so nothing is downloaded or sent anywhere
 
