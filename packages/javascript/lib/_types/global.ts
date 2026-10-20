@@ -84,13 +84,33 @@ export interface FileInfo {
 	modified: number;
 }
 
+export type LicenseType =
+	| 'mit'
+	| 'isc'
+	| 'apache20'
+	| 'bsd2'
+	| 'bsd3'
+	| 'mpl20'
+	| 'gpl3'
+	| 'lgpl3'
+	| 'agpl3'
+	| 'MIT'
+	| 'ISC'
+	| 'Apache-2.0'
+	| 'BSD-2-Clause'
+	| 'BSD-3-Clause'
+	| 'MPL-2.0'
+	| 'GPL-3.0-or-later'
+	| 'LGPL-3.0-or-later'
+	| 'AGPL-3.0-or-later';
+
 export interface LicenseOption {
 	author: string;
 	email?: string;
-	yearStart: string | number;
-	yearEnd?: string;
+	yearStart?: string | number;
+	yearEnd?: string | number;
 	htmlBr?: boolean;
-	type: 'mit' | 'apache20' | 'bsd3';
+	type: LicenseType;
 }
 
 export interface HTTPRequestOption {

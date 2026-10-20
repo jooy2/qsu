@@ -169,8 +169,95 @@ describe('Web', () => {
 	});
 
 	it('generateLicense', () => {
-		assert(generateLicense({ type: 'mit', author: 'example', yearStart: 2021 }));
-		assert(generateLicense({ type: 'apache20', author: 'example', yearStart: 2021 }));
+		const mit = generateLicense({
+			type: 'mit',
+			author: 'Sam',
+			email: 'sam@example.com',
+			yearStart: 2024
+		});
+
+		assert(
+			mit.startsWith('Copyright (c) 2024 Sam <sam@example.com>\n\nPermission is hereby granted')
+		);
+		assert(mit.endsWith('OTHER DEALINGS IN THE SOFTWARE.'));
+
+		// Each type starts with its own copyright line, and the GNU ones name their license.
+		const expected: [string, string, string][] = [
+			['isc', 'Copyright (c) 2024 Sam', 'Permission to use, copy, modify, and/or distribute'],
+			['apache20', 'Copyright 2024 Sam', 'Apache License, Version 2.0'],
+			['bsd2', 'Copyright 2024 Sam', '2. Redistributions in binary form'],
+			['bsd3', 'Copyright 2024 Sam', '3. Neither the name of the copyright holder'],
+			['mpl20', 'Copyright (c) 2024 Sam', 'https://mozilla.org/MPL/2.0/'],
+			['gpl3', 'Copyright (C) 2024 Sam', 'the GNU General Public License as published by'],
+			['lgpl3', 'Copyright (C) 2024 Sam', 'the GNU Lesser General Public License as published by'],
+			['agpl3', 'Copyright (C) 2024 Sam', 'the GNU Affero General Public License as published by']
+		];
+
+		for (const [type, copyright, text] of expected) {
+			const license = generateLicense({ type: type as any, author: 'Sam', yearStart: 2024 });
+
+			assert(license.startsWith(`${copyright}\n\n`), type);
+			assert(license.includes(text), type);
+		}
+
+		assert(
+			!generateLicense({ type: 'bsd2', author: 'Sam', yearStart: 2024 }).includes('3. Neither')
+		);
+
+		// SPDX identifiers and loose spellings find the same text.
+		assert.strictEqual(
+			generateLicense({ type: 'BSD-3-Clause', author: 'Sam', yearStart: 2024 }),
+			generateLicense({ type: 'bsd3', author: 'Sam', yearStart: 2024 })
+		);
+		assert.strictEqual(
+			generateLicense({ type: 'GPL-3.0-or-later', author: 'Sam', yearStart: 2024 }),
+			generateLicense({ type: 'gpl3', author: 'Sam', yearStart: 2024 })
+		);
+		assert(
+			generateLicense({ type: 'Apache 2.0' as any, author: 'Sam', yearStart: 2024 }).startsWith(
+				'Copyright 2024'
+			)
+		);
+
+		// An unknown type throws rather than falling back to MIT. `GPL-3.0` is the deprecated
+		// SPDX name for `GPL-3.0-only`, which the "or later" notice would misstate.
+		assert.throws(() => generateLicense({ type: 'gpl-2' as any, author: 'Sam' }), RangeError);
+		assert.throws(() => generateLicense({ type: 'GPL-3.0' as any, author: 'Sam' }), RangeError);
+		assert.throws(() => generateLicense({ type: 'constructor' as any, author: 'Sam' }), RangeError);
+
+		// The year defaults to the current one, and a range ending in the same year collapses.
+		assert(
+			generateLicense({ type: 'mit', author: 'Sam' }).startsWith(
+				`Copyright (c) ${new Date().getFullYear()} Sam`
+			)
+		);
+		assert(
+			generateLicense({ type: 'mit', author: 'Sam', yearStart: 2024, yearEnd: 2026 }).startsWith(
+				'Copyright (c) 2024-2026 Sam'
+			)
+		);
+		assert(
+			generateLicense({ type: 'mit', author: 'Sam', yearStart: 2024, yearEnd: '2024' }).startsWith(
+				'Copyright (c) 2024 Sam\n'
+			)
+		);
+
+		// `htmlBr` swaps the newlines for tags and escapes what HTML would read as markup.
+		const html = generateLicense({
+			type: 'gpl3',
+			author: 'Sam & Co',
+			email: 'sam@example.com',
+			yearStart: 2024,
+			htmlBr: true
+		});
+
+		assert(
+			html.startsWith(
+				'Copyright (C) 2024 Sam &amp; Co &lt;sam@example.com&gt;<br/><br/>This program'
+			)
+		);
+		assert(html.endsWith('see &lt;https://www.gnu.org/licenses/&gt;.'));
+		assert(!html.includes('\n'));
 	});
 
 	it('escapeHtml', () => {
