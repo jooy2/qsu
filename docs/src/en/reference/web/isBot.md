@@ -17,7 +17,7 @@ Everything else `isBot` recognizes belongs to none of the four: SEO crawlers, li
 
 A `User-Agent` header says whatever the client chooses to send. A scraper can claim to be Chrome, and anyone can claim to be Googlebot, so use these functions to sort honest traffic, and check the IP address against the ranges the operator publishes before trusting a claim to be one particular crawler.
 
-`isBot` knows 1012 names as of October 2026, besides the generic words: 95 search crawlers, 52 AI search crawlers, 56 AI agents, 67 AI training crawlers and 742 other bots. Each category function's page lists its names.
+`isBot` knows 1,012 names as of October 2026, besides the generic words: 95 search crawlers, 52 AI search crawlers, 56 AI agents, 67 AI training crawlers and 742 other bots. Each category function's page lists its names.
 
 ## Parameters
 

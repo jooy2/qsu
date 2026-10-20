@@ -117,11 +117,10 @@ The object helpers modeled on lodash (`objGet`, `objSet`, `objPick`, `objOmit`, 
 
 ## Bot, device and license follow-ups
 
-- [ ] Put the bot name source and the script that writes `lib/web/_botPatterns.ts`, `lib/src/web/_bots.dart`, `qsu/web/_bots.py` and the three `bots.json` fixtures into the repository. The four lists and the fixtures were generated from one source so the packages agree, and editing them by hand in three places will let them drift.
 - [ ] Check the AI bot names that only third-party directories list, about 110 of them, against the operators' own pages. xAI, ByteDance, DeepSeek, Alibaba, Baidu and Tencent publish no crawler documentation, so their names come from ai.robots.txt, Cloudflare Radar and Known Agents.
 - [ ] Look up the current crawler names of Kakao (Daum) in Kakao's own documentation; `Daum` and `Daumoa` come from bot lists.
 - [ ] Review the Cloudflare Radar and Known Agents entries that were left out because their purpose could not be confirmed, about 40 names such as `AIStoreShopperCheck`, `HarkBot`, `DesearchBot` and `TalarionSearchBot`.
-- [ ] Refresh the bot lists from the operators' pages and ai.robots.txt before a release. New AI crawlers appear every few months, and `Google-NotebookLM` was renamed `Google-GeminiNotebook` in 2026.
+- [ ] Refresh the bot lists in `.github/scripts/bots/bots.json` from the operators' pages and ai.robots.txt before a release. New AI crawlers appear every few months, and `Google-NotebookLM` was renamed `Google-GeminiNotebook` in 2026.
 - [ ] Consider `getBotType(text)`, returning `search`, `aiSearch`, `aiAgent`, `aiTraining`, `other` or `null`, and `getDeviceTypeFromUA(userAgent)`, returning `mobile`, `tablet`, `desktop` or `null`, so a caller does not have to call several functions to sort one request.
 - [ ] Consider an option in `generateLicense` for the line naming the program and what it does, which the FSF suggests putting above the GNU notices.
 - [ ] Decide one casing for acronyms in names. `safeJSONParse`, `isIP`, `isIPv6` and the new `isMobileDeviceFromUA` write them in capitals, while `isUrl`, `escapeHtml`, `getCpu` and `getLocalIp` write them as words.

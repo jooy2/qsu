@@ -38,6 +38,25 @@ cd docs && npm install && npm run dev
 
 Every reference page lives under both `docs/src/en/reference` and `docs/src/ko/reference`, and each package's example is written in its own `::: lang` block. A package with no block on a page is a package the sidebar reports as not having that function, so a missing example is a wrong answer rather than a gap.
 
+## Updating the bot lists
+
+The names behind `isBot`, `isSearchBot`, `isAiSearchBot`, `isAiAgentBot` and `isAiTrainingBot` live in one file, [`.github/scripts/bots/bots.json`](.github/scripts/bots/bots.json), and a script writes them into every package. Do not edit the files it writes; each one says so at the top.
+
+1. Edit `bots.json`. Each category holds operators, and each operator holds names. A name is matched without case anywhere in the string. Give it a `match` only when the bare name would match too much, such as `\byeti\b` for Naver's Yeti, and an `example` when the name is not a string the bot actually sends. Put a name where its operator's documentation puts it first, record the page you checked in `source`, and set `updated` to the current month when you refresh the lists.
+1. Run the script from the repository root. It needs Python 3.8 or later and nothing else:
+
+   ```bash
+   python3 .github/scripts/bots/generate.py
+   ```
+
+   It first checks that every example is claimed by its own category and by no other one, and that no string under `userAgents.human` counts as a bot, and it stops with the list of conflicts when one is found. It then rewrites `_botPatterns.ts`, `_bots.dart` and `_bots.py`, the `bots.json` fixture each package's tests read, and the name tables and counts in the bot reference pages of both locales.
+
+1. Run the tests of all three packages, which repeat the checks with each language's own regular expressions, and record the change in each package's `CHANGELOG.md`.
+
+`python3 .github/scripts/bots/generate.py --check` writes nothing and lists the files that are out of date.
+
+A `match` has to mean the same thing in JavaScript, Dart and Python, so keep to alternation, character classes, groups, lookahead and `\b`. The script refuses lookbehind, which Safari before 16.4 cannot parse. The sources of the names and their license are in [`.github/scripts/bots/README.md`](.github/scripts/bots/README.md).
+
 ## Issues
 
 Issues can be created on the following page: https://github.com/jooy2/qsu/issues
