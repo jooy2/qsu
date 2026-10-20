@@ -80,7 +80,7 @@ Options arrive as keyword arguments, or as a single `dict` in their place. Unlik
 - Validation: [isEmail](/reference/verify/isEmail), [isUrl](/reference/verify/isUrl), [isValidDate](/reference/date/isValidDate), [between](/reference/verify/between), [hasBadWords](/reference/verify/hasBadWords).
 - Hashing and encryption: [sha256Hash](/reference/crypto/sha256Hash), [md5Hash](/reference/crypto/md5Hash), [encrypt](/reference/crypto/encrypt), [encodeBase64](/reference/crypto/encodeBase64), [objectId](/reference/crypto/objectId).
 - The machine: the whole [os](/reference/os/getCpu) category, from [getCpu](/reference/os/getCpu) to [getFreeDiskSize](/reference/os/getFreeDiskSize).
-- The web: [isMobileDeviceFromUA](/reference/web/isMobileDeviceFromUA), [isBotAgent](/reference/web/isBotAgent), [escapeHtml](/reference/web/escapeHtml), [isMatchPathname](/reference/web/isMatchPathname).
+- The web: [isMobileDeviceFromUA](/reference/web/isMobileDeviceFromUA), [isBot](/reference/web/isBot), [escapeHtml](/reference/web/escapeHtml), [isMatchPathname](/reference/web/isMatchPathname).
 - Timing: [debounce](/reference/misc/debounce), [throttle](/reference/misc/throttle), [sleep](/reference/misc/sleep).
 - The same functions in JavaScript and Dart.
 

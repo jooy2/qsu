@@ -324,7 +324,14 @@ export const FEATURES: FeatureRow[] = [
 		support: { js: 'y y y', dart: 'y n n', python: 'y y p' }
 	},
 	{
-		name: { en: 'Bot and mobile user-agent detection', ko: '봇·모바일 user agent 판별' },
+		name: { en: 'Bot and device detection from a user agent', ko: 'user agent로 봇과 기기 판별' },
+		support: { js: 'y n n', dart: 'y n n', python: 'y n n' }
+	},
+	{
+		name: {
+			en: 'Bots told apart by purpose: search, AI search, AI agent, AI training',
+			ko: '용도별 봇 구분: 검색, AI 검색, AI 에이전트, AI 학습'
+		},
 		support: { js: 'y n n', dart: 'y n n', python: 'y n n' }
 	},
 	{

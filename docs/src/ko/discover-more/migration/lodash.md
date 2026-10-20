@@ -141,7 +141,7 @@ import { sha256Hash, getFileSize } from 'qsu/node';
 Lodash가 다루지 않는 영역이고, Lodash를 대체하는 대신 옆에 qsu를 두는 이유이기도 합니다.
 
 - 사람이 읽는 형식: [fileSizeFormat](/ko/reference/format/fileSizeFormat), [duration](/ko/reference/format/duration), [numberFormat](/ko/reference/format/numberFormat), 그리고 숫자와 단위를 따로 돌려주는 `Parts` 계열.
-- 웹: [getSlug](/ko/reference/web/getSlug), [isBotAgent](/ko/reference/web/isBotAgent), [isMobileDeviceFromUA](/ko/reference/web/isMobileDeviceFromUA), [isMatchPathname](/ko/reference/web/isMatchPathname), [urlJoin](/ko/reference/string/urlJoin), [parseAddress](/ko/reference/net/parseAddress).
+- 웹: [getSlug](/ko/reference/web/getSlug), [isBot](/ko/reference/web/isBot), [isMobileDeviceFromUA](/ko/reference/web/isMobileDeviceFromUA), [isMatchPathname](/ko/reference/web/isMatchPathname), [urlJoin](/ko/reference/string/urlJoin), [parseAddress](/ko/reference/net/parseAddress).
 - 검증: [isEmail](/ko/reference/verify/isEmail), [isUrl](/ko/reference/verify/isUrl), [isValidDate](/ko/reference/date/isValidDate), [hasBadWords](/ko/reference/verify/hasBadWords).
 - 해시와 암호화: [sha256Hash](/ko/reference/crypto/sha256Hash), [md5Hash](/ko/reference/crypto/md5Hash), [encrypt](/ko/reference/crypto/encrypt), [objectId](/ko/reference/crypto/objectId).
 - 파일과 시스템: [file](/ko/reference/file/getFileInfo), [os](/ko/reference/os/getCpu) 카테고리 전체.

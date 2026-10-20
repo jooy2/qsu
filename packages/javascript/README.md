@@ -148,7 +148,7 @@ Functions are grouped into categories, each with an import subpath of its own.
 | `object` | `qsu/object` | `objClone`, `objMerge`, `objPick`, `objGet` |
 | `string` | `qsu/string` | `trim`, `truncate`, `strToCamelCase`, `pad` |
 | `verify` | `qsu/verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqual` |
-| `web` | `qsu/web` | `getSlug`, `escapeHtml`, `isMobileDeviceFromUA`, `isBotAgent` |
+| `web` | `qsu/web` | `getSlug`, `escapeHtml`, `isMobileDeviceFromUA`, `isBot` |
 | `crypto` | `qsu/node/crypto` | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId` |
 | `file` | `qsu/node/file` | `getFileSize`, `moveFile`, `joinFilePath` |
 | `misc` | `qsu/node/misc` | `logBox` |

@@ -141,7 +141,7 @@ There is no chained form. `_.chain(x).map(f).uniq().value()` has no counterpart,
 Nothing in Lodash covers these, and they are the usual reason to add qsu next to it rather than in place of it.
 
 - Formatting for people: [fileSizeFormat](/reference/format/fileSizeFormat), [duration](/reference/format/duration), [numberFormat](/reference/format/numberFormat), and the `Parts` variants that hand back the number and the unit separately.
-- Web helpers: [getSlug](/reference/web/getSlug), [isBotAgent](/reference/web/isBotAgent), [isMobileDeviceFromUA](/reference/web/isMobileDeviceFromUA), [isMatchPathname](/reference/web/isMatchPathname), [urlJoin](/reference/string/urlJoin), [parseAddress](/reference/net/parseAddress).
+- Web helpers: [getSlug](/reference/web/getSlug), [isBot](/reference/web/isBot), [isMobileDeviceFromUA](/reference/web/isMobileDeviceFromUA), [isMatchPathname](/reference/web/isMatchPathname), [urlJoin](/reference/string/urlJoin), [parseAddress](/reference/net/parseAddress).
 - Validation: [isEmail](/reference/verify/isEmail), [isUrl](/reference/verify/isUrl), [isValidDate](/reference/date/isValidDate), [hasBadWords](/reference/verify/hasBadWords).
 - Hashing and encryption: [sha256Hash](/reference/crypto/sha256Hash), [md5Hash](/reference/crypto/md5Hash), [encrypt](/reference/crypto/encrypt), [objectId](/reference/crypto/objectId).
 - Files and the machine: the whole [file](/reference/file/getFileInfo) and [os](/reference/os/getCpu) categories.
