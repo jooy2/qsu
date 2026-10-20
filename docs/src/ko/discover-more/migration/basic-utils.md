@@ -81,7 +81,7 @@ import 'package:qsu/qsu.dart';
 
 - 사람이 읽는 형식: [fileSizeFormat](/ko/reference/format/fileSizeFormat), [duration](/ko/reference/format/duration), [numberFormat](/ko/reference/format/numberFormat), [safeJSONParse](/ko/reference/format/safeJSONParse).
 - 객체: [objClone](/ko/reference/object/objClone), [objMerge](/ko/reference/object/objMerge), [objGet](/ko/reference/object/objGet), [objTo1d](/ko/reference/object/objTo1d), [objToQueryString](/ko/reference/object/objToQueryString)을 비롯한 [object](/ko/reference/object/objClone) 카테고리 전체.
-- 웹: [getSlug](/ko/reference/web/getSlug), [escapeHtml](/ko/reference/web/escapeHtml), [isMobile](/ko/reference/web/isMobile), [isBotAgent](/ko/reference/web/isBotAgent), [isMatchPathname](/ko/reference/web/isMatchPathname).
+- 웹: [getSlug](/ko/reference/web/getSlug), [escapeHtml](/ko/reference/web/escapeHtml), [isMobileDeviceFromUA](/ko/reference/web/isMobileDeviceFromUA), [isBotAgent](/ko/reference/web/isBotAgent), [isMatchPathname](/ko/reference/web/isMatchPathname).
 - 파일과 시스템 정보: [file](/ko/reference/file/getFileInfo), [os](/ko/reference/os/getCpu) 카테고리.
 - 타이밍: [debounce](/ko/reference/misc/debounce), [throttle](/ko/reference/misc/throttle), [retry](/ko/reference/misc/retry), [sleep](/ko/reference/misc/sleep).
 - JavaScript와 Python에서도 같은 함수.

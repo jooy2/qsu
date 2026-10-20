@@ -124,21 +124,21 @@ md5Hash('test')  # '098f6bcd4621d373cade4e832627b4f6'
 
 Functions are grouped into categories. Each one is importable from the top-level package or from its own module.
 
-| Category | Module       | Examples                                            |
-| -------- | ------------ | --------------------------------------------------- |
-| `array`  | `qsu.array`  | `arrUnique`, `arrGroupByMaxCount`, `sortNumeric`    |
-| `crypto` | `qsu.crypto` | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId` |
-| `date`   | `qsu.date`   | `today`, `dayDiff`, `createDateListFromRange`       |
-| `file`   | `qsu.file`   | `getFileSize`, `moveFile`, `joinFilePath`           |
-| `format` | `qsu.format` | `numberFormat`, `fileSizeFormat`, `duration`        |
-| `math`   | `qsu.math`   | `sum`, `clamp`, `round`, `numPick`                  |
-| `misc`   | `qsu.misc`   | `debounce`, `throttle`, `retry`, `sleep`            |
-| `net`    | `qsu.net`    | `fetchData`, `parseAddress`                         |
-| `object` | `qsu.object` | `objClone`, `objMerge`, `objPick`, `objGet`         |
-| `os`     | `qsu.os`     | `getCpu`, `getRamSize`, `runCommand`                |
-| `string` | `qsu.string` | `trim`, `truncate`, `strToCamelCase`, `pad`         |
-| `verify` | `qsu.verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqual`            |
-| `web`    | `qsu.web`    | `getSlug`, `escapeHtml`, `isMobile`, `isBotAgent`   |
+| Category | Module       | Examples                                                      |
+| -------- | ------------ | ------------------------------------------------------------- |
+| `array`  | `qsu.array`  | `arrUnique`, `arrGroupByMaxCount`, `sortNumeric`              |
+| `crypto` | `qsu.crypto` | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId`           |
+| `date`   | `qsu.date`   | `today`, `dayDiff`, `createDateListFromRange`                 |
+| `file`   | `qsu.file`   | `getFileSize`, `moveFile`, `joinFilePath`                     |
+| `format` | `qsu.format` | `numberFormat`, `fileSizeFormat`, `duration`                  |
+| `math`   | `qsu.math`   | `sum`, `clamp`, `round`, `numPick`                            |
+| `misc`   | `qsu.misc`   | `debounce`, `throttle`, `retry`, `sleep`                      |
+| `net`    | `qsu.net`    | `fetchData`, `parseAddress`                                   |
+| `object` | `qsu.object` | `objClone`, `objMerge`, `objPick`, `objGet`                   |
+| `os`     | `qsu.os`     | `getCpu`, `getRamSize`, `runCommand`                          |
+| `string` | `qsu.string` | `trim`, `truncate`, `strToCamelCase`, `pad`                   |
+| `verify` | `qsu.verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqual`                      |
+| `web`    | `qsu.web`    | `getSlug`, `escapeHtml`, `isMobileDeviceFromUA`, `isBotAgent` |
 
 The `math` category provides `sum`, `min`, `max`, `round`, `floor` and `ceil`. Importing those names directly shadows the Python builtins for the rest of the module, so reach for them as `qsu.sum(...)` — or import them under an alias — when you need both.
 

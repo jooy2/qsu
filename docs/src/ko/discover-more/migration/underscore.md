@@ -80,7 +80,7 @@ Underscore가 처음부터 다루지 않은 영역이고, 그것이 qsu의 대�
 
 - 문자열: 다섯 가지 표기 변환([strToCamelCase](/ko/reference/string/strToCamelCase) 외 네 개), [deburr](/ko/reference/string/deburr), [pad](/ko/reference/string/pad), [truncate](/ko/reference/string/truncate), [trim](/ko/reference/string/trim), [words](/ko/reference/string/words), [escapeRegExp](/ko/reference/string/escapeRegExp).
 - 사람이 읽는 형식: [fileSizeFormat](/ko/reference/format/fileSizeFormat), [duration](/ko/reference/format/duration), [numberFormat](/ko/reference/format/numberFormat).
-- 웹과 검증: [getSlug](/ko/reference/web/getSlug), [isEmail](/ko/reference/verify/isEmail), [isUrl](/ko/reference/verify/isUrl), [isMobile](/ko/reference/web/isMobile), [parseAddress](/ko/reference/net/parseAddress).
+- 웹과 검증: [getSlug](/ko/reference/web/getSlug), [isEmail](/ko/reference/verify/isEmail), [isUrl](/ko/reference/verify/isUrl), [isMobileDeviceFromUA](/ko/reference/web/isMobileDeviceFromUA), [parseAddress](/ko/reference/net/parseAddress).
 - `qsu/node`의 해시, 파일, 시스템 정보.
 - Dart와 Python에서도 같은 함수.
 

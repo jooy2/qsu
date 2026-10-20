@@ -80,7 +80,7 @@ Everything Underscore never set out to do, which is most of qsu:
 
 - Strings: case conversion ([strToCamelCase](/reference/string/strToCamelCase) and its four siblings), [deburr](/reference/string/deburr), [pad](/reference/string/pad), [truncate](/reference/string/truncate), [trim](/reference/string/trim), [words](/reference/string/words), [escapeRegExp](/reference/string/escapeRegExp).
 - Formatting for people: [fileSizeFormat](/reference/format/fileSizeFormat), [duration](/reference/format/duration), [numberFormat](/reference/format/numberFormat).
-- Web and validation: [getSlug](/reference/web/getSlug), [isEmail](/reference/verify/isEmail), [isUrl](/reference/verify/isUrl), [isMobile](/reference/web/isMobile), [parseAddress](/reference/net/parseAddress).
+- Web and validation: [getSlug](/reference/web/getSlug), [isEmail](/reference/verify/isEmail), [isUrl](/reference/verify/isUrl), [isMobileDeviceFromUA](/reference/web/isMobileDeviceFromUA), [parseAddress](/reference/net/parseAddress).
 - Hashing, files and machine information, from `qsu/node`.
 - The same functions in Dart and Python.
 

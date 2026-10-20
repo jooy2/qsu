@@ -81,7 +81,7 @@ Optional arguments are named parameters in both packages, so that part of a call
 
 - Formatting for people: [fileSizeFormat](/reference/format/fileSizeFormat), [duration](/reference/format/duration), [numberFormat](/reference/format/numberFormat), [safeJSONParse](/reference/format/safeJSONParse).
 - Objects: [objClone](/reference/object/objClone), [objMerge](/reference/object/objMerge), [objGet](/reference/object/objGet), [objTo1d](/reference/object/objTo1d), [objToQueryString](/reference/object/objToQueryString) and the rest of the [object](/reference/object/objClone) category.
-- The web: [getSlug](/reference/web/getSlug), [escapeHtml](/reference/web/escapeHtml), [isMobile](/reference/web/isMobile), [isBotAgent](/reference/web/isBotAgent), [isMatchPathname](/reference/web/isMatchPathname).
+- The web: [getSlug](/reference/web/getSlug), [escapeHtml](/reference/web/escapeHtml), [isMobileDeviceFromUA](/reference/web/isMobileDeviceFromUA), [isBotAgent](/reference/web/isBotAgent), [isMatchPathname](/reference/web/isMatchPathname).
 - Files and machine information: the [file](/reference/file/getFileInfo) and [os](/reference/os/getCpu) categories.
 - Timing: [debounce](/reference/misc/debounce), [throttle](/reference/misc/throttle), [retry](/reference/misc/retry), [sleep](/reference/misc/sleep).
 - The same functions in JavaScript and Python.

@@ -127,7 +127,7 @@ Options arrive as keyword arguments, or as a single `dict` in their place.
 - Validation: [isEmail](/reference/verify/isEmail), [isUrl](/reference/verify/isUrl), [isValidDate](/reference/date/isValidDate), [hasBadWords](/reference/verify/hasBadWords).
 - Hashing and encryption: [sha256Hash](/reference/crypto/sha256Hash), [md5Hash](/reference/crypto/md5Hash), [encrypt](/reference/crypto/encrypt), [objectId](/reference/crypto/objectId).
 - Files and the machine: the [file](/reference/file/getFileInfo) and [os](/reference/os/getCpu) categories.
-- The web: [isMobile](/reference/web/isMobile), [isBotAgent](/reference/web/isBotAgent), [isMatchPathname](/reference/web/isMatchPathname), [parseAddress](/reference/net/parseAddress), [urlJoin](/reference/string/urlJoin).
+- The web: [isMobileDeviceFromUA](/reference/web/isMobileDeviceFromUA), [isBotAgent](/reference/web/isBotAgent), [isMatchPathname](/reference/web/isMatchPathname), [parseAddress](/reference/net/parseAddress), [urlJoin](/reference/string/urlJoin).
 - The same functions in JavaScript and Dart.
 
 ## A worked example

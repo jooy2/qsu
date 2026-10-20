@@ -9,7 +9,7 @@ Things worth knowing before answering questions about qsu:
 - Optional arguments are expressed as an options object in JavaScript, as **named parameters** in Dart, and as either a `dict` positional argument or keyword arguments in Python.
 - In JavaScript, the `crypto`, `file` and `os` categories require a Node.js runtime and are imported from the `qsu/node` subpath, as do `fetchData` and `logBox`. Everything else is browser-safe and imported from `qsu`.
 - Documentation is available in English (`https://qsu.cdget.com/reference/...`) and Korean (`https://qsu.cdget.com/ko/reference/...`). Only the English URLs are listed below; prepend `/ko` for the Korean version of any page.
-- 187 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
+- 189 functions across 13 categories are documented. Installation: `npm install qsu` (JavaScript), `dart pub add qsu` (Dart), `pip install qsu` (Python).
 
 ## Getting started
 
@@ -267,8 +267,10 @@ URLs, slugs, user agents and other web-oriented helpers.
 - [generateLicense](https://qsu.cdget.com/reference/web/generateLicense) (JavaScript, Dart, Python): Returns text in a specific license format based on the author information of the given argument. The argument uses the Object type.
 - [getSlug](https://qsu.cdget.com/reference/web/getSlug) (JavaScript, Dart, Python): Converts a string into a URL-friendly slug. The input is trimmed, split into words on whitespace and any existing `-`/`_` characters, and joined back together with the chosen separator.
 - [isBotAgent](https://qsu.cdget.com/reference/web/isBotAgent) (JavaScript, Dart, Python): Analyze the user agent value to determine if it's a bot for a search engine. Returns `true` if it's a bot.
+- [isDesktopDeviceFromUA](https://qsu.cdget.com/reference/web/isDesktopDeviceFromUA) (JavaScript, Dart, Python): Reads a User-Agent string and returns `true` if it comes from a desktop or laptop computer running Windows, macOS, Linux, ChromeOS or a BSD.
 - [isMatchPathname](https://qsu.cdget.com/reference/web/isMatchPathname) (JavaScript, Dart, Python): You can check if the URL path in the first argument value is matched against the second set of rules. The matching rules can take a string or an array of strings, where both arguments are paths that start with `/`.
-- [isMobile](https://qsu.cdget.com/reference/web/isMobile) (JavaScript, Dart, Python): Checks if the current user is accessing from a mobile device via the User Agent string. This function returns `false` for tablet users.
+- [isMobileDeviceFromUA](https://qsu.cdget.com/reference/web/isMobileDeviceFromUA) (JavaScript, Dart, Python): Reads a User-Agent string and returns `true` if it comes from a phone. A tablet is not a phone, so an iPad or an Android tablet returns `false`.
+- [isTabletDeviceFromUA](https://qsu.cdget.com/reference/web/isTabletDeviceFromUA) (JavaScript, Dart, Python): Reads a User-Agent string and returns `true` if it comes from a tablet: an iPad, an Android tablet, a Kindle or Fire tablet, or a BlackBerry PlayBook.
 - [removeLocalePrefix](https://qsu.cdget.com/reference/web/removeLocalePrefix) (JavaScript, Dart, Python): Removes the first-level path from a URL or pathname. Use this when you need a locale-free path in special cases in a URL that normally uses locale prefixes.
 - [unescapeHtml](https://qsu.cdget.com/reference/web/unescapeHtml) (JavaScript, Dart, Python): Turns the five HTML entities that `escapeHtml` produces back into the characters they stand for, in a single pass so `&amp;lt;` comes back as the literal text `&lt;`.
 

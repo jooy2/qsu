@@ -69,21 +69,21 @@ pip install qsu
 
 Functions are grouped into categories. JavaScript and Python ship 175+ functions, Dart 170+ — a handful are language-specific, and every reference page states which languages implement it.
 
-| Category | JavaScript    | Dart | Python | Examples                                            |
-| -------- | ------------- | ---- | ------ | --------------------------------------------------- |
-| `array`  | ✅            | ✅   | ✅     | `arrUnique`, `arrGroupByMaxCount`, `sortNumeric`    |
-| `crypto` | ✅ `qsu/node` | ✅   | ✅     | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId` |
-| `date`   | ✅            | ✅   | ✅     | `today`, `dayDiff`, `createDateListFromRange`       |
-| `file`   | ✅ `qsu/node` | ✅   | ✅     | `getFileSize`, `moveFile`, `joinFilePath`           |
-| `format` | ✅            | ✅   | ✅     | `numberFormat`, `fileSizeFormat`, `duration`        |
-| `math`   | ✅            | ✅   | ✅     | `sum`, `clamp`, `round`, `numPick`                  |
-| `misc`   | ✅            | ✅   | ✅     | `debounce`, `throttle`, `retry`, `sleep`            |
-| `net`    | ✅ `qsu/node` | ✅   | ✅     | `fetchData`, `parseAddress`                         |
-| `object` | ✅            | ✅   | ✅     | `objClone`, `objMerge`, `objPick`, `objGet`         |
-| `os`     | ✅ `qsu/node` | ✅   | ✅     | `getCpu`, `getRamSize`, `getDiskSize`, `runCommand` |
-| `string` | ✅            | ✅   | ✅     | `trim`, `truncate`, `strToCamelCase`, `pad`         |
-| `verify` | ✅            | ✅   | ✅     | `isEmail`, `isUrl`, `isEmpty`, `isEqual`            |
-| `web`    | ✅            | ✅   | ✅     | `getSlug`, `escapeHtml`, `isMobile`, `isBotAgent`   |
+| Category | JavaScript    | Dart | Python | Examples                                                      |
+| -------- | ------------- | ---- | ------ | ------------------------------------------------------------- |
+| `array`  | ✅            | ✅   | ✅     | `arrUnique`, `arrGroupByMaxCount`, `sortNumeric`              |
+| `crypto` | ✅ `qsu/node` | ✅   | ✅     | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId`           |
+| `date`   | ✅            | ✅   | ✅     | `today`, `dayDiff`, `createDateListFromRange`                 |
+| `file`   | ✅ `qsu/node` | ✅   | ✅     | `getFileSize`, `moveFile`, `joinFilePath`                     |
+| `format` | ✅            | ✅   | ✅     | `numberFormat`, `fileSizeFormat`, `duration`                  |
+| `math`   | ✅            | ✅   | ✅     | `sum`, `clamp`, `round`, `numPick`                            |
+| `misc`   | ✅            | ✅   | ✅     | `debounce`, `throttle`, `retry`, `sleep`                      |
+| `net`    | ✅ `qsu/node` | ✅   | ✅     | `fetchData`, `parseAddress`                                   |
+| `object` | ✅            | ✅   | ✅     | `objClone`, `objMerge`, `objPick`, `objGet`                   |
+| `os`     | ✅ `qsu/node` | ✅   | ✅     | `getCpu`, `getRamSize`, `getDiskSize`, `runCommand`           |
+| `string` | ✅            | ✅   | ✅     | `trim`, `truncate`, `strToCamelCase`, `pad`                   |
+| `verify` | ✅            | ✅   | ✅     | `isEmail`, `isUrl`, `isEmpty`, `isEqual`                      |
+| `web`    | ✅            | ✅   | ✅     | `getSlug`, `escapeHtml`, `isMobileDeviceFromUA`, `isBotAgent` |
 
 In JavaScript, categories marked `qsu/node` require a Node.js runtime and are imported from the `qsu/node` subpath so the browser-safe entry point stays free of Node built-ins. Two of them are split rather than wholly one or the other: in `net`, `fetchData` needs Node and `parseAddress` does not, and in `misc` only `logBox` does. Dart and Python have no such split; in Dart, the `file` helpers use `dart:io` and are therefore unavailable on Flutter Web.
 

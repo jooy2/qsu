@@ -103,21 +103,21 @@ A runnable version of this is in [`example/qsu_example.dart`](example/qsu_exampl
 
 Functions are grouped into categories, all exported from `package:qsu/qsu.dart`.
 
-| Category | Examples                                            |
-| -------- | --------------------------------------------------- |
-| `array`  | `arrUnique`, `arrGroupByMaxCount`, `sortNumeric`    |
-| `crypto` | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId` |
-| `date`   | `today`, `dayDiff`, `createDateListFromRange`       |
-| `file`   | `getFileSize`, `moveFile`, `joinFilePath`           |
-| `format` | `numberFormat`, `fileSizeFormat`, `duration`        |
-| `math`   | `sum`, `clamp`, `round`, `numPick`                  |
-| `misc`   | `debounce`, `throttle`, `retry`, `sleep`            |
-| `net`    | `fetchData`, `parseAddress`                         |
-| `object` | `objClone`, `objMerge`, `objPick`, `objGet`         |
-| `os`     | `getCpu`, `getRamSize`, `getDiskSize`, `runCommand` |
-| `string` | `trim`, `truncate`, `strToCamelCase`, `pad`         |
-| `verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqual`            |
-| `web`    | `getSlug`, `escapeHtml`, `isMobile`, `isBotAgent`   |
+| Category | Examples                                                      |
+| -------- | ------------------------------------------------------------- |
+| `array`  | `arrUnique`, `arrGroupByMaxCount`, `sortNumeric`              |
+| `crypto` | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId`           |
+| `date`   | `today`, `dayDiff`, `createDateListFromRange`                 |
+| `file`   | `getFileSize`, `moveFile`, `joinFilePath`                     |
+| `format` | `numberFormat`, `fileSizeFormat`, `duration`                  |
+| `math`   | `sum`, `clamp`, `round`, `numPick`                            |
+| `misc`   | `debounce`, `throttle`, `retry`, `sleep`                      |
+| `net`    | `fetchData`, `parseAddress`                                   |
+| `object` | `objClone`, `objMerge`, `objPick`, `objGet`                   |
+| `os`     | `getCpu`, `getRamSize`, `getDiskSize`, `runCommand`           |
+| `string` | `trim`, `truncate`, `strToCamelCase`, `pad`                   |
+| `verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqual`                      |
+| `web`    | `getSlug`, `escapeHtml`, `isMobileDeviceFromUA`, `isBotAgent` |
 
 The `file` category uses `dart:io`, so those functions are unavailable on Flutter Web. Everything else is platform independent.
 

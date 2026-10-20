@@ -127,7 +127,7 @@ qsu.round(2.675, 2)
 - 검증: [isEmail](/ko/reference/verify/isEmail), [isUrl](/ko/reference/verify/isUrl), [isValidDate](/ko/reference/date/isValidDate), [hasBadWords](/ko/reference/verify/hasBadWords).
 - 해시와 암호화: [sha256Hash](/ko/reference/crypto/sha256Hash), [md5Hash](/ko/reference/crypto/md5Hash), [encrypt](/ko/reference/crypto/encrypt), [objectId](/ko/reference/crypto/objectId).
 - 파일과 시스템: [file](/ko/reference/file/getFileInfo), [os](/ko/reference/os/getCpu) 카테고리.
-- 웹: [isMobile](/ko/reference/web/isMobile), [isBotAgent](/ko/reference/web/isBotAgent), [isMatchPathname](/ko/reference/web/isMatchPathname), [parseAddress](/ko/reference/net/parseAddress), [urlJoin](/ko/reference/string/urlJoin).
+- 웹: [isMobileDeviceFromUA](/ko/reference/web/isMobileDeviceFromUA), [isBotAgent](/ko/reference/web/isBotAgent), [isMatchPathname](/ko/reference/web/isMatchPathname), [parseAddress](/ko/reference/net/parseAddress), [urlJoin](/ko/reference/string/urlJoin).
 - JavaScript와 Dart에서도 같은 함수.
 
 ## 예제
