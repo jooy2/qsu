@@ -5,7 +5,9 @@ import {
 	isMatchPathname,
 	generateLicense,
 	removeLocalePrefix,
-	isMobile,
+	isMobileDeviceFromUA,
+	isTabletDeviceFromUA,
+	isDesktopDeviceFromUA,
 	getSlug,
 	escapeHtml,
 	unescapeHtml
@@ -20,7 +22,62 @@ const userAgentMobileIOS =
 const userAgentMobileAndroid =
 	'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36';
 const userAgentTablet =
+	'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Mobile/15E148 Safari/604.1';
+// iPadOS 13 and later sends the Mac string by default, so it cannot be told from a Mac.
+const userAgentDesktopModeTablet =
 	'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15';
+
+const deviceUserAgents: { [key: string]: string[] } = {
+	mobile: [
+		userAgentMobileIOS,
+		userAgentMobileAndroid,
+		'Mozilla/5.0 (Linux; Android 13; SM-S911B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/23.0 Chrome/115.0.0.0 Mobile Safari/537.36',
+		'Mozilla/5.0 (Android 14; Mobile; rv:131.0) Gecko/131.0 Firefox/131.0',
+		'Opera/9.80 (Android; Opera Mini/7.6.35766/35.5706; U; en) Presto/2.8.119 Version/11.10',
+		'Mozilla/5.0 (Windows Phone 10.0; Android 6.0.1; Microsoft; Lumia 950) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Mobile Safari/537.36 Edge/15.15063',
+		'Mozilla/5.0 (Mobile; LYF/F300B/LYF-F300B-001-01-15-130718-i;Android; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5',
+		'Mozilla/5.0 (Linux; Tizen 2.3; SAMSUNG SM-Z130H) AppleWebKit/537.3 (KHTML, like Gecko) Version/2.3 Mobile Safari/537.3',
+		'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 KAKAOTALK 10.3.0',
+		'Nokia6310i/1.0 (04.53) Profile/MIDP-1.0 Configuration/CLDC-1.0'
+	],
+	tablet: [
+		userAgentTablet,
+		'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
+		'Mozilla/5.0 (Linux; Android 12; SM-X700) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/20.0 Chrome/106.0.5249.126 Safari/537.36',
+		'Mozilla/5.0 (Android 14; Tablet; rv:131.0) Gecko/131.0 Firefox/131.0',
+		'Mozilla/5.0 (Linux; Android 9; KFTRWI) AppleWebKit/537.36 (KHTML, like Gecko) Silk/104.3.1 like Chrome/104.0.5112.97 Safari/537.36',
+		'Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/531.2+ Kindle/3.0+',
+		'Mozilla/5.0 (PlayBook; U; RIM Tablet OS 2.1.0; en-US) AppleWebKit/536.2+ (KHTML, like Gecko) Version/7.2.1.0 Safari/536.2+'
+	],
+	desktop: [
+		userAgentDesktop,
+		userAgentDesktopModeTablet,
+		'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0',
+		'Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0',
+		'Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
+		'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; SLCC2; .NET CLR 2.0.50727; Media Center PC 6.0; Tablet PC 2.0; rv:11.0) like Gecko'
+	],
+	none: [
+		'',
+		userAgentBot,
+		'curl/8.4.0',
+		'Mozilla/5.0 (SMART-TV; LINUX; Tizen 6.0) AppleWebKit/537.36 (KHTML, like Gecko) 76.0.3809.146/6.0 TV Safari/537.36',
+		'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36 WebAppManager',
+		'Mozilla/5.0 (Linux; Android 9; AFTKA Build/PS7633.3445N; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/108.0.5359.160 Safari/537.36',
+		'Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19041',
+		'Mozilla/5.0 (PlayStation; PlayStation 5/2.26) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15',
+		'Mozilla/5.0 (X11; Linux x86_64; Quest 3) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/33.0.0.0 Chrome/126.0.6478.122 VR Safari/537.36',
+		'Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 CrKey/1.56.500000'
+	]
+};
+
+const assertDeviceType = (fn: (userAgent: string) => boolean, expected: string): void => {
+	for (const [type, userAgents] of Object.entries(deviceUserAgents)) {
+		for (const userAgent of userAgents) {
+			assert.strictEqual(fn(userAgent), type === expected, `${type}: ${userAgent}`);
+		}
+	}
+};
 
 describe('Web', () => {
 	it('isBotAgent', () => {
@@ -31,12 +88,16 @@ describe('Web', () => {
 		assert.strictEqual(isBotAgent(userAgentTablet), false);
 	});
 
-	it('isMobile', () => {
-		assert.strictEqual(isMobile(userAgentBot), false);
-		assert.strictEqual(isMobile(userAgentDesktop), false);
-		assert.strictEqual(isMobile(userAgentMobileIOS), true);
-		assert.strictEqual(isMobile(userAgentMobileAndroid), true);
-		assert.strictEqual(isMobile(userAgentTablet), false);
+	it('isMobileDeviceFromUA', () => {
+		assertDeviceType(isMobileDeviceFromUA, 'mobile');
+	});
+
+	it('isTabletDeviceFromUA', () => {
+		assertDeviceType(isTabletDeviceFromUA, 'tablet');
+	});
+
+	it('isDesktopDeviceFromUA', () => {
+		assertDeviceType(isDesktopDeviceFromUA, 'desktop');
 	});
 
 	it('isMatchPathname', () => {
