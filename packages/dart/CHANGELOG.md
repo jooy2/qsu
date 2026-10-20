@@ -4,10 +4,14 @@
 
 ### Breaking changes
 
+- `generateLicense`: An unknown `type` throws an `ArgumentError` instead of returning the MIT license. A typo used to produce a different license without a word, and so did an SPDX identifier such as `BSD-3-Clause`, which is now recognized
+- `generateLicense`: With `htmlBr`, `&`, `<` and `>` are escaped, so an email address written as `<user@example.com>` appears in the page rather than being read as a tag
 - `isMobile` was renamed to `isMobileDeviceFromUA`, so the name says that it reads a User-Agent string. Replace the call. A Kindle now counts as a tablet rather than a phone, and a PlayStation Portable is no longer a phone: like a smart TV or a game console, it is none of the three device types. A phone that only says `Mobi` somewhere in its string, such as a Tizen phone, now counts as one
 
 ### Changes
 
+- `generateLicense`: `isc`, `bsd2`, `mpl20`, `gpl3`, `lgpl3` and `agpl3` were added. ISC and the 2-clause BSD license are returned whole, as MIT and the 3-clause BSD license are. MPL 2.0 and the GNU licenses, like Apache 2.0, are returned as the notice their own text asks to be put at the top of each source file, under the copyright line. Each type is also accepted by its SPDX identifier, such as `Apache-2.0` or `GPL-3.0-or-later`
+- `generateLicense`: `yearStart` is no longer required and defaults to the current year, `yearEnd` takes an `int` as well as a `String`, and a `yearEnd` equal to `yearStart` is left out rather than written as `2026-2026`
 - `isTabletDeviceFromUA`: Added. Returns `true` when a User-Agent string comes from a tablet: an iPad, an Android tablet, a Kindle or Fire tablet, or a BlackBerry PlayBook. Safari on iPadOS 13 and later sends the same string as a Mac by default, which no User-Agent check can tell apart, so it is reported as a desktop
 - `isDesktopDeviceFromUA`: Added. Returns `true` when a User-Agent string comes from a computer running Windows, macOS, Linux, ChromeOS or a BSD. A string that names no operating system, as most crawlers and HTTP clients send, returns `false`, and so do smart TVs, game consoles and VR headsets that run Linux or Windows underneath. The three device functions read a string in the same order, so at most one of them returns `true` for it
 - `getFonts`: Added. Lists the fonts installed on the machine, one `FontInfo` per face, with the names each font gives itself, its weight, width and slant, whether it is monospace and the file it was read from. The font files are read directly, so neither a font library nor another process is needed, and they are read on an isolate of their own, so a Flutter app does not drop a frame waiting for them. Android reads `/system/fonts`

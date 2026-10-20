@@ -231,26 +231,102 @@ void main() {
           type: 'mit',
           email: 'sam@example.com');
 
-      expect(mit, startsWith('Copyright (c) 2024 Sam <sam@example.com>'));
-      expect(mit.contains('WITHOUT WARRANTY OF ANY KIND'), isTrue);
-      // The type is matched without its punctuation, so `apache 2.0` finds it.
+      expect(
+          mit,
+          startsWith(
+              'Copyright (c) 2024 Sam <sam@example.com>\n\nPermission is hereby granted'));
+      expect(mit, endsWith('OTHER DEALINGS IN THE SOFTWARE.'));
+
+      // Each type starts with its own copyright line, and the GNU ones name their license.
+      final List<List<String>> expected = [
+        [
+          'isc',
+          'Copyright (c) 2024 Sam',
+          'Permission to use, copy, modify, and/or distribute'
+        ],
+        ['apache20', 'Copyright 2024 Sam', 'Apache License, Version 2.0'],
+        ['bsd2', 'Copyright 2024 Sam', '2. Redistributions in binary form'],
+        [
+          'bsd3',
+          'Copyright 2024 Sam',
+          '3. Neither the name of the copyright holder'
+        ],
+        ['mpl20', 'Copyright (c) 2024 Sam', 'https://mozilla.org/MPL/2.0/'],
+        [
+          'gpl3',
+          'Copyright (C) 2024 Sam',
+          'the GNU General Public License as published by'
+        ],
+        [
+          'lgpl3',
+          'Copyright (C) 2024 Sam',
+          'the GNU Lesser General Public License as published by'
+        ],
+        [
+          'agpl3',
+          'Copyright (C) 2024 Sam',
+          'the GNU Affero General Public License as published by'
+        ],
+      ];
+
+      for (final List<String> row in expected) {
+        final String license =
+            generateLicense(author: 'Sam', yearStart: 2024, type: row[0]);
+
+        expect(license, startsWith('${row[1]}\n\n'), reason: row[0]);
+        expect(license.contains(row[2]), isTrue, reason: row[0]);
+      }
+
+      expect(
+          generateLicense(author: 'Sam', yearStart: 2024, type: 'bsd2')
+              .contains('3. Neither'),
+          isFalse);
+
+      // SPDX identifiers and loose spellings find the same text.
+      expect(
+          generateLicense(author: 'Sam', yearStart: 2024, type: 'BSD-3-Clause'),
+          generateLicense(author: 'Sam', yearStart: 2024, type: 'bsd3'));
+      expect(
+          generateLicense(
+              author: 'Sam', yearStart: 2024, type: 'GPL-3.0-or-later'),
+          generateLicense(author: 'Sam', yearStart: 2024, type: 'gpl3'));
       expect(
           generateLicense(author: 'Sam', yearStart: 2024, type: 'apache 2.0'),
           startsWith('Copyright 2024 Sam'));
-      expect(
-          generateLicense(author: 'Sam', yearStart: 2024, type: 'bsd-3')
-              .contains('Redistribution and use'),
-          isTrue);
-      // `htmlBr` swaps the newline for a tag.
+
+      // An unknown type throws rather than falling back to MIT. `GPL-3.0` is the deprecated
+      // SPDX name for `GPL-3.0-only`, which the "or later" notice would misstate.
+      expect(() => generateLicense(author: 'Sam', type: 'gpl-2'),
+          throwsArgumentError);
+      expect(() => generateLicense(author: 'Sam', type: 'GPL-3.0'),
+          throwsArgumentError);
+
+      // The year defaults to the current one, and a range ending in the same year collapses.
+      expect(generateLicense(author: 'Sam', type: 'mit'),
+          startsWith('Copyright (c) ${DateTime.now().year} Sam'));
       expect(
           generateLicense(
-                  author: 'Sam', yearStart: 2024, type: 'mit', htmlBr: true)
-              .contains('<br/>'),
-          isTrue);
-      expect(
-          generateLicense(
-              author: 'Sam', yearStart: 2024, yearEnd: '2026', type: 'mit'),
+              author: 'Sam', yearStart: 2024, yearEnd: 2026, type: 'mit'),
           startsWith('Copyright (c) 2024-2026 Sam'));
+      expect(
+          generateLicense(
+              author: 'Sam', yearStart: 2024, yearEnd: '2024', type: 'mit'),
+          startsWith('Copyright (c) 2024 Sam\n'));
+
+      // `htmlBr` swaps the newlines for tags and escapes what HTML would read as markup.
+      final String html = generateLicense(
+          author: 'Sam & Co',
+          email: 'sam@example.com',
+          yearStart: 2024,
+          type: 'gpl3',
+          htmlBr: true);
+
+      expect(
+          html,
+          startsWith(
+              'Copyright (C) 2024 Sam &amp; Co &lt;sam@example.com&gt;<br/><br/>This program'));
+      expect(html, endsWith('see &lt;https://www.gnu.org/licenses/&gt;.'));
+      expect(html.contains('\n'), isFalse);
     });
   });
 }
