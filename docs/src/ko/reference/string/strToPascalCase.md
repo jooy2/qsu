@@ -6,7 +6,7 @@
 
 대소문자 구분이 없는 문자는 그대로 유지되므로 `한글English혼합`은 변하지 않습니다.
 
-[strToCamelCase](./strToCamelCase)에서 첫 단어까지 대문자로 시작하게 한 것과 같습니다. 원래 구분자를 유지한 채 각 단어의 첫 글자만 바꾸는 [capitalizeEachWords](./capitalizeEachWords)와는 다릅니다.
+[strToCamelCase](./strToCamelCase)에서 첫 단어까지 대문자로 시작하게 한 것과 같습니다. 원래 구분자를 유지한 채 각 단어의 첫 글자만 바꾸는 [capitalizeEachWord](./capitalizeEachWord)와는 다릅니다.
 
 ## Parameters
 

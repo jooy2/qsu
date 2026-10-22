@@ -4,7 +4,7 @@
 
 Returns the number of seconds the machine has been running since it last booted.
 
-[getUptime](/reference/os/getUptime) counts the process instead, and takes the same two options: `floor` drops the fraction, and `format` groups the digits in thousands.
+[getProcessUptime](/reference/os/getProcessUptime) counts the process instead, and takes the same two options: `floor` drops the fraction, and `format` groups the digits in thousands.
 
 ## Platform support
 
@@ -19,10 +19,10 @@ Returns the number of seconds the machine has been running since it last booted.
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'opt', type: 'GetUptimeOption', named: true }
+	{ name: 'options', type: 'UptimeOptions', named: true }
 ]" />
 
-<ParamsTable name="GetUptimeOption" :rows="[
+<ParamsTable name="UptimeOptions" :rows="[
 	{ name: 'format', type: 'boolean', default: 'false', desc: 'Group the digits in thousands and return the result as text.' },
 	{ name: 'floor', type: 'boolean', default: 'false', desc: 'Drop the fraction and return a whole number of seconds.' }
 ]" />

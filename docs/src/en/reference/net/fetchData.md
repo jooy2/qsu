@@ -20,10 +20,10 @@ This function needs a platform with networking of its own, so it works on Window
 
 <ParamsTable :rows="[
 	{ name: 'url', type: 'string', required: true },
-	{ name: 'httpRequestOptions', type: 'HTTPRequestOption', desc: 'Request options. See the table below.' }
+	{ name: 'httpRequestOptions', type: 'HttpRequestOptions', desc: 'Request options. See the table below.' }
 ]" />
 
-<ParamsTable name="HTTPRequestOption" :rows="[
+<ParamsTable name="HttpRequestOptions" :rows="[
 	{ name: 'auth', type: 'object', desc: 'Authentication credentials. See the table below.' },
 	{ name: 'get', type: 'boolean', desc: `Same as \`method: 'get'\`` },
 	{ name: 'post', type: 'boolean', desc: `Same as \`method: 'post'\`` },

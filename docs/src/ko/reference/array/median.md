@@ -2,7 +2,7 @@
 
 숫자 배열의 가운데 값을 반환합니다. 값의 개수가 짝수면 가운데 값이 하나로 정해지지 않으므로, 가운데 두 값의 평균을 반환합니다.
 
-정렬은 복사본에서 하므로 배열의 순서는 바뀌지 않습니다. `NaN`은 [min](/ko/reference/math/min), [max](/ko/reference/math/max)와 마찬가지로 건너뜁니다. 비교할 값이 남지 않으면 `null`을 반환합니다.
+정렬은 복사본에서 하므로 배열의 순서는 바뀌지 않습니다. `NaN`은 [numMin](/ko/reference/math/numMin), [numMax](/ko/reference/math/numMax)와 마찬가지로 건너뜁니다. 비교할 값이 남지 않으면 `null`을 반환합니다.
 
 평균은 [average](./average)로 구하세요.
 

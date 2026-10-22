@@ -1,0 +1,86 @@
+# objFindInTree
+
+Returns the object if the key of a specific piece of data in the object's dataset corresponds to a specific value. This function returns only one result, so it is used to search for unique IDs, including all of their children.
+
+## Parameters
+
+<ParamsTable :rows="[
+	{ name: 'obj', type: 'object', required: true },
+	{ name: 'searchKey', type: 'string', required: true },
+	{ name: 'searchValue', type: 'any', required: true },
+	{ name: 'childrenKey', type: 'string', required: true }
+]" />
+
+## Returns
+
+<ReturnType type="object | null" />
+
+## Examples
+
+::: lang js
+
+```javascript
+objFindInTree(
+	{
+		id: 123,
+		name: 'parent',
+		child: [
+			{
+				id: 456,
+				name: 'childItemA'
+			},
+			{
+				id: 789,
+				name: 'childItemB'
+			}
+		]
+	}, // obj
+	'id', // searchKey
+	456, // searchValue
+	'child' // childrenKey
+); // Returns '{ id: 456, name: 'childItemA' }'
+```
+
+:::
+
+::: lang dart
+
+```dart
+objFindInTree({
+  'id': 123,
+  'name': 'parent',
+  'child': [
+    {'id': 456, 'name': 'childItemA'},
+    {'id': 789, 'name': 'childItemB'},
+  ],
+}, 'id', 789, 'child');
+// Returns {id: 789, name: childItemB}
+```
+
+:::
+
+::: lang python
+
+```python
+objFindInTree(
+	{
+		'id': 123,
+		'name': 'parent',
+		'child': [
+			{
+				'id': 456,
+				'name': 'childItemA'
+			},
+			{
+				'id': 789,
+				'name': 'childItemB'
+			}
+		]
+	},  # obj
+	'id',  # searchKey
+	456,  # searchValue
+	'child'  # childrenKey
+)  # Returns { 'id': 456, 'name': 'childItemA' }
+```
+
+:::

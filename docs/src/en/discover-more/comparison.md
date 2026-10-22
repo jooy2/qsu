@@ -86,7 +86,7 @@ Lodash and Underscore both put the data first and return a new value, which is t
 
 ::: lang dart
 
-quiver and basic_utils are shaped differently from each other. quiver exports top-level functions, so `isBlank(s)` reads the way `trim(s)` does in qsu. basic_utils groups everything into classes of static methods, so the same call is `StringUtils.isNullOrEmpty(s)`. qsu follows quiver here: the functions are top-level and imported from one place.
+quiver and basic_utils are shaped differently from each other. quiver exports top-level functions, so `isBlank(s)` reads the way `collapseWhitespace(s)` does in qsu. basic_utils groups everything into classes of static methods, so the same call is `StringUtils.isNullOrEmpty(s)`. qsu follows quiver here: the functions are top-level and imported from one place.
 
 The name is where qsu is deliberately unidiomatic. `strToCamelCase` rather than `toCamelCase` or an extension method, because the Dart package must read the same as the JavaScript and Python ones.
 
@@ -104,7 +104,7 @@ qsu does neither. The names are `camelCase` in Python too, and they are imported
 
 ::: lang js
 
-qsu is ESM only and needs Node 20 or later. It has no dependencies, it is marked side-effect free, and each category has a subpath of its own, so `import { trim } from 'qsu/string'` pulls in that category alone. Anything that needs a Node runtime lives behind `qsu/node`, which keeps the browser-safe half browser-safe. The TypeScript types are part of the package.
+qsu is ESM only and needs Node 20 or later. It has no dependencies, it is marked side-effect free, and each category has a subpath of its own, so `import { collapseWhitespace } from 'qsu/string'` pulls in that category alone. Anything that needs a Node runtime lives behind `qsu/node`, which keeps the browser-safe half browser-safe. The TypeScript types are part of the package.
 
 Lodash's published entry point is a single CommonJS file with no `exports` map; the ESM build is a separate package, `lodash-es`, and tree-shaking a bundle depends on using it. Underscore ships both builds from one package through conditional exports. Neither ships its own type declarations, so both are typed from DefinitelyTyped.
 

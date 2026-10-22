@@ -6,7 +6,7 @@ No value is converted to another type: `1` and `'1'` are different, and so are `
 
 Any other value, such as a class instance, is compared with <Val js="===" dart="==" python="==" />. A structure that contains itself is compared without looping forever.
 
-Unlike [isEqual](./isEqual), it takes exactly two values, and an array passed as the second one is a value to compare rather than a list of values.
+Unlike [isEqualLoose](./isEqualLoose), it takes exactly two values, and an array passed as the second one is a value to compare rather than a list of values.
 
 ::: lang js
 

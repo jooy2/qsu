@@ -2,7 +2,7 @@
 
 Returns the middle value of an array of numbers. With an even number of values there is no single middle, so the mean of the two middle values is returned.
 
-The values are sorted on a copy, so the array keeps its order. `NaN` values are skipped, as they are in [min](/reference/math/min) and [max](/reference/math/max). When nothing is left to compare, `null` is returned.
+The values are sorted on a copy, so the array keeps its order. `NaN` values are skipped, as they are in [numMin](/reference/math/numMin) and [numMax](/reference/math/numMax). When nothing is left to compare, `null` is returned.
 
 For the mean, use [average](./average).
 

@@ -1,13 +1,13 @@
 # isUrl
 
-Returns `true` if the given data is in the correct URL format. If withProtocol is `true`, it is automatically appended to the URL when the protocol does not exist. If strict is `true`, URLs without commas (`.`) return `false`.
+Returns `true` if the given data is in the correct URL format. If allowMissingProtocol is `true`, it is automatically appended to the URL when the protocol does not exist. If requireDot is `true`, URLs without commas (`.`) return `false`.
 
 ## Parameters
 
 <ParamsTable :rows="[
 	{ name: 'url', type: 'string', required: true },
-	{ name: 'withProtocol', type: 'boolean', default: 'false', named: true },
-	{ name: 'strict', type: 'boolean', default: 'false', named: true }
+	{ name: 'allowMissingProtocol', type: 'boolean', default: 'false', named: true },
+	{ name: 'requireDot', type: 'boolean', default: 'false', named: true }
 ]" />
 
 ## Returns
@@ -30,7 +30,7 @@ isUrl('https://google.com'); // Returns true
 
 ```dart
 isUrl('google.com'); // Returns false
-isUrl('google.com', withProtocol: true); // Returns true
+isUrl('google.com', allowMissingProtocol: true); // Returns true
 isUrl('https://google.com'); // Returns true
 ```
 

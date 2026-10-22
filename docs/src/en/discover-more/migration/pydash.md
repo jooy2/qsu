@@ -18,13 +18,12 @@ qsu needs Python 3.8 or later, so it runs on interpreters pydash has already lef
 from qsu import getSlug, arrUnique, fileSizeFormat
 ```
 
-Two things will surprise you. The names are `camelCase`, which is deliberate: the Python package has to read the same as the JavaScript and Dart ones. And `sum`, `max`, `min` and `round` are real function names here, so importing them by name shadows the builtins. pydash avoids that with a trailing underscore; qsu does not, so import the module instead when it matters:
+Two things will surprise you. The names are `camelCase`, which is deliberate: the Python package has to read the same as the JavaScript and Dart ones. And `len` is a real function name here, so importing it by name shadows the builtin. Import the module instead when it matters:
 
 ```python
 import qsu
 
-qsu.sum([1, 2, 3])
-qsu.round(2.675, 2)
+qsu.len([1, 2, 3])
 ```
 
 Options arrive as keyword arguments, or as a single `dict` in their place.
@@ -41,13 +40,13 @@ Options arrive as keyword arguments, or as a single `dict` in their place.
 | `upper_first` | [capitalizeFirst](/reference/string/capitalizeFirst) |  |
 | `lower_first` | [uncapitalizeFirst](/reference/string/uncapitalizeFirst) |  |
 | `capitalize` | [capitalizeFirst](/reference/string/capitalizeFirst) | **Different.** pydash lowercases the rest of the string by default; qsu leaves it as it is. |
-| `start_case`, `title_case`, `human_case` | [capitalizeEachWords](/reference/string/capitalizeEachWords) | **Different.** qsu works on the words the spaces mark and has a `natural` option that keeps short prepositions lowercase. |
+| `start_case`, `title_case`, `human_case` | [capitalizeEachWord](/reference/string/capitalizeEachWord) | **Different.** qsu works on the words the spaces mark and has a `titleCase` option that keeps short prepositions lowercase. |
 | `deburr` | [deburr](/reference/string/deburr) |  |
 | `escape`, `unescape` | [escapeHtml](/reference/web/escapeHtml), [unescapeHtml](/reference/web/unescapeHtml) | qsu escapes `&`, `<`, `>`, `"` and `'`. |
 | `escape_reg_exp` | [escapeRegExp](/reference/string/escapeRegExp) |  |
 | `pad`, `pad_start`, `pad_end` | [pad](/reference/string/pad) | One function with a `position` option. |
 | `truncate` | [truncate](/reference/string/truncate) | **Different.** pydash counts the omission inside the length and defaults it to `...`; qsu cuts to the length and appends nothing unless you ask. |
-| `trim` | [trim](/reference/string/trim) | **Different.** qsu also collapses runs of whitespace inside the string, and takes no set of characters to strip. |
+| `trim` | [collapseWhitespace](/reference/string/collapseWhitespace) | **Different.** qsu also collapses runs of whitespace inside the string, and takes no set of characters to strip. |
 | `words` | [words](/reference/string/words) |  |
 | `split` | [split](/reference/string/split) | qsu splits on several separators in one call. |
 | `count_substr` | [strCount](/reference/string/strCount) |  |
@@ -59,23 +58,23 @@ Options arrive as keyword arguments, or as a single `dict` in their place.
 
 | pydash | qsu | Notes |
 | --- | --- | --- |
-| `chunk` | [arrGroupByMaxCount](/reference/array/arrGroupByMaxCount) |  |
+| `chunk` | [arrChunk](/reference/array/arrChunk) |  |
 | `compact` | [arrCompact](/reference/array/arrCompact) | **Different.** qsu rejects a fixed set of values so that all three packages agree, rather than everything falsy. |
 | `difference` | [arrDifference](/reference/array/arrDifference) |  |
 | `intersection` | [arrIntersection](/reference/array/arrIntersection) |  |
 | `uniq` | [arrUnique](/reference/array/arrUnique) | **Different.** qsu never treats `True` as `1`, so `[1, True]` keeps both. |
-| `flatten_deep` | [arrTo1dArray](/reference/array/arrTo1dArray) | `flatten`, which goes one level deep, has no counterpart. |
+| `flatten_deep` | [arrFlatten](/reference/array/arrFlatten) | `flatten`, which goes one level deep, has no counterpart. |
 | `shuffle` | [arrShuffle](/reference/array/arrShuffle) |  |
-| `sample` | [arrPick](/reference/array/arrPick) | `sample_size` has no counterpart. |
+| `sample` | [arrRandom](/reference/array/arrRandom) | `sample_size` has no counterpart. |
 | `count_by` | [arrCount](/reference/array/arrCount) | **Different.** No iteratee, and the values must be strings or numbers. |
-| `range_` | [arrWithNumber](/reference/array/arrWithNumber) | **Different.** qsu includes the end value, and its `step` option takes a positive whole number, so it cannot count down or step by fractions. |
+| `range_` | [arrRange](/reference/array/arrRange) | **Different.** qsu includes the end value, and its `step` option takes a positive whole number, so it cannot count down or step by fractions. |
 | `sort_by` | [sortByObjectKey](/reference/array/sortByObjectKey) | For one key of a list of dicts. |
 | `mean` | [average](/reference/array/average) |  |
 | `size` | [len](/reference/verify/len) |  |
 | `without` | — | `arrDifference(items, [value])`. |
 | `group_by` | [arrGroupBy](/reference/array/arrGroupBy) | **Different.** qsu turns every key into a string, so a group keyed by `1` comes back under `'1'`. The callback is required; a property name in its place is not accepted. |
 | `key_by`, `order_by`, `partition`, `zip_`, `take`, `drop`, `flat_map` | — | No counterpart. Use `itertools` and comprehensions. |
-| — | [arrMove](/reference/array/arrMove), [arrRepeat](/reference/array/arrRepeat), [sortNumeric](/reference/array/sortNumeric), [is2dArray](/reference/verify/is2dArray) | No pydash counterpart. |
+| — | [arrMove](/reference/array/arrMove), [arrRepeat](/reference/array/arrRepeat), [sortNatural](/reference/array/sortNatural), [isNestedArray](/reference/verify/isNestedArray) | No pydash counterpart. |
 
 ## Dicts
 
@@ -90,33 +89,33 @@ Options arrive as keyword arguments, or as a single `dict` in their place.
 | `map_keys` | [objMapKeys](/reference/object/objMapKeys) |  |
 | `pick` | [objPick](/reference/object/objPick) | Top level only. |
 | `pick_by` | [objPickBy](/reference/object/objPickBy) | Top level only. |
-| `to_pairs` | [objToArray](/reference/object/objToArray) |  |
+| `to_pairs` | [objToEntries](/reference/object/objToEntries) |  |
 | `set_` | [objSet](/reference/object/objSet) | **Different.** qsu returns a new dict and leaves the one you pass alone, where pydash writes into it. A missing level is always created as a dict, even for a numeric key such as `[0]`. |
 | `update` | [objGet](/reference/object/objGet), then [objSet](/reference/object/objSet) | Read the value, compute the new one and write it back. qsu has no updater callback. |
 | `parse_int` | [safeParseInt](/reference/format/safeParseInt) | Returns the fallback instead of raising. |
 | `omit` | [objOmit](/reference/object/objOmit) | **Different.** Top-level keys only; pydash also takes deep paths. |
 | `omit_by`, `unset`, `map_values`, `rename_keys` | — | Invert the test and use `objPickBy`, or write the comprehension. |
-| — | [objTo1d](/reference/object/objTo1d), [objToQueryString](/reference/object/objToQueryString), [objToPrettyStr](/reference/object/objToPrettyStr), [objFindItemRecursiveByKey](/reference/object/objFindItemRecursiveByKey) | No pydash counterpart. |
+| — | [objFlatten](/reference/object/objFlatten), [objToQueryString](/reference/object/objToQueryString), [objToPrettyJson](/reference/object/objToPrettyJson), [objFindInTree](/reference/object/objFindInTree) | No pydash counterpart. |
 
 ## Numbers, checks and timing
 
 | pydash | qsu | Notes |
 | --- | --- | --- |
-| `add`, `subtract`, `multiply`, `divide` | [sum](/reference/math/sum), [sub](/reference/math/sub), [mul](/reference/math/mul), [div](/reference/math/div) | qsu takes any number of arguments, or one list. |
-| `sum_` | [sum](/reference/math/sum) |  |
-| `max_`, `min_` | [max](/reference/math/max), [min](/reference/math/min) | An empty input returns <code>None</code>. |
-| `ceil`, `floor`, `round_` | [ceil](/reference/math/ceil), [floor](/reference/math/floor), [round](/reference/math/round) | **Different.** qsu sends ties away from zero, so `round(0.5)` is `1` where Python's own `round` gives `0`. |
+| `add`, `subtract`, `multiply`, `divide` | [numSum](/reference/math/numSum), [sub](/reference/math/sub), [mul](/reference/math/mul), [div](/reference/math/div) | qsu takes any number of arguments, or one list. |
+| `sum_` | [numSum](/reference/math/numSum) |  |
+| `max_`, `min_` | [numMax](/reference/math/numMax), [numMin](/reference/math/numMin) | An empty input returns <code>None</code>. |
+| `ceil`, `floor`, `round_` | [ceil](/reference/math/ceil), [floor](/reference/math/floor), [numRound](/reference/math/numRound) | **Different.** qsu sends ties away from zero, so `numRound(0.5)` is `1` where Python's own `round` gives `0`. |
 | `clamp` | [clamp](/reference/math/clamp) |  |
 | `in_range` | [between](/reference/verify/between) | **Different.** The range comes first as a pair, and both ends are excluded unless you pass `inclusive`. |
-| `random` | [numPick](/reference/math/numPick) | Whole numbers only. |
-| `unique_id` | [numUnique](/reference/math/numUnique) | **Different.** A number derived from the clock, with no prefix argument. |
+| `random` | [numRandom](/reference/math/numRandom) | Whole numbers only. |
+| `unique_id` | [numUniqueId](/reference/math/numUniqueId) | **Different.** A number derived from the clock, with no prefix argument. |
 | `median` | [median](/reference/array/median) | qsu skips `NaN` and returns `None` for an empty list. |
 | `variance`, `std_deviation`, `power`, `scale`, `transpose` | — | No counterpart. |
 | `is_empty` | [isEmpty](/reference/verify/isEmpty) |  |
-| `is_equal` | [isEqualDeep](/reference/verify/isEqualDeep) | **Different.** pydash compares with Python's `==`. qsu treats a list and a tuple with the same items as equal, never treats `True` as `1`, and counts `NaN` as equal to itself. [isEqual](/reference/verify/isEqual) is not the replacement: a list passed as its second argument is read as the values to compare against. |
-| `is_dict` | [isObject](/reference/verify/isObject) |  |
+| `is_equal` | [isEqualDeep](/reference/verify/isEqualDeep) | **Different.** pydash compares with Python's `==`. qsu treats a list and a tuple with the same items as equal, never treats `True` as `1`, and counts `NaN` as equal to itself. [isEqualLoose](/reference/verify/isEqualLoose) is not the replacement: a list passed as its second argument is read as the values to compare against. |
+| `is_dict` | [isPlainObject](/reference/verify/isPlainObject) |  |
 | `debounce`, `throttle` | [debounce](/reference/misc/debounce), [throttle](/reference/misc/throttle) |  |
-| `times` | [funcTimes](/reference/misc/funcTimes) |  |
+| `times` | [times](/reference/misc/times) |  |
 | `retry` | [retry](/reference/misc/retry) | **Different.** pydash's is a decorator factory; qsu's takes the function and runs it. |
 | `delay` | — | [sleep](/reference/misc/sleep) waits; it does not schedule a call. |
 | `memoize`, `curry`, `once`, `partial`, `flow`, `iteratee` | — | No counterpart. |
@@ -126,8 +125,8 @@ Options arrive as keyword arguments, or as a single `dict` in their place.
 - Formatting for people: [fileSizeFormat](/reference/format/fileSizeFormat), [duration](/reference/format/duration), and the `Parts` variants that hand back the number and the unit separately.
 - Validation: [isEmail](/reference/verify/isEmail), [isUrl](/reference/verify/isUrl), [isValidDate](/reference/date/isValidDate), [hasBadWords](/reference/verify/hasBadWords).
 - Hashing and encryption: [sha256Hash](/reference/crypto/sha256Hash), [md5Hash](/reference/crypto/md5Hash), [encrypt](/reference/crypto/encrypt), [objectId](/reference/crypto/objectId).
-- Files and the machine: the [file](/reference/file/getFileInfo) and [os](/reference/os/getCpu) categories.
-- The web: [isMobileDeviceFromUA](/reference/web/isMobileDeviceFromUA), [isBot](/reference/web/isBot), [isMatchPathname](/reference/web/isMatchPathname), [parseAddress](/reference/net/parseAddress), [urlJoin](/reference/string/urlJoin).
+- Files and the machine: the [file](/reference/file/getFileInfo) and [os](/reference/os/getCpuModel) categories.
+- The web: [isMobileDeviceFromUa](/reference/web/isMobileDeviceFromUa), [isBot](/reference/web/isBot), [isPathnameMatch](/reference/web/isPathnameMatch), [parseAddress](/reference/net/parseAddress), [joinUrl](/reference/string/joinUrl).
 - The same functions in JavaScript and Dart.
 
 ## A worked example
@@ -146,10 +145,10 @@ label = f'{_.round_(size / 1024 / 1024, 1)} MB'
 After:
 
 ```python
-from qsu import getSlug, arrGroupByMaxCount, arrUnique, objMerge, fileSizeFormat
+from qsu import getSlug, arrChunk, arrUnique, objMerge, fileSizeFormat
 
 slug = getSlug(title)
-pages = arrGroupByMaxCount(arrUnique(ids), 20)
+pages = arrChunk(arrUnique(ids), 20)
 config = objMerge(defaults, overrides)
 label = fileSizeFormat(size, 1)
 ```

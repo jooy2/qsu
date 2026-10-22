@@ -4,7 +4,7 @@
 
 키는 항상 문자열입니다. 숫자는 JavaScript가 쓰는 방식대로 바뀌므로 `1.0`은 `'1'`이 되고, `true`, `false`, `null`은 `'true'`, `'false'`, `'null'`이 됩니다. 그룹은 키가 처음 나온 순서대로 놓입니다.
 
-정해진 크기로 나누려면 [arrGroupByMaxCount](./arrGroupByMaxCount)를, 값마다 몇 번 나오는지 세려면 [arrCount](./arrCount)를 사용하세요.
+정해진 크기로 나누려면 [arrChunk](./arrChunk)를, 값마다 몇 번 나오는지 세려면 [arrCount](./arrCount)를 사용하세요.
 
 ::: lang js
 

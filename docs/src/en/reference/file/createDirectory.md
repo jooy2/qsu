@@ -9,7 +9,7 @@ If a **file** already sits at the path, the error is reported rather than swallo
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'filePath', type: 'string', required: true, desc: 'File or directory path' },
+	{ name: 'directoryPath', type: 'string', required: true, desc: 'File or directory path' },
 	{ name: 'recursive', type: 'boolean', named: true, default: 'true', desc: 'Recursively creates all directories in the given path.' }
 ]" />
 

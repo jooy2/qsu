@@ -14,7 +14,7 @@
 
 공백을 사이에 두고 나뉜 금지어는 단어의 시작 위치에서 시작할 때만 검출합니다. 금지어가 `admin`일 때 `ad min`은 검출되지만 `read min`은 검출되지 않습니다. 한국어에서 관련 없는 단어끼리 엮이는 경우를 걸러내는 것도 이 규칙입니다. 금지어가 `사과`일 때 `이거사 과일이야`는 앞 단어의 중간에서 일치가 시작되므로 검출되지 않습니다.
 
-더 긴 단어 안에 들어있어도 검출하기 때문에, 문제 없는 단어가 걸리는 경우가 생깁니다. (금지어 `apple`이 `pineapple` 안에서 검출됩니다) 이런 단어는 `allowWords`에 넘기면 예외 처리됩니다. 허용 단어도 똑같은 방식으로 읽기 때문에, 주변이 변형된 `p1n34ppl3`도 `pineapple` 하나로 예외 처리됩니다.
+더 긴 단어 안에 들어있어도 검출하기 때문에, 문제 없는 단어가 걸리는 경우가 생깁니다. (금지어 `apple`이 `pineapple` 안에서 검출됩니다) 이런 단어는 `allowedWords`에 넘기면 예외 처리됩니다. 허용 단어도 똑같은 방식으로 읽기 때문에, 주변이 변형된 `p1n34ppl3`도 `pineapple` 하나로 예외 처리됩니다.
 
 숨기는 방법은 끝이 없기 때문에 이 함수는 완벽한 차단이 아닌 최선의 검사임을 감안해야 합니다.
 
@@ -22,8 +22,8 @@
 
 <ParamsTable :rows="[
 	{ name: 'str', type: 'string', required: true, desc: '검사할 텍스트입니다.' },
-	{ name: 'words', type: 'string[]', named: true, default: '[]', desc: '찾을 금지어 목록입니다. 비어 있는 값은 무시하며, 공백이 포함된 금지어(`bad word`)는 하나의 단어로 취급합니다.' },
-	{ name: 'allowWords', type: 'string[]', named: true, default: '[]', desc: '금지어를 포함하고 있더라도 검출하지 않을 단어 목록입니다. (금지어가 `apple`일 때의 `pineapple`)' }
+	{ name: 'badWords', type: 'string[]', named: true, default: '[]', desc: '찾을 금지어 목록입니다. 비어 있는 값은 무시하며, 공백이 포함된 금지어(`bad word`)는 하나의 단어로 취급합니다.' },
+	{ name: 'allowedWords', type: 'string[]', named: true, default: '[]', desc: '금지어를 포함하고 있더라도 검출하지 않을 단어 목록입니다. (금지어가 `apple`일 때의 `pineapple`)' }
 ]" />
 
 ## Returns
@@ -64,24 +64,24 @@ hasBadWords('apple and pineapple', words, ['pineapple']); // Returns true
 ```dart
 const words = ['admin', 'apple'];
 
-hasBadWords('hello world', words: words); // Returns false
-hasBadWords('I AM ADMIN', words: words); // Returns true
-hasBadWords('pineapple juice', words: words); // Returns true
-hasBadWords('ad___min', words: words); // Returns true
-hasBadWords('ad1min', words: words); // Returns true
-hasBadWords('ad\$min', words: words); // Returns true
-hasBadWords('a d m i n', words: words); // Returns true
-hasBadWords('@dm1n', words: words); // Returns true
-hasBadWords('4pp13', words: words); // Returns true
-hasBadWords('read min please', words: words); // Returns false
+hasBadWords('hello world', badWords: words); // Returns false
+hasBadWords('I AM ADMIN', badWords: words); // Returns true
+hasBadWords('pineapple juice', badWords: words); // Returns true
+hasBadWords('ad___min', badWords: words); // Returns true
+hasBadWords('ad1min', badWords: words); // Returns true
+hasBadWords('ad\$min', badWords: words); // Returns true
+hasBadWords('a d m i n', badWords: words); // Returns true
+hasBadWords('@dm1n', badWords: words); // Returns true
+hasBadWords('4pp13', badWords: words); // Returns true
+hasBadWords('read min please', badWords: words); // Returns false
 
-hasBadWords('맛있는 사과!', words: ['사과']); // Returns true
-hasBadWords('ㅅㅏㄱㅗㅏ', words: ['사과']); // Returns true
-hasBadWords('사1과', words: ['사과']); // Returns true
-hasBadWords('이거사 과일이야', words: ['사과']); // Returns false
+hasBadWords('맛있는 사과!', badWords: ['사과']); // Returns true
+hasBadWords('ㅅㅏㄱㅗㅏ', badWords: ['사과']); // Returns true
+hasBadWords('사1과', badWords: ['사과']); // Returns true
+hasBadWords('이거사 과일이야', badWords: ['사과']); // Returns false
 
-hasBadWords('pineapple juice', words: words, allowWords: ['pineapple']); // Returns false
-hasBadWords('apple and pineapple', words: words, allowWords: ['pineapple']); // Returns true
+hasBadWords('pineapple juice', badWords: words, allowedWords: ['pineapple']); // Returns false
+hasBadWords('apple and pineapple', badWords: words, allowedWords: ['pineapple']); // Returns true
 ```
 
 :::
@@ -102,13 +102,13 @@ hasBadWords('@dm1n', words)  # Returns True
 hasBadWords('4pp13', words)  # Returns True
 hasBadWords('read min please', words)  # Returns False
 
-hasBadWords('맛있는 사과!', words=['사과'])  # Returns True
-hasBadWords('ㅅㅏㄱㅗㅏ', words=['사과'])  # Returns True
-hasBadWords('사1과', words=['사과'])  # Returns True
-hasBadWords('이거사 과일이야', words=['사과'])  # Returns False
+hasBadWords('맛있는 사과!', badWords=['사과'])  # Returns True
+hasBadWords('ㅅㅏㄱㅗㅏ', badWords=['사과'])  # Returns True
+hasBadWords('사1과', badWords=['사과'])  # Returns True
+hasBadWords('이거사 과일이야', badWords=['사과'])  # Returns False
 
-hasBadWords('pineapple juice', words, allowWords=['pineapple'])  # Returns False
-hasBadWords('apple and pineapple', words, allowWords=['pineapple'])  # Returns True
+hasBadWords('pineapple juice', words, allowedWords=['pineapple'])  # Returns False
+hasBadWords('apple and pineapple', words, allowedWords=['pineapple'])  # Returns True
 ```
 
 :::

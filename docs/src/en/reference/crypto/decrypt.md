@@ -2,9 +2,9 @@
 
 <NodeRequired en />
 
-Decrypt with the specified algorithm (default: `aes-256-cbc`) using a string and a secret (secret).
+Decrypt with the specified algorithm (default: `aes-256-cbc`) using a string and a key (`key`).
 
-`str` must be a string produced by `encrypt`: `iv:encrypted`, or `iv:authTag:encrypted` for AEAD algorithms (`gcm`, `ccm`, `ocb`, `poly1305`). The `algorithm` and `toBase64` values must match the ones used to encrypt. An input in any other shape throws.
+`str` must be a string produced by `encrypt`: `iv:encrypted`, or `iv:authTag:encrypted` for AEAD algorithms (`gcm`, `ccm`, `ocb`, `poly1305`). The `algorithm` must match the one used to encrypt, and `fromBase64` must match the `toBase64` used there. An input in any other shape throws.
 
 Decryption also throws when the key is wrong or the ciphertext has been altered, so wrap the call in `try`/`catch` when the input is not under your control.
 
@@ -12,9 +12,9 @@ Decryption also throws when the key is wrong or the ciphertext has been altered,
 
 <ParamsTable :rows="[
 	{ name: 'str', type: 'string', required: true, desc: 'The string returned by `encrypt`. An empty string returns an empty string.' },
-	{ name: 'secret', type: 'string', required: true, desc: 'The same key that was used to encrypt.' },
+	{ name: 'key', type: 'string', required: true, desc: 'The same key that was used to encrypt.' },
 	{ name: 'algorithm', type: 'string', default: `'aes-256-cbc'` },
-	{ name: 'toBase64', type: 'boolean', default: 'false' }
+	{ name: 'fromBase64', type: 'boolean', default: 'false' }
 ]" />
 
 ## Returns
@@ -26,10 +26,10 @@ Decryption also throws when the key is wrong or the ciphertext has been altered,
 ::: lang js
 
 ```javascript
-const secret = '12345678901234567890123456789012'; // 32 bytes
+const key = '12345678901234567890123456789012'; // 32 bytes
 
-decrypt('61ba43b65fc...', secret);
-decrypt(encrypt('test', secret, 'aes-256-gcm', 12), secret, 'aes-256-gcm'); // 'test'
+decrypt('61ba43b65fc...', key);
+decrypt(encrypt('test', key, 'aes-256-gcm', 12), key, 'aes-256-gcm'); // 'test'
 ```
 
 :::
@@ -37,10 +37,10 @@ decrypt(encrypt('test', secret, 'aes-256-gcm', 12), secret, 'aes-256-gcm'); // '
 ::: lang dart
 
 ```dart
-const String secret = '12345678901234567890123456789012'; // 32 bytes
+const String key = '12345678901234567890123456789012'; // 32 bytes
 
-decrypt('61ba43b65fc...', secret);
-decrypt(encrypt('test', secret, algorithm: 'aes-256-gcm', ivSize: 12), secret,
+decrypt('61ba43b65fc...', key);
+decrypt(encrypt('test', key, algorithm: 'aes-256-gcm', ivSize: 12), key,
     algorithm: 'aes-256-gcm'); // 'test'
 ```
 
@@ -49,9 +49,9 @@ decrypt(encrypt('test', secret, algorithm: 'aes-256-gcm', ivSize: 12), secret,
 ::: lang python
 
 ```python
-secret = '12345678901234567890123456789012'  # 32 bytes
+key = '12345678901234567890123456789012'  # 32 bytes
 
-decrypt('61ba43b65fc...', secret)
+decrypt('61ba43b65fc...', key)
 ```
 
 :::

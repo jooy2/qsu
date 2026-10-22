@@ -1,0 +1,42 @@
+# strMaskRandom
+
+임의의 위치에 있는 문자열을 지정된 문자 수(기본값 1)로 대체합니다(기본값 \*).
+
+## Parameters
+
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'maskCount', type: 'number', required: true },
+	{ name: 'maskChar', type: 'string', default: `'*'` }
+]" />
+
+## Returns
+
+<ReturnType type="string" />
+
+## Examples
+
+::: lang js
+
+```javascript
+strMaskRandom('hello', 2, '#'); // e.g. '#el#o'
+```
+
+:::
+
+::: lang dart
+
+```dart
+strMaskRandom('hello', 2, maskChar: '#'); // e.g. '#el#o'
+```
+
+:::
+
+::: lang python
+
+```python
+strMaskRandom('hello', 2, '#')  # e.g. 'he##o'
+strMaskRandom('hello', 2)  # e.g. '*ell*'
+```
+
+:::

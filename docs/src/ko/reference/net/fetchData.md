@@ -20,10 +20,10 @@ This function needs a platform with networking of its own, so it works on Window
 
 <ParamsTable :rows="[
 	{ name: 'url', type: 'string', required: true },
-	{ name: 'httpRequestOptions', type: 'HTTPRequestOption', desc: '요청 옵션입니다. 아래 표를 참고하세요.' }
+	{ name: 'httpRequestOptions', type: 'HttpRequestOptions', desc: '요청 옵션입니다. 아래 표를 참고하세요.' }
 ]" />
 
-<ParamsTable name="HTTPRequestOption" :rows="[
+<ParamsTable name="HttpRequestOptions" :rows="[
 	{ name: 'auth', type: 'object', desc: '인증 정보입니다. 아래 표를 참고하세요.' },
 	{ name: 'get', type: 'boolean', desc: `Same as \`method: 'get'\`` },
 	{ name: 'post', type: 'boolean', desc: `Same as \`method: 'post'\`` },

@@ -18,12 +18,12 @@ qsu needs Python 3.8 or later. boltons puts each group in its own module; qsu ex
 from qsu import getSlug, fileSizeFormat, arrUnique
 ```
 
-`sum`, `max`, `min` and `round` are real function names in qsu, so importing them by name shadows the builtins. Import the module instead when that matters:
+`len` is a real function name in qsu, so importing it by name shadows the builtin. Import the module instead when that matters:
 
 ```python
 import qsu
 
-qsu.round(2.675, 2)
+qsu.len([1, 2, 3])
 ```
 
 Options arrive as keyword arguments, or as a single `dict` in their place. Unlike boltons, qsu returns finished lists rather than generators, so there is no `_iter` variant of anything.
@@ -37,27 +37,27 @@ Options arrive as keyword arguments, or as a single `dict` in their place. Unlik
 | `slugify` | [getSlug](/reference/web/getSlug) | **Different.** boltons joins with `_` by default and qsu with `-`. qsu keeps non-Latin letters, can percent-encode special characters and can build a full URL from a `baseUrl`. |
 | `bytes2human` | [fileSizeFormat](/reference/format/fileSizeFormat) | **Different.** boltons writes `126K`; qsu writes `125.97 KB` and can be switched to the IEC or SI units and to whole words. |
 | `asciify` | [deburr](/reference/string/deburr) | **Different.** `asciify` returns bytes and drops what it cannot transliterate; `deburr` returns a string and only unaccents Latin letters. |
-| `ellipsize` | [truncate](/reference/string/truncate) | **Different.** `ellipsize` cuts at a word boundary and appends `…` by default. qsu cuts at the length and appends nothing unless you ask. [truncateExpect](/reference/string/truncateExpect) cuts at the end of a sentence instead. |
-| `is_ascii` | — | [strToAscii](/reference/string/strToAscii) converts; it does not test. |
+| `ellipsize` | [truncate](/reference/string/truncate) | **Different.** `ellipsize` cuts at a word boundary and appends `…` by default. qsu cuts at the length and appends nothing unless you ask. [truncateSentence](/reference/string/truncateSentence) cuts at the end of a sentence instead. |
+| `is_ascii` | — | [strToCharCodes](/reference/string/strToCharCodes) converts; it does not test. |
 | `html2text` | — | [unescapeHtml](/reference/web/unescapeHtml) turns entities back into characters but leaves tags alone. |
 | `indent`, `strip_ansi`, `ordinalize`, `pluralize`, `singularize`, `cardinalize`, `a10n`, `find_hashtags`, `multi_replace`, `unwrap_text`, `parse_int_list`, `format_int_list`, `args2cmd`, `gzip_bytes` | — | No counterpart. |
-| — | The five case conversions, [pad](/reference/string/pad), [trim](/reference/string/trim), [words](/reference/string/words), [strCount](/reference/string/strCount), [strRandom](/reference/string/strRandom), [removeSpecialChar](/reference/string/removeSpecialChar), [replaceBetween](/reference/string/replaceBetween), [escapeRegExp](/reference/string/escapeRegExp), [getStrBytes](/reference/string/getStrBytes) | No boltons counterpart. |
+| — | The five case conversions, [pad](/reference/string/pad), [collapseWhitespace](/reference/string/collapseWhitespace), [words](/reference/string/words), [strCount](/reference/string/strCount), [strRandom](/reference/string/strRandom), [removeSpecialChars](/reference/string/removeSpecialChars), [replaceEnclosed](/reference/string/replaceEnclosed), [escapeRegExp](/reference/string/escapeRegExp), [strByteLength](/reference/string/strByteLength) | No boltons counterpart. |
 
 ## iterutils
 
 | boltons | qsu | Notes |
 | --- | --- | --- |
-| `chunked` | [arrGroupByMaxCount](/reference/array/arrGroupByMaxCount) | **Different.** qsu does not pad the last group. |
+| `chunked` | [arrChunk](/reference/array/arrChunk) | **Different.** qsu does not pad the last group. |
 | `unique` | [arrUnique](/reference/array/arrUnique) | **Different.** qsu takes no `key` function. |
-| `flatten` | [arrTo1dArray](/reference/array/arrTo1dArray) | Both go all the way down. |
+| `flatten` | [arrFlatten](/reference/array/arrFlatten) | Both go all the way down. |
 | `get_path` | [objGet](/reference/object/objGet) | **Different.** boltons takes a tuple of steps; qsu takes one string in dot or bracket notation, and returns a `fallback` rather than raising. |
 | `redundant` | [arrCount](/reference/array/arrCount) | **Different.** qsu returns a count for every value, not only the repeated ones, and the values must be strings or numbers. |
-| `same` | [isEqual](/reference/verify/isEqual) | **Different.** `isEqual(first, rest)` compares one value against the others. |
+| `same` | [isEqualLoose](/reference/verify/isEqualLoose) | **Different.** `isEqualLoose(first, rest)` compares one value against the others. |
 | `backoff` | [retry](/reference/misc/retry) | **Different.** boltons hands you the delays; qsu's `retry` runs the function and waits between attempts itself. |
-| `remap`, `research` | — | [objFindItemRecursiveByKey](/reference/object/objFindItemRecursiveByKey) and [objUpdate](/reference/object/objUpdate) with `recursive` cover a corner of this, and nothing covers `remap` in general. Keep boltons. |
+| `remap`, `research` | — | [objFindInTree](/reference/object/objFindInTree) and [objUpdate](/reference/object/objUpdate) with `recursive` cover a corner of this, and nothing covers `remap` in general. Keep boltons. |
 | `bucketize` | [arrGroupBy](/reference/array/arrGroupBy) | **Different.** boltons keeps each key as the function returns it; qsu turns every key into a string. The key function is required, where boltons defaults to `bool`. |
 | `partition`, `windowed`, `pairwise`, `first`, `one`, `split`, `strip`, `soft_sorted`, `frange`, `is_iterable`, `is_scalar`, `is_collection` | — | No counterpart. |
-| — | [arrDifference](/reference/array/arrDifference), [arrIntersection](/reference/array/arrIntersection), [arrCompact](/reference/array/arrCompact), [arrShuffle](/reference/array/arrShuffle), [arrPick](/reference/array/arrPick), [arrMove](/reference/array/arrMove), [sortByObjectKey](/reference/array/sortByObjectKey), [sortNumeric](/reference/array/sortNumeric) | No boltons counterpart. |
+| — | [arrDifference](/reference/array/arrDifference), [arrIntersection](/reference/array/arrIntersection), [arrCompact](/reference/array/arrCompact), [arrShuffle](/reference/array/arrShuffle), [arrRandom](/reference/array/arrRandom), [arrMove](/reference/array/arrMove), [sortByObjectKey](/reference/array/sortByObjectKey), [sortNatural](/reference/array/sortNatural) | No boltons counterpart. |
 
 ## fileutils, mathutils and timeutils
 
@@ -76,11 +76,11 @@ Options arrive as keyword arguments, or as a single `dict` in their place. Unlik
 
 ## What qsu adds
 
-- Objects: [objClone](/reference/object/objClone), [objMerge](/reference/object/objMerge), [objPick](/reference/object/objPick), [objTo1d](/reference/object/objTo1d), [objToQueryString](/reference/object/objToQueryString), [objInvert](/reference/object/objInvert).
+- Objects: [objClone](/reference/object/objClone), [objMerge](/reference/object/objMerge), [objPick](/reference/object/objPick), [objFlatten](/reference/object/objFlatten), [objToQueryString](/reference/object/objToQueryString), [objInvert](/reference/object/objInvert).
 - Validation: [isEmail](/reference/verify/isEmail), [isUrl](/reference/verify/isUrl), [isValidDate](/reference/date/isValidDate), [between](/reference/verify/between), [hasBadWords](/reference/verify/hasBadWords).
 - Hashing and encryption: [sha256Hash](/reference/crypto/sha256Hash), [md5Hash](/reference/crypto/md5Hash), [encrypt](/reference/crypto/encrypt), [encodeBase64](/reference/crypto/encodeBase64), [objectId](/reference/crypto/objectId).
-- The machine: the whole [os](/reference/os/getCpu) category, from [getCpu](/reference/os/getCpu) to [getFreeDiskSize](/reference/os/getFreeDiskSize).
-- The web: [isMobileDeviceFromUA](/reference/web/isMobileDeviceFromUA), [isBot](/reference/web/isBot), [escapeHtml](/reference/web/escapeHtml), [isMatchPathname](/reference/web/isMatchPathname).
+- The machine: the whole [os](/reference/os/getCpuModel) category, from [getCpuModel](/reference/os/getCpuModel) to [getFreeDiskSize](/reference/os/getFreeDiskSize).
+- The web: [isMobileDeviceFromUa](/reference/web/isMobileDeviceFromUa), [isBot](/reference/web/isBot), [escapeHtml](/reference/web/escapeHtml), [isPathnameMatch](/reference/web/isPathnameMatch).
 - Timing: [debounce](/reference/misc/debounce), [throttle](/reference/misc/throttle), [sleep](/reference/misc/sleep).
 - The same functions in JavaScript and Dart.
 
@@ -100,11 +100,11 @@ pages = chunked(unique(ids), 20)
 After:
 
 ```python
-from qsu import getSlug, fileSizeFormat, arrGroupByMaxCount, arrUnique
+from qsu import getSlug, fileSizeFormat, arrChunk, arrUnique
 
 slug = getSlug(title)
 label = fileSizeFormat(size, 2)
-pages = arrGroupByMaxCount(arrUnique(ids), 20)
+pages = arrChunk(arrUnique(ids), 20)
 ```
 
 The two labels are not the same string. `bytes2human(128991, 2)` gives `125.97K` and `fileSizeFormat(128991, 2)` gives `125.97 KB`, so anything that parses the output has to be looked at.

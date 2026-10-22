@@ -18,7 +18,7 @@ The unit names are English and the plural is an `s`, which is a rule only Englis
 	{ name: 'useSpace', type: 'boolean', default: 'true', desc: 'Put a space between the value and its unit (e.g. `1Days` → `1 Days`).' },
 	{ name: 'withZeroValue', type: 'boolean', default: 'false', desc: 'Include zero-valued units below the largest unit (e.g. `1 Day 0 Hours 0 Minutes 0 Seconds`).' },
 	{ name: 'separator', type: 'string', default: `' '`, desc: 'String placed between units (e.g. `-` gives `1 Hour-10 Minutes`).' },
-	{ name: 'withMilliSeconds', type: 'boolean', default: 'false', desc: 'Include the millisecond unit. When `false`, values below one second are omitted.' },
+	{ name: 'withMilliseconds', type: 'boolean', default: 'false', desc: 'Include the millisecond unit. When `false`, values below one second are omitted.' },
 	{ name: 'maxUnitCount', type: 'number', desc: 'Maximum number of units to display, counted from the largest. Omit for unlimited.' },
 	{ name: 'unit', type: 'string', desc: 'Express the whole duration with a single unit, allowing fractions (e.g. `Hour` → `48 Hours`, `0.5 Hours`). One of `Year`, `Month`, `Day`, `Hour`, `Minute`, `Second`, `Millisecond`.' }
 ]" />
@@ -34,7 +34,7 @@ The unit names are English and the plural is an `s`, which is a rule only Englis
 ```javascript
 duration(1234567890); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds'
 duration(1234567890, {
-	withMilliSeconds: true
+	withMilliseconds: true
 }); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 duration(34560000000); // Returns '1 Year 1 Month 5 Days'
 duration(34560000000, {
@@ -57,7 +57,7 @@ duration(604800000, {
 
 ```dart
 duration(1234567890); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds'
-duration(1234567890, withMilliSeconds: true); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
+duration(1234567890, withMilliseconds: true); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 duration(34560000000); // Returns '1 Year 1 Month 5 Days'
 duration(34560000000, maxUnitCount: 2); // Returns '1 Year 1 Month'
 duration(172800000, unit: 'Hour'); // Returns '48 Hours'
@@ -72,7 +72,7 @@ duration(604800000, useSpace: false); // Returns '7Days'
 ```python
 duration(1234567890)  # Returns '14 Days 6 Hours 56 Minutes 7 Seconds'
 duration(1234567890, {
-	'withMilliSeconds': True
+	'withMilliseconds': True
 })  # Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 duration(34560000000)  # Returns '1 Year 1 Month 5 Days'
 duration(34560000000, {

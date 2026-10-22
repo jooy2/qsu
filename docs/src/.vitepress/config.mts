@@ -34,7 +34,7 @@ function markdownFiles(directory: string): string[] {
 	});
 }
 
-/** The locale-free route of a source file, such as `/reference/os/getCpu`. */
+/** The locale-free route of a source file, such as `/reference/os/getCpuModel`. */
 function pageOf(locale: string, path: string): string {
 	return `/${relative(join(srcDir, locale), path).replace(/\.md$/, '').split(sep).join('/')}`;
 }

@@ -8,7 +8,7 @@ The value is shifted through its shortest string representation rather than mult
 
 `NaN` and the infinities are returned as they are.
 
-This is the "always up" companion of [round](./round); [floor](./floor) is the "always down" one. All three take the same arguments.
+This is the "always up" companion of [numRound](./numRound); [floor](./floor) is the "always down" one. All three take the same arguments.
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 
 <ParamsTable :rows="[
 	{ name: 'str', type: 'string', required: true },
-	{ name: 'splitter', type: { js: 'string | string[] | ...string', dart: 'List<String>' }, required: true }
+	{ name: 'separators', type: { js: 'string | string[] | ...string', dart: 'List<String>' }, required: true }
 ]" />
 
 ## Returns

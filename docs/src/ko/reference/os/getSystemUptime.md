@@ -4,7 +4,7 @@
 
 기기가 마지막으로 부팅된 뒤 실행된 시간을 초로 돌려줍니다.
 
-프로세스 쪽을 세는 것은 [getUptime](/ko/reference/os/getUptime)이며, 옵션 두 개는 같습니다. `floor`는 소수점을 버리고 `format`은 천 단위로 자릿수를 끊습니다.
+프로세스 쪽을 세는 것은 [getProcessUptime](/ko/reference/os/getProcessUptime)이며, 옵션 두 개는 같습니다. `floor`는 소수점을 버리고 `format`은 천 단위로 자릿수를 끊습니다.
 
 ## Platform support
 
@@ -19,10 +19,10 @@
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'opt', type: 'GetUptimeOption', named: true }
+	{ name: 'options', type: 'UptimeOptions', named: true }
 ]" />
 
-<ParamsTable name="GetUptimeOption" :rows="[
+<ParamsTable name="UptimeOptions" :rows="[
 	{ name: 'format', type: 'boolean', default: 'false', desc: '천 단위로 자릿수를 끊어 텍스트로 돌려줍니다.' },
 	{ name: 'floor', type: 'boolean', default: 'false', desc: '소수점을 버리고 정수 초로 돌려줍니다.' }
 ]" />

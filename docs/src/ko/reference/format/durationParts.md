@@ -13,7 +13,7 @@
 
 <ParamsTable name="DurationPartsOptions" :rows="[
 	{ name: 'withZeroValue', type: 'boolean', default: 'false', desc: '가장 큰 단위 아래로 값이 0인 단위도 포함합니다.' },
-	{ name: 'withMilliSeconds', type: 'boolean', default: 'false', desc: '밀리초 단위를 포함합니다.' },
+	{ name: 'withMilliseconds', type: 'boolean', default: 'false', desc: '밀리초 단위를 포함합니다.' },
 	{ name: 'maxUnitCount', type: 'number', desc: '큰 단위부터 세어 돌려줄 단위의 최대 개수입니다.' },
 	{ name: 'unit', type: 'DurationUnitName', desc: '전체 시간을 이 단위 하나로 나타냅니다. 이때 `value`는 소수가 될 수 있습니다.' }
 ]" />

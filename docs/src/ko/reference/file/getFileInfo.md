@@ -52,7 +52,9 @@ Examples of returned values:
 	name: 'test.txt',
 	dirname: 'user',
 	path: '/home/user/test.txt',
-	created: 1652581984, // Unix timestamp
+	changed: 1652581984, // Unix timestamp
 	modified: 1652581984 // Unix timestamp
 }
 ```
+
+Linux와 macOS에서 `changed`는 파일을 만든 시각이 아니라 파일의 메타데이터가 마지막으로 바뀐 시각(`ctime`)입니다.

@@ -20,7 +20,7 @@
 ]" />
 
 <ParamsTable name="ParseAddressOptions" :rows="[
-	{ name: 'decode', type: 'boolean', default: 'true', desc: '`user`, `pass`, 그리고 `params`의 값에 들어 있는 `%XX` 이스케이프를 원래 문자로 되돌립니다. 이스케이프가 아닌 `%`가 섞여 있거나 올바른 UTF-8이 되지 않는 이스케이프가 있으면, 절반만 디코딩하지 않고 쓰인 그대로 돌려줍니다.' }
+	{ name: 'decode', type: 'boolean', default: 'true', desc: '`username`, `password`, 그리고 `params`의 값에 들어 있는 `%XX` 이스케이프를 원래 문자로 되돌립니다. 이스케이프가 아닌 `%`가 섞여 있거나 올바른 UTF-8이 되지 않는 이스케이프가 있으면, 절반만 디코딩하지 않고 쓰인 그대로 돌려줍니다.' }
 ]" />
 
 ## Returns
@@ -34,14 +34,14 @@
 	{ name: 'hostname', type: 'string', desc: '대괄호를 뗀 호스트입니다. 접속 라이브러리에 넘기는 형태입니다.' },
 	{ name: 'port', type: 'number', desc: '주소에 적힌 포트입니다. 적혀 있지 않으면 프로토콜이 무엇이든 들어 있지 않습니다.' },
 	{ name: 'defaultPort', type: 'number', desc: '해당 프로토콜이 보통 쓰는 포트입니다. `port`가 있든 없든 채워지므로, `port`는 주소가 직접 말한 값 그대로 남습니다. 어떤 스킴에 값이 있는지는 아래 표에 있습니다.' },
-	{ name: 'user', type: 'string', desc: '사용자 정보에서 뽑은 사용자 이름입니다.' },
-	{ name: 'pass', type: 'string', desc: '사용자 정보에서 뽑은 비밀번호입니다.' },
+	{ name: 'username', type: 'string', desc: '사용자 정보에서 뽑은 사용자 이름입니다.' },
+	{ name: 'password', type: 'string', desc: '사용자 정보에서 뽑은 비밀번호입니다.' },
 	{ name: 'path', type: 'string', desc: '첫 `/`부터 쿼리나 프래그먼트 직전까지이며, 앞의 `/`를 포함합니다.' },
 	{ name: 'query', type: 'string', desc: '앞의 `?`를 뺀, 쓰인 그대로의 쿼리입니다.' },
 	{ name: 'params', type: { js: 'object', dart: 'Map<String, String>' }, desc: '쿼리를 키와 값의 쌍으로 읽은 것입니다. 같은 키가 여러 번 나오면 마지막 값이 남고, 키가 빈 쌍은 빠집니다.' },
 	{ name: 'hash', type: 'string', desc: '앞의 `#`을 뺀 프래그먼트입니다.' },
-	{ name: 'isIP', type: 'boolean', desc: '`hostname`이 이름이 아니라 IPv4 또는 IPv6 주소인지를 나타냅니다. 항상 들어 있습니다.' },
-	{ name: 'isIPv6', type: 'boolean', desc: '`hostname`이 IPv6 주소인지를 나타냅니다. 항상 들어 있습니다.' }
+	{ name: 'isIp', type: 'boolean', desc: '`hostname`이 이름이 아니라 IPv4 또는 IPv6 주소인지를 나타냅니다. 항상 들어 있습니다.' },
+	{ name: 'isIpv6', type: 'boolean', desc: '`hostname`이 IPv6 주소인지를 나타냅니다. 항상 들어 있습니다.' }
 ]" />
 
 ### Default ports
@@ -122,10 +122,10 @@ parseAddress('ssh://us%40er:p%40ss@host', decode=False)
 	host: 'host',
 	hostname: 'host',
 	port: 1234,
-	user: 'test',
-	pass: 'pass',
-	isIP: false,
-	isIPv6: false
+	username: 'test',
+	password: 'pass',
+	isIp: false,
+	isIpv6: false
 }
 
 // parseAddress('https://google.com/search?q=hello#top')
@@ -139,8 +139,8 @@ parseAddress('ssh://us%40er:p%40ss@host', decode=False)
 	query: 'q=hello',
 	params: { q: 'hello' },
 	hash: 'top',
-	isIP: false,
-	isIPv6: false
+	isIp: false,
+	isIpv6: false
 }
 
 // parseAddress('[fe80::f9e9:1d57:9f2d:fb87]:1234')
@@ -149,8 +149,8 @@ parseAddress('ssh://us%40er:p%40ss@host', decode=False)
 	host: '[fe80::f9e9:1d57:9f2d:fb87]',
 	hostname: 'fe80::f9e9:1d57:9f2d:fb87',
 	port: 1234,
-	isIP: true,
-	isIPv6: true
+	isIp: true,
+	isIpv6: true
 }
 
 // parseAddress('host:abc') -> 잘못된 포트
@@ -158,7 +158,7 @@ parseAddress('ssh://us%40er:p%40ss@host', decode=False)
 	error: true,
 	host: 'host',
 	hostname: 'host',
-	isIP: false,
-	isIPv6: false
+	isIp: false,
+	isIpv6: false
 }
 ```

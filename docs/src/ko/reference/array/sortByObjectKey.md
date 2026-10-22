@@ -2,7 +2,7 @@
 
 여러 개체가 포함된 배열의 특정 키 값을 기준으로 배열 값을 정렬합니다. 개체 내의 요소의 순서나 값에는 영향을 미치지 않습니다.
 
-`numerically` 옵션이 `true`인 경우, 문자열로 구성된 배열을 정렬할 때, 이름이 아니라 문자열에 포함된 숫자를 기준으로 먼저 정렬합니다. 이때의 순서는 [sortNumeric](/ko/reference/array/sortNumeric)에 적힌 것과 같습니다.
+`natural` 옵션이 `true`인 경우, 문자열로 구성된 배열을 정렬할 때, 이름이 아니라 문자열에 포함된 숫자를 기준으로 먼저 정렬합니다. 이때의 순서는 [sortNatural](/ko/reference/array/sortNatural)에 적힌 것과 같습니다.
 
 ## Parameters
 
@@ -10,7 +10,7 @@
 	{ name: 'array', type: 'any[]', required: true },
 	{ name: 'key', type: 'string', required: true },
 	{ name: 'descending', type: 'boolean', default: 'false' },
-	{ name: 'numerically', type: 'boolean', default: 'false' }
+	{ name: 'natural', type: 'boolean', default: 'false' }
 ]" />
 
 ## Returns
@@ -86,9 +86,9 @@ final List<Map<String, dynamic>> files = [
 
 sortByObjectKey(files, 'name');
 // Returns [{name: File-1}, {name: File-10}, {name: File-9}]
-sortByObjectKey(files, 'name', numerically: true);
+sortByObjectKey(files, 'name', natural: true);
 // Returns [{name: File-1}, {name: File-9}, {name: File-10}]
-sortByObjectKey(files, 'name', numerically: true, descending: true);
+sortByObjectKey(files, 'name', natural: true, descending: true);
 // Returns [{name: File-10}, {name: File-9}, {name: File-1}]
 ```
 

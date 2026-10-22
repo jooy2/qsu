@@ -8,7 +8,7 @@ A key that only one source carries is copied over as it is, so a nested object u
 
 `null` is returned when no argument is given, or when any argument is not an object.
 
-[objMergeNewKey](./objMergeNewKey) is the narrower relative: it only adds keys that are missing and never overwrites an existing value.
+[objMergeWithArrays](./objMergeWithArrays) is the narrower relative: it only adds keys that are missing and never overwrites an existing value.
 
 ## Parameters
 

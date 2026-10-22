@@ -86,7 +86,7 @@ Lodash와 Underscore도 데이터를 먼저 받고 새 값을 돌려주므로, �
 
 ::: lang dart
 
-quiver와 basic_utils는 서로 모양이 다릅니다. quiver는 최상위 함수를 내보내므로 `isBlank(s)`는 qsu의 `trim(s)`과 같은 방식으로 읽힙니다. basic_utils는 모두 정적 메서드를 가진 클래스로 묶어서 같은 호출이 `StringUtils.isNullOrEmpty(s)`가 됩니다. qsu는 여기서 quiver 쪽입니다. 함수는 최상위에 있고 한 곳에서 가져옵니다.
+quiver와 basic_utils는 서로 모양이 다릅니다. quiver는 최상위 함수를 내보내므로 `isBlank(s)`는 qsu의 `collapseWhitespace(s)`와 같은 방식으로 읽힙니다. basic_utils는 모두 정적 메서드를 가진 클래스로 묶어서 같은 호출이 `StringUtils.isNullOrEmpty(s)`가 됩니다. qsu는 여기서 quiver 쪽입니다. 함수는 최상위에 있고 한 곳에서 가져옵니다.
 
 이름은 일부러 Dart답지 않게 지었습니다. `toCamelCase`나 확장 메서드가 아니라 `strToCamelCase`인 이유는, Dart 패키지가 JavaScript·Python 패키지와 똑같이 읽혀야 하기 때문입니다.
 
@@ -104,7 +104,7 @@ qsu는 둘 다 하지 않습니다. Python에서도 이름은 `camelCase`이고 
 
 ::: lang js
 
-qsu는 ESM 전용이고 Node 20 이상이 필요합니다. 의존성이 없고 사이드 이펙트가 없다고 표시되어 있으며, 카테고리마다 서브패스가 있어서 `import { trim } from 'qsu/string'`은 그 카테고리만 가져옵니다. Node 런타임이 필요한 함수는 `qsu/node` 뒤에 있어서 브라우저용 절반은 브라우저용으로 남습니다. TypeScript 타입은 패키지에 함께 들어 있습니다.
+qsu는 ESM 전용이고 Node 20 이상이 필요합니다. 의존성이 없고 사이드 이펙트가 없다고 표시되어 있으며, 카테고리마다 서브패스가 있어서 `import { collapseWhitespace } from 'qsu/string'`은 그 카테고리만 가져옵니다. Node 런타임이 필요한 함수는 `qsu/node` 뒤에 있어서 브라우저용 절반은 브라우저용으로 남습니다. TypeScript 타입은 패키지에 함께 들어 있습니다.
 
 Lodash가 배포하는 진입점은 `exports` 맵이 없는 CommonJS 파일 하나입니다. ESM 빌드는 `lodash-es`라는 별도 패키지이고, 번들에서 트리셰이킹이 되는지는 그 패키지를 쓰는지에 달려 있습니다. Underscore는 조건부 exports로 두 빌드를 한 패키지에서 내보냅니다. 둘 다 타입 선언을 직접 배포하지 않아 DefinitelyTyped에서 가져옵니다.
 

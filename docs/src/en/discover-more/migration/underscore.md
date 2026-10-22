@@ -25,15 +25,15 @@ There is no `_.chain(…).value()`, no `_.iteratee` shorthand and no `_.template
 | Underscore | qsu | Notes |
 | --- | --- | --- |
 | `compact` | [arrCompact](/reference/array/arrCompact) | qsu rejects a fixed set of values rather than everything falsy. |
-| `chunk` | [arrGroupByMaxCount](/reference/array/arrGroupByMaxCount) |  |
+| `chunk` | [arrChunk](/reference/array/arrChunk) |  |
 | `difference` | [arrDifference](/reference/array/arrDifference) |  |
 | `intersection` | [arrIntersection](/reference/array/arrIntersection) |  |
 | `uniq` | [arrUnique](/reference/array/arrUnique) | **Different.** Objects and nested arrays with the same contents are duplicates in qsu; Underscore compares them by reference. |
-| `flatten` | [arrTo1dArray](/reference/array/arrTo1dArray) | Both go all the way down. qsu takes no depth argument. |
+| `flatten` | [arrFlatten](/reference/array/arrFlatten) | Both go all the way down. qsu takes no depth argument. |
 | `shuffle` | [arrShuffle](/reference/array/arrShuffle) |  |
-| `sample` | [arrPick](/reference/array/arrPick) | qsu returns one element and takes no count. |
+| `sample` | [arrRandom](/reference/array/arrRandom) | qsu returns one element and takes no count. |
 | `countBy` | [arrCount](/reference/array/arrCount) | **Different.** No iteratee, and the values must be strings or numbers. |
-| `range` | [arrWithNumber](/reference/array/arrWithNumber) | **Different.** qsu includes the end value, and its `step` option takes a positive whole number, so it cannot count down or step by fractions. |
+| `range` | [arrRange](/reference/array/arrRange) | **Different.** qsu includes the end value, and its `step` option takes a positive whole number, so it cannot count down or step by fractions. |
 | `sortBy` | [sortByObjectKey](/reference/array/sortByObjectKey) | For one key of an array of objects. An iteratee has no counterpart. |
 | `size` | [len](/reference/verify/len) | Works on any value; a missing one counts as `0`. |
 | `contains` | [contains](/reference/verify/contains) | **Different.** qsu takes a string as well as a list, and the second argument may be a list of candidates. |
@@ -52,13 +52,13 @@ There is no `_.chain(…).value()`, no `_.iteratee` shorthand and no `_.template
 | `defaults` | [objMerge](/reference/object/objMerge) | **Different.** The later object wins in `objMerge`, so `_.defaults(obj, fallback)` becomes `objMerge(fallback, obj)`. |
 | `invert` | [objInvert](/reference/object/objInvert) |  |
 | `pick` | [objPick](/reference/object/objPick), [objPickBy](/reference/object/objPickBy) | `objPick` takes keys, `objPickBy` takes a test. |
-| `pairs` | [objToArray](/reference/object/objToArray) |  |
+| `pairs` | [objToEntries](/reference/object/objToEntries) |  |
 | `get` | [objGet](/reference/object/objGet) | Dot and bracket paths both work. The default is passed as `{ fallback }`. |
 | `isEmpty` | [isEmpty](/reference/verify/isEmpty) |  |
-| `isEqual` | [isEqualDeep](/reference/verify/isEqualDeep) | **Different.** Arrays, plain objects and dates compare by content, as in Underscore. Other objects are compared with `===`. Do not reach for qsu's [isEqual](/reference/verify/isEqual): it compares objects by reference. |
+| `isEqual` | [isEqualDeep](/reference/verify/isEqualDeep) | **Different.** Arrays, plain objects and dates compare by content, as in Underscore. Other objects are compared with `===`. Do not reach for qsu's [isEqualLoose](/reference/verify/isEqualLoose): it compares objects by reference. |
 | `omit` | [objOmit](/reference/object/objOmit) | Underscore also takes a test function in place of the keys; for that, invert the test and use [objPickBy](/reference/object/objPickBy). |
 | `mapObject`, `findKey`, `keys`, `values`, `has` | — | No counterpart, or already in the language. |
-| — | [objTo1d](/reference/object/objTo1d), [objToQueryString](/reference/object/objToQueryString), [objUpdate](/reference/object/objUpdate), [objSet](/reference/object/objSet) | No Underscore counterpart. |
+| — | [objFlatten](/reference/object/objFlatten), [objToQueryString](/reference/object/objToQueryString), [objUpdate](/reference/object/objUpdate), [objSet](/reference/object/objSet) | No Underscore counterpart. |
 
 ## Utilities
 
@@ -66,10 +66,10 @@ There is no `_.chain(…).value()`, no `_.iteratee` shorthand and no `_.template
 | --- | --- | --- |
 | `escape` | [escapeHtml](/reference/web/escapeHtml) | **Different.** Underscore also escapes the backtick; qsu escapes the five characters that carry meaning in HTML. |
 | `unescape` | [unescapeHtml](/reference/web/unescapeHtml) |  |
-| `times` | [funcTimes](/reference/misc/funcTimes) |  |
-| `random` | [numPick](/reference/math/numPick) | Whole numbers, and both ends are included. |
-| `uniqueId` | [numUnique](/reference/math/numUnique) | **Different.** A number derived from the clock, with no prefix argument. |
-| `max`, `min` | [max](/reference/math/max), [min](/reference/math/min) | qsu takes numbers or one array of numbers, not an iteratee. |
+| `times` | [times](/reference/misc/times) |  |
+| `random` | [numRandom](/reference/math/numRandom) | Whole numbers, and both ends are included. |
+| `uniqueId` | [numUniqueId](/reference/math/numUniqueId) | **Different.** A number derived from the clock, with no prefix argument. |
+| `max`, `min` | [numMax](/reference/math/numMax), [numMin](/reference/math/numMin) | qsu takes numbers or one array of numbers, not an iteratee. |
 | `debounce` | [debounce](/reference/misc/debounce) |  |
 | `throttle` | [throttle](/reference/misc/throttle) |  |
 | `delay`, `defer`, `memoize`, `once`, `partial`, `compose`, `bind`, `identity`, `constant`, `noop`, `template`, `now` | — | No counterpart. |
@@ -78,9 +78,9 @@ There is no `_.chain(…).value()`, no `_.iteratee` shorthand and no `_.template
 
 Everything Underscore never set out to do, which is most of qsu:
 
-- Strings: case conversion ([strToCamelCase](/reference/string/strToCamelCase) and its four siblings), [deburr](/reference/string/deburr), [pad](/reference/string/pad), [truncate](/reference/string/truncate), [trim](/reference/string/trim), [words](/reference/string/words), [escapeRegExp](/reference/string/escapeRegExp).
+- Strings: case conversion ([strToCamelCase](/reference/string/strToCamelCase) and its four siblings), [deburr](/reference/string/deburr), [pad](/reference/string/pad), [truncate](/reference/string/truncate), [collapseWhitespace](/reference/string/collapseWhitespace), [words](/reference/string/words), [escapeRegExp](/reference/string/escapeRegExp).
 - Formatting for people: [fileSizeFormat](/reference/format/fileSizeFormat), [duration](/reference/format/duration), [numberFormat](/reference/format/numberFormat).
-- Web and validation: [getSlug](/reference/web/getSlug), [isEmail](/reference/verify/isEmail), [isUrl](/reference/verify/isUrl), [isMobileDeviceFromUA](/reference/web/isMobileDeviceFromUA), [parseAddress](/reference/net/parseAddress).
+- Web and validation: [getSlug](/reference/web/getSlug), [isEmail](/reference/verify/isEmail), [isUrl](/reference/verify/isUrl), [isMobileDeviceFromUa](/reference/web/isMobileDeviceFromUa), [parseAddress](/reference/net/parseAddress).
 - Hashing, files and machine information, from `qsu/node`.
 - The same functions in Dart and Python.
 
@@ -100,10 +100,10 @@ const safe = _.escape(comment);
 After:
 
 ```javascript
-import { arrUnique, arrCompact, arrGroupByMaxCount, objMerge, escapeHtml } from 'qsu';
+import { arrUnique, arrCompact, arrChunk, objMerge, escapeHtml } from 'qsu';
 
 const tags = arrUnique(arrCompact(input.split(',')));
-const pages = arrGroupByMaxCount(tags, 20);
+const pages = arrChunk(tags, 20);
 const settings = objMerge(fallback, given);
 const safe = escapeHtml(comment);
 ```

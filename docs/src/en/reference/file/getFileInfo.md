@@ -52,7 +52,9 @@ Examples of returned values:
 	name: 'test.txt',
 	dirname: 'user',
 	path: '/home/user/test.txt',
-	created: 1652581984, // Unix timestamp
+	changed: 1652581984, // Unix timestamp
 	modified: 1652581984 // Unix timestamp
 }
 ```
+
+On Linux and macOS, `changed` is the time the file's metadata last changed (`ctime`), not the time the file was created.

@@ -8,7 +8,7 @@ For example, if you have a `func` variable written as `const func = debounce(() 
 
 <ParamsTable :rows="[
 	{ name: 'func', type: 'function', required: true },
-	{ name: 'timeout', type: 'number', required: true }
+	{ name: 'wait', type: 'number', required: true }
 ]" />
 
 ## Returns

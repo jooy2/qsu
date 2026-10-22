@@ -127,12 +127,12 @@ function main() {
 Certain utility functions related to files, encryption, etc. are not available in the browser environment because they require **Node.js** modules. To use them, you can import them in the Node.js runtime environment (primarily on the server) as follows
 
 ```javascript
-import { createFile, md5Hash } from 'qsu/node';
+import { touchFile, md5Hash } from 'qsu/node';
 
 async function main() {
 	console.log(md5Hash('abc'));
 
-	await createFile('/home/user/Hello.txt');
+	await touchFile('/home/user/Hello.txt');
 }
 
 main();

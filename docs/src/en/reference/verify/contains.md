@@ -5,7 +5,7 @@ Returns `true` if the first string argument contains the second argument "string
 ## Parameters
 
 <ParamsTable :rows="[
-	{ name: 'str', type: 'any[] | string', required: true },
+	{ name: 'haystack', type: 'any[] | string', required: true },
 	{ name: 'search', type: 'any[] | string', required: true },
 	{ name: 'exact', type: 'boolean', default: 'false', named: true }
 ]" />

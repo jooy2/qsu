@@ -8,7 +8,7 @@
 
 인수가 하나도 없거나, 객체가 아닌 인수가 하나라도 있으면 `null`을 반환합니다.
 
-[objMergeNewKey](./objMergeNewKey)는 범위가 더 좁은 함수로, 없는 키만 추가하고 기존 값은 절대 덮어쓰지 않습니다.
+[objMergeWithArrays](./objMergeWithArrays)는 범위가 더 좁은 함수로, 없는 키만 추가하고 기존 값은 절대 덮어쓰지 않습니다.
 
 ## Parameters
 

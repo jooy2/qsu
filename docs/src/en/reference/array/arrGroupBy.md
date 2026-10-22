@@ -4,7 +4,7 @@ Groups the items of an array by the key the callback returns for each of them. T
 
 Keys are always strings. A number is written the way JavaScript writes it, so `1.0` becomes `'1'`, and `true`, `false` and `null` become `'true'`, `'false'` and `'null'`. Groups appear in the order their key was first seen.
 
-To split an array into groups of a fixed size instead, use [arrGroupByMaxCount](./arrGroupByMaxCount). To count how many times each value appears, use [arrCount](./arrCount).
+To split an array into groups of a fixed size instead, use [arrChunk](./arrChunk). To count how many times each value appears, use [arrCount](./arrCount).
 
 ::: lang js
 

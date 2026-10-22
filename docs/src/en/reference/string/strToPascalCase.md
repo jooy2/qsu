@@ -6,7 +6,7 @@ The string is split with [words](./words), so spaces, punctuation, `-` and `_` a
 
 Scripts without upper and lower case are passed through unchanged, so `한글English혼합` stays as it is.
 
-This is [strToCamelCase](./strToCamelCase) with the first word capitalized as well. It is not the same as [capitalizeEachWords](./capitalizeEachWords), which keeps the original separators and only touches the first letter of each word.
+This is [strToCamelCase](./strToCamelCase) with the first word capitalized as well. It is not the same as [capitalizeEachWord](./capitalizeEachWord), which keeps the original separators and only touches the first letter of each word.
 
 ## Parameters
 

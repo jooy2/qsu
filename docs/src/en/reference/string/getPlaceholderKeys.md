@@ -1,0 +1,63 @@
+# getPlaceholderKeys
+
+Returns a text key enclosed between the start and end characters in the given string. This can be useful for identifying template string keys in strings that follow i18n syntax.
+
+For example, in text like `abc {def} ghi`, `{def}` is a key used in template strings, and this function seeks to find 'def'.
+
+Given a string like `abc {def} {ghi} jkl`, executing the function with the start character `{` and end character `}` passes the keys in order to an array: `['def', 'ghi']`
+
+Generally, characters other than `_`, `-`, or `$` (which are allowed in i18n) included in key names, or the presence of escape characters, will not be treated as keys. However, you can optionally ignore key checks for special characters.
+
+Even when there is no key name, such as `{}`, it is treated as a valid key. In this case, empty values are placed in the array in the correct order. (Example: `['', 'abc', 'def', '', 'ghi']`)
+
+## Parameters
+
+<ParamsTable :rows="[
+	{ name: 'str', type: 'string', required: true },
+	{ name: 'groupStart', type: 'string', required: true },
+	{ name: 'groupEnd', type: 'string', required: true },
+	{ name: 'allowAnyKey', type: 'boolean', default: 'false' }
+]" />
+
+## Returns
+
+<ReturnType type="string[]" />
+
+## Examples
+
+::: lang js
+
+```javascript
+getPlaceholderKeys('abc {def} ghi {{jkl}}', '{', '}'); // Returns ['def']
+getPlaceholderKeys('abc {{def}} ghi {jkl}', '{{', '}}'); // Returns ['def']
+getPlaceholderKeys('abc {} {}', '{', '}'); // Returns ['', '']
+getPlaceholderKeys('abc [[def] [ghi] [jkl ', '[', ']'); // Returns ['ghi']
+getPlaceholderKeys('abc {d#e  f}', '{', '}', true); // Returns ['d#e  f']
+```
+
+:::
+
+::: lang dart
+
+```dart
+getPlaceholderKeys('abc {def} ghi {{jkl}}', '{', '}'); // Returns [def]
+getPlaceholderKeys('abc {{def}} ghi {jkl}', '{{', '}}'); // Returns [def]
+getPlaceholderKeys('abc {} {}', '{', '}'); // Returns [, ]
+getPlaceholderKeys('abc [[def] [ghi] [jkl ', '[', ']'); // Returns [ghi]
+getPlaceholderKeys('abc {d#e  f}', '{', '}', allowAnyKey: true);
+// Returns [d#e  f]
+```
+
+:::
+
+::: lang python
+
+```python
+getPlaceholderKeys('abc {def} ghi {{jkl}}', '{', '}')  # Returns ['def']
+getPlaceholderKeys('abc {{def}} ghi {jkl}', '{{', '}}')  # Returns ['def']
+getPlaceholderKeys('abc {} {}', '{', '}')  # Returns ['', '']
+getPlaceholderKeys('abc [[def] [ghi] [jkl ', '[', ']')  # Returns ['ghi']
+getPlaceholderKeys('abc {d#e  f}', '{', '}', True)  # Returns ['d#e  f']
+```
+
+:::

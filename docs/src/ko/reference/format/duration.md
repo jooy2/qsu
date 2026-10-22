@@ -18,7 +18,7 @@
 	{ name: 'useSpace', type: 'boolean', default: 'true', desc: '값과 단위 사이에 공백을 넣습니다. (예: `1Days` → `1 Days`)' },
 	{ name: 'withZeroValue', type: 'boolean', default: 'false', desc: '가장 큰 단위 아래에 있는, 값이 0인 단위도 포함합니다. (예: `1 Day 0 Hours 0 Minutes 0 Seconds`)' },
 	{ name: 'separator', type: 'string', default: `' '`, desc: '단위 사이에 넣을 구분자입니다. (예: `-`이면 `1 Hour-10 Minutes`)' },
-	{ name: 'withMilliSeconds', type: 'boolean', default: 'false', desc: '밀리초 단위를 포함합니다. `false`인 경우 1초 미만의 값은 생략됩니다.' },
+	{ name: 'withMilliseconds', type: 'boolean', default: 'false', desc: '밀리초 단위를 포함합니다. `false`인 경우 1초 미만의 값은 생략됩니다.' },
 	{ name: 'maxUnitCount', type: 'number', desc: '표시할 최대 단위 개수이며, 가장 큰 단위부터 셉니다. 생략하면 제한이 없습니다.' },
 	{ name: 'unit', type: 'string', desc: '전체 시간을 하나의 단위로만 표시하며, 소수점 값을 허용합니다. (예: `Hour` → `48 Hours`, `0.5 Hours`) `Year`, `Month`, `Day`, `Hour`, `Minute`, `Second`, `Millisecond` 중 하나입니다.' }
 ]" />
@@ -34,7 +34,7 @@
 ```javascript
 duration(1234567890); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds'
 duration(1234567890, {
-	withMilliSeconds: true
+	withMilliseconds: true
 }); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 duration(34560000000); // Returns '1 Year 1 Month 5 Days'
 duration(34560000000, {
@@ -57,7 +57,7 @@ duration(604800000, {
 
 ```dart
 duration(1234567890); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds'
-duration(1234567890, withMilliSeconds: true); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
+duration(1234567890, withMilliseconds: true); // Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 duration(34560000000); // Returns '1 Year 1 Month 5 Days'
 duration(34560000000, maxUnitCount: 2); // Returns '1 Year 1 Month'
 duration(172800000, unit: 'Hour'); // Returns '48 Hours'
@@ -72,7 +72,7 @@ duration(604800000, useSpace: false); // Returns '7Days'
 ```python
 duration(1234567890)  # Returns '14 Days 6 Hours 56 Minutes 7 Seconds'
 duration(1234567890, {
-	'withMilliSeconds': True
+	'withMilliseconds': True
 })  # Returns '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 duration(34560000000)  # Returns '1 Year 1 Month 5 Days'
 duration(34560000000, {

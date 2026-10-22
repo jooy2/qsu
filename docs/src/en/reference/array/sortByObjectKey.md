@@ -2,7 +2,7 @@
 
 Sort array values by a specific key value in an array containing multiple objects. It does not affect the order or value of elements within an object.
 
-If the `numerically` option is `true`, when sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names. That ordering is the one [sortNumeric](/reference/array/sortNumeric) describes.
+If the `natural` option is `true`, when sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names. That ordering is the one [sortNatural](/reference/array/sortNatural) describes.
 
 ## Parameters
 
@@ -10,7 +10,7 @@ If the `numerically` option is `true`, when sorting an array consisting of strin
 	{ name: 'array', type: 'any[]', required: true },
 	{ name: 'key', type: 'string', required: true },
 	{ name: 'descending', type: 'boolean', default: 'false' },
-	{ name: 'numerically', type: 'boolean', default: 'false' }
+	{ name: 'natural', type: 'boolean', default: 'false' }
 ]" />
 
 ## Returns
@@ -86,9 +86,9 @@ final List<Map<String, dynamic>> files = [
 
 sortByObjectKey(files, 'name');
 // Returns [{name: File-1}, {name: File-10}, {name: File-9}]
-sortByObjectKey(files, 'name', numerically: true);
+sortByObjectKey(files, 'name', natural: true);
 // Returns [{name: File-1}, {name: File-9}, {name: File-10}]
-sortByObjectKey(files, 'name', numerically: true, descending: true);
+sortByObjectKey(files, 'name', natural: true, descending: true);
 // Returns [{name: File-10}, {name: File-9}, {name: File-1}]
 ```
 

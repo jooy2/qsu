@@ -16,7 +16,7 @@ qsu는 ESM 전용이고 Node 20 이상이 필요합니다. 패키지 루트에�
 
 ```javascript
 import { strToCamelCase, arrUnique } from 'qsu';
-import { trim } from 'qsu/string';
+import { collapseWhitespace } from 'qsu/string';
 ```
 
 해시, 파일, 시스템 정보, `fetchData`는 Node 런타임이 필요하므로 `qsu/node`에서 가져옵니다.
@@ -39,14 +39,14 @@ import { sha256Hash, getFileSize } from 'qsu/node';
 | `upperFirst` | [capitalizeFirst](/ko/reference/string/capitalizeFirst) |  |
 | `lowerFirst` | [uncapitalizeFirst](/ko/reference/string/uncapitalizeFirst) |  |
 | `capitalize` | [capitalizeFirst](/ko/reference/string/capitalizeFirst) | **다릅니다.** Lodash는 첫 글자 뒤를 모두 소문자로 바꾸고, qsu는 그대로 둡니다. |
-| `startCase` | [capitalizeEachWords](/ko/reference/string/capitalizeEachWords) | **다릅니다.** Lodash는 문자열을 단어로 다시 나누고, qsu는 공백이 나눈 단어를 그대로 씁니다. `natural` 옵션을 주면 짧은 전치사는 소문자로 남습니다. |
+| `startCase` | [capitalizeEachWord](/ko/reference/string/capitalizeEachWord) | **다릅니다.** Lodash는 문자열을 단어로 다시 나누고, qsu는 공백이 나눈 단어를 그대로 씁니다. `titleCase` 옵션을 주면 짧은 전치사는 소문자로 남습니다. |
 | `deburr` | [deburr](/ko/reference/string/deburr) |  |
 | `escape` | [escapeHtml](/ko/reference/web/escapeHtml) | 같은 다섯 글자를 처리합니다. |
 | `unescape` | [unescapeHtml](/ko/reference/web/unescapeHtml) |  |
 | `escapeRegExp` | [escapeRegExp](/ko/reference/string/escapeRegExp) |  |
 | `pad` | [pad](/ko/reference/string/pad) | 세 방향을 함수 하나가 처리합니다. `padStart`는 `{ position: 'start' }`, `padEnd`는 `{ position: 'end' }`입니다. |
-| `truncate` | [truncate](/ko/reference/string/truncate) | **다릅니다.** Lodash는 생략 기호를 `length` 안에 포함해 세고, qsu는 `length`까지 자른 뒤 생략 기호를 덧붙입니다. Lodash의 `separator`에 해당하는 것은 없지만, 문장 끝에서 자르려면 [truncateExpect](/ko/reference/string/truncateExpect)가 있습니다. |
-| `trim` | [trim](/ko/reference/string/trim) | **다릅니다.** qsu는 문자열 안쪽의 연속된 공백도 하나로 줄이며, 제거할 문자를 지정받지 않습니다. |
+| `truncate` | [truncate](/ko/reference/string/truncate) | **다릅니다.** Lodash는 생략 기호를 `length` 안에 포함해 세고, qsu는 `length`까지 자른 뒤 생략 기호를 덧붙입니다. Lodash의 `separator`에 해당하는 것은 없지만, 문장 끝에서 자르려면 [truncateSentence](/ko/reference/string/truncateSentence)가 있습니다. |
+| `trim` | [collapseWhitespace](/ko/reference/string/collapseWhitespace) | **다릅니다.** qsu는 문자열 안쪽의 연속된 공백도 하나로 줄이며, 제거할 문자를 지정받지 않습니다. |
 | `words` | [words](/ko/reference/string/words) | qsu는 패턴 인자를 받지 않습니다. |
 | `split` | [split](/ko/reference/string/split) | qsu는 구분자를 여러 개 한 번에 받습니다. 하나뿐이라면 언어의 `split`을 쓰세요. |
 | `parseInt` | [safeParseInt](/ko/reference/format/safeParseInt) | `NaN` 대신 `fallback`을 돌려줍니다. |
@@ -58,24 +58,24 @@ import { sha256Hash, getFileSize } from 'qsu/node';
 
 | Lodash | qsu | 비고 |
 | --- | --- | --- |
-| `chunk` | [arrGroupByMaxCount](/ko/reference/array/arrGroupByMaxCount) |  |
+| `chunk` | [arrChunk](/ko/reference/array/arrChunk) |  |
 | `compact` | [arrCompact](/ko/reference/array/arrCompact) | 세 패키지가 같은 답을 내도록, JavaScript의 truthy 판정 대신 제거할 값을 고정해 두었습니다. |
 | `difference` | [arrDifference](/ko/reference/array/arrDifference) |  |
 | `intersection` | [arrIntersection](/ko/reference/array/arrIntersection) |  |
 | `uniq` | [arrUnique](/ko/reference/array/arrUnique) | **다릅니다.** qsu는 내용이 같은 객체와 중첩 배열을 중복으로 보고, Lodash는 참조로 비교합니다. |
-| `flattenDeep` | [arrTo1dArray](/ko/reference/array/arrTo1dArray) | 한 단계만 펴는 `_.flatten`은 `array.flat()`입니다. |
+| `flattenDeep` | [arrFlatten](/ko/reference/array/arrFlatten) | 한 단계만 펴는 `_.flatten`은 `array.flat()`입니다. |
 | `shuffle` | [arrShuffle](/ko/reference/array/arrShuffle) |  |
-| `sample` | [arrPick](/ko/reference/array/arrPick) | `_.sampleSize`에 해당하는 것은 없습니다. |
+| `sample` | [arrRandom](/ko/reference/array/arrRandom) | `_.sampleSize`에 해당하는 것은 없습니다. |
 | `countBy` | [arrCount](/ko/reference/array/arrCount) | **다릅니다.** iteratee가 없고, 값은 문자열이나 숫자여야 합니다. |
-| `range` | [arrWithNumber](/ko/reference/array/arrWithNumber) | **다릅니다.** qsu는 끝 값을 포함하고, `step` 옵션은 양의 정수만 받아 거꾸로 세거나 소수 간격으로 셀 수 없습니다. |
-| `fill` | [arrWithDefault](/ko/reference/array/arrWithDefault) | **다릅니다.** qsu는 기존 배열에 써 넣는 대신 주어진 길이의 새 배열을 만듭니다. |
+| `range` | [arrRange](/ko/reference/array/arrRange) | **다릅니다.** qsu는 끝 값을 포함하고, `step` 옵션은 양의 정수만 받아 거꾸로 세거나 소수 간격으로 셀 수 없습니다. |
+| `fill` | [arrFill](/ko/reference/array/arrFill) | **다릅니다.** qsu는 기존 배열에 써 넣는 대신 주어진 길이의 새 배열을 만듭니다. |
 | `sortBy` | [sortByObjectKey](/ko/reference/array/sortByObjectKey) | 객체 배열의 키 하나를 기준으로 정렬합니다. 키 여러 개나 iteratee는 지원하지 않습니다. |
 | `mean` | [average](/ko/reference/array/average) |  |
 | `without` | — | `arrDifference(array, [value])`로 씁니다. |
 | `groupBy` | [arrGroupBy](/ko/reference/array/arrGroupBy) | 콜백이 꼭 있어야 하고, 그 자리에 속성 이름을 넘길 수 없습니다. 키는 Lodash와 같이 문자열입니다. |
 | `zip`, `unzip`, `take`, `drop`, `head`, `last`, `nth`, `pull`, `remove`, `orderBy`, `keyBy`, `partition` | — | 대응되는 것이 없습니다. |
-| — | [sortNumeric](/ko/reference/array/sortNumeric) | 문자열을 그 안의 숫자 기준으로 정렬합니다. |
-| — | [arrMove](/ko/reference/array/arrMove), [arrRepeat](/ko/reference/array/arrRepeat), [is2dArray](/ko/reference/verify/is2dArray) | Lodash에 대응되는 것이 없습니다. |
+| — | [sortNatural](/ko/reference/array/sortNatural) | 문자열을 그 안의 숫자 기준으로 정렬합니다. |
+| — | [arrMove](/ko/reference/array/arrMove), [arrRepeat](/ko/reference/array/arrRepeat), [isNestedArray](/ko/reference/verify/isNestedArray) | Lodash에 대응되는 것이 없습니다. |
 
 ## 객체
 
@@ -85,7 +85,7 @@ import { sha256Hash, getFileSize } from 'qsu/node';
 | `clone` | [objClone](/ko/reference/object/objClone)에 `{ deep: false }` |  |
 | `merge` | [objMerge](/ko/reference/object/objMerge) | **다릅니다.** Lodash는 배열을 인덱스별로 병합하지만 qsu는 통째로 교체합니다. |
 | `defaults` | [objMerge](/ko/reference/object/objMerge) | **다릅니다.** `objMerge`는 뒤에 온 객체가 이기므로 인자를 바꿔서 `objMerge(fallback, obj)`로 씁니다. 중첩 객체까지 병합하는 점도 다릅니다. |
-| — | [objMergeNewKey](/ko/reference/object/objMergeNewKey) | 양쪽에 모두 있는 배열을 어떻게 처리할지(유지·교체·이어 붙이기) 고를 수 있는 깊은 병합입니다. |
+| — | [objMergeWithArrays](/ko/reference/object/objMergeWithArrays) | 양쪽에 모두 있는 배열을 어떻게 처리할지(유지·교체·이어 붙이기) 고를 수 있는 깊은 병합입니다. |
 | `get` | [objGet](/ko/reference/object/objGet) | 점 표기와 대괄호 표기를 모두 받습니다. 기본값은 `{ fallback }`으로 넘깁니다. |
 | `invert` | [objInvert](/ko/reference/object/objInvert) |  |
 | `mapKeys` | [objMapKeys](/ko/reference/object/objMapKeys) |  |
@@ -93,26 +93,26 @@ import { sha256Hash, getFileSize } from 'qsu/node';
 | `pickBy` | [objPickBy](/ko/reference/object/objPickBy) | 최상위만 봅니다. |
 | `omit` | [objOmit](/ko/reference/object/objOmit) | **다릅니다.** 최상위 키만 다룹니다. Lodash는 깊은 경로도 받습니다. |
 | `omitBy` | — | 조건을 뒤집어 `objPickBy`를 쓰세요. |
-| `toPairs` | [objToArray](/ko/reference/object/objToArray) |  |
+| `toPairs` | [objToEntries](/ko/reference/object/objToEntries) |  |
 | `set` | [objSet](/ko/reference/object/objSet) | **다릅니다.** qsu는 넘긴 객체를 그대로 두고 새 객체를 돌려주지만, Lodash는 넘긴 객체에 직접 씁니다. 없는 단계는 `[0]` 같은 숫자 키라도 항상 객체로 만드는데, Lodash는 이때 배열을 만듭니다. |
 | `update` | [objGet](/ko/reference/object/objGet) 다음 [objSet](/ko/reference/object/objSet) | 값을 읽고 새 값을 계산해 다시 씁니다. qsu에는 갱신 콜백이 없습니다. |
-| `unset` | — | [objDeleteKeyByValue](/ko/reference/object/objDeleteKeyByValue)는 키가 아니라 값으로 지웁니다. |
+| `unset` | — | [objOmitByValue](/ko/reference/object/objOmitByValue)는 키가 아니라 값으로 지웁니다. |
 | `keys`, `values`, `has`, `mapValues`, `forOwn` | — | 언어에 이미 있습니다. |
-| — | [objTo1d](/ko/reference/object/objTo1d) | 중첩 객체를 점으로 이은 키 하나의 단계로 폅니다. |
-| — | [objToQueryString](/ko/reference/object/objToQueryString), [objToPrettyStr](/ko/reference/object/objToPrettyStr), [objFindItemRecursiveByKey](/ko/reference/object/objFindItemRecursiveByKey) | Lodash에 대응되는 것이 없습니다. |
+| — | [objFlatten](/ko/reference/object/objFlatten) | 중첩 객체를 점으로 이은 키 하나의 단계로 폅니다. |
+| — | [objToQueryString](/ko/reference/object/objToQueryString), [objToPrettyJson](/ko/reference/object/objToPrettyJson), [objFindInTree](/ko/reference/object/objFindInTree) | Lodash에 대응되는 것이 없습니다. |
 
 ## 숫자
 
 | Lodash | qsu | 비고 |
 | --- | --- | --- |
-| `add`, `subtract`, `multiply`, `divide` | [sum](/ko/reference/math/sum), [sub](/ko/reference/math/sub), [mul](/ko/reference/math/mul), [div](/ko/reference/math/div) | qsu는 인자를 몇 개든 받거나 배열 하나를 받습니다. |
-| `sum` | [sum](/ko/reference/math/sum) |  |
-| `max`, `min` | [max](/ko/reference/math/max), [min](/ko/reference/math/min) | 빈 입력에는 `undefined`가 아니라 <code>null</code>을 돌려줍니다. |
-| `ceil`, `floor`, `round` | [ceil](/ko/reference/math/ceil), [floor](/ko/reference/math/floor), [round](/ko/reference/math/round) | **다릅니다.** qsu는 중간값을 0에서 먼 쪽으로 보냅니다. `round(-0.5)`는 `-1`이고 `_.round(-0.5)`는 `-0`입니다. |
+| `add`, `subtract`, `multiply`, `divide` | [numSum](/ko/reference/math/numSum), [sub](/ko/reference/math/sub), [mul](/ko/reference/math/mul), [div](/ko/reference/math/div) | qsu는 인자를 몇 개든 받거나 배열 하나를 받습니다. |
+| `sum` | [numSum](/ko/reference/math/numSum) |  |
+| `max`, `min` | [numMax](/ko/reference/math/numMax), [numMin](/ko/reference/math/numMin) | 빈 입력에는 `undefined`가 아니라 <code>null</code>을 돌려줍니다. |
+| `ceil`, `floor`, `round` | [ceil](/ko/reference/math/ceil), [floor](/ko/reference/math/floor), [numRound](/ko/reference/math/numRound) | **다릅니다.** qsu는 중간값을 0에서 먼 쪽으로 보냅니다. `numRound(-0.5)`는 `-1`이고 `_.round(-0.5)`는 `-0`입니다. |
 | `clamp` | [clamp](/ko/reference/math/clamp) | 인자와 순서가 같습니다. |
 | `inRange` | [between](/ko/reference/verify/between) | **다릅니다.** 범위를 쌍으로 먼저 받고, `inclusive`를 주지 않으면 양 끝을 제외합니다. |
-| `random` | [numPick](/ko/reference/math/numPick) | **다릅니다.** 정수만 냅니다. |
-| `uniqueId` | [numUnique](/ko/reference/math/numUnique) | **다릅니다.** 시계에서 만든 숫자이고 접두사 인자가 없습니다. |
+| `random` | [numRandom](/ko/reference/math/numRandom) | **다릅니다.** 정수만 냅니다. |
+| `uniqueId` | [numUniqueId](/ko/reference/math/numUniqueId) | **다릅니다.** 시계에서 만든 숫자이고 접두사 인자가 없습니다. |
 
 ## 함수와 타이밍
 
@@ -120,18 +120,18 @@ import { sha256Hash, getFileSize } from 'qsu/node';
 | --- | --- | --- |
 | `debounce` | [debounce](/ko/reference/misc/debounce) |  |
 | `throttle` | [throttle](/ko/reference/misc/throttle) |  |
-| `times` | [funcTimes](/ko/reference/misc/funcTimes) |  |
+| `times` | [times](/ko/reference/misc/times) |  |
 | `delay` | — | [sleep](/ko/reference/misc/sleep)은 기다릴 뿐 호출을 예약하지 않습니다. |
 | `memoize`, `once`, `curry`, `partial`, `flow`, `negate`, `wrap` | — | 대응되는 것이 없습니다. |
-| — | [retry](/ko/reference/misc/retry) | 실패하면 다시 실행합니다. `times`, `delay`, `backoff`를 받습니다. |
+| — | [retry](/ko/reference/misc/retry) | 실패하면 다시 실행합니다. `attempts`, `delay`, `backoff`를 받습니다. |
 
 ## 타입과 값 검사
 
 | Lodash | qsu | 비고 |
 | --- | --- | --- |
 | `isEmpty` | [isEmpty](/ko/reference/verify/isEmpty) |  |
-| `isEqual` | [isEqualDeep](/ko/reference/verify/isEqualDeep) | **다릅니다.** 배열과 일반 객체, 날짜는 Lodash처럼 내용으로 비교합니다. `Map`과 `Set`, 클래스 인스턴스는 `===`로 비교하는데, Lodash는 이것들도 내용으로 비교합니다. qsu의 [isEqual](/ko/reference/verify/isEqual)은 쓰지 마세요. 객체를 참조로 비교합니다. |
-| `isObject` | [isObject](/ko/reference/verify/isObject) | **다릅니다.** `_.isObject([])`는 <code>true</code>이지만 qsu는 배열에 <code>false</code>를 돌려줍니다. |
+| `isEqual` | [isEqualDeep](/ko/reference/verify/isEqualDeep) | **다릅니다.** 배열과 일반 객체, 날짜는 Lodash처럼 내용으로 비교합니다. `Map`과 `Set`, 클래스 인스턴스는 `===`로 비교하는데, Lodash는 이것들도 내용으로 비교합니다. qsu의 [isEqualLoose](/ko/reference/verify/isEqualLoose)는 쓰지 마세요. 객체를 참조로 비교합니다. |
+| `isObject` | [isPlainObject](/ko/reference/verify/isPlainObject) | **다릅니다.** `_.isObject([])`는 <code>true</code>이지만 qsu는 배열에 <code>false</code>를 돌려줍니다. |
 | `size` | [len](/ko/reference/verify/len) | 값이 없으면 `0`입니다. |
 | `includes` | [contains](/ko/reference/verify/contains) | qsu는 후보 목록과 `exact` 옵션도 받습니다. |
 | `isArray`, `isString`, `isNumber`, `isNil` 등 | — | 언어에 이미 있습니다. |
@@ -141,10 +141,10 @@ import { sha256Hash, getFileSize } from 'qsu/node';
 Lodash가 다루지 않는 영역이고, Lodash를 대체하는 대신 옆에 qsu를 두는 이유이기도 합니다.
 
 - 사람이 읽는 형식: [fileSizeFormat](/ko/reference/format/fileSizeFormat), [duration](/ko/reference/format/duration), [numberFormat](/ko/reference/format/numberFormat), 그리고 숫자와 단위를 따로 돌려주는 `Parts` 계열.
-- 웹: [getSlug](/ko/reference/web/getSlug), [isBot](/ko/reference/web/isBot), [isMobileDeviceFromUA](/ko/reference/web/isMobileDeviceFromUA), [isMatchPathname](/ko/reference/web/isMatchPathname), [urlJoin](/ko/reference/string/urlJoin), [parseAddress](/ko/reference/net/parseAddress).
+- 웹: [getSlug](/ko/reference/web/getSlug), [isBot](/ko/reference/web/isBot), [isMobileDeviceFromUa](/ko/reference/web/isMobileDeviceFromUa), [isPathnameMatch](/ko/reference/web/isPathnameMatch), [joinUrl](/ko/reference/string/joinUrl), [parseAddress](/ko/reference/net/parseAddress).
 - 검증: [isEmail](/ko/reference/verify/isEmail), [isUrl](/ko/reference/verify/isUrl), [isValidDate](/ko/reference/date/isValidDate), [hasBadWords](/ko/reference/verify/hasBadWords).
 - 해시와 암호화: [sha256Hash](/ko/reference/crypto/sha256Hash), [md5Hash](/ko/reference/crypto/md5Hash), [encrypt](/ko/reference/crypto/encrypt), [objectId](/ko/reference/crypto/objectId).
-- 파일과 시스템: [file](/ko/reference/file/getFileInfo), [os](/ko/reference/os/getCpu) 카테고리 전체.
+- 파일과 시스템: [file](/ko/reference/file/getFileInfo), [os](/ko/reference/os/getCpuModel) 카테고리 전체.
 - Dart와 Python에서도 같은 함수.
 
 ## 예제
@@ -163,17 +163,10 @@ const label = `${_.round(bytes / 1024 / 1024, 1)} MB`;
 이후:
 
 ```javascript
-import {
-	strToKebabCase,
-	deburr,
-	arrGroupByMaxCount,
-	arrUnique,
-	objMerge,
-	fileSizeFormat
-} from 'qsu';
+import { strToKebabCase, deburr, arrChunk, arrUnique, objMerge, fileSizeFormat } from 'qsu';
 
 const slug = strToKebabCase(deburr(title));
-const pages = arrGroupByMaxCount(arrUnique(ids), 20);
+const pages = arrChunk(arrUnique(ids), 20);
 const config = objMerge(defaults, overrides);
 const label = fileSizeFormat(bytes, 1);
 ```

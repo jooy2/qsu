@@ -23,7 +23,7 @@ The whole point of qsu is that a function behaves identically in every language 
 When you add or change a function, treat all three packages as one logical change:
 
 - **Same function name in every language**, in `camelCase` — even in Python and Dart
-  (e.g. `getSlug`, `arrGroupByMaxCount`). This is intentional and non‑idiomatic on purpose,
+  (e.g. `getSlug`, `arrChunk`). This is intentional and non‑idiomatic on purpose,
   so users switching languages get the same API.
 - **Same behavior and same test cases.** Port the tests too, not just the implementation.
 - **Same category.** Functions are grouped into categories (`array`, `crypto`, `date`,
@@ -136,7 +136,7 @@ Two rules follow from this:
   `collectFunctionLanguages` checks that, failing `npm run build` and warning in the dev
   server.
 - **A page a package does not implement falls back to the first one it does.** A reader on
-  Dart looking at `os/getCpu` gets the JavaScript documentation with a notice above it, rather
+  Dart looking at `os/getMacAddress` gets the JavaScript documentation with a notice above it, rather
   than an empty page. `displayLanguages` in `data/languages.ts` is where that happens; the
   Markdown does not have to know.
 

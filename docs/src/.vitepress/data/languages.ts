@@ -76,7 +76,7 @@ export function languagesOf(
  *
  * Usually that is `wanted` itself. The exception is a page some of the packages
  * do not have: hiding everything from a reader on Dart because qsu has no Dart
- * `getCpu` would leave them an empty page, so the languages the page lacks are
+ * `getMacAddress` would leave them an empty page, so the languages the page lacks are
  * handed to the first one it has. Content that has nothing for that page at all
  * is displayed to nobody.
  *

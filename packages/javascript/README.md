@@ -65,10 +65,10 @@ console.log(_.strCount('123412341234', '1')); // 3
 Functions for the filesystem, hashing, networking and the operating system need a Node.js runtime, so they are published under the `qsu/node` subpath and are not part of the browser-safe entry point:
 
 ```javascript
-import { createFile, md5Hash } from 'qsu/node';
+import { touchFile, md5Hash } from 'qsu/node';
 
 md5Hash('test'); // '098f6bcd4621d373cade4e832627b4f6'
-await createFile('/home/user/Hello.txt');
+await touchFile('/home/user/Hello.txt');
 ```
 
 Every reference page states whether the function has to be imported from `qsu/node`.
@@ -139,21 +139,21 @@ Functions are grouped into categories, each with an import subpath of its own.
 
 | Category | Import path | Examples |
 | --- | --- | --- |
-| `array` | `qsu/array` | `arrUnique`, `arrGroupByMaxCount`, `sortNumeric` |
+| `array` | `qsu/array` | `arrUnique`, `arrChunk`, `sortNatural` |
 | `date` | `qsu/date` | `today`, `dayDiff`, `createDateListFromRange` |
 | `format` | `qsu/format` | `numberFormat`, `fileSizeFormat`, `duration` |
-| `math` | `qsu/math` | `sum`, `clamp`, `round`, `numPick` |
+| `math` | `qsu/math` | `numSum`, `clamp`, `numRound`, `numRandom` |
 | `misc` | `qsu/misc` | `debounce`, `throttle`, `retry`, `sleep` |
 | `net` | `qsu/net` | `parseAddress` |
 | `object` | `qsu/object` | `objClone`, `objMerge`, `objPick`, `objGet` |
-| `string` | `qsu/string` | `trim`, `truncate`, `strToCamelCase`, `pad` |
-| `verify` | `qsu/verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqual` |
-| `web` | `qsu/web` | `getSlug`, `escapeHtml`, `isMobileDeviceFromUA`, `isBot` |
+| `string` | `qsu/string` | `collapseWhitespace`, `truncate`, `strToCamelCase`, `pad` |
+| `verify` | `qsu/verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqualLoose` |
+| `web` | `qsu/web` | `getSlug`, `escapeHtml`, `isMobileDeviceFromUa`, `isBot` |
 | `crypto` | `qsu/node/crypto` | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId` |
 | `file` | `qsu/node/file` | `getFileSize`, `moveFile`, `joinFilePath` |
 | `misc` | `qsu/node/misc` | `logBox` |
 | `net` | `qsu/node/net` | `fetchData` |
-| `os` | `qsu/node/os` | `getCpu`, `getRamSize`, `runCommand` |
+| `os` | `qsu/node/os` | `getCpuModel`, `getRamSize`, `runCommand` |
 
 The categories in the top half are exported from `qsu` and are safe to bundle for the browser. The `crypto`, `file` and `os` categories, and `fetchData` and `logBox`, need a Node.js runtime and are exported from `qsu/node`.
 

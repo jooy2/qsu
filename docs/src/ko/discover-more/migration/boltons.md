@@ -18,12 +18,12 @@ qsu는 Python 3.8 이상이 필요합니다. boltons는 그룹마다 모듈을 �
 from qsu import getSlug, fileSizeFormat, arrUnique
 ```
 
-`sum`, `max`, `min`, `round`는 qsu의 실제 함수 이름이라서 이름으로 가져오면 내장 함수를 가립니다. 문제가 되는 곳에서는 모듈을 가져와 쓰세요.
+`len`은 qsu의 실제 함수 이름이라서 이름으로 가져오면 내장 함수를 가립니다. 문제가 되는 곳에서는 모듈을 가져와 쓰세요.
 
 ```python
 import qsu
 
-qsu.round(2.675, 2)
+qsu.len([1, 2, 3])
 ```
 
 옵션은 키워드 인자로 받거나, 그 자리에 `dict` 하나로 받습니다. boltons와 달리 qsu는 제너레이터가 아니라 완성된 리스트를 돌려주므로 `_iter` 형태의 함수가 없습니다.
@@ -37,27 +37,27 @@ qsu.round(2.675, 2)
 | `slugify` | [getSlug](/ko/reference/web/getSlug) | **다릅니다.** boltons는 기본 구분자가 `_`이고 qsu는 `-`입니다. qsu는 비라틴 문자를 유지하고, 특수문자를 퍼센트 인코딩할 수 있으며, `baseUrl`로 전체 URL을 만들 수 있습니다. |
 | `bytes2human` | [fileSizeFormat](/ko/reference/format/fileSizeFormat) | **다릅니다.** boltons는 `126K`로 쓰고 qsu는 `125.97 KB`로 씁니다. qsu는 IEC나 SI 단위, 단위 전체 이름으로 바꿀 수 있습니다. |
 | `asciify` | [deburr](/ko/reference/string/deburr) | **다릅니다.** `asciify`는 바이트를 돌려주고 옮길 수 없는 문자는 버립니다. `deburr`는 문자열을 돌려주고 라틴 문자의 발음 구별 기호만 없앱니다. |
-| `ellipsize` | [truncate](/ko/reference/string/truncate) | **다릅니다.** `ellipsize`는 단어 경계에서 자르고 기본으로 `…`를 붙입니다. qsu는 길이에서 자르고 말하지 않으면 아무것도 붙이지 않습니다. 문장 끝에서 자르려면 [truncateExpect](/ko/reference/string/truncateExpect)가 있습니다. |
-| `is_ascii` | — | [strToAscii](/ko/reference/string/strToAscii)는 변환할 뿐 판정하지 않습니다. |
+| `ellipsize` | [truncate](/ko/reference/string/truncate) | **다릅니다.** `ellipsize`는 단어 경계에서 자르고 기본으로 `…`를 붙입니다. qsu는 길이에서 자르고 말하지 않으면 아무것도 붙이지 않습니다. 문장 끝에서 자르려면 [truncateSentence](/ko/reference/string/truncateSentence)가 있습니다. |
+| `is_ascii` | — | [strToCharCodes](/ko/reference/string/strToCharCodes)는 변환할 뿐 판정하지 않습니다. |
 | `html2text` | — | [unescapeHtml](/ko/reference/web/unescapeHtml)은 엔티티를 되돌릴 뿐 태그는 그대로 둡니다. |
 | `indent`, `strip_ansi`, `ordinalize`, `pluralize`, `singularize`, `cardinalize`, `a10n`, `find_hashtags`, `multi_replace`, `unwrap_text`, `parse_int_list`, `format_int_list`, `args2cmd`, `gzip_bytes` | — | 대응되는 것이 없습니다. |
-| — | 다섯 가지 표기 변환, [pad](/ko/reference/string/pad), [trim](/ko/reference/string/trim), [words](/ko/reference/string/words), [strCount](/ko/reference/string/strCount), [strRandom](/ko/reference/string/strRandom), [removeSpecialChar](/ko/reference/string/removeSpecialChar), [replaceBetween](/ko/reference/string/replaceBetween), [escapeRegExp](/ko/reference/string/escapeRegExp), [getStrBytes](/ko/reference/string/getStrBytes) | boltons에 대응되는 것이 없습니다. |
+| — | 다섯 가지 표기 변환, [pad](/ko/reference/string/pad), [collapseWhitespace](/ko/reference/string/collapseWhitespace), [words](/ko/reference/string/words), [strCount](/ko/reference/string/strCount), [strRandom](/ko/reference/string/strRandom), [removeSpecialChars](/ko/reference/string/removeSpecialChars), [replaceEnclosed](/ko/reference/string/replaceEnclosed), [escapeRegExp](/ko/reference/string/escapeRegExp), [strByteLength](/ko/reference/string/strByteLength) | boltons에 대응되는 것이 없습니다. |
 
 ## iterutils
 
 | boltons | qsu | 비고 |
 | --- | --- | --- |
-| `chunked` | [arrGroupByMaxCount](/ko/reference/array/arrGroupByMaxCount) | **다릅니다.** qsu는 마지막 묶음을 채우지 않습니다. |
+| `chunked` | [arrChunk](/ko/reference/array/arrChunk) | **다릅니다.** qsu는 마지막 묶음을 채우지 않습니다. |
 | `unique` | [arrUnique](/ko/reference/array/arrUnique) | **다릅니다.** qsu는 `key` 함수를 받지 않습니다. |
-| `flatten` | [arrTo1dArray](/ko/reference/array/arrTo1dArray) | 둘 다 끝까지 폅니다. |
+| `flatten` | [arrFlatten](/ko/reference/array/arrFlatten) | 둘 다 끝까지 폅니다. |
 | `get_path` | [objGet](/ko/reference/object/objGet) | **다릅니다.** boltons는 단계를 튜플로 받고, qsu는 점 표기나 대괄호 표기의 문자열 하나를 받으며 예외 대신 `fallback`을 돌려줍니다. |
 | `redundant` | [arrCount](/ko/reference/array/arrCount) | **다릅니다.** qsu는 중복된 값만이 아니라 모든 값의 개수를 돌려주고, 값은 문자열이나 숫자여야 합니다. |
-| `same` | [isEqual](/ko/reference/verify/isEqual) | **다릅니다.** `isEqual(first, rest)`는 값 하나를 나머지와 비교합니다. |
+| `same` | [isEqualLoose](/ko/reference/verify/isEqualLoose) | **다릅니다.** `isEqualLoose(first, rest)`는 값 하나를 나머지와 비교합니다. |
 | `backoff` | [retry](/ko/reference/misc/retry) | **다릅니다.** boltons는 대기 시간 목록을 돌려주고, qsu의 `retry`는 함수를 직접 실행하며 시도 사이에 기다립니다. |
-| `remap`, `research` | — | [objFindItemRecursiveByKey](/ko/reference/object/objFindItemRecursiveByKey)와 `recursive`를 켠 [objUpdate](/ko/reference/object/objUpdate)가 일부를 덮을 뿐, `remap` 전체를 대신하는 것은 없습니다. boltons를 그대로 두세요. |
+| `remap`, `research` | — | [objFindInTree](/ko/reference/object/objFindInTree)와 `recursive`를 켠 [objUpdate](/ko/reference/object/objUpdate)가 일부를 덮을 뿐, `remap` 전체를 대신하는 것은 없습니다. boltons를 그대로 두세요. |
 | `bucketize` | [arrGroupBy](/ko/reference/array/arrGroupBy) | **다릅니다.** boltons는 함수가 돌려준 키를 그대로 쓰고, qsu는 모든 키를 문자열로 바꿉니다. 키 함수가 꼭 있어야 하며, boltons는 생략하면 `bool`을 씁니다. |
 | `partition`, `windowed`, `pairwise`, `first`, `one`, `split`, `strip`, `soft_sorted`, `frange`, `is_iterable`, `is_scalar`, `is_collection` | — | 대응되는 것이 없습니다. |
-| — | [arrDifference](/ko/reference/array/arrDifference), [arrIntersection](/ko/reference/array/arrIntersection), [arrCompact](/ko/reference/array/arrCompact), [arrShuffle](/ko/reference/array/arrShuffle), [arrPick](/ko/reference/array/arrPick), [arrMove](/ko/reference/array/arrMove), [sortByObjectKey](/ko/reference/array/sortByObjectKey), [sortNumeric](/ko/reference/array/sortNumeric) | boltons에 대응되는 것이 없습니다. |
+| — | [arrDifference](/ko/reference/array/arrDifference), [arrIntersection](/ko/reference/array/arrIntersection), [arrCompact](/ko/reference/array/arrCompact), [arrShuffle](/ko/reference/array/arrShuffle), [arrRandom](/ko/reference/array/arrRandom), [arrMove](/ko/reference/array/arrMove), [sortByObjectKey](/ko/reference/array/sortByObjectKey), [sortNatural](/ko/reference/array/sortNatural) | boltons에 대응되는 것이 없습니다. |
 
 ## fileutils와 mathutils, timeutils
 
@@ -76,11 +76,11 @@ qsu.round(2.675, 2)
 
 ## qsu가 더 주는 것
 
-- 객체: [objClone](/ko/reference/object/objClone), [objMerge](/ko/reference/object/objMerge), [objPick](/ko/reference/object/objPick), [objTo1d](/ko/reference/object/objTo1d), [objToQueryString](/ko/reference/object/objToQueryString), [objInvert](/ko/reference/object/objInvert).
+- 객체: [objClone](/ko/reference/object/objClone), [objMerge](/ko/reference/object/objMerge), [objPick](/ko/reference/object/objPick), [objFlatten](/ko/reference/object/objFlatten), [objToQueryString](/ko/reference/object/objToQueryString), [objInvert](/ko/reference/object/objInvert).
 - 검증: [isEmail](/ko/reference/verify/isEmail), [isUrl](/ko/reference/verify/isUrl), [isValidDate](/ko/reference/date/isValidDate), [between](/ko/reference/verify/between), [hasBadWords](/ko/reference/verify/hasBadWords).
 - 해시와 암호화: [sha256Hash](/ko/reference/crypto/sha256Hash), [md5Hash](/ko/reference/crypto/md5Hash), [encrypt](/ko/reference/crypto/encrypt), [encodeBase64](/ko/reference/crypto/encodeBase64), [objectId](/ko/reference/crypto/objectId).
-- 시스템: [getCpu](/ko/reference/os/getCpu)부터 [getFreeDiskSize](/ko/reference/os/getFreeDiskSize)까지 [os](/ko/reference/os/getCpu) 카테고리 전체.
-- 웹: [isMobileDeviceFromUA](/ko/reference/web/isMobileDeviceFromUA), [isBot](/ko/reference/web/isBot), [escapeHtml](/ko/reference/web/escapeHtml), [isMatchPathname](/ko/reference/web/isMatchPathname).
+- 시스템: [getCpuModel](/ko/reference/os/getCpuModel)부터 [getFreeDiskSize](/ko/reference/os/getFreeDiskSize)까지 [os](/ko/reference/os/getCpuModel) 카테고리 전체.
+- 웹: [isMobileDeviceFromUa](/ko/reference/web/isMobileDeviceFromUa), [isBot](/ko/reference/web/isBot), [escapeHtml](/ko/reference/web/escapeHtml), [isPathnameMatch](/ko/reference/web/isPathnameMatch).
 - 타이밍: [debounce](/ko/reference/misc/debounce), [throttle](/ko/reference/misc/throttle), [sleep](/ko/reference/misc/sleep).
 - JavaScript와 Dart에서도 같은 함수.
 
@@ -100,11 +100,11 @@ pages = chunked(unique(ids), 20)
 이후:
 
 ```python
-from qsu import getSlug, fileSizeFormat, arrGroupByMaxCount, arrUnique
+from qsu import getSlug, fileSizeFormat, arrChunk, arrUnique
 
 slug = getSlug(title)
 label = fileSizeFormat(size, 2)
-pages = arrGroupByMaxCount(arrUnique(ids), 20)
+pages = arrChunk(arrUnique(ids), 20)
 ```
 
 두 라벨은 같은 문자열이 아닙니다. `bytes2human(128991, 2)`는 `125.97K`를, `fileSizeFormat(128991, 2)`는 `125.97 KB`를 냅니다. 출력을 파싱하는 코드가 있다면 확인해야 합니다.

@@ -6,8 +6,8 @@ Moves the position of a specific element in an array to the specified position. 
 
 <ParamsTable :rows="[
 	{ name: 'array', type: 'any[]', required: true },
-	{ name: 'from', type: 'number', required: true },
-	{ name: 'to', type: 'number', required: true }
+	{ name: 'fromIndex', type: 'number', required: true },
+	{ name: 'toIndex', type: 'number', required: true }
 ]" />
 
 ## Returns

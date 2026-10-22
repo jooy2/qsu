@@ -8,7 +8,7 @@
 
 `NaN`과 무한대 값은 그대로 반환됩니다.
 
-[round](./round)의 "항상 올림" 짝이며, "항상 내림"은 [floor](./floor)입니다. 세 함수 모두 인자 형태가 동일합니다.
+[numRound](./numRound)의 "항상 올림" 짝이며, "항상 내림"은 [floor](./floor)입니다. 세 함수 모두 인자 형태가 동일합니다.
 
 ## Parameters
 

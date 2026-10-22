@@ -90,7 +90,7 @@ pad('7', 3, {'char': '0', 'position': 'start'})  # '007'
 ```python
 from qsu import (
     arrUnique,
-    arrGroupByMaxCount,
+    arrChunk,
     duration,
     numberFormat,
     objPick,
@@ -102,7 +102,7 @@ from qsu import (
 
 # Lists
 arrUnique([1, 1, 2, 3, 3])  # [1, 2, 3]
-arrGroupByMaxCount([1, 2, 3, 4, 5], 2)  # [[1, 2], [3, 4], [5]]
+arrChunk([1, 2, 3, 4, 5], 2)  # [[1, 2], [3, 4], [5]]
 
 # Formatting
 numberFormat(1234567)  # '1,234,567'
@@ -124,23 +124,23 @@ md5Hash('test')  # '098f6bcd4621d373cade4e832627b4f6'
 
 Functions are grouped into categories. Each one is importable from the top-level package or from its own module.
 
-| Category | Module       | Examples                                                 |
-| -------- | ------------ | -------------------------------------------------------- |
-| `array`  | `qsu.array`  | `arrUnique`, `arrGroupByMaxCount`, `sortNumeric`         |
-| `crypto` | `qsu.crypto` | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId`      |
-| `date`   | `qsu.date`   | `today`, `dayDiff`, `createDateListFromRange`            |
-| `file`   | `qsu.file`   | `getFileSize`, `moveFile`, `joinFilePath`                |
-| `format` | `qsu.format` | `numberFormat`, `fileSizeFormat`, `duration`             |
-| `math`   | `qsu.math`   | `sum`, `clamp`, `round`, `numPick`                       |
-| `misc`   | `qsu.misc`   | `debounce`, `throttle`, `retry`, `sleep`                 |
-| `net`    | `qsu.net`    | `fetchData`, `parseAddress`                              |
-| `object` | `qsu.object` | `objClone`, `objMerge`, `objPick`, `objGet`              |
-| `os`     | `qsu.os`     | `getCpu`, `getRamSize`, `runCommand`                     |
-| `string` | `qsu.string` | `trim`, `truncate`, `strToCamelCase`, `pad`              |
-| `verify` | `qsu.verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqual`                 |
-| `web`    | `qsu.web`    | `getSlug`, `escapeHtml`, `isMobileDeviceFromUA`, `isBot` |
+| Category | Module       | Examples                                                  |
+| -------- | ------------ | --------------------------------------------------------- |
+| `array`  | `qsu.array`  | `arrUnique`, `arrChunk`, `sortNatural`                    |
+| `crypto` | `qsu.crypto` | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId`       |
+| `date`   | `qsu.date`   | `today`, `dayDiff`, `createDateListFromRange`             |
+| `file`   | `qsu.file`   | `getFileSize`, `moveFile`, `joinFilePath`                 |
+| `format` | `qsu.format` | `numberFormat`, `fileSizeFormat`, `duration`              |
+| `math`   | `qsu.math`   | `numSum`, `clamp`, `numRound`, `numRandom`                |
+| `misc`   | `qsu.misc`   | `debounce`, `throttle`, `retry`, `sleep`                  |
+| `net`    | `qsu.net`    | `fetchData`, `parseAddress`                               |
+| `object` | `qsu.object` | `objClone`, `objMerge`, `objPick`, `objGet`               |
+| `os`     | `qsu.os`     | `getCpuModel`, `getRamSize`, `runCommand`                 |
+| `string` | `qsu.string` | `collapseWhitespace`, `truncate`, `strToCamelCase`, `pad` |
+| `verify` | `qsu.verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqualLoose`             |
+| `web`    | `qsu.web`    | `getSlug`, `escapeHtml`, `isMobileDeviceFromUa`, `isBot`  |
 
-The `math` category provides `sum`, `min`, `max`, `round`, `floor` and `ceil`. Importing those names directly shadows the Python builtins for the rest of the module, so reach for them as `qsu.sum(...)` — or import them under an alias — when you need both.
+The `verify` category provides `len`. Importing that name directly shadows the Python builtin for the rest of the module, so reach for it as `qsu.len(...)` — or import it under an alias — when you need both.
 
 ## Documentation
 

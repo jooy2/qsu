@@ -47,7 +47,7 @@ Import `package:qsu/qsu.dart` at the top of the file you want to use. Every func
 import 'package:qsu/qsu.dart';
 
 void main() {
-  print(trim('  hello  ')); // 'hello'
+  print(collapseWhitespace('  hello  ')); // 'hello'
   print(numberFormat(1234567)); // '1,234,567'
   print(capitalizeFirst('abc')); // 'Abc'
   print(isEmail('abc@example.com')); // true
@@ -75,7 +75,7 @@ import 'package:qsu/qsu.dart';
 void main() {
   // Lists
   arrUnique([1, 1, 2, 3, 3]); // [1, 2, 3]
-  arrGroupByMaxCount([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
+  arrChunk([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
 
   // Formatting
   numberFormat(1234567); // '1,234,567'
@@ -103,21 +103,21 @@ A runnable version of this is in [`example/qsu_example.dart`](example/qsu_exampl
 
 Functions are grouped into categories, all exported from `package:qsu/qsu.dart`.
 
-| Category | Examples                                                 |
-| -------- | -------------------------------------------------------- |
-| `array`  | `arrUnique`, `arrGroupByMaxCount`, `sortNumeric`         |
-| `crypto` | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId`      |
-| `date`   | `today`, `dayDiff`, `createDateListFromRange`            |
-| `file`   | `getFileSize`, `moveFile`, `joinFilePath`                |
-| `format` | `numberFormat`, `fileSizeFormat`, `duration`             |
-| `math`   | `sum`, `clamp`, `round`, `numPick`                       |
-| `misc`   | `debounce`, `throttle`, `retry`, `sleep`                 |
-| `net`    | `fetchData`, `parseAddress`                              |
-| `object` | `objClone`, `objMerge`, `objPick`, `objGet`              |
-| `os`     | `getCpu`, `getRamSize`, `getDiskSize`, `runCommand`      |
-| `string` | `trim`, `truncate`, `strToCamelCase`, `pad`              |
-| `verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqual`                 |
-| `web`    | `getSlug`, `escapeHtml`, `isMobileDeviceFromUA`, `isBot` |
+| Category | Examples                                                  |
+| -------- | --------------------------------------------------------- |
+| `array`  | `arrUnique`, `arrChunk`, `sortNatural`                    |
+| `crypto` | `md5Hash`, `sha256Hash`, `encodeBase64`, `objectId`       |
+| `date`   | `today`, `dayDiff`, `createDateListFromRange`             |
+| `file`   | `getFileSize`, `moveFile`, `joinFilePath`                 |
+| `format` | `numberFormat`, `fileSizeFormat`, `duration`              |
+| `math`   | `numSum`, `clamp`, `numRound`, `numRandom`                |
+| `misc`   | `debounce`, `throttle`, `retry`, `sleep`                  |
+| `net`    | `fetchData`, `parseAddress`                               |
+| `object` | `objClone`, `objMerge`, `objPick`, `objGet`               |
+| `os`     | `getCpuModel`, `getRamSize`, `getDiskSize`, `runCommand`  |
+| `string` | `collapseWhitespace`, `truncate`, `strToCamelCase`, `pad` |
+| `verify` | `isEmail`, `isUrl`, `isEmpty`, `isEqualLoose`             |
+| `web`    | `getSlug`, `escapeHtml`, `isMobileDeviceFromUa`, `isBot`  |
 
 The `file` category uses `dart:io`, so those functions are unavailable on Flutter Web. Everything else is platform independent.
 

@@ -27,31 +27,31 @@ import 'package:qsu/qsu.dart';
 | quiver | qsu | 비고 |
 | --- | --- | --- |
 | `isEmpty` | [isEmpty](/ko/reference/verify/isEmpty) | qsu 쪽은 어떤 값이든 받습니다. null, `String`, `List`, `Map` 모두 됩니다. |
-| `isBlank` | [trim](/ko/reference/string/trim) 뒤에 [isEmpty](/ko/reference/verify/isEmpty) | `isEmpty(trim(s))`로 씁니다. qsu에는 공백만 있는 문자열을 판정하는 함수가 따로 없습니다. |
+| `isBlank` | [collapseWhitespace](/ko/reference/string/collapseWhitespace) 뒤에 [isEmpty](/ko/reference/verify/isEmpty) | `isEmpty(collapseWhitespace(s))`로 씁니다. qsu에는 공백만 있는 문자열을 판정하는 함수가 따로 없습니다. |
 | `isNotEmpty`, `isNotBlank` | — | 위 조건을 부정하세요. |
 | `center` | [pad](/ko/reference/string/pad) | `pad`는 기본이 가운데 정렬이고, 남는 한 글자는 뒤에 붙입니다. |
 | `equalsIgnoreCase`, `compareIgnoreCase` | — | 대응되는 것이 없습니다. 소문자로 바꿔 비교하세요. |
 | `loop`, `isDigit`, `isWhitespace` | — | 대응되는 것이 없습니다. |
 
-qsu의 문자열 카테고리는 quiver보다 훨씬 크고, 그중 어느 것도 quiver에 대응되지 않습니다. [words](/ko/reference/string/words) 위에 올린 다섯 가지 표기 변환, [deburr](/ko/reference/string/deburr), [truncate](/ko/reference/string/truncate), [removeSpecialChar](/ko/reference/string/removeSpecialChar), [strRandom](/ko/reference/string/strRandom), [getStrBytes](/ko/reference/string/getStrBytes) 같은 것들입니다.
+qsu의 문자열 카테고리는 quiver보다 훨씬 크고, 그중 어느 것도 quiver에 대응되지 않습니다. [words](/ko/reference/string/words) 위에 올린 다섯 가지 표기 변환, [deburr](/ko/reference/string/deburr), [truncate](/ko/reference/string/truncate), [removeSpecialChars](/ko/reference/string/removeSpecialChars), [strRandom](/ko/reference/string/strRandom), [strByteLength](/ko/reference/string/strByteLength) 같은 것들입니다.
 
 ## 이터러블
 
 | quiver | qsu | 비고 |
 | --- | --- | --- |
-| `partition` | [arrGroupByMaxCount](/ko/reference/array/arrGroupByMaxCount) | 같은 개념입니다. 고정 크기로 묶고 마지막 묶음만 짧습니다. |
-| `range` | [arrWithNumber](/ko/reference/array/arrWithNumber) | **다릅니다.** qsu는 끝 값을 포함하고, `step` 옵션은 양의 정수만 받아 거꾸로 세거나 소수 간격으로 셀 수 없습니다. |
-| `max`, `min` | [max](/ko/reference/math/max), [min](/ko/reference/math/min) | **다릅니다.** qsu 쪽은 숫자 전용이고 `List<num>`을 받으며 비교 함수를 받지 않습니다. `dart:math`의 같은 이름을 가리므로, 둘 다 필요한 파일에서는 한쪽을 prefix로 가져와야 합니다. |
+| `partition` | [arrChunk](/ko/reference/array/arrChunk) | 같은 개념입니다. 고정 크기로 묶고 마지막 묶음만 짧습니다. |
+| `range` | [arrRange](/ko/reference/array/arrRange) | **다릅니다.** qsu는 끝 값을 포함하고, `step` 옵션은 양의 정수만 받아 거꾸로 세거나 소수 간격으로 셀 수 없습니다. |
+| `max`, `min` | [numMax](/ko/reference/math/numMax), [numMin](/ko/reference/math/numMin) | **다릅니다.** qsu 쪽은 숫자 전용이고 `List<num>`을 받으며 비교 함수를 받지 않습니다. |
 | `concat` | — | `expand`나 스프레드 연산자를 쓰세요. |
 | `zip`, `cycle`, `enumerate`, `count`, `generate`, `extent`, `merge` | — | 대응되는 것이 없습니다. |
-| — | [arrUnique](/ko/reference/array/arrUnique), [arrDifference](/ko/reference/array/arrDifference), [arrIntersection](/ko/reference/array/arrIntersection), [arrShuffle](/ko/reference/array/arrShuffle), [arrPick](/ko/reference/array/arrPick), [arrMove](/ko/reference/array/arrMove), [sortByObjectKey](/ko/reference/array/sortByObjectKey), [sortNumeric](/ko/reference/array/sortNumeric) | quiver에 대응되는 것이 없습니다. |
+| — | [arrUnique](/ko/reference/array/arrUnique), [arrDifference](/ko/reference/array/arrDifference), [arrIntersection](/ko/reference/array/arrIntersection), [arrShuffle](/ko/reference/array/arrShuffle), [arrRandom](/ko/reference/array/arrRandom), [arrMove](/ko/reference/array/arrMove), [sortByObjectKey](/ko/reference/array/sortByObjectKey), [sortNatural](/ko/reference/array/sortNatural) | quiver에 대응되는 것이 없습니다. |
 
 ## 패턴과 검사
 
 | quiver | qsu | 비고 |
 | --- | --- | --- |
 | `escapeRegex` | [escapeRegExp](/ko/reference/string/escapeRegExp) | 이름만 다르고 하는 일은 같습니다. |
-| `Glob`, `matchAny`, `matchesFull` | — | [isMatchPathname](/ko/reference/web/isMatchPathname)은 URL 경로를 규칙과 맞춰 보는 함수라 글로브보다 좁습니다. |
+| `Glob`, `matchAny`, `matchesFull` | — | [isPathnameMatch](/ko/reference/web/isPathnameMatch)는 URL 경로를 규칙과 맞춰 보는 함수라 글로브보다 좁습니다. |
 | `quiver.check` | — | qsu의 [verify](/ko/reference/verify/isEmpty) 카테고리는 예외를 던지는 대신 불리언을 돌려주므로 인자 검사를 대신하지 못합니다. |
 
 ## 컬렉션, 캐시, 비동기, 시간
@@ -60,17 +60,17 @@ qsu의 문자열 카테고리는 quiver보다 훨씬 크고, 그중 어느 것�
 
 `BiMap`, `Multimap`, `LruMap`, `TreeSet`, `Delegating*` 래퍼, `MapCache`는 자료구조이고 qsu에는 자료구조가 없습니다. `quiver.core`의 `Optional`과 `hash*` 헬퍼도 마찬가지입니다. [numberHash](/ko/reference/crypto/numberHash)는 문자열을 숫자로 해시하는 함수이지 `hashCode`를 만드는 도구가 아닙니다.
 
-`listsEqual`과 `mapsEqual`은 한 단계만 `==`로 비교합니다. [isEqualDeep](/ko/reference/verify/isEqualDeep)은 리스트와 맵을 모든 깊이에서 내용으로 비교하므로, 평평한 데이터에서는 같은 답을 내고 두 함수가 `==`로 비교하는 중첩 리스트와 맵까지 들여다봅니다. qsu는 `Set`을 `==`로 비교하므로 `setsEqual`에는 대응되는 것이 없습니다. quiver 쪽을 그대로 두세요. 어느 경우든 [isEqual](/ko/reference/verify/isEqual)은 쓰지 마세요. Dart의 `==`로 비교하므로 내용이 같은 두 리스트도 같지 **않습니다**.
+`listsEqual`과 `mapsEqual`은 한 단계만 `==`로 비교합니다. [isEqualDeep](/ko/reference/verify/isEqualDeep)은 리스트와 맵을 모든 깊이에서 내용으로 비교하므로, 평평한 데이터에서는 같은 답을 내고 두 함수가 `==`로 비교하는 중첩 리스트와 맵까지 들여다봅니다. qsu는 `Set`을 `==`로 비교하므로 `setsEqual`에는 대응되는 것이 없습니다. quiver 쪽을 그대로 두세요. 어느 경우든 [isEqualLoose](/ko/reference/verify/isEqualLoose)는 쓰지 마세요. Dart의 `==`로 비교하므로 내용이 같은 두 리스트도 같지 **않습니다**.
 
 `quiver.time`의 `isLeapYear`와 `daysInMonth`는 [isLeapYear](/ko/reference/date/isLeapYear)와 [getDaysInMonth](/ko/reference/date/getDaysInMonth)로 옮기면 됩니다. 인자가 같고, 월도 똑같이 1부터 셉니다. `quiver.time`의 나머지는 시간에 의존하는 코드를 주입 가능한 `Clock`으로 테스트하기 위해 있고, `quiver.testing`의 `FakeAsync`도 같은 이유로 있습니다. qsu의 [date](/ko/reference/date/today) 카테고리는 날짜를 형식화하고 비교할 뿐 시계를 제어하지 않습니다.
 
 ## qsu가 더 주는 것
 
 - 사람이 읽는 형식: [fileSizeFormat](/ko/reference/format/fileSizeFormat), [duration](/ko/reference/format/duration), [numberFormat](/ko/reference/format/numberFormat).
-- 객체: [objClone](/ko/reference/object/objClone), [objMerge](/ko/reference/object/objMerge), [objGet](/ko/reference/object/objGet), [objTo1d](/ko/reference/object/objTo1d), [objToQueryString](/ko/reference/object/objToQueryString).
+- 객체: [objClone](/ko/reference/object/objClone), [objMerge](/ko/reference/object/objMerge), [objGet](/ko/reference/object/objGet), [objFlatten](/ko/reference/object/objFlatten), [objToQueryString](/ko/reference/object/objToQueryString).
 - 검증과 웹: [isEmail](/ko/reference/verify/isEmail), [isUrl](/ko/reference/verify/isUrl), [getSlug](/ko/reference/web/getSlug), [escapeHtml](/ko/reference/web/escapeHtml), [parseAddress](/ko/reference/net/parseAddress).
 - 해시와 암호화: [sha256Hash](/ko/reference/crypto/sha256Hash), [encrypt](/ko/reference/crypto/encrypt), [objectId](/ko/reference/crypto/objectId).
-- 파일과 시스템 정보: [file](/ko/reference/file/getFileInfo), [os](/ko/reference/os/getCpu) 카테고리. 이런 성격의 순수 Dart 패키지 중에 이 영역을 다루는 것은 드뭅니다.
+- 파일과 시스템 정보: [file](/ko/reference/file/getFileInfo), [os](/ko/reference/os/getCpuModel) 카테고리. 이런 성격의 순수 Dart 패키지 중에 이 영역을 다루는 것은 드뭅니다.
 - 타이밍: [debounce](/ko/reference/misc/debounce), [throttle](/ko/reference/misc/throttle), [retry](/ko/reference/misc/retry), [sleep](/ko/reference/misc/sleep).
 - JavaScript와 Python에서도 같은 함수.
 
@@ -92,9 +92,9 @@ final heading = center(label, 40, ' ');
 ```dart
 import 'package:qsu/qsu.dart';
 
-final batches = arrGroupByMaxCount(ids, 20);
-final label = isEmpty(trim(title)) ? 'Untitled' : title;
+final batches = arrChunk(ids, 20);
+final label = isEmpty(collapseWhitespace(title)) ? 'Untitled' : title;
 final heading = pad(label, 40);
 ```
 
-`partition`은 지연 평가되는 `Iterable`을 돌려주고 `arrGroupByMaxCount`는 `List`를 돌려주므로 `.toList()`는 빼야 합니다. 이 차이는 두 라이브러리 전체에 걸쳐 있습니다. quiver는 지연 이터러블 위에 있고, qsu는 완성된 값을 돌려줍니다.
+`partition`은 지연 평가되는 `Iterable`을 돌려주고 `arrChunk`는 `List`를 돌려주므로 `.toList()`는 빼야 합니다. 이 차이는 두 라이브러리 전체에 걸쳐 있습니다. quiver는 지연 이터러블 위에 있고, qsu는 완성된 값을 돌려줍니다.

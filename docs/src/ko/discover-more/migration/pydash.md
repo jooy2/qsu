@@ -18,13 +18,12 @@ qsu는 Python 3.8 이상이 필요하므로 pydash가 이미 지원을 끊은 �
 from qsu import getSlug, arrUnique, fileSizeFormat
 ```
 
-두 가지가 낯설 것입니다. 이름이 `camelCase`인 것은 의도한 것으로, Python 패키지가 JavaScript·Dart 패키지와 똑같이 읽혀야 하기 때문입니다. 그리고 `sum`, `max`, `min`, `round`가 실제 함수 이름이라서 이름으로 가져오면 내장 함수를 가립니다. pydash는 뒤에 밑줄을 붙여 이를 피하지만 qsu는 그러지 않으니, 문제가 되는 곳에서는 모듈을 가져와 쓰세요.
+두 가지가 낯설 것입니다. 이름이 `camelCase`인 것은 의도한 것으로, Python 패키지가 JavaScript·Dart 패키지와 똑같이 읽혀야 하기 때문입니다. 그리고 `len`이 실제 함수 이름이라서 이름으로 가져오면 내장 함수를 가립니다. 문제가 되는 곳에서는 모듈을 가져와 쓰세요.
 
 ```python
 import qsu
 
-qsu.sum([1, 2, 3])
-qsu.round(2.675, 2)
+qsu.len([1, 2, 3])
 ```
 
 옵션은 키워드 인자로 받거나, 그 자리에 `dict` 하나로 받습니다.
@@ -41,13 +40,13 @@ qsu.round(2.675, 2)
 | `upper_first` | [capitalizeFirst](/ko/reference/string/capitalizeFirst) |  |
 | `lower_first` | [uncapitalizeFirst](/ko/reference/string/uncapitalizeFirst) |  |
 | `capitalize` | [capitalizeFirst](/ko/reference/string/capitalizeFirst) | **다릅니다.** pydash는 기본적으로 첫 글자 뒤를 소문자로 바꾸고, qsu는 그대로 둡니다. |
-| `start_case`, `title_case`, `human_case` | [capitalizeEachWords](/ko/reference/string/capitalizeEachWords) | **다릅니다.** qsu는 공백이 나눈 단어를 쓰고, `natural` 옵션으로 짧은 전치사를 소문자로 남깁니다. |
+| `start_case`, `title_case`, `human_case` | [capitalizeEachWord](/ko/reference/string/capitalizeEachWord) | **다릅니다.** qsu는 공백이 나눈 단어를 쓰고, `titleCase` 옵션으로 짧은 전치사를 소문자로 남깁니다. |
 | `deburr` | [deburr](/ko/reference/string/deburr) |  |
 | `escape`, `unescape` | [escapeHtml](/ko/reference/web/escapeHtml), [unescapeHtml](/ko/reference/web/unescapeHtml) | qsu는 `&`, `<`, `>`, `"`, `'`를 변환합니다. |
 | `escape_reg_exp` | [escapeRegExp](/ko/reference/string/escapeRegExp) |  |
 | `pad`, `pad_start`, `pad_end` | [pad](/ko/reference/string/pad) | `position` 옵션을 가진 함수 하나로 처리합니다. |
 | `truncate` | [truncate](/ko/reference/string/truncate) | **다릅니다.** pydash는 생략 기호를 길이 안에 포함해 세고 기본값이 `...`입니다. qsu는 길이까지 자르고, 말하지 않으면 아무것도 붙이지 않습니다. |
-| `trim` | [trim](/ko/reference/string/trim) | **다릅니다.** qsu는 문자열 안쪽의 연속된 공백도 하나로 줄이며, 제거할 문자를 지정받지 않습니다. |
+| `trim` | [collapseWhitespace](/ko/reference/string/collapseWhitespace) | **다릅니다.** qsu는 문자열 안쪽의 연속된 공백도 하나로 줄이며, 제거할 문자를 지정받지 않습니다. |
 | `words` | [words](/ko/reference/string/words) |  |
 | `split` | [split](/ko/reference/string/split) | qsu는 구분자를 여러 개 한 번에 받습니다. |
 | `count_substr` | [strCount](/ko/reference/string/strCount) |  |
@@ -59,23 +58,23 @@ qsu.round(2.675, 2)
 
 | pydash | qsu | 비고 |
 | --- | --- | --- |
-| `chunk` | [arrGroupByMaxCount](/ko/reference/array/arrGroupByMaxCount) |  |
+| `chunk` | [arrChunk](/ko/reference/array/arrChunk) |  |
 | `compact` | [arrCompact](/ko/reference/array/arrCompact) | **다릅니다.** 세 패키지가 같은 답을 내도록, falsy한 값 전부가 아니라 정해진 값만 제거합니다. |
 | `difference` | [arrDifference](/ko/reference/array/arrDifference) |  |
 | `intersection` | [arrIntersection](/ko/reference/array/arrIntersection) |  |
 | `uniq` | [arrUnique](/ko/reference/array/arrUnique) | **다릅니다.** qsu는 `True`를 `1`로 보지 않으므로 `[1, True]`는 둘 다 남습니다. |
-| `flatten_deep` | [arrTo1dArray](/ko/reference/array/arrTo1dArray) | 한 단계만 펴는 `flatten`에 해당하는 것은 없습니다. |
+| `flatten_deep` | [arrFlatten](/ko/reference/array/arrFlatten) | 한 단계만 펴는 `flatten`에 해당하는 것은 없습니다. |
 | `shuffle` | [arrShuffle](/ko/reference/array/arrShuffle) |  |
-| `sample` | [arrPick](/ko/reference/array/arrPick) | `sample_size`에 해당하는 것은 없습니다. |
+| `sample` | [arrRandom](/ko/reference/array/arrRandom) | `sample_size`에 해당하는 것은 없습니다. |
 | `count_by` | [arrCount](/ko/reference/array/arrCount) | **다릅니다.** iteratee가 없고, 값은 문자열이나 숫자여야 합니다. |
-| `range_` | [arrWithNumber](/ko/reference/array/arrWithNumber) | **다릅니다.** qsu는 끝 값을 포함하고, `step` 옵션은 양의 정수만 받아 거꾸로 세거나 소수 간격으로 셀 수 없습니다. |
+| `range_` | [arrRange](/ko/reference/array/arrRange) | **다릅니다.** qsu는 끝 값을 포함하고, `step` 옵션은 양의 정수만 받아 거꾸로 세거나 소수 간격으로 셀 수 없습니다. |
 | `sort_by` | [sortByObjectKey](/ko/reference/array/sortByObjectKey) | dict 리스트의 키 하나가 기준입니다. |
 | `mean` | [average](/ko/reference/array/average) |  |
 | `size` | [len](/ko/reference/verify/len) |  |
 | `without` | — | `arrDifference(items, [value])`로 씁니다. |
 | `group_by` | [arrGroupBy](/ko/reference/array/arrGroupBy) | **다릅니다.** qsu는 모든 키를 문자열로 바꾸므로 `1`로 묶인 그룹은 `'1'` 아래에 들어갑니다. 콜백이 꼭 있어야 하고, 그 자리에 속성 이름을 넘길 수 없습니다. |
 | `key_by`, `order_by`, `partition`, `zip_`, `take`, `drop`, `flat_map` | — | 대응되는 것이 없습니다. `itertools`와 컴프리헨션을 쓰세요. |
-| — | [arrMove](/ko/reference/array/arrMove), [arrRepeat](/ko/reference/array/arrRepeat), [sortNumeric](/ko/reference/array/sortNumeric), [is2dArray](/ko/reference/verify/is2dArray) | pydash에 대응되는 것이 없습니다. |
+| — | [arrMove](/ko/reference/array/arrMove), [arrRepeat](/ko/reference/array/arrRepeat), [sortNatural](/ko/reference/array/sortNatural), [isNestedArray](/ko/reference/verify/isNestedArray) | pydash에 대응되는 것이 없습니다. |
 
 ## dict
 
@@ -90,33 +89,33 @@ qsu.round(2.675, 2)
 | `map_keys` | [objMapKeys](/ko/reference/object/objMapKeys) |  |
 | `pick` | [objPick](/ko/reference/object/objPick) | 최상위만 봅니다. |
 | `pick_by` | [objPickBy](/ko/reference/object/objPickBy) | 최상위만 봅니다. |
-| `to_pairs` | [objToArray](/ko/reference/object/objToArray) |  |
+| `to_pairs` | [objToEntries](/ko/reference/object/objToEntries) |  |
 | `set_` | [objSet](/ko/reference/object/objSet) | **다릅니다.** qsu는 넘긴 dict를 그대로 두고 새 dict를 돌려주지만, pydash는 넘긴 dict에 직접 씁니다. 없는 단계는 `[0]` 같은 숫자 키라도 항상 dict로 만듭니다. |
 | `update` | [objGet](/ko/reference/object/objGet) 다음 [objSet](/ko/reference/object/objSet) | 값을 읽고 새 값을 계산해 다시 씁니다. qsu에는 갱신 콜백이 없습니다. |
 | `parse_int` | [safeParseInt](/ko/reference/format/safeParseInt) | 예외를 올리는 대신 fallback을 돌려줍니다. |
 | `omit` | [objOmit](/ko/reference/object/objOmit) | **다릅니다.** 최상위 키만 다룹니다. pydash는 깊은 경로도 받습니다. |
 | `omit_by`, `unset`, `map_values`, `rename_keys` | — | 조건을 뒤집어 `objPickBy`를 쓰거나 컴프리헨션으로 쓰세요. |
-| — | [objTo1d](/ko/reference/object/objTo1d), [objToQueryString](/ko/reference/object/objToQueryString), [objToPrettyStr](/ko/reference/object/objToPrettyStr), [objFindItemRecursiveByKey](/ko/reference/object/objFindItemRecursiveByKey) | pydash에 대응되는 것이 없습니다. |
+| — | [objFlatten](/ko/reference/object/objFlatten), [objToQueryString](/ko/reference/object/objToQueryString), [objToPrettyJson](/ko/reference/object/objToPrettyJson), [objFindInTree](/ko/reference/object/objFindInTree) | pydash에 대응되는 것이 없습니다. |
 
 ## 숫자와 검사, 타이밍
 
 | pydash | qsu | 비고 |
 | --- | --- | --- |
-| `add`, `subtract`, `multiply`, `divide` | [sum](/ko/reference/math/sum), [sub](/ko/reference/math/sub), [mul](/ko/reference/math/mul), [div](/ko/reference/math/div) | qsu는 인자를 몇 개든 받거나 리스트 하나를 받습니다. |
-| `sum_` | [sum](/ko/reference/math/sum) |  |
-| `max_`, `min_` | [max](/ko/reference/math/max), [min](/ko/reference/math/min) | 빈 입력에는 <code>None</code>을 돌려줍니다. |
-| `ceil`, `floor`, `round_` | [ceil](/ko/reference/math/ceil), [floor](/ko/reference/math/floor), [round](/ko/reference/math/round) | **다릅니다.** qsu는 중간값을 0에서 먼 쪽으로 보내므로 `round(0.5)`가 `1`입니다. Python의 내장 `round`는 `0`을 냅니다. |
+| `add`, `subtract`, `multiply`, `divide` | [numSum](/ko/reference/math/numSum), [sub](/ko/reference/math/sub), [mul](/ko/reference/math/mul), [div](/ko/reference/math/div) | qsu는 인자를 몇 개든 받거나 리스트 하나를 받습니다. |
+| `sum_` | [numSum](/ko/reference/math/numSum) |  |
+| `max_`, `min_` | [numMax](/ko/reference/math/numMax), [numMin](/ko/reference/math/numMin) | 빈 입력에는 <code>None</code>을 돌려줍니다. |
+| `ceil`, `floor`, `round_` | [ceil](/ko/reference/math/ceil), [floor](/ko/reference/math/floor), [numRound](/ko/reference/math/numRound) | **다릅니다.** qsu는 중간값을 0에서 먼 쪽으로 보내므로 `numRound(0.5)`가 `1`입니다. Python의 내장 `round`는 `0`을 냅니다. |
 | `clamp` | [clamp](/ko/reference/math/clamp) |  |
 | `in_range` | [between](/ko/reference/verify/between) | **다릅니다.** 범위를 쌍으로 먼저 받고, `inclusive`를 주지 않으면 양 끝을 제외합니다. |
-| `random` | [numPick](/ko/reference/math/numPick) | 정수만 냅니다. |
-| `unique_id` | [numUnique](/ko/reference/math/numUnique) | **다릅니다.** 시계에서 만든 숫자이고 접두사 인자가 없습니다. |
+| `random` | [numRandom](/ko/reference/math/numRandom) | 정수만 냅니다. |
+| `unique_id` | [numUniqueId](/ko/reference/math/numUniqueId) | **다릅니다.** 시계에서 만든 숫자이고 접두사 인자가 없습니다. |
 | `median` | [median](/ko/reference/array/median) | qsu는 `NaN`을 건너뛰고, 빈 리스트에는 `None`을 돌려줍니다. |
 | `variance`, `std_deviation`, `power`, `scale`, `transpose` | — | 대응되는 것이 없습니다. |
 | `is_empty` | [isEmpty](/ko/reference/verify/isEmpty) |  |
-| `is_equal` | [isEqualDeep](/ko/reference/verify/isEqualDeep) | **다릅니다.** pydash는 Python의 `==`로 비교합니다. qsu는 항목이 같은 list와 tuple을 같다고 보고, `True`를 `1`로 보지 않으며, `NaN`은 자기 자신과 같다고 봅니다. [isEqual](/ko/reference/verify/isEqual)은 대신 쓸 수 없습니다. 두 번째 인자로 넘긴 list를 비교할 값의 목록으로 읽기 때문입니다. |
-| `is_dict` | [isObject](/ko/reference/verify/isObject) |  |
+| `is_equal` | [isEqualDeep](/ko/reference/verify/isEqualDeep) | **다릅니다.** pydash는 Python의 `==`로 비교합니다. qsu는 항목이 같은 list와 tuple을 같다고 보고, `True`를 `1`로 보지 않으며, `NaN`은 자기 자신과 같다고 봅니다. [isEqualLoose](/ko/reference/verify/isEqualLoose)는 대신 쓸 수 없습니다. 두 번째 인자로 넘긴 list를 비교할 값의 목록으로 읽기 때문입니다. |
+| `is_dict` | [isPlainObject](/ko/reference/verify/isPlainObject) |  |
 | `debounce`, `throttle` | [debounce](/ko/reference/misc/debounce), [throttle](/ko/reference/misc/throttle) |  |
-| `times` | [funcTimes](/ko/reference/misc/funcTimes) |  |
+| `times` | [times](/ko/reference/misc/times) |  |
 | `retry` | [retry](/ko/reference/misc/retry) | **다릅니다.** pydash 쪽은 데코레이터를 만드는 함수이고, qsu 쪽은 함수를 받아 실행합니다. |
 | `delay` | — | [sleep](/ko/reference/misc/sleep)은 기다릴 뿐 호출을 예약하지 않습니다. |
 | `memoize`, `curry`, `once`, `partial`, `flow`, `iteratee` | — | 대응되는 것이 없습니다. |
@@ -126,8 +125,8 @@ qsu.round(2.675, 2)
 - 사람이 읽는 형식: [fileSizeFormat](/ko/reference/format/fileSizeFormat), [duration](/ko/reference/format/duration), 그리고 숫자와 단위를 따로 돌려주는 `Parts` 계열.
 - 검증: [isEmail](/ko/reference/verify/isEmail), [isUrl](/ko/reference/verify/isUrl), [isValidDate](/ko/reference/date/isValidDate), [hasBadWords](/ko/reference/verify/hasBadWords).
 - 해시와 암호화: [sha256Hash](/ko/reference/crypto/sha256Hash), [md5Hash](/ko/reference/crypto/md5Hash), [encrypt](/ko/reference/crypto/encrypt), [objectId](/ko/reference/crypto/objectId).
-- 파일과 시스템: [file](/ko/reference/file/getFileInfo), [os](/ko/reference/os/getCpu) 카테고리.
-- 웹: [isMobileDeviceFromUA](/ko/reference/web/isMobileDeviceFromUA), [isBot](/ko/reference/web/isBot), [isMatchPathname](/ko/reference/web/isMatchPathname), [parseAddress](/ko/reference/net/parseAddress), [urlJoin](/ko/reference/string/urlJoin).
+- 파일과 시스템: [file](/ko/reference/file/getFileInfo), [os](/ko/reference/os/getCpuModel) 카테고리.
+- 웹: [isMobileDeviceFromUa](/ko/reference/web/isMobileDeviceFromUa), [isBot](/ko/reference/web/isBot), [isPathnameMatch](/ko/reference/web/isPathnameMatch), [parseAddress](/ko/reference/net/parseAddress), [joinUrl](/ko/reference/string/joinUrl).
 - JavaScript와 Dart에서도 같은 함수.
 
 ## 예제
@@ -146,10 +145,10 @@ label = f'{_.round_(size / 1024 / 1024, 1)} MB'
 이후:
 
 ```python
-from qsu import getSlug, arrGroupByMaxCount, arrUnique, objMerge, fileSizeFormat
+from qsu import getSlug, arrChunk, arrUnique, objMerge, fileSizeFormat
 
 slug = getSlug(title)
-pages = arrGroupByMaxCount(arrUnique(ids), 20)
+pages = arrChunk(arrUnique(ids), 20)
 config = objMerge(defaults, overrides)
 label = fileSizeFormat(size, 1)
 ```

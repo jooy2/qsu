@@ -13,7 +13,7 @@ Breaks a duration in milliseconds into its units and returns them, leaving the c
 
 <ParamsTable name="DurationPartsOptions" :rows="[
 	{ name: 'withZeroValue', type: 'boolean', default: 'false', desc: 'Include units with a value of 0 below the largest unit.' },
-	{ name: 'withMilliSeconds', type: 'boolean', default: 'false', desc: 'Include the millisecond unit.' },
+	{ name: 'withMilliseconds', type: 'boolean', default: 'false', desc: 'Include the millisecond unit.' },
 	{ name: 'maxUnitCount', type: 'number', desc: 'Maximum number of units to return, counted from the largest.' },
 	{ name: 'unit', type: 'DurationUnitName', desc: 'Express the whole duration with this one unit, which allows a fractional `value`.' }
 ]" />

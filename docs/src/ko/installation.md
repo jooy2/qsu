@@ -127,12 +127,12 @@ function main() {
 파일, 암호화와 관련한 특정 유틸리티 함수는 **Node.js** 모듈을 필요로 하기 때문에 브라우저 환경에서는 사용할 수 없습니다. 때문에 해당 함수들을 사용하려면 Node.js 런타임 환경에서 (주로 서버에 해당됨) 다음과 같이 import하여 사용할 수 있습니다.
 
 ```javascript
-import { createFile, md5Hash } from 'qsu/node';
+import { touchFile, md5Hash } from 'qsu/node';
 
 async function main() {
 	console.log(md5Hash('abc'));
 
-	await createFile('/home/user/Hello.txt');
+	await touchFile('/home/user/Hello.txt');
 }
 
 main();

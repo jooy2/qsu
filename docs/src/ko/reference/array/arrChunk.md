@@ -1,0 +1,45 @@
+# arrChunk
+
+주어진 배열의 데이터를 최대 요소 수만 포함하는 2차원 배열로 분리합니다. 예를 들어, 2개의 그룹에 6개의 데이터가 있는 배열이 있는 경우, 이 함수는 길이가 3인 2차원 배열을 만듭니다.
+
+콜백이 돌려준 키로 항목을 묶으려면 [arrGroupBy](./arrGroupBy)를 사용하세요.
+
+## Parameters
+
+<ParamsTable :rows="[
+	{ name: 'array', type: 'any[]', required: true },
+	{ name: 'size', type: 'number', default: '1' }
+]" />
+
+## Returns
+
+<ReturnType type="any[]" />
+
+## Examples
+
+::: lang js
+
+```javascript
+arrChunk(['a', 'b', 'c', 'd', 'e'], 2);
+// Returns [['a', 'b'], ['c', 'd'], ['e']]
+```
+
+:::
+
+::: lang dart
+
+```dart
+arrChunk(['a', 'b', 'c', 'd', 'e'], 2);
+// Returns [['a', 'b'], ['c', 'd'], ['e']]
+```
+
+:::
+
+::: lang python
+
+```python
+arrChunk(['a', 'b', 'c', 'd', 'e'], 2)
+# Returns [['a', 'b'], ['c', 'd'], ['e']]
+```
+
+:::
