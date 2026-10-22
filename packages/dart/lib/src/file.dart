@@ -12,7 +12,8 @@ import 'package:qsu/src/os/_unsupported.dart'
 import 'package:unorm_dart/unorm_dart.dart';
 
 /// Creates a directory with the specified path. Ignores the operation if the directory already exists.
-Future<void> createDirectory(String filePath, {bool? recursive = true}) async {
+Future<void> createDirectory(String directoryPath,
+    {bool? recursive = true}) async {
   // Failures propagate, matching the JS/Python implementations. Catching only
   // `Error` here used to swallow every failure, because dart:io reports them as
   // `FileSystemException`, which is an `Exception` and not an `Error`.
@@ -20,11 +21,11 @@ Future<void> createDirectory(String filePath, {bool? recursive = true}) async {
   // `create` is already a no-op for an existing directory and reports an error
   // when a *file* sits at the path, so the `exists` check that used to guard it
   // was a wasted system call.
-  await Directory(filePath).create(recursive: recursive == true);
+  await Directory(directoryPath).create(recursive: recursive == true);
 }
 
 /// Create a file of empty data. If the same file already exists, it is ignored.
-Future<void> createFile(String filePath) async {
+Future<void> touchFile(String filePath) async {
   if (filePath.trim().isEmpty) {
     return;
   }
@@ -43,7 +44,7 @@ Future<void> createFile(String filePath) async {
 }
 
 /// Creates a file with the specified size in bytes.
-Future<bool> createFileWithDummy(String filePath, {int? size}) async {
+Future<bool> createFileOfSize(String filePath, {int? size}) async {
   if (size == null) {
     throw ArgumentError('Size is required');
   }
@@ -53,7 +54,7 @@ Future<bool> createFileWithDummy(String filePath, {int? size}) async {
 
   try {
     if (size == 0) {
-      await createFile(filePath);
+      await touchFile(filePath);
       return true;
     }
 
@@ -74,7 +75,7 @@ Future<bool> createFileWithDummy(String filePath, {int? size}) async {
 }
 
 /// Delete files or directory in the specified path. If the file does not exist in the path, it is ignored.
-Future<void> deleteFile(String filePath) async {
+Future<void> deletePath(String filePath) async {
   if (filePath.trim().isEmpty) {
     return;
   }
@@ -106,7 +107,7 @@ Future<void> deleteFile(String filePath) async {
 const int _deleteConcurrency = 32;
 
 /// Deletes all files in the specified directory path. However, the directory is preserved.
-Future<void> deleteAllFileFromDirectory(String directoryPath) async {
+Future<void> emptyDirectory(String directoryPath) async {
   final List<String> fileItems = [];
 
   try {
@@ -127,7 +128,7 @@ Future<void> deleteAllFileFromDirectory(String directoryPath) async {
     final int end =
         i + _deleteConcurrency < iLen ? i + _deleteConcurrency : iLen;
 
-    await Future.wait(fileItems.sublist(i, end).map(deleteFile));
+    await Future.wait(fileItems.sublist(i, end).map(deletePath));
   }
 }
 
@@ -156,7 +157,7 @@ Future<FileInfo> getFileInfo(String filePath) async {
     name: getFileName(filePath),
     dirname: dirname(filePath),
     path: normalize(absolute(filePath)),
-    created: dateToUnixTime(stat.changed),
+    changed: dateToUnixTime(stat.changed),
     modified: dateToUnixTime(stat.modified),
   );
 }
@@ -283,15 +284,15 @@ String getParentFilePath(String filePath, {bool? isWindows = false}) {
   // Delegate to `dirname` rather than splitting by hand. The hand-rolled split
   // collapsed any single-segment relative path to the root ('relative/path'
   // answered '/' instead of '/relative') and mangled UNC paths.
-  return toValidFilePath(
+  return normalizeFilePath(
     isWindows == true ? windows.dirname(filePath) : posix.dirname(filePath),
     isWindows: isWindows,
   );
 }
 
-/// Returns the first line of the specified text file path. The `length` argument is the total number of lines to print. Default is `1`.
-Future<String?> headFile(String filePath, {int length = 1}) async {
-  if (length <= 0) {
+/// Returns the first line of the specified text file path. The [lineCount] argument is the total number of lines to print. Default is `1`.
+Future<String?> headFile(String filePath, {int lineCount = 1}) async {
+  if (lineCount <= 0) {
     return null;
   }
 
@@ -317,7 +318,7 @@ Future<String?> headFile(String filePath, {int length = 1}) async {
 
       // One line more than asked for means every line that will be returned is
       // complete; the last one may still be waiting for the rest of its chunk.
-      if (lines.length > length) {
+      if (lines.length > lineCount) {
         break;
       }
     }
@@ -326,7 +327,7 @@ Future<String?> headFile(String filePath, {int length = 1}) async {
       return null;
     }
 
-    return lines.take(length).join('\n');
+    return lines.take(lineCount).join('\n');
   } finally {
     await handle.close();
   }
@@ -377,12 +378,12 @@ List<String> _splitLines(String text) {
   return lines;
 }
 
-/// Returns the last line of the specified text file path. The `length` argument is the total number of lines to print. Default is `1`. The last line of newline characters is ignored.
+/// Returns the last line of the specified text file path. The [lineCount] argument is the total number of lines to print. Default is `1`. The last line of newline characters is ignored.
 Future<String?> tailFile(
   String filePath, {
-  int length = 1,
+  int lineCount = 1,
 }) async {
-  if (length <= 0) {
+  if (lineCount <= 0) {
     return null;
   }
 
@@ -415,13 +416,13 @@ Future<String?> tailFile(
       // One line more than asked for means the first line held in the buffer is
       // incomplete - it starts wherever the chunk boundary fell, possibly
       // mid-character - but it is also about to be dropped.
-      if (lines.length > length) {
+      if (lines.length > lineCount) {
         break;
       }
     }
 
-    final List<String> buffer = lines.length > length
-        ? lines.sublist(lines.length - length)
+    final List<String> buffer = lines.length > lineCount
+        ? lines.sublist(lines.length - lineCount)
         : List<String>.of(lines);
 
     // The last line of newline characters is ignored.
@@ -440,7 +441,7 @@ Future<String?> tailFile(
 }
 
 /// If a file or directory exists at the specified path, it returns `true`.
-Future<bool> isFileExists(String filePath) async {
+Future<bool> isExistingPath(String filePath) async {
   try {
     // One `stat` answers for a file, a directory and a link alike, where asking
     // `File.exists` and then `Directory.exists` cost two of them for every
@@ -453,7 +454,8 @@ Future<bool> isFileExists(String filePath) async {
 }
 
 /// Determines whether the passed path or filename is using a system-accepted string (Also check the valid file length). Returns false if the name is not available.
-bool isValidFileName(String filePath, {bool? unixType = false}) {
+/// The Windows rules apply unless [isWindows] is `false`, which checks the name against the Unix rules instead.
+bool isValidFileName(String filePath, {bool? isWindows = true}) {
   // Validate the *whole* name, extension included. Stripping the extension
   // first would let 'hello.:txt' through, because only 'hello' was checked.
   final fileName = getFileName(filePath, withExtension: true);
@@ -462,11 +464,13 @@ bool isValidFileName(String filePath, {bool? unixType = false}) {
     return false;
   }
 
-  final RegExp fileNameRegex = unixType == true
+  // Only an explicit `false` selects the Unix rules; `null` keeps the Windows
+  // ones, as the default does.
+  final RegExp fileNameRegex = isWindows == false
       ? RegExp(r'(^\s+$)|(^\.+$)|([:/]+)')
       : RegExp(r'(^\s+$)|(^\.+$)|([<>:"/\\|?*]+)');
 
-  if (unixType != true) {
+  if (isWindows != false) {
     if (_windowsReservedNameRegex.hasMatch(fileName.split('.')[0])) {
       return false;
     }
@@ -500,7 +504,7 @@ final RegExp _controlCharacterRegex = RegExp(r'[\x00-\x1F\x7F]');
 const int _maxFileNameBytes = 255;
 
 /// Determine how many steps the current path is. The root path (`/` or `C:\`) begins with step 1.
-int getFilePathLevel(String? filePath) {
+int getFilePathDepth(String? filePath) {
   if (filePath == null || filePath.isEmpty) {
     return -1;
   }
@@ -538,7 +542,7 @@ String joinFilePath(List<String> paths, {bool? isWindows}) {
       ? windows.joinAll(normalized)
       : posix.joinAll(normalized);
 
-  return toValidFilePath(
+  return normalizeFilePath(
     isWindows == true ? windows.normalize(joined) : posix.normalize(joined),
     isWindows: isWindows,
   );
@@ -599,12 +603,12 @@ Future<void> moveFile(String filePath, String targetFilePath) async {
     }
 
     await _copyRecursive(filePath, targetFilePath);
-    await deleteFile(filePath);
+    await deletePath(filePath);
   }
 }
 
 /// Returns the file name within the path.
-String normalizeFile(String filePath, {String? normalizationForm}) {
+String normalizeFilePathUnicode(String filePath, {String? normalizationForm}) {
   if (filePath.isEmpty) {
     return '';
   }
@@ -633,7 +637,7 @@ String toPosixFilePath(String filePath) {
 }
 
 /// Remove invalid or unnecessary characters in the path.
-String toValidFilePath(String filePath, {bool? isWindows = false}) {
+String normalizeFilePath(String filePath, {bool? isWindows = false}) {
   // Delegate to the path package's `normalize` so that '.' and '..' segments
   // collapse the same way they do in JS/Python. The previous regex-only
   // approach left them in place and destroyed the '\\' prefix of UNC paths.
@@ -689,7 +693,7 @@ class FileInfo {
   final String dirname;
   final String path;
   final String? ext;
-  final int created;
+  final int changed;
   final int modified;
 
   FileInfo({
@@ -701,7 +705,7 @@ class FileInfo {
     required this.dirname,
     required this.path,
     required this.ext,
-    required this.created,
+    required this.changed,
     required this.modified,
   });
 }

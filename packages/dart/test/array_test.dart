@@ -23,12 +23,11 @@ void main() {
           hasLength(4));
     });
 
-    test('arrWithDefault', () {
-      expect(arrWithDefault('test', 0), []);
-      expect(arrWithDefault(123, 2), [123, 123]);
-      expect(
-          arrWithDefault('test', 5), ['test', 'test', 'test', 'test', 'test']);
-      expect(arrWithDefault([null], 2), [
+    test('arrFill', () {
+      expect(arrFill('test', 0), []);
+      expect(arrFill(123, 2), [123, 123]);
+      expect(arrFill('test', 5), ['test', 'test', 'test', 'test', 'test']);
+      expect(arrFill([null], 2), [
         [null],
         [null]
       ]);
@@ -74,39 +73,39 @@ void main() {
       expect(arrUnique([double.nan, double.nan]).length, 1);
     });
 
-    test('arrWithNumber', () {
-      expect(arrWithNumber(1, 2), [1, 2]);
-      expect(arrWithNumber(0, 5), [0, 1, 2, 3, 4, 5]);
-      expect(arrWithNumber(1, 1), [1]);
-      expect(arrWithNumber(1, 5), [1, 2, 3, 4, 5]);
-      expect(arrWithNumber(3, 3), [3]);
-      expect(arrWithNumber(0, 10, step: 3), [0, 3, 6, 9]);
-      expect(arrWithNumber(0, 10, step: 5), [0, 5, 10]);
-      expect(arrWithNumber(1, 2, step: 10), [1]);
-      expect(arrWithNumber(-5, 5, step: 5), [-5, 0, 5]);
+    test('arrRange', () {
+      expect(arrRange(1, 2), [1, 2]);
+      expect(arrRange(0, 5), [0, 1, 2, 3, 4, 5]);
+      expect(arrRange(1, 1), [1]);
+      expect(arrRange(1, 5), [1, 2, 3, 4, 5]);
+      expect(arrRange(3, 3), [3]);
+      expect(arrRange(0, 10, step: 3), [0, 3, 6, 9]);
+      expect(arrRange(0, 10, step: 5), [0, 5, 10]);
+      expect(arrRange(1, 2, step: 10), [1]);
+      expect(arrRange(-5, 5, step: 5), [-5, 0, 5]);
       expect(
-          () => arrWithNumber(5, 1),
+          () => arrRange(5, 1),
           throwsA(isA<ArgumentError>().having((ArgumentError e) => e.message,
               'message', '`start` is greater than `end`.')));
       expect(
-          () => arrWithNumber(0, 10, step: 0),
+          () => arrRange(0, 10, step: 0),
           throwsA(isA<ArgumentError>().having((ArgumentError e) => e.message,
               'message', '`step` must be a positive integer.')));
       expect(
-          () => arrWithNumber(0, 10, step: -1),
+          () => arrRange(0, 10, step: -1),
           throwsA(isA<ArgumentError>().having((ArgumentError e) => e.message,
               'message', '`step` must be a positive integer.')));
     });
 
-    test('arrPick', () {
-      expect(arrPick([1]), 1);
+    test('arrRandom', () {
+      expect(arrRandom([1]), 1);
 
-      final pickResult = arrPick([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+      final pickResult = arrRandom([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
 
       expect(pickResult! < 10, true);
       expect(pickResult.runtimeType, int);
 
-      expect(arrPick<int>([]), null);
+      expect(arrRandom<int>([]), null);
     });
 
     test('arrUnique', () {
@@ -116,9 +115,9 @@ void main() {
         [6, 7, 8, 9, 0]
       ];
 
-      funcTimes(150000, () => big2dArray.add([1, 1, 1, 1, 1]));
-      funcTimes(150000, () => big2dArray.add([2, 2, 2, 2, 2]));
-      funcTimes(150000, () => big2dArray.add([3, 3, 3, 3, 3]));
+      times(150000, () => big2dArray.add([1, 1, 1, 1, 1]));
+      times(150000, () => big2dArray.add([2, 2, 2, 2, 2]));
+      times(150000, () => big2dArray.add([3, 3, 3, 3, 3]));
 
       expect(arrUnique(big2dArray), [
         [10, 20, 30, 40, 50],
@@ -163,7 +162,7 @@ void main() {
       expect(median([1, 3]), 2);
       expect(median([-1, -5, 0]), -1);
       expect(median([1.5, 2.5]), 2);
-      // `NaN` is skipped, as `min` and `max` do.
+      // `NaN` is skipped, as `numMin` and `numMax` do.
       expect(median([double.nan, 1, 3]), 2);
       expect(median([]), isNull);
       expect(median([double.nan]), isNull);
@@ -181,15 +180,15 @@ void main() {
       expect(arrMove([5, 10, 15], 1, 1), [5, 10, 15]);
     });
 
-    test('arrTo1dArray', () {
+    test('arrFlatten', () {
       expect(
-          arrTo1dArray([
+          arrFlatten([
             [1, 2, 3, 4],
             [5, 6, 7, 8]
           ]),
           [1, 2, 3, 4, 5, 6, 7, 8]);
       expect(
-          arrTo1dArray([
+          arrFlatten([
             [1, 2, 3],
             4,
             5,
@@ -197,7 +196,7 @@ void main() {
           ]),
           [1, 2, 3, 4, 5, 6, 7, 8]);
       expect(
-          arrTo1dArray([
+          arrFlatten([
             [1, 2],
             [
               [3, 4],
@@ -208,7 +207,7 @@ void main() {
           ]),
           [1, 2, 3, 4, 5, 6, 7, 8]);
       expect(
-          arrTo1dArray([
+          arrFlatten([
             [
               [
                 [1, 2, 3, 4, 5, 6]
@@ -239,14 +238,14 @@ void main() {
           {'a': 4, 'b': 2, 'c': 1, 'd': 1});
     });
 
-    test('arrGroupByMaxCount', () {
-      expect(arrGroupByMaxCount([1, 2, 3], 1), [
+    test('arrChunk', () {
+      expect(arrChunk([1, 2, 3], 1), [
         [1],
         [2],
         [3]
       ]);
       expect(
-          arrGroupByMaxCount([
+          arrChunk([
             1,
             2,
             [],
@@ -260,10 +259,10 @@ void main() {
               [[]]
             ]
           ]);
-      expect(arrGroupByMaxCount([1, 2, 3, 4], 5), [
+      expect(arrChunk([1, 2, 3, 4], 5), [
         [1, 2, 3, 4]
       ]);
-      expect(arrGroupByMaxCount([1, 1, 1, 1, 1, 1], 2), [
+      expect(arrChunk([1, 1, 1, 1, 1, 1], 2), [
         [1, 1],
         [1, 1],
         [1, 1]
@@ -315,48 +314,48 @@ void main() {
       expect(arrGroupBy(<int>[], (int item) => item), {});
     });
 
-    test('sortNumeric', () {
-      expect(sortNumeric([]), []);
-      expect(sortNumeric(['a', 'd', 'c', 'b']), ['a', 'b', 'c', 'd']);
+    test('sortNatural', () {
+      expect(sortNatural([]), []);
+      expect(sortNatural(['a', 'd', 'c', 'b']), ['a', 'b', 'c', 'd']);
       expect(
-          sortNumeric(['a1a', 'b2a', 'aa1a', '1', 'a11a', 'a3a', 'a2a', '1a']),
+          sortNatural(['a1a', 'b2a', 'aa1a', '1', 'a11a', 'a3a', 'a2a', '1a']),
           ['1', '1a', 'a1a', 'a2a', 'a3a', 'a11a', 'aa1a', 'b2a']);
-      expect(sortNumeric(['3', '1', '11', '100', '10', '2', '15']),
+      expect(sortNatural(['3', '1', '11', '100', '10', '2', '15']),
           ['1', '2', '3', '10', '11', '15', '100']);
     });
 
     // The ordering below has to be identical in the JavaScript and Python packages. It
     // used to come from `compareNatural`, which none of the three packages agreed on.
-    test('sortNumeric (ordering is the same in every package)', () {
+    test('sortNatural (ordering is the same in every package)', () {
       // Case is a tie-break, not the first thing compared, so the numbers still decide.
-      expect(sortNumeric(['item2', 'Item10', 'item1']),
+      expect(sortNatural(['item2', 'Item10', 'item1']),
           ['item1', 'item2', 'Item10']);
       expect(
-          sortNumeric(
+          sortNatural(
               ['file-1.txt', 'File-3.txt', 'file-10.txt', 'file-2.txt']),
           ['file-1.txt', 'file-2.txt', 'File-3.txt', 'file-10.txt']);
       // Lower case comes before upper case when nothing else separates them.
-      expect(sortNumeric(['Apple', 'apple', 'Banana', 'banana']),
+      expect(sortNatural(['Apple', 'apple', 'Banana', 'banana']),
           ['apple', 'Apple', 'banana', 'Banana']);
-      expect(sortNumeric(['a', 'A', 'b', 'B']), ['a', 'A', 'b', 'B']);
+      expect(sortNatural(['a', 'A', 'b', 'B']), ['a', 'A', 'b', 'B']);
       // An accent is a tie-break too, so `äpple` sits next to `apple` and not after `z`.
-      expect(sortNumeric(['zebra', 'äpple', 'apple', 'Zebra']),
+      expect(sortNatural(['zebra', 'äpple', 'apple', 'Zebra']),
           ['apple', 'äpple', 'zebra', 'Zebra']);
-      expect(sortNumeric(['résumé', 'resume', 'Resume']),
+      expect(sortNatural(['résumé', 'resume', 'Resume']),
           ['resume', 'Resume', 'résumé']);
       // Whitespace, then punctuation, then digits, then letters.
-      expect(sortNumeric(['1file', '.gitignore', 'apple', '_private']),
+      expect(sortNatural(['1file', '.gitignore', 'apple', '_private']),
           ['.gitignore', '_private', '1file', 'apple']);
       // A run of digits is compared by length first, so it stays exact past the range a
       // number could hold.
-      expect(sortNumeric(['12345678901234567891', '12345678901234567890', '2']),
+      expect(sortNatural(['12345678901234567891', '12345678901234567890', '2']),
           ['2', '12345678901234567890', '12345678901234567891']);
       // Leading zeros do not change the value, so the raw string breaks the tie.
-      expect(sortNumeric(['007', '7', '08', '8']), ['007', '7', '08', '8']);
-      expect(sortNumeric(['b', 'a', 'c'], descending: true), ['c', 'b', 'a']);
+      expect(sortNatural(['007', '7', '08', '8']), ['007', '7', '08', '8']);
+      expect(sortNatural(['b', 'a', 'c'], descending: true), ['c', 'b', 'a']);
     });
 
-    test('sortNumeric (descending is the exact reverse)', () {
+    test('sortNatural (descending is the exact reverse)', () {
       final List<String> input = [
         'file-10.txt',
         'file-1.txt',
@@ -364,9 +363,9 @@ void main() {
         'b',
         'b'
       ];
-      final List<String> ascending = sortNumeric(input);
+      final List<String> ascending = sortNatural(input);
 
-      expect(sortNumeric(input, descending: true), ascending.reversed.toList());
+      expect(sortNatural(input, descending: true), ascending.reversed.toList());
       // A repeated value survives rather than being collapsed.
       expect(ascending.where((String e) => e == 'b').length, 2);
     });
@@ -594,12 +593,12 @@ void main() {
           <String>['File-1', 'File-10', 'File-9']);
       // Numerically, the digits are compared as numbers rather than as text.
       expect(
-          sortByObjectKey(people, 'name', numerically: true)
+          sortByObjectKey(people, 'name', natural: true)
               .map((dynamic item) => item['name'])
               .toList(),
           <String>['File-1', 'File-9', 'File-10']);
       expect(
-          sortByObjectKey(people, 'name', numerically: true, descending: true)
+          sortByObjectKey(people, 'name', natural: true, descending: true)
               .map((dynamic item) => item['name'])
               .toList(),
           <String>['File-10', 'File-9', 'File-1']);

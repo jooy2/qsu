@@ -1,18 +1,17 @@
-// Prefixed, because this library declares its own top-level `max` and `min`.
-import 'dart:math' as math;
+import 'dart:math';
 
 /// (Private) A single generator, reused. Creating a `Random` per draw is far more
 /// expensive than drawing from it.
-final math.Random _random = math.Random();
+final Random _random = Random();
 
-/// (Private) Last value handed out by [numUnique], so repeated calls never collide.
+/// (Private) Last value handed out by [numUniqueId], so repeated calls never collide.
 int _lastUniqueId = 0;
 
 /// (Private) Multiplies a number by a power of ten by moving the exponent of its shortest
 /// string representation, instead of multiplying by `10` raised to that power.
 ///
 /// `1.005 * 100` is `100.49999999999999`, so the naive form answers `1` for
-/// `round(1.005, 2)`, and `1.1 * 10` is `11.000000000000002`, so `ceil(1.1, 1)` answers
+/// `numRound(1.005, 2)`, and `1.1 * 10` is `11.000000000000002`, so `ceil(1.1, 1)` answers
 /// `1.2`. Parsing `'1.005e2'` yields exactly `100.5` instead, because the shortest
 /// representation is the decimal the caller wrote and the parser rounds it to the nearest
 /// double exactly once.
@@ -30,7 +29,7 @@ num _decimalShift(num value, int exponent) {
 }
 
 /// (Private) `num.parse` always answers with a `double` once an exponent is involved, so a
-/// whole result is handed back as an `int`. Without this, `round(1234, -2)` would answer
+/// whole result is handed back as an `int`. Without this, `numRound(1234, -2)` would answer
 /// `1200.0` where the JavaScript and Python implementations answer `1200`.
 num _toWholeWhenExact(num value) {
   if (value is int || !value.isFinite || value != value.truncateToDouble()) {
@@ -43,7 +42,7 @@ num _toWholeWhenExact(num value) {
 }
 
 /// Returns a randomly selected number between the min and max values.
-int numPick(int? min, int? max) {
+int numRandom(int? min, int? max) {
   if (min == null && max == null) {
     return _random.nextBool() ? 1 : 0;
   }
@@ -62,7 +61,7 @@ int numPick(int? min, int? max) {
 /// within a process always return a new, strictly increasing value. Uniqueness is only
 /// guaranteed within one process, and the value is sequential and therefore predictable,
 /// so it must not be used for anything security related.
-int numUnique() {
+int numUniqueId() {
   final int id = DateTime.now().millisecondsSinceEpoch * 1000;
 
   // Always move forward: within the same millisecond, and even if the clock steps back.
@@ -75,7 +74,7 @@ int numUnique() {
 /// Rounding goes toward positive infinity, not away from zero, so a negative value rises: `ceil(-4.006)` returns `-4`.
 /// The value is shifted through its shortest string representation rather than multiplied by a power of ten, so `ceil(1.1, 1)` returns `1.1` and not `1.2`.
 /// `NaN` and the infinities are returned as they are.
-/// This is the "always up" companion of [round]; [floor] is the "always down" one.
+/// This is the "always up" companion of [numRound]; [floor] is the "always down" one.
 num ceil(num value, [int precision = 0]) {
   if (value is double && !value.isFinite) {
     return value;
@@ -105,7 +104,7 @@ num clamp(num value, num min, num max) {
 /// Rounding goes toward negative infinity, not toward zero, so a negative value falls: `floor(-4.006)` returns `-5`.
 /// The value is shifted through its shortest string representation rather than multiplied by a power of ten, so `floor(1.1, 1)` returns `1.1` and not `1.0`.
 /// `NaN` and the infinities are returned as they are.
-/// This is the "always down" companion of [round]; [ceil] is the "always up" one.
+/// This is the "always down" companion of [numRound]; [ceil] is the "always up" one.
 num floor(num value, [int precision = 0]) {
   if (value is double && !value.isFinite) {
     return value;
@@ -133,11 +132,10 @@ double div(List<num> args) {
   return total;
 }
 
-/// Returns the largest of the given numbers. Like [sum], it takes a single array of numbers.
+/// Returns the largest of the given numbers. Like [numSum], it takes a single array of numbers.
 /// Values that are `NaN` are skipped, because `NaN` loses every comparison and would otherwise win by being seen first and then never being replaced.
 /// When nothing is left to compare, `null` is returned.
-/// This shadows `max` from `dart:math`, so a file that needs both has to import one of them with a prefix.
-num? max(List<num> args) {
+num? numMax(List<num> args) {
   num? result;
 
   for (var i = 0; i < args.length; i++) {
@@ -155,11 +153,10 @@ num? max(List<num> args) {
   return result;
 }
 
-/// Returns the smallest of the given numbers. Like [sum], it takes a single array of numbers.
+/// Returns the smallest of the given numbers. Like [numSum], it takes a single array of numbers.
 /// Values that are `NaN` are skipped, because `NaN` loses every comparison and would otherwise win by being seen first and then never being replaced.
 /// When nothing is left to compare, `null` is returned.
-/// This shadows `min` from `dart:math`, so a file that needs both has to import one of them with a prefix.
-num? min(List<num> args) {
+num? numMin(List<num> args) {
   num? result;
 
   for (var i = 0; i < args.length; i++) {
@@ -188,12 +185,12 @@ num mul(List<num> args) {
   return total;
 }
 
-/// Rounds a number to the given number of decimal places. A negative [precision] rounds to tens, hundreds and so on, so `round(1234, -2)` returns `1200`.
+/// Rounds a number to the given number of decimal places. A negative [precision] rounds to tens, hundreds and so on, so `numRound(1234, -2)` returns `1200`.
 /// Ties round half away from zero, so `0.5` becomes `1` and `-0.5` becomes `-1`. The three languages disagree natively, and Lodash sends ties toward positive infinity, so this is a parity fix first and a precision helper second.
-/// The value is shifted through its shortest string representation rather than multiplied by a power of ten, so `round(1.005, 2)` returns `1.01` and not `1`.
+/// The value is shifted through its shortest string representation rather than multiplied by a power of ten, so `numRound(1.005, 2)` returns `1.01` and not `1`.
 /// `NaN` and the infinities are returned as they are.
 /// To round up or down instead of to the nearest value, use [ceil] and [floor], which take the same arguments.
-num round(num value, [int precision = 0]) {
+num numRound(num value, [int precision = 0]) {
   if (value is double && !value.isFinite) {
     return value;
   }
@@ -223,7 +220,7 @@ num sub(List<num> args) {
 }
 
 /// Returns after adding up all the n arguments of numbers or the values of a single array of numbers.
-num sum(List<num> args) {
+num numSum(List<num> args) {
   num total = 0;
 
   for (var i = 0; i < args.length; i++) {

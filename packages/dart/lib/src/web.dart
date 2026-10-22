@@ -50,7 +50,7 @@ bool isAiTrainingBot(String text) {
 }
 
 /// You can check if the URL path in the first argument value is matched against the second set of rules.
-bool isMatchPathname(String pathname, dynamic matcher) {
+bool isPathnameMatch(String pathname, dynamic matcher) {
   if (pathname.isEmpty ||
       matcher == null ||
       (matcher is String && matcher.isEmpty) ||
@@ -157,20 +157,20 @@ String? _deviceType(String userAgent) {
   return null;
 }
 
-/// Returns `true` if the User-Agent string comes from a phone. A tablet is not a phone, so an iPad or an Android tablet returns `false`; use [isTabletDeviceFromUA] for those.
-bool isMobileDeviceFromUA(String userAgent) {
+/// Returns `true` if the User-Agent string comes from a phone. A tablet is not a phone, so an iPad or an Android tablet returns `false`; use [isTabletDeviceFromUa] for those.
+bool isMobileDeviceFromUa(String userAgent) {
   return _deviceType(userAgent) == 'mobile';
 }
 
 /// Returns `true` if the User-Agent string comes from a tablet: an iPad, an Android tablet, a Kindle or a Fire tablet.
-/// iPadOS 13 and later sends the same string as a Mac by default, so Safari on a current iPad is reported by [isDesktopDeviceFromUA] instead.
-bool isTabletDeviceFromUA(String userAgent) {
+/// iPadOS 13 and later sends the same string as a Mac by default, so Safari on a current iPad is reported by [isDesktopDeviceFromUa] instead.
+bool isTabletDeviceFromUa(String userAgent) {
   return _deviceType(userAgent) == 'tablet';
 }
 
 /// Returns `true` if the User-Agent string comes from a desktop or laptop computer running Windows, macOS, Linux, ChromeOS or a BSD.
 /// A string that names no operating system, such as most crawlers and HTTP clients send, returns `false`, as do smart TVs and game consoles.
-bool isDesktopDeviceFromUA(String userAgent) {
+bool isDesktopDeviceFromUa(String userAgent) {
   return _deviceType(userAgent) == 'desktop';
 }
 

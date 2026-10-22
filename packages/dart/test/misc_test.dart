@@ -9,14 +9,14 @@ void main() {
       expect(sleep(100), completes);
     });
 
-    test('funcTimes', () {
+    test('times', () {
       String sayHello([String? str]) {
         return 'Hello${str ?? ''}';
       }
 
-      expect(funcTimes(2, sayHello), ['Hello', 'Hello']);
-      expect(funcTimes(3, sayHello()), ['Hello', 'Hello', 'Hello']);
-      expect(funcTimes(4, () => sayHello('!')),
+      expect(times(2, sayHello), ['Hello', 'Hello']);
+      expect(times(3, sayHello()), ['Hello', 'Hello', 'Hello']);
+      expect(times(4, () => sayHello('!')),
           ['Hello!', 'Hello!', 'Hello!', 'Hello!']);
     });
 
@@ -108,32 +108,32 @@ void main() {
       // An asynchronous function is awaited.
       expect(await retry(() async => 'async ok'), 'async ok');
 
-      // After `times` attempts the error of the last one is thrown.
+      // When all `attempts` fail, the error of the last one is thrown.
       int failures = 0;
 
       await expectLater(
         retry(() {
           failures++;
           throw Exception('always');
-        }, times: 2),
+        }, attempts: 2),
         throwsA(isA<Exception>()),
       );
       expect(failures, 2);
 
-      // `times: 1` disables retrying.
+      // `attempts: 1` disables retrying.
       int once = 0;
 
       await expectLater(
         retry(() {
           once++;
           throw Exception('x');
-        }, times: 1),
+        }, attempts: 1),
         throwsA(isA<Exception>()),
       );
       expect(once, 1);
 
       await expectLater(
-        retry(() => 1, times: 0),
+        retry(() => 1, attempts: 0),
         throwsA(isA<ArgumentError>()),
       );
 
@@ -145,18 +145,18 @@ void main() {
         retry(() {
           delayed++;
           throw Exception('x');
-        }, times: 3, delay: 20, backoff: 2),
+        }, attempts: 3, delay: 20, backoff: 2),
         throwsA(isA<Exception>()),
       );
       expect(delayed, 3);
       expect(DateTime.now().millisecondsSinceEpoch - started >= 50, true);
     });
 
-    test('console', () {
+    test('printFull', () {
       runZoned(
         () {
-          console('text');
-          console('123' * 100000);
+          printFull('text');
+          printFull('123' * 100000);
         },
         zoneSpecification: ZoneSpecification(
           print: (self, parent, zone, message) {

@@ -1,6 +1,6 @@
 /// Check whether the given data is of type `Object`.
 /// Returns `false` for other data types including `Array`.
-bool isObject(dynamic data) {
+bool isPlainObject(dynamic data) {
   return data != null && data is Map;
 }
 
@@ -9,7 +9,7 @@ bool isObject(dynamic data) {
 const Object _omitted = Object();
 
 /// It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
-bool isEqual(dynamic leftOperand,
+bool isEqualLoose(dynamic leftOperand,
     [dynamic right1 = _omitted, dynamic right2 = _omitted]) {
   if (identical(right1, _omitted) && identical(right2, _omitted)) {
     return true;
@@ -46,7 +46,7 @@ bool isEqual(dynamic leftOperand,
 }
 
 /// It compares the first argument value as the left operand and the argument values given thereafter as the right operand, and returns `true` if the values are all the same.
-/// `isEqual` returns `true` even if the data types do not match, but `isEqualStrict` returns `true` only when the data types of all argument values match.
+/// `isEqualLoose` returns `true` even if the data types do not match, but `isEqualStrict` returns `true` only when the data types of all argument values match.
 bool isEqualStrict(dynamic leftOperand,
     [dynamic right1 = _omitted, dynamic right2 = _omitted]) {
   if (identical(right1, _omitted) && identical(right2, _omitted)) {
@@ -150,7 +150,7 @@ bool _isEqualDeepMap(Map<dynamic, dynamic> left, Map<dynamic, dynamic> right,
   return true;
 }
 
-/// Returns `true` when the two values have the same structure and the same contents. It takes exactly two values, and unlike [isEqual], a list is a value to compare rather than a list of operands.
+/// Returns `true` when the two values have the same structure and the same contents. It takes exactly two values, and unlike [isEqualLoose], a list is a value to compare rather than a list of operands.
 /// Numbers are compared by value, so `1` equals `1.0` and `NaN` equals `NaN`, but a number never equals a string or a `bool`.
 /// Lists are compared item by item, maps by their keys in any order, and a `DateTime` by the moment it represents. Anything else is compared with `==`.
 /// A structure that points back at itself is compared without recursing forever.
@@ -177,17 +177,17 @@ bool isEmpty(dynamic data) {
 }
 
 /// Returns `true` if the first string argument contains the second argument "string" or "one or more of the strings listed in the array". If the exact value is `true`, it returns true only for an exact match.
-bool contains(dynamic str, dynamic search, {bool exact = false}) {
+bool contains(dynamic haystack, dynamic search, {bool exact = false}) {
   if (search.runtimeType == String) {
-    return str.length < 1 ? false : str.indexOf(search) != -1;
+    return haystack.length < 1 ? false : haystack.indexOf(search) != -1;
   }
 
   for (int i = 0, iLen = search.length; i < iLen; i += 1) {
     if (exact) {
-      if (str == search[i]) {
+      if (haystack == search[i]) {
         return true;
       }
-    } else if (str.indexOf(search[i]) != -1) {
+    } else if (haystack.indexOf(search[i]) != -1) {
       return true;
     }
   }
@@ -196,15 +196,16 @@ bool contains(dynamic str, dynamic search, {bool exact = false}) {
 }
 
 /// Returns `true` if the given data is in the correct URL format.
-/// If withProtocol is `true`, it is automatically appended to the URL when the protocol does not exist.
-/// If strict is `true`, URLs without commas (`.`) return `false`.
-bool isUrl(String url, {bool withProtocol = false, bool strict = false}) {
-  if (strict && !url.contains('.')) {
+/// If [allowMissingProtocol] is `true`, a protocol is automatically appended to the URL when it does not have one.
+/// If [requireDot] is `true`, URLs without a dot (`.`) return `false`.
+bool isUrl(String url,
+    {bool allowMissingProtocol = false, bool requireDot = false}) {
+  if (requireDot && !url.contains('.')) {
     return false;
   }
 
   final formattedUrl =
-      (withProtocol && !url.contains('://')) ? 'https://$url' : url;
+      (allowMissingProtocol && !url.contains('://')) ? 'https://$url' : url;
 
   try {
     final uri = Uri.parse(formattedUrl);
@@ -220,7 +221,7 @@ bool isUrl(String url, {bool withProtocol = false, bool strict = false}) {
 }
 
 /// Returns `true` if the given array is a two-dimensional array.
-bool is2dArray(List<dynamic> array) {
+bool isNestedArray(List<dynamic> array) {
   return array.any((element) => element is List);
 }
 
@@ -270,8 +271,8 @@ int len(dynamic data) {
   }
 }
 
-/// Returns `true` if the values given in the `conditions` array are true at least `minimumCount` times.
-bool isTrueMinimumNumberOfTimes(List<bool> conditions, {int? minimumCount}) {
+/// Returns `true` if the values given in the `conditions` array are true at least [count] times.
+bool isTrueAtLeast(List<bool> conditions, {int? count}) {
   final int conditionLength = conditions.length;
   int trueCount = 0;
 
@@ -281,7 +282,7 @@ bool isTrueMinimumNumberOfTimes(List<bool> conditions, {int? minimumCount}) {
     }
   }
 
-  return trueCount >= (minimumCount ?? 1);
+  return trueCount >= (count ?? 1);
 }
 
 // Hangul jamo tables, used to rebuild syllables from decomposed input
@@ -586,25 +587,25 @@ bool _isAligned(int at, int length, List<int> starts, List<int> ends) {
   return false;
 }
 
-/// Returns `true` when the given string contains one of the banned `words`.
+/// Returns `true` when the given string contains one of the banned [badWords].
 /// Beyond a plain match, it also catches words hidden with separators
 /// (`ad___min`, `ad$min`, `ad1min`), lookalike characters (`adm1n`, `4pp13`,
 /// fullwidth or Cyrillic letters) and decomposed Hangul jamo (`ㅅㅏㄱㅗㅏ`).
 /// A word spread over a space is only counted from the start of a word, so
 /// unrelated neighbours (`이거사 과일이야` for `사과`) are not reported.
 bool hasBadWords(String str,
-    {List<String> words = const [], List<String> allowWords = const []}) {
-  if (str.isEmpty || words.isEmpty) {
+    {List<String> badWords = const [], List<String> allowedWords = const []}) {
+  if (str.isEmpty || badWords.isEmpty) {
     return false;
   }
 
-  final List<String> targets = _normalizeAll(words);
+  final List<String> targets = _normalizeAll(badWords);
 
   if (targets.isEmpty) {
     return false;
   }
 
-  final List<String> allowed = _normalizeAll(allowWords);
+  final List<String> allowed = _normalizeAll(allowedWords);
   final List<String> tokens =
       str.split(RegExp(r'\s+')).where((token) => token.isNotEmpty).toList();
 

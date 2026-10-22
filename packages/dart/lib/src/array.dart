@@ -24,17 +24,17 @@ List<T> arrShuffle<T>(List<T> array) {
 }
 
 /// Initialize an array with a default value of a specific length.
-List<dynamic> arrWithDefault(dynamic defaultValue, int length) {
+List<dynamic> arrFill(dynamic value, int length) {
   if (length < 1) {
     return [];
   }
 
-  return List.filled(length, defaultValue);
+  return List.filled(length, value);
 }
 
 /// Creates and returns an Array in the order of start...end values.
-/// [step] is the distance between two values and must be `1` or more. The `end` value is included only when a step lands on it, so `arrWithNumber(0, 10, step: 3)` returns `[0, 3, 6, 9]`.
-List<int> arrWithNumber(int start, int end, {int step = 1}) {
+/// [step] is the distance between two values and must be `1` or more. The `end` value is included only when a step lands on it, so `arrRange(0, 10, step: 3)` returns `[0, 3, 6, 9]`.
+List<int> arrRange(int start, int end, {int step = 1}) {
   if (start > end) {
     throw ArgumentError('`start` is greater than `end`.');
   }
@@ -82,7 +82,7 @@ double average(List<num> array) {
 }
 
 /// Returns the middle value of an array of numbers. When the count is even, the mean of the two middle values is returned.
-/// Values that are `NaN` are skipped, as `min` and `max` do, and `null` is returned when nothing is left.
+/// Values that are `NaN` are skipped, as `numMin` and `numMax` do, and `null` is returned when nothing is left.
 /// The values are sorted in a copy, so the original array is not modified.
 num? median(List<num> array) {
   final List<num> sorted = array.where((num value) => !value.isNaN).toList()
@@ -102,24 +102,24 @@ num? median(List<num> array) {
 }
 
 /// Moves the position of a specific element in an array to the specified position. (Position starts from 0.)
-List<dynamic> arrMove(List<dynamic> array, int from, int to) {
+List<dynamic> arrMove(List<dynamic> array, int fromIndex, int toIndex) {
   final int arrayLength = array.length;
 
-  if (arrayLength <= from || arrayLength <= to) {
+  if (arrayLength <= fromIndex || arrayLength <= toIndex) {
     throw Exception('Invalid move params');
   }
 
   // Move within a copy so the caller's list is left untouched.
   final List<dynamic> newArray = List<dynamic>.from(array);
-  final dynamic item = newArray.removeAt(from);
+  final dynamic item = newArray.removeAt(fromIndex);
 
-  newArray.insert(to, item);
+  newArray.insert(toIndex, item);
 
   return newArray;
 }
 
 /// Merges all elements of a multidimensional array into a one-dimensional array.
-List<dynamic> arrTo1dArray(List<dynamic> array) {
+List<dynamic> arrFlatten(List<dynamic> array) {
   List<dynamic> convert1dArray(List<dynamic> arr) {
     final List<dynamic> tempArr = [];
     final int arrayLength = arr.length;
@@ -127,7 +127,7 @@ List<dynamic> arrTo1dArray(List<dynamic> array) {
     for (int i = 0; i < arrayLength; i++) {
       if (arr[i] is! List) {
         tempArr.add(arr[i]);
-      } else if (is2dArray(arr[i])) {
+      } else if (isNestedArray(arr[i])) {
         tempArr.addAll(convert1dArray(arr[i]));
       } else {
         tempArr.addAll(arr[i]);
@@ -160,7 +160,7 @@ List<dynamic> arrRepeat(dynamic array, int count) {
 }
 
 /// Returns a random item from the given array. If the array is empty or is not an array, it returns `null`.
-T? arrPick<T>(List<T>? array) {
+T? arrRandom<T>(List<T>? array) {
   if (array == null || array.isEmpty) {
     return null;
   }
@@ -184,12 +184,12 @@ Map<String, int> arrCount(List<dynamic> array) {
 
 /// Separates the data in the given array into a two-dimensional array containing only the maximum number of elements.
 /// For example, if you have an array of 6 data in 2 groups, this function will create a 2-dimensional array with 3 lengths.
-List<List<T>> arrGroupByMaxCount<T>(List<T> array, int maxLengthPerGroup) {
+List<List<T>> arrChunk<T>(List<T> array, int size) {
   List<List<T>> result = [];
   List<T> tempArray = [];
 
   for (int i = 0; i < array.length; i++) {
-    if (tempArray.length == maxLengthPerGroup) {
+    if (tempArray.length == size) {
       result.add(tempArray);
       tempArray = [];
     }
@@ -206,7 +206,7 @@ List<List<T>> arrGroupByMaxCount<T>(List<T> array, int maxLengthPerGroup) {
 /// Groups the items of an array by the key the callback returns for each of them. The callback receives the item only.
 /// The key is the callback's result as a string: a whole `double` is written without its fractional part (`1.0` becomes `'1'`), a `bool` becomes `'true'` or `'false'`, and `null` becomes `'null'`.
 /// Groups keep the order in which their key was first seen, and items keep their original order inside a group. The original array is not modified.
-/// To split an array into chunks of a fixed size instead, use [arrGroupByMaxCount].
+/// To split an array into chunks of a fixed size instead, use [arrChunk].
 Map<String, List<T>> arrGroupBy<T>(
     List<T> array, Object? Function(T item) callback) {
   final Map<String, List<T>> result = {};
@@ -218,7 +218,7 @@ Map<String, List<T>> arrGroupBy<T>(
   return result;
 }
 
-// Natural ordering used by [sortNumeric].
+// Natural ordering used by [sortNatural].
 //
 // A string is cut into runs of digits and runs of everything else, and the runs are
 // compared in three passes over the whole string, the way a collation algorithm does:
@@ -377,7 +377,7 @@ int _compareNaturalKey(_NaturalKey a, _NaturalKey b) {
 }
 
 /// When sorting an array consisting of strings, it sorts first by the numbers contained in the strings, not by their names. For example, given the array `['1-a', '100-a', '10-a', '2-a']`, it returns `['1-a', '2-a', '10-a', '100-a']` with the smaller numbers at the front.
-List<String> sortNumeric(List<String> array, {bool descending = false}) {
+List<String> sortNatural(List<String> array, {bool descending = false}) {
   // Build each key once rather than once per comparison: `sort` calls the comparator
   // O(n log n) times and the key is the expensive part of it. The original position is
   // carried along because `List.sort` is not stable, and two entries compare equal only
@@ -525,13 +525,13 @@ List<dynamic> arrIntersection(List<List<dynamic>>? arrays) {
 }
 
 /// Sort a list of objects by the value one key holds. Set [descending] to sort
-/// the other way, and [numerically] to compare the values the way [sortNumeric]
+/// the other way, and [natural] to compare the values the way [sortNatural]
 /// does, so `File-10` comes after `File-9`.
 List<dynamic> sortByObjectKey(List<dynamic> array, String key,
-    {bool descending = false, bool numerically = false}) {
+    {bool descending = false, bool natural = false}) {
   // Sort a copy: `List.sort` reorders in place. Flip the comparison for a
   // descending order rather than reversing, which would also flip equal items.
-  if (numerically) {
+  if (natural) {
     // Build each key once rather than once per comparison.
     final List<MapEntry<dynamic, _NaturalKey>> decorated = array
         .map((dynamic item) =>

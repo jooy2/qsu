@@ -3,14 +3,13 @@ import 'package:test/test.dart';
 
 void main() {
   group('Object', () {
-    test('objToQueryString', () {
-      expect(objDeleteKeyByValue({}, 1), {});
+    test('objOmitByValue', () {
+      expect(objOmitByValue({}, 1), {});
       expect(
-          objDeleteKeyByValue(
-              {'a': 1, 'b': 2, 'c': 2, 'd': 3, 'e': 2, 'f': '2'}, 2),
+          objOmitByValue({'a': 1, 'b': 2, 'c': 2, 'd': 3, 'e': 2, 'f': '2'}, 2),
           {'a': 1, 'd': 3, 'f': '2'});
       expect(
-          objDeleteKeyByValue({
+          objOmitByValue({
             'a': 1,
             'b': 2,
             'c': {
@@ -29,7 +28,7 @@ void main() {
             'e': {}
           });
       expect(
-          objDeleteKeyByValue({
+          objOmitByValue({
             'a': 1,
             'b': 2,
             'c': {
@@ -63,15 +62,15 @@ void main() {
       expect(objToQueryString({'a': '가나다'}), 'a=%EA%B0%80%EB%82%98%EB%8B%A4');
     });
 
-    test('objToArray', () {
-      expect(objToArray({}), []);
-      expect(objToArray({'a': 1, 'b': 2, 'c': 3}), [
+    test('objToEntries', () {
+      expect(objToEntries({}), []);
+      expect(objToEntries({'a': 1, 'b': 2, 'c': 3}), [
         ['a', 1],
         ['b', 2],
         ['c', 3]
       ]);
       expect(
-          objToArray({
+          objToEntries({
             'a': 1,
             'b': {
               'aa': 1,
@@ -98,7 +97,7 @@ void main() {
             ['c', 3]
           ]);
       expect(
-          objToArray({
+          objToEntries({
             'a': 1.234,
             'b': 'str',
             'c': [1, 2, 3],
@@ -118,25 +117,25 @@ void main() {
           ]);
     });
 
-    test('objTo1d', () {
-      expect(objTo1d({}), {});
-      expect(objTo1d({'a': 1, 'b': 2, 'c': 3}), {'a': 1, 'b': 2, 'c': 3});
+    test('objFlatten', () {
+      expect(objFlatten({}), {});
+      expect(objFlatten({'a': 1, 'b': 2, 'c': 3}), {'a': 1, 'b': 2, 'c': 3});
       expect(
-          objTo1d({
+          objFlatten({
             'a': 1,
             'b': {'aa': 1, 'bb': 2},
             'c': 3
           }),
           {'a': 1, 'b.aa': 1, 'b.bb': 2, 'c': 3});
       expect(
-          objTo1d({
+          objFlatten({
             'a': 1,
             'b': {'aa': 1, 'bb': 2},
             'c': 3
           }, separator: '='),
           {'a': 1, 'b=aa': 1, 'b=bb': 2, 'c': 3});
       expect(
-          objTo1d({
+          objFlatten({
             'a': 1,
             'b': {
               'aa': {
@@ -548,11 +547,11 @@ void main() {
       expect(original, {'a': 1});
     });
 
-    test('objToPrettyStr', () {
-      expect(objToPrettyStr(<String, dynamic>{'a': 1}), '{\n\t"a": 1\n}');
+    test('objToPrettyJson', () {
+      expect(objToPrettyJson(<String, dynamic>{'a': 1}), '{\n\t"a": 1\n}');
     });
 
-    test('objFindItemRecursiveByKey', () {
+    test('objFindInTree', () {
       final List<Map<String, dynamic>> tree = <Map<String, dynamic>>[
         <String, dynamic>{
           'id': 1,
@@ -568,16 +567,17 @@ void main() {
         },
       ];
 
-      expect(objFindItemRecursiveByKey(tree, 'id', 4, 'children')?['id'], 4);
-      expect(objFindItemRecursiveByKey(tree, 'id', 9, 'children'), isNull);
+      expect(objFindInTree(tree, 'id', 4, 'children')?['id'], 4);
+      expect(objFindInTree(tree, 'id', 9, 'children'), isNull);
     });
 
-    test('objMergeNewKey', () {
+    test('objMergeWithArrays', () {
       expect(
-          objMergeNewKey(<String, dynamic>{'a': 1}, <String, dynamic>{'b': 2}),
+          objMergeWithArrays(
+              <String, dynamic>{'a': 1}, <String, dynamic>{'b': 2}),
           <String, dynamic>{'a': 1, 'b': 2});
       expect(
-          objMergeNewKey(<String, dynamic>{
+          objMergeWithArrays(<String, dynamic>{
             'a': <int>[1, 2]
           }, <String, dynamic>{
             'a': <int>[3]
@@ -586,7 +586,7 @@ void main() {
             'a': <int>[1, 2, 3]
           });
       expect(
-          objMergeNewKey(<String, dynamic>{
+          objMergeWithArrays(<String, dynamic>{
             'a': <int>[1, 2]
           }, <String, dynamic>{
             'a': <int>[3]
@@ -596,7 +596,7 @@ void main() {
           });
       // A nested object is merged rather than replaced whole.
       expect(
-          objMergeNewKey(<String, dynamic>{
+          objMergeWithArrays(<String, dynamic>{
             'a': <String, dynamic>{'x': 1}
           }, <String, dynamic>{
             'a': <String, dynamic>{'y': 2}
@@ -604,7 +604,7 @@ void main() {
           <String, dynamic>{
             'a': <String, dynamic>{'x': 1, 'y': 2}
           });
-      expect(objMergeNewKey(null, <String, dynamic>{'a': 1}), isNull);
+      expect(objMergeWithArrays(null, <String, dynamic>{'a': 1}), isNull);
     });
 
     test('objUpdate', () {

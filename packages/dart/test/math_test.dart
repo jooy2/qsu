@@ -3,18 +3,18 @@ import 'package:test/test.dart';
 
 void main() {
   group('Math', () {
-    test('numPick', () {
+    test('numRandom', () {
       for (int i = 0; i < 50; i += 1) {
-        int offsetTest = numPick(5, 10);
+        int offsetTest = numRandom(5, 10);
         assert(offsetTest >= 5 && offsetTest <= 10);
       }
     });
 
-    test('numUnique', () {
+    test('numUniqueId', () {
       final uniqSet = <int>{};
 
       for (int i = 0; i < 100; i++) {
-        final uniq = numUnique();
+        final uniq = numUniqueId();
 
         if (uniqSet.contains(uniq)) {
           fail('Duplicate number generated');
@@ -69,24 +69,24 @@ void main() {
       expect(floor(double.negativeInfinity), equals(double.negativeInfinity));
     });
 
-    test('max', () {
-      expect(max([1, 2, 3]), equals(3));
-      expect(max([4, 2, 8, 6]), equals(8));
-      expect(max([-4, -2, -8]), equals(-2));
-      expect(max([1.5, 1.25]), equals(1.5));
-      expect(max([7]), equals(7));
-      expect(max([]), isNull);
-      expect(max([double.nan, 5]), equals(5));
+    test('numMax', () {
+      expect(numMax([1, 2, 3]), equals(3));
+      expect(numMax([4, 2, 8, 6]), equals(8));
+      expect(numMax([-4, -2, -8]), equals(-2));
+      expect(numMax([1.5, 1.25]), equals(1.5));
+      expect(numMax([7]), equals(7));
+      expect(numMax([]), isNull);
+      expect(numMax([double.nan, 5]), equals(5));
     });
 
-    test('min', () {
-      expect(min([1, 2, 3]), equals(1));
-      expect(min([4, 2, 8, 6]), equals(2));
-      expect(min([-4, -2, -8]), equals(-8));
-      expect(min([1.5, 1.25]), equals(1.25));
-      expect(min([7]), equals(7));
-      expect(min([]), isNull);
-      expect(min([double.nan, 5]), equals(5));
+    test('numMin', () {
+      expect(numMin([1, 2, 3]), equals(1));
+      expect(numMin([4, 2, 8, 6]), equals(2));
+      expect(numMin([-4, -2, -8]), equals(-8));
+      expect(numMin([1.5, 1.25]), equals(1.25));
+      expect(numMin([7]), equals(7));
+      expect(numMin([]), isNull);
+      expect(numMin([double.nan, 5]), equals(5));
     });
 
     test('mul', () {
@@ -97,22 +97,22 @@ void main() {
       expect(mul([1234]), equals(1234));
     });
 
-    test('round', () {
-      expect(round(0.5), equals(1));
-      expect(round(2.5), equals(3));
-      expect(round(-0.5), equals(-1));
-      expect(round(-1.5), equals(-2));
-      expect(round(1.4), equals(1));
-      expect(round(-1.4), equals(-1));
-      expect(round(1.005, 2), equals(1.01));
-      expect(round(2.675, 2), equals(2.68));
-      expect(round(1234, -2), equals(1200));
-      expect(round(4.006, 2), equals(4.01));
-      expect(round(1.1, 1), equals(1.1));
-      expect(round(0), equals(0));
-      expect(round(-0.4), equals(0));
-      expect(round(double.nan).isNaN, isTrue);
-      expect(round(double.infinity), equals(double.infinity));
+    test('numRound', () {
+      expect(numRound(0.5), equals(1));
+      expect(numRound(2.5), equals(3));
+      expect(numRound(-0.5), equals(-1));
+      expect(numRound(-1.5), equals(-2));
+      expect(numRound(1.4), equals(1));
+      expect(numRound(-1.4), equals(-1));
+      expect(numRound(1.005, 2), equals(1.01));
+      expect(numRound(2.675, 2), equals(2.68));
+      expect(numRound(1234, -2), equals(1200));
+      expect(numRound(4.006, 2), equals(4.01));
+      expect(numRound(1.1, 1), equals(1.1));
+      expect(numRound(0), equals(0));
+      expect(numRound(-0.4), equals(0));
+      expect(numRound(double.nan).isNaN, isTrue);
+      expect(numRound(double.infinity), equals(double.infinity));
     });
 
     test('sub', () {
@@ -123,11 +123,11 @@ void main() {
       expect(sub([1234]), equals(1234));
     });
 
-    test('sum', () {
-      expect(sum([0]), equals(0));
-      expect(sum([1, 2, 3, 4]), equals(10));
-      expect(sum([1, 2, 3]), equals(6));
-      expect(sum([1234]), equals(1234));
+    test('numSum', () {
+      expect(numSum([0]), equals(0));
+      expect(numSum([1, 2, 3, 4]), equals(10));
+      expect(numSum([1, 2, 3]), equals(6));
+      expect(numSum([1234]), equals(1234));
     });
   });
 }

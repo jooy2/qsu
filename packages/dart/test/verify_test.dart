@@ -3,43 +3,43 @@ import 'package:test/test.dart' hide contains, isEmpty;
 
 void main() {
   group('Verify', () {
-    test('isObject', () {
-      expect(isObject('{}'), false);
-      expect(isObject(true), false);
-      expect(isObject(false), false);
-      expect(isObject(null), false);
-      expect(isObject(1), false);
-      expect(isObject([]), false);
-      expect(isObject(() => '123'), false);
-      expect(isObject({}), true);
-      expect(isObject([1, 2]), false);
+    test('isPlainObject', () {
+      expect(isPlainObject('{}'), false);
+      expect(isPlainObject(true), false);
+      expect(isPlainObject(false), false);
+      expect(isPlainObject(null), false);
+      expect(isPlainObject(1), false);
+      expect(isPlainObject([]), false);
+      expect(isPlainObject(() => '123'), false);
+      expect(isPlainObject({}), true);
+      expect(isPlainObject([1, 2]), false);
       expect(
-          isObject([
+          isPlainObject([
             {'a': 1, 'b': 2}
           ]),
           false);
-      expect(isObject({'a': 1, 'b': 2}), true);
-      expect(isObject({'a': {}, 'b': []}), true);
+      expect(isPlainObject({'a': 1, 'b': 2}), true);
+      expect(isPlainObject({'a': {}, 'b': []}), true);
     });
 
-    test('isEqual', () {
+    test('isEqualLoose', () {
       const val1 = 'abc';
       const val2 = 'abc';
       const val3 = 'abc';
 
-      expect(isEqual(1, [1, 2, 3]), false);
-      expect(isEqual('abc', [val1, val2, val3]), true);
-      expect(isEqual('123', ['123', 123]), true);
-      expect(isEqual('123', ['123', 123, 123, 123]), true);
-      expect(isEqual(123, '123'), true);
+      expect(isEqualLoose(1, [1, 2, 3]), false);
+      expect(isEqualLoose('abc', [val1, val2, val3]), true);
+      expect(isEqualLoose('123', ['123', 123]), true);
+      expect(isEqualLoose('123', ['123', 123, 123, 123]), true);
+      expect(isEqualLoose(123, '123'), true);
 
       // An explicit `null` is a value to compare, not a missing operand.
-      expect(isEqual(5, null), false);
-      expect(isEqual(null, null), true);
-      expect(isEqual(5), true);
-      expect(isEqual(5, 5, null), false);
-      expect(isEqual(null, null, null), true);
-      expect(isEqual(1, [1, '1']), true);
+      expect(isEqualLoose(5, null), false);
+      expect(isEqualLoose(null, null), true);
+      expect(isEqualLoose(5), true);
+      expect(isEqualLoose(5, 5, null), false);
+      expect(isEqualLoose(null, null, null), true);
+      expect(isEqualLoose(1, [1, '1']), true);
     });
 
     test('isEqualStrict', () {
@@ -148,25 +148,28 @@ void main() {
       expect(isUrl(''), false);
       expect(isUrl('https://'), false);
       expect(isUrl('www.google.com'), false);
-      expect(isUrl('www.google.com', withProtocol: true), true);
+      expect(isUrl('www.google.com', allowMissingProtocol: true), true);
       expect(isUrl('https://google.com'), true);
-      expect(isUrl('https://google.com', withProtocol: true), true);
+      expect(isUrl('https://google.com', allowMissingProtocol: true), true);
       expect(isUrl('https://google'), true);
-      expect(isUrl('https://google', withProtocol: false, strict: true), false);
+      expect(
+          isUrl('https://google',
+              allowMissingProtocol: false, requireDot: true),
+          false);
       expect(isUrl('https://google.com?query=qsu'), true);
     });
 
-    test('is2dArray', () {
-      expect(is2dArray([]), false);
-      expect(is2dArray([[], []]), true);
+    test('isNestedArray', () {
+      expect(isNestedArray([]), false);
+      expect(isNestedArray([[], []]), true);
       expect(
-          is2dArray([
+          isNestedArray([
             {'a': 1},
             {'b': 2}
           ]),
           false);
       expect(
-          is2dArray([
+          isNestedArray([
             [1],
             [2]
           ]),
@@ -213,111 +216,108 @@ void main() {
           2);
     });
 
-    test('isTrueMinimumNumberOfTimes', () {
+    test('isTrueAtLeast', () {
       final int left = 2;
       final int right1 = 1 + 1;
       final int right2 = 2 + 1;
 
-      expect(isTrueMinimumNumberOfTimes([true, false, false]), true);
-      expect(isTrueMinimumNumberOfTimes([true, true], minimumCount: 1), true);
-      expect(isTrueMinimumNumberOfTimes([true, false, true], minimumCount: 2),
-          true);
-      expect(isTrueMinimumNumberOfTimes([true, false, true], minimumCount: 1),
+      expect(isTrueAtLeast([true, false, false]), true);
+      expect(isTrueAtLeast([true, true], count: 1), true);
+      expect(isTrueAtLeast([true, false, true], count: 2), true);
+      expect(isTrueAtLeast([true, false, true], count: 1), true);
+      expect(
+          isTrueAtLeast([left == right1, false, true, true, false], count: 3),
           true);
       expect(
-          isTrueMinimumNumberOfTimes([left == right1, false, true, true, false],
-              minimumCount: 3),
-          true);
-      expect(
-          isTrueMinimumNumberOfTimes([left == right2, false, true, true, false],
-              minimumCount: 3),
+          isTrueAtLeast([left == right2, false, true, true, false], count: 3),
           false);
     });
 
     test('hasBadWords', () {
       const List<String> words = ['admin', 'apple'];
 
-      expect(hasBadWords('', words: words), false);
-      expect(hasBadWords('hello world', words: words), false);
+      expect(hasBadWords('', badWords: words), false);
+      expect(hasBadWords('hello world', badWords: words), false);
       expect(hasBadWords('admin'), false);
-      expect(hasBadWords('admin', words: []), false);
-      expect(hasBadWords('admin', words: ['', '  ']), false);
-      expect(hasBadWords('!!! ??? ***', words: words), false);
+      expect(hasBadWords('admin', badWords: []), false);
+      expect(hasBadWords('admin', badWords: ['', '  ']), false);
+      expect(hasBadWords('!!! ??? ***', badWords: words), false);
 
-      expect(hasBadWords('i am admin', words: words), true);
-      expect(hasBadWords('I AM ADMIN', words: words), true);
-      expect(hasBadWords('pineapple juice', words: words), true);
-      expect(hasBadWords('apple, banana', words: words), true);
+      expect(hasBadWords('i am admin', badWords: words), true);
+      expect(hasBadWords('I AM ADMIN', badWords: words), true);
+      expect(hasBadWords('pineapple juice', badWords: words), true);
+      expect(hasBadWords('apple, banana', badWords: words), true);
 
       // Separators hidden inside the word.
-      expect(hasBadWords('ad___min', words: words), true);
-      expect(hasBadWords('a.d.m.i.n', words: words), true);
-      expect(hasBadWords('ad\$min', words: words), true);
-      expect(hasBadWords('a d m i n', words: words), true);
-      expect(hasBadWords('the ad min account', words: words), true);
+      expect(hasBadWords('ad___min', badWords: words), true);
+      expect(hasBadWords('a.d.m.i.n', badWords: words), true);
+      expect(hasBadWords('ad\$min', badWords: words), true);
+      expect(hasBadWords('a d m i n', badWords: words), true);
+      expect(hasBadWords('the ad min account', badWords: words), true);
 
       // Digits wedged between the letters.
-      expect(hasBadWords('ad1min', words: words), true);
-      expect(hasBadWords('ap123ple', words: words), true);
-      expect(hasBadWords('a1d.m2in', words: words), true);
+      expect(hasBadWords('ad1min', badWords: words), true);
+      expect(hasBadWords('ap123ple', badWords: words), true);
+      expect(hasBadWords('a1d.m2in', badWords: words), true);
 
       // Lookalike characters.
-      expect(hasBadWords('adm1n', words: words), true);
-      expect(hasBadWords('@dm1n', words: words), true);
-      expect(hasBadWords('4pp13', words: words), true);
-      expect(hasBadWords('ａｄｍｉｎ', words: words), true);
-      expect(hasBadWords('аdmin', words: words), true); // Cyrillic 'а'
-      expect(hasBadWords('ádmín', words: words), true);
-      expect(hasBadWords('gㅇㅇd', words: ['good']), true); // 'ㅇ' as 'o'
+      expect(hasBadWords('adm1n', badWords: words), true);
+      expect(hasBadWords('@dm1n', badWords: words), true);
+      expect(hasBadWords('4pp13', badWords: words), true);
+      expect(hasBadWords('ａｄｍｉｎ', badWords: words), true);
+      expect(hasBadWords('аdmin', badWords: words), true); // Cyrillic 'а'
+      expect(hasBadWords('ádmín', badWords: words), true);
+      expect(hasBadWords('gㅇㅇd', badWords: ['good']), true); // 'ㅇ' as 'o'
 
       // Stylized Unicode letters.
-      expect(hasBadWords('𝗮𝗱𝗺𝗶𝗻', words: words), true);
-      expect(hasBadWords('ⓐⓓⓜⓘⓝ', words: words), true);
-      expect(hasBadWords('app/e', words: words), true);
+      expect(hasBadWords('𝗮𝗱𝗺𝗶𝗻', badWords: words), true);
+      expect(hasBadWords('ⓐⓓⓜⓘⓝ', badWords: words), true);
+      expect(hasBadWords('app/e', badWords: words), true);
 
       // Allowed words are excused, even though they contain a banned word.
       expect(
           hasBadWords('pineapple juice',
-              words: words, allowWords: ['pineapple']),
+              badWords: words, allowedWords: ['pineapple']),
           false);
       expect(
           hasBadWords('apple and pineapple',
-              words: words, allowWords: ['pineapple']),
+              badWords: words, allowedWords: ['pineapple']),
           true);
       expect(
           hasBadWords('administrator here',
-              words: words, allowWords: ['administrator']),
+              badWords: words, allowedWords: ['administrator']),
           false);
 
       // A word split over a space only counts from the start of a token.
-      expect(hasBadWords('read min please', words: words), false);
-      expect(hasBadWords('nomad mineral', words: words), false);
+      expect(hasBadWords('read min please', badWords: words), false);
+      expect(hasBadWords('nomad mineral', badWords: words), false);
 
       const List<String> koWords = ['사과', '고양이'];
 
-      expect(hasBadWords('맛있는 사과!', words: koWords), true);
-      expect(hasBadWords('사과나무', words: koWords), true);
-      expect(hasBadWords('사-과', words: koWords), true);
-      expect(hasBadWords('사 과', words: koWords), true);
-      expect(hasBadWords('우리 고양이는 귀엽다', words: koWords), true);
+      expect(hasBadWords('맛있는 사과!', badWords: koWords), true);
+      expect(hasBadWords('사과나무', badWords: koWords), true);
+      expect(hasBadWords('사-과', badWords: koWords), true);
+      expect(hasBadWords('사 과', badWords: koWords), true);
+      expect(hasBadWords('우리 고양이는 귀엽다', badWords: koWords), true);
 
       // Decomposed jamo, including compound vowels and finals.
-      expect(hasBadWords('ㅅㅏㄱㅗㅏ', words: koWords), true);
-      expect(hasBadWords('사ㄱㅗㅏ', words: koWords), true);
-      expect(hasBadWords('ㄱㅗㅇㅑㅇㅇl', words: koWords), true);
-      expect(hasBadWords('ㅅr과', words: koWords), true); // 'r' shaped like 'ㅏ'
+      expect(hasBadWords('ㅅㅏㄱㅗㅏ', badWords: koWords), true);
+      expect(hasBadWords('사ㄱㅗㅏ', badWords: koWords), true);
+      expect(hasBadWords('ㄱㅗㅇㅑㅇㅇl', badWords: koWords), true);
+      expect(
+          hasBadWords('ㅅr과', badWords: koWords), true); // 'r' shaped like 'ㅏ'
 
       // Digits wedged between the syllables.
-      expect(hasBadWords('사1과', words: koWords), true);
-      expect(hasBadWords('사123과', words: koWords), true);
-      expect(hasBadWords('ㅅㅏ1ㄱㅗㅏ', words: koWords), true);
-      expect(hasBadWords('고3양2이', words: koWords), true);
+      expect(hasBadWords('사1과', badWords: koWords), true);
+      expect(hasBadWords('사123과', badWords: koWords), true);
+      expect(hasBadWords('ㅅㅏ1ㄱㅗㅏ', badWords: koWords), true);
+      expect(hasBadWords('고3양2이', badWords: koWords), true);
 
       // Unrelated words that only touch when the space is removed.
-      expect(hasBadWords('이거사 과일이야', words: koWords), false);
-      expect(hasBadWords('이거1사 과일이야', words: koWords), false);
-      expect(hasBadWords('명사 과제', words: koWords), false);
-      expect(hasBadWords('참고 양이 되었다', words: koWords), false);
+      expect(hasBadWords('이거사 과일이야', badWords: koWords), false);
+      expect(hasBadWords('이거1사 과일이야', badWords: koWords), false);
+      expect(hasBadWords('명사 과제', badWords: koWords), false);
+      expect(hasBadWords('참고 양이 되었다', badWords: koWords), false);
     });
   });
 }

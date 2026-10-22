@@ -136,7 +136,7 @@ Future<dynamic> fetchData(String url,
   }
 
   final String target =
-      (host != null && host.isNotEmpty) ? urlJoin(<String?>[host, url]) : url;
+      (host != null && host.isNotEmpty) ? joinUrl(<String?>[host, url]) : url;
   final String query = (queryParameters != null && queryParameters.isNotEmpty)
       ? '?${objToQueryString(queryParameters)}'
       : '';
@@ -398,14 +398,14 @@ class ParsedAddress {
   final String? hostname;
   final int? port;
   final int? defaultPort;
-  final String? user;
-  final String? pass;
+  final String? username;
+  final String? password;
   final String? path;
   final String? query;
   final Map<String, String>? params;
   final String? hash;
-  final bool isIP;
-  final bool isIPv6;
+  final bool isIp;
+  final bool isIpv6;
 
   ParsedAddress({
     required this.error,
@@ -414,14 +414,14 @@ class ParsedAddress {
     this.hostname,
     this.port,
     this.defaultPort,
-    this.user,
-    this.pass,
+    this.username,
+    this.password,
     this.path,
     this.query,
     this.params,
     this.hash,
-    this.isIP = false,
-    this.isIPv6 = false,
+    this.isIp = false,
+    this.isIpv6 = false,
   });
 }
 
@@ -445,14 +445,14 @@ ParsedAddress parseAddress(String url, {bool decode = true}) {
   String? hostname;
   int? port;
   int? defaultPort;
-  String? user;
-  String? pass;
+  String? username;
+  String? password;
   String? path;
   String? query;
   Map<String, String>? params;
   String? hash;
-  bool isIP = false;
-  bool isIPv6 = false;
+  bool isIp = false;
+  bool isIpv6 = false;
 
   String rest = url.trim();
 
@@ -522,8 +522,8 @@ ParsedAddress parseAddress(String url, {bool decode = true}) {
         colonIndex == -1 ? userInfo : userInfo.substring(0, colonIndex);
     final String p = colonIndex == -1 ? '' : userInfo.substring(colonIndex + 1);
 
-    user = u.isEmpty ? null : (decode ? _percentDecode(u) : u);
-    pass = p.isEmpty ? null : (decode ? _percentDecode(p) : p);
+    username = u.isEmpty ? null : (decode ? _percentDecode(u) : u);
+    password = p.isEmpty ? null : (decode ? _percentDecode(p) : p);
   }
 
   void parsePort(String portString) {
@@ -552,8 +552,8 @@ ParsedAddress parseAddress(String url, {bool decode = true}) {
         error: true,
         protocol: protocol,
         defaultPort: defaultPort,
-        user: user,
-        pass: pass,
+        username: username,
+        password: password,
         path: path,
         query: query,
         params: params,
@@ -592,8 +592,8 @@ ParsedAddress parseAddress(String url, {bool decode = true}) {
 
   if (host != null) {
     hostname = host.startsWith('[') ? host.substring(1, host.length - 1) : host;
-    isIPv6 = _isIPv6Address(hostname);
-    isIP = isIPv6 || _isIPv4Address(hostname);
+    isIpv6 = _isIPv6Address(hostname);
+    isIp = isIpv6 || _isIPv4Address(hostname);
   }
 
   return ParsedAddress(
@@ -603,13 +603,13 @@ ParsedAddress parseAddress(String url, {bool decode = true}) {
     hostname: hostname,
     port: port,
     defaultPort: defaultPort,
-    user: user,
-    pass: pass,
+    username: username,
+    password: password,
     path: path,
     query: query,
     params: params,
     hash: hash,
-    isIP: isIP,
-    isIPv6: isIPv6,
+    isIp: isIp,
+    isIpv6: isIpv6,
   );
 }

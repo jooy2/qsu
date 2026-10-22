@@ -1,39 +1,39 @@
 import 'package:qsu/qsu.dart';
-import 'package:test/test.dart';
+import 'package:test/test.dart' hide collapseWhitespace;
 
 void main() {
   group('String', () {
-    test('trim', () {
-      expect(trim(''), '');
-      expect(trim(' hello world '), 'hello world');
-      expect(trim(' h e l l o  wo     rld  '), 'h e l l o wo rld');
-      expect(trim(' H ello World'), 'H ello World');
-      expect(trim('  Hell    o    World'), 'Hell o World');
+    test('collapseWhitespace', () {
+      expect(collapseWhitespace(''), '');
+      expect(collapseWhitespace(' hello world '), 'hello world');
+      expect(
+          collapseWhitespace(' h e l l o  wo     rld  '), 'h e l l o wo rld');
+      expect(collapseWhitespace(' H ello World'), 'H ello World');
+      expect(collapseWhitespace('  Hell    o    World'), 'Hell o World');
     });
 
-    test('removeSpecialChar', () {
-      expect(removeSpecialChar('1　2！3☆4＠5＋6─🌍'), '123456');
-      expect(removeSpecialChar('Hello, World!'), 'HelloWorld');
-      expect(removeSpecialChar('12 34-56,78=90'), '1234567890');
-      expect(removeSpecialChar('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'), 'ABC가나다ㄱㄴㄷㅏㅑㅓ天地人');
-      expect(removeSpecialChar('Hello World!', exceptionCharacters: ' '),
+    test('removeSpecialChars', () {
+      expect(removeSpecialChars('1　2！3☆4＠5＋6─🌍'), '123456');
+      expect(removeSpecialChars('Hello, World!'), 'HelloWorld');
+      expect(removeSpecialChars('12 34-56,78=90'), '1234567890');
+      expect(removeSpecialChars('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'), 'ABC가나다ㄱㄴㄷㅏㅑㅓ天地人');
+      expect(removeSpecialChars('Hello World!', allowedCharacters: ' '),
           'Hello World');
-      expect(
-          removeSpecialChar('Hello-qsu & World!', exceptionCharacters: '-&!'),
+      expect(removeSpecialChars('Hello-qsu & World!', allowedCharacters: '-&!'),
           'Hello-qsu&World!');
     });
 
-    test('replaceBetween', () {
-      expect(replaceBetween('hello[world]', '[', ']', ''), 'hello');
-      expect(replaceBetween("hello'test'world'test2'!!", "'", "'", ''),
+    test('replaceEnclosed', () {
+      expect(replaceEnclosed('hello[world]', '[', ']', ''), 'hello');
+      expect(replaceEnclosed("hello'test'world'test2'!!", "'", "'", ''),
           'helloworld!!');
-      expect(replaceBetween('hello[w]o[r][[l]][[d]]!!', '[', ']', ''),
+      expect(replaceEnclosed('hello[w]o[r][[l]][[d]]!!', '[', ']', ''),
           'helloo]]!!');
-      expect(replaceBetween('abc[hello]def[world]g[!!!]', '[', ']', ''),
+      expect(replaceEnclosed('abc[hello]def[world]g[!!!]', '[', ']', ''),
           'abcdefg');
-      expect(
-          replaceBetween('abc<<def>>ghi<<jkl>>mn', '<<', '>>', ''), 'abcghimn');
-      expect(replaceBetween('hell1o2~', '1', '2', 'o!'), 'hello!~');
+      expect(replaceEnclosed('abc<<def>>ghi<<jkl>>mn', '<<', '>>', ''),
+          'abcghimn');
+      expect(replaceEnclosed('hell1o2~', '1', '2', 'o!'), 'hello!~');
     });
 
     test('split', () {
@@ -47,15 +47,15 @@ void main() {
       expect(split('hello j\\s world', ['\\s']), ['hello j', ' world']);
     });
 
-    test('removeNewLine', () {
-      expect(removeNewLine('''te
+    test('removeNewlines', () {
+      expect(removeNewlines('''te
 
 st'''), 'test');
-      expect(removeNewLine('te\rst'), 'test');
-      expect(removeNewLine('te\nst'), 'test');
-      expect(removeNewLine('te\r\nst'), 'test');
-      expect(removeNewLine('te\r\nst', replaceTo: '|'), 'te|st');
-      expect(removeNewLine('t\ne\r\ns\rt', replaceTo: '-'), 't-e-s-t');
+      expect(removeNewlines('te\rst'), 'test');
+      expect(removeNewlines('te\nst'), 'test');
+      expect(removeNewlines('te\r\nst'), 'test');
+      expect(removeNewlines('te\r\nst', replaceWith: '|'), 'te|st');
+      expect(removeNewlines('t\ne\r\ns\rt', replaceWith: '-'), 't-e-s-t');
     });
 
     test('capitalizeFirst', () {
@@ -74,21 +74,21 @@ st'''), 'test');
       expect(uncapitalizeFirst('한글'), '한글');
     });
 
-    test('capitalizeEverySentence', () {
-      expect(capitalizeEverySentence('hello. world'), 'Hello. World');
-      expect(capitalizeEverySentence('hello. 1world'), 'Hello. 1World');
-      expect(capitalizeEverySentence('HeLLO,world'), 'HeLLO,world');
-      expect(capitalizeEverySentence('H. e. l. l. o.'), 'H. E. L. L. O.');
-      expect(capitalizeEverySentence('hello!world!', splitChar: '!'),
+    test('capitalizeEachSentence', () {
+      expect(capitalizeEachSentence('hello. world'), 'Hello. World');
+      expect(capitalizeEachSentence('hello. 1world'), 'Hello. 1World');
+      expect(capitalizeEachSentence('HeLLO,world'), 'HeLLO,world');
+      expect(capitalizeEachSentence('H. e. l. l. o.'), 'H. E. L. L. O.');
+      expect(capitalizeEachSentence('hello!world!', separator: '!'),
           'Hello!World!');
     });
 
-    test('capitalizeEachWords', () {
-      expect(capitalizeEachWords('hello, world!'), 'Hello, World!');
-      expect(capitalizeEachWords('test'), 'Test');
-      expect(capitalizeEachWords('testWords'), 'TestWords');
-      expect(capitalizeEachWords('testWords', natural: true), 'Testwords');
-      expect(capitalizeEachWords('this is the test sentence.', natural: true),
+    test('capitalizeEachWord', () {
+      expect(capitalizeEachWord('hello, world!'), 'Hello, World!');
+      expect(capitalizeEachWord('test'), 'Test');
+      expect(capitalizeEachWord('testWords'), 'TestWords');
+      expect(capitalizeEachWord('testWords', titleCase: true), 'Testwords');
+      expect(capitalizeEachWord('this is the test sentence.', titleCase: true),
           'This is the Test Sentence.');
     });
 
@@ -104,54 +104,56 @@ st'''), 'test');
       expect(truncate('\u{1F44B}\u{1F44B}', 2), '\u{1F44B}\u{1F44B}');
     });
 
-    test('truncateExpect', () {
+    test('truncateSentence', () {
       expect(
-          truncateExpect('hello. this is test string.', 10, endStringChar: '.'),
+          truncateSentence('hello. this is test string.', 10,
+              sentenceEnds: '.'),
           'hello. this is test string.');
       expect(
-          truncateExpect('hello. this is test. bye.', 20, endStringChar: '.'),
+          truncateSentence('hello. this is test. bye.', 20, sentenceEnds: '.'),
           'hello. this is test.');
-      expect(truncateExpect('hello.. this is test', 20, endStringChar: '.'),
+      expect(truncateSentence('hello.. this is test', 20, sentenceEnds: '.'),
           'hello.. this is test');
-      expect(truncateExpect('hello.. this is test', 21, endStringChar: '.'),
+      expect(truncateSentence('hello.. this is test', 21, sentenceEnds: '.'),
           'hello.. this is test');
-      expect(truncateExpect('hello.. this is test', 19, endStringChar: '.'),
+      expect(truncateSentence('hello.. this is test', 19, sentenceEnds: '.'),
           'hello.. this is test');
-      expect(
-          truncateExpect('abc. def. ghi.', 6, endStringChar: '.'), 'abc. def.');
-      expect(truncateExpect('abc. def. ghi.', 20, endStringChar: '.'),
+      expect(truncateSentence('abc. def. ghi.', 6, sentenceEnds: '.'),
+          'abc. def.');
+      expect(truncateSentence('abc. def. ghi.', 20, sentenceEnds: '.'),
           'abc. def. ghi.');
       expect(
-          truncateExpect('hello-this-is-test-string-bye', 14,
-              endStringChar: '-'),
+          truncateSentence('hello-this-is-test-string-bye', 14,
+              sentenceEnds: '-'),
           'hello-this-is-');
 
       // The default covers the full stop as every script writes it.
-      expect(truncateExpect('안녕하세요。반갑습니다。좋은 하루。', 8), '안녕하세요。반갑습니다。');
-      expect(truncateExpect('これはテストです。よろしくお願いします。さようなら。', 10),
+      expect(truncateSentence('안녕하세요。반갑습니다。좋은 하루。', 8), '안녕하세요。반갑습니다。');
+      expect(truncateSentence('これはテストです。よろしくお願いします。さようなら。', 10),
           'これはテストです。よろしくお願いします。');
-      expect(truncateExpect('你好。这是测试。再见。', 5), '你好。这是测试。');
-      expect(truncateExpect('テストです｡もう一度｡', 4), 'テストです｡');
-      expect(truncateExpect('ａｂ．ｃｄ．ｅｆ．', 3), 'ａｂ．');
-      expect(truncateExpect('hello. こんにちは。bye.', 8), 'hello. こんにちは。');
+      expect(truncateSentence('你好。这是测试。再见。', 5), '你好。这是测试。');
+      expect(truncateSentence('テストです｡もう一度｡', 4), 'テストです｡');
+      expect(truncateSentence('ａｂ．ｃｄ．ｅｆ．', 3), 'ａｂ．');
+      expect(truncateSentence('hello. こんにちは。bye.', 8), 'hello. こんにちは。');
 
       // An explicit ending character still means only that one.
       expect(
-          truncateExpect('안녕。하세요。반가워.', 3, endStringChar: '.'), '안녕。하세요。반가워.');
+          truncateSentence('안녕。하세요。반가워.', 3, sentenceEnds: '.'), '안녕。하세요。반가워.');
 
       // A list accepts several at once, and the longest one is matched first.
       expect(
-          truncateExpect('a. b! c? d.', 4,
-              endStringChar: <String>['.', '!', '?']),
+          truncateSentence('a. b! c? d.', 4,
+              sentenceEnds: <String>['.', '!', '?']),
           'a. b!');
-      expect(truncateExpect('a...b.c', 2, endStringChar: <String>['.', '...']),
+      expect(truncateSentence('a...b.c', 2, sentenceEnds: <String>['.', '...']),
           'a...');
       expect(
-          truncateExpect('hello. this is test', 3, endStringChar: <String>[]),
+          truncateSentence('hello. this is test', 3, sentenceEnds: <String>[]),
           'hello. this is test');
 
       // The expected length is counted in code points, so an astral character is one.
-      expect(truncateExpect('\u{1F44B}\u{1F44B}.ab.cd.', 5, endStringChar: '.'),
+      expect(
+          truncateSentence('\u{1F44B}\u{1F44B}.ab.cd.', 5, sentenceEnds: '.'),
           '\u{1F44B}\u{1F44B}.ab.');
     });
 
@@ -179,47 +181,47 @@ st'''), 'test');
       expect(strUnique('abc--11111'), 'abc-1');
     });
 
-    test('strToAscii', () {
-      expect(strToAscii('hello-world.'),
+    test('strToCharCodes', () {
+      expect(strToCharCodes('hello-world.'),
           [104, 101, 108, 108, 111, 45, 119, 111, 114, 108, 100, 46]);
-      expect(strToAscii('1 2 3 4 5'), [49, 32, 50, 32, 51, 32, 52, 32, 53]);
+      expect(strToCharCodes('1 2 3 4 5'), [49, 32, 50, 32, 51, 32, 52, 32, 53]);
     });
 
-    test('urlJoin', () {
-      expect(strToAscii('hello-world.'),
+    test('joinUrl', () {
+      expect(strToCharCodes('hello-world.'),
           [104, 101, 108, 108, 111, 45, 119, 111, 114, 108, 100, 46]);
-      expect(strToAscii('1 2 3 4 5'), [49, 32, 50, 32, 51, 32, 52, 32, 53]);
+      expect(strToCharCodes('1 2 3 4 5'), [49, 32, 50, 32, 51, 32, 52, 32, 53]);
     });
 
-    test('urlJoin', () {
-      expect(urlJoin(['https://example.com']), 'https://example.com');
-      expect(urlJoin(['https://example.com', null, 'world/']),
+    test('joinUrl', () {
+      expect(joinUrl(['https://example.com']), 'https://example.com');
+      expect(joinUrl(['https://example.com', null, 'world/']),
           'https://example.com/world');
-      expect(urlJoin([null, 'https://example.com', 'world/']),
+      expect(joinUrl([null, 'https://example.com', 'world/']),
           'https://example.com/world');
-      expect(urlJoin(['https://example.com', 'hello', '#fragment']),
+      expect(joinUrl(['https://example.com', 'hello', '#fragment']),
           'https://example.com/hello/#fragment');
-      expect(urlJoin(['https://example.com', 'hello', 'world']),
+      expect(joinUrl(['https://example.com', 'hello', 'world']),
           'https://example.com/hello/world');
-      expect(urlJoin(['https://example.com', '/hello', '/world', 'bye']),
+      expect(joinUrl(['https://example.com', '/hello', '/world', 'bye']),
           'https://example.com/hello/world/bye');
       expect(
-          urlJoin(['https://example.com', '/hello', '/world', '?text=bye&a=b']),
+          joinUrl(['https://example.com', '/hello', '/world', '?text=bye&a=b']),
           'https://example.com/hello/world?text=bye&a=b');
-      expect(urlJoin(['example.com', '/hello', '/world', 'bye']),
+      expect(joinUrl(['example.com', '/hello', '/world', 'bye']),
           'example.com/hello/world/bye');
-      expect(urlJoin(['hello', '/world', 'bye']), 'hello/world/bye');
+      expect(joinUrl(['hello', '/world', 'bye']), 'hello/world/bye');
     });
 
-    test('getStrBytes', () {
-      expect(getStrBytes(''), 0);
-      expect(getStrBytes('abcde'), 5);
-      expect(getStrBytes('a1b2c3 d4e5f6'), 13);
-      expect(getStrBytes('ㄱㄴㄷ'), 9);
-      expect(getStrBytes('가나다123'), 12);
-      expect(getStrBytes('😀😀😀'), 12);
-      expect(getStrBytes('😀'), 4);
-      expect(getStrBytes('123 ABcd 가나다😀'), 22);
+    test('strByteLength', () {
+      expect(strByteLength(''), 0);
+      expect(strByteLength('abcde'), 5);
+      expect(strByteLength('a1b2c3 d4e5f6'), 13);
+      expect(strByteLength('ㄱㄴㄷ'), 9);
+      expect(strByteLength('가나다123'), 12);
+      expect(strByteLength('😀😀😀'), 12);
+      expect(strByteLength('😀'), 4);
+      expect(strByteLength('123 ABcd 가나다😀'), 22);
     });
 
     test('strToCamelCase', () {
@@ -349,9 +351,9 @@ st'''), 'test');
       expect(deburr('Ti\u1ebfng Vi\u1ec7t'), 'Ti\u1ebfng Vi\u1ec7t');
     });
 
-    test('detectLanguage', () {
+    test('detectLanguages', () {
       List<(String, double)> detect(String? text) => [
-            for (final DetectedLanguage item in detectLanguage(text))
+            for (final DetectedLanguage item in detectLanguages(text))
               (item.language, item.ratio)
           ];
 
@@ -538,7 +540,7 @@ st'''), 'test');
       expect(detect('Ｈｅｌｌｏ'), only('en'));
 
       // The ratios add up to 1 and run from the largest to the smallest.
-      final List<DetectedLanguage> mixed = detectLanguage(
+      final List<DetectedLanguage> mixed = detectLanguages(
           'This is a test. 안녕하세요. こんにちは。你好。Bonjour tout le monde, je suis là. Привет!');
 
       expect(mixed.map((DetectedLanguage item) => item.language).toList(),
@@ -567,37 +569,38 @@ st'''), 'test');
       expect(RegExp(escapeRegExp('a.b')).hasMatch('axb'), false);
     });
 
-    test('strBlindRandom', () {
-      final String masked = strBlindRandom('abcdefghij', 4);
+    test('strMaskRandom', () {
+      final String masked = strMaskRandom('abcdefghij', 4);
 
       expect(masked.length, 10);
       expect('*'.allMatches(masked).length, 4);
-      expect(strBlindRandom('', 3), '');
+      expect(strMaskRandom('', 3), '');
       // Only letters are masked, so the punctuation survives.
-      expect(strBlindRandom('...', 3), '...');
-      expect(strBlindRandom('abcd', 2, blindStr: '#').contains('#'), isTrue);
+      expect(strMaskRandom('...', 3), '...');
+      expect(strMaskRandom('abcd', 2, maskChar: '#').contains('#'), isTrue);
     });
 
-    test('getGroupKeys', () {
-      expect(getGroupKeys('Hello {name}, you are {age}', '{', '}'),
+    test('getPlaceholderKeys', () {
+      expect(getPlaceholderKeys('Hello {name}, you are {age}', '{', '}'),
           <String>['name', 'age']);
       // A backslash escapes the pair, and a doubled delimiter is the template
       // writing the delimiter itself.
       expect(
-          getGroupKeys('Escaped \\{skip} and {{literal}} and {ok}', '{', '}'),
+          getPlaceholderKeys(
+              'Escaped \\{skip} and {{literal}} and {ok}', '{', '}'),
           <String>['ok']);
-      expect(getGroupKeys('no keys here', '{', '}'), <String>[]);
-      expect(getGroupKeys('', '{', '}'), <String>[]);
+      expect(getPlaceholderKeys('no keys here', '{', '}'), <String>[]);
+      expect(getPlaceholderKeys('', '{', '}'), <String>[]);
       // A key may hold letters, digits, `_`, `$` and `-` and nothing else.
-      expect(
-          getGroupKeys('{bad key} and {good-1}', '{', '}'), <String>['good-1']);
-      expect(getGroupKeys('{bad key}', '{', '}', ignoreValidation: true),
+      expect(getPlaceholderKeys('{bad key} and {good-1}', '{', '}'),
+          <String>['good-1']);
+      expect(getPlaceholderKeys('{bad key}', '{', '}', allowAnyKey: true),
           <String>['bad key']);
-      expect(getGroupKeys(r'a ${one} b ${two}', r'${', '}}'), <String>[]);
-      expect(() => getGroupKeys('a', '{', '{'), throwsArgumentError);
-      expect(() => getGroupKeys('a', '', '}'), throwsArgumentError);
+      expect(getPlaceholderKeys(r'a ${one} b ${two}', r'${', '}}'), <String>[]);
+      expect(() => getPlaceholderKeys('a', '{', '{'), throwsArgumentError);
+      expect(() => getPlaceholderKeys('a', '', '}'), throwsArgumentError);
       // A multi-character delimiter may not be paired with a single one.
-      expect(() => getGroupKeys('a', r'${', '}'), throwsArgumentError);
+      expect(() => getPlaceholderKeys('a', r'${', '}'), throwsArgumentError);
     });
   });
 }

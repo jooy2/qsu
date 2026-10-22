@@ -96,7 +96,7 @@ void main() {
 
           expect(
               decrypt(encrypted, secret,
-                  algorithm: algorithm, toBase64: toBase64),
+                  algorithm: algorithm, fromBase64: toBase64),
               text);
           // An authenticating mode carries its tag between the two.
           expect(encrypted.split(':').length, mode == 'gcm' ? 3 : 2);

@@ -14,36 +14,36 @@ void main() {
     test('createDirectory', () async {
       await createDirectory('$testTargetPath/abc');
       await createDirectory('$testTargetPath/abc/def');
-      expect(await isFileExists('$testTargetPath/abc/def'), true);
-      await deleteFile('$testTargetPath/abc');
+      expect(await isExistingPath('$testTargetPath/abc/def'), true);
+      await deletePath('$testTargetPath/abc');
     });
 
-    test('createFile', () async {
-      await createFile(testFilePath);
-      expect(await isFileExists(testFilePath), true);
+    test('touchFile', () async {
+      await touchFile(testFilePath);
+      expect(await isExistingPath(testFilePath), true);
     });
 
-    test('deleteFile', () async {
-      await deleteFile(testFilePath);
-      expect(await isFileExists(testFilePath), false);
+    test('deletePath', () async {
+      await deletePath(testFilePath);
+      expect(await isExistingPath(testFilePath), false);
     });
 
     test('dummyFilePath', () async {
       const dummyFilePath = '$testTargetPath/__TEST__TOUCH_FILE.txt';
 
-      await createFileWithDummy(dummyFilePath, size: 100);
+      await createFileOfSize(dummyFilePath, size: 100);
 
       final dummyFileStat = await getFileInfo(dummyFilePath);
 
-      await deleteFile(dummyFilePath);
+      await deletePath(dummyFilePath);
 
       if (dummyFileStat.size != 100) {
         fail('Test Failed. Dummy file not created correctly.');
       }
     });
 
-    test('deleteAllFileFromDirectory', () async {
-      await deleteAllFileFromDirectory('$testTargetPath/EMPTY');
+    test('emptyDirectory', () async {
+      await emptyDirectory('$testTargetPath/EMPTY');
     });
 
     test('getFileInfo', () async {
@@ -139,37 +139,37 @@ void main() {
       expect(getParentFilePath('C:\\Users\\my', isWindows: true), 'C:\\Users');
     });
 
-    test('isFileExists', () async {
-      expect(await isFileExists('$testTargetPath/hello.md'), true);
-      expect(await isFileExists('$testTargetPath/not-exists'), false);
-      expect(await isFileExists(testTargetPath), true);
-      expect(await isFileExists('$testTargetPath/MV_TEST.txt'), true);
-      expect(await isFileExists('$testTargetPath/not-exists.txt'), false);
+    test('isExistingPath', () async {
+      expect(await isExistingPath('$testTargetPath/hello.md'), true);
+      expect(await isExistingPath('$testTargetPath/not-exists'), false);
+      expect(await isExistingPath(testTargetPath), true);
+      expect(await isExistingPath('$testTargetPath/MV_TEST.txt'), true);
+      expect(await isExistingPath('$testTargetPath/not-exists.txt'), false);
     });
 
     test('isValidFileName', () {
       expect(isValidFileName('System32'), true);
-      expect(isValidFileName('.example', unixType: true), true);
+      expect(isValidFileName('.example', isWindows: false), true);
       // The ':' lives in the extension; the whole name is validated.
-      expect(isValidFileName('hello.:txt', unixType: true), false);
+      expect(isValidFileName('hello.:txt', isWindows: false), false);
       expect(isValidFileName('C:\\Windows\\System32'), true);
       expect(isValidFileName('C:\\Users\\test\\Desktop\\hello.txt'), true);
       expect(isValidFileName('C:\\Users\\test\\Desktop\\hello*'), false);
       expect(isValidFileName('C:\\Users\\test\\Desktop\\hello!@#\$%^&*()_+-:='),
           false);
-      expect(isValidFileName('hello!@#\$%^&*()_+-:=', unixType: true), false);
+      expect(isValidFileName('hello!@#\$%^&*()_+-:=', isWindows: false), false);
       expect(
-          isValidFileName('/home/test/Desktop/test/.example', unixType: true),
+          isValidFileName('/home/test/Desktop/test/.example', isWindows: false),
           true);
       expect(
-          isValidFileName('/home/test/Desktop/test/text.txt', unixType: true),
+          isValidFileName('/home/test/Desktop/test/text.txt', isWindows: false),
           true);
       expect(
           isValidFileName('/home/test/Desktop/test/hi!@#\$%^&*()_+-=',
-              unixType: true),
+              isWindows: false),
           true);
-      expect(
-          isValidFileName('/home/test/Desktop/test/*hi', unixType: true), true);
+      expect(isValidFileName('/home/test/Desktop/test/*hi', isWindows: false),
+          true);
       expect(
           isValidFileName(
               '/home/test/Desktop/test/0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345'),
@@ -177,7 +177,7 @@ void main() {
       expect(
           isValidFileName(
               '/home/test/Desktop/test/012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234',
-              unixType: true),
+              isWindows: false),
           true); // 255
     });
 
@@ -241,23 +241,23 @@ void main() {
           Platform.isWindows ? 14 : 13);
     });
 
-    test('getFilePathLevel', () {
-      expect(getFilePathLevel('C:'), 1);
-      expect(getFilePathLevel('C:\\'), 1);
-      expect(getFilePathLevel('C:\\Windows\\System32'), 3);
-      expect(getFilePathLevel(longFilePath), 7);
-      expect(getFilePathLevel('/'), 1);
-      expect(getFilePathLevel('/home/user'), 3);
-      expect(getFilePathLevel('/home/user/.ssh/test file.txt'), 5);
+    test('getFilePathDepth', () {
+      expect(getFilePathDepth('C:'), 1);
+      expect(getFilePathDepth('C:\\'), 1);
+      expect(getFilePathDepth('C:\\Windows\\System32'), 3);
+      expect(getFilePathDepth(longFilePath), 7);
+      expect(getFilePathDepth('/'), 1);
+      expect(getFilePathDepth('/home/user'), 3);
+      expect(getFilePathDepth('/home/user/.ssh/test file.txt'), 5);
     });
 
     test('moveFile', () async {
       await moveFile(
           '$testTargetPath/MV_TEST.txt', '$testTargetPath/MV_TEST_1.txt');
-      expect(await isFileExists('$testTargetPath/MV_TEST_1.txt'), true);
+      expect(await isExistingPath('$testTargetPath/MV_TEST_1.txt'), true);
       await moveFile(
           '$testTargetPath/MV_TEST_1.txt', '$testTargetPath/MV_TEST.txt');
-      expect(await isFileExists('$testTargetPath/MV_TEST.txt'), true);
+      expect(await isExistingPath('$testTargetPath/MV_TEST.txt'), true);
     });
 
     test('joinFilePath', () {
@@ -275,45 +275,47 @@ void main() {
       expect(joinFilePath(['home', '/user', '..', '.bashrc']), '/home/.bashrc');
     });
 
-    test('normalizeFile', () {
+    test('normalizeFilePathUnicode', () {
       final String nfdStr = nfd('안녕하세요_12345-ABCDE'); // macOS
       final String nfcStr = nfc('안녕하세요_12345-ABCDE'); // Windows
 
-      expect(normalizeFile(nfdStr, normalizationForm: 'NFC'), nfcStr);
-      expect(normalizeFile(nfcStr, normalizationForm: 'NFD'), nfdStr);
+      expect(
+          normalizeFilePathUnicode(nfdStr, normalizationForm: 'NFC'), nfcStr);
+      expect(
+          normalizeFilePathUnicode(nfcStr, normalizationForm: 'NFD'), nfdStr);
     });
 
-    test('toValidFilePath', () {
-      expect(toValidFilePath('home'), '/home');
-      expect(toValidFilePath('/home//test/'), '/home/test');
-      expect(toValidFilePath('home/test/.conf'), '/home/test/.conf');
-      expect(toValidFilePath('/'), '/');
-      expect(toValidFilePath('C:\\\\Users\\test\\', isWindows: true),
+    test('normalizeFilePath', () {
+      expect(normalizeFilePath('home'), '/home');
+      expect(normalizeFilePath('/home//test/'), '/home/test');
+      expect(normalizeFilePath('home/test/.conf'), '/home/test/.conf');
+      expect(normalizeFilePath('/'), '/');
+      expect(normalizeFilePath('C:\\\\Users\\test\\', isWindows: true),
           'C:\\Users\\test');
-      expect(toValidFilePath('C:\\Users\\test\\.config', isWindows: true),
+      expect(normalizeFilePath('C:\\Users\\test\\.config', isWindows: true),
           'C:\\Users\\test\\.config');
-      expect(toValidFilePath('\\Users\\test\\.config', isWindows: true),
+      expect(normalizeFilePath('\\Users\\test\\.config', isWindows: true),
           '\\Users\\test\\.config');
-      expect(toValidFilePath('Users\\test\\.config', isWindows: true),
+      expect(normalizeFilePath('Users\\test\\.config', isWindows: true),
           '\\Users\\test\\.config');
-      expect(toValidFilePath('C:', isWindows: true), 'C:\\');
-      expect(toValidFilePath('C:\\\\', isWindows: true), 'C:\\');
-      expect(toValidFilePath('C:\\Users\\', isWindows: true), 'C:\\Users');
+      expect(normalizeFilePath('C:', isWindows: true), 'C:\\');
+      expect(normalizeFilePath('C:\\\\', isWindows: true), 'C:\\');
+      expect(normalizeFilePath('C:\\Users\\', isWindows: true), 'C:\\Users');
     });
 
     test('headFile', () async {
       expect(await headFile('$testTargetPath/hello.md'), '# Hello, World!');
-      expect(await headFile('$testTargetPath/hello.md', length: 1),
+      expect(await headFile('$testTargetPath/hello.md', lineCount: 1),
           '# Hello, World!');
-      expect(await headFile('$testTargetPath/hello.md', length: 4),
+      expect(await headFile('$testTargetPath/hello.md', lineCount: 4),
           '# Hello, World!\n\nThis is Hello File.\n');
     });
 
     test('tailFile', () async {
       expect(await tailFile('$testTargetPath/hello.md'), '--- Hello End ---');
-      expect(await tailFile('$testTargetPath/hello.md', length: 1),
+      expect(await tailFile('$testTargetPath/hello.md', lineCount: 1),
           '--- Hello End ---');
-      expect(await tailFile('$testTargetPath/hello.md', length: 4),
+      expect(await tailFile('$testTargetPath/hello.md', lineCount: 4),
           '\nDo not modify this file.\n\n--- Hello End ---');
     });
   });
@@ -400,17 +402,17 @@ void edgeCaseTests() {
       expect(getFileExtension('파일.한글'), '한글');
     });
 
-    test('getFilePathLevel - additional path shapes', () {
-      expect(getFilePathLevel('/a/b'), 3);
-      expect(getFilePathLevel('/a/b/c/d/e'), 6);
+    test('getFilePathDepth - additional path shapes', () {
+      expect(getFilePathDepth('/a/b'), 3);
+      expect(getFilePathDepth('/a/b/c/d/e'), 6);
       // A relative path has no leading empty segment, so it counts one lower.
-      expect(getFilePathLevel('a'), 1);
-      expect(getFilePathLevel('.'), 1);
-      expect(getFilePathLevel('./a/b'), 3);
+      expect(getFilePathDepth('a'), 1);
+      expect(getFilePathDepth('.'), 1);
+      expect(getFilePathDepth('./a/b'), 3);
       // A trailing backslash is stripped before counting.
-      expect(getFilePathLevel('C:\\Windows\\System32\\'), 3);
+      expect(getFilePathDepth('C:\\Windows\\System32\\'), 3);
       // A UNC prefix collapses to a single separator.
-      expect(getFilePathLevel('\\\\server\\share'), 3);
+      expect(getFilePathDepth('\\\\server\\share'), 3);
     });
 
     test('toPosixFilePath - additional path shapes', () {
@@ -441,21 +443,21 @@ void edgeCaseTests() {
       expect(isValidFileName('trailing '), false);
       expect(isValidFileName('trailing.'), false);
       // Unix keeps them, so they stay valid there.
-      expect(isValidFileName('trailing ', unixType: true), true);
-      expect(isValidFileName('trailing.', unixType: true), true);
+      expect(isValidFileName('trailing ', isWindows: false), true);
+      expect(isValidFileName('trailing.', isWindows: false), true);
       expect(isValidFileName('한글파일.txt'), true);
-      expect(isValidFileName('한글파일.txt', unixType: true), true);
+      expect(isValidFileName('한글파일.txt', isWindows: false), true);
       // Unix only rejects ':' and '/', so Windows-reserved chars pass.
-      expect(isValidFileName('a:b', unixType: true), false);
-      expect(isValidFileName('a|b', unixType: true), true);
-      expect(isValidFileName('a<b>c', unixType: true), true);
+      expect(isValidFileName('a:b', isWindows: false), false);
+      expect(isValidFileName('a|b', isWindows: false), true);
+      expect(isValidFileName('a<b>c', isWindows: false), true);
       // Windows device names stay reserved even with an extension appended,
       // but they are only reserved on Windows.
       expect(isValidFileName('nul.txt'), false);
       expect(isValidFileName('CON'), false);
       expect(isValidFileName('com1'), false);
       expect(isValidFileName('LPT9'), false);
-      expect(isValidFileName('nul.txt', unixType: true), true);
+      expect(isValidFileName('nul.txt', isWindows: false), true);
       // Near-misses are still valid names.
       expect(isValidFileName('COM0'), true);
       expect(isValidFileName('CONSOLE'), true);
@@ -476,70 +478,76 @@ void edgeCaseTests() {
       expect(getCopyFileName('a.tar.GZ', ['a.tar.GZ']), 'a.tar (1).GZ');
     });
 
-    test('toValidFilePath - redundant separators', () {
-      expect(toValidFilePath('/a/b/c'), '/a/b/c');
-      expect(toValidFilePath('a/b/c'), '/a/b/c');
-      expect(toValidFilePath('/a//b///c'), '/a/b/c');
-      expect(toValidFilePath('/a/b/c/'), '/a/b/c');
-      expect(toValidFilePath('/한글/파일'), '/한글/파일');
+    test('normalizeFilePath - redundant separators', () {
+      expect(normalizeFilePath('/a/b/c'), '/a/b/c');
+      expect(normalizeFilePath('a/b/c'), '/a/b/c');
+      expect(normalizeFilePath('/a//b///c'), '/a/b/c');
+      expect(normalizeFilePath('/a/b/c/'), '/a/b/c');
+      expect(normalizeFilePath('/한글/파일'), '/한글/파일');
     });
 
-    test('normalizeFile - compatibility forms', () {
+    test('normalizeFilePathUnicode - compatibility forms', () {
       // NFKC/NFKD fold compatibility characters; NFC/NFD do not.
-      expect(normalizeFile('ﬁle', normalizationForm: 'NFKC'), 'file');
-      expect(normalizeFile('①', normalizationForm: 'NFKC'), '1');
-      expect(normalizeFile('ＡＢ', normalizationForm: 'NFKD'), 'AB');
+      expect(
+          normalizeFilePathUnicode('ﬁle', normalizationForm: 'NFKC'), 'file');
+      expect(normalizeFilePathUnicode('①', normalizationForm: 'NFKC'), '1');
+      expect(normalizeFilePathUnicode('ＡＢ', normalizationForm: 'NFKD'), 'AB');
       // Composed Hangul is one code unit, decomposed is two.
-      expect(normalizeFile('가', normalizationForm: 'NFD').length, 2);
-      expect(normalizeFile('가', normalizationForm: 'NFC').length, 1);
+      expect(normalizeFilePathUnicode('가', normalizationForm: 'NFD').length, 2);
+      expect(normalizeFilePathUnicode('가', normalizationForm: 'NFC').length, 1);
       // The default form is NFC.
-      expect(normalizeFile('가'), normalizeFile('가', normalizationForm: 'NFC'));
+      expect(normalizeFilePathUnicode('가'),
+          normalizeFilePathUnicode('가', normalizationForm: 'NFC'));
       // Normalization is idempotent and leaves pure ASCII untouched.
       expect(
-          normalizeFile(normalizeFile('가', normalizationForm: 'NFD'),
+          normalizeFilePathUnicode(
+              normalizeFilePathUnicode('가', normalizationForm: 'NFD'),
               normalizationForm: 'NFD'),
-          normalizeFile('가', normalizationForm: 'NFD'));
-      expect(
-          normalizeFile('/a/b/c.txt', normalizationForm: 'NFD'), '/a/b/c.txt');
-      expect(normalizeFile(''), '');
+          normalizeFilePathUnicode('가', normalizationForm: 'NFD'));
+      expect(normalizeFilePathUnicode('/a/b/c.txt', normalizationForm: 'NFD'),
+          '/a/b/c.txt');
+      expect(normalizeFilePathUnicode(''), '');
     });
 
     test('headFile / tailFile - empty file', () async {
       expect(await headFile(p('empty.txt')), null);
       expect(await tailFile(p('empty.txt')), null);
-      expect(await headFile(p('empty.txt'), length: 10), null);
-      expect(await tailFile(p('empty.txt'), length: 10), null);
+      expect(await headFile(p('empty.txt'), lineCount: 10), null);
+      expect(await tailFile(p('empty.txt'), lineCount: 10), null);
     });
 
     test('headFile / tailFile - CRLF line endings', () async {
       // '\r' must be consumed as part of the line break, not kept in the text.
       expect(await headFile(p('crlf.txt')), 'line1');
-      expect(await headFile(p('crlf.txt'), length: 2), 'line1\nline2');
+      expect(await headFile(p('crlf.txt'), lineCount: 2), 'line1\nline2');
       expect(await tailFile(p('crlf.txt')), 'line3');
-      expect(await tailFile(p('crlf.txt'), length: 2), 'line2\nline3');
-      expect(await headFile(p('crlf.txt'), length: 3), 'line1\nline2\nline3');
+      expect(await tailFile(p('crlf.txt'), lineCount: 2), 'line2\nline3');
+      expect(
+          await headFile(p('crlf.txt'), lineCount: 3), 'line1\nline2\nline3');
     });
 
     test('headFile / tailFile - file without a trailing newline', () async {
       expect(await headFile(p('no-trailing-newline.txt')), 'a');
       expect(await tailFile(p('no-trailing-newline.txt')), 'b');
       // Asking beyond EOF returns everything rather than padding.
-      expect(await headFile(p('no-trailing-newline.txt'), length: 5), 'a\nb');
-      expect(await tailFile(p('no-trailing-newline.txt'), length: 5), 'a\nb');
+      expect(
+          await headFile(p('no-trailing-newline.txt'), lineCount: 5), 'a\nb');
+      expect(
+          await tailFile(p('no-trailing-newline.txt'), lineCount: 5), 'a\nb');
     });
 
     test('headFile / tailFile - blank-line-only file', () async {
-      expect(await headFile(p('blank-lines.txt'), length: 3), '\n\n');
+      expect(await headFile(p('blank-lines.txt'), lineCount: 3), '\n\n');
       // tailFile drops one trailing empty line by design.
-      expect(await tailFile(p('blank-lines.txt'), length: 3), '\n');
-      expect(await tailFile(p('blank-lines.txt'), length: 1), null);
+      expect(await tailFile(p('blank-lines.txt'), lineCount: 3), '\n');
+      expect(await tailFile(p('blank-lines.txt'), lineCount: 1), null);
     });
 
     test('headFile / tailFile - non-positive length', () async {
-      expect(await headFile(p('crlf.txt'), length: 0), null);
-      expect(await tailFile(p('crlf.txt'), length: 0), null);
-      expect(await headFile(p('crlf.txt'), length: -1), null);
-      expect(await tailFile(p('crlf.txt'), length: -1), null);
+      expect(await headFile(p('crlf.txt'), lineCount: 0), null);
+      expect(await tailFile(p('crlf.txt'), lineCount: 0), null);
+      expect(await headFile(p('crlf.txt'), lineCount: -1), null);
+      expect(await tailFile(p('crlf.txt'), lineCount: -1), null);
     });
 
     test('missing paths throw instead of returning a fallback', () async {
@@ -557,58 +565,56 @@ void edgeCaseTests() {
       expect(await getFileHashFromPath(p('empty.txt')), emptyMd5);
     });
 
-    test('isFileExists - symlinks are followed', () async {
+    test('isExistingPath - symlinks are followed', () async {
       if (!symlinksSupported) {
         markTestSkipped('symlinks are not supported on this platform');
         return;
       }
 
       // A symlink to an existing file resolves; a dangling one does not.
-      expect(await isFileExists(p('good.link')), true);
-      expect(await isFileExists(p('broken.link')), false);
+      expect(await isExistingPath(p('good.link')), true);
+      expect(await isExistingPath(p('broken.link')), false);
     });
 
     test('handles Unicode and space-bearing file names', () async {
-      expect(await isFileExists(p(unicodeFileName)), true);
+      expect(await isExistingPath(p(unicodeFileName)), true);
       expect(getFileName(unicodeFileName), '한글 파일 (1)');
       expect(getFileExtension(unicodeFileName), 'txt');
       expect(await getFileSize(p(unicodeFileName)), 2);
     });
 
-    test('deleteFile - missing path is a no-op', () async {
-      await deleteFile(p('does-not-exist.txt'));
-      await deleteFile('');
+    test('deletePath - missing path is a no-op', () async {
+      await deletePath(p('does-not-exist.txt'));
+      await deletePath('');
     });
 
-    test(
-        'deleteAllFileFromDirectory - clears nested entries but keeps the root',
-        () async {
+    test('emptyDirectory - clears nested entries but keeps the root', () async {
       final String root = p('nest');
 
       Directory('$root/sub').createSync(recursive: true);
       File('$root/top.txt').writeAsStringSync('top');
       File('$root/sub/inner.txt').writeAsStringSync('inner');
 
-      await deleteAllFileFromDirectory(root);
+      await emptyDirectory(root);
 
       // Subdirectories are removed too, not just plain files.
-      expect(await isFileExists(root), true);
-      expect(await isFileExists('$root/top.txt'), false);
-      expect(await isFileExists('$root/sub'), false);
+      expect(await isExistingPath(root), true);
+      expect(await isExistingPath('$root/top.txt'), false);
+      expect(await isExistingPath('$root/sub'), false);
     });
 
-    test('deleteAllFileFromDirectory - missing directory is a no-op', () async {
-      await deleteAllFileFromDirectory(p('no-such-directory'));
+    test('emptyDirectory - missing directory is a no-op', () async {
+      await emptyDirectory(p('no-such-directory'));
     });
 
-    test('createFileWithDummy - produces the exact requested size', () async {
+    test('createFileOfSize - produces the exact requested size', () async {
       for (final int size in [1, 512, 4096]) {
         final String target = p('dummy-$size.bin');
 
-        expect(await createFileWithDummy(target, size: size), true);
+        expect(await createFileOfSize(target, size: size), true);
         expect(await getFileSize(target), size);
 
-        await deleteFile(target);
+        await deletePath(target);
       }
     });
 
@@ -625,7 +631,7 @@ void edgeCaseTests() {
       // `normalize` emits '\' on Windows while the `p()` helper builds paths
       // with '/'.
       expect(toPosixFilePath(fileInfo.path), toPosixFilePath(p('crlf.txt')));
-      expect(fileInfo.created > 0, true);
+      expect(fileInfo.changed > 0, true);
       expect(fileInfo.modified > 0, true);
 
       final FileInfo directoryInfo = await getFileInfo(tempDir.path);
@@ -650,14 +656,14 @@ void edgeCaseTests() {
       final String nested = p('a/b/c');
 
       await createDirectory(nested);
-      expect(await isFileExists(nested), true);
+      expect(await isExistingPath(nested), true);
 
       // Re-creating an existing directory is a silent no-op.
       await createDirectory(nested);
-      expect(await isFileExists(nested), true);
+      expect(await isExistingPath(nested), true);
 
-      await deleteFile(p('a'));
-      expect(await isFileExists(nested), false);
+      await deletePath(p('a'));
+      expect(await isExistingPath(nested), false);
     });
 
     test('getParentFilePath - relative, empty and trailing-separator paths',
@@ -685,45 +691,44 @@ void edgeCaseTests() {
           '\\\\net\\share');
     });
 
-    test('toValidFilePath - resolves . and .. segments', () {
-      expect(toValidFilePath('/home/user/../test'), '/home/test');
-      expect(toValidFilePath('/a/./b'), '/a/b');
+    test('normalizeFilePath - resolves . and .. segments', () {
+      expect(normalizeFilePath('/home/user/../test'), '/home/test');
+      expect(normalizeFilePath('/a/./b'), '/a/b');
       // A path that collapses to nothing resolves to the root.
-      expect(toValidFilePath('.'), '/');
-      expect(toValidFilePath('C:\\a\\..\\b', isWindows: true), 'C:\\b');
-      expect(toValidFilePath('C:\\Windows\\..\\text.txt', isWindows: true),
+      expect(normalizeFilePath('.'), '/');
+      expect(normalizeFilePath('C:\\a\\..\\b', isWindows: true), 'C:\\b');
+      expect(normalizeFilePath('C:\\Windows\\..\\text.txt', isWindows: true),
           'C:\\text.txt');
-      expect(toValidFilePath('.', isWindows: true), '\\');
-      expect(toValidFilePath('', isWindows: true), '\\');
+      expect(normalizeFilePath('.', isWindows: true), '\\');
+      expect(normalizeFilePath('', isWindows: true), '\\');
     });
 
-    test('getFilePathLevel - a trailing separator does not add a level', () {
-      expect(getFilePathLevel('/home/user/'), getFilePathLevel('/home/user'));
-      expect(getFilePathLevel('/a/b//'), getFilePathLevel('/a/b'));
+    test('getFilePathDepth - a trailing separator does not add a level', () {
+      expect(getFilePathDepth('/home/user/'), getFilePathDepth('/home/user'));
+      expect(getFilePathDepth('/a/b//'), getFilePathDepth('/a/b'));
       expect(
-          getFilePathLevel('C:\\Windows\\'), getFilePathLevel('C:\\Windows'));
-      expect(getFilePathLevel('//'), 1);
+          getFilePathDepth('C:\\Windows\\'), getFilePathDepth('C:\\Windows'));
+      expect(getFilePathDepth('//'), 1);
     });
 
-    test('createFileWithDummy - a size of 0 creates an empty file', () async {
+    test('createFileOfSize - a size of 0 creates an empty file', () async {
       final String target = p('zero.bin');
 
-      expect(await createFileWithDummy(target, size: 0), true);
-      expect(await isFileExists(target), true);
+      expect(await createFileOfSize(target, size: 0), true);
+      expect(await isExistingPath(target), true);
       expect(await getFileSize(target), 0);
 
-      await deleteFile(target);
+      await deletePath(target);
     });
 
-    test('createFileWithDummy - rejects a negative size', () {
-      expect(
-          createFileWithDummy(p('negative.bin'), size: -5), throwsA(anything));
+    test('createFileOfSize - rejects a negative size', () {
+      expect(createFileOfSize(p('negative.bin'), size: -5), throwsA(anything));
     });
 
     test('createDirectory - a non-recursive nested creation throws', () async {
       expect(createDirectory(p('missing-parent/child'), recursive: false),
           throwsA(anything));
-      expect(await isFileExists(p('missing-parent/child')), false);
+      expect(await isExistingPath(p('missing-parent/child')), false);
     });
 
     test('moveFile - a missing source throws', () {
@@ -738,11 +743,11 @@ void edgeCaseTests() {
       File(source).writeAsStringSync('payload');
       await moveFile(source, target);
 
-      expect(await isFileExists(source), false);
-      expect(await isFileExists(target), true);
+      expect(await isExistingPath(source), false);
+      expect(await isExistingPath(target), true);
       expect(await getFileSize(target), 7);
 
-      await deleteFile(target);
+      await deletePath(target);
     });
   });
 
@@ -810,12 +815,12 @@ void edgeCaseTests() {
         () {
       // A name of nothing cannot be created.
       expect(isValidFileName(''), false);
-      expect(isValidFileName('', unixType: true), false);
+      expect(isValidFileName('', isWindows: false), false);
 
       // NUL terminates the path in the system call underneath, so a name
       // carrying one is truncated rather than rejected by the filesystem.
       expect(isValidFileName('fi${nul}le.txt'), false);
-      expect(isValidFileName('fi${nul}le.txt', unixType: true), false);
+      expect(isValidFileName('fi${nul}le.txt', isWindows: false), false);
       expect(isValidFileName('tab${String.fromCharCode(9)}.txt'), false);
       expect(isValidFileName('del${String.fromCharCode(127)}.txt'), false);
 
@@ -843,29 +848,29 @@ void edgeCaseTests() {
           throwsA(isA<FileSystemException>()));
     });
 
-    test('createFile - creates the parent directories it needs', () async {
+    test('touchFile - creates the parent directories it needs', () async {
       final String target = p('created/deep/nested/note.txt');
 
-      await createFile(target);
+      await touchFile(target);
 
-      expect(await isFileExists(target), true);
+      expect(await isExistingPath(target), true);
       expect(await getFileSize(target), 0);
     });
 
     test(
-        'createFile, deleteFile and moveFile - a whitespace-only path does nothing',
+        'touchFile, deletePath and moveFile - a whitespace-only path does nothing',
         () async {
-      await createFile('   ');
-      expect(await isFileExists('   '), false);
+      await touchFile('   ');
+      expect(await isExistingPath('   '), false);
 
       final String witness = p('witness.txt');
 
       File(witness).writeAsStringSync('still here');
-      await deleteFile('   ');
+      await deletePath('   ');
       await moveFile('   ', witness);
       await moveFile(witness, '  ');
 
-      expect(await isFileExists(witness), true);
+      expect(await isExistingPath(witness), true);
     });
 
     test('headFile / tailFile - malformed UTF-8 is replaced, not thrown on',
@@ -876,38 +881,38 @@ void edgeCaseTests() {
       // Two bytes that cannot open a sequence become two replacement
       // characters; the NUL after them is text and stays.
       expect(head!.runes.toList(), [65533, 65533, 0, 97, 98, 99]);
-      expect(await tailFile(path, length: 1), 'def');
+      expect(await tailFile(path, lineCount: 1), 'def');
     });
 
     test('headFile / tailFile - a lone carriage return breaks a line',
         () async {
       final String path = p('lone-cr.txt');
 
-      expect(await headFile(path, length: 3), 'one\ntwo\nthree');
-      expect(await tailFile(path, length: 1), 'three');
-      expect(await tailFile(path, length: 2), 'two\nthree');
+      expect(await headFile(path, lineCount: 3), 'one\ntwo\nthree');
+      expect(await tailFile(path, lineCount: 1), 'three');
+      expect(await tailFile(path, lineCount: 2), 'two\nthree');
     });
 
     test('headFile / tailFile - a byte order mark stays in the first line',
         () async {
       final String path = p('bom.txt');
 
-      expect(await headFile(path, length: 1), '﻿first');
-      expect(await tailFile(path, length: 2), '﻿first\nsecond');
+      expect(await headFile(path, lineCount: 1), '﻿first');
+      expect(await tailFile(path, lineCount: 2), '﻿first\nsecond');
     });
 
     test('headFile / tailFile - a length beyond the file returns every line',
         () async {
       final String path = p('two-lines.txt');
 
-      expect(await headFile(path, length: 99), 'a\nb');
-      expect(await tailFile(path, length: 99), 'a\nb');
+      expect(await headFile(path, lineCount: 99), 'a\nb');
+      expect(await tailFile(path, lineCount: 99), 'a\nb');
     });
 
     test('tailFile - a large window costs no more than the lines it returns',
         () async {
       final Stopwatch watch = Stopwatch()..start();
-      final String? result = await tailFile(p('big.log'), length: bigWindow);
+      final String? result = await tailFile(p('big.log'), lineCount: bigWindow);
       watch.stop();
 
       expect(result!.split('\n').length, bigWindow);
@@ -919,7 +924,7 @@ void edgeCaseTests() {
     test('headFile - the cost does not follow the size of the file', () async {
       final Stopwatch watch = Stopwatch()..start();
 
-      expect(await headFile(p('big.log'), length: 1), 'line 0');
+      expect(await headFile(p('big.log'), lineCount: 1), 'line 0');
       watch.stop();
 
       expect(watch.elapsedMilliseconds, lessThan(budgetMs));
@@ -957,8 +962,8 @@ void edgeCaseTests() {
 
       await moveFile(source, target);
 
-      expect(await isFileExists(source), false);
-      expect(await isFileExists('$target/inner/leaf.txt'), true);
+      expect(await isExistingPath(source), false);
+      expect(await isExistingPath('$target/inner/leaf.txt'), true);
     });
 
     test('getFileSize / getFileInfo - the filesystem error keeps its shape',
@@ -975,23 +980,22 @@ void edgeCaseTests() {
               predicate((e) => (e as FileSystemException).path == missing)));
     });
 
-    test('toValidFilePath - a leading .. cannot climb above the root', () {
-      expect(toValidFilePath('../../etc/passwd'), '/etc/passwd');
-      expect(toValidFilePath('../a/../b'), '/b');
-      expect(toValidFilePath('..\\..\\Users', isWindows: true), '\\Users');
+    test('normalizeFilePath - a leading .. cannot climb above the root', () {
+      expect(normalizeFilePath('../../etc/passwd'), '/etc/passwd');
+      expect(normalizeFilePath('../a/../b'), '/b');
+      expect(normalizeFilePath('..\\..\\Users', isWindows: true), '\\Users');
     });
 
-    test('deleteAllFileFromDirectory - unlinks a symlink and keeps its target',
-        () async {
+    test('emptyDirectory - unlinks a symlink and keeps its target', () async {
       if (!symlinksSupported) {
         markTestSkipped('symlinks are not supported on this platform');
         return;
       }
 
-      await deleteAllFileFromDirectory(p('linked'));
+      await emptyDirectory(p('linked'));
 
-      expect(await isFileExists(p('linked/shortcut')), false);
-      expect(await isFileExists(p('keep/precious.txt')), true);
+      expect(await isExistingPath(p('linked/shortcut')), false);
+      expect(await isExistingPath(p('keep/precious.txt')), true);
     });
 
     test('isFileHidden', () async {

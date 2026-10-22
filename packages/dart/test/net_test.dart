@@ -129,7 +129,7 @@ void main() {
 
     test('parseAddress', () {
       // Each case: 'url' plus only the fields that differ from the defaults
-      // (error, isIP and isIPv6 false, everything else null).
+      // (error, isIp and isIpv6 false, everything else null).
       final List<Map<String, dynamic>> cases = [
         // Full form: scheme, user, password and port.
         {
@@ -139,8 +139,8 @@ void main() {
           'host': 'host',
           'hostname': 'host',
           'port': 1234,
-          'user': 'test',
-          'pass': 'pass'
+          'username': 'test',
+          'password': 'pass'
         },
         // Web URL. Missing values stay `null`, not an error.
         {
@@ -155,8 +155,8 @@ void main() {
           'url': 'user:test@host',
           'host': 'host',
           'hostname': 'host',
-          'user': 'user',
-          'pass': 'test'
+          'username': 'user',
+          'password': 'test'
         },
         {'url': 'host:1234', 'host': 'host', 'hostname': 'host', 'port': 1234},
         {
@@ -164,7 +164,7 @@ void main() {
           'host': '192.168.1.123',
           'hostname': '192.168.1.123',
           'port': 1234,
-          'isIP': true
+          'isIp': true
         },
         {'url': 'hostname', 'host': 'hostname', 'hostname': 'hostname'},
         {
@@ -173,7 +173,7 @@ void main() {
           'defaultPort': 22,
           'host': 'hostname',
           'hostname': 'hostname',
-          'user': 'test'
+          'username': 'test'
         },
         // IPv6 without brackets keeps the raw address and cannot carry a port.
         {
@@ -182,15 +182,15 @@ void main() {
           'defaultPort': 22,
           'host': '::1',
           'hostname': '::1',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         {
           'url': '::1',
           'host': '::1',
           'hostname': '::1',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         {
           'url': 'ssh://fe80::f9e9:1d57:9f2d:fb87',
@@ -198,8 +198,8 @@ void main() {
           'defaultPort': 22,
           'host': 'fe80::f9e9:1d57:9f2d:fb87',
           'hostname': 'fe80::f9e9:1d57:9f2d:fb87',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         // IPv6 with brackets keeps the brackets on `host` and drops them from `hostname`.
         {
@@ -208,39 +208,39 @@ void main() {
           'defaultPort': 22,
           'host': '[fe80::f9e9:1d57:9f2d:fb87]',
           'hostname': 'fe80::f9e9:1d57:9f2d:fb87',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         {
           'url': '[fe80::f9e9:1d57:9f2d:fb87]:1234',
           'host': '[fe80::f9e9:1d57:9f2d:fb87]',
           'hostname': 'fe80::f9e9:1d57:9f2d:fb87',
           'port': 1234,
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         {
           'url': 'test:pass@[fe80::f9e9:1d57:9f2d:fb87]:1234',
           'host': '[fe80::f9e9:1d57:9f2d:fb87]',
           'hostname': 'fe80::f9e9:1d57:9f2d:fb87',
           'port': 1234,
-          'user': 'test',
-          'pass': 'pass',
-          'isIP': true,
-          'isIPv6': true
+          'username': 'test',
+          'password': 'pass',
+          'isIp': true,
+          'isIpv6': true
         },
         {
           'url': '[::1]',
           'host': '[::1]',
           'hostname': '::1',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         {
           'url': '192.168.1.1',
           'host': '192.168.1.1',
           'hostname': '192.168.1.1',
-          'isIP': true
+          'isIp': true
         },
         // Unknown scheme is parsed as-is (generic parser, no error) and has no default port.
         {
@@ -248,7 +248,7 @@ void main() {
           'protocol': 'ASD',
           'host': '192.168.1.1',
           'hostname': '192.168.1.1',
-          'isIP': true
+          'isIp': true
         },
         // Scheme only: empty host is `null`, not an error.
         {'url': 'ssh://', 'protocol': 'SSH', 'defaultPort': 22},
@@ -258,38 +258,38 @@ void main() {
           'defaultPort': 22,
           'host': 'localhost',
           'hostname': 'localhost',
-          'user': 'test'
+          'username': 'test'
         },
         {
           'url': 'test@localhost',
           'host': 'localhost',
           'hostname': 'localhost',
-          'user': 'test'
+          'username': 'test'
         },
         {
           'url': 'test@192.168.1.1:1234',
           'host': '192.168.1.1',
           'hostname': '192.168.1.1',
           'port': 1234,
-          'user': 'test',
-          'isIP': true
+          'username': 'test',
+          'isIp': true
         },
         {
           'url': 'test@fe80::f9e9:1d57:9f2d:fb87',
           'host': 'fe80::f9e9:1d57:9f2d:fb87',
           'hostname': 'fe80::f9e9:1d57:9f2d:fb87',
-          'user': 'test',
-          'isIP': true,
-          'isIPv6': true
+          'username': 'test',
+          'isIp': true,
+          'isIpv6': true
         },
         // The host is split by the last `@`; the password may keep `@` and `:`.
         {
           'url': 'test:hell@test@192.168.1.1',
           'host': '192.168.1.1',
           'hostname': '192.168.1.1',
-          'user': 'test',
-          'pass': 'hell@test',
-          'isIP': true
+          'username': 'test',
+          'password': 'hell@test',
+          'isIp': true
         },
         {
           'url': 'ssh://test:he::@test@192.168.1.1:1234',
@@ -298,24 +298,24 @@ void main() {
           'host': '192.168.1.1',
           'hostname': '192.168.1.1',
           'port': 1234,
-          'user': 'test',
-          'pass': 'he::@test',
-          'isIP': true
+          'username': 'test',
+          'password': 'he::@test',
+          'isIp': true
         },
         {
           'url': 'test@test:pass@host',
           'host': 'host',
           'hostname': 'host',
-          'user': 'test@test',
-          'pass': 'pass'
+          'username': 'test@test',
+          'password': 'pass'
         },
         {
           'url': 'test:test@test@host:1234',
           'host': 'host',
           'hostname': 'host',
           'port': 1234,
-          'user': 'test',
-          'pass': 'test@test'
+          'username': 'test',
+          'password': 'test@test'
         },
         {'url': 'kara', 'host': 'kara', 'hostname': 'kara'},
         // Empty user and password become `null`.
@@ -329,8 +329,8 @@ void main() {
           'host': 'example.com',
           'hostname': 'example.com',
           'port': 8080,
-          'user': 'user',
-          'pass': 'pw',
+          'username': 'user',
+          'password': 'pw',
           'path': '/path',
           'query': 'q=1',
           'params': {'q': '1'},
@@ -464,7 +464,7 @@ void main() {
           'host': 'host',
           'hostname': 'host',
           'port': 22,
-          'user': 'user',
+          'username': 'user',
           'path': '/var/log'
         },
 
@@ -498,7 +498,7 @@ void main() {
           'defaultPort': 5432,
           'host': 'db',
           'hostname': 'db',
-          'user': 'user'
+          'username': 'user'
         },
         {
           'url': 'mongodb://db:27018',
@@ -566,8 +566,8 @@ void main() {
           'defaultPort': 22,
           'host': 'host',
           'hostname': 'host',
-          'user': 'us@er',
-          'pass': 'p@ss'
+          'username': 'us@er',
+          'password': 'p@ss'
         },
         {
           'url': 'ssh://user:pa%2Fss@host',
@@ -575,8 +575,8 @@ void main() {
           'defaultPort': 22,
           'host': 'host',
           'hostname': 'host',
-          'user': 'user',
-          'pass': 'pa/ss'
+          'username': 'user',
+          'password': 'pa/ss'
         },
         {
           'url': 'https://%ED%85%8C%EC%8A%A4%ED%8A%B8@example.com',
@@ -584,7 +584,7 @@ void main() {
           'defaultPort': 443,
           'host': 'example.com',
           'hostname': 'example.com',
-          'user': '테스트'
+          'username': '테스트'
         },
         // `%ZZ` is not an escape, so the value is left exactly as it was written.
         {
@@ -593,8 +593,8 @@ void main() {
           'defaultPort': 22,
           'host': 'host',
           'hostname': 'host',
-          'user': 'user',
-          'pass': 'p%ZZss'
+          'username': 'user',
+          'password': 'p%ZZss'
         },
         // Well-formed escapes that are not valid UTF-8 are left alone too.
         {
@@ -603,8 +603,8 @@ void main() {
           'defaultPort': 22,
           'host': 'host',
           'hostname': 'host',
-          'user': 'user',
-          'pass': '%E0%A4'
+          'username': 'user',
+          'password': '%E0%A4'
         },
         // The query is reported raw and its values decoded.
         {
@@ -634,19 +634,19 @@ void main() {
           'url': '127.0.0.1',
           'host': '127.0.0.1',
           'hostname': '127.0.0.1',
-          'isIP': true
+          'isIp': true
         },
         {
           'url': '0.0.0.0',
           'host': '0.0.0.0',
           'hostname': '0.0.0.0',
-          'isIP': true
+          'isIp': true
         },
         {
           'url': '255.255.255.255',
           'host': '255.255.255.255',
           'hostname': '255.255.255.255',
-          'isIP': true
+          'isIp': true
         },
         // An octet over 255, a leading zero or a missing octet is not an address.
         {'url': '256.1.1.1', 'host': '256.1.1.1', 'hostname': '256.1.1.1'},
@@ -661,29 +661,29 @@ void main() {
           'url': '[::]',
           'host': '[::]',
           'hostname': '::',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         {
           'url': '::',
           'host': '::',
           'hostname': '::',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         {
           'url': '[1:2:3:4:5:6:7:8]',
           'host': '[1:2:3:4:5:6:7:8]',
           'hostname': '1:2:3:4:5:6:7:8',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         {
           'url': '1:2:3:4:5:6:7:8',
           'host': '1:2:3:4:5:6:7:8',
           'hostname': '1:2:3:4:5:6:7:8',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         // An IPv4 tail fills the last two groups.
         {
@@ -691,15 +691,15 @@ void main() {
           'host': '[::ffff:192.168.1.1]',
           'hostname': '::ffff:192.168.1.1',
           'port': 443,
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         {
           'url': '[1:2:3:4:5:6:1.2.3.4]',
           'host': '[1:2:3:4:5:6:1.2.3.4]',
           'hostname': '1:2:3:4:5:6:1.2.3.4',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         // Nine groups, a group outside hex, a second `::` and a bad IPv4 tail are all rejected.
         {
@@ -764,16 +764,16 @@ void main() {
           'error': true,
           'host': '[fe80::1]',
           'hostname': 'fe80::1',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         {
           'url': '[fe80::1]:70000',
           'error': true,
           'host': '[fe80::1]',
           'hostname': 'fe80::1',
-          'isIP': true,
-          'isIPv6': true
+          'isIp': true,
+          'isIpv6': true
         },
         // The path is still read from an address whose port is in error.
         {
@@ -807,15 +807,15 @@ void main() {
         expect(result.port, c['port'], reason: 'port for "$url"');
         expect(result.defaultPort, c['defaultPort'],
             reason: 'defaultPort for "$url"');
-        expect(result.user, c['user'], reason: 'user for "$url"');
-        expect(result.pass, c['pass'], reason: 'pass for "$url"');
+        expect(result.username, c['username'], reason: 'username for "$url"');
+        expect(result.password, c['password'], reason: 'password for "$url"');
         expect(result.path, c['path'], reason: 'path for "$url"');
         expect(result.query, c['query'], reason: 'query for "$url"');
         expect(result.params, c['params'], reason: 'params for "$url"');
         expect(result.hash, c['hash'], reason: 'hash for "$url"');
-        expect(result.isIP, c['isIP'] ?? false, reason: 'isIP for "$url"');
-        expect(result.isIPv6, c['isIPv6'] ?? false,
-            reason: 'isIPv6 for "$url"');
+        expect(result.isIp, c['isIp'] ?? false, reason: 'isIp for "$url"');
+        expect(result.isIpv6, c['isIpv6'] ?? false,
+            reason: 'isIpv6 for "$url"');
       }
 
       // `decode` is on by default and turns the escapes in the user
@@ -824,8 +824,8 @@ void main() {
       final ParsedAddress raw =
           parseAddress('ssh://us%40er:p%40ss@host', decode: false);
 
-      expect(raw.user, 'us%40er');
-      expect(raw.pass, 'p%40ss');
+      expect(raw.username, 'us%40er');
+      expect(raw.password, 'p%40ss');
 
       final ParsedAddress rawQuery =
           parseAddress('https://example.com/s?q=a%20b', decode: false);
@@ -833,7 +833,8 @@ void main() {
       expect(rawQuery.query, 'q=a%20b');
       expect(rawQuery.params, {'q': 'a%20b'});
 
-      expect(parseAddress('ssh://us%40er@host', decode: true).user, 'us@er');
+      expect(
+          parseAddress('ssh://us%40er@host', decode: true).username, 'us@er');
     });
   });
 }

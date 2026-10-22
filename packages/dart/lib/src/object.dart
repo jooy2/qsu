@@ -4,7 +4,7 @@ import 'package:qsu/src/_key_string.dart';
 import 'package:qsu/src/verify.dart';
 
 /// Deletes keys equal to the given value from the object data.
-Map<String, dynamic>? objDeleteKeyByValue(
+Map<String, dynamic>? objOmitByValue(
   Map<String, dynamic>? obj,
   dynamic searchValue, {
   bool recursive = false,
@@ -20,8 +20,8 @@ Map<String, dynamic>? objDeleteKeyByValue(
     final key = keys[i];
     final value = newObj[key];
 
-    if (recursive && value != null && isObject(value)) {
-      final updated = objDeleteKeyByValue(
+    if (recursive && value != null && isPlainObject(value)) {
+      final updated = objOmitByValue(
         value as Map<String, dynamic>,
         searchValue,
         recursive: recursive,
@@ -51,7 +51,8 @@ String objToQueryString(Map<String, dynamic> obj) {
 
 /// Converts the given object to array format. The resulting array is a two-dimensional array with one key value stored as follows: `[key, value]`.
 /// If the `recursive` option is `true`, it will convert to a two-dimensional array again when the value is of type `object`.
-List<dynamic> objToArray(Map<String, dynamic> obj, {bool? recursive = false}) {
+List<dynamic> objToEntries(Map<String, dynamic> obj,
+    {bool? recursive = false}) {
   List<dynamic> convertToArray(Map<String, dynamic> o) {
     List<dynamic> r = [];
     for (var key in o.keys) {
@@ -71,7 +72,7 @@ List<dynamic> objToArray(Map<String, dynamic> obj, {bool? recursive = false}) {
 
 /// Merges objects from the given object to the top level of the child items and displays the key names in steps, using a delimiter (`.` by default) instead of the existing keys.
 /// For example, if an object `a` has keys `b`, `c`, and `d`, the `a` key is not displayed, and the keys and values `a.b`, `a.c`, and `a.d` are displayed in the parent step.
-Map<String, dynamic> objTo1d(Map<String, dynamic> obj,
+Map<String, dynamic> objFlatten(Map<String, dynamic> obj,
     {String? separator = '.'}) {
   // Reject a null separator too. It used to slip past this check and then be
   // interpolated as the literal text 'null' into every nested key.
@@ -405,7 +406,7 @@ Map<String, dynamic>? objMerge(List<Map<String, dynamic>?> objects) {
     source.forEach((String key, dynamic value) {
       final dynamic previous = result[key];
 
-      if (isObject(previous) && isObject(value)) {
+      if (isPlainObject(previous) && isPlainObject(value)) {
         result[key] = objMerge([
           Map<String, dynamic>.from(previous as Map),
           Map<String, dynamic>.from(value as Map),
@@ -502,14 +503,14 @@ dynamic objClone(dynamic obj, {bool deep = true}) {
 
 /// Return the object as indented JSON, for showing to a person rather than for
 /// sending anywhere.
-String objToPrettyStr(Map<String, dynamic> obj) =>
+String objToPrettyJson(Map<String, dynamic> obj) =>
     const JsonEncoder.withIndent('\t').convert(obj);
 
 /// Walk a tree of objects and return the first one whose [searchKey] holds
-/// [searchValue]. Children are looked for under [childKey], and `null` comes
+/// [searchValue]. Children are looked for under [childrenKey], and `null` comes
 /// back when nothing in the tree matches.
-Map<String, dynamic>? objFindItemRecursiveByKey(
-    dynamic obj, String searchKey, dynamic searchValue, String childKey) {
+Map<String, dynamic>? objFindInTree(
+    dynamic obj, String searchKey, dynamic searchValue, String childrenKey) {
   final List<dynamic> items = obj is List<dynamic> ? obj : <dynamic>[obj];
 
   for (final dynamic item in items) {
@@ -521,9 +522,9 @@ Map<String, dynamic>? objFindItemRecursiveByKey(
       return Map<String, dynamic>.from(item);
     }
 
-    if (!isEmpty(item[childKey])) {
-      final Map<String, dynamic>? child = objFindItemRecursiveByKey(
-          item[childKey], searchKey, searchValue, childKey);
+    if (!isEmpty(item[childrenKey])) {
+      final Map<String, dynamic>? child =
+          objFindInTree(item[childrenKey], searchKey, searchValue, childrenKey);
 
       if (child != null) {
         return child;
@@ -534,21 +535,21 @@ Map<String, dynamic>? objFindItemRecursiveByKey(
   return null;
 }
 
-/// Merge [obj2] into [obj], going down through nested objects, and return a new
+/// Merge [source] into [obj], going down through nested objects, and return a new
 /// object. [arrayAction] decides what happens to a key both sides hold a list
 /// for: `append` joins them, `replace` takes the new one, and the default merges
 /// them item by item when the two are the same length.
-Map<String, dynamic>? objMergeNewKey(
-    Map<String, dynamic>? obj, Map<String, dynamic>? obj2,
+Map<String, dynamic>? objMergeWithArrays(
+    Map<String, dynamic>? obj, Map<String, dynamic>? source,
     {String? arrayAction}) {
-  if (obj == null || obj2 == null) {
+  if (obj == null || source == null) {
     return null;
   }
 
   final Map<String, dynamic> merged = Map<String, dynamic>.from(obj);
 
-  for (final String key in obj2.keys) {
-    final dynamic data = obj2[key];
+  for (final String key in source.keys) {
+    final dynamic data = source[key];
 
     if (!merged.containsKey(key)) {
       merged[key] = data;
@@ -570,8 +571,8 @@ Map<String, dynamic>? objMergeNewKey(
         for (int index = 0; index < items.length; index += 1) {
           final dynamic update = data[index];
 
-          if (isObject(update)) {
-            items[index] = objMergeNewKey(
+          if (isPlainObject(update)) {
+            items[index] = objMergeWithArrays(
                 Map<String, dynamic>.from(items[index] as Map),
                 Map<String, dynamic>.from(update as Map),
                 arrayAction: arrayAction);
@@ -580,8 +581,9 @@ Map<String, dynamic>? objMergeNewKey(
 
         merged[key] = items;
       }
-    } else if (isObject(current) && isObject(data)) {
-      merged[key] = objMergeNewKey(Map<String, dynamic>.from(current as Map),
+    } else if (isPlainObject(current) && isPlainObject(data)) {
+      merged[key] = objMergeWithArrays(
+          Map<String, dynamic>.from(current as Map),
           Map<String, dynamic>.from(data as Map),
           arrayAction: arrayAction);
     } else {
@@ -610,7 +612,7 @@ Map<String, dynamic>? objUpdate(
     final Map<String, dynamic> result = Map<String, dynamic>.from(current);
 
     for (final String each in result.keys.toList()) {
-      if (recursive && isObject(result[each])) {
+      if (recursive && isPlainObject(result[each])) {
         result[each] = update(Map<String, dynamic>.from(result[each] as Map));
       }
     }

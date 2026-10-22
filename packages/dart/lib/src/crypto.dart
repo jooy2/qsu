@@ -212,8 +212,8 @@ String _encodeBytes(Uint8List value, bool toBase64) => toBase64
     ? base64.encode(value)
     : value.map((int byte) => byte.toRadixString(16).padLeft(2, '0')).join();
 
-Uint8List _decodeBytes(String value, bool toBase64) {
-  if (toBase64) {
+Uint8List _decodeBytes(String value, bool fromBase64) {
+  if (fromBase64) {
     return base64.decode(value);
   }
 
@@ -223,14 +223,14 @@ Uint8List _decodeBytes(String value, bool toBase64) {
   ]);
 }
 
-/// Encrypt [str] with [secret], returning `iv:encrypted` as hex, or
+/// Encrypt [str] with [key], returning `iv:encrypted` as hex, or
 /// `iv:authTag:encrypted` for a mode that authenticates. [algorithm] is
 /// `aes-<bits>-<mode>`, where the mode is one of `cbc`, `gcm`, `ctr`, `ofb` and
 /// `cfb`, and the key's byte length has to match the bits in the name.
 ///
 /// The initialisation vector is drawn fresh on every call, so the same text
 /// does not encrypt to the same string twice.
-String encrypt(String? str, String secret,
+String encrypt(String? str, String key,
     {String algorithm = 'aes-256-cbc',
     int ivSize = 16,
     bool toBase64 = false}) {
@@ -238,11 +238,12 @@ String encrypt(String? str, String secret,
     return '';
   }
 
-  final (Uint8List key, String mode) = _parseAlgorithm(algorithm, secret);
+  final (Uint8List keyBytes, String mode) = _parseAlgorithm(algorithm, key);
   final Uint8List iv = Uint8List.fromList(
       List<int>.generate(ivSize, (int index) => _secureRandom.nextInt(256)));
   final Uint8List data = Uint8List.fromList(utf8.encode(str));
-  final Uint8List processed = _cipher(mode, key, iv, data, forEncryption: true);
+  final Uint8List processed =
+      _cipher(mode, keyBytes, iv, data, forEncryption: true);
 
   if (_aeadModes.contains(mode)) {
     final int cut = processed.length - _blockSizeBytes;
@@ -255,14 +256,15 @@ String encrypt(String? str, String secret,
   return '${_encodeBytes(iv, toBase64)}:${_encodeBytes(processed, toBase64)}';
 }
 
-/// Decrypt what [encrypt] returned, with the same [secret] and [algorithm].
-String decrypt(String? str, String secret,
-    {String algorithm = 'aes-256-cbc', bool toBase64 = false}) {
+/// Decrypt what [encrypt] returned, with the same [key] and [algorithm]. Set [fromBase64]
+/// when the text was encrypted with `toBase64: true`.
+String decrypt(String? str, String key,
+    {String algorithm = 'aes-256-cbc', bool fromBase64 = false}) {
   if (str == null || str.isEmpty) {
     return '';
   }
 
-  final (Uint8List key, String mode) = _parseAlgorithm(algorithm, secret);
+  final (Uint8List keyBytes, String mode) = _parseAlgorithm(algorithm, key);
   final bool isAead = _aeadModes.contains(mode);
   final List<String> parts = str.split(':');
 
@@ -272,11 +274,11 @@ String decrypt(String? str, String secret,
         : '`str` must be in the `iv:encrypted` format returned by `encrypt`.');
   }
 
-  final Uint8List iv = _decodeBytes(parts.removeAt(0), toBase64);
+  final Uint8List iv = _decodeBytes(parts.removeAt(0), fromBase64);
   final Uint8List? authTag =
-      isAead ? _decodeBytes(parts.removeAt(0), toBase64) : null;
-  final Uint8List data = _decodeBytes(parts.join(':'), toBase64);
+      isAead ? _decodeBytes(parts.removeAt(0), fromBase64) : null;
+  final Uint8List data = _decodeBytes(parts.join(':'), fromBase64);
 
-  return utf8.decode(
-      _cipher(mode, key, iv, data, forEncryption: false, authTag: authTag));
+  return utf8.decode(_cipher(mode, keyBytes, iv, data,
+      forEncryption: false, authTag: authTag));
 }

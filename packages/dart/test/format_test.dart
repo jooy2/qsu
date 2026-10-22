@@ -117,7 +117,7 @@ void main() {
     test('duration', () {
       expect(duration(0), '');
       expect(duration(604800000), '7 Days');
-      // Milliseconds are hidden by default (withMilliSeconds defaults to false).
+      // Milliseconds are hidden by default (withMilliseconds defaults to false).
       expect(duration(1234567890), '14 Days 6 Hours 56 Minutes 7 Seconds');
       // Grammatically correct plurals: 0 -> plural, 1 -> singular.
       expect(duration(604800000, withZeroValue: true),
@@ -139,21 +139,21 @@ void main() {
       expect(duration(34560000000, useShortString: true), '1 Y 1 Mo 5 D');
     });
 
-    test('duration - withMilliSeconds', () {
-      expect(duration(1234567890, withMilliSeconds: true),
+    test('duration - withMilliseconds', () {
+      expect(duration(1234567890, withMilliseconds: true),
           '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds');
       expect(
           duration(1234567890,
-              withMilliSeconds: true, useSpace: true, useShortString: true),
+              withMilliseconds: true, useSpace: true, useShortString: true),
           '14 D 6 H 56 M 7 S 890 ms');
-      expect(duration(604800001, withMilliSeconds: true, separator: '-'),
+      expect(duration(604800001, withMilliseconds: true, separator: '-'),
           '7 Days-1 Millisecond');
     });
 
     test('duration - maxUnitCount', () {
       expect(duration(34560000000, maxUnitCount: 2), '1 Year 1 Month');
       expect(duration(1234567890, maxUnitCount: 1), '14 Days');
-      expect(duration(1234567890, withMilliSeconds: true, maxUnitCount: 3),
+      expect(duration(1234567890, withMilliseconds: true, maxUnitCount: 3),
           '14 Days 6 Hours 56 Minutes');
     });
 
@@ -207,7 +207,7 @@ void main() {
       expect(half[0].unit, 'Second');
 
       expect(
-          durationParts(90061001, withMilliSeconds: true)
+          durationParts(90061001, withMilliseconds: true)
               .map((DurationPart p) => p.unit)
               .toList(),
           ['Day', 'Hour', 'Minute', 'Second', 'Millisecond']);
@@ -232,14 +232,14 @@ void main() {
       }
     });
 
-    test('safeJSONParse', () {
-      expect(safeJSONParse({}), {});
-      expect(safeJSONParse('{}'), {});
-      expect(safeJSONParse(''), {});
-      expect(safeJSONParse(null), {});
-      expect(safeJSONParse(null, fallback: {'a': 1}), {'a': 1});
-      expect(safeJSONParse('{"a":1,"b":2}'), {'a': 1, 'b': 2});
-      expect(safeJSONParse('{"a":{"aa":1},"b":null}'), {
+    test('safeParseJson', () {
+      expect(safeParseJson({}), {});
+      expect(safeParseJson('{}'), {});
+      expect(safeParseJson(''), {});
+      expect(safeParseJson(null), {});
+      expect(safeParseJson(null, fallback: {'a': 1}), {'a': 1});
+      expect(safeParseJson('{"a":1,"b":2}'), {'a': 1, 'b': 2});
+      expect(safeParseJson('{"a":{"aa":1},"b":null}'), {
         'a': {'aa': 1},
         'b': null
       });

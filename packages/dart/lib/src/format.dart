@@ -242,12 +242,12 @@ class DurationPart {
 /// does not know: the unit names below are English, and [duration] adds an `s` for the
 /// plural, which is a rule only English follows.
 ///
-/// [withZeroValue], [withMilliSeconds], [maxUnitCount] and [unit] mean what they mean in
+/// [withZeroValue], [withMilliseconds], [maxUnitCount] and [unit] mean what they mean in
 /// [duration]. The options that only decide how the pieces are written are left out.
 List<DurationPart> durationParts(
   num milliseconds, {
   bool withZeroValue = false,
-  bool withMilliSeconds = false,
+  bool withMilliseconds = false,
   int? maxUnitCount,
   String? unit,
 }) {
@@ -263,7 +263,7 @@ List<DurationPart> durationParts(
     }
   }
 
-  final List<Map<String, dynamic>> activeUnits = withMilliSeconds
+  final List<Map<String, dynamic>> activeUnits = withMilliseconds
       ? _durationUnits
       : _durationUnits.where((u) => u['name'] != 'Millisecond').toList();
 
@@ -311,7 +311,7 @@ List<DurationPart> durationParts(
 /// - `useSpace`: Insert a space between value and unit (e.g. `1Days` -> `1 Days`).
 /// - `withZeroValue`: Include units with a value of 0 below the largest unit.
 /// - `separator`: Joins each unit (e.g. `-` -> `1 Hour-10 Minutes`).
-/// - `withMilliSeconds`: Include the millisecond unit (default `false`).
+/// - `withMilliseconds`: Include the millisecond unit (default `false`).
 /// - `maxUnitCount`: Maximum number of units to display, counted from the largest.
 /// - `unit`: Show the whole duration with a single unit (e.g. `Hour` -> `48 Hours`, `0.5 Hours`).
 String duration(
@@ -320,14 +320,14 @@ String duration(
   bool useSpace = true,
   bool withZeroValue = false,
   String separator = ' ',
-  bool withMilliSeconds = false,
+  bool withMilliseconds = false,
   int? maxUnitCount,
   String? unit,
 }) {
   return durationParts(
     milliseconds,
     withZeroValue: withZeroValue,
-    withMilliSeconds: withMilliSeconds,
+    withMilliseconds: withMilliseconds,
     maxUnitCount: maxUnitCount,
     unit: unit,
   )
@@ -354,7 +354,7 @@ int safeParseInt(dynamic value, {int? fallback, int? radix}) {
 /// Attempts to parse without returning an error, even if the argument value is of the wrong type or in `JSON` format.
 /// If parsing fails, it will be replaced with the object set in `fallback`.
 /// The default value for `fallback` is an empty object.
-dynamic safeJSONParse(dynamic jsonString, {dynamic fallback = const {}}) {
+dynamic safeParseJson(dynamic jsonString, {dynamic fallback = const {}}) {
   if (jsonString == null) {
     return fallback;
   }

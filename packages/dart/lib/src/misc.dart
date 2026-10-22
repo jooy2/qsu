@@ -7,14 +7,14 @@ Future<void> sleep(int delay) async {
   await Future.delayed(Duration(milliseconds: delay));
 }
 
-/// Repeat iteratee n (times argument value) times. After the return result of each function is stored in the array in order, the final array is returned.
-List<dynamic> funcTimes(int times, dynamic iteratee) {
+/// Repeat iteratee [count] times. After the return result of each function is stored in the array in order, the final array is returned.
+List<dynamic> times(int count, dynamic iteratee) {
   // Return an empty list for a non-positive count, like JavaScript and Python.
-  if (times < 1) {
+  if (count < 1) {
     return [];
   }
 
-  return List<dynamic>.generate(times, (int index) {
+  return List<dynamic>.generate(count, (int index) {
     if (iteratee is Function) {
       return iteratee();
     } else {
@@ -23,22 +23,22 @@ List<dynamic> funcTimes(int times, dynamic iteratee) {
   }, growable: false);
 }
 
-/// When the given function is executed repeatedly, the function is called if it has not been called again within the specified timeout.
+/// When the given function is executed repeatedly, the function is called if it has not been called again within [wait] milliseconds.
 /// This function is used when a small number of function calls are needed for repetitive input events.
-Function debounce(Function func, int timeout) {
+Function debounce(Function func, int wait) {
   Timer? timer;
 
   return ([List<dynamic> args = const []]) {
     timer?.cancel();
 
-    timer = Timer(Duration(milliseconds: timeout), () {
+    timer = Timer(Duration(milliseconds: wait), () {
       Function.apply(func, args);
     });
   };
 }
 
 /// Ensure that text is displayed in full without being truncated in Dart's `print`.
-void console(String? text) {
+void printFull(String? text) {
   if (text == null) {
     print('');
     return;
@@ -105,19 +105,19 @@ Function throttle(Function func, int wait,
 
 /// Runs the given function and, if it fails, runs it again until it succeeds or the attempts run out.
 /// The value of the first successful attempt is returned; if every attempt fails, the error of the last one is rethrown with its original stack trace.
-/// [times] counts total attempts, not extra ones, so the default of `3` means one call plus at most two retries and `times: 1` disables retrying.
+/// [attempts] counts total attempts, not extra ones, so the default of `3` means one call plus at most two retries and `attempts: 1` disables retrying.
 /// [delay] is the wait between two attempts in milliseconds, and [backoff] multiplies it after every failure. The wait sits strictly between attempts.
 Future<T> retry<T>(
   FutureOr<T> Function() func, {
-  int? times = 3,
+  int? attempts = 3,
   int? delay = 0,
   num? backoff = 1,
 }) async {
-  final int maxAttempts = times ?? 3;
+  final int maxAttempts = attempts ?? 3;
   final num backoffFactor = backoff ?? 1;
 
   if (maxAttempts < 1) {
-    throw ArgumentError('`times` must be at least 1.');
+    throw ArgumentError('`attempts` must be at least 1.');
   }
 
   num currentDelay = delay ?? 0;

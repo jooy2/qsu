@@ -81,7 +81,7 @@ String getEndianness() => Endian.host == Endian.big ? 'BE' : 'LE';
 int getCpuCount() => Platform.numberOfProcessors;
 
 /// Returns the name of the processor, such as `Apple M1 Max`.
-String getCpu() => platform.cpuModel() ?? 'Unknown';
+String getCpuModel() => platform.cpuModel() ?? 'Unknown';
 
 /// Returns the clock speed of the first processor core, in megahertz.
 int getCpuSpeed() => platform.cpuSpeed();
@@ -112,7 +112,7 @@ Future<num> getCpuUsage({int interval = 100, int decimals = 1}) async {
     return 0;
   }
 
-  return round((total - idle).clamp(0, total) / total * 100, decimals);
+  return numRound((total - idle).clamp(0, total) / total * 100, decimals);
 }
 
 /// Returns the total RAM size of the current device, as readable text.
@@ -138,7 +138,7 @@ num getRamUsage({int decimals = 1}) {
     return 0;
   }
 
-  return round((total - free).clamp(0, total) / total * 100, decimals);
+  return numRound((total - free).clamp(0, total) / total * 100, decimals);
 }
 
 /// Returns the total size of the filesystem holding [path], as readable text.
@@ -157,11 +157,11 @@ Future<num> getDiskUsage({String? path, int decimals = 1}) async {
     return 0;
   }
 
-  return round(used / total * 100, decimals);
+  return numRound(used / total * 100, decimals);
 }
 
 /// Returns the number of seconds the current process has been running.
-dynamic getUptime({bool format = false, bool floor = false}) =>
+dynamic getProcessUptime({bool format = false, bool floor = false}) =>
     _elapsed(platform.processStartTime(), format: format, floor: floor);
 
 /// Returns the number of seconds the machine has been running since it booted.
@@ -191,11 +191,11 @@ DateTime getBootTime() {
 }
 
 /// Returns the physical memory this process currently occupies.
-String getProcessMemoryUsage() =>
+String getProcessRamSize() =>
     fileSizeFormat(ProcessInfo.currentRss, decimals: 0, ceil: true);
 
 /// Returns the host name of the current device.
-Future<String> getHostname() async {
+Future<String> getComputerName() async {
   if (Platform.isMacOS) {
     // The name given to the machine in System Settings, which is not the kernel
     // hostname. iOS has no such tool and no way to run one.

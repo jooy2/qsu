@@ -26,7 +26,7 @@ String _escapeRegExpInClass(String str) {
 }
 
 /// Removes all whitespace before and after a string. Unlike JavaScript's `trim` function, it converts two or more spaces between sentences into a single space.
-String trim(String str) {
+String collapseWhitespace(String str) {
   if (str.isEmpty) {
     return '';
   }
@@ -35,10 +35,9 @@ String trim(String str) {
 }
 
 /// Returns after removing all special characters, including spaces. If you want to allow any special characters as exceptions, list them in the second argument value without delimiters. For example, if you want to allow spaces and the symbols `&` and `*`, the second argument value would be ' &\*'.
-String removeSpecialChar(String str, {String? exceptionCharacters}) {
-  final String exception = exceptionCharacters == null
-      ? ''
-      : _escapeRegExpInClass(exceptionCharacters);
+String removeSpecialChars(String str, {String? allowedCharacters}) {
+  final String exception =
+      allowedCharacters == null ? '' : _escapeRegExpInClass(allowedCharacters);
 
   return str.replaceAll(
       RegExp(
@@ -46,9 +45,9 @@ String removeSpecialChar(String str, {String? exceptionCharacters}) {
       '');
 }
 
-/// Replaces text within a range starting and ending with a specific character in a given string with another string. For example, given the string `abc<DEF>ghi`, to change `<DEF>` to `def`, use `replaceBetween('abc<DEF>ghi', '<', '>', 'def')`. The result would be `abcdefghi`.
+/// Replaces text within a range starting and ending with a specific character in a given string with another string. For example, given the string `abc<DEF>ghi`, to change `<DEF>` to `def`, use `replaceEnclosed('abc<DEF>ghi', '<', '>', 'def')`. The result would be `abcdefghi`.
 /// Deletes strings in the range if `replaceWith` is not specified.
-String replaceBetween(String str, String startChar, String endChar,
+String replaceEnclosed(String str, String start, String end,
     [String replaceWith = '']) {
   if (str.isEmpty) {
     return '';
@@ -57,19 +56,18 @@ String replaceBetween(String str, String startChar, String endChar,
   // Escape the whole delimiter. Prefixing a single backslash only worked for
   // one-character delimiters and produced an invalid pattern for longer ones.
   return str.replaceAll(
-      RegExp(
-          '${_escapeRegExpInClass(startChar)}.*?${_escapeRegExpInClass(endChar)}'),
+      RegExp('${_escapeRegExpInClass(start)}.*?${_escapeRegExpInClass(end)}'),
       replaceWith);
 }
 
 /// Splits a string based on the specified character and returns it as an Array. Unlike the existing split, it splits the values provided as multiple parameters (array or multiple arguments) at once.
-List<String> split(String str, [List<String>? splitter]) {
+List<String> split(String str, [List<String>? separators]) {
   if (str.isEmpty) {
     return [];
   }
 
   final List<String> splitters =
-      (splitter != null && splitter.isNotEmpty) ? splitter : [];
+      (separators != null && separators.isNotEmpty) ? separators : [];
 
   if (splitters.isEmpty) {
     return [str];
@@ -115,9 +113,9 @@ List<String> split(String str, [List<String>? splitter]) {
 }
 
 /// Removes `\n`, `\r` characters or replaces them with specified characters.
-String removeNewLine(String str, {String replaceTo = ''}) {
+String removeNewlines(String str, {String replaceWith = ''}) {
   return str
-      .replaceAll(RegExp(r'(\r\n|\n|\r)', multiLine: true), replaceTo)
+      .replaceAll(RegExp(r'(\r\n|\n|\r)', multiLine: true), replaceWith)
       .trim();
 }
 
@@ -141,9 +139,9 @@ String uncapitalizeFirst(String str) {
   return '${str[0].toLowerCase()}${str.substring(1)}';
 }
 
-/// Capitalize the first letter of every sentence. Typically, the `.` characters to separate sentences, but this can be customized via the value of the `splitChar` argument.
-String capitalizeEverySentence(String str, {String? splitChar}) {
-  final String splitter = splitChar ?? '.';
+/// Capitalize the first letter of every sentence. Typically, the `.` characters to separate sentences, but this can be customized via the value of the `separator` argument.
+String capitalizeEachSentence(String str, {String? separator}) {
+  final String splitter = separator ?? '.';
   final List<String> splitStr = str.split(splitter);
   String resultStr = '';
   List<String> sentenceChars = <String>[];
@@ -164,18 +162,18 @@ String capitalizeEverySentence(String str, {String? splitChar}) {
   return resultStr;
 }
 
-/// Converts every word with spaces to uppercase. If the naturally argument is true, only some special cases (such as prepositions) are kept lowercase.
-String capitalizeEachWords(String str, {bool natural = false}) {
+/// Converts every word with spaces to uppercase. If [titleCase] is `true`, only some special cases (such as prepositions) are kept lowercase.
+String capitalizeEachWord(String str, {bool titleCase = false}) {
   String tempStr = str.trim();
 
-  if (natural == true) {
+  if (titleCase == true) {
     tempStr = tempStr.toLowerCase();
   }
 
   final List<String> splitStr = tempStr.split(' ');
 
   for (int i = 0, iLen = splitStr.length; i < iLen; i += 1) {
-    if (!natural ||
+    if (!titleCase ||
         !contains(
             splitStr[i],
             [
@@ -243,10 +241,10 @@ String truncate(String str, int length, {String? ellipsis}) {
 /// depending on the script it is written in. Pass them explicitly to opt in.
 const List<String> _defaultEndStringChars = <String>['.', '。', '．', '｡'];
 
-/// The string ignores truncation until the ending character (`endStringChar`). If the expected length is reached, return the truncated string until after the ending character.
+/// The string ignores truncation until the ending character (`sentenceEnds`). If [minLength] is reached, return the truncated string until after the ending character.
 ///
-/// `endStringChar` accepts a single `String` or a `List<String>`.
-String truncateExpect(String str, int expectLength, {dynamic endStringChar}) {
+/// `sentenceEnds` accepts a single `String` or a `List<String>`.
+String truncateSentence(String str, int minLength, {dynamic sentenceEnds}) {
   if (str.isEmpty) {
     return '';
   }
@@ -257,15 +255,15 @@ String truncateExpect(String str, int expectLength, {dynamic endStringChar}) {
   final List<int> runes = str.runes.toList();
   final int runesLength = runes.length;
 
-  if (runesLength <= expectLength) {
+  if (runesLength <= minLength) {
     return str;
   }
 
-  final List<String> given = endStringChar == null
+  final List<String> given = sentenceEnds == null
       ? _defaultEndStringChars
-      : (endStringChar is List
-          ? endStringChar.map((dynamic value) => '$value').toList()
-          : <String>['$endStringChar']);
+      : (sentenceEnds is List
+          ? sentenceEnds.map((dynamic value) => '$value').toList()
+          : <String>['$sentenceEnds']);
   // Longest first, so an ending character that starts with another one (`.` next to `...`)
   // is matched whole instead of being cut short by the shorter one.
   final List<List<int>> endStrings = given
@@ -293,7 +291,7 @@ String truncateExpect(String str, int expectLength, {dynamic endStringChar}) {
     index += endStrings[matchIndex].length;
 
     // The sentence that crosses the expected length is still kept whole.
-    if (index >= expectLength) {
+    if (index >= minLength) {
       return String.fromCharCodes(runes.take(index));
     }
   }
@@ -366,7 +364,7 @@ String strUnique(String? str) {
 }
 
 /// Converts the given string to ascii code and returns it as an array.
-List<int> strToAscii(String str) {
+List<int> strToCharCodes(String str) {
   List<int> arr = [];
 
   for (int i = 0; i < str.length; i += 1) {
@@ -377,7 +375,7 @@ List<int> strToAscii(String str) {
 }
 
 /// Merges the given list argument (the beginning of the URL), joining it so that the slash (`/`) symbol is correctly included.
-String urlJoin(List<String?> args) {
+String joinUrl(List<String?> args) {
   if (args.isEmpty) {
     return '';
   }
@@ -403,7 +401,7 @@ String urlJoin(List<String?> args) {
 }
 
 /// Returns the number of bytes in the given string.
-int getStrBytes(String? str) {
+int strByteLength(String? str) {
   if (str == null || str.isEmpty) {
     return 0;
   }
@@ -716,7 +714,7 @@ String strToKebabCase(String? str) {
 
 /// Converts a string to `PascalCase`: every word gets an uppercase first letter and a lowercase rest, with all separators removed.
 /// The string is split with [words], so an acronym is separated from the word after it (`XMLHttpRequest` becomes `XmlHttpRequest`) and a run of digits is its own word (`abc12def` becomes `Abc12Def`).
-/// This is [strToCamelCase] with the first word capitalized as well, and it is not [capitalizeEachWords], which keeps the original separators.
+/// This is [strToCamelCase] with the first word capitalized as well, and it is not [capitalizeEachWord], which keeps the original separators.
 String strToPascalCase(String? str) {
   if (str == null || str.isEmpty) {
     return '';
@@ -784,10 +782,10 @@ String pad(String? str, int length,
       _buildPad(padChar, total - startLength);
 }
 
-/// Replace [blindLength] letters of [str] with [blindStr], picked at random.
+/// Replace [maskCount] letters of [str] with [maskChar], picked at random.
 /// Only letters are masked, so punctuation and spaces keep the shape of the
 /// text. Nothing is masked past the end of the string.
-String strBlindRandom(String? str, int blindLength, {String blindStr = '*'}) {
+String strMaskRandom(String? str, int maskCount, {String maskChar = '*'}) {
   if (str == null || str.isEmpty) {
     return '';
   }
@@ -799,12 +797,12 @@ String strBlindRandom(String? str, int blindLength, {String blindStr = '*'}) {
   int hidden = 0;
   int checked = 0;
 
-  while (hidden < blindLength && checked < totalLength) {
-    final int index = numPick(0, totalLength - 1);
+  while (hidden < maskCount && checked < totalLength) {
+    final int index = numRandom(0, totalLength - 1);
 
     if (maskable.hasMatch(current.substring(index, index + 1))) {
       current =
-          current.substring(0, index) + blindStr + current.substring(index + 1);
+          current.substring(0, index) + maskChar + current.substring(index + 1);
       hidden += 1;
     }
 
@@ -820,9 +818,9 @@ String strBlindRandom(String? str, int blindLength, {String blindStr = '*'}) {
 /// delimiter itself.
 ///
 /// A key may hold letters, digits, `_`, `$` and `-`; anything else is passed
-/// over unless [ignoreValidation] is set.
-List<String> getGroupKeys(String? str, String groupStart, String groupEnd,
-    {bool ignoreValidation = false}) {
+/// over unless [allowAnyKey] is set.
+List<String> getPlaceholderKeys(String? str, String groupStart, String groupEnd,
+    {bool allowAnyKey = false}) {
   if (str == null || str.isEmpty) {
     return <String>[];
   }
@@ -896,7 +894,7 @@ List<String> getGroupKeys(String? str, String groupStart, String groupEnd,
       return false;
     }
 
-    return ignoreValidation || validKey.hasMatch(key);
+    return allowAnyKey || validKey.hasMatch(key);
   }
 
   for (int index = 0; index <= length - startLength; index += 1) {
@@ -930,7 +928,7 @@ List<String> getGroupKeys(String? str, String groupStart, String groupEnd,
   return found;
 }
 
-/// One language found by [detectLanguage].
+/// One language found by [detectLanguages].
 class DetectedLanguage {
   /// The ISO 639-1 code of the language, such as `en` or `ko`.
   final String language;
@@ -950,7 +948,7 @@ const String _arabicScript = 'arabic';
 const String _hanScript = 'han';
 const String _kanaScript = 'kana';
 
-/// (Private) Code point ranges of the scripts [detectLanguage] knows, as (first, last,
+/// (Private) Code point ranges of the scripts [detectLanguages] knows, as (first, last,
 /// script), sorted by the first code point. A script only one language writes names that
 /// language. Characters in a range that are not letters, such as digits and punctuation, are
 /// skipped by the caller.
@@ -1457,7 +1455,7 @@ _LanguageTable _readLanguageTable(
 }
 
 /// (Private) Reading the lists into lookups is only worth doing once, and only for callers
-/// that actually reach [detectLanguage]. A top-level `final` is initialized on first use, so
+/// that actually reach [detectLanguages]. A top-level `final` is initialized on first use, so
 /// it is built then and reused.
 final Map<String, _LanguageTable> _languageTables = {
   _latinScript: _readLanguageTable(_latinLanguages),
@@ -1586,7 +1584,7 @@ String _settleLanguage(
 /// Detects the languages a string is written in and returns them from the most used to the least, each with its share of the letters.
 /// Languages with a script of their own, such as Korean, Japanese, Thai or Greek, are recognized by their script. Languages that share a script, such as the Latin, Cyrillic and Arabic ones, are told apart sentence by sentence from their most common words, the letters only some of them write and the endings and letter sequences typical of each.
 /// Only letters are counted: digits, spaces, punctuation, symbols and emoji are not, and an input without any letter the function knows returns an empty list.
-List<DetectedLanguage> detectLanguage(String? str) {
+List<DetectedLanguage> detectLanguages(String? str) {
   if (str == null || str.isEmpty) {
     return [];
   }

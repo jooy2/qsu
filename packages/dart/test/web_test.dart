@@ -111,37 +111,37 @@ void main() {
       });
     }
 
-    test('isMatchPathname', () {
-      expect(isMatchPathname('/user/login', '/admin'), false);
-      expect(isMatchPathname('/user/login', '/user'), false);
-      expect(isMatchPathname('/user/login', '/user/*'), true);
-      expect(isMatchPathname('/user/login', '/user/login/*'), false);
-      expect(isMatchPathname('/user/login', '/user/login*'), true);
-      expect(isMatchPathname('/user/login/hello', '/user/login*'), true);
+    test('isPathnameMatch', () {
+      expect(isPathnameMatch('/user/login', '/admin'), false);
+      expect(isPathnameMatch('/user/login', '/user'), false);
+      expect(isPathnameMatch('/user/login', '/user/*'), true);
+      expect(isPathnameMatch('/user/login', '/user/login/*'), false);
+      expect(isPathnameMatch('/user/login', '/user/login*'), true);
+      expect(isPathnameMatch('/user/login/hello', '/user/login*'), true);
       expect(
-          isMatchPathname('/user/login', ['/test', '/home/hello', '/user/*']),
+          isPathnameMatch('/user/login', ['/test', '/home/hello', '/user/*']),
           true);
       expect(
-          isMatchPathname(
+          isPathnameMatch(
               '/user/login', ['/test', '/home/hello', '/user/login']),
           true);
-      expect(isMatchPathname('/admin/hello/world', ['/admin/hello/']), false);
+      expect(isPathnameMatch('/admin/hello/world', ['/admin/hello/']), false);
       expect(
-          isMatchPathname('/admin/hello/world', ['/admin/hello/world']), true);
-      expect(isMatchPathname('/admin/hello/world', ['/admin/*']), true);
-      expect(isMatchPathname('/admin/hello/world', ['*']), true);
+          isPathnameMatch('/admin/hello/world', ['/admin/hello/world']), true);
+      expect(isPathnameMatch('/admin/hello/world', ['/admin/*']), true);
+      expect(isPathnameMatch('/admin/hello/world', ['*']), true);
     });
 
-    test('isMobileDeviceFromUA', () {
-      expectDeviceType(isMobileDeviceFromUA, 'mobile');
+    test('isMobileDeviceFromUa', () {
+      expectDeviceType(isMobileDeviceFromUa, 'mobile');
     });
 
-    test('isTabletDeviceFromUA', () {
-      expectDeviceType(isTabletDeviceFromUA, 'tablet');
+    test('isTabletDeviceFromUa', () {
+      expectDeviceType(isTabletDeviceFromUa, 'tablet');
     });
 
-    test('isDesktopDeviceFromUA', () {
-      expectDeviceType(isDesktopDeviceFromUA, 'desktop');
+    test('isDesktopDeviceFromUa', () {
+      expectDeviceType(isDesktopDeviceFromUa, 'desktop');
     });
 
     test('removeLocalePrefix', () {

@@ -65,8 +65,8 @@ void main() {
       expect(getCpuCount(), greaterThanOrEqualTo(1));
     });
 
-    test('getCpu', () {
-      final String name = getCpu();
+    test('getCpuModel', () {
+      final String name = getCpuModel();
 
       expect(name, isNotEmpty);
       expect(name, isNot('Unknown'));
@@ -133,11 +133,11 @@ void main() {
       expect(usage, lessThanOrEqualTo(100));
     });
 
-    test('getUptime', () {
-      expect(getUptime(), isA<num>());
-      expect(getUptime() as num, greaterThan(0));
-      expect(getUptime(format: true), isA<String>());
-      expect((getUptime(floor: true) as num) % 1, 0);
+    test('getProcessUptime', () {
+      expect(getProcessUptime(), isA<num>());
+      expect(getProcessUptime() as num, greaterThan(0));
+      expect(getProcessUptime(format: true), isA<String>());
+      expect((getProcessUptime(floor: true) as num) % 1, 0);
     });
 
     test('getSystemUptime', () {
@@ -145,7 +145,7 @@ void main() {
 
       expect(seconds, greaterThan(0));
       // The machine has been running at least as long as this process has.
-      expect(seconds, greaterThanOrEqualTo(getUptime() as num));
+      expect(seconds, greaterThanOrEqualTo(getProcessUptime() as num));
       expect(getSystemUptime(format: true), isA<String>());
     });
 
@@ -161,15 +161,15 @@ void main() {
       expect(bootTime.difference(fromUptime).inSeconds.abs(), lessThan(2));
     });
 
-    test('getProcessMemoryUsage', () {
-      final String size = getProcessMemoryUsage();
+    test('getProcessRamSize', () {
+      final String size = getProcessRamSize();
 
       expect(size, matches(_size));
       expect(size, isNot('0 B'));
     });
 
-    test('getHostname', () async {
-      final String hostname = await getHostname();
+    test('getComputerName', () async {
+      final String hostname = await getComputerName();
 
       expect(hostname, isNotEmpty);
       expect(hostname, isNot('Unknown'));
