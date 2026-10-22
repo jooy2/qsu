@@ -19,7 +19,7 @@ _CONTROL_CHARACTER_REGEX = re.compile(r'[\x00-\x1f\x7f]')
 _MAX_FILE_NAME_BYTES = 255
 
 
-def isValidFileName(filePath: str, unixType: Optional[bool] = None) -> bool:
+def isValidFileName(filePath: str, isWindows: Optional[bool] = True) -> bool:
 	# Validate the *whole* name, extension included. Stripping the extension
 	# first would let 'hello.:txt' through, because only 'hello' was checked.
 	fileName = getFileName(filePath, True)
@@ -27,7 +27,8 @@ def isValidFileName(filePath: str, unixType: Optional[bool] = None) -> bool:
 	if len(fileName) < 1 or _CONTROL_CHARACTER_REGEX.search(fileName):
 		return False
 
-	if unixType:
+	# `None` means "not given", so it keeps the Windows rules like the default.
+	if isWindows is not None and not isWindows:
 		fileNameRegex = re.compile(r'(^\s+$)|(^\.+$)|([:/]+)')
 	else:
 		# Windows

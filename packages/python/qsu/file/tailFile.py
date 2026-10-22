@@ -19,8 +19,8 @@ def _splitLines(text: str):
 	return lines
 
 
-def tailFile(filePath: str, length: int = 1):
-	if length <= 0:
+def tailFile(filePath: str, lineCount: int = 1):
+	if lineCount <= 0:
 		return None
 
 	lines = []
@@ -50,10 +50,10 @@ def tailFile(filePath: str, length: int = 1):
 			# One line more than asked for means the first line held in the
 			# buffer is incomplete - it starts wherever the chunk boundary fell,
 			# possibly mid-character - but it is also about to be dropped.
-			if len(lines) > length:
+			if len(lines) > lineCount:
 				break
 
-	buffer = lines[-length:]
+	buffer = lines[-lineCount:]
 
 	# The last line of newline characters is ignored.
 	if len(buffer) > 0 and buffer[-1] == '':

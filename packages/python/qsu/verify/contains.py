@@ -1,12 +1,12 @@
-def contains(str, search, exact: bool = False) -> bool:
+def contains(haystack, search, exact: bool = False) -> bool:
 	if not isinstance(search, (list, tuple)):
-		return False if len(str) < 1 else (search in str)
+		return False if len(haystack) < 1 else (search in haystack)
 
 	for item in search:
 		if exact:
-			if str == item:
+			if haystack == item:
 				return True
-		elif item in str:
+		elif item in haystack:
 			return True
 
 	return False

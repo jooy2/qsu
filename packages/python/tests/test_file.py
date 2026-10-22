@@ -8,29 +8,29 @@ import pytest
 
 from qsu.file import (
 	createDirectory,
-	createFile,
-	createFileWithDummy,
-	deleteAllFileFromDirectory,
-	deleteFile,
+	createFileOfSize,
+	deletePath,
+	emptyDirectory,
 	getCopyFileName,
 	getFileExtension,
 	getFileHashFromPath,
 	getFileHashFromStream,
 	getFileInfo,
 	getFileName,
-	getFilePathLevel,
+	getFilePathDepth,
 	getFileSize,
 	getParentFilePath,
 	headFile,
-	isFileExists,
+	isExistingPath,
 	isFileHidden,
 	isValidFileName,
 	joinFilePath,
 	moveFile,
-	normalizeFile,
+	normalizeFilePath,
+	normalizeFilePathUnicode,
 	tailFile,
 	toPosixFilePath,
-	toValidFilePath,
+	touchFile,
 )
 
 LONG_PATH = (
@@ -83,29 +83,29 @@ def test_isFileHidden():
 	assert isFileHidden('/home/user/Desktop/.conf/.secret') is True
 
 
-def test_isFileExists(resources):
-	assert isFileExists(str(resources / 'hello.md')) is True
-	assert isFileExists(str(resources)) is True
-	assert isFileExists(str(resources / 'MV_TEST.txt')) is True
-	assert isFileExists(str(resources / 'not-exists.txt')) is False
+def test_isExistingPath(resources):
+	assert isExistingPath(str(resources / 'hello.md')) is True
+	assert isExistingPath(str(resources)) is True
+	assert isExistingPath(str(resources / 'MV_TEST.txt')) is True
+	assert isExistingPath(str(resources / 'not-exists.txt')) is False
 
 
-def test_toValidFilePath():
-	assert toValidFilePath('home') == '/home'
-	assert toValidFilePath('/home//test/') == '/home/test'
-	assert toValidFilePath('home/test/.conf') == '/home/test/.conf'
-	assert toValidFilePath('/') == '/'
-	assert toValidFilePath('') == '/'
-	assert toValidFilePath('', True) == '\\'
-	assert toValidFilePath('\\', True) == '\\'
-	assert toValidFilePath('\\Users', True) == '\\Users'
-	assert toValidFilePath('\\\\net\\work', True) == '\\\\net\\work'
-	assert toValidFilePath('\\\\net\\work\\\\file.json', True) == '\\\\net\\work\\file.json'
-	assert toValidFilePath('C:', True) == 'C:\\'
-	assert toValidFilePath('C:\\Users\\', True) == 'C:\\Users'
-	assert toValidFilePath('C:\\\\\\Users\\test\\', True) == 'C:\\Users\\test'
-	assert toValidFilePath('\\Users\\test\\.config', True) == '\\Users\\test\\.config'
-	assert toValidFilePath('Users\\test\\.config', True) == '\\Users\\test\\.config'
+def test_normalizeFilePath():
+	assert normalizeFilePath('home') == '/home'
+	assert normalizeFilePath('/home//test/') == '/home/test'
+	assert normalizeFilePath('home/test/.conf') == '/home/test/.conf'
+	assert normalizeFilePath('/') == '/'
+	assert normalizeFilePath('') == '/'
+	assert normalizeFilePath('', True) == '\\'
+	assert normalizeFilePath('\\', True) == '\\'
+	assert normalizeFilePath('\\Users', True) == '\\Users'
+	assert normalizeFilePath('\\\\net\\work', True) == '\\\\net\\work'
+	assert normalizeFilePath('\\\\net\\work\\\\file.json', True) == '\\\\net\\work\\file.json'
+	assert normalizeFilePath('C:', True) == 'C:\\'
+	assert normalizeFilePath('C:\\Users\\', True) == 'C:\\Users'
+	assert normalizeFilePath('C:\\\\\\Users\\test\\', True) == 'C:\\Users\\test'
+	assert normalizeFilePath('\\Users\\test\\.config', True) == '\\Users\\test\\.config'
+	assert normalizeFilePath('Users\\test\\.config', True) == '\\Users\\test\\.config'
 
 
 def test_joinFilePath():
@@ -179,14 +179,14 @@ def test_getCopyFileName():
 	assert getCopyFileName('ddd.aaa.aaa (1).txt', fileNameLists) == 'ddd.aaa.aaa (1) (1).txt'
 
 
-def test_getFilePathLevel():
-	assert getFilePathLevel('C:') == 1
-	assert getFilePathLevel('C:\\') == 1
-	assert getFilePathLevel('C:\\Windows\\System32') == 3
-	assert getFilePathLevel(LONG_PATH) == 7
-	assert getFilePathLevel('/') == 1
-	assert getFilePathLevel('/home/user') == 3
-	assert getFilePathLevel('/home/user/.ssh/test file.txt') == 5
+def test_getFilePathDepth():
+	assert getFilePathDepth('C:') == 1
+	assert getFilePathDepth('C:\\') == 1
+	assert getFilePathDepth('C:\\Windows\\System32') == 3
+	assert getFilePathDepth(LONG_PATH) == 7
+	assert getFilePathDepth('/') == 1
+	assert getFilePathDepth('/home/user') == 3
+	assert getFilePathDepth('/home/user/.ssh/test file.txt') == 5
 
 
 def test_getParentFilePath():
@@ -214,18 +214,18 @@ def test_toPosixFilePath():
 
 def test_isValidFileName():
 	assert isValidFileName('System32') is True
-	assert isValidFileName('.example', True) is True
+	assert isValidFileName('.example', False) is True
 	# The ':' lives in the extension; the whole name is validated.
-	assert isValidFileName('hello.:txt', True) is False
+	assert isValidFileName('hello.:txt', False) is False
 	assert isValidFileName('C:\\Windows\\System32') is True
 	assert isValidFileName('C:\\Users\\test\\Desktop\\hello.txt') is True
 	assert isValidFileName('C:\\Users\\test\\Desktop\\hello*') is False
 	assert isValidFileName('C:\\Users\\test\\Desktop\\hello!@#$%^&*()_+-:=') is False
-	assert isValidFileName('hello!@#$%^&*()_+-:=', True) is False
-	assert isValidFileName('/home/test/Desktop/test/.example', True) is True
-	assert isValidFileName('/home/test/Desktop/test/text.txt', True) is True
-	assert isValidFileName('/home/test/Desktop/test/hi!@#$%^&*()_+-=', True) is True
-	assert isValidFileName('/home/test/Desktop/test/*hi', True) is True
+	assert isValidFileName('hello!@#$%^&*()_+-:=', False) is False
+	assert isValidFileName('/home/test/Desktop/test/.example', False) is True
+	assert isValidFileName('/home/test/Desktop/test/text.txt', False) is True
+	assert isValidFileName('/home/test/Desktop/test/hi!@#$%^&*()_+-=', False) is True
+	assert isValidFileName('/home/test/Desktop/test/*hi', False) is True
 	# 256-character file name (invalid)
 	assert (
 		isValidFileName(
@@ -236,7 +236,7 @@ def test_isValidFileName():
 	# 255-character file name (valid)
 	assert (
 		isValidFileName(
-			'/home/test/Desktop/test/' + '0123456789' * 25 + '01234', True
+			'/home/test/Desktop/test/' + '0123456789' * 25 + '01234', False
 		)
 		is True
 	)
@@ -299,12 +299,12 @@ def test_getFileName():
 	assert getFileName('test') == 'test'
 
 
-def test_normalizeFile():
+def test_normalizeFilePathUnicode():
 	NFD = unicodedata.normalize('NFD', '안녕하세요_12345-ABCDE')
 	NFC = unicodedata.normalize('NFC', '안녕하세요_12345-ABCDE')
 
-	assert normalizeFile(NFD, 'NFC') == NFC
-	assert normalizeFile(NFC, 'NFD') == NFD
+	assert normalizeFilePathUnicode(NFD, 'NFC') == NFC
+	assert normalizeFilePathUnicode(NFC, 'NFD') == NFD
 
 
 def test_getFileInfo(resources):
@@ -335,40 +335,40 @@ def test_createDirectory(resources):
 	createDirectory(abc)
 	createDirectory(defp)
 
-	assert isFileExists(abc) is True
-	assert isFileExists(defp) is True
+	assert isExistingPath(abc) is True
+	assert isExistingPath(defp) is True
 
-	deleteFile(abc)
+	deletePath(abc)
 
-	assert isFileExists(abc) is False
-	assert isFileExists(defp) is False
+	assert isExistingPath(abc) is False
+	assert isExistingPath(defp) is False
 
 
-def test_createFile(resources):
+def test_touchFile(resources):
 	testFilePath = str(resources / '__TEST__TOUCH_FILE.txt')
 
-	createFile(testFilePath)
+	touchFile(testFilePath)
 
-	assert isFileExists(testFilePath) is True
+	assert isExistingPath(testFilePath) is True
 
 
-def test_deleteFile(resources):
+def test_deletePath(resources):
 	testFilePath = str(resources / '__TEST__TOUCH_FILE.txt')
 
-	createFile(testFilePath)
-	deleteFile(testFilePath)
+	touchFile(testFilePath)
+	deletePath(testFilePath)
 
-	assert isFileExists(testFilePath) is False
+	assert isExistingPath(testFilePath) is False
 
 
-def test_createFileWithDummy(resources):
+def test_createFileOfSize(resources):
 	dummyFilePath = str(resources / '__TEST__TOUCH_FILE.txt')
 
-	createFileWithDummy(dummyFilePath, 100)
+	createFileOfSize(dummyFilePath, 100)
 
 	dummyFileStat = getFileInfo(dummyFilePath)
 
-	deleteFile(dummyFilePath)
+	deletePath(dummyFilePath)
 
 	assert dummyFileStat['size'] == 100
 
@@ -378,24 +378,24 @@ def test_moveFile(resources):
 	dst = str(resources / 'MV_TEST_1.txt')
 
 	moveFile(src, dst)
-	assert isFileExists(src) is False
-	assert isFileExists(dst) is True
+	assert isExistingPath(src) is False
+	assert isExistingPath(dst) is True
 
 	moveFile(dst, src)
-	assert isFileExists(src) is True
-	assert isFileExists(dst) is False
+	assert isExistingPath(src) is True
+	assert isExistingPath(dst) is False
 
 
-def test_deleteAllFileFromDirectory(resources):
+def test_emptyDirectory(resources):
 	empty = str(resources / 'EMPTY')
 
 	(resources / 'EMPTY' / 'a.txt').write_text('a')
 	(resources / 'EMPTY' / 'b.txt').write_text('b')
 
-	deleteAllFileFromDirectory(empty)
+	emptyDirectory(empty)
 
-	assert isFileExists(str(resources / 'EMPTY' / 'a.txt')) is False
-	assert isFileExists(str(resources / 'EMPTY' / 'b.txt')) is False
+	assert isExistingPath(str(resources / 'EMPTY' / 'a.txt')) is False
+	assert isExistingPath(str(resources / 'EMPTY' / 'b.txt')) is False
 
 
 # ---------------------------------------------------------------------------
@@ -473,17 +473,17 @@ def test_getFileExtension_additional_path_shapes():
 	assert getFileExtension('파일.한글') == '한글'
 
 
-def test_getFilePathLevel_additional_path_shapes():
-	assert getFilePathLevel('/a/b') == 3
-	assert getFilePathLevel('/a/b/c/d/e') == 6
+def test_getFilePathDepth_additional_path_shapes():
+	assert getFilePathDepth('/a/b') == 3
+	assert getFilePathDepth('/a/b/c/d/e') == 6
 	# A relative path has no leading empty segment, so it counts one lower.
-	assert getFilePathLevel('a') == 1
-	assert getFilePathLevel('.') == 1
-	assert getFilePathLevel('./a/b') == 3
+	assert getFilePathDepth('a') == 1
+	assert getFilePathDepth('.') == 1
+	assert getFilePathDepth('./a/b') == 3
 	# A trailing backslash is stripped before counting.
-	assert getFilePathLevel('C:\\Windows\\System32\\') == 3
+	assert getFilePathDepth('C:\\Windows\\System32\\') == 3
 	# A UNC prefix collapses to a single separator.
-	assert getFilePathLevel('\\\\server\\share') == 3
+	assert getFilePathDepth('\\\\server\\share') == 3
 
 
 def test_toPosixFilePath_additional_path_shapes():
@@ -514,21 +514,25 @@ def test_isValidFileName_reserved_characters_and_edge_names():
 	assert isValidFileName('trailing ') is False
 	assert isValidFileName('trailing.') is False
 	# Unix keeps them, so they stay valid there.
-	assert isValidFileName('trailing ', True) is True
-	assert isValidFileName('trailing.', True) is True
+	assert isValidFileName('trailing ', False) is True
+	assert isValidFileName('trailing.', False) is True
 	assert isValidFileName('한글파일.txt') is True
-	assert isValidFileName('한글파일.txt', True) is True
+	assert isValidFileName('한글파일.txt', False) is True
 	# Unix only rejects ':' and '/', so Windows-reserved chars pass.
-	assert isValidFileName('a:b', True) is False
-	assert isValidFileName('a|b', True) is True
-	assert isValidFileName('a<b>c', True) is True
+	assert isValidFileName('a:b', False) is False
+	assert isValidFileName('a|b', False) is True
+	assert isValidFileName('a<b>c', False) is True
 	# Windows device names stay reserved even with an extension appended, but
 	# they are only reserved on Windows.
 	assert isValidFileName('nul.txt') is False
 	assert isValidFileName('CON') is False
 	assert isValidFileName('com1') is False
 	assert isValidFileName('LPT9') is False
-	assert isValidFileName('nul.txt', True) is True
+	assert isValidFileName('nul.txt', False) is True
+	# `isWindows` defaults to the Windows rules, `None` included; `False` applies the Unix ones.
+	assert isValidFileName('nul.txt', isWindows=True) is False
+	assert isValidFileName('nul.txt', isWindows=None) is False
+	assert isValidFileName('nul.txt', isWindows=False) is True
 	# Near-misses are still valid names.
 	assert isValidFileName('COM0') is True
 	assert isValidFileName('CONSOLE') is True
@@ -548,28 +552,28 @@ def test_getCopyFileName_additional_collision_shapes():
 	assert getCopyFileName('a.tar.GZ', ['a.tar.GZ']) == 'a.tar (1).GZ'
 
 
-def test_toValidFilePath_redundant_separators():
-	assert toValidFilePath('/a/b/c') == '/a/b/c'
-	assert toValidFilePath('a/b/c') == '/a/b/c'
-	assert toValidFilePath('/a//b///c') == '/a/b/c'
-	assert toValidFilePath('/a/b/c/') == '/a/b/c'
-	assert toValidFilePath('/한글/파일') == '/한글/파일'
+def test_normalizeFilePath_redundant_separators():
+	assert normalizeFilePath('/a/b/c') == '/a/b/c'
+	assert normalizeFilePath('a/b/c') == '/a/b/c'
+	assert normalizeFilePath('/a//b///c') == '/a/b/c'
+	assert normalizeFilePath('/a/b/c/') == '/a/b/c'
+	assert normalizeFilePath('/한글/파일') == '/한글/파일'
 
 
-def test_normalizeFile_compatibility_forms():
+def test_normalizeFilePathUnicode_compatibility_forms():
 	# NFKC/NFKD fold compatibility characters; NFC/NFD do not.
-	assert normalizeFile('ﬁle', 'NFKC') == 'file'
-	assert normalizeFile('①', 'NFKC') == '1'
-	assert normalizeFile('ＡＢ', 'NFKD') == 'AB'
+	assert normalizeFilePathUnicode('ﬁle', 'NFKC') == 'file'
+	assert normalizeFilePathUnicode('①', 'NFKC') == '1'
+	assert normalizeFilePathUnicode('ＡＢ', 'NFKD') == 'AB'
 	# Composed Hangul is one code point, decomposed is two.
-	assert len(normalizeFile('가', 'NFD')) == 2
-	assert len(normalizeFile('가', 'NFC')) == 1
+	assert len(normalizeFilePathUnicode('가', 'NFD')) == 2
+	assert len(normalizeFilePathUnicode('가', 'NFC')) == 1
 	# The default form is NFC.
-	assert normalizeFile('가') == normalizeFile('가', 'NFC')
+	assert normalizeFilePathUnicode('가') == normalizeFilePathUnicode('가', 'NFC')
 	# Normalization is idempotent and leaves pure ASCII untouched.
-	assert normalizeFile(normalizeFile('가', 'NFD'), 'NFD') == normalizeFile('가', 'NFD')
-	assert normalizeFile('/a/b/c.txt', 'NFD') == '/a/b/c.txt'
-	assert normalizeFile('') == ''
+	assert normalizeFilePathUnicode(normalizeFilePathUnicode('가', 'NFD'), 'NFD') == normalizeFilePathUnicode('가', 'NFD')
+	assert normalizeFilePathUnicode('/a/b/c.txt', 'NFD') == '/a/b/c.txt'
+	assert normalizeFilePathUnicode('') == ''
 
 
 def test_isFileHidden_additional_path_shapes():
@@ -668,60 +672,60 @@ def test_getFileHashFromPath_and_FromStream_agree(edge):
 			)
 
 
-def test_isFileExists_symlinks_are_followed(edge):
+def test_isExistingPath_symlinks_are_followed(edge):
 	# Skip when symlinks could not be created (typically Windows without the
 	# privilege), rather than reporting a false failure.
 	if not os.path.lexists(str(edge / 'good.link')):
 		pytest.skip('symlinks are not supported on this platform')
 
 	# A symlink to an existing file resolves; a dangling one does not.
-	assert isFileExists(str(edge / 'good.link')) is True
-	assert isFileExists(str(edge / 'broken.link')) is False
+	assert isExistingPath(str(edge / 'good.link')) is True
+	assert isExistingPath(str(edge / 'broken.link')) is False
 
 
 def test_unicode_and_space_bearing_file_names(edge):
-	assert isFileExists(str(edge / UNICODE_FILE_NAME)) is True
+	assert isExistingPath(str(edge / UNICODE_FILE_NAME)) is True
 	assert getFileName(UNICODE_FILE_NAME) == '한글 파일 (1)'
 	assert getFileExtension(UNICODE_FILE_NAME) == 'txt'
 	assert getFileSize(str(edge / UNICODE_FILE_NAME)) == 2
 
 
-def test_deleteFile_missing_path_is_a_noop(edge):
-	deleteFile(str(edge / 'does-not-exist.txt'))
-	deleteFile('')
+def test_deletePath_missing_path_is_a_noop(edge):
+	deletePath(str(edge / 'does-not-exist.txt'))
+	deletePath('')
 
 
-def test_deleteAllFileFromDirectory_clears_nested_entries(edge):
+def test_emptyDirectory_clears_nested_entries(edge):
 	root = edge / 'nest'
 	(root / 'sub').mkdir(parents=True)
 	(root / 'top.txt').write_text('top')
 	(root / 'sub' / 'inner.txt').write_text('inner')
 
-	deleteAllFileFromDirectory(str(root))
+	emptyDirectory(str(root))
 
 	# Subdirectories are removed too, not just plain files.
-	assert isFileExists(str(root)) is True
-	assert isFileExists(str(root / 'top.txt')) is False
-	assert isFileExists(str(root / 'sub')) is False
+	assert isExistingPath(str(root)) is True
+	assert isExistingPath(str(root / 'top.txt')) is False
+	assert isExistingPath(str(root / 'sub')) is False
 
 
-def test_deleteAllFileFromDirectory_missing_directory_is_a_noop(edge):
-	deleteAllFileFromDirectory(str(edge / 'no-such-directory'))
+def test_emptyDirectory_missing_directory_is_a_noop(edge):
+	emptyDirectory(str(edge / 'no-such-directory'))
 
 
-def test_createFileWithDummy_exact_size(edge):
+def test_createFileOfSize_exact_size(edge):
 	for size in (1, 512, 4096):
 		target = str(edge / f'dummy-{size}.bin')
 
-		assert createFileWithDummy(target, size) is True
+		assert createFileOfSize(target, size) is True
 		assert getFileSize(target) == size
 
-		deleteFile(target)
+		deletePath(target)
 
 
-def test_createFileWithDummy_rejects_negative_size(edge):
+def test_createFileOfSize_rejects_negative_size(edge):
 	with pytest.raises(Exception):
-		createFileWithDummy(str(edge / 'negative.bin'), -5)
+		createFileOfSize(str(edge / 'negative.bin'), -5)
 
 
 def test_getFileInfo_field_level(edge):
@@ -737,7 +741,7 @@ def test_getFileInfo_field_level(edge):
 	# through `abspath` so platform-specific normalization (drive letter casing,
 	# separators) does not make the assertion brittle.
 	assert fileInfo['path'] == os.path.abspath(str(edge / 'crlf.txt'))
-	assert fileInfo['created'] > 0
+	assert fileInfo['changed'] > 0
 	assert fileInfo['modified'] > 0
 
 	directoryInfo = getFileInfo(str(edge))
@@ -763,14 +767,14 @@ def test_createDirectory_nested_and_idempotent(edge):
 	nested = str(edge / 'a' / 'b' / 'c')
 
 	createDirectory(nested)
-	assert isFileExists(nested) is True
+	assert isExistingPath(nested) is True
 
 	# Re-creating an existing directory is a silent no-op.
 	createDirectory(nested)
-	assert isFileExists(nested) is True
+	assert isExistingPath(nested) is True
 
-	deleteFile(str(edge / 'a'))
-	assert isFileExists(nested) is False
+	deletePath(str(edge / 'a'))
+	assert isExistingPath(nested) is False
 
 
 def test_getParentFilePath_relative_empty_and_trailing_separator():
@@ -795,38 +799,38 @@ def test_getParentFilePath_windows_relative_and_unc():
 	assert getParentFilePath('\\\\net\\share\\file.txt', True) == '\\\\net\\share'
 
 
-def test_toValidFilePath_resolves_dot_segments():
-	assert toValidFilePath('/home/user/../test') == '/home/test'
-	assert toValidFilePath('/a/./b') == '/a/b'
+def test_normalizeFilePath_resolves_dot_segments():
+	assert normalizeFilePath('/home/user/../test') == '/home/test'
+	assert normalizeFilePath('/a/./b') == '/a/b'
 	# A path that collapses to nothing resolves to the root.
-	assert toValidFilePath('.') == '/'
-	assert toValidFilePath('C:\\a\\..\\b', True) == 'C:\\b'
-	assert toValidFilePath('C:\\Windows\\..\\text.txt', True) == 'C:\\text.txt'
-	assert toValidFilePath('.', True) == '\\'
+	assert normalizeFilePath('.') == '/'
+	assert normalizeFilePath('C:\\a\\..\\b', True) == 'C:\\b'
+	assert normalizeFilePath('C:\\Windows\\..\\text.txt', True) == 'C:\\text.txt'
+	assert normalizeFilePath('.', True) == '\\'
 
 
-def test_getFilePathLevel_trailing_separator_does_not_add_a_level():
-	assert getFilePathLevel('/home/user/') == getFilePathLevel('/home/user')
-	assert getFilePathLevel('/a/b//') == getFilePathLevel('/a/b')
-	assert getFilePathLevel('C:\\Windows\\') == getFilePathLevel('C:\\Windows')
-	assert getFilePathLevel('//') == 1
+def test_getFilePathDepth_trailing_separator_does_not_add_a_level():
+	assert getFilePathDepth('/home/user/') == getFilePathDepth('/home/user')
+	assert getFilePathDepth('/a/b//') == getFilePathDepth('/a/b')
+	assert getFilePathDepth('C:\\Windows\\') == getFilePathDepth('C:\\Windows')
+	assert getFilePathDepth('//') == 1
 
 
-def test_createFileWithDummy_zero_size_creates_empty_file(edge):
+def test_createFileOfSize_zero_size_creates_empty_file(edge):
 	target = str(edge / 'zero.bin')
 
-	assert createFileWithDummy(target, 0) is True
-	assert isFileExists(target) is True
+	assert createFileOfSize(target, 0) is True
+	assert isExistingPath(target) is True
 	assert getFileSize(target) == 0
 
-	deleteFile(target)
+	deletePath(target)
 
 
 def test_createDirectory_non_recursive_nested_raises(edge):
 	with pytest.raises(Exception):
 		createDirectory(str(edge / 'missing-parent' / 'child'), False)
 
-	assert isFileExists(str(edge / 'missing-parent' / 'child')) is False
+	assert isExistingPath(str(edge / 'missing-parent' / 'child')) is False
 
 
 def test_moveFile_renames_within_same_directory(edge):
@@ -836,11 +840,11 @@ def test_moveFile_renames_within_same_directory(edge):
 	(edge / 'move-source.txt').write_text('payload')
 	moveFile(source, target)
 
-	assert isFileExists(source) is False
-	assert isFileExists(target) is True
+	assert isExistingPath(source) is False
+	assert isExistingPath(target) is True
 	assert getFileSize(target) == 7
 
-	deleteFile(target)
+	deletePath(target)
 
 
 # ---------------------------------------------------------------------------
@@ -894,12 +898,12 @@ def hardening(tmp_path):
 def test_isValidFileName_empty_control_characters_and_byte_limit():
 	# A name of nothing cannot be created.
 	assert isValidFileName('') is False
-	assert isValidFileName('', True) is False
+	assert isValidFileName('', False) is False
 
 	# NUL terminates the path in the system call underneath, so a name carrying
 	# one is truncated rather than rejected by the filesystem.
 	assert isValidFileName('fi\x00le.txt') is False
-	assert isValidFileName('fi\x00le.txt', True) is False
+	assert isValidFileName('fi\x00le.txt', False) is False
 	assert isValidFileName('tab\t.txt') is False
 	assert isValidFileName('del\x7f.txt') is False
 
@@ -925,7 +929,7 @@ def test_isFileHidden_a_name_shaped_like_a_shell_command_is_not_run(tmp_path):
 
 	time.sleep(0.2)
 
-	assert isFileExists(marker) is False
+	assert isExistingPath(marker) is False
 
 
 def test_createDirectory_reports_a_file_already_at_the_path(tmp_path):
@@ -941,27 +945,27 @@ def test_createDirectory_reports_a_file_already_at_the_path(tmp_path):
 		createDirectory(target, False)
 
 
-def test_createFile_creates_the_parent_directories_it_needs(tmp_path):
+def test_touchFile_creates_the_parent_directories_it_needs(tmp_path):
 	target = str(tmp_path / 'created' / 'deep' / 'nested' / 'note.txt')
 
-	createFile(target)
+	touchFile(target)
 
-	assert isFileExists(target) is True
+	assert isExistingPath(target) is True
 	assert getFileSize(target) == 0
 
 
 def test_whitespace_only_paths_do_nothing(tmp_path):
-	createFile('   ')
-	assert isFileExists('   ') is False
+	touchFile('   ')
+	assert isExistingPath('   ') is False
 
 	witness = str(tmp_path / 'witness.txt')
 
 	(tmp_path / 'witness.txt').write_text('still here')
-	deleteFile('   ')
+	deletePath('   ')
 	moveFile('   ', witness)
 	moveFile(witness, '  ')
 
-	assert isFileExists(witness) is True
+	assert isExistingPath(witness) is True
 
 
 def test_headFile_tailFile_malformed_utf8_is_replaced(hardening):
@@ -1050,8 +1054,8 @@ def test_moveFile_moves_a_directory(tmp_path):
 
 	moveFile(source, target)
 
-	assert isFileExists(source) is False
-	assert isFileExists(os.path.join(target, 'inner', 'leaf.txt')) is True
+	assert isExistingPath(source) is False
+	assert isExistingPath(os.path.join(target, 'inner', 'leaf.txt')) is True
 
 
 def test_getFileSize_getFileInfo_keep_the_filesystem_error(tmp_path):
@@ -1072,17 +1076,17 @@ def test_getFileSize_getFileInfo_keep_the_filesystem_error(tmp_path):
 	assert infoError.value.filename == missing
 
 
-def test_toValidFilePath_a_leading_dotdot_cannot_climb_above_the_root():
-	assert toValidFilePath('../../etc/passwd') == '/etc/passwd'
-	assert toValidFilePath('../a/../b') == '/b'
-	assert toValidFilePath('..\\..\\Users', True) == '\\Users'
+def test_normalizeFilePath_a_leading_dotdot_cannot_climb_above_the_root():
+	assert normalizeFilePath('../../etc/passwd') == '/etc/passwd'
+	assert normalizeFilePath('../a/../b') == '/b'
+	assert normalizeFilePath('..\\..\\Users', True) == '\\Users'
 
 
-def test_deleteAllFileFromDirectory_unlinks_a_symlink_and_keeps_its_target(hardening):
+def test_emptyDirectory_unlinks_a_symlink_and_keeps_its_target(hardening):
 	if not os.path.islink(str(hardening / 'linked' / 'shortcut')):
 		pytest.skip('symlinks are not supported on this platform')
 
-	deleteAllFileFromDirectory(str(hardening / 'linked'))
+	emptyDirectory(str(hardening / 'linked'))
 
-	assert isFileExists(str(hardening / 'linked' / 'shortcut')) is False
-	assert isFileExists(str(hardening / 'keep' / 'precious.txt')) is True
+	assert isExistingPath(str(hardening / 'linked' / 'shortcut')) is False
+	assert isExistingPath(str(hardening / 'keep' / 'precious.txt')) is True

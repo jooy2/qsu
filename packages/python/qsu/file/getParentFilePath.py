@@ -1,7 +1,7 @@
 import posixpath
 import ntpath
 from typing import Optional
-from .toValidFilePath import toValidFilePath
+from .normalizeFilePath import normalizeFilePath
 
 
 def _stripTrailingSeparators(filePath: str, sep: str) -> str:
@@ -16,10 +16,10 @@ def _stripTrailingSeparators(filePath: str, sep: str) -> str:
 
 def getParentFilePath(filePath: str, isWindows: Optional[bool] = None) -> str:
 	if isWindows:
-		return toValidFilePath(
+		return normalizeFilePath(
 			ntpath.dirname(_stripTrailingSeparators(filePath, '\\')), isWindows
 		)
 
-	return toValidFilePath(
+	return normalizeFilePath(
 		posixpath.dirname(_stripTrailingSeparators(filePath, '/')), isWindows
 	)

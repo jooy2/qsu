@@ -273,16 +273,16 @@ def _is_aligned(at: int, length: int, starts: list, ends: list) -> bool:
 	return False
 
 
-def hasBadWords(str: str, words: Optional[list] = None, allowWords: Optional[list] = None) -> bool:
-	if not str or not words:
+def hasBadWords(str: str, badWords: Optional[list] = None, allowedWords: Optional[list] = None) -> bool:
+	if not str or not badWords:
 		return False
 
-	targets = _normalize_all(words)
+	targets = _normalize_all(badWords)
 
 	if not targets:
 		return False
 
-	allowed = _normalize_all(allowWords) if allowWords else []
+	allowed = _normalize_all(allowedWords) if allowedWords else []
 	tokens = str.split()
 
 	for readSymbols, dropDigits in _READINGS:

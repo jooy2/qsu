@@ -9,28 +9,28 @@ if TYPE_CHECKING:
 	from .clamp import clamp as clamp
 	from .div import div as div
 	from .floor import floor as floor
-	from .max import max as max
-	from .min import min as min
 	from .mul import mul as mul
-	from .numPick import numPick as numPick
-	from .numUnique import numUnique as numUnique
-	from .round import round as round
+	from .numMax import numMax as numMax
+	from .numMin import numMin as numMin
+	from .numRandom import numRandom as numRandom
+	from .numRound import numRound as numRound
+	from .numSum import numSum as numSum
+	from .numUniqueId import numUniqueId as numUniqueId
 	from .sub import sub as sub
-	from .sum import sum as sum
 
 __all__ = [
 	'ceil',
 	'clamp',
 	'div',
 	'floor',
-	'max',
-	'min',
 	'mul',
-	'numPick',
-	'numUnique',
-	'round',
+	'numMax',
+	'numMin',
+	'numRandom',
+	'numRound',
+	'numSum',
+	'numUniqueId',
 	'sub',
-	'sum',
 ]
 
 lazy(__name__)

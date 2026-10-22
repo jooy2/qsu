@@ -14,7 +14,7 @@ from ._cipher import (
 
 def encrypt(
 	str: str,
-	secret: str,
+	key: str,
 	algorithm: str = 'aes-256-cbc',
 	ivSize: int = 16,
 	toBase64: bool = False,
@@ -22,9 +22,9 @@ def encrypt(
 	if not str or len(str) < 1:
 		return ''
 
-	key, modeName = parseAlgorithm(algorithm, secret)
+	cipherKey, modeName = parseAlgorithm(algorithm, key)
 	iv = os.urandom(ivSize)
-	encryptor = buildCipher(key, modeName, iv).encryptor()
+	encryptor = buildCipher(cipherKey, modeName, iv).encryptor()
 
 	data = str.encode('utf-8')
 

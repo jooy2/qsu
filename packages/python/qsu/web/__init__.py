@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 	from .isAiSearchBot import isAiSearchBot as isAiSearchBot
 	from .isAiTrainingBot import isAiTrainingBot as isAiTrainingBot
 	from .isBot import isBot as isBot
-	from .isDesktopDeviceFromUA import isDesktopDeviceFromUA as isDesktopDeviceFromUA
-	from .isMatchPathname import isMatchPathname as isMatchPathname
-	from .isMobileDeviceFromUA import isMobileDeviceFromUA as isMobileDeviceFromUA
+	from .isDesktopDeviceFromUa import isDesktopDeviceFromUa as isDesktopDeviceFromUa
+	from .isMobileDeviceFromUa import isMobileDeviceFromUa as isMobileDeviceFromUa
+	from .isPathnameMatch import isPathnameMatch as isPathnameMatch
 	from .isSearchBot import isSearchBot as isSearchBot
-	from .isTabletDeviceFromUA import isTabletDeviceFromUA as isTabletDeviceFromUA
+	from .isTabletDeviceFromUa import isTabletDeviceFromUa as isTabletDeviceFromUa
 	from .removeLocalePrefix import removeLocalePrefix as removeLocalePrefix
 	from .unescapeHtml import unescapeHtml as unescapeHtml
 
@@ -28,11 +28,11 @@ __all__ = [
 	'isAiSearchBot',
 	'isAiTrainingBot',
 	'isBot',
-	'isDesktopDeviceFromUA',
-	'isMatchPathname',
-	'isMobileDeviceFromUA',
+	'isDesktopDeviceFromUa',
+	'isMobileDeviceFromUa',
+	'isPathnameMatch',
 	'isSearchBot',
-	'isTabletDeviceFromUA',
+	'isTabletDeviceFromUa',
 	'removeLocalePrefix',
 	'unescapeHtml',
 ]

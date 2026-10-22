@@ -1,7 +1,7 @@
 import time
 from typing import Union
 
-from ..math.round import round
+from ..math.numRound import numRound
 from ._system import cpuTicks
 
 
@@ -24,4 +24,4 @@ def getCpuUsage(interval: int = 100, decimals: int = 1) -> Union[int, float]:
 	if total <= 0:
 		return 0
 
-	return round(max(total - idle, 0) / total * 100, decimals)
+	return numRound(max(total - idle, 0) / total * 100, decimals)

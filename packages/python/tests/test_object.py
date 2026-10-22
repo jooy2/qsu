@@ -3,20 +3,20 @@ import pytest
 from qsu.array import arrGroupBy
 from qsu.object import (
 	objClone,
-	objDeleteKeyByValue,
-	objFindItemRecursiveByKey,
+	objFindInTree,
+	objFlatten,
 	objGet,
 	objInvert,
 	objMapKeys,
 	objMerge,
-	objMergeNewKey,
+	objMergeWithArrays,
 	objOmit,
+	objOmitByValue,
 	objPick,
 	objPickBy,
 	objSet,
-	objTo1d,
-	objToArray,
-	objToPrettyStr,
+	objToEntries,
+	objToPrettyJson,
 	objToQueryString,
 	objUpdate,
 )
@@ -32,17 +32,17 @@ def test_objToQueryString():
 	assert objToQueryString({'a': '가나다'}) == 'a=%EA%B0%80%EB%82%98%EB%8B%A4'
 
 
-def test_objToPrettyStr():
-	assert objToPrettyStr({}) == '{}'
+def test_objToPrettyJson():
+	assert objToPrettyJson({}) == '{}'
 	assert (
-		objToPrettyStr({'a': 1, 'b': {'c': 1, 'd': 2}})
+		objToPrettyJson({'a': 1, 'b': {'c': 1, 'd': 2}})
 		== '{\n\t"a": 1,\n\t"b": {\n\t\t"c": 1,\n\t\t"d": 2\n\t}\n}'
 	)
 
 
-def test_objFindItemRecursiveByKey():
-	assert objFindItemRecursiveByKey({'a': 1, 'b': 2, 'c': 3}, 'a', 123, 'child') is None
-	assert objFindItemRecursiveByKey(
+def test_objFindInTree():
+	assert objFindInTree({'a': 1, 'b': 2, 'c': 3}, 'a', 123, 'child') is None
+	assert objFindInTree(
 		[
 			{'a': 1, 'b': 2, 'c': 3},
 			{'a': 2, 'b': 3, 'c': 4},
@@ -53,7 +53,7 @@ def test_objFindItemRecursiveByKey():
 		3,
 		'a',
 	) == {'a': 3, 'b': 4, 'c': 5}
-	assert objFindItemRecursiveByKey(
+	assert objFindInTree(
 		{
 			'a': {'a': {'a': 123}},
 			'b': {'a': {}},
@@ -63,7 +63,7 @@ def test_objFindItemRecursiveByKey():
 		123,
 		'a',
 	) == {'a': 123}
-	assert objFindItemRecursiveByKey(
+	assert objFindInTree(
 		{
 			'id': 123,
 			'child': [{'id': 456}, {'id': 789}],
@@ -74,10 +74,10 @@ def test_objFindItemRecursiveByKey():
 	) == {'id': 456}
 
 
-def test_objToArray():
-	assert objToArray({}) == []
-	assert objToArray({'a': 1, 'b': 2, 'c': 3}) == [['a', 1], ['b', 2], ['c', 3]]
-	assert objToArray(
+def test_objToEntries():
+	assert objToEntries({}) == []
+	assert objToEntries({'a': 1, 'b': 2, 'c': 3}) == [['a', 1], ['b', 2], ['c', 3]]
+	assert objToEntries(
 		{
 			'a': 1,
 			'b': {'aa': 1, 'bb': 2, 'cc': {'aaa': 1}},
@@ -89,7 +89,7 @@ def test_objToArray():
 		['b', [['aa', 1], ['bb', 2], ['cc', [['aaa', 1]]]]],
 		['c', 3],
 	]
-	assert objToArray(
+	assert objToEntries(
 		{
 			'a': 1.234,
 			'b': 'str',
@@ -104,22 +104,22 @@ def test_objToArray():
 	]
 
 
-def test_objTo1d():
-	assert objTo1d({}) == {}
-	assert objTo1d({'a': 1, 'b': 2, 'c': 3}) == {'a': 1, 'b': 2, 'c': 3}
-	assert objTo1d({'a': 1, 'b': {'aa': 1, 'bb': 2}, 'c': 3}) == {
+def test_objFlatten():
+	assert objFlatten({}) == {}
+	assert objFlatten({'a': 1, 'b': 2, 'c': 3}) == {'a': 1, 'b': 2, 'c': 3}
+	assert objFlatten({'a': 1, 'b': {'aa': 1, 'bb': 2}, 'c': 3}) == {
 		'a': 1,
 		'b.aa': 1,
 		'b.bb': 2,
 		'c': 3,
 	}
-	assert objTo1d({'a': 1, 'b': {'aa': 1, 'bb': 2}, 'c': 3}, '=') == {
+	assert objFlatten({'a': 1, 'b': {'aa': 1, 'bb': 2}, 'c': 3}, '=') == {
 		'a': 1,
 		'b=aa': 1,
 		'b=bb': 2,
 		'c': 3,
 	}
-	assert objTo1d(
+	assert objFlatten(
 		{
 			'a': 1,
 			'b': {'aa': {'aaa': {'aaaa': 1, 'bbbb': None}}, 'bb': 2},
@@ -134,12 +134,12 @@ def test_objTo1d():
 	}
 
 
-def test_objDeleteKeyByValue():
-	assert objDeleteKeyByValue({}, 1) == {}
-	assert objDeleteKeyByValue(
+def test_objOmitByValue():
+	assert objOmitByValue({}, 1) == {}
+	assert objOmitByValue(
 		{'a': 1, 'b': 2, 'c': 2, 'd': 3, 'e': 2, 'f': '2'}, 2
 	) == {'a': 1, 'd': 3, 'f': '2'}
-	assert objDeleteKeyByValue(
+	assert objOmitByValue(
 		{
 			'a': 1,
 			'b': 2,
@@ -155,7 +155,7 @@ def test_objDeleteKeyByValue():
 		'd': 3,
 		'e': {},
 	}
-	assert objDeleteKeyByValue(
+	assert objOmitByValue(
 		{
 			'a': 1,
 			'b': 2,
@@ -200,30 +200,30 @@ def test_objUpdate():
 	) == {'a': 1, 'b': {'a': 1, 'b': 2}, 'c': 3, 'd': '1'}
 
 
-def test_objMergeNewKey():
-	assert objMergeNewKey({'a': 1}, {}) == {'a': 1}
-	assert objMergeNewKey({'a': 1}, {'a': 2}) == {'a': 2}
-	assert objMergeNewKey({'a': 1}, {'b': 2}) == {'a': 1, 'b': 2}
-	assert objMergeNewKey({'a': 1, 'c': 3}, {'b': 2, 'd': '4'}) == {
+def test_objMergeWithArrays():
+	assert objMergeWithArrays({'a': 1}, {}) == {'a': 1}
+	assert objMergeWithArrays({'a': 1}, {'a': 2}) == {'a': 2}
+	assert objMergeWithArrays({'a': 1}, {'b': 2}) == {'a': 1, 'b': 2}
+	assert objMergeWithArrays({'a': 1, 'c': 3}, {'b': 2, 'd': '4'}) == {
 		'a': 1,
 		'b': 2,
 		'c': 3,
 		'd': '4',
 	}
-	assert objMergeNewKey({'a': 1, 'c': 3}, {'b': [1, 2], 'd': None}) == {
+	assert objMergeWithArrays({'a': 1, 'c': 3}, {'b': [1, 2], 'd': None}) == {
 		'a': 1,
 		'b': [1, 2],
 		'c': 3,
 		'd': None,
 	}
-	assert objMergeNewKey(
+	assert objMergeWithArrays(
 		{'a': {'aa': 1}, 'b': 2}, {'a': {'bb': 2, 'cc': 3}, 'c': {'dd': 1}}
 	) == {
 		'a': {'aa': 1, 'bb': 2, 'cc': 3},
 		'b': 2,
 		'c': {'dd': 1},
 	}
-	assert objMergeNewKey(
+	assert objMergeWithArrays(
 		{'a': 1, 'b': {'ba': 1, 'bb': [1, 2]}},
 		{'b': {'bb': [3], 'bc': 3}, 'c': 1},
 	) == {
@@ -232,16 +232,16 @@ def test_objMergeNewKey():
 		'c': 1,
 	}
 	# The options may arrive as keyword arguments instead of as a dict.
-	assert objMergeNewKey(
+	assert objMergeWithArrays(
 		{'a': 1, 'b': {'ba': 1, 'bb': [1, 2, 3, 4]}},
 		{'b': {'bb': [5, 6, 7], 'bc': 3}, 'c': 1},
 		arrayAction='append',
-	) == objMergeNewKey(
+	) == objMergeWithArrays(
 		{'a': 1, 'b': {'ba': 1, 'bb': [1, 2, 3, 4]}},
 		{'b': {'bb': [5, 6, 7], 'bc': 3}, 'c': 1},
 		{'arrayAction': 'append'},
 	)
-	assert objMergeNewKey(
+	assert objMergeWithArrays(
 		{'a': 1, 'b': {'ba': 1, 'bb': [1, 2, 3, 4]}},
 		{'b': {'bb': [5, 6, 7], 'bc': 3}, 'c': 1},
 		{'arrayAction': 'append'},
@@ -250,7 +250,7 @@ def test_objMergeNewKey():
 		'b': {'ba': 1, 'bb': [1, 2, 3, 4, 5, 6, 7], 'bc': 3},
 		'c': 1,
 	}
-	assert objMergeNewKey(
+	assert objMergeWithArrays(
 		{'a': 1, 'b': {'ba': 1, 'bb': [1, 2, 3, 4]}},
 		{'b': {'bb': [5, 6, 7], 'bc': 3}, 'c': 1},
 		{'arrayAction': 'replace'},
@@ -259,7 +259,7 @@ def test_objMergeNewKey():
 		'b': {'ba': 1, 'bb': [5, 6, 7], 'bc': 3},
 		'c': 1,
 	}
-	assert objMergeNewKey(
+	assert objMergeWithArrays(
 		{'a': 1, 'b': {'ba': 1, 'bb': [1, 2, 3, 4]}},
 		{'b': {'bb': [5, 6, 7], 'bc': 3}, 'c': 1},
 		{'arrayAction': 'original'},
@@ -268,7 +268,7 @@ def test_objMergeNewKey():
 		'b': {'ba': 1, 'bb': [1, 2, 3, 4], 'bc': 3},
 		'c': 1,
 	}
-	assert objMergeNewKey(
+	assert objMergeWithArrays(
 		{'a': 1, 'b': {'ba': 1, 'bb': [[1, 2], [3, 4]]}},
 		{'b': {'bb': [[5, 6], [7, 8]], 'bc': 3}, 'c': 1},
 	) == {
@@ -276,13 +276,13 @@ def test_objMergeNewKey():
 		'b': {'ba': 1, 'bb': [[1, 2], [3, 4]], 'bc': 3},
 		'c': 1,
 	}
-	assert objMergeNewKey(
+	assert objMergeWithArrays(
 		{'a': [{'aa': 1, 'bb': 2, 'cc': None}, {'aa': 4, 'bb': 5, 'cc': None}]},
 		{'a': [{'cc': 3}, {'cc': 6}]},
 	) == {
 		'a': [{'aa': 1, 'bb': 2, 'cc': 3}, {'aa': 4, 'bb': 5, 'cc': 6}],
 	}
-	assert objMergeNewKey(
+	assert objMergeWithArrays(
 		{'a': [{'aa': 1, 'bb': 2}, {'aa': 4, 'bb': 5}]},
 		{'a': [{'cc': 3}, {'cc': 6}]},
 	) == {

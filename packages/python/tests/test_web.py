@@ -12,11 +12,11 @@ from qsu.web import (
 	isAiSearchBot,
 	isAiTrainingBot,
 	isBot,
-	isDesktopDeviceFromUA,
-	isMatchPathname,
-	isMobileDeviceFromUA,
+	isDesktopDeviceFromUa,
+	isMobileDeviceFromUa,
+	isPathnameMatch,
 	isSearchBot,
-	isTabletDeviceFromUA,
+	isTabletDeviceFromUa,
 	removeLocalePrefix,
 	unescapeHtml,
 )
@@ -140,31 +140,31 @@ def test_isAiTrainingBot():
 	_assertBotCategory(isAiTrainingBot, 'aiTraining')
 
 
-def test_isMobileDeviceFromUA():
-	_assertDeviceType(isMobileDeviceFromUA, 'mobile')
+def test_isMobileDeviceFromUa():
+	_assertDeviceType(isMobileDeviceFromUa, 'mobile')
 
 
-def test_isTabletDeviceFromUA():
-	_assertDeviceType(isTabletDeviceFromUA, 'tablet')
+def test_isTabletDeviceFromUa():
+	_assertDeviceType(isTabletDeviceFromUa, 'tablet')
 
 
-def test_isDesktopDeviceFromUA():
-	_assertDeviceType(isDesktopDeviceFromUA, 'desktop')
+def test_isDesktopDeviceFromUa():
+	_assertDeviceType(isDesktopDeviceFromUa, 'desktop')
 
 
-def test_isMatchPathname():
-	assert isMatchPathname('/user/login', '/admin') is False
-	assert isMatchPathname('/user/login', '/user') is False
-	assert isMatchPathname('/user/login', '/user/*') is True
-	assert isMatchPathname('/user/login', '/user/login/*') is False
-	assert isMatchPathname('/user/login', '/user/login*') is True
-	assert isMatchPathname('/user/login/hello', '/user/login*') is True
-	assert isMatchPathname('/user/login', ['/test', '/home/hello', '/user/*']) is True
-	assert isMatchPathname('/user/login', ['/test', '/home/hello', '/user/login']) is True
-	assert isMatchPathname('/admin/hello/world', ['/admin/hello/']) is False
-	assert isMatchPathname('/admin/hello/world', ['/admin/hello/world']) is True
-	assert isMatchPathname('/admin/hello/world', ['/admin/*']) is True
-	assert isMatchPathname('/admin/hello/world', ['*']) is True
+def test_isPathnameMatch():
+	assert isPathnameMatch('/user/login', '/admin') is False
+	assert isPathnameMatch('/user/login', '/user') is False
+	assert isPathnameMatch('/user/login', '/user/*') is True
+	assert isPathnameMatch('/user/login', '/user/login/*') is False
+	assert isPathnameMatch('/user/login', '/user/login*') is True
+	assert isPathnameMatch('/user/login/hello', '/user/login*') is True
+	assert isPathnameMatch('/user/login', ['/test', '/home/hello', '/user/*']) is True
+	assert isPathnameMatch('/user/login', ['/test', '/home/hello', '/user/login']) is True
+	assert isPathnameMatch('/admin/hello/world', ['/admin/hello/']) is False
+	assert isPathnameMatch('/admin/hello/world', ['/admin/hello/world']) is True
+	assert isPathnameMatch('/admin/hello/world', ['/admin/*']) is True
+	assert isPathnameMatch('/admin/hello/world', ['*']) is True
 
 
 def test_removeLocalePrefix():

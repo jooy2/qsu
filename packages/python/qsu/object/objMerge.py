@@ -1,4 +1,4 @@
-from ..verify.isObject import isObject
+from ..verify.isPlainObject import isPlainObject
 
 
 def objMerge(*objects):
@@ -8,7 +8,7 @@ def objMerge(*objects):
 	result = {}
 
 	for source in objects:
-		if not isObject(source):
+		if not isPlainObject(source):
 			return None
 
 		for key, value in source.items():
@@ -16,7 +16,7 @@ def objMerge(*objects):
 			# the result. Everything else, lists included, is replaced whole by the later
 			# value. Lodash merges lists index by index instead, which quietly keeps
 			# elements the caller meant to drop.
-			if isObject(result.get(key)) and isObject(value):
+			if isPlainObject(result.get(key)) and isPlainObject(value):
 				result[key] = objMerge(result[key], value)
 			else:
 				result[key] = value

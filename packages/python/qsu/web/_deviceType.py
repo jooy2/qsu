@@ -1,5 +1,5 @@
-"""(Private) The kind of device a User-Agent string names, for `isMobileDeviceFromUA`,
-`isTabletDeviceFromUA` and `isDesktopDeviceFromUA`.
+"""(Private) The kind of device a User-Agent string names, for `isMobileDeviceFromUa`,
+`isTabletDeviceFromUa` and `isDesktopDeviceFromUa`.
 
 The checks run in order and the first one that answers wins, so the three functions can
 never all agree on one string: a tablet is tested before a phone because an iPad's Safari

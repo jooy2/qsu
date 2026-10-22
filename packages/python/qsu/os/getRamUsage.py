@@ -1,6 +1,6 @@
 from typing import Union
 
-from ..math.round import round
+from ..math.numRound import numRound
 from ._system import memorySize
 
 
@@ -15,4 +15,4 @@ def getRamUsage(decimals: int = 1) -> Union[int, float]:
 	if not total:
 		return 0
 
-	return round(max(total - free, 0) / total * 100, decimals)
+	return numRound(max(total - free, 0) / total * 100, decimals)

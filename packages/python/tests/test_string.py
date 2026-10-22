@@ -1,72 +1,72 @@
 import re
 
 from qsu import (
-	capitalizeEachWords,
-	capitalizeEverySentence,
+	capitalizeEachSentence,
+	capitalizeEachWord,
 	capitalizeFirst,
+	collapseWhitespace,
 	deburr,
-	detectLanguage,
+	detectLanguages,
 	escapeRegExp,
-	getGroupKeys,
-	getStrBytes,
+	getPlaceholderKeys,
+	joinUrl,
 	pad,
-	removeNewLine,
-	removeSpecialChar,
-	replaceBetween,
+	removeNewlines,
+	removeSpecialChars,
+	replaceEnclosed,
 	split,
-	strBlindRandom,
+	strByteLength,
 	strCount,
+	strMaskRandom,
 	strRandom,
 	strShuffle,
-	strToAscii,
 	strToCamelCase,
+	strToCharCodes,
 	strToConstantCase,
 	strToKebabCase,
 	strToPascalCase,
 	strToSnakeCase,
 	strUnique,
-	trim,
 	truncate,
-	truncateExpect,
+	truncateSentence,
 	uncapitalizeFirst,
-	urlJoin,
 	words,
 )
 
 
-def test_trim():
-	assert trim(None) is None
-	assert trim('') == ''
-	assert trim(' hello world ') == 'hello world'
-	assert trim(' h e l l o  wo     rld  ') == 'h e l l o wo rld'
-	assert trim(' H ello World') == 'H ello World'
-	assert trim('  Hell    o    World') == 'Hell o World'
+def test_collapseWhitespace():
+	assert collapseWhitespace(None) is None
+	assert collapseWhitespace('') == ''
+	assert collapseWhitespace(' hello world ') == 'hello world'
+	assert collapseWhitespace(' h e l l o  wo     rld  ') == 'h e l l o wo rld'
+	assert collapseWhitespace(' H ello World') == 'H ello World'
+	assert collapseWhitespace('  Hell    o    World') == 'Hell o World'
 
 
-def test_removeSpecialChar():
-	assert removeSpecialChar('1　2！3☆4＠5＋6─🌍') == '123456'
-	assert removeSpecialChar('Hello, World!') == 'HelloWorld'
-	assert removeSpecialChar('12 34-56,78=90') == '1234567890'
-	assert removeSpecialChar('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人') == 'ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'
-	assert removeSpecialChar('Hello World!', ' ') == 'Hello World'
-	assert removeSpecialChar('Hello-qsu & World!', '-&!') == 'Hello-qsu&World!'
+def test_removeSpecialChars():
+	assert removeSpecialChars('1　2！3☆4＠5＋6─🌍') == '123456'
+	assert removeSpecialChars('Hello, World!') == 'HelloWorld'
+	assert removeSpecialChars('12 34-56,78=90') == '1234567890'
+	assert removeSpecialChars('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人') == 'ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'
+	assert removeSpecialChars('Hello World!', ' ') == 'Hello World'
+	assert removeSpecialChars('Hello-qsu & World!', '-&!') == 'Hello-qsu&World!'
 
 
-def test_removeNewLine():
-	assert removeNewLine('te\nst') == 'test'
-	assert removeNewLine('te\rst') == 'test'
-	assert removeNewLine('te\r\nst') == 'test'
-	assert removeNewLine('te\r\nst', '|') == 'te|st'
-	assert removeNewLine('t\ne\r\ns\rt', '-') == 't-e-s-t'
+def test_removeNewlines():
+	assert removeNewlines('te\nst') == 'test'
+	assert removeNewlines('te\rst') == 'test'
+	assert removeNewlines('te\r\nst') == 'test'
+	assert removeNewlines('te\r\nst', '|') == 'te|st'
+	assert removeNewlines('t\ne\r\ns\rt', '-') == 't-e-s-t'
 
 
-def test_replaceBetween():
-	assert replaceBetween('hello[world]', '[', ']') == 'hello'
-	assert replaceBetween("hello'test'world'test2'!!", "'", "'") == 'helloworld!!'
-	assert replaceBetween('hello[w]o[r][[l]][[d]]!!', '[', ']') == 'helloo]]!!'
-	assert replaceBetween('abc[hello]def[world]g[!!!]', '[', ']') == 'abcdefg'
-	assert replaceBetween('abc<<def>>ghi<<jkl>>mn', '<<', '>>') == 'abcghimn'
-	assert replaceBetween('hell1o2~', '1', '2', 'o!') == 'hello!~'
+def test_replaceEnclosed():
+	assert replaceEnclosed('hello[world]', '[', ']') == 'hello'
+	assert replaceEnclosed("hello'test'world'test2'!!", "'", "'") == 'helloworld!!'
+	assert replaceEnclosed('hello[w]o[r][[l]][[d]]!!', '[', ']') == 'helloo]]!!'
+	assert replaceEnclosed('abc[hello]def[world]g[!!!]', '[', ']') == 'abcdefg'
+	assert replaceEnclosed('abc<<def>>ghi<<jkl>>mn', '<<', '>>') == 'abcghimn'
+	assert replaceEnclosed('hell1o2~', '1', '2', 'o!') == 'hello!~'
 
 
 def test_capitalizeFirst():
@@ -86,21 +86,21 @@ def test_uncapitalizeFirst():
 	assert uncapitalizeFirst('한글') == '한글'
 
 
-def test_capitalizeEverySentence():
-	assert capitalizeEverySentence('hello. world') == 'Hello. World'
-	assert capitalizeEverySentence('hello. 1world') == 'Hello. 1World'
-	assert capitalizeEverySentence('HeLLO,world') == 'HeLLO,world'
-	assert capitalizeEverySentence('H. e. l. l. o.') == 'H. E. L. L. O.'
-	assert capitalizeEverySentence('hello!world!', '!') == 'Hello!World!'
+def test_capitalizeEachSentence():
+	assert capitalizeEachSentence('hello. world') == 'Hello. World'
+	assert capitalizeEachSentence('hello. 1world') == 'Hello. 1World'
+	assert capitalizeEachSentence('HeLLO,world') == 'HeLLO,world'
+	assert capitalizeEachSentence('H. e. l. l. o.') == 'H. E. L. L. O.'
+	assert capitalizeEachSentence('hello!world!', '!') == 'Hello!World!'
 
 
-def test_capitalizeEachWords():
-	assert capitalizeEachWords('hello, world!') == 'Hello, World!'
-	assert capitalizeEachWords('test') == 'Test'
-	assert capitalizeEachWords('testWords') == 'TestWords'
-	assert capitalizeEachWords('testWords', True) == 'Testwords'
+def test_capitalizeEachWord():
+	assert capitalizeEachWord('hello, world!') == 'Hello, World!'
+	assert capitalizeEachWord('test') == 'Test'
+	assert capitalizeEachWord('testWords') == 'TestWords'
+	assert capitalizeEachWord('testWords', True) == 'Testwords'
 	assert (
-		capitalizeEachWords('this is the test sentence.', True)
+		capitalizeEachWord('this is the test sentence.', True)
 		== 'This is the Test Sentence.'
 	)
 
@@ -122,9 +122,9 @@ def test_strRandom():
 	assert strRandom(10)
 
 
-def test_strBlindRandom():
-	assert strBlindRandom('test', 2)
-	assert strBlindRandom('test', 2, '#')
+def test_strMaskRandom():
+	assert strMaskRandom('test', 2)
+	assert strMaskRandom('test', 2, '#')
 
 
 def test_truncate():
@@ -138,40 +138,40 @@ def test_truncate():
 	assert truncate('\U0001f44b\U0001f44b', 2) == '\U0001f44b\U0001f44b'
 
 
-def test_truncateExpect():
+def test_truncateSentence():
 	assert (
-		truncateExpect('hello. this is test string.', 10, '.')
+		truncateSentence('hello. this is test string.', 10, '.')
 		== 'hello. this is test string.'
 	)
-	assert truncateExpect('hello. this is test. bye.', 20, '.') == 'hello. this is test.'
-	assert truncateExpect('hello.. this is test', 20, '.') == 'hello.. this is test'
-	assert truncateExpect('abc. def. ghi.', 6, '.') == 'abc. def.'
-	assert truncateExpect('abc. def. ghi.', 20, '.') == 'abc. def. ghi.'
-	assert truncateExpect('hello.. this is test', 21, '.') == 'hello.. this is test'
-	assert truncateExpect('hello.. this is test', 19, '.') == 'hello.. this is test'
-	assert truncateExpect('hello-this-is-test-string-bye', 14, '-') == 'hello-this-is-'
+	assert truncateSentence('hello. this is test. bye.', 20, '.') == 'hello. this is test.'
+	assert truncateSentence('hello.. this is test', 20, '.') == 'hello.. this is test'
+	assert truncateSentence('abc. def. ghi.', 6, '.') == 'abc. def.'
+	assert truncateSentence('abc. def. ghi.', 20, '.') == 'abc. def. ghi.'
+	assert truncateSentence('hello.. this is test', 21, '.') == 'hello.. this is test'
+	assert truncateSentence('hello.. this is test', 19, '.') == 'hello.. this is test'
+	assert truncateSentence('hello-this-is-test-string-bye', 14, '-') == 'hello-this-is-'
 
 	# The default covers the full stop as every script writes it.
-	assert truncateExpect('안녕하세요。반갑습니다。좋은 하루。', 8) == '안녕하세요。반갑습니다。'
+	assert truncateSentence('안녕하세요。반갑습니다。좋은 하루。', 8) == '안녕하세요。반갑습니다。'
 	assert (
-		truncateExpect('これはテストです。よろしくお願いします。さようなら。', 10)
+		truncateSentence('これはテストです。よろしくお願いします。さようなら。', 10)
 		== 'これはテストです。よろしくお願いします。'
 	)
-	assert truncateExpect('你好。这是测试。再见。', 5) == '你好。这是测试。'
-	assert truncateExpect('テストです｡もう一度｡', 4) == 'テストです｡'
-	assert truncateExpect('ａｂ．ｃｄ．ｅｆ．', 3) == 'ａｂ．'
-	assert truncateExpect('hello. こんにちは。bye.', 8) == 'hello. こんにちは。'
+	assert truncateSentence('你好。这是测试。再见。', 5) == '你好。这是测试。'
+	assert truncateSentence('テストです｡もう一度｡', 4) == 'テストです｡'
+	assert truncateSentence('ａｂ．ｃｄ．ｅｆ．', 3) == 'ａｂ．'
+	assert truncateSentence('hello. こんにちは。bye.', 8) == 'hello. こんにちは。'
 
 	# An explicit ending character still means only that one.
-	assert truncateExpect('안녕。하세요。반가워.', 3, '.') == '안녕。하세요。반가워.'
+	assert truncateSentence('안녕。하세요。반가워.', 3, '.') == '안녕。하세요。반가워.'
 
 	# A list accepts several at once, and the longest one is matched first.
-	assert truncateExpect('a. b! c? d.', 4, ['.', '!', '?']) == 'a. b!'
-	assert truncateExpect('a...b.c', 2, ['.', '...']) == 'a...'
-	assert truncateExpect('hello. this is test', 3, []) == 'hello. this is test'
+	assert truncateSentence('a. b! c? d.', 4, ['.', '!', '?']) == 'a. b!'
+	assert truncateSentence('a...b.c', 2, ['.', '...']) == 'a...'
+	assert truncateSentence('hello. this is test', 3, []) == 'hello. this is test'
 
 	# The expected length is counted in code points, so an astral character is one.
-	assert truncateExpect('\U0001f44b\U0001f44b.ab.cd.', 5, '.') == '\U0001f44b\U0001f44b.ab.'
+	assert truncateSentence('\U0001f44b\U0001f44b.ab.cd.', 5, '.') == '\U0001f44b\U0001f44b.ab.'
 
 
 def test_split():
@@ -190,8 +190,8 @@ def test_strUnique():
 	assert strUnique('abc--11111') == 'abc-1'
 
 
-def test_strToAscii():
-	assert strToAscii('hello-world.') == [
+def test_strToCharCodes():
+	assert strToCharCodes('hello-world.') == [
 		104,
 		101,
 		108,
@@ -205,85 +205,85 @@ def test_strToAscii():
 		100,
 		46,
 	]
-	assert strToAscii('1 2 3 4 5') == [49, 32, 50, 32, 51, 32, 52, 32, 53]
+	assert strToCharCodes('1 2 3 4 5') == [49, 32, 50, 32, 51, 32, 52, 32, 53]
 
 
-def test_urlJoin():
-	assert urlJoin('https://example.com') == 'https://example.com'
-	assert urlJoin('https://example.com', None, 'world/') == 'https://example.com/world'
-	assert urlJoin(None, 'https://example.com', 'world/') == 'https://example.com/world'
+def test_joinUrl():
+	assert joinUrl('https://example.com') == 'https://example.com'
+	assert joinUrl('https://example.com', None, 'world/') == 'https://example.com/world'
+	assert joinUrl(None, 'https://example.com', 'world/') == 'https://example.com/world'
 	assert (
-		urlJoin('https://example.com', 'hello', '#fragment')
+		joinUrl('https://example.com', 'hello', '#fragment')
 		== 'https://example.com/hello/#fragment'
 	)
 	assert (
-		urlJoin('https://example.com', 'hello', 'world')
+		joinUrl('https://example.com', 'hello', 'world')
 		== 'https://example.com/hello/world'
 	)
 	assert (
-		urlJoin('https://example.com', '/hello', '/world', 'bye')
+		joinUrl('https://example.com', '/hello', '/world', 'bye')
 		== 'https://example.com/hello/world/bye'
 	)
 	assert (
-		urlJoin('https://example.com', '/hello', '/world', '?text=bye&a=b')
+		joinUrl('https://example.com', '/hello', '/world', '?text=bye&a=b')
 		== 'https://example.com/hello/world?text=bye&a=b'
 	)
-	assert urlJoin('example.com', '/hello', '/world', 'bye') == 'example.com/hello/world/bye'
-	assert urlJoin('hello', '/world', 'bye') == 'hello/world/bye'
+	assert joinUrl('example.com', '/hello', '/world', 'bye') == 'example.com/hello/world/bye'
+	assert joinUrl('hello', '/world', 'bye') == 'hello/world/bye'
 
 
-def test_getStrBytes():
-	assert getStrBytes('') == 0
-	assert getStrBytes('abcde') == 5
-	assert getStrBytes('a1b2c3 d4e5f6') == 13
-	assert getStrBytes('ㄱㄴㄷ') == 9
-	assert getStrBytes('가나다123') == 12
-	assert getStrBytes('😀😀😀') == 12
-	assert getStrBytes('😀') == 4
-	assert getStrBytes('123 ABcd 가나다😀') == 22
+def test_strByteLength():
+	assert strByteLength('') == 0
+	assert strByteLength('abcde') == 5
+	assert strByteLength('a1b2c3 d4e5f6') == 13
+	assert strByteLength('ㄱㄴㄷ') == 9
+	assert strByteLength('가나다123') == 12
+	assert strByteLength('😀😀😀') == 12
+	assert strByteLength('😀') == 4
+	assert strByteLength('123 ABcd 가나다😀') == 22
 
 
-def test_getGroupKeys():
-	assert getGroupKeys('', '{', '}') == []
-	assert getGroupKeys('{', '{', '}') == []
-	assert getGroupKeys('{  }', '{', '}') == []
-	assert getGroupKeys('{  }', '{', '}', True) == ['  ']
-	assert getGroupKeys('}{}', '{', '}') == ['']
-	assert getGroupKeys('{a}', '{', '}') == ['a']
-	assert getGroupKeys('{a-b_c$d$}', '{', '}') == ['a-b_c$d$']
-	assert getGroupKeys('{a-b_ c$d$}', '{', '}') == []
-	assert getGroupKeys('{a] [b} [c] {d}', '{', ']') == ['a']
-	assert getGroupKeys('{{a}}', '{', '}') == []
-	assert getGroupKeys('{{a}}', '{{', '}}') == ['a']
-	assert getGroupKeys('{{aaa}} {bbb}', '{', '}') == ['bbb']
-	assert getGroupKeys('{a{a{a}}}', '{', '}') == []
-	assert getGroupKeys('{a{a{a} }}', '{', '}') == []
-	assert getGroupKeys('{a}}}}}', '{', '}') == []
-	assert getGroupKeys('{{{a}', '{', '}') == []
-	assert getGroupKeys('{{}{{}', '{', '}') == []
-	assert getGroupKeys('{{aaa}} {{bbb}} {{}}', '{{', '}}') == ['aaa', 'bbb', '']
-	assert getGroupKeys('abc {def} ghi', '{', '}') == ['def']
-	assert getGroupKeys('abc {def}{def} ghi\n\n{def}{{def}}', '{', '}') == [
+def test_getPlaceholderKeys():
+	assert getPlaceholderKeys('', '{', '}') == []
+	assert getPlaceholderKeys('{', '{', '}') == []
+	assert getPlaceholderKeys('{  }', '{', '}') == []
+	assert getPlaceholderKeys('{  }', '{', '}', True) == ['  ']
+	assert getPlaceholderKeys('}{}', '{', '}') == ['']
+	assert getPlaceholderKeys('{a}', '{', '}') == ['a']
+	assert getPlaceholderKeys('{a-b_c$d$}', '{', '}') == ['a-b_c$d$']
+	assert getPlaceholderKeys('{a-b_ c$d$}', '{', '}') == []
+	assert getPlaceholderKeys('{a] [b} [c] {d}', '{', ']') == ['a']
+	assert getPlaceholderKeys('{{a}}', '{', '}') == []
+	assert getPlaceholderKeys('{{a}}', '{{', '}}') == ['a']
+	assert getPlaceholderKeys('{{aaa}} {bbb}', '{', '}') == ['bbb']
+	assert getPlaceholderKeys('{a{a{a}}}', '{', '}') == []
+	assert getPlaceholderKeys('{a{a{a} }}', '{', '}') == []
+	assert getPlaceholderKeys('{a}}}}}', '{', '}') == []
+	assert getPlaceholderKeys('{{{a}', '{', '}') == []
+	assert getPlaceholderKeys('{{}{{}', '{', '}') == []
+	assert getPlaceholderKeys('{{aaa}} {{bbb}} {{}}', '{{', '}}') == ['aaa', 'bbb', '']
+	assert getPlaceholderKeys('abc {def} ghi', '{', '}') == ['def']
+	assert getPlaceholderKeys('abc {def}{def} ghi\n\n{def}{{def}}', '{', '}') == [
 		'def',
 		'def',
 		'def',
 	]
-	assert getGroupKeys('abc {} {} {def} ghi', '{', '}') == ['', '', 'def']
-	assert getGroupKeys('abc {def}{g}{hi}jk', '{', '}') == ['def', 'g', 'hi']
-	assert getGroupKeys('abc \\{def} {ghi\\}', '{', '}') == []
-	assert getGroupKeys('abc \\{def}', '{', '}') == []
-	assert getGroupKeys('abc {d{ef}', '{', '}') == []
-	assert getGroupKeys('abc {{def}}', '{', '}') == []
-	assert getGroupKeys('abcdefghi', '{', '}') == []
-	assert getGroupKeys('abc[def][ghi] [] [] []', '[', ']') == [
+	assert getPlaceholderKeys('abc {} {} {def} ghi', '{', '}') == ['', '', 'def']
+	assert getPlaceholderKeys('abc {def}{g}{hi}jk', '{', '}') == ['def', 'g', 'hi']
+	assert getPlaceholderKeys('abc \\{def} {ghi\\}', '{', '}') == []
+	assert getPlaceholderKeys('abc \\{def}', '{', '}') == []
+	assert getPlaceholderKeys('abc {d{ef}', '{', '}') == []
+	assert getPlaceholderKeys('abc {{def}}', '{', '}') == []
+	assert getPlaceholderKeys('abcdefghi', '{', '}') == []
+	assert getPlaceholderKeys('abc[def][ghi] [] [] []', '[', ']') == [
 		'def',
 		'ghi',
 		'',
 		'',
 		'',
 	]
-	assert getGroupKeys('abc {d\nef}', '{', '}') == []
-	assert getGroupKeys('abc {def}\n\n{ghi}\n\n{a\n}', '{', '}') == ['def', 'ghi']
+	assert getPlaceholderKeys('abc {d\nef}', '{', '}') == []
+	assert getPlaceholderKeys('abc {def}\n\n{ghi}\n\n{a\n}', '{', '}') == ['def', 'ghi']
 
 
 def test_strToCamelCase():
@@ -412,17 +412,17 @@ def test_deburr():
 	assert deburr('Ti\u1ebfng Vi\u1ec7t') == 'Ti\u1ebfng Vi\u1ec7t'
 
 
-def test_detectLanguage():
+def test_detectLanguages():
 	def only(language):
 		return [{'language': language, 'ratio': 1}]
 
 	# Nothing to count: no input, or no letter of a script the function knows.
-	assert detectLanguage('') == []
-	assert detectLanguage(None) == []
-	assert detectLanguage('   ') == []
-	assert detectLanguage('12345') == []
-	assert detectLanguage('!!! ???') == []
-	assert detectLanguage('\U0001f389') == []
+	assert detectLanguages('') == []
+	assert detectLanguages(None) == []
+	assert detectLanguages('   ') == []
+	assert detectLanguages('12345') == []
+	assert detectLanguages('!!! ???') == []
+	assert detectLanguages('\U0001f389') == []
 
 	# A script only one language writes names that language.
 	scripts = [
@@ -455,7 +455,7 @@ def test_detectLanguage():
 	]
 
 	for text, language in scripts:
-		assert detectLanguage(text) == only(language), text
+		assert detectLanguages(text) == only(language), text
 
 	# Languages that share a script are told apart by their common words and letters.
 	sentences = [
@@ -490,7 +490,7 @@ def test_detectLanguage():
 	]
 
 	for text, language in sentences:
-		assert detectLanguage(text) == only(language), text
+		assert detectLanguages(text) == only(language), text
 
 	# A single word is enough when it belongs to one language.
 	greetings = [
@@ -524,14 +524,14 @@ def test_detectLanguage():
 	]
 
 	for text, language in greetings:
-		assert detectLanguage(text) == only(language), text
+		assert detectLanguages(text) == only(language), text
 
 	# Endings and runs of letters speak for words that are on no list: `watched` and `night`
 	# outweigh `we` and `die`, which Dutch shares, and `naj-` and `sj` tell Slovak from Czech
 	# and Norwegian from Danish.
-	assert detectLanguage('We watched Die Hard last night.') == only('en')
-	assert detectLanguage('Kde je najbližšia stanica?') == only('sk')
-	assert detectLanguage('Jeg har jobbet med dette prosjektet i tre måneder.') == only('no')
+	assert detectLanguages('We watched Die Hard last night.') == only('en')
+	assert detectLanguages('Kde je najbližšia stanica?') == only('sk')
+	assert detectLanguages('Jeg har jobbet med dette prosjektet i tre måneder.') == only('no')
 
 	# Close languages are told apart by the words that differ between them.
 	pairs = [
@@ -545,83 +545,83 @@ def test_detectLanguage():
 	]
 
 	for text, language in pairs:
-		assert detectLanguage(text) == only(language), text
+		assert detectLanguages(text) == only(language), text
 
 	# With nothing to go by, a script falls back to its first language.
-	assert detectLanguage('getUserName') == only('en')
-	assert detectLanguage('a') == only('en')
-	assert detectLanguage('Иван') == only('ru')
-	assert detectLanguage('محمد') == only('ar')
+	assert detectLanguages('getUserName') == only('en')
+	assert detectLanguages('a') == only('en')
+	assert detectLanguages('Иван') == only('ru')
+	assert detectLanguages('محمد') == only('ar')
 
 	# Han characters follow the kana or Hangul of their sentence, and are Chinese without.
-	assert detectLanguage('東京に行きます') == only('ja')
-	assert detectLanguage('北京') == only('zh')
-	assert detectLanguage('대한민국(大韓民國)') == only('ko')
-	assert detectLanguage('東京に住んでいます。北京是中国的首都。') == [
+	assert detectLanguages('東京に行きます') == only('ja')
+	assert detectLanguages('北京') == only('zh')
+	assert detectLanguages('대한민국(大韓民國)') == only('ko')
+	assert detectLanguages('東京に住んでいます。北京是中国的首都。') == [
 		{'language': 'ja', 'ratio': 9 / 17},
 		{'language': 'zh', 'ratio': 8 / 17},
 	]
-	assert detectLanguage('도쿄는 東京です。') == [
+	assert detectLanguages('도쿄는 東京です。') == [
 		{'language': 'ja', 'ratio': 4 / 7},
 		{'language': 'ko', 'ratio': 3 / 7},
 	]
 
 	# The ratio counts letters only, and a tie goes to the language that appears first.
-	assert detectLanguage('안녕 Hello') == [
+	assert detectLanguages('안녕 Hello') == [
 		{'language': 'en', 'ratio': 5 / 7},
 		{'language': 'ko', 'ratio': 2 / 7},
 	]
-	assert detectLanguage('안녕하세요 Hello') == [
+	assert detectLanguages('안녕하세요 Hello') == [
 		{'language': 'ko', 'ratio': 0.5},
 		{'language': 'en', 'ratio': 0.5},
 	]
-	assert detectLanguage('Hello 안녕하세요') == [
+	assert detectLanguages('Hello 안녕하세요') == [
 		{'language': 'en', 'ratio': 0.5},
 		{'language': 'ko', 'ratio': 0.5},
 	]
-	assert detectLanguage('오늘 회의는 Zoom으로 진행합니다.') == [
+	assert detectLanguages('오늘 회의는 Zoom으로 진행합니다.') == [
 		{'language': 'ko', 'ratio': 0.75},
 		{'language': 'en', 'ratio': 0.25},
 	]
-	assert detectLanguage('abc 123 !!! 가나') == [
+	assert detectLanguages('abc 123 !!! 가나') == [
 		{'language': 'en', 'ratio': 0.6},
 		{'language': 'ko', 'ratio': 0.4},
 	]
 	# The vowel signs of `नमस्ते` are combining marks, so it counts as four letters.
-	assert detectLanguage('नमस्ते abcd') == [
+	assert detectLanguages('नमस्ते abcd') == [
 		{'language': 'hi', 'ratio': 0.5},
 		{'language': 'en', 'ratio': 0.5},
 	]
 	# Counted in code points, so a character outside the Basic Multilingual Plane is one.
-	assert detectLanguage('\U00020000\U00020001 a') == [
+	assert detectLanguages('\U00020000\U00020001 a') == [
 		{'language': 'zh', 'ratio': 2 / 3},
 		{'language': 'en', 'ratio': 1 / 3},
 	]
 
 	# Each sentence is judged on its own.
-	assert detectLanguage("I live in Paris. C'est la vie.") == [
+	assert detectLanguages("I live in Paris. C'est la vie.") == [
 		{'language': 'en', 'ratio': 12 / 21},
 		{'language': 'fr', 'ratio': 9 / 21},
 	]
-	assert detectLanguage('Das ist gut. This is good.') == [
+	assert detectLanguages('Das ist gut. This is good.') == [
 		{'language': 'en', 'ratio': 10 / 19},
 		{'language': 'de', 'ratio': 9 / 19},
 	]
 	# A sentence too short to decide takes the language of the rest of the text, and one
 	# shared word does not move a sentence into another language.
-	assert detectLanguage('Hello. Bonjour le monde, comment ça va ?') == only('fr')
-	assert detectLanguage('We watched Die Hard last night and it was great.') == only('en')
+	assert detectLanguages('Hello. Bonjour le monde, comment ça va ?') == only('fr')
+	assert detectLanguages('We watched Die Hard last night and it was great.') == only('en')
 
 	# Case, decomposed accents and Arabic vowel marks do not hide a word.
-	assert detectLanguage('DAS IST GUT') == only('de')
-	assert detectLanguage("İstanbul'da hava çok güzel.") == only('tr')
-	assert detectLanguage("Cafe\u0301 au lait, s'il vous plai\u0302t.") == only('fr')
-	assert detectLanguage('Tie\u0302\u0301ng Vie\u0323\u0302t ra\u0302\u0301t hay.') == only('vi')
-	assert detectLanguage('مِنْ فِي') == only('ar')
-	assert detectLanguage('Ｈｅｌｌｏ') == only('en')
+	assert detectLanguages('DAS IST GUT') == only('de')
+	assert detectLanguages("İstanbul'da hava çok güzel.") == only('tr')
+	assert detectLanguages("Cafe\u0301 au lait, s'il vous plai\u0302t.") == only('fr')
+	assert detectLanguages('Tie\u0302\u0301ng Vie\u0323\u0302t ra\u0302\u0301t hay.') == only('vi')
+	assert detectLanguages('مِنْ فِي') == only('ar')
+	assert detectLanguages('Ｈｅｌｌｏ') == only('en')
 
 	# The ratios add up to 1 and run from the largest to the smallest.
-	mixed = detectLanguage(
+	mixed = detectLanguages(
 		'This is a test. 안녕하세요. こんにちは。你好。Bonjour tout le monde, je suis là. Привет!'
 	)
 

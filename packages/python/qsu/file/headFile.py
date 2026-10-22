@@ -1,8 +1,8 @@
 from ._readLines import readLines
 
 
-def headFile(filePath: str, length: int = 1):
-	if length <= 0:
+def headFile(filePath: str, lineCount: int = 1):
+	if lineCount <= 0:
 		return None
 
 	lines = []
@@ -12,7 +12,7 @@ def headFile(filePath: str, length: int = 1):
 		for line in stream:
 			lines.append(line)
 
-			if len(lines) >= length:
+			if len(lines) >= lineCount:
 				break
 	finally:
 		# Closing the generator closes the file it holds open, rather than

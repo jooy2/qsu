@@ -4,8 +4,8 @@ from qsu.format import (
 	fileSizeFormat,
 	fileSizeParts,
 	numberFormat,
-	safeJSONParse,
 	safeParseInt,
+	safeParseJson,
 )
 
 
@@ -137,7 +137,7 @@ def test_fileSizeParts_agrees_with_fileSizeFormat():
 def test_duration():
 	assert duration(0) == ''
 	assert duration(604800000) == '7 Days'
-	# Milliseconds are hidden by default (withMilliSeconds defaults to False).
+	# Milliseconds are hidden by default (withMilliseconds defaults to False).
 	assert duration(1234567890) == '14 Days 6 Hours 56 Minutes 7 Seconds'
 	# Grammatically correct plurals: 0 -> plural, 1 -> singular.
 	assert (
@@ -154,8 +154,8 @@ def test_duration():
 def test_duration_accepts_keyword_arguments():
 	# The options may arrive as a dict or as keyword arguments, and the two mean the
 	# same thing. This is what stands in for the JavaScript options object.
-	assert duration(1234567890, withMilliSeconds=True) == duration(
-		1234567890, {'withMilliSeconds': True}
+	assert duration(1234567890, withMilliseconds=True) == duration(
+		1234567890, {'withMilliseconds': True}
 	)
 	assert duration(172800000, unit='Hour') == '48 Hours'
 	# A keyword wins over the same key in the dict.
@@ -174,18 +174,18 @@ def test_duration_months_and_years():
 
 def test_duration_with_milliseconds():
 	assert (
-		duration(1234567890, {'withMilliSeconds': True})
+		duration(1234567890, {'withMilliseconds': True})
 		== '14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 	)
 	assert (
 		duration(
 			1234567890,
-			{'withMilliSeconds': True, 'useSpace': True, 'useShortString': True},
+			{'withMilliseconds': True, 'useSpace': True, 'useShortString': True},
 		)
 		== '14 D 6 H 56 M 7 S 890 ms'
 	)
 	assert (
-		duration(604800001, {'withMilliSeconds': True, 'separator': '-'})
+		duration(604800001, {'withMilliseconds': True, 'separator': '-'})
 		== '7 Days-1 Millisecond'
 	)
 
@@ -194,7 +194,7 @@ def test_duration_max_unit_count():
 	assert duration(34560000000, {'maxUnitCount': 2}) == '1 Year 1 Month'
 	assert duration(1234567890, {'maxUnitCount': 1}) == '14 Days'
 	assert (
-		duration(1234567890, {'withMilliSeconds': True, 'maxUnitCount': 3})
+		duration(1234567890, {'withMilliseconds': True, 'maxUnitCount': 3})
 		== '14 Days 6 Hours 56 Minutes'
 	)
 
@@ -231,7 +231,7 @@ def test_durationParts():
 	]
 	# Single-unit mode keeps the fraction.
 	assert durationParts(1500, {'unit': 'Second'}) == [{'value': 1.5, 'unit': 'Second'}]
-	assert [p['unit'] for p in durationParts(90061001, {'withMilliSeconds': True})] == [
+	assert [p['unit'] for p in durationParts(90061001, {'withMilliseconds': True})] == [
 		'Day',
 		'Hour',
 		'Minute',
@@ -256,13 +256,13 @@ def test_durationParts_agrees_with_duration():
 		assert duration(milliseconds) == joined
 
 
-def test_safeJSONParse():
-	assert safeJSONParse({}) == {}
-	assert safeJSONParse('{}') == {}
-	assert safeJSONParse('') == {}
-	assert safeJSONParse(None) == {}
-	assert safeJSONParse('{"a":1,"b":2}') == {'a': 1, 'b': 2}
-	assert safeJSONParse('{"a":{"aa":1},"b":null}') == {'a': {'aa': 1}, 'b': None}
+def test_safeParseJson():
+	assert safeParseJson({}) == {}
+	assert safeParseJson('{}') == {}
+	assert safeParseJson('') == {}
+	assert safeParseJson(None) == {}
+	assert safeParseJson('{"a":1,"b":2}') == {'a': 1, 'b': 2}
+	assert safeParseJson('{"a":{"aa":1},"b":null}') == {'a': {'aa': 1}, 'b': None}
 
 
 def test_safeParseInt():

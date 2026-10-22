@@ -1,7 +1,7 @@
 import threading
 
 
-def debounce(func, timeout: int):
+def debounce(func, wait: int):
 	state = {'timer': None, 'version': 0}
 	lock = threading.Lock()
 
@@ -18,7 +18,7 @@ def debounce(func, timeout: int):
 				state['timer'].cancel()
 
 			state['version'] += 1
-			timer = threading.Timer(timeout / 1000, run, args=(state['version'], args, kwargs))
+			timer = threading.Timer(wait / 1000, run, args=(state['version'], args, kwargs))
 			timer.daemon = True
 			state['timer'] = timer
 			timer.start()

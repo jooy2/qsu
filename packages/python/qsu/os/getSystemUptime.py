@@ -5,8 +5,8 @@ from ..format.numberFormat import numberFormat
 from ._system import systemUptime
 
 
-def getSystemUptime(opt: Optional[dict] = None, **kwargs) -> Union[int, float, str]:
-	opts = {**(opt or {}), **kwargs}
+def getSystemUptime(options: Optional[dict] = None, **kwargs) -> Union[int, float, str]:
+	opts = {**(options or {}), **kwargs}
 	t = systemUptime()
 
 	if not t:

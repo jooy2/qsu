@@ -9,7 +9,7 @@ def _strict_eq(a, b) -> bool:
 
 
 def isEqualStrict(leftOperand, *rightOperand) -> bool:
-	# Only a list/tuple means "the operands were passed as a sequence", as in `isEqual`. A
+	# Only a list/tuple means "the operands were passed as a sequence", as in `isEqualLoose`. A
 	# dict is a value to compare, and iterating it would have read its keys as the operands.
 	if len(rightOperand) > 0 and isinstance(rightOperand[0], (list, tuple)):
 		rightOperands = rightOperand[0]

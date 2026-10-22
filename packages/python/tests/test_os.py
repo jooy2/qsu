@@ -12,7 +12,7 @@ import pytest
 from qsu.os import (
 	getArch,
 	getBootTime,
-	getCpu,
+	getCpuModel,
 	getCpuCount,
 	getDiskSize,
 	getDiskUsage,
@@ -21,14 +21,14 @@ from qsu.os import (
 	getFreeDiskSize,
 	getFreeRamSize,
 	getHomeDir,
-	getHostname,
+	getComputerName,
 	getKernelVersion,
 	getMachineId,
 	getCpuSpeed,
 	getCpuUsage,
 	getLocalIp,
 	getOsName,
-	getProcessMemoryUsage,
+	getProcessRamSize,
 	getPlatform,
 	getRamSize,
 	getRamUsage,
@@ -36,7 +36,7 @@ from qsu.os import (
 	getSid,
 	getSystemUptime,
 	getTempDir,
-	getUptime,
+	getProcessUptime,
 	getUsedRamSize,
 	getUsername,
 	runCommand,
@@ -89,8 +89,8 @@ def test_runCommand_does_not_wait_on_standard_input():
 	assert output == ['']
 
 
-def test_getCpu():
-	cpuName = getCpu()
+def test_getCpuModel():
+	cpuName = getCpuModel()
 
 	assert len(cpuName) > 0
 	assert re.search(r'[a-zA-Z0-9]+', cpuName)
@@ -103,8 +103,8 @@ def test_getCpu():
 	)
 
 
-def test_getHostname():
-	hostname = getHostname()
+def test_getComputerName():
+	hostname = getComputerName()
 
 	assert len(hostname) > 0
 	assert re.search(r'[a-zA-Z0-9]+', hostname)
@@ -150,28 +150,28 @@ def test_getSid():
 	)
 
 
-def test_getUptime():
-	assert isinstance(getUptime(), (int, float))
-	assert isinstance(getUptime({'format': True}), str)
-	assert '.' not in str(getUptime({'floor': True}))
-	assert getUptime() >= 0
+def test_getProcessUptime():
+	assert isinstance(getProcessUptime(), (int, float))
+	assert isinstance(getProcessUptime({'format': True}), str)
+	assert '.' not in str(getProcessUptime({'floor': True}))
+	assert getProcessUptime() >= 0
 
 
 def test_uptime_options_accept_keyword_arguments():
 	# The options may arrive as a dict or as keyword arguments, and the two mean the
 	# same thing. This is what stands in for the JavaScript options object.
-	for call in (getUptime, getSystemUptime):
+	for call in (getProcessUptime, getSystemUptime):
 		assert isinstance(call(format=True), str)
 		assert '.' not in str(call(floor=True))
 		# A keyword wins over the same key in the dict.
 		assert isinstance(call({'format': False}, format=True), str)
 
 
-def test_getUptime_counts_from_the_process_start():
+def test_getProcessUptime_counts_from_the_process_start():
 	# `qsu` is imported after the wait, so a count that starts at import time reads
 	# as zero here. JavaScript has `process.uptime()` and needs no equivalent test;
 	# this one guards the platform calls that stand in for it.
-	code = 'import time\ntime.sleep(0.5)\nfrom qsu.os import getUptime\nprint(getUptime())'
+	code = 'import time\ntime.sleep(0.5)\nfrom qsu.os import getProcessUptime\nprint(getProcessUptime())'
 	result = subprocess.run([sys.executable, '-c', code], capture_output=True, text=True)
 
 	assert result.returncode == 0, result.stderr
@@ -238,7 +238,7 @@ def test_getSystemUptime():
 	assert isinstance(seconds, (int, float))
 	assert seconds > 0
 	# The machine has been running at least as long as this process has.
-	assert seconds >= getUptime()
+	assert seconds >= getProcessUptime()
 	assert isinstance(getSystemUptime({'format': True}), str)
 	assert '.' not in str(getSystemUptime({'floor': True}))
 
@@ -330,8 +330,8 @@ def test_getOsName():
 		assert name != 'Linux'
 
 
-def test_getProcessMemoryUsage():
-	size = getProcessMemoryUsage()
+def test_getProcessRamSize():
+	size = getProcessRamSize()
 
 	assert re.match(r'^\d+\s[A-Z]+$', size)
 	assert size != '0 B'

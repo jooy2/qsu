@@ -8,14 +8,14 @@ if TYPE_CHECKING:
 	from .between import between as between
 	from .contains import contains as contains
 	from .hasBadWords import hasBadWords as hasBadWords
-	from .is2dArray import is2dArray as is2dArray
 	from .isEmail import isEmail as isEmail
 	from .isEmpty import isEmpty as isEmpty
-	from .isEqual import isEqual as isEqual
 	from .isEqualDeep import isEqualDeep as isEqualDeep
+	from .isEqualLoose import isEqualLoose as isEqualLoose
 	from .isEqualStrict import isEqualStrict as isEqualStrict
-	from .isObject import isObject as isObject
-	from .isTrueMinimumNumberOfTimes import isTrueMinimumNumberOfTimes as isTrueMinimumNumberOfTimes
+	from .isNestedArray import isNestedArray as isNestedArray
+	from .isPlainObject import isPlainObject as isPlainObject
+	from .isTrueAtLeast import isTrueAtLeast as isTrueAtLeast
 	from .isUrl import isUrl as isUrl
 	from .len import len as len
 
@@ -23,14 +23,14 @@ __all__ = [
 	'between',
 	'contains',
 	'hasBadWords',
-	'is2dArray',
 	'isEmail',
 	'isEmpty',
-	'isEqual',
 	'isEqualDeep',
+	'isEqualLoose',
 	'isEqualStrict',
-	'isObject',
-	'isTrueMinimumNumberOfTimes',
+	'isNestedArray',
+	'isPlainObject',
+	'isTrueAtLeast',
 	'isUrl',
 	'len',
 ]

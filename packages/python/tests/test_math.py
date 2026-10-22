@@ -3,14 +3,14 @@ from qsu.math import (
 	clamp,
 	div,
 	floor,
-	max,
-	min,
 	mul,
-	numPick,
-	numUnique,
-	round,
+	numMax,
+	numMin,
+	numRandom,
+	numRound,
+	numSum,
+	numUniqueId,
 	sub,
-	sum,
 )
 
 
@@ -39,20 +39,20 @@ def test_clamp():
 	assert clamp(5, 10, 1) == 10
 
 
-def test_numPick():
-	assert isinstance(numPick(1, 60), int) is True
+def test_numRandom():
+	assert isinstance(numRandom(1, 60), int) is True
 	for _ in range(50):
-		offset_test = numPick(5, 10)
+		offset_test = numRandom(5, 10)
 		assert offset_test >= 5 and offset_test <= 10
 
 
-def test_numUnique():
-	assert isinstance(numUnique(), int) is True
+def test_numUniqueId():
+	assert isinstance(numUniqueId(), int) is True
 
 	uniq_sets = set()
 
 	for _ in range(100):
-		uniq = numUnique()
+		uniq = numUniqueId()
 
 		if uniq in uniq_sets:
 			raise Exception('Duplicate number generated')
@@ -60,29 +60,29 @@ def test_numUnique():
 			uniq_sets.add(uniq)
 
 
-def test_round():
-	assert round(0.5) == 1
-	assert round(2.5) == 3
-	assert round(-0.5) == -1
-	assert round(-1.5) == -2
-	assert round(1.4) == 1
-	assert round(-1.4) == -1
-	assert round(1.005, 2) == 1.01
-	assert round(2.675, 2) == 2.68
-	assert round(1234, -2) == 1200
-	assert round(4.006, 2) == 4.01
-	assert round(1.1, 1) == 1.1
-	assert round(0) == 0
-	assert round(-0.4) == 0
-	assert round(float('nan')) != round(float('nan'))
-	assert round(float('inf')) == float('inf')
+def test_numRound():
+	assert numRound(0.5) == 1
+	assert numRound(2.5) == 3
+	assert numRound(-0.5) == -1
+	assert numRound(-1.5) == -2
+	assert numRound(1.4) == 1
+	assert numRound(-1.4) == -1
+	assert numRound(1.005, 2) == 1.01
+	assert numRound(2.675, 2) == 2.68
+	assert numRound(1234, -2) == 1200
+	assert numRound(4.006, 2) == 4.01
+	assert numRound(1.1, 1) == 1.1
+	assert numRound(0) == 0
+	assert numRound(-0.4) == 0
+	assert numRound(float('nan')) != numRound(float('nan'))
+	assert numRound(float('inf')) == float('inf')
 
 
-def test_sum():
-	assert sum(0) == 0
-	assert sum(1, 2, 3, 4) == 10
-	assert sum([1, 2, 3]) == 6
-	assert sum(1234) == 1234
+def test_numSum():
+	assert numSum(0) == 0
+	assert numSum(1, 2, 3, 4) == 10
+	assert numSum([1, 2, 3]) == 6
+	assert numSum(1234) == 1234
 
 
 def test_floor():
@@ -98,28 +98,28 @@ def test_floor():
 	assert floor(float('-inf')) == float('-inf')
 
 
-def test_max():
-	assert max(1, 2, 3) == 3
-	assert max([4, 2, 8, 6]) == 8
-	assert max(-4, -2, -8) == -2
-	assert max(1.5, 1.25) == 1.5
-	assert max(7) == 7
-	assert max([]) is None
-	assert max() is None
-	assert max([float('nan'), 5]) == 5
-	assert max(['a', 3, None]) == 3
+def test_numMax():
+	assert numMax(1, 2, 3) == 3
+	assert numMax([4, 2, 8, 6]) == 8
+	assert numMax(-4, -2, -8) == -2
+	assert numMax(1.5, 1.25) == 1.5
+	assert numMax(7) == 7
+	assert numMax([]) is None
+	assert numMax() is None
+	assert numMax([float('nan'), 5]) == 5
+	assert numMax(['a', 3, None]) == 3
 
 
-def test_min():
-	assert min(1, 2, 3) == 1
-	assert min([4, 2, 8, 6]) == 2
-	assert min(-4, -2, -8) == -8
-	assert min(1.5, 1.25) == 1.25
-	assert min(7) == 7
-	assert min([]) is None
-	assert min() is None
-	assert min([float('nan'), 5]) == 5
-	assert min(['a', 3, None]) == 3
+def test_numMin():
+	assert numMin(1, 2, 3) == 1
+	assert numMin([4, 2, 8, 6]) == 2
+	assert numMin(-4, -2, -8) == -8
+	assert numMin(1.5, 1.25) == 1.25
+	assert numMin(7) == 7
+	assert numMin([]) is None
+	assert numMin() is None
+	assert numMin([float('nan'), 5]) == 5
+	assert numMin(['a', 3, None]) == 3
 
 
 def test_mul():

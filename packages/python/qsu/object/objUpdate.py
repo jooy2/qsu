@@ -1,4 +1,4 @@
-from ..verify.isObject import isObject
+from ..verify.isPlainObject import isPlainObject
 
 
 def objUpdate(obj, key, value, recursive=False, upsert=False):
@@ -13,7 +13,7 @@ def objUpdate(obj, key, value, recursive=False, upsert=False):
 		result = dict(currentObj)
 
 		for currentKey in list(result.keys()):
-			if recursive and result.get(currentKey) and isObject(result[currentKey]):
+			if recursive and result.get(currentKey) and isPlainObject(result[currentKey]):
 				result[currentKey] = updateObject(result[currentKey])
 
 		# Assign once per dict. The old code repeated this identical assignment for

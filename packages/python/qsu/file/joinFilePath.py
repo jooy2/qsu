@@ -1,11 +1,11 @@
 import re
-from .toValidFilePath import toValidFilePath
+from .normalizeFilePath import normalizeFilePath
 
 
 def _nodeJoin(sep: str, paths) -> str:
 	# Mirrors Node.js path.join: concatenate all non-empty segments with the
 	# platform separator (it does NOT reset on absolute segments the way
-	# Python's os.path.join does). Normalization is delegated to toValidFilePath.
+	# Python's os.path.join does). Normalization is delegated to normalizeFilePath.
 	joined = ''
 
 	for segment in paths:
@@ -38,4 +38,4 @@ def joinFilePath(isWindows: bool, *paths: str) -> str:
 		rest = re.sub(r'\\{2,}', '\\\\', rest)
 		joined = prefix + rest
 
-	return toValidFilePath(joined, isWindows)
+	return normalizeFilePath(joined, isWindows)

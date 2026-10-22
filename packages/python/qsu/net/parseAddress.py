@@ -144,14 +144,14 @@ def parseAddress(url: str, options: Optional[dict] = None, **kwargs) -> dict:
 		'hostname': None,
 		'port': None,
 		'defaultPort': None,
-		'user': None,
-		'pass': None,
+		'username': None,
+		'password': None,
 		'path': None,
 		'query': None,
 		'params': None,
 		'hash': None,
-		'isIP': False,
-		'isIPv6': False,
+		'isIp': False,
+		'isIpv6': False,
 	}
 
 	if not isinstance(url, str) or url.strip() == '':
@@ -216,9 +216,9 @@ def parseAddress(url: str, options: Optional[dict] = None, **kwargs) -> dict:
 		passwd = '' if colonIndex == -1 else userInfo[colonIndex + 1:]
 
 		if user != '':
-			result['user'] = _percent_decode(user) if decode else user
+			result['username'] = _percent_decode(user) if decode else user
 		if passwd != '':
-			result['pass'] = _percent_decode(passwd) if decode else passwd
+			result['password'] = _percent_decode(passwd) if decode else passwd
 
 	def parsePort(portString: str) -> None:
 		if portString == '':
@@ -272,7 +272,7 @@ def parseAddress(url: str, options: Optional[dict] = None, **kwargs) -> dict:
 		)
 
 		result['hostname'] = hostname
-		result['isIPv6'] = _is_ipv6_address(hostname)
-		result['isIP'] = result['isIPv6'] or _is_ipv4_address(hostname)
+		result['isIpv6'] = _is_ipv6_address(hostname)
+		result['isIp'] = result['isIpv6'] or _is_ipv4_address(hostname)
 
 	return result

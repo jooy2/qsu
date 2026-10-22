@@ -2,7 +2,7 @@ import json
 import urllib.request
 import urllib.error
 
-from ..string.urlJoin import urlJoin
+from ..string.joinUrl import joinUrl
 from ..object.objToQueryString import objToQueryString
 
 
@@ -134,12 +134,12 @@ def fetchData(url: str, options=None, **kwargs):
 		if url.startswith('http') or '://' in url:
 			raise ValueError('If `host` is specified, `url` must begin with `/`.')
 
-		fullRequestUrl = urlJoin(host, url)
+		fullRequestUrl = joinUrl(host, url)
 	else:
 		fullRequestUrl = url
 
 	try:
-		requestUrl = urlJoin(fullRequestUrl, queryString)
+		requestUrl = joinUrl(fullRequestUrl, queryString)
 
 		data = None
 

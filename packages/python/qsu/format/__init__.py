@@ -10,8 +10,8 @@ if TYPE_CHECKING:
 	from .fileSizeFormat import fileSizeFormat as fileSizeFormat
 	from .fileSizeParts import fileSizeParts as fileSizeParts
 	from .numberFormat import numberFormat as numberFormat
-	from .safeJSONParse import safeJSONParse as safeJSONParse
 	from .safeParseInt import safeParseInt as safeParseInt
+	from .safeParseJson import safeParseJson as safeParseJson
 
 __all__ = [
 	'duration',
@@ -19,8 +19,8 @@ __all__ = [
 	'fileSizeFormat',
 	'fileSizeParts',
 	'numberFormat',
-	'safeJSONParse',
 	'safeParseInt',
+	'safeParseJson',
 ]
 
 lazy(__name__)

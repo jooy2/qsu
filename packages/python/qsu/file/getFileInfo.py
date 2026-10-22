@@ -28,6 +28,6 @@ def getFileInfo(filePath: str) -> dict:
 		# '\\' here as it does in the JavaScript implementation.
 		'dirname': os.path.dirname(filePath),
 		'path': os.path.abspath(filePath),
-		'created': dateToUnixTime(fileItem.st_ctime),
+		'changed': dateToUnixTime(fileItem.st_ctime),
 		'modified': dateToUnixTime(fileItem.st_mtime),
 	}

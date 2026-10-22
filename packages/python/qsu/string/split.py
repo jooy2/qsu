@@ -14,19 +14,19 @@ def _escape_multi(spl: str) -> str:
 	)
 
 
-def split(str: str, *splitter) -> list:
+def split(str: str, *separators) -> list:
 	if not str:
 		return []
 
-	if len(splitter) > 0 and isinstance(splitter[0], (list, tuple)):
-		splitters = splitter[0]
+	if len(separators) > 0 and isinstance(separators[0], (list, tuple)):
+		separatorList = separators[0]
 	else:
-		splitters = splitter
+		separatorList = separators
 
 	charPattern = ''
 	strPattern = ''
 
-	for spl in splitters:
+	for spl in separatorList:
 		if len(spl) > 1:
 			strPattern += ('' if len(strPattern) < 1 else '|') + _escape_multi(spl)
 		elif spl in ('-', '[', ']'):

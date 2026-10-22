@@ -1,12 +1,12 @@
 from urllib.parse import urlparse
 
 
-def isUrl(url: str, withProtocol: bool = False, strict: bool = False) -> bool:
-	if strict and url.find('.') == -1:
+def isUrl(url: str, allowMissingProtocol: bool = False, requireDot: bool = False) -> bool:
+	if requireDot and url.find('.') == -1:
 		return False
 
 	target = (
-		('https://' if withProtocol and url.find('://') == -1 else '') + url
+		('https://' if allowMissingProtocol and url.find('://') == -1 else '') + url
 	)
 
 	try:

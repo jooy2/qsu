@@ -4,11 +4,11 @@ import pytest
 
 from qsu.misc import (
 	debounce,
-	funcTimes,
 	logBox,
 	retry,
 	sleep,
 	throttle,
+	times,
 )
 
 
@@ -41,13 +41,13 @@ def test_sleep():
 	assert elapsed >= 90
 
 
-def test_funcTimes():
+def test_times():
 	def sayHello(str=None):
 		return f"Hello{str or ''}"
 
-	assert funcTimes(2, sayHello) == ['Hello', 'Hello']
-	assert funcTimes(3, sayHello()) == ['Hello', 'Hello', 'Hello']
-	assert funcTimes(4, lambda: sayHello('!')) == ['Hello!', 'Hello!', 'Hello!', 'Hello!']
+	assert times(2, sayHello) == ['Hello', 'Hello']
+	assert times(3, sayHello()) == ['Hello', 'Hello', 'Hello']
+	assert times(4, lambda: sayHello('!')) == ['Hello!', 'Hello!', 'Hello!', 'Hello!']
 
 
 def test_debounce():
@@ -168,11 +168,11 @@ def test_retry_gives_up_and_raises_the_last_error():
 		raise ValueError('always')
 
 	with pytest.raises(ValueError, match='always'):
-		retry(always, times=2)
+		retry(always, attempts=2)
 
 	assert failures['count'] == 2
 
-	# `times=1` disables retrying.
+	# `attempts=1` disables retrying.
 	once = {'count': 0}
 
 	def onlyOnce():
@@ -180,12 +180,12 @@ def test_retry_gives_up_and_raises_the_last_error():
 		raise ValueError('x')
 
 	with pytest.raises(ValueError):
-		retry(onlyOnce, {'times': 1})
+		retry(onlyOnce, {'attempts': 1})
 
 	assert once['count'] == 1
 
 	with pytest.raises(ValueError, match='at least 1'):
-		retry(lambda: 1, times=0)
+		retry(lambda: 1, attempts=0)
 
 
 def test_retry_backoff():
@@ -199,7 +199,7 @@ def test_retry_backoff():
 	started = time.monotonic()
 
 	with pytest.raises(ValueError):
-		retry(always, times=3, delay=20, backoff=2)
+		retry(always, attempts=3, delay=20, backoff=2)
 
 	assert delayed['count'] == 3
 	assert (time.monotonic() - started) * 1000 >= 50

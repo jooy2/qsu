@@ -4,43 +4,43 @@ from qsu.verify import (
 	between,
 	contains,
 	hasBadWords,
-	is2dArray,
 	isEmail,
 	isEmpty,
-	isEqual,
 	isEqualDeep,
+	isEqualLoose,
 	isEqualStrict,
-	isObject,
-	isTrueMinimumNumberOfTimes,
+	isNestedArray,
+	isPlainObject,
+	isTrueAtLeast,
 	isUrl,
 	len,
 )
 
 
-def test_isObject():
-	assert isObject('{}') is False
-	assert isObject(True) is False
-	assert isObject(False) is False
-	assert isObject(None) is False
-	assert isObject(1) is False
-	assert isObject([]) is False
-	assert isObject(lambda: '123') is False
-	assert isObject({}) is True
-	assert isObject([1, 2]) is False
-	assert isObject([{'a': 1, 'b': 2}]) is False
-	assert isObject({'a': 1, 'b': 2}) is True
-	assert isObject({'a': {}, 'b': []}) is True
+def test_isPlainObject():
+	assert isPlainObject('{}') is False
+	assert isPlainObject(True) is False
+	assert isPlainObject(False) is False
+	assert isPlainObject(None) is False
+	assert isPlainObject(1) is False
+	assert isPlainObject([]) is False
+	assert isPlainObject(lambda: '123') is False
+	assert isPlainObject({}) is True
+	assert isPlainObject([1, 2]) is False
+	assert isPlainObject([{'a': 1, 'b': 2}]) is False
+	assert isPlainObject({'a': 1, 'b': 2}) is True
+	assert isPlainObject({'a': {}, 'b': []}) is True
 
 
-def test_isEqual():
+def test_isEqualLoose():
 	val1 = 'abc'
 	val2 = 'abc'
 	val3 = 'abc'
 
-	assert isEqual(1, [1, 2, 3]) is False
-	assert isEqual('abc', [val1, val2, val3]) is True
-	assert isEqual('123', ['123', 123]) is True
-	assert isEqual(123, '123', 123) is True
+	assert isEqualLoose(1, [1, 2, 3]) is False
+	assert isEqualLoose('abc', [val1, val2, val3]) is True
+	assert isEqualLoose('123', ['123', 123]) is True
+	assert isEqualLoose(123, '123', 123) is True
 
 
 def test_isEqualStrict():
@@ -142,11 +142,11 @@ def test_contains():
 	assert contains('AB', ['AB', 'C', 'D'], True) is True
 
 
-def test_is2dArray():
-	assert is2dArray([]) is False
-	assert is2dArray([[], []]) is True
-	assert is2dArray([{'a': 1}, {'b': 2}]) is False
-	assert is2dArray([[1], [2]]) is True
+def test_isNestedArray():
+	assert isNestedArray([]) is False
+	assert isNestedArray([[], []]) is True
+	assert isNestedArray([{'a': 1}, {'b': 2}]) is False
+	assert isNestedArray([[1], [2]]) is True
 
 
 def test_between():
@@ -185,21 +185,21 @@ def test_isEmail():
 	assert isEmail('a.com@a') is False
 
 
-def test_isTrueMinimumNumberOfTimes():
+def test_isTrueAtLeast():
 	left = 2
 	right1 = 1 + 1
 	right2 = 2 + 1
 
-	assert isTrueMinimumNumberOfTimes([True, False, False]) is True
-	assert isTrueMinimumNumberOfTimes([True, True], 1) is True
-	assert isTrueMinimumNumberOfTimes([True, False, True], 2) is True
-	assert isTrueMinimumNumberOfTimes([True, False, True], 1) is True
+	assert isTrueAtLeast([True, False, False]) is True
+	assert isTrueAtLeast([True, True], 1) is True
+	assert isTrueAtLeast([True, False, True], 2) is True
+	assert isTrueAtLeast([True, False, True], 1) is True
 	assert (
-		isTrueMinimumNumberOfTimes([left == right1, False, True, True, False], 3)
+		isTrueAtLeast([left == right1, False, True, True, False], 3)
 		is True
 	)
 	assert (
-		isTrueMinimumNumberOfTimes([left == right2, False, True, True, False], 3)
+		isTrueAtLeast([left == right2, False, True, True, False], 3)
 		is False
 	)
 

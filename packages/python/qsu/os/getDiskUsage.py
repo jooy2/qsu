@@ -2,7 +2,7 @@ import os
 import shutil
 from typing import Optional, Union
 
-from ..math.round import round
+from ..math.numRound import numRound
 
 
 def getDiskUsage(path: Optional[str] = None, decimals: int = 1) -> Union[int, float]:
@@ -11,4 +11,4 @@ def getDiskUsage(path: Optional[str] = None, decimals: int = 1) -> Union[int, fl
 	if not usage.total:
 		return 0
 
-	return round(usage.used / usage.total * 100, decimals)
+	return numRound(usage.used / usage.total * 100, decimals)

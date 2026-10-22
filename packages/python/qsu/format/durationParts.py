@@ -31,7 +31,7 @@ def _findUnit(name: str) -> Optional[dict]:
 def durationParts(milliseconds: float, options: Optional[dict] = None, **kwargs) -> list:
 	opts = {**(options or {}), **kwargs}
 	withZeroValue = opts.get('withZeroValue', False)
-	withMilliSeconds = opts.get('withMilliSeconds', False)
+	withMilliseconds = opts.get('withMilliseconds', False)
 	maxUnitCount = opts.get('maxUnitCount', None)
 	unit = opts.get('unit', None)
 
@@ -44,7 +44,7 @@ def durationParts(milliseconds: float, options: Optional[dict] = None, **kwargs)
 				{'value': _cleanNumber(milliseconds / target['ms']), 'unit': target['name']}
 			]
 
-	activeUnits = _UNITS if withMilliSeconds else [u for u in _UNITS if u['name'] != 'Millisecond']
+	activeUnits = _UNITS if withMilliseconds else [u for u in _UNITS if u['name'] != 'Millisecond']
 	values = []
 	remaining = milliseconds
 

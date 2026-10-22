@@ -3,24 +3,24 @@ import math
 import pytest
 
 from qsu.array import (
+	arrChunk,
 	arrCompact,
 	arrCount,
 	arrDifference,
+	arrFill,
+	arrFlatten,
 	arrGroupBy,
-	arrGroupByMaxCount,
 	arrIntersection,
 	arrMove,
-	arrPick,
+	arrRandom,
+	arrRange,
 	arrRepeat,
 	arrShuffle,
-	arrTo1dArray,
 	arrUnique,
-	arrWithDefault,
-	arrWithNumber,
 	average,
 	median,
 	sortByObjectKey,
-	sortNumeric,
+	sortNatural,
 )
 
 
@@ -30,10 +30,10 @@ def test_arrShuffle():
 	assert arrShuffle([{'A': 1}, {'B': 2}, {'C': 3}, {'D': 4}])
 
 
-def test_arrWithDefault():
-	assert arrWithDefault('test') == []
-	assert arrWithDefault('test', 10) == ['test'] * 10
-	assert arrWithDefault(100, 5) == [100, 100, 100, 100, 100]
+def test_arrFill():
+	assert arrFill('test') == []
+	assert arrFill('test', 10) == ['test'] * 10
+	assert arrFill(100, 5) == [100, 100, 100, 100, 100]
 
 
 def test_arrUnique():
@@ -86,36 +86,36 @@ def test_arrUnique_by_value():
 	assert len(arrUnique([float('nan'), float('nan')])) == 1
 
 
-def test_arrWithNumber():
-	assert arrWithNumber(1, 2) == [1, 2]
+def test_arrRange():
+	assert arrRange(1, 2) == [1, 2]
 	with pytest.raises(Exception):
-		arrWithNumber(2, 1)
-	assert arrWithNumber(0, 5) == [0, 1, 2, 3, 4, 5]
-	assert arrWithNumber(1, 1) == [1]
-	assert arrWithNumber(1, 5) == [1, 2, 3, 4, 5]
-	assert arrWithNumber(3, 3) == [3]
+		arrRange(2, 1)
+	assert arrRange(0, 5) == [0, 1, 2, 3, 4, 5]
+	assert arrRange(1, 1) == [1]
+	assert arrRange(1, 5) == [1, 2, 3, 4, 5]
+	assert arrRange(3, 3) == [3]
 
 	with pytest.raises(ValueError) as error:
-		arrWithNumber(5, 1)
+		arrRange(5, 1)
 	assert str(error.value) == '`start` is greater than `end`.'
 
 
-def test_arrWithNumber_step():
+def test_arrRange_step():
 	# The step may arrive as a dict or as a keyword argument.
-	assert arrWithNumber(0, 10, {'step': 3}) == [0, 3, 6, 9]
-	assert arrWithNumber(0, 10, step=3) == [0, 3, 6, 9]
+	assert arrRange(0, 10, {'step': 3}) == [0, 3, 6, 9]
+	assert arrRange(0, 10, step=3) == [0, 3, 6, 9]
 	# The end is included when a step lands on it.
-	assert arrWithNumber(0, 10, step=5) == [0, 5, 10]
-	assert arrWithNumber(1, 2, step=10) == [1]
-	assert arrWithNumber(-5, 5, step=5) == [-5, 0, 5]
+	assert arrRange(0, 10, step=5) == [0, 5, 10]
+	assert arrRange(1, 2, step=10) == [1]
+	assert arrRange(-5, 5, step=5) == [-5, 0, 5]
 	# A float holding a whole number is that number.
-	assert arrWithNumber(0, 10, step=2.0) == [0, 2, 4, 6, 8, 10]
+	assert arrRange(0, 10, step=2.0) == [0, 2, 4, 6, 8, 10]
 	# `None` is the default, as `null` is for the JavaScript option.
-	assert arrWithNumber(1, 3, step=None) == [1, 2, 3]
+	assert arrRange(1, 3, step=None) == [1, 2, 3]
 
 	for step in (0, -1, 1.5, True, '2'):
 		with pytest.raises(ValueError) as error:
-			arrWithNumber(0, 10, step=step)
+			arrRange(0, 10, step=step)
 		assert str(error.value) == '`step` must be a positive integer.'
 
 
@@ -134,7 +134,7 @@ def test_median():
 	assert median([1, 3]) == 2
 	assert median([-1, -5, 0]) == -1
 	assert median([1.5, 2.5]) == 2
-	# `nan` is skipped, as `min` and `max` skip it.
+	# `nan` is skipped, as `numMin` and `numMax` skip it.
 	assert median([float('nan'), 1, 3]) == 2
 	assert median([]) is None
 	assert median([float('nan')]) is None
@@ -152,21 +152,21 @@ def test_arrMove():
 	assert arrMove([5, 10, 15], 1, 1) == [5, 10, 15]
 
 
-def test_arrPick():
-	assert arrPick([1]) == 1
+def test_arrRandom():
+	assert arrRandom([1]) == 1
 
-	pickResult = arrPick([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
+	pickResult = arrRandom([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
 
 	assert pickResult < 10
 	assert isinstance(pickResult, int)
-	assert arrPick([]) is None
+	assert arrRandom([]) is None
 
 
-def test_arrTo1dArray():
-	assert arrTo1dArray([[1, 2, 3, 4], [5, 6, 7, 8]]) == [1, 2, 3, 4, 5, 6, 7, 8]
-	assert arrTo1dArray([[1, 2, 3], 4, 5, [6, 7, 8]]) == [1, 2, 3, 4, 5, 6, 7, 8]
-	assert arrTo1dArray([[1, 2], [[3, 4], [5, 6]], 7, [8]]) == [1, 2, 3, 4, 5, 6, 7, 8]
-	assert arrTo1dArray([[[[1, 2, 3, 4, 5, 6]]], 7, 8]) == [1, 2, 3, 4, 5, 6, 7, 8]
+def test_arrFlatten():
+	assert arrFlatten([[1, 2, 3, 4], [5, 6, 7, 8]]) == [1, 2, 3, 4, 5, 6, 7, 8]
+	assert arrFlatten([[1, 2, 3], 4, 5, [6, 7, 8]]) == [1, 2, 3, 4, 5, 6, 7, 8]
+	assert arrFlatten([[1, 2], [[3, 4], [5, 6]], 7, [8]]) == [1, 2, 3, 4, 5, 6, 7, 8]
+	assert arrFlatten([[[[1, 2, 3, 4, 5, 6]]], 7, 8]) == [1, 2, 3, 4, 5, 6, 7, 8]
 
 
 def test_arrRepeat():
@@ -225,10 +225,10 @@ def test_sortByObjectKey():
 	]
 
 
-def test_sortNumeric():
-	assert sortNumeric([]) == []
-	assert sortNumeric(['a', 'd', 'c', 'b']) == ['a', 'b', 'c', 'd']
-	assert sortNumeric(
+def test_sortNatural():
+	assert sortNatural([]) == []
+	assert sortNatural(['a', 'd', 'c', 'b']) == ['a', 'b', 'c', 'd']
+	assert sortNatural(
 		['a1a', 'b2a', 'aa1a', '1', 'a11a', 'a3a', 'a2a', '1a']
 	) == [
 		'1',
@@ -240,7 +240,7 @@ def test_sortNumeric():
 		'aa1a',
 		'b2a',
 	]
-	assert sortNumeric(['3', '1', '11', '100', '10', '2', '15']) == [
+	assert sortNatural(['3', '1', '11', '100', '10', '2', '15']) == [
 		'1',
 		'2',
 		'3',
@@ -253,50 +253,50 @@ def test_sortNumeric():
 
 # The ordering below has to be identical in the JavaScript and Dart packages. It used to
 # be a plain code point comparison here, which none of the three packages agreed on.
-def test_sortNumeric_ordering_is_the_same_in_every_package():
+def test_sortNatural_ordering_is_the_same_in_every_package():
 	# Case is a tie-break, not the first thing compared, so the numbers still decide.
-	assert sortNumeric(['item2', 'Item10', 'item1']) == ['item1', 'item2', 'Item10']
-	assert sortNumeric(['file-1.txt', 'File-3.txt', 'file-10.txt', 'file-2.txt']) == [
+	assert sortNatural(['item2', 'Item10', 'item1']) == ['item1', 'item2', 'Item10']
+	assert sortNatural(['file-1.txt', 'File-3.txt', 'file-10.txt', 'file-2.txt']) == [
 		'file-1.txt',
 		'file-2.txt',
 		'File-3.txt',
 		'file-10.txt',
 	]
 	# Lower case comes before upper case when nothing else separates them.
-	assert sortNumeric(['Apple', 'apple', 'Banana', 'banana']) == [
+	assert sortNatural(['Apple', 'apple', 'Banana', 'banana']) == [
 		'apple',
 		'Apple',
 		'banana',
 		'Banana',
 	]
-	assert sortNumeric(['a', 'A', 'b', 'B']) == ['a', 'A', 'b', 'B']
+	assert sortNatural(['a', 'A', 'b', 'B']) == ['a', 'A', 'b', 'B']
 	# An accent is a tie-break too, so `äpple` sits next to `apple` and not after `z`.
-	assert sortNumeric(['zebra', 'äpple', 'apple', 'Zebra']) == [
+	assert sortNatural(['zebra', 'äpple', 'apple', 'Zebra']) == [
 		'apple',
 		'äpple',
 		'zebra',
 		'Zebra',
 	]
-	assert sortNumeric(['résumé', 'resume', 'Resume']) == ['resume', 'Resume', 'résumé']
+	assert sortNatural(['résumé', 'resume', 'Resume']) == ['resume', 'Resume', 'résumé']
 	# Whitespace, then punctuation, then digits, then letters.
-	assert sortNumeric(['1file', '.gitignore', 'apple', '_private']) == [
+	assert sortNatural(['1file', '.gitignore', 'apple', '_private']) == [
 		'.gitignore',
 		'_private',
 		'1file',
 		'apple',
 	]
 	# A run of digits is compared by length first, so it stays exact at any size.
-	assert sortNumeric(['12345678901234567891', '12345678901234567890', '2']) == [
+	assert sortNatural(['12345678901234567891', '12345678901234567890', '2']) == [
 		'2',
 		'12345678901234567890',
 		'12345678901234567891',
 	]
 	# Leading zeros do not change the value, so the raw string breaks the tie.
-	assert sortNumeric(['007', '7', '08', '8']) == ['007', '7', '08', '8']
-	assert sortNumeric(['b', 'a', 'c'], True) == ['c', 'b', 'a']
+	assert sortNatural(['007', '7', '08', '8']) == ['007', '7', '08', '8']
+	assert sortNatural(['b', 'a', 'c'], True) == ['c', 'b', 'a']
 	# A digit from another script is not an ASCII digit run, so it sorts among the letters
 	# rather than with the numbers.
-	assert sortNumeric(['\u0663', 'a', '1']) == ['1', 'a', '\u0663']
+	assert sortNatural(['\u0663', 'a', '1']) == ['1', 'a', '\u0663']
 
 
 def test_sortByObjectKey_numerically_uses_the_same_ordering():
@@ -350,11 +350,11 @@ def test_arrGroupBy():
 	assert arrGroupBy('abc', lambda item: item) == {}
 
 
-def test_arrGroupByMaxCount():
-	assert arrGroupByMaxCount([1, 2, 3], 1) == [[1], [2], [3]]
-	assert arrGroupByMaxCount([1, 2, [], 4, [[]]], 2) == [[1, 2], [[], 4], [[[]]]]
-	assert arrGroupByMaxCount([1, 2, 3, 4], 5) == [[1, 2, 3, 4]]
-	assert arrGroupByMaxCount([1, 1, 1, 1, 1, 1], 2) == [[1, 1], [1, 1], [1, 1]]
+def test_arrChunk():
+	assert arrChunk([1, 2, 3], 1) == [[1], [2], [3]]
+	assert arrChunk([1, 2, [], 4, [[]]], 2) == [[1, 2], [[], 4], [[[]]]]
+	assert arrChunk([1, 2, 3, 4], 5) == [[1, 2, 3, 4]]
+	assert arrChunk([1, 1, 1, 1, 1, 1], 2) == [[1, 1], [1, 1], [1, 1]]
 
 
 def test_arrCompact():

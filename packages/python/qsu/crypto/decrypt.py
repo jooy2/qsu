@@ -13,14 +13,14 @@ from ._cipher import (
 
 def decrypt(
 	str: str,
-	secret: str,
+	key: str,
 	algorithm: str = 'aes-256-cbc',
-	toBase64: bool = False,
+	fromBase64: bool = False,
 ) -> str:
 	if not str or len(str) < 1:
 		return ''
 
-	key, modeName = parseAlgorithm(algorithm, secret)
+	cipherKey, modeName = parseAlgorithm(algorithm, key)
 	isAead = modeName in AEAD_MODES
 	arrStr = str.split(':')
 
@@ -32,13 +32,13 @@ def decrypt(
 		)
 
 	def decode(value):
-		return base64.b64decode(value) if toBase64 else bytes.fromhex(value)
+		return base64.b64decode(value) if fromBase64 else bytes.fromhex(value)
 
 	iv = decode(arrStr.pop(0))
 	tag = decode(arrStr.pop(0)) if isAead else None
 	enc = decode(':'.join(arrStr))
 
-	decryptor = buildCipher(key, modeName, iv, tag).decryptor()
+	decryptor = buildCipher(cipherKey, modeName, iv, tag).decryptor()
 	decrypted = decryptor.update(enc) + decryptor.finalize()
 
 	if modeName in PADDED_MODES:
