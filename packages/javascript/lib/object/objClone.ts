@@ -1,5 +1,5 @@
 import type { AnyValueObject } from '../_types/global.js';
-import { isObject } from '../verify/isObject.js';
+import { isPlainObject } from '../verify/isPlainObject.js';
 import { setOwn } from './_ownProperty.js';
 
 // `seen` maps every container already copied to its copy, so a structure that points back
@@ -55,7 +55,7 @@ function cloneValue(value: any, seen: WeakMap<object, any>): any {
 		return copy;
 	}
 
-	if (isObject(value)) {
+	if (isPlainObject(value)) {
 		const copy: AnyValueObject = {};
 
 		seen.set(value, copy);
@@ -97,7 +97,7 @@ export function objClone(obj: any, options?: { deep?: boolean }): any {
 			return new Set(obj);
 		}
 
-		return isObject(obj) ? { ...obj } : obj;
+		return isPlainObject(obj) ? { ...obj } : obj;
 	}
 
 	return cloneValue(obj, new WeakMap());

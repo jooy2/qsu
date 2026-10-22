@@ -1,19 +1,20 @@
-export function split(str: string, ...splitter: any[]): string[];
+export function split(str: string, ...separators: any[]): string[];
 
-export function split(str: string, ...splitter: Array<string>): string[];
+export function split(str: string, ...separators: Array<string>): string[];
 
-export function split(str: string, ...splitter: Array<string> | string[]): string[] {
+export function split(str: string, ...separators: Array<string> | string[]): string[] {
 	if (!str) {
 		return [];
 	}
 
-	const splitters = splitter.length > 0 && typeof splitter[0] === 'object' ? splitter[0] : splitter;
-	const splitterLength: number = splitters.length;
+	const separatorList =
+		separators.length > 0 && typeof separators[0] === 'object' ? separators[0] : separators;
+	const separatorLength: number = separatorList.length;
 	let charPattern = '';
 	let strPattern = '';
 
-	for (let i = 0; i < splitterLength; i += 1) {
-		const spl = splitters[i];
+	for (let i = 0; i < separatorLength; i += 1) {
+		const spl = separatorList[i];
 
 		if (spl.length > 1) {
 			strPattern += `${strPattern.length < 1 ? '' : '|'}${spl

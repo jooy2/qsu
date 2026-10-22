@@ -1,5 +1,5 @@
 /**
- * (Private, not exported from the package) Natural ordering shared by `sortNumeric` and
+ * (Private, not exported from the package) Natural ordering shared by `sortNatural` and
  * `sortByObjectKey`.
  *
  * A string is cut into runs of digits and runs of everything else, and the runs are

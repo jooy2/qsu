@@ -270,14 +270,18 @@ const normalizeAll = (words: string[]): string[] => {
 	return normalized;
 };
 
-export function hasBadWords(str: string, words: string[] = [], allowWords: string[] = []): boolean {
-	if (!str || !words || words.length === 0) return false;
+export function hasBadWords(
+	str: string,
+	badWords: string[] = [],
+	allowedWords: string[] = []
+): boolean {
+	if (!str || !badWords || badWords.length === 0) return false;
 
-	const targets = normalizeAll(words);
+	const targets = normalizeAll(badWords);
 
 	if (targets.length === 0) return false;
 
-	const allowed = allowWords ? normalizeAll(allowWords) : [];
+	const allowed = allowedWords ? normalizeAll(allowedWords) : [];
 	const tokens = str.split(/\s+/).filter((token) => token !== '');
 
 	for (const [readSymbols, dropDigits] of READINGS) {

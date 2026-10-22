@@ -1,6 +1,6 @@
 import { posix, win32 } from 'node:path';
-import { toValidFilePath } from './toValidFilePath.js';
+import { normalizeFilePath } from './normalizeFilePath.js';
 
 export function joinFilePath(isWindows: boolean, ...paths: string[]): string {
-	return toValidFilePath(isWindows ? win32.join(...paths) : posix.join(...paths), isWindows);
+	return normalizeFilePath(isWindows ? win32.join(...paths) : posix.join(...paths), isWindows);
 }

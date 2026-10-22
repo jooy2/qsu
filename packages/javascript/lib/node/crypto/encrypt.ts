@@ -6,7 +6,7 @@ export const AEAD_ALGORITHM = /gcm|ccm|ocb|poly1305/i;
 
 export function encrypt(
 	str: string,
-	secret: string,
+	key: string,
 	algorithm = 'aes-256-cbc',
 	ivSize = 16,
 	toBase64 = false
@@ -16,7 +16,7 @@ export function encrypt(
 	}
 
 	const iv: Buffer = randomBytes(ivSize);
-	const cipher = createCipheriv(algorithm, secret, iv);
+	const cipher = createCipheriv(algorithm, key, iv);
 	let enc = cipher.update(str);
 
 	enc = Buffer.concat([enc, cipher.final()]);

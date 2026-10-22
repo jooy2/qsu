@@ -1,9 +1,9 @@
-import type { AnyValueObject, HTTPRequestOption } from '../../_types/global.js';
+import type { AnyValueObject, HttpRequestOptions } from '../../_types/global.js';
 import { objToQueryString } from '../../object/objToQueryString.js';
-import { urlJoin } from '../../string/urlJoin.js';
+import { joinUrl } from '../../string/joinUrl.js';
 import { Readable } from 'node:stream';
 
-function generateDefaultRequestHeader(httpRequestOption?: HTTPRequestOption) {
+function generateDefaultRequestHeader(httpRequestOption?: HttpRequestOptions) {
 	let contentType;
 
 	if (httpRequestOption?.headers?.['Content-Type']) {
@@ -81,7 +81,7 @@ function isFileResponse(contentType: string, contentDisposition: string) {
 	);
 }
 
-export async function fetchData(url: string, options?: HTTPRequestOption): Promise<any> {
+export async function fetchData(url: string, options?: HttpRequestOptions): Promise<any> {
 	const opt = options || {};
 	const queryString = opt.queryParameters ? `?${objToQueryString(opt.queryParameters)}` : null;
 	let bodyData = null;
@@ -136,13 +136,13 @@ export async function fetchData(url: string, options?: HTTPRequestOption): Promi
 			throw new Error('If `host` is specified, `url` must begin with `/`.');
 		}
 
-		fullRequestUrl = urlJoin(opt.host, url);
+		fullRequestUrl = joinUrl(opt.host, url);
 	} else {
 		fullRequestUrl = url;
 	}
 
 	try {
-		const response = await fetch(urlJoin(fullRequestUrl, queryString), {
+		const response = await fetch(joinUrl(fullRequestUrl, queryString), {
 			...(opt.auth ? { credentials: 'include' } : {}),
 			...(opt.timeout ? { signal: AbortSignal.timeout(opt.timeout) } : {}),
 			method,

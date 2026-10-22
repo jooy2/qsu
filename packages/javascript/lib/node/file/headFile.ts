@@ -1,8 +1,8 @@
 import { createReadStream } from 'node:fs';
 import { createInterface } from 'node:readline';
 
-export async function headFile(filePath: string, length = 1): Promise<string | null> {
-	if (length <= 0) {
+export async function headFile(filePath: string, lineCount = 1): Promise<string | null> {
+	if (lineCount <= 0) {
 		return null;
 	}
 
@@ -15,7 +15,7 @@ export async function headFile(filePath: string, length = 1): Promise<string | n
 		rl.on('line', (line) => {
 			lines.push(line);
 
-			if (lines.length >= length) {
+			if (lines.length >= lineCount) {
 				rl.close();
 				stream.destroy();
 			}

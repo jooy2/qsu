@@ -1,8 +1,8 @@
-import type { PositiveNumber, ThrottleOptions } from '../_types/global.js';
+import type { NonNegativeNumber, ThrottleOptions } from '../_types/global.js';
 
 export function throttle<N extends number>(
 	func: (...args: any[]) => void,
-	wait: PositiveNumber<N>,
+	wait: NonNegativeNumber<N>,
 	options?: ThrottleOptions
 ): (...args: any[]) => void {
 	const leading = options?.leading ?? true;

@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
-import { sleep, funcTimes, debounce, throttle, retry } from '../dist';
+import { sleep, times, debounce, throttle, retry } from '../dist';
 import { logBox } from '../dist/node';
 
 describe('Misc', () => {
@@ -16,13 +16,13 @@ describe('Misc', () => {
 		logBox([1, 2, 3, 4, 5]);
 	});
 
-	it('funcTimes', () => {
+	it('times', () => {
 		const sayHello = (str?: string): string => `Hello${str || ''}`;
 
-		assert.deepStrictEqual(funcTimes(2, sayHello), ['Hello', 'Hello']);
-		assert.deepStrictEqual(funcTimes(3, sayHello()), ['Hello', 'Hello', 'Hello']);
+		assert.deepStrictEqual(times(2, sayHello), ['Hello', 'Hello']);
+		assert.deepStrictEqual(times(3, sayHello()), ['Hello', 'Hello', 'Hello']);
 		assert.deepStrictEqual(
-			funcTimes(4, () => sayHello('!')),
+			times(4, () => sayHello('!')),
 			['Hello!', 'Hello!', 'Hello!', 'Hello!']
 		);
 	});
@@ -103,7 +103,7 @@ describe('Misc', () => {
 		// An asynchronous function is awaited.
 		assert.strictEqual(await retry(async () => 'async ok'), 'async ok');
 
-		// After `times` attempts the error of the last one is thrown.
+		// Once all `attempts` have failed, the error of the last one is thrown.
 		let failures = 0;
 
 		await assert.rejects(
@@ -112,13 +112,13 @@ describe('Misc', () => {
 					failures += 1;
 					throw new Error('always');
 				},
-				{ times: 2 }
+				{ attempts: 2 }
 			),
 			/always/
 		);
 		assert.strictEqual(failures, 2);
 
-		// `times: 1` disables retrying.
+		// `attempts: 1` disables retrying.
 		let once = 0;
 
 		await assert.rejects(
@@ -127,12 +127,12 @@ describe('Misc', () => {
 					once += 1;
 					throw new Error('x');
 				},
-				{ times: 1 }
+				{ attempts: 1 }
 			)
 		);
 		assert.strictEqual(once, 1);
 
-		await assert.rejects(retry(() => 1, { times: 0 }));
+		await assert.rejects(retry(() => 1, { attempts: 0 }));
 
 		// `backoff` multiplies the delay after every failure: 20ms, then 40ms.
 		const started = Date.now();
@@ -144,7 +144,7 @@ describe('Misc', () => {
 					delayed += 1;
 					throw new Error('x');
 				},
-				{ times: 3, delay: 20, backoff: 2 }
+				{ attempts: 3, delay: 20, backoff: 2 }
 			)
 		);
 		assert.strictEqual(delayed, 3);

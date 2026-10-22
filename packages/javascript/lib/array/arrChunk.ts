@@ -1,0 +1,20 @@
+export function arrChunk(array: any[], size = 1): any[] {
+	const result = [];
+	const arrayLength = array.length;
+	let tempArray = [];
+
+	for (let i = 0; i < arrayLength; i += 1) {
+		if (tempArray.length === size) {
+			result.push(tempArray);
+			tempArray = [];
+		}
+
+		tempArray.push(array[i]);
+	}
+
+	if (tempArray.length > 0) {
+		result.push(tempArray);
+	}
+
+	return result;
+}

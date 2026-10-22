@@ -4,7 +4,7 @@ export function median(array: number[]): number | null {
 	for (let i = 0, arrayLength = array.length; i < arrayLength; i += 1) {
 		const value = array[i];
 
-		// `NaN` has no place in a sorted order, so it is skipped as `min` and `max` skip it.
+		// `NaN` has no place in a sorted order, so it is skipped as `numMin` and `numMax` skip it.
 		if (typeof value === 'number' && !Number.isNaN(value)) {
 			values.push(value);
 		}

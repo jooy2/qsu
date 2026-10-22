@@ -7,12 +7,12 @@ import {
 	isAiSearchBot,
 	isAiAgentBot,
 	isAiTrainingBot,
-	isMatchPathname,
+	isPathnameMatch,
 	generateLicense,
 	removeLocalePrefix,
-	isMobileDeviceFromUA,
-	isTabletDeviceFromUA,
-	isDesktopDeviceFromUA,
+	isMobileDeviceFromUa,
+	isTabletDeviceFromUa,
+	isDesktopDeviceFromUa,
 	getSlug,
 	escapeHtml,
 	unescapeHtml
@@ -125,34 +125,34 @@ describe('Web', () => {
 		});
 	}
 
-	it('isMobileDeviceFromUA', () => {
-		assertDeviceType(isMobileDeviceFromUA, 'mobile');
+	it('isMobileDeviceFromUa', () => {
+		assertDeviceType(isMobileDeviceFromUa, 'mobile');
 	});
 
-	it('isTabletDeviceFromUA', () => {
-		assertDeviceType(isTabletDeviceFromUA, 'tablet');
+	it('isTabletDeviceFromUa', () => {
+		assertDeviceType(isTabletDeviceFromUa, 'tablet');
 	});
 
-	it('isDesktopDeviceFromUA', () => {
-		assertDeviceType(isDesktopDeviceFromUA, 'desktop');
+	it('isDesktopDeviceFromUa', () => {
+		assertDeviceType(isDesktopDeviceFromUa, 'desktop');
 	});
 
-	it('isMatchPathname', () => {
-		assert.strictEqual(isMatchPathname('/user/login', '/admin'), false);
-		assert.strictEqual(isMatchPathname('/user/login', '/user'), false);
-		assert.strictEqual(isMatchPathname('/user/login', '/user/*'), true);
-		assert.strictEqual(isMatchPathname('/user/login', '/user/login/*'), false);
-		assert.strictEqual(isMatchPathname('/user/login', '/user/login*'), true);
-		assert.strictEqual(isMatchPathname('/user/login/hello', '/user/login*'), true);
-		assert.strictEqual(isMatchPathname('/user/login', ['/test', '/home/hello', '/user/*']), true);
+	it('isPathnameMatch', () => {
+		assert.strictEqual(isPathnameMatch('/user/login', '/admin'), false);
+		assert.strictEqual(isPathnameMatch('/user/login', '/user'), false);
+		assert.strictEqual(isPathnameMatch('/user/login', '/user/*'), true);
+		assert.strictEqual(isPathnameMatch('/user/login', '/user/login/*'), false);
+		assert.strictEqual(isPathnameMatch('/user/login', '/user/login*'), true);
+		assert.strictEqual(isPathnameMatch('/user/login/hello', '/user/login*'), true);
+		assert.strictEqual(isPathnameMatch('/user/login', ['/test', '/home/hello', '/user/*']), true);
 		assert.strictEqual(
-			isMatchPathname('/user/login', ['/test', '/home/hello', '/user/login']),
+			isPathnameMatch('/user/login', ['/test', '/home/hello', '/user/login']),
 			true
 		);
-		assert.strictEqual(isMatchPathname('/admin/hello/world', ['/admin/hello/']), false);
-		assert.strictEqual(isMatchPathname('/admin/hello/world', ['/admin/hello/world']), true);
-		assert.strictEqual(isMatchPathname('/admin/hello/world', ['/admin/*']), true);
-		assert.strictEqual(isMatchPathname('/admin/hello/world', ['*']), true);
+		assert.strictEqual(isPathnameMatch('/admin/hello/world', ['/admin/hello/']), false);
+		assert.strictEqual(isPathnameMatch('/admin/hello/world', ['/admin/hello/world']), true);
+		assert.strictEqual(isPathnameMatch('/admin/hello/world', ['/admin/*']), true);
+		assert.strictEqual(isPathnameMatch('/admin/hello/world', ['*']), true);
 	});
 
 	it('removeLocalePrefix', () => {

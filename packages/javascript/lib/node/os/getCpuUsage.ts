@@ -1,5 +1,5 @@
 import { cpus } from 'node:os';
-import { round } from '../../math/round.js';
+import { numRound } from '../../math/numRound.js';
 import { sleep } from '../../misc/sleep.js';
 
 export async function getCpuUsage(interval = 100, decimals = 1): Promise<number> {
@@ -21,7 +21,7 @@ export async function getCpuUsage(interval = 100, decimals = 1): Promise<number>
 		return 0;
 	}
 
-	return round((Math.max(total - idle, 0) / total) * 100, decimals);
+	return numRound((Math.max(total - idle, 0) / total) * 100, decimals);
 }
 
 // Processor time since boot, summed over every core. The units mean nothing on

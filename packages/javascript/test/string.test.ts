@@ -1,28 +1,28 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
 import {
-	trim,
-	removeSpecialChar,
-	removeNewLine,
-	replaceBetween,
+	collapseWhitespace,
+	removeSpecialChars,
+	removeNewlines,
+	replaceEnclosed,
 	capitalizeFirst,
-	capitalizeEverySentence,
-	capitalizeEachWords,
-	getStrBytes,
-	getGroupKeys,
+	capitalizeEachSentence,
+	capitalizeEachWord,
+	strByteLength,
+	getPlaceholderKeys,
 	strCount,
 	strShuffle,
 	strRandom,
-	strBlindRandom,
+	strMaskRandom,
 	truncate,
-	truncateExpect,
+	truncateSentence,
 	split,
 	strUnique,
-	strToAscii,
-	urlJoin,
+	strToCharCodes,
+	joinUrl,
 	words,
 	deburr,
-	detectLanguage,
+	detectLanguages,
 	escapeRegExp,
 	uncapitalizeFirst,
 	strToCamelCase,
@@ -34,47 +34,47 @@ import {
 } from '../dist';
 
 describe('String', () => {
-	it('trim', () => {
-		assert.strictEqual(trim(null), null);
-		assert.strictEqual(trim(''), '');
-		assert.strictEqual(trim(' hello world '), 'hello world');
-		assert.strictEqual(trim(' h e l l o  wo     rld  '), 'h e l l o wo rld');
-		assert.strictEqual(trim(' H ello World'), 'H ello World');
-		assert.strictEqual(trim('  Hell    o    World'), 'Hell o World');
+	it('collapseWhitespace', () => {
+		assert.strictEqual(collapseWhitespace(null), null);
+		assert.strictEqual(collapseWhitespace(''), '');
+		assert.strictEqual(collapseWhitespace(' hello world '), 'hello world');
+		assert.strictEqual(collapseWhitespace(' h e l l o  wo     rld  '), 'h e l l o wo rld');
+		assert.strictEqual(collapseWhitespace(' H ello World'), 'H ello World');
+		assert.strictEqual(collapseWhitespace('  Hell    o    World'), 'Hell o World');
 	});
 
-	it('removeSpecialChar', () => {
-		assert.strictEqual(removeSpecialChar('1　2！3☆4＠5＋6─🌍'), '123456');
-		assert.strictEqual(removeSpecialChar('Hello, World!'), 'HelloWorld');
-		assert.strictEqual(removeSpecialChar('12 34-56,78=90'), '1234567890');
+	it('removeSpecialChars', () => {
+		assert.strictEqual(removeSpecialChars('1　2！3☆4＠5＋6─🌍'), '123456');
+		assert.strictEqual(removeSpecialChars('Hello, World!'), 'HelloWorld');
+		assert.strictEqual(removeSpecialChars('12 34-56,78=90'), '1234567890');
 		assert.strictEqual(
-			removeSpecialChar('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'),
+			removeSpecialChars('ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'),
 			'ABC가나다ㄱㄴㄷㅏㅑㅓ天地人'
 		);
-		assert.strictEqual(removeSpecialChar('Hello World!', ' '), 'Hello World');
-		assert.strictEqual(removeSpecialChar('Hello-qsu & World!', '-&!'), 'Hello-qsu&World!');
+		assert.strictEqual(removeSpecialChars('Hello World!', ' '), 'Hello World');
+		assert.strictEqual(removeSpecialChars('Hello-qsu & World!', '-&!'), 'Hello-qsu&World!');
 	});
 
-	it('removeNewLine', () => {
+	it('removeNewlines', () => {
 		assert.strictEqual(
-			removeNewLine(`te
+			removeNewlines(`te
 st`),
 			'test'
 		);
-		assert.strictEqual(removeNewLine('te\rst'), 'test');
-		assert.strictEqual(removeNewLine('te\nst'), 'test');
-		assert.strictEqual(removeNewLine('te\r\nst'), 'test');
-		assert.strictEqual(removeNewLine('te\r\nst', '|'), 'te|st');
-		assert.strictEqual(removeNewLine('t\ne\r\ns\rt', '-'), 't-e-s-t');
+		assert.strictEqual(removeNewlines('te\rst'), 'test');
+		assert.strictEqual(removeNewlines('te\nst'), 'test');
+		assert.strictEqual(removeNewlines('te\r\nst'), 'test');
+		assert.strictEqual(removeNewlines('te\r\nst', '|'), 'te|st');
+		assert.strictEqual(removeNewlines('t\ne\r\ns\rt', '-'), 't-e-s-t');
 	});
 
-	it('replaceBetween', () => {
-		assert.strictEqual(replaceBetween('hello[world]', '[', ']'), 'hello');
-		assert.strictEqual(replaceBetween("hello'test'world'test2'!!", "'", "'"), 'helloworld!!');
-		assert.strictEqual(replaceBetween('hello[w]o[r][[l]][[d]]!!', '[', ']'), 'helloo]]!!');
-		assert.strictEqual(replaceBetween('abc[hello]def[world]g[!!!]', '[', ']'), 'abcdefg');
-		assert.strictEqual(replaceBetween('abc<<def>>ghi<<jkl>>mn', '<<', '>>'), 'abcghimn');
-		assert.strictEqual(replaceBetween('hell1o2~', '1', '2', 'o!'), 'hello!~');
+	it('replaceEnclosed', () => {
+		assert.strictEqual(replaceEnclosed('hello[world]', '[', ']'), 'hello');
+		assert.strictEqual(replaceEnclosed("hello'test'world'test2'!!", "'", "'"), 'helloworld!!');
+		assert.strictEqual(replaceEnclosed('hello[w]o[r][[l]][[d]]!!', '[', ']'), 'helloo]]!!');
+		assert.strictEqual(replaceEnclosed('abc[hello]def[world]g[!!!]', '[', ']'), 'abcdefg');
+		assert.strictEqual(replaceEnclosed('abc<<def>>ghi<<jkl>>mn', '<<', '>>'), 'abcghimn');
+		assert.strictEqual(replaceEnclosed('hell1o2~', '1', '2', 'o!'), 'hello!~');
 	});
 
 	it('capitalizeFirst', () => {
@@ -94,21 +94,21 @@ st`),
 		assert.strictEqual(uncapitalizeFirst('한글'), '한글');
 	});
 
-	it('capitalizeEverySentence', () => {
-		assert.strictEqual(capitalizeEverySentence('hello. world'), 'Hello. World');
-		assert.strictEqual(capitalizeEverySentence('hello. 1world'), 'Hello. 1World');
-		assert.strictEqual(capitalizeEverySentence('HeLLO,world'), 'HeLLO,world');
-		assert.strictEqual(capitalizeEverySentence('H. e. l. l. o.'), 'H. E. L. L. O.');
-		assert.strictEqual(capitalizeEverySentence('hello!world!', '!'), 'Hello!World!');
+	it('capitalizeEachSentence', () => {
+		assert.strictEqual(capitalizeEachSentence('hello. world'), 'Hello. World');
+		assert.strictEqual(capitalizeEachSentence('hello. 1world'), 'Hello. 1World');
+		assert.strictEqual(capitalizeEachSentence('HeLLO,world'), 'HeLLO,world');
+		assert.strictEqual(capitalizeEachSentence('H. e. l. l. o.'), 'H. E. L. L. O.');
+		assert.strictEqual(capitalizeEachSentence('hello!world!', '!'), 'Hello!World!');
 	});
 
-	it('capitalizeEachWords', () => {
-		assert.strictEqual(capitalizeEachWords('hello, world!'), 'Hello, World!');
-		assert.strictEqual(capitalizeEachWords('test'), 'Test');
-		assert.strictEqual(capitalizeEachWords('testWords'), 'TestWords');
-		assert.strictEqual(capitalizeEachWords('testWords', true), 'Testwords');
+	it('capitalizeEachWord', () => {
+		assert.strictEqual(capitalizeEachWord('hello, world!'), 'Hello, World!');
+		assert.strictEqual(capitalizeEachWord('test'), 'Test');
+		assert.strictEqual(capitalizeEachWord('testWords'), 'TestWords');
+		assert.strictEqual(capitalizeEachWord('testWords', true), 'Testwords');
 		assert.strictEqual(
-			capitalizeEachWords('this is the test sentence.', true),
+			capitalizeEachWord('this is the test sentence.', true),
 			'This is the Test Sentence.'
 		);
 	});
@@ -130,9 +130,9 @@ st`),
 		assert(strRandom(10));
 	});
 
-	it('strBlindRandom', () => {
-		assert(strBlindRandom('test', 2));
-		assert(strBlindRandom('test', 2, '#'));
+	it('strMaskRandom', () => {
+		assert(strMaskRandom('test', 2));
+		assert(strMaskRandom('test', 2, '#'));
 	});
 
 	it('truncate', () => {
@@ -146,47 +146,50 @@ st`),
 		assert.strictEqual(truncate('\u{1F44B}\u{1F44B}', 2), '\u{1F44B}\u{1F44B}');
 	});
 
-	it('truncateExpect', () => {
+	it('truncateSentence', () => {
 		assert.strictEqual(
-			truncateExpect('hello. this is test string.', 10, '.'),
+			truncateSentence('hello. this is test string.', 10, '.'),
 			'hello. this is test string.'
 		);
 		assert.strictEqual(
-			truncateExpect('hello. this is test. bye.', 20, '.'),
+			truncateSentence('hello. this is test. bye.', 20, '.'),
 			'hello. this is test.'
 		);
-		assert.strictEqual(truncateExpect('hello.. this is test', 20, '.'), 'hello.. this is test');
-		assert.strictEqual(truncateExpect('abc. def. ghi.', 6, '.'), 'abc. def.');
-		assert.strictEqual(truncateExpect('abc. def. ghi.', 20, '.'), 'abc. def. ghi.');
-		assert.strictEqual(truncateExpect('hello.. this is test', 21, '.'), 'hello.. this is test');
-		assert.strictEqual(truncateExpect('hello.. this is test', 19, '.'), 'hello.. this is test');
-		assert.strictEqual(truncateExpect('hello-this-is-test-string-bye', 14, '-'), 'hello-this-is-');
+		assert.strictEqual(truncateSentence('hello.. this is test', 20, '.'), 'hello.. this is test');
+		assert.strictEqual(truncateSentence('abc. def. ghi.', 6, '.'), 'abc. def.');
+		assert.strictEqual(truncateSentence('abc. def. ghi.', 20, '.'), 'abc. def. ghi.');
+		assert.strictEqual(truncateSentence('hello.. this is test', 21, '.'), 'hello.. this is test');
+		assert.strictEqual(truncateSentence('hello.. this is test', 19, '.'), 'hello.. this is test');
+		assert.strictEqual(
+			truncateSentence('hello-this-is-test-string-bye', 14, '-'),
+			'hello-this-is-'
+		);
 
 		// The default covers the full stop as every script writes it.
 		assert.strictEqual(
-			truncateExpect('안녕하세요。반갑습니다。좋은 하루。', 8),
+			truncateSentence('안녕하세요。반갑습니다。좋은 하루。', 8),
 			'안녕하세요。반갑습니다。'
 		);
 		assert.strictEqual(
-			truncateExpect('これはテストです。よろしくお願いします。さようなら。', 10),
+			truncateSentence('これはテストです。よろしくお願いします。さようなら。', 10),
 			'これはテストです。よろしくお願いします。'
 		);
-		assert.strictEqual(truncateExpect('你好。这是测试。再见。', 5), '你好。这是测试。');
-		assert.strictEqual(truncateExpect('テストです｡もう一度｡', 4), 'テストです｡');
-		assert.strictEqual(truncateExpect('ａｂ．ｃｄ．ｅｆ．', 3), 'ａｂ．');
-		assert.strictEqual(truncateExpect('hello. こんにちは。bye.', 8), 'hello. こんにちは。');
+		assert.strictEqual(truncateSentence('你好。这是测试。再见。', 5), '你好。这是测试。');
+		assert.strictEqual(truncateSentence('テストです｡もう一度｡', 4), 'テストです｡');
+		assert.strictEqual(truncateSentence('ａｂ．ｃｄ．ｅｆ．', 3), 'ａｂ．');
+		assert.strictEqual(truncateSentence('hello. こんにちは。bye.', 8), 'hello. こんにちは。');
 
 		// An explicit ending character still means only that one.
-		assert.strictEqual(truncateExpect('안녕。하세요。반가워.', 3, '.'), '안녕。하세요。반가워.');
+		assert.strictEqual(truncateSentence('안녕。하세요。반가워.', 3, '.'), '안녕。하세요。반가워.');
 
 		// An array accepts several at once, and the longest one is matched first.
-		assert.strictEqual(truncateExpect('a. b! c? d.', 4, ['.', '!', '?']), 'a. b!');
-		assert.strictEqual(truncateExpect('a...b.c', 2, ['.', '...']), 'a...');
-		assert.strictEqual(truncateExpect('hello. this is test', 3, []), 'hello. this is test');
+		assert.strictEqual(truncateSentence('a. b! c? d.', 4, ['.', '!', '?']), 'a. b!');
+		assert.strictEqual(truncateSentence('a...b.c', 2, ['.', '...']), 'a...');
+		assert.strictEqual(truncateSentence('hello. this is test', 3, []), 'hello. this is test');
 
 		// The expected length is counted in code points, so an astral character is one.
 		assert.strictEqual(
-			truncateExpect('\u{1F44B}\u{1F44B}.ab.cd.', 5, '.'),
+			truncateSentence('\u{1F44B}\u{1F44B}.ab.cd.', 5, '.'),
 			'\u{1F44B}\u{1F44B}.ab.'
 		);
 	});
@@ -207,93 +210,100 @@ st`),
 		assert.strictEqual(strUnique('abc--11111'), 'abc-1');
 	});
 
-	it('strToAscii', () => {
+	it('strToCharCodes', () => {
 		assert.deepStrictEqual(
-			strToAscii('hello-world.'),
+			strToCharCodes('hello-world.'),
 			[104, 101, 108, 108, 111, 45, 119, 111, 114, 108, 100, 46]
 		);
-		assert.deepStrictEqual(strToAscii('1 2 3 4 5'), [49, 32, 50, 32, 51, 32, 52, 32, 53]);
+		assert.deepStrictEqual(strToCharCodes('1 2 3 4 5'), [49, 32, 50, 32, 51, 32, 52, 32, 53]);
 	});
 
-	it('urlJoin', () => {
-		assert.strictEqual(urlJoin('https://example.com'), 'https://example.com');
-		assert.strictEqual(urlJoin('https://example.com', null, 'world/'), 'https://example.com/world');
-		assert.strictEqual(urlJoin(null, 'https://example.com', 'world/'), 'https://example.com/world');
+	it('joinUrl', () => {
+		assert.strictEqual(joinUrl('https://example.com'), 'https://example.com');
+		assert.strictEqual(joinUrl('https://example.com', null, 'world/'), 'https://example.com/world');
+		assert.strictEqual(joinUrl(null, 'https://example.com', 'world/'), 'https://example.com/world');
 		assert.strictEqual(
-			urlJoin('https://example.com', 'hello', '#fragment'),
+			joinUrl('https://example.com', 'hello', '#fragment'),
 			'https://example.com/hello/#fragment'
 		);
 		assert.strictEqual(
-			urlJoin('https://example.com', 'hello', 'world'),
+			joinUrl('https://example.com', 'hello', 'world'),
 			'https://example.com/hello/world'
 		);
 		assert.strictEqual(
-			urlJoin('https://example.com', '/hello', '/world', 'bye'),
+			joinUrl('https://example.com', '/hello', '/world', 'bye'),
 			'https://example.com/hello/world/bye'
 		);
 		assert.strictEqual(
-			urlJoin('https://example.com', '/hello', '/world', '?text=bye&a=b'),
+			joinUrl('https://example.com', '/hello', '/world', '?text=bye&a=b'),
 			'https://example.com/hello/world?text=bye&a=b'
 		);
 		assert.strictEqual(
-			urlJoin('example.com', '/hello', '/world', 'bye'),
+			joinUrl('example.com', '/hello', '/world', 'bye'),
 			'example.com/hello/world/bye'
 		);
-		assert.strictEqual(urlJoin('hello', '/world', 'bye'), 'hello/world/bye');
+		assert.strictEqual(joinUrl('hello', '/world', 'bye'), 'hello/world/bye');
 	});
 
-	it('getStrBytes', () => {
-		assert.strictEqual(getStrBytes(''), 0);
-		assert.strictEqual(getStrBytes('abcde'), 5);
-		assert.strictEqual(getStrBytes('a1b2c3 d4e5f6'), 13);
-		assert.strictEqual(getStrBytes('ㄱㄴㄷ'), 9);
-		assert.strictEqual(getStrBytes('가나다123'), 12);
-		assert.strictEqual(getStrBytes('😀😀😀'), 12);
-		assert.strictEqual(getStrBytes('😀'), 4);
-		assert.strictEqual(getStrBytes('123 ABcd 가나다😀'), 22);
+	it('strByteLength', () => {
+		assert.strictEqual(strByteLength(''), 0);
+		assert.strictEqual(strByteLength('abcde'), 5);
+		assert.strictEqual(strByteLength('a1b2c3 d4e5f6'), 13);
+		assert.strictEqual(strByteLength('ㄱㄴㄷ'), 9);
+		assert.strictEqual(strByteLength('가나다123'), 12);
+		assert.strictEqual(strByteLength('😀😀😀'), 12);
+		assert.strictEqual(strByteLength('😀'), 4);
+		assert.strictEqual(strByteLength('123 ABcd 가나다😀'), 22);
 	});
 
-	it('getGroupKeys', () => {
-		assert.deepStrictEqual(getGroupKeys('', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('{', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('{  }', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('{  }', '{', '}', true), ['  ']);
-		assert.deepStrictEqual(getGroupKeys('}{}', '{', '}'), ['']);
-		assert.deepStrictEqual(getGroupKeys('{a}', '{', '}'), ['a']);
-		assert.deepStrictEqual(getGroupKeys('{a-b_c$d$}', '{', '}'), ['a-b_c$d$']);
-		assert.deepStrictEqual(getGroupKeys('{a-b_ c$d$}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('{a] [b} [c] {d}', '{', ']'), ['a']);
-		assert.deepStrictEqual(getGroupKeys('{{a}}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('{{a}}', '{{', '}}'), ['a']);
-		assert.deepStrictEqual(getGroupKeys('{{aaa}} {bbb}', '{', '}'), ['bbb']);
-		assert.deepStrictEqual(getGroupKeys('{a{a{a}}}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('{a{a{a} }}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('{a}}}}}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('{{{a}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('{{}{{}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('{{aaa}} {{bbb}} {{}}', '{{', '}}'), ['aaa', 'bbb', '']);
-		assert.deepStrictEqual(getGroupKeys('abc {def} ghi', '{', '}'), ['def']);
-		assert.deepStrictEqual(getGroupKeys('abc {def}{def} ghi\n\n{def}{{def}}', '{', '}'), [
+	it('getPlaceholderKeys', () => {
+		assert.deepStrictEqual(getPlaceholderKeys('', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('{', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('{  }', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('{  }', '{', '}', true), ['  ']);
+		assert.deepStrictEqual(getPlaceholderKeys('}{}', '{', '}'), ['']);
+		assert.deepStrictEqual(getPlaceholderKeys('{a}', '{', '}'), ['a']);
+		assert.deepStrictEqual(getPlaceholderKeys('{a-b_c$d$}', '{', '}'), ['a-b_c$d$']);
+		assert.deepStrictEqual(getPlaceholderKeys('{a-b_ c$d$}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('{a] [b} [c] {d}', '{', ']'), ['a']);
+		assert.deepStrictEqual(getPlaceholderKeys('{{a}}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('{{a}}', '{{', '}}'), ['a']);
+		assert.deepStrictEqual(getPlaceholderKeys('{{aaa}} {bbb}', '{', '}'), ['bbb']);
+		assert.deepStrictEqual(getPlaceholderKeys('{a{a{a}}}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('{a{a{a} }}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('{a}}}}}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('{{{a}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('{{}{{}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('{{aaa}} {{bbb}} {{}}', '{{', '}}'), [
+			'aaa',
+			'bbb',
+			''
+		]);
+		assert.deepStrictEqual(getPlaceholderKeys('abc {def} ghi', '{', '}'), ['def']);
+		assert.deepStrictEqual(getPlaceholderKeys('abc {def}{def} ghi\n\n{def}{{def}}', '{', '}'), [
 			'def',
 			'def',
 			'def'
 		]);
-		assert.deepStrictEqual(getGroupKeys('abc {} {} {def} ghi', '{', '}'), ['', '', 'def']);
-		assert.deepStrictEqual(getGroupKeys('abc {def}{g}{hi}jk', '{', '}'), ['def', 'g', 'hi']);
-		assert.deepStrictEqual(getGroupKeys('abc \\{def} {ghi\\}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('abc \\{def}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('abc {d{ef}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('abc {{def}}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('abcdefghi', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('abc[def][ghi] [] [] []', '[', ']'), [
+		assert.deepStrictEqual(getPlaceholderKeys('abc {} {} {def} ghi', '{', '}'), ['', '', 'def']);
+		assert.deepStrictEqual(getPlaceholderKeys('abc {def}{g}{hi}jk', '{', '}'), ['def', 'g', 'hi']);
+		assert.deepStrictEqual(getPlaceholderKeys('abc \\{def} {ghi\\}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('abc \\{def}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('abc {d{ef}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('abc {{def}}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('abcdefghi', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('abc[def][ghi] [] [] []', '[', ']'), [
 			'def',
 			'ghi',
 			'',
 			'',
 			''
 		]);
-		assert.deepStrictEqual(getGroupKeys('abc {d\nef}', '{', '}'), []);
-		assert.deepStrictEqual(getGroupKeys('abc {def}\n\n{ghi}\n\n{a\n}', '{', '}'), ['def', 'ghi']);
+		assert.deepStrictEqual(getPlaceholderKeys('abc {d\nef}', '{', '}'), []);
+		assert.deepStrictEqual(getPlaceholderKeys('abc {def}\n\n{ghi}\n\n{a\n}', '{', '}'), [
+			'def',
+			'ghi'
+		]);
 	});
 
 	it('strToCamelCase', () => {
@@ -416,16 +426,16 @@ st`),
 		assert.strictEqual(deburr('Ti\u1ebfng Vi\u1ec7t'), 'Ti\u1ebfng Vi\u1ec7t');
 	});
 
-	it('detectLanguage', () => {
+	it('detectLanguages', () => {
 		const only = (language: string) => [{ language, ratio: 1 }];
 
 		// Nothing to count: no input, or no letter of a script the function knows.
-		assert.deepStrictEqual(detectLanguage(''), []);
-		assert.deepStrictEqual(detectLanguage(null), []);
-		assert.deepStrictEqual(detectLanguage('   '), []);
-		assert.deepStrictEqual(detectLanguage('12345'), []);
-		assert.deepStrictEqual(detectLanguage('!!! ???'), []);
-		assert.deepStrictEqual(detectLanguage('\u{1f389}'), []);
+		assert.deepStrictEqual(detectLanguages(''), []);
+		assert.deepStrictEqual(detectLanguages(null), []);
+		assert.deepStrictEqual(detectLanguages('   '), []);
+		assert.deepStrictEqual(detectLanguages('12345'), []);
+		assert.deepStrictEqual(detectLanguages('!!! ???'), []);
+		assert.deepStrictEqual(detectLanguages('\u{1f389}'), []);
 
 		// A script only one language writes names that language.
 		const scripts: [string, string][] = [
@@ -458,7 +468,7 @@ st`),
 		];
 
 		for (const [text, language] of scripts) {
-			assert.deepStrictEqual(detectLanguage(text), only(language), text);
+			assert.deepStrictEqual(detectLanguages(text), only(language), text);
 		}
 
 		// Languages that share a script are told apart by their common words and letters.
@@ -494,7 +504,7 @@ st`),
 		];
 
 		for (const [text, language] of sentences) {
-			assert.deepStrictEqual(detectLanguage(text), only(language), text);
+			assert.deepStrictEqual(detectLanguages(text), only(language), text);
 		}
 
 		// A single word is enough when it belongs to one language.
@@ -529,16 +539,16 @@ st`),
 		];
 
 		for (const [text, language] of greetings) {
-			assert.deepStrictEqual(detectLanguage(text), only(language), text);
+			assert.deepStrictEqual(detectLanguages(text), only(language), text);
 		}
 
 		// Endings and runs of letters speak for words that are on no list: `watched` and `night`
 		// outweigh `we` and `die`, which Dutch shares, and `naj-` and `sj` tell Slovak from Czech
 		// and Norwegian from Danish.
-		assert.deepStrictEqual(detectLanguage('We watched Die Hard last night.'), only('en'));
-		assert.deepStrictEqual(detectLanguage('Kde je najbližšia stanica?'), only('sk'));
+		assert.deepStrictEqual(detectLanguages('We watched Die Hard last night.'), only('en'));
+		assert.deepStrictEqual(detectLanguages('Kde je najbližšia stanica?'), only('sk'));
 		assert.deepStrictEqual(
-			detectLanguage('Jeg har jobbet med dette prosjektet i tre måneder.'),
+			detectLanguages('Jeg har jobbet med dette prosjektet i tre måneder.'),
 			only('no')
 		);
 
@@ -554,93 +564,93 @@ st`),
 		];
 
 		for (const [text, language] of pairs) {
-			assert.deepStrictEqual(detectLanguage(text), only(language), text);
+			assert.deepStrictEqual(detectLanguages(text), only(language), text);
 		}
 
 		// With nothing to go by, a script falls back to its first language.
-		assert.deepStrictEqual(detectLanguage('getUserName'), only('en'));
-		assert.deepStrictEqual(detectLanguage('a'), only('en'));
-		assert.deepStrictEqual(detectLanguage('Иван'), only('ru'));
-		assert.deepStrictEqual(detectLanguage('محمد'), only('ar'));
+		assert.deepStrictEqual(detectLanguages('getUserName'), only('en'));
+		assert.deepStrictEqual(detectLanguages('a'), only('en'));
+		assert.deepStrictEqual(detectLanguages('Иван'), only('ru'));
+		assert.deepStrictEqual(detectLanguages('محمد'), only('ar'));
 
 		// Han characters follow the kana or Hangul of their sentence, and are Chinese without.
-		assert.deepStrictEqual(detectLanguage('東京に行きます'), only('ja'));
-		assert.deepStrictEqual(detectLanguage('北京'), only('zh'));
-		assert.deepStrictEqual(detectLanguage('대한민국(大韓民國)'), only('ko'));
-		assert.deepStrictEqual(detectLanguage('東京に住んでいます。北京是中国的首都。'), [
+		assert.deepStrictEqual(detectLanguages('東京に行きます'), only('ja'));
+		assert.deepStrictEqual(detectLanguages('北京'), only('zh'));
+		assert.deepStrictEqual(detectLanguages('대한민국(大韓民國)'), only('ko'));
+		assert.deepStrictEqual(detectLanguages('東京に住んでいます。北京是中国的首都。'), [
 			{ language: 'ja', ratio: 9 / 17 },
 			{ language: 'zh', ratio: 8 / 17 }
 		]);
-		assert.deepStrictEqual(detectLanguage('도쿄는 東京です。'), [
+		assert.deepStrictEqual(detectLanguages('도쿄는 東京です。'), [
 			{ language: 'ja', ratio: 4 / 7 },
 			{ language: 'ko', ratio: 3 / 7 }
 		]);
 
 		// The ratio counts letters only, and a tie goes to the language that appears first.
-		assert.deepStrictEqual(detectLanguage('안녕 Hello'), [
+		assert.deepStrictEqual(detectLanguages('안녕 Hello'), [
 			{ language: 'en', ratio: 5 / 7 },
 			{ language: 'ko', ratio: 2 / 7 }
 		]);
-		assert.deepStrictEqual(detectLanguage('안녕하세요 Hello'), [
+		assert.deepStrictEqual(detectLanguages('안녕하세요 Hello'), [
 			{ language: 'ko', ratio: 0.5 },
 			{ language: 'en', ratio: 0.5 }
 		]);
-		assert.deepStrictEqual(detectLanguage('Hello 안녕하세요'), [
+		assert.deepStrictEqual(detectLanguages('Hello 안녕하세요'), [
 			{ language: 'en', ratio: 0.5 },
 			{ language: 'ko', ratio: 0.5 }
 		]);
-		assert.deepStrictEqual(detectLanguage('오늘 회의는 Zoom으로 진행합니다.'), [
+		assert.deepStrictEqual(detectLanguages('오늘 회의는 Zoom으로 진행합니다.'), [
 			{ language: 'ko', ratio: 0.75 },
 			{ language: 'en', ratio: 0.25 }
 		]);
-		assert.deepStrictEqual(detectLanguage('abc 123 !!! 가나'), [
+		assert.deepStrictEqual(detectLanguages('abc 123 !!! 가나'), [
 			{ language: 'en', ratio: 0.6 },
 			{ language: 'ko', ratio: 0.4 }
 		]);
 		// The vowel signs of `नमस्ते` are combining marks, so it counts as four letters.
-		assert.deepStrictEqual(detectLanguage('नमस्ते abcd'), [
+		assert.deepStrictEqual(detectLanguages('नमस्ते abcd'), [
 			{ language: 'hi', ratio: 0.5 },
 			{ language: 'en', ratio: 0.5 }
 		]);
 		// Counted in code points, so a character outside the Basic Multilingual Plane is one.
-		assert.deepStrictEqual(detectLanguage('\u{20000}\u{20001} a'), [
+		assert.deepStrictEqual(detectLanguages('\u{20000}\u{20001} a'), [
 			{ language: 'zh', ratio: 2 / 3 },
 			{ language: 'en', ratio: 1 / 3 }
 		]);
 
 		// Each sentence is judged on its own.
-		assert.deepStrictEqual(detectLanguage("I live in Paris. C'est la vie."), [
+		assert.deepStrictEqual(detectLanguages("I live in Paris. C'est la vie."), [
 			{ language: 'en', ratio: 12 / 21 },
 			{ language: 'fr', ratio: 9 / 21 }
 		]);
-		assert.deepStrictEqual(detectLanguage('Das ist gut. This is good.'), [
+		assert.deepStrictEqual(detectLanguages('Das ist gut. This is good.'), [
 			{ language: 'en', ratio: 10 / 19 },
 			{ language: 'de', ratio: 9 / 19 }
 		]);
 		// A sentence too short to decide takes the language of the rest of the text, and one
 		// shared word does not move a sentence into another language.
-		assert.deepStrictEqual(detectLanguage('Hello. Bonjour le monde, comment ça va ?'), only('fr'));
+		assert.deepStrictEqual(detectLanguages('Hello. Bonjour le monde, comment ça va ?'), only('fr'));
 		assert.deepStrictEqual(
-			detectLanguage('We watched Die Hard last night and it was great.'),
+			detectLanguages('We watched Die Hard last night and it was great.'),
 			only('en')
 		);
 
 		// Case, decomposed accents and Arabic vowel marks do not hide a word.
-		assert.deepStrictEqual(detectLanguage('DAS IST GUT'), only('de'));
-		assert.deepStrictEqual(detectLanguage("İstanbul'da hava çok güzel."), only('tr'));
+		assert.deepStrictEqual(detectLanguages('DAS IST GUT'), only('de'));
+		assert.deepStrictEqual(detectLanguages("İstanbul'da hava çok güzel."), only('tr'));
 		assert.deepStrictEqual(
-			detectLanguage("Cafe\u0301 au lait, s'il vous plai\u0302t."),
+			detectLanguages("Cafe\u0301 au lait, s'il vous plai\u0302t."),
 			only('fr')
 		);
 		assert.deepStrictEqual(
-			detectLanguage('Tie\u0302\u0301ng Vie\u0323\u0302t ra\u0302\u0301t hay.'),
+			detectLanguages('Tie\u0302\u0301ng Vie\u0323\u0302t ra\u0302\u0301t hay.'),
 			only('vi')
 		);
-		assert.deepStrictEqual(detectLanguage('مِنْ فِي'), only('ar'));
-		assert.deepStrictEqual(detectLanguage('Ｈｅｌｌｏ'), only('en'));
+		assert.deepStrictEqual(detectLanguages('مِنْ فِي'), only('ar'));
+		assert.deepStrictEqual(detectLanguages('Ｈｅｌｌｏ'), only('en'));
 
 		// The ratios add up to 1 and run from the largest to the smallest.
-		const mixed = detectLanguage(
+		const mixed = detectLanguages(
 			'This is a test. 안녕하세요. こんにちは。你好。Bonjour tout le monde, je suis là. Привет!'
 		);
 

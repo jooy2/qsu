@@ -1,17 +1,17 @@
 import { mkdir, stat } from 'node:fs/promises';
 
-export async function createDirectory(filePath: string, recursive = true): Promise<void> {
+export async function createDirectory(directoryPath: string, recursive = true): Promise<void> {
 	if (recursive) {
 		// `mkdir` with `recursive` is already a no-op for an existing directory,
 		// so the `stat` that used to guard this call was a wasted system call.
 		// It also reported success when a *file* sat at the path, because the
 		// guard only asked whether something was there.
-		await mkdir(filePath, { recursive: true });
+		await mkdir(directoryPath, { recursive: true });
 		return;
 	}
 
 	try {
-		await mkdir(filePath);
+		await mkdir(directoryPath);
 	} catch (err) {
 		if ((err as NodeJS.ErrnoException)?.code !== 'EEXIST') {
 			throw err;
@@ -19,7 +19,7 @@ export async function createDirectory(filePath: string, recursive = true): Promi
 
 		// An existing directory stays a no-op. Anything else in the way is an
 		// error the caller needs to see.
-		const fileItem = await stat(filePath);
+		const fileItem = await stat(directoryPath);
 
 		if (!fileItem.isDirectory()) {
 			throw err;

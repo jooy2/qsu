@@ -1,5 +1,5 @@
 import { freemem, totalmem } from 'node:os';
-import { round } from '../../math/round.js';
+import { numRound } from '../../math/numRound.js';
 
 export function getRamUsage(decimals = 1): number {
 	const total = totalmem();
@@ -8,5 +8,5 @@ export function getRamUsage(decimals = 1): number {
 		return 0;
 	}
 
-	return round((Math.max(total - freemem(), 0) / total) * 100, decimals);
+	return numRound((Math.max(total - freemem(), 0) / total) * 100, decimals);
 }

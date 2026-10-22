@@ -7,7 +7,7 @@ import { after, before, describe, it } from 'node:test';
 import {
 	getArch,
 	getBootTime,
-	getCpu,
+	getCpuModel,
 	getCpuCount,
 	getDiskSize,
 	getDiskUsage,
@@ -16,7 +16,7 @@ import {
 	getFreeDiskSize,
 	getFreeRamSize,
 	getHomeDir,
-	getHostname,
+	getComputerName,
 	getKernelVersion,
 	getMachineId,
 	getCpuSpeed,
@@ -31,10 +31,10 @@ import {
 	getSid,
 	getSystemUptime,
 	getTempDir,
-	getUptime,
+	getProcessUptime,
 	getUsedRamSize,
 	getUsername,
-	getProcessMemoryUsage,
+	getProcessRamSize,
 	getTimezone,
 	runCommand
 } from '../dist/node';
@@ -71,8 +71,8 @@ describe('OS', () => {
 		assert.strictEqual(await runCommand('sort'), '');
 	});
 
-	it('getCpu', () => {
-		const cpuName = getCpu();
+	it('getCpuModel', () => {
+		const cpuName = getCpuModel();
 
 		assert.strictEqual(cpuName.length > 0, true);
 		assert.match(cpuName, /[a-zA-Z0-9]+/);
@@ -83,8 +83,8 @@ describe('OS', () => {
 		assert.doesNotMatch(cpuName, /^(arm|arm64|aarch64|x86|x86_64|amd64|i[3-6]86)$/i);
 	});
 
-	it('getHostname', async () => {
-		const hostname = await getHostname();
+	it('getComputerName', async () => {
+		const hostname = await getComputerName();
 
 		assert.strictEqual(hostname.length > 0, true);
 		assert.match(hostname, /[a-zA-Z0-9]+/);
@@ -142,11 +142,11 @@ describe('OS', () => {
 		assert.match(sidResult, /^S-1-[0-59]-\d{2}-\d{8,10}-\d{8,10}-\d{8,10}-[1-9]\d{1,9}/);
 	});
 
-	it('getUptime', () => {
-		assert.strictEqual(typeof getUptime() === 'number', true);
-		assert.strictEqual(typeof getUptime({ format: true }) === 'string', true);
-		assert.strictEqual(getUptime({ floor: true }).toString().indexOf('.') === -1, true);
-		assert.strictEqual((getUptime() as number) >= 0, true);
+	it('getProcessUptime', () => {
+		assert.strictEqual(typeof getProcessUptime() === 'number', true);
+		assert.strictEqual(typeof getProcessUptime({ format: true }) === 'string', true);
+		assert.strictEqual(getProcessUptime({ floor: true }).toString().indexOf('.') === -1, true);
+		assert.strictEqual((getProcessUptime() as number) >= 0, true);
 	});
 
 	it('getFreeRamSize', () => {
@@ -209,7 +209,7 @@ describe('OS', () => {
 		assert.strictEqual(typeof seconds === 'number', true);
 		assert.strictEqual(seconds > 0, true);
 		// The machine has been running at least as long as this process has.
-		assert.strictEqual(seconds >= (getUptime() as number), true);
+		assert.strictEqual(seconds >= (getProcessUptime() as number), true);
 		assert.strictEqual(typeof getSystemUptime({ format: true }) === 'string', true);
 		assert.strictEqual(getSystemUptime({ floor: true }).toString().indexOf('.') === -1, true);
 	});
@@ -306,8 +306,8 @@ describe('OS', () => {
 		}
 	});
 
-	it('getProcessMemoryUsage', () => {
-		const size = getProcessMemoryUsage();
+	it('getProcessRamSize', () => {
+		const size = getProcessRamSize();
 
 		assert.match(size, /^\d+ [A-Z]+$/);
 		assert.notEqual(size, '0 B');

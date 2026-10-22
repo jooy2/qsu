@@ -1,12 +1,12 @@
-import type { PositiveNumber } from '../_types/global.js';
-import { isObject } from '../verify/isObject.js';
+import type { NonNegativeNumber } from '../_types/global.js';
+import { isPlainObject } from '../verify/isPlainObject.js';
 
-export function arrRepeat<N extends number>(array: any, count: PositiveNumber<N>): any[] {
+export function arrRepeat<N extends number>(array: any, count: NonNegativeNumber<N>): any[] {
 	if (!array || count < 1 || typeof array !== 'object') {
 		return [];
 	}
 
-	const isObj = isObject(array);
+	const isObj = isPlainObject(array);
 	const result: any[] = [];
 
 	for (let i = 0, iLen = count; i < iLen; i += 1) {

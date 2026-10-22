@@ -2,29 +2,29 @@ import assert from 'assert';
 import { after, before, describe, it } from 'node:test';
 import {
 	createDirectory,
-	createFile,
-	createFileWithDummy,
-	deleteAllFileFromDirectory,
-	deleteFile,
+	touchFile,
+	createFileOfSize,
+	emptyDirectory,
+	deletePath,
 	getCopyFileName,
 	getFileExtension,
 	getFileHashFromPath,
 	getFileHashFromStream,
 	getFileInfo,
 	getFileName,
-	getFilePathLevel,
+	getFilePathDepth,
 	getFileSize,
 	getParentFilePath,
 	headFile,
-	isFileExists,
+	isExistingPath,
 	isFileHidden,
 	isValidFileName,
 	joinFilePath,
 	moveFile,
-	normalizeFile,
+	normalizeFilePathUnicode,
 	tailFile,
 	toPosixFilePath,
-	toValidFilePath
+	normalizeFilePath
 } from '../dist/node';
 import {
 	createReadStream,
@@ -56,32 +56,32 @@ describe('File', () => {
 		}
 	});
 
-	it('isFileExists', async () => {
-		assert.strictEqual(await isFileExists(`${TARGET_PATH}/hello.md`), true);
-		assert.strictEqual(await isFileExists(`${TARGET_PATH}`), true);
-		assert.strictEqual(await isFileExists(`${TARGET_PATH}/MV_TEST.txt`), true);
-		assert.strictEqual(await isFileExists(`${TARGET_PATH}/not-exists.txt`), false);
+	it('isExistingPath', async () => {
+		assert.strictEqual(await isExistingPath(`${TARGET_PATH}/hello.md`), true);
+		assert.strictEqual(await isExistingPath(`${TARGET_PATH}`), true);
+		assert.strictEqual(await isExistingPath(`${TARGET_PATH}/MV_TEST.txt`), true);
+		assert.strictEqual(await isExistingPath(`${TARGET_PATH}/not-exists.txt`), false);
 	});
 
-	it('toValidFilePath', () => {
-		assert.strictEqual(toValidFilePath('home'), '/home');
-		assert.strictEqual(toValidFilePath('/home//test/'), '/home/test');
-		assert.strictEqual(toValidFilePath('home/test/.conf'), '/home/test/.conf');
-		assert.strictEqual(toValidFilePath('/'), '/');
-		assert.strictEqual(toValidFilePath(''), '/');
-		assert.strictEqual(toValidFilePath('', true), '\\');
-		assert.strictEqual(toValidFilePath('\\', true), '\\');
-		assert.strictEqual(toValidFilePath('\\Users', true), '\\Users');
-		assert.strictEqual(toValidFilePath('\\\\net\\work', true), '\\\\net\\work');
+	it('normalizeFilePath', () => {
+		assert.strictEqual(normalizeFilePath('home'), '/home');
+		assert.strictEqual(normalizeFilePath('/home//test/'), '/home/test');
+		assert.strictEqual(normalizeFilePath('home/test/.conf'), '/home/test/.conf');
+		assert.strictEqual(normalizeFilePath('/'), '/');
+		assert.strictEqual(normalizeFilePath(''), '/');
+		assert.strictEqual(normalizeFilePath('', true), '\\');
+		assert.strictEqual(normalizeFilePath('\\', true), '\\');
+		assert.strictEqual(normalizeFilePath('\\Users', true), '\\Users');
+		assert.strictEqual(normalizeFilePath('\\\\net\\work', true), '\\\\net\\work');
 		assert.strictEqual(
-			toValidFilePath('\\\\net\\work\\\\file.json', true),
+			normalizeFilePath('\\\\net\\work\\\\file.json', true),
 			'\\\\net\\work\\file.json'
 		);
-		assert.strictEqual(toValidFilePath('C:', true), 'C:\\');
-		assert.strictEqual(toValidFilePath('C:\\Users\\', true), 'C:\\Users');
-		assert.strictEqual(toValidFilePath('C:\\\\\\Users\\test\\', true), 'C:\\Users\\test');
-		assert.strictEqual(toValidFilePath('\\Users\\test\\.config', true), '\\Users\\test\\.config');
-		assert.strictEqual(toValidFilePath('Users\\test\\.config', true), '\\Users\\test\\.config');
+		assert.strictEqual(normalizeFilePath('C:', true), 'C:\\');
+		assert.strictEqual(normalizeFilePath('C:\\Users\\', true), 'C:\\Users');
+		assert.strictEqual(normalizeFilePath('C:\\\\\\Users\\test\\', true), 'C:\\Users\\test');
+		assert.strictEqual(normalizeFilePath('\\Users\\test\\.config', true), '\\Users\\test\\.config');
+		assert.strictEqual(normalizeFilePath('Users\\test\\.config', true), '\\Users\\test\\.config');
 	});
 
 	it('joinFilePath', () => {
@@ -163,14 +163,14 @@ describe('File', () => {
 		);
 	});
 
-	it('getFilePathLevel', () => {
-		assert.strictEqual(getFilePathLevel('C:'), 1);
-		assert.strictEqual(getFilePathLevel('C:\\'), 1);
-		assert.strictEqual(getFilePathLevel('C:\\Windows\\System32'), 3);
-		assert.strictEqual(getFilePathLevel(LONG_PATH), 7);
-		assert.strictEqual(getFilePathLevel('/'), 1);
-		assert.strictEqual(getFilePathLevel('/home/user'), 3);
-		assert.strictEqual(getFilePathLevel('/home/user/.ssh/test file.txt'), 5);
+	it('getFilePathDepth', () => {
+		assert.strictEqual(getFilePathDepth('C:'), 1);
+		assert.strictEqual(getFilePathDepth('C:\\'), 1);
+		assert.strictEqual(getFilePathDepth('C:\\Windows\\System32'), 3);
+		assert.strictEqual(getFilePathDepth(LONG_PATH), 7);
+		assert.strictEqual(getFilePathDepth('/'), 1);
+		assert.strictEqual(getFilePathDepth('/home/user'), 3);
+		assert.strictEqual(getFilePathDepth('/home/user/.ssh/test file.txt'), 5);
 	});
 
 	it('getParentFilePath', () => {
@@ -199,18 +199,18 @@ describe('File', () => {
 
 	it('isValidFileName', () => {
 		assert.strictEqual(isValidFileName('System32'), true);
-		assert.strictEqual(isValidFileName('.example', true), true);
+		assert.strictEqual(isValidFileName('.example', false), true);
 		// The ':' lives in the extension; the whole name is validated.
-		assert.strictEqual(isValidFileName('hello.:txt', true), false);
+		assert.strictEqual(isValidFileName('hello.:txt', false), false);
 		assert.strictEqual(isValidFileName('C:\\Windows\\System32'), true);
 		assert.strictEqual(isValidFileName('C:\\Users\\test\\Desktop\\hello.txt'), true);
 		assert.strictEqual(isValidFileName('C:\\Users\\test\\Desktop\\hello*'), false);
 		assert.strictEqual(isValidFileName('C:\\Users\\test\\Desktop\\hello!@#$%^&*()_+-:='), false);
-		assert.strictEqual(isValidFileName('hello!@#$%^&*()_+-:=', true), false);
-		assert.strictEqual(isValidFileName('/home/test/Desktop/test/.example', true), true);
-		assert.strictEqual(isValidFileName('/home/test/Desktop/test/text.txt', true), true);
-		assert.strictEqual(isValidFileName('/home/test/Desktop/test/hi!@#$%^&*()_+-=', true), true);
-		assert.strictEqual(isValidFileName('/home/test/Desktop/test/*hi', true), true);
+		assert.strictEqual(isValidFileName('hello!@#$%^&*()_+-:=', false), false);
+		assert.strictEqual(isValidFileName('/home/test/Desktop/test/.example', false), true);
+		assert.strictEqual(isValidFileName('/home/test/Desktop/test/text.txt', false), true);
+		assert.strictEqual(isValidFileName('/home/test/Desktop/test/hi!@#$%^&*()_+-=', false), true);
+		assert.strictEqual(isValidFileName('/home/test/Desktop/test/*hi', false), true);
 		assert.strictEqual(
 			isValidFileName(
 				'/home/test/Desktop/test/0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345'
@@ -220,7 +220,7 @@ describe('File', () => {
 		assert.strictEqual(
 			isValidFileName(
 				'/home/test/Desktop/test/012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234',
-				true
+				false
 			),
 			true
 		); // 255
@@ -301,12 +301,12 @@ describe('File', () => {
 		assert.strictEqual(getFileName('test'), 'test');
 	});
 
-	it('normalizeFile', async () => {
+	it('normalizeFilePathUnicode', async () => {
 		const NFD = '안녕하세요_12345-ABCDE'.normalize('NFD'); // macOS
 		const NFC = '안녕하세요_12345-ABCDE'.normalize('NFC'); // Windows
 
-		assert.strictEqual(await normalizeFile(NFD, 'NFC'), NFC);
-		assert.strictEqual(await normalizeFile(NFC, 'NFD'), NFD);
+		assert.strictEqual(await normalizeFilePathUnicode(NFD, 'NFC'), NFC);
+		assert.strictEqual(await normalizeFilePathUnicode(NFC, 'NFD'), NFD);
 	});
 
 	it('getFileInfo', async () => {
@@ -336,39 +336,39 @@ describe('File', () => {
 		await createDirectory(`${TARGET_PATH}/abc`);
 		await createDirectory(`${TARGET_PATH}/abc/def`);
 
-		assert.strictEqual(await isFileExists(`${TARGET_PATH}/abc`), true);
-		assert.strictEqual(await isFileExists(`${TARGET_PATH}/abc/def`), true);
+		assert.strictEqual(await isExistingPath(`${TARGET_PATH}/abc`), true);
+		assert.strictEqual(await isExistingPath(`${TARGET_PATH}/abc/def`), true);
 
-		await deleteFile(`${TARGET_PATH}/abc`);
+		await deletePath(`${TARGET_PATH}/abc`);
 
-		assert.strictEqual(await isFileExists(`${TARGET_PATH}/abc`), false);
-		assert.strictEqual(await isFileExists(`${TARGET_PATH}/abc/def`), false);
+		assert.strictEqual(await isExistingPath(`${TARGET_PATH}/abc`), false);
+		assert.strictEqual(await isExistingPath(`${TARGET_PATH}/abc/def`), false);
 	});
 
-	it('createFile', async () => {
+	it('touchFile', async () => {
 		const testFilePath = `${TARGET_PATH}/__TEST__TOUCH_FILE.txt`;
 
-		await createFile(testFilePath);
+		await touchFile(testFilePath);
 
-		assert.strictEqual(await isFileExists(testFilePath), true);
+		assert.strictEqual(await isExistingPath(testFilePath), true);
 	});
 
-	it('deleteFile', async () => {
+	it('deletePath', async () => {
 		const testFilePath = `${TARGET_PATH}/__TEST__TOUCH_FILE.txt`;
 
-		await deleteFile(testFilePath);
+		await deletePath(testFilePath);
 
-		assert.strictEqual(await isFileExists(testFilePath), false);
+		assert.strictEqual(await isExistingPath(testFilePath), false);
 	});
 
-	it('createFileWithDummy', async () => {
+	it('createFileOfSize', async () => {
 		const dummyFilePath = `${TARGET_PATH}/__TEST__TOUCH_FILE.txt`;
 
-		await createFileWithDummy(dummyFilePath, 100);
+		await createFileOfSize(dummyFilePath, 100);
 
 		const dummyFileStat = await getFileInfo(dummyFilePath);
 
-		await deleteFile(dummyFilePath);
+		await deletePath(dummyFilePath);
 
 		if (dummyFileStat.size !== 100) {
 			assert.fail('Test Failed. Dummy file not created correctly.');
@@ -380,8 +380,8 @@ describe('File', () => {
 		await moveFile(`${TARGET_PATH}/MV_TEST_1.txt`, `${TARGET_PATH}/MV_TEST.txt`);
 	});
 
-	it('deleteAllFileFromDirectory', async () => {
-		await deleteAllFileFromDirectory(`${TARGET_PATH}/EMPTY`);
+	it('emptyDirectory', async () => {
+		await emptyDirectory(`${TARGET_PATH}/EMPTY`);
 	});
 });
 
@@ -473,17 +473,17 @@ describe('File (edge cases)', () => {
 		assert.strictEqual(getFileExtension('파일.한글'), '한글');
 	});
 
-	it('getFilePathLevel - additional path shapes', () => {
-		assert.strictEqual(getFilePathLevel('/a/b'), 3);
-		assert.strictEqual(getFilePathLevel('/a/b/c/d/e'), 6);
+	it('getFilePathDepth - additional path shapes', () => {
+		assert.strictEqual(getFilePathDepth('/a/b'), 3);
+		assert.strictEqual(getFilePathDepth('/a/b/c/d/e'), 6);
 		// A relative path has no leading empty segment, so it counts one lower.
-		assert.strictEqual(getFilePathLevel('a'), 1);
-		assert.strictEqual(getFilePathLevel('.'), 1);
-		assert.strictEqual(getFilePathLevel('./a/b'), 3);
+		assert.strictEqual(getFilePathDepth('a'), 1);
+		assert.strictEqual(getFilePathDepth('.'), 1);
+		assert.strictEqual(getFilePathDepth('./a/b'), 3);
 		// A trailing backslash is stripped before counting.
-		assert.strictEqual(getFilePathLevel('C:\\Windows\\System32\\'), 3);
+		assert.strictEqual(getFilePathDepth('C:\\Windows\\System32\\'), 3);
 		// A UNC prefix collapses to a single separator.
-		assert.strictEqual(getFilePathLevel('\\\\server\\share'), 3);
+		assert.strictEqual(getFilePathDepth('\\\\server\\share'), 3);
 	});
 
 	it('toPosixFilePath - additional path shapes', () => {
@@ -514,21 +514,24 @@ describe('File (edge cases)', () => {
 		assert.strictEqual(isValidFileName('trailing '), false);
 		assert.strictEqual(isValidFileName('trailing.'), false);
 		// Unix keeps them, so they stay valid there.
-		assert.strictEqual(isValidFileName('trailing ', true), true);
-		assert.strictEqual(isValidFileName('trailing.', true), true);
+		assert.strictEqual(isValidFileName('trailing ', false), true);
+		assert.strictEqual(isValidFileName('trailing.', false), true);
 		assert.strictEqual(isValidFileName('한글파일.txt'), true);
-		assert.strictEqual(isValidFileName('한글파일.txt', true), true);
+		assert.strictEqual(isValidFileName('한글파일.txt', false), true);
 		// Unix only rejects ':' and '/', so Windows-reserved chars pass.
-		assert.strictEqual(isValidFileName('a:b', true), false);
-		assert.strictEqual(isValidFileName('a|b', true), true);
-		assert.strictEqual(isValidFileName('a<b>c', true), true);
+		assert.strictEqual(isValidFileName('a:b', false), false);
+		assert.strictEqual(isValidFileName('a|b', false), true);
+		assert.strictEqual(isValidFileName('a<b>c', false), true);
+		// `isWindows` defaults to `true`, so passing it applies the same Windows rules.
+		assert.strictEqual(isValidFileName('a|b', true), false);
+		assert.strictEqual(isValidFileName('a|b'), false);
 		// Windows device names stay reserved even with an extension appended,
 		// but they are only reserved on Windows.
 		assert.strictEqual(isValidFileName('nul.txt'), false);
 		assert.strictEqual(isValidFileName('CON'), false);
 		assert.strictEqual(isValidFileName('com1'), false);
 		assert.strictEqual(isValidFileName('LPT9'), false);
-		assert.strictEqual(isValidFileName('nul.txt', true), true);
+		assert.strictEqual(isValidFileName('nul.txt', false), true);
 		// Near-misses are still valid names.
 		assert.strictEqual(isValidFileName('COM0'), true);
 		assert.strictEqual(isValidFileName('CONSOLE'), true);
@@ -548,31 +551,31 @@ describe('File (edge cases)', () => {
 		assert.strictEqual(getCopyFileName('a.tar.GZ', ['a.tar.GZ']), 'a.tar (1).GZ');
 	});
 
-	it('toValidFilePath - redundant separators', () => {
-		assert.strictEqual(toValidFilePath('/a/b/c'), '/a/b/c');
-		assert.strictEqual(toValidFilePath('a/b/c'), '/a/b/c');
-		assert.strictEqual(toValidFilePath('/a//b///c'), '/a/b/c');
-		assert.strictEqual(toValidFilePath('/a/b/c/'), '/a/b/c');
-		assert.strictEqual(toValidFilePath('/한글/파일'), '/한글/파일');
+	it('normalizeFilePath - redundant separators', () => {
+		assert.strictEqual(normalizeFilePath('/a/b/c'), '/a/b/c');
+		assert.strictEqual(normalizeFilePath('a/b/c'), '/a/b/c');
+		assert.strictEqual(normalizeFilePath('/a//b///c'), '/a/b/c');
+		assert.strictEqual(normalizeFilePath('/a/b/c/'), '/a/b/c');
+		assert.strictEqual(normalizeFilePath('/한글/파일'), '/한글/파일');
 	});
 
-	it('normalizeFile - compatibility forms', () => {
+	it('normalizeFilePathUnicode - compatibility forms', () => {
 		// NFKC/NFKD fold compatibility characters; NFC/NFD do not.
-		assert.strictEqual(normalizeFile('ﬁle', 'NFKC'), 'file');
-		assert.strictEqual(normalizeFile('①', 'NFKC'), '1');
-		assert.strictEqual(normalizeFile('ＡＢ', 'NFKD'), 'AB');
+		assert.strictEqual(normalizeFilePathUnicode('ﬁle', 'NFKC'), 'file');
+		assert.strictEqual(normalizeFilePathUnicode('①', 'NFKC'), '1');
+		assert.strictEqual(normalizeFilePathUnicode('ＡＢ', 'NFKD'), 'AB');
 		// Composed Hangul is one code unit, decomposed is two.
-		assert.strictEqual(normalizeFile('가', 'NFD').length, 2);
-		assert.strictEqual(normalizeFile('가', 'NFC').length, 1);
+		assert.strictEqual(normalizeFilePathUnicode('가', 'NFD').length, 2);
+		assert.strictEqual(normalizeFilePathUnicode('가', 'NFC').length, 1);
 		// The default form is NFC.
-		assert.strictEqual(normalizeFile('가'), normalizeFile('가', 'NFC'));
+		assert.strictEqual(normalizeFilePathUnicode('가'), normalizeFilePathUnicode('가', 'NFC'));
 		// Normalization is idempotent and leaves pure ASCII untouched.
 		assert.strictEqual(
-			normalizeFile(normalizeFile('가', 'NFD'), 'NFD'),
-			normalizeFile('가', 'NFD')
+			normalizeFilePathUnicode(normalizeFilePathUnicode('가', 'NFD'), 'NFD'),
+			normalizeFilePathUnicode('가', 'NFD')
 		);
-		assert.strictEqual(normalizeFile('/a/b/c.txt', 'NFD'), '/a/b/c.txt');
-		assert.strictEqual(normalizeFile(''), '');
+		assert.strictEqual(normalizeFilePathUnicode('/a/b/c.txt', 'NFD'), '/a/b/c.txt');
+		assert.strictEqual(normalizeFilePathUnicode(''), '');
 	});
 
 	it('isFileHidden - additional path shapes', async () => {
@@ -620,7 +623,7 @@ describe('File (edge cases)', () => {
 		assert.strictEqual(await tailFile(p('blank-lines.txt'), 1), null);
 	});
 
-	it('headFile / tailFile - non-positive length', async () => {
+	it('headFile / tailFile - non-positive lineCount', async () => {
 		assert.strictEqual(await headFile(p('crlf.txt'), 0), null);
 		assert.strictEqual(await tailFile(p('crlf.txt'), 0), null);
 		assert.strictEqual(await headFile(p('crlf.txt'), -1), null);
@@ -654,61 +657,61 @@ describe('File (edge cases)', () => {
 		}
 	});
 
-	it('isFileExists - symlinks are followed', async (t) => {
+	it('isExistingPath - symlinks are followed', async (t) => {
 		if (!symlinksSupported) {
 			t.skip('symlinks are not supported on this platform');
 			return;
 		}
 
 		// A symlink to an existing file resolves; a dangling one does not.
-		assert.strictEqual(await isFileExists(p('good.link')), true);
-		assert.strictEqual(await isFileExists(p('broken.link')), false);
+		assert.strictEqual(await isExistingPath(p('good.link')), true);
+		assert.strictEqual(await isExistingPath(p('broken.link')), false);
 	});
 
 	it('handles Unicode and space-bearing file names', async () => {
-		assert.strictEqual(await isFileExists(p(UNICODE_FILE_NAME)), true);
+		assert.strictEqual(await isExistingPath(p(UNICODE_FILE_NAME)), true);
 		assert.strictEqual(getFileName(UNICODE_FILE_NAME), '한글 파일 (1)');
 		assert.strictEqual(getFileExtension(UNICODE_FILE_NAME), 'txt');
 		assert.strictEqual(await getFileSize(p(UNICODE_FILE_NAME)), 2);
 	});
 
-	it('deleteFile - missing path is a no-op', async () => {
-		await deleteFile(p('does-not-exist.txt'));
-		await deleteFile('');
+	it('deletePath - missing path is a no-op', async () => {
+		await deletePath(p('does-not-exist.txt'));
+		await deletePath('');
 	});
 
-	it('deleteAllFileFromDirectory - clears nested entries but keeps the root', async () => {
+	it('emptyDirectory - clears nested entries but keeps the root', async () => {
 		const root = p('nest');
 
 		mkdirSync(join(root, 'sub'), { recursive: true });
 		writeFileSync(join(root, 'top.txt'), 'top');
 		writeFileSync(join(root, 'sub', 'inner.txt'), 'inner');
 
-		await deleteAllFileFromDirectory(root);
+		await emptyDirectory(root);
 
 		// Subdirectories are removed too, not just plain files.
-		assert.strictEqual(await isFileExists(root), true);
-		assert.strictEqual(await isFileExists(join(root, 'top.txt')), false);
-		assert.strictEqual(await isFileExists(join(root, 'sub')), false);
+		assert.strictEqual(await isExistingPath(root), true);
+		assert.strictEqual(await isExistingPath(join(root, 'top.txt')), false);
+		assert.strictEqual(await isExistingPath(join(root, 'sub')), false);
 	});
 
-	it('deleteAllFileFromDirectory - missing directory is a no-op', async () => {
-		await deleteAllFileFromDirectory(p('no-such-directory'));
+	it('emptyDirectory - missing directory is a no-op', async () => {
+		await emptyDirectory(p('no-such-directory'));
 	});
 
-	it('createFileWithDummy - produces the exact requested size', async () => {
+	it('createFileOfSize - produces the exact requested size', async () => {
 		for (const size of [1, 512, 4096]) {
 			const target = p(`dummy-${size}.bin`);
 
-			assert.strictEqual(await createFileWithDummy(target, size), true);
+			assert.strictEqual(await createFileOfSize(target, size), true);
 			assert.strictEqual(await getFileSize(target), size);
 
-			await deleteFile(target);
+			await deletePath(target);
 		}
 	});
 
-	it('createFileWithDummy - rejects a negative size', async () => {
-		await assert.rejects(() => createFileWithDummy(p('negative.bin'), -5));
+	it('createFileOfSize - rejects a negative size', async () => {
+		await assert.rejects(() => createFileOfSize(p('negative.bin'), -5));
 	});
 
 	it('getFileInfo - field level assertions', async () => {
@@ -724,7 +727,7 @@ describe('File (edge cases)', () => {
 		// Compare through `resolve` so platform-specific normalization (drive
 		// letter casing, separators) does not make the assertion brittle.
 		assert.strictEqual(fileInfo.path, resolve(p('crlf.txt')));
-		assert.ok(fileInfo.created > 0);
+		assert.ok(fileInfo.changed > 0);
 		assert.ok(fileInfo.modified > 0);
 
 		const directoryInfo = await getFileInfo(tempDir);
@@ -748,14 +751,14 @@ describe('File (edge cases)', () => {
 		const nested = p('a', 'b', 'c');
 
 		await createDirectory(nested);
-		assert.strictEqual(await isFileExists(nested), true);
+		assert.strictEqual(await isExistingPath(nested), true);
 
 		// Re-creating an existing directory is a silent no-op.
 		await createDirectory(nested);
-		assert.strictEqual(await isFileExists(nested), true);
+		assert.strictEqual(await isExistingPath(nested), true);
 
-		await deleteFile(p('a'));
-		assert.strictEqual(await isFileExists(nested), false);
+		await deletePath(p('a'));
+		assert.strictEqual(await isExistingPath(nested), false);
 	});
 
 	it('getParentFilePath - relative, empty and trailing-separator paths', () => {
@@ -780,36 +783,36 @@ describe('File (edge cases)', () => {
 		assert.strictEqual(getParentFilePath('\\\\net\\share\\file.txt', true), '\\\\net\\share');
 	});
 
-	it('toValidFilePath - resolves . and .. segments', () => {
-		assert.strictEqual(toValidFilePath('/home/user/../test'), '/home/test');
-		assert.strictEqual(toValidFilePath('/a/./b'), '/a/b');
+	it('normalizeFilePath - resolves . and .. segments', () => {
+		assert.strictEqual(normalizeFilePath('/home/user/../test'), '/home/test');
+		assert.strictEqual(normalizeFilePath('/a/./b'), '/a/b');
 		// A path that collapses to nothing resolves to the root.
-		assert.strictEqual(toValidFilePath('.'), '/');
-		assert.strictEqual(toValidFilePath('C:\\a\\..\\b', true), 'C:\\b');
-		assert.strictEqual(toValidFilePath('C:\\Windows\\..\\text.txt', true), 'C:\\text.txt');
-		assert.strictEqual(toValidFilePath('.', true), '\\');
+		assert.strictEqual(normalizeFilePath('.'), '/');
+		assert.strictEqual(normalizeFilePath('C:\\a\\..\\b', true), 'C:\\b');
+		assert.strictEqual(normalizeFilePath('C:\\Windows\\..\\text.txt', true), 'C:\\text.txt');
+		assert.strictEqual(normalizeFilePath('.', true), '\\');
 	});
 
-	it('getFilePathLevel - a trailing separator does not add a level', () => {
-		assert.strictEqual(getFilePathLevel('/home/user/'), getFilePathLevel('/home/user'));
-		assert.strictEqual(getFilePathLevel('/a/b//'), getFilePathLevel('/a/b'));
-		assert.strictEqual(getFilePathLevel('C:\\Windows\\'), getFilePathLevel('C:\\Windows'));
-		assert.strictEqual(getFilePathLevel('//'), 1);
+	it('getFilePathDepth - a trailing separator does not add a level', () => {
+		assert.strictEqual(getFilePathDepth('/home/user/'), getFilePathDepth('/home/user'));
+		assert.strictEqual(getFilePathDepth('/a/b//'), getFilePathDepth('/a/b'));
+		assert.strictEqual(getFilePathDepth('C:\\Windows\\'), getFilePathDepth('C:\\Windows'));
+		assert.strictEqual(getFilePathDepth('//'), 1);
 	});
 
-	it('createFileWithDummy - a size of 0 creates an empty file', async () => {
+	it('createFileOfSize - a size of 0 creates an empty file', async () => {
 		const target = p('zero.bin');
 
-		assert.strictEqual(await createFileWithDummy(target, 0), true);
-		assert.strictEqual(await isFileExists(target), true);
+		assert.strictEqual(await createFileOfSize(target, 0), true);
+		assert.strictEqual(await isExistingPath(target), true);
 		assert.strictEqual(await getFileSize(target), 0);
 
-		await deleteFile(target);
+		await deletePath(target);
 	});
 
 	it('createDirectory - a non-recursive nested creation rejects', async () => {
 		await assert.rejects(() => createDirectory(p('missing-parent/child'), false));
-		assert.strictEqual(await isFileExists(p('missing-parent/child')), false);
+		assert.strictEqual(await isExistingPath(p('missing-parent/child')), false);
 	});
 
 	it('moveFile - renames within the same directory', async () => {
@@ -819,11 +822,11 @@ describe('File (edge cases)', () => {
 		writeFileSync(source, 'payload');
 		await moveFile(source, target);
 
-		assert.strictEqual(await isFileExists(source), false);
-		assert.strictEqual(await isFileExists(target), true);
+		assert.strictEqual(await isExistingPath(source), false);
+		assert.strictEqual(await isExistingPath(target), true);
 		assert.strictEqual(await getFileSize(target), 7);
 
-		await deleteFile(target);
+		await deletePath(target);
 	});
 });
 
@@ -895,12 +898,12 @@ describe('File (hardening)', () => {
 	it('isValidFileName - an empty name, control characters and the byte limit', () => {
 		// A name of nothing cannot be created.
 		assert.strictEqual(isValidFileName(''), false);
-		assert.strictEqual(isValidFileName('', true), false);
+		assert.strictEqual(isValidFileName('', false), false);
 
 		// NUL terminates the path in the system call underneath, so a name
 		// carrying one is truncated rather than rejected by the filesystem.
 		assert.strictEqual(isValidFileName(`fi${NUL}le.txt`), false);
-		assert.strictEqual(isValidFileName(`fi${NUL}le.txt`, true), false);
+		assert.strictEqual(isValidFileName(`fi${NUL}le.txt`, false), false);
 		assert.strictEqual(isValidFileName(`tab${String.fromCharCode(9)}.txt`), false);
 		assert.strictEqual(isValidFileName(`del${String.fromCharCode(127)}.txt`), false);
 
@@ -926,7 +929,7 @@ describe('File (hardening)', () => {
 
 		// A shell would have backgrounded the write, so give it a moment.
 		await new Promise((resolve) => setTimeout(resolve, 200));
-		assert.strictEqual(await isFileExists(marker), false);
+		assert.strictEqual(await isExistingPath(marker), false);
 	});
 
 	it('createDirectory - reports a file already sitting at the path', async () => {
@@ -940,27 +943,27 @@ describe('File (hardening)', () => {
 		await assert.rejects(() => createDirectory(target, false));
 	});
 
-	it('createFile - creates the parent directories it needs', async () => {
+	it('touchFile - creates the parent directories it needs', async () => {
 		const target = p('created', 'deep', 'nested', 'note.txt');
 
-		await createFile(target);
+		await touchFile(target);
 
-		assert.strictEqual(await isFileExists(target), true);
+		assert.strictEqual(await isExistingPath(target), true);
 		assert.strictEqual(await getFileSize(target), 0);
 	});
 
-	it('createFile, deleteFile and moveFile - a whitespace-only path does nothing', async () => {
-		await createFile('   ');
-		assert.strictEqual(await isFileExists('   '), false);
+	it('touchFile, deletePath and moveFile - a whitespace-only path does nothing', async () => {
+		await touchFile('   ');
+		assert.strictEqual(await isExistingPath('   '), false);
 
 		const witness = p('witness.txt');
 
 		writeFileSync(witness, 'still here');
-		await deleteFile('   ');
+		await deletePath('   ');
 		await moveFile('   ', witness);
 		await moveFile(witness, '  ');
 
-		assert.strictEqual(await isFileExists(witness), true);
+		assert.strictEqual(await isExistingPath(witness), true);
 	});
 
 	it('headFile / tailFile - malformed UTF-8 is replaced, not thrown on', async () => {
@@ -1044,8 +1047,8 @@ describe('File (hardening)', () => {
 
 		await moveFile(source, target);
 
-		assert.strictEqual(await isFileExists(source), false);
-		assert.strictEqual(await isFileExists(join(target, 'inner', 'leaf.txt')), true);
+		assert.strictEqual(await isExistingPath(source), false);
+		assert.strictEqual(await isExistingPath(join(target, 'inner', 'leaf.txt')), true);
 	});
 
 	it('getFileSize / getFileInfo - the filesystem error keeps its code', async () => {
@@ -1059,21 +1062,21 @@ describe('File (hardening)', () => {
 		await assert.rejects(() => getFileInfo(missing), isEnoent);
 	});
 
-	it('toValidFilePath - a leading .. cannot climb above the root', () => {
-		assert.strictEqual(toValidFilePath('../../etc/passwd'), '/etc/passwd');
-		assert.strictEqual(toValidFilePath('../a/../b'), '/b');
-		assert.strictEqual(toValidFilePath('..\\..\\Users', true), '\\Users');
+	it('normalizeFilePath - a leading .. cannot climb above the root', () => {
+		assert.strictEqual(normalizeFilePath('../../etc/passwd'), '/etc/passwd');
+		assert.strictEqual(normalizeFilePath('../a/../b'), '/b');
+		assert.strictEqual(normalizeFilePath('..\\..\\Users', true), '\\Users');
 	});
 
-	it('deleteAllFileFromDirectory - unlinks a symlink and keeps its target', async (t) => {
+	it('emptyDirectory - unlinks a symlink and keeps its target', async (t) => {
 		if (!symlinksSupported) {
 			t.skip('symlinks are not supported on this platform');
 			return;
 		}
 
-		await deleteAllFileFromDirectory(p('linked'));
+		await emptyDirectory(p('linked'));
 
-		assert.strictEqual(await isFileExists(p('linked', 'shortcut')), false);
-		assert.strictEqual(await isFileExists(p('keep', 'precious.txt')), true);
+		assert.strictEqual(await isExistingPath(p('linked', 'shortcut')), false);
+		assert.strictEqual(await isExistingPath(p('keep', 'precious.txt')), true);
 	});
 });

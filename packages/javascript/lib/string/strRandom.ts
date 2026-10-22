@@ -1,7 +1,7 @@
-import type { PositiveNumber } from '../_types/global.js';
+import type { NonNegativeNumber } from '../_types/global.js';
 
 export function strRandom<N extends number>(
-	length: PositiveNumber<N>,
+	length: NonNegativeNumber<N>,
 	additionalCharacters?: string
 ): string {
 	const availCharacters = `abcdefghijklmnopqrstuvwxyz0123456789${additionalCharacters ?? ''}`;

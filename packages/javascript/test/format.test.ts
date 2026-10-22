@@ -6,7 +6,7 @@ import {
 	fileSizeParts,
 	duration,
 	durationParts,
-	safeJSONParse,
+	safeParseJson,
 	safeParseInt
 } from '../dist';
 
@@ -151,7 +151,7 @@ describe('Format', () => {
 	it('duration', () => {
 		assert.strictEqual(duration(0), '');
 		assert.strictEqual(duration(604800000), '7 Days');
-		// Milliseconds are hidden by default (withMilliSeconds defaults to false).
+		// Milliseconds are hidden by default (withMilliseconds defaults to false).
 		assert.strictEqual(duration(1234567890), '14 Days 6 Hours 56 Minutes 7 Seconds');
 		// Grammatically correct plurals: 0 -> plural, 1 -> singular.
 		assert.strictEqual(
@@ -187,16 +187,16 @@ describe('Format', () => {
 		assert.strictEqual(duration(34560000000, { useShortString: true }), '1 Y 1 Mo 5 D');
 	});
 
-	it('duration - withMilliSeconds', () => {
+	it('duration - withMilliseconds', () => {
 		assert.strictEqual(
 			duration(1234567890, {
-				withMilliSeconds: true
+				withMilliseconds: true
 			}),
 			'14 Days 6 Hours 56 Minutes 7 Seconds 890 Milliseconds'
 		);
 		assert.strictEqual(
 			duration(1234567890, {
-				withMilliSeconds: true,
+				withMilliseconds: true,
 				useSpace: true,
 				useShortString: true
 			}),
@@ -204,7 +204,7 @@ describe('Format', () => {
 		);
 		assert.strictEqual(
 			duration(604800001, {
-				withMilliSeconds: true,
+				withMilliseconds: true,
 				separator: '-'
 			}),
 			'7 Days-1 Millisecond'
@@ -226,7 +226,7 @@ describe('Format', () => {
 		);
 		assert.strictEqual(
 			duration(1234567890, {
-				withMilliSeconds: true,
+				withMilliseconds: true,
 				maxUnitCount: 3
 			}),
 			'14 Days 6 Hours 56 Minutes'
@@ -265,7 +265,7 @@ describe('Format', () => {
 		assert.deepStrictEqual(durationParts(1500, { unit: 'Second' }), [
 			{ value: 1.5, unit: 'Second' }
 		]);
-		assert.deepStrictEqual(durationParts(90061001, { withMilliSeconds: true }), [
+		assert.deepStrictEqual(durationParts(90061001, { withMilliseconds: true }), [
 			{ value: 1, unit: 'Day' },
 			{ value: 1, unit: 'Hour' },
 			{ value: 1, unit: 'Minute' },
@@ -287,13 +287,13 @@ describe('Format', () => {
 		}
 	});
 
-	it('safeJSONParse', () => {
-		assert.deepStrictEqual(safeJSONParse({}), {});
-		assert.deepStrictEqual(safeJSONParse('{}'), {});
-		assert.deepStrictEqual(safeJSONParse(''), {});
-		assert.deepStrictEqual(safeJSONParse(null), {});
-		assert.deepStrictEqual(safeJSONParse('{"a":1,"b":2}'), { a: 1, b: 2 });
-		assert.deepStrictEqual(safeJSONParse('{"a":{"aa":1},"b":null}'), { a: { aa: 1 }, b: null });
+	it('safeParseJson', () => {
+		assert.deepStrictEqual(safeParseJson({}), {});
+		assert.deepStrictEqual(safeParseJson('{}'), {});
+		assert.deepStrictEqual(safeParseJson(''), {});
+		assert.deepStrictEqual(safeParseJson(null), {});
+		assert.deepStrictEqual(safeParseJson('{"a":1,"b":2}'), { a: 1, b: 2 });
+		assert.deepStrictEqual(safeParseJson('{"a":{"aa":1},"b":null}'), { a: { aa: 1 }, b: null });
 	});
 
 	it('safeParseInt', () => {

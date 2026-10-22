@@ -1,8 +1,8 @@
-import type { PositiveNumber } from '../_types/global.js';
+import type { NonNegativeNumber } from '../_types/global.js';
 
 export function debounce<N extends number>(
 	func: (...args: any[]) => void,
-	timeout: PositiveNumber<N>
+	wait: NonNegativeNumber<N>
 ): (...args: any[]) => void {
 	let timer: NodeJS.Timeout | undefined;
 
@@ -13,7 +13,7 @@ export function debounce<N extends number>(
 
 		timer = setTimeout(() => {
 			func(...args);
-		}, timeout);
+		}, wait);
 
 		// A pending debounce should not keep a Node process alive. No-op in browsers.
 		timer?.unref?.();

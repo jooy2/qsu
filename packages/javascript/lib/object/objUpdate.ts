@@ -1,5 +1,5 @@
 import type { AnyValueObject } from '../_types/global.js';
-import { isObject } from '../verify/isObject.js';
+import { isPlainObject } from '../verify/isPlainObject.js';
 import { setOwn } from './_ownProperty.js';
 
 export function objUpdate(
@@ -26,7 +26,7 @@ export function objUpdate(
 		for (let i = 0, keyLength = keys.length; i < keyLength; i += 1) {
 			const currentKey = keys[i];
 
-			if (recursive && result[currentKey] && isObject(result[currentKey])) {
+			if (recursive && result[currentKey] && isPlainObject(result[currentKey])) {
 				setOwn(result, currentKey, updateObject(result[currentKey]));
 			}
 		}

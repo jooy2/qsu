@@ -1,10 +1,12 @@
-export function isUrl(url: string, withProtocol = false, strict = false): boolean {
-	if (strict && url.indexOf('.') === -1) {
+export function isUrl(url: string, allowMissingProtocol = false, requireDot = false): boolean {
+	if (requireDot && url.indexOf('.') === -1) {
 		return false;
 	}
 
 	try {
-		new URL(`${withProtocol && url.indexOf('://') === -1 ? 'https://' : ''}${url}`).toString();
+		new URL(
+			`${allowMissingProtocol && url.indexOf('://') === -1 ? 'https://' : ''}${url}`
+		).toString();
 	} catch {
 		return false;
 	}

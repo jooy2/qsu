@@ -1,4 +1,4 @@
-export type PositiveNumber<N extends number> = number extends N
+export type NonNegativeNumber<N extends number> = number extends N
 	? N
 	: `${N}` extends `-${string}`
 		? never
@@ -18,7 +18,7 @@ export type DurationUnitName =
 // written, which `durationParts` leaves to the caller.
 export type DurationPartsOptions = {
 	withZeroValue?: boolean;
-	withMilliSeconds?: boolean;
+	withMilliseconds?: boolean;
 	maxUnitCount?: number;
 	unit?: DurationUnitName;
 };
@@ -49,14 +49,14 @@ export type FileSizeParts = {
 	exponent: number;
 };
 
-// One language `detectLanguage` found, with the share of the letters written in it.
+// One language `detectLanguages` found, with the share of the letters written in it.
 export type DetectedLanguage = {
 	language: string;
 	ratio: number;
 };
 
 export type RetryOptions = {
-	times?: number;
+	attempts?: number;
 	delay?: number;
 	backoff?: number;
 };
@@ -80,7 +80,7 @@ export interface FileInfo {
 	dirname: string;
 	path: string;
 	ext: string | null;
-	created: number;
+	changed: number;
 	modified: number;
 }
 
@@ -113,7 +113,7 @@ export interface LicenseOption {
 	type: LicenseType;
 }
 
-export interface HTTPRequestOption {
+export interface HttpRequestOptions {
 	auth?: {
 		apiKey?: string;
 		bearer?: string;
@@ -138,7 +138,7 @@ export interface HTTPRequestOption {
 export type PlatformName =
 	'windows' | 'macos' | 'linux' | 'android' | 'ios' | 'freebsd' | 'unknown';
 
-export interface GetUptimeOption {
+export interface UptimeOptions {
 	format?: boolean;
 	floor?: boolean;
 }
@@ -173,14 +173,14 @@ export interface ParsedAddress {
 	hostname?: string;
 	port?: number;
 	defaultPort?: number;
-	user?: string;
-	pass?: string;
+	username?: string;
+	password?: string;
 	path?: string;
 	query?: string;
 	params?: StringValueObject;
 	hash?: string;
-	isIP: boolean;
-	isIPv6: boolean;
+	isIp: boolean;
+	isIpv6: boolean;
 }
 
 export interface ParseAddressOptions {

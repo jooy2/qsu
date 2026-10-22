@@ -4,11 +4,11 @@ export function sortByObjectKey(
 	array: any[],
 	key: string,
 	descending = false,
-	numerically = false
+	natural = false
 ): any[] {
 	// Sort a copy: `Array.prototype.sort` reorders in place. Flip the comparison for
 	// descending order instead of reversing, which would also flip equal elements.
-	if (numerically) {
+	if (natural) {
 		// Build each key once rather than once per comparison.
 		const decorated = array.map((item) => ({ item, sortKey: naturalKey(item[key]) }));
 

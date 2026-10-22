@@ -1,5 +1,5 @@
 import type { AnyValueObject } from '../_types/global.js';
-import { isObject } from '../verify/isObject.js';
+import { isPlainObject } from '../verify/isPlainObject.js';
 import { getOwn, setOwn } from './_ownProperty.js';
 
 export function objMerge(...objects: AnyValueObject[]): AnyValueObject | null {
@@ -12,7 +12,7 @@ export function objMerge(...objects: AnyValueObject[]): AnyValueObject | null {
 	for (let i = 0, objectsLength = objects.length; i < objectsLength; i += 1) {
 		const source = objects[i];
 
-		if (!isObject(source)) {
+		if (!isPlainObject(source)) {
 			return null;
 		}
 
@@ -31,7 +31,7 @@ export function objMerge(...objects: AnyValueObject[]): AnyValueObject | null {
 			setOwn(
 				result,
 				key,
-				isObject(existing) && isObject(value)
+				isPlainObject(existing) && isPlainObject(value)
 					? (objMerge(existing, value) as AnyValueObject)
 					: value
 			);

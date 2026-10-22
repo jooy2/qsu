@@ -1,5 +1,5 @@
 import { cwd } from 'node:process';
-import { round } from '../../math/round.js';
+import { numRound } from '../../math/numRound.js';
 import { diskSpace } from './_diskSpace.js';
 
 export async function getDiskUsage(path: string = cwd(), decimals = 1): Promise<number> {
@@ -9,5 +9,5 @@ export async function getDiskUsage(path: string = cwd(), decimals = 1): Promise<
 		return 0;
 	}
 
-	return round((used / total) * 100, decimals);
+	return numRound((used / total) * 100, decimals);
 }

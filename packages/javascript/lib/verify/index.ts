@@ -1,13 +1,13 @@
 export { between } from './between.js';
 export { contains } from './contains.js';
 export { hasBadWords } from './hasBadWords.js';
-export { is2dArray } from './is2dArray.js';
 export { isEmail } from './isEmail.js';
 export { isEmpty } from './isEmpty.js';
-export { isEqual } from './isEqual.js';
 export { isEqualDeep } from './isEqualDeep.js';
+export { isEqualLoose } from './isEqualLoose.js';
 export { isEqualStrict } from './isEqualStrict.js';
-export { isObject } from './isObject.js';
-export { isTrueMinimumNumberOfTimes } from './isTrueMinimumNumberOfTimes.js';
+export { isNestedArray } from './isNestedArray.js';
+export { isPlainObject } from './isPlainObject.js';
+export { isTrueAtLeast } from './isTrueAtLeast.js';
 export { isUrl } from './isUrl.js';
 export { len } from './len.js';

@@ -29,7 +29,7 @@ export function durationParts(
 	milliseconds: number,
 	options?: DurationPartsOptions
 ): DurationPart[] {
-	const { withZeroValue = false, withMilliSeconds = false, maxUnitCount, unit } = { ...options };
+	const { withZeroValue = false, withMilliseconds = false, maxUnitCount, unit } = { ...options };
 
 	// Single-unit mode: express the whole duration with one unit (fractions allowed).
 	if (unit) {
@@ -40,7 +40,7 @@ export function durationParts(
 		}
 	}
 
-	const activeUnits = withMilliSeconds ? UNITS : UNITS.filter((u) => u.name !== 'Millisecond');
+	const activeUnits = withMilliseconds ? UNITS : UNITS.filter((u) => u.name !== 'Millisecond');
 	const values: DurationPart[] = [];
 	let remaining = milliseconds;
 

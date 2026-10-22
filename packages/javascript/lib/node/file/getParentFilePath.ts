@@ -1,6 +1,9 @@
-import { toValidFilePath } from './toValidFilePath.js';
+import { normalizeFilePath } from './normalizeFilePath.js';
 import { posix, win32 } from 'node:path';
 
 export function getParentFilePath(filePath: string, isWindows?: boolean): string {
-	return toValidFilePath(isWindows ? win32.dirname(filePath) : posix.dirname(filePath), isWindows);
+	return normalizeFilePath(
+		isWindows ? win32.dirname(filePath) : posix.dirname(filePath),
+		isWindows
+	);
 }

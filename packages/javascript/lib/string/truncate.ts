@@ -1,8 +1,8 @@
-import type { PositiveNumber } from '../_types/global.js';
+import type { NonNegativeNumber } from '../_types/global.js';
 
 export function truncate<N extends number>(
 	str: string,
-	length: PositiveNumber<N>,
+	length: NonNegativeNumber<N>,
 	ellipsis = ''
 ): string {
 	if (!str) {

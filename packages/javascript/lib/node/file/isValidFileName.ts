@@ -14,7 +14,7 @@ const CONTROL_CHARACTER_REGEX = /[\u0000-\u001F\u007F]/;
 // cannot be created on ext4, APFS or NTFS.
 const MAX_FILE_NAME_BYTES = 255;
 
-export function isValidFileName(filePath: string, unixType?: boolean): boolean {
+export function isValidFileName(filePath: string, isWindows = true): boolean {
 	let fileNameRegex;
 	// Validate the *whole* name, extension included. Stripping the extension
 	// first would let 'hello.:txt' through, because only 'hello' was checked.
@@ -24,7 +24,7 @@ export function isValidFileName(filePath: string, unixType?: boolean): boolean {
 		return false;
 	}
 
-	if (unixType) {
+	if (isWindows === false) {
 		fileNameRegex = /(^\s+$)|(^\.+$)|([:/]+)/;
 	} else {
 		// Windows

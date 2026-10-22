@@ -1,50 +1,50 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
 import {
-	isObject,
-	isEqual,
+	isPlainObject,
+	isEqualLoose,
 	isEqualStrict,
 	isEqualDeep,
 	isEmpty,
 	isUrl,
 	contains,
 	hasBadWords,
-	is2dArray,
+	isNestedArray,
 	between,
 	len,
 	isEmail,
-	isTrueMinimumNumberOfTimes
+	isTrueAtLeast
 } from '../dist';
 
 describe('Verify', () => {
-	it('isObject', () => {
-		assert.strictEqual(isObject('{}'), false);
-		assert.strictEqual(isObject(true), false);
-		assert.strictEqual(isObject(false), false);
-		assert.strictEqual(isObject(null), false);
-		assert.strictEqual(isObject(undefined), false);
-		assert.strictEqual(isObject(1), false);
-		assert.strictEqual(isObject([]), false);
+	it('isPlainObject', () => {
+		assert.strictEqual(isPlainObject('{}'), false);
+		assert.strictEqual(isPlainObject(true), false);
+		assert.strictEqual(isPlainObject(false), false);
+		assert.strictEqual(isPlainObject(null), false);
+		assert.strictEqual(isPlainObject(undefined), false);
+		assert.strictEqual(isPlainObject(1), false);
+		assert.strictEqual(isPlainObject([]), false);
 		assert.strictEqual(
-			isObject(() => '123'),
+			isPlainObject(() => '123'),
 			false
 		);
-		assert.strictEqual(isObject({}), true);
-		assert.strictEqual(isObject([1, 2]), false);
-		assert.strictEqual(isObject([{ a: 1, b: 2 }]), false);
-		assert.strictEqual(isObject({ a: 1, b: 2 }), true);
-		assert.strictEqual(isObject({ a: {}, b: [] }), true);
+		assert.strictEqual(isPlainObject({}), true);
+		assert.strictEqual(isPlainObject([1, 2]), false);
+		assert.strictEqual(isPlainObject([{ a: 1, b: 2 }]), false);
+		assert.strictEqual(isPlainObject({ a: 1, b: 2 }), true);
+		assert.strictEqual(isPlainObject({ a: {}, b: [] }), true);
 	});
 
-	it('isEqual', () => {
+	it('isEqualLoose', () => {
 		const val1 = 'abc';
 		const val2 = 'abc';
 		const val3 = 'abc';
 
-		assert.strictEqual(isEqual(1, [1, 2, 3]), false);
-		assert.strictEqual(isEqual('abc', [val1, val2, val3]), true);
-		assert.strictEqual(isEqual('123', ['123', 123]), true);
-		assert.strictEqual(isEqual(123, '123', 123), true);
+		assert.strictEqual(isEqualLoose(1, [1, 2, 3]), false);
+		assert.strictEqual(isEqualLoose('abc', [val1, val2, val3]), true);
+		assert.strictEqual(isEqualLoose('123', ['123', 123]), true);
+		assert.strictEqual(isEqualLoose(123, '123', 123), true);
 	});
 
 	it('isEqualStrict', () => {
@@ -142,11 +142,11 @@ describe('Verify', () => {
 		assert.strictEqual(contains('AB', ['AB', 'C', 'D'], true), true);
 	});
 
-	it('is2dArray', () => {
-		assert.strictEqual(is2dArray([]), false);
-		assert.strictEqual(is2dArray([[], []]), true);
-		assert.strictEqual(is2dArray([{ a: 1 }, { b: 2 }]), false);
-		assert.strictEqual(is2dArray([[1], [2]]), true);
+	it('isNestedArray', () => {
+		assert.strictEqual(isNestedArray([]), false);
+		assert.strictEqual(isNestedArray([[], []]), true);
+		assert.strictEqual(isNestedArray([{ a: 1 }, { b: 2 }]), false);
+		assert.strictEqual(isNestedArray([[1], [2]]), true);
 	});
 
 	it('between', () => {
@@ -188,23 +188,17 @@ describe('Verify', () => {
 		assert.strictEqual(isEmail('a.com@a'), false);
 	});
 
-	it('isTrueMinimumNumberOfTimes', () => {
+	it('isTrueAtLeast', () => {
 		const left = 2;
 		const right1 = 1 + 1;
 		const right2 = 2 + 1;
 
-		assert.strictEqual(isTrueMinimumNumberOfTimes([true, false, false]), true);
-		assert.strictEqual(isTrueMinimumNumberOfTimes([true, true], 1), true);
-		assert.strictEqual(isTrueMinimumNumberOfTimes([true, false, true], 2), true);
-		assert.strictEqual(isTrueMinimumNumberOfTimes([true, false, true], 1), true);
-		assert.strictEqual(
-			isTrueMinimumNumberOfTimes([left === right1, false, true, true, false], 3),
-			true
-		);
-		assert.strictEqual(
-			isTrueMinimumNumberOfTimes([left === right2, false, true, true, false], 3),
-			false
-		);
+		assert.strictEqual(isTrueAtLeast([true, false, false]), true);
+		assert.strictEqual(isTrueAtLeast([true, true], 1), true);
+		assert.strictEqual(isTrueAtLeast([true, false, true], 2), true);
+		assert.strictEqual(isTrueAtLeast([true, false, true], 1), true);
+		assert.strictEqual(isTrueAtLeast([left === right1, false, true, true, false], 3), true);
+		assert.strictEqual(isTrueAtLeast([left === right2, false, true, true, false], 3), false);
 	});
 
 	it('hasBadWords', () => {

@@ -1,18 +1,18 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
 import {
-	numPick,
-	numUnique,
-	sum,
+	numRandom,
+	numUniqueId,
+	numSum,
 	mul,
 	sub,
 	div,
 	clamp,
-	round,
+	numRound,
 	ceil,
 	floor,
-	max,
-	min
+	numMax,
+	numMin
 } from '../dist';
 
 describe('Math', () => {
@@ -54,51 +54,51 @@ describe('Math', () => {
 		assert.strictEqual(floor(-Infinity), -Infinity);
 	});
 
-	it('round', () => {
-		assert.strictEqual(round(0.5), 1);
-		assert.strictEqual(round(2.5), 3);
-		assert.strictEqual(round(-0.5), -1);
-		assert.strictEqual(round(-1.5), -2);
-		assert.strictEqual(round(1.4), 1);
-		assert.strictEqual(round(-1.4), -1);
-		assert.strictEqual(round(1.005, 2), 1.01);
-		assert.strictEqual(round(2.675, 2), 2.68);
-		assert.strictEqual(round(1234, -2), 1200);
-		assert.strictEqual(round(4.006, 2), 4.01);
-		assert.strictEqual(round(1.1, 1), 1.1);
-		assert.strictEqual(round(0), 0);
-		assert.strictEqual(round(-0.4), 0);
-		assert.strictEqual(Number.isNaN(round(NaN)), true);
-		assert.strictEqual(round(Infinity), Infinity);
+	it('numRound', () => {
+		assert.strictEqual(numRound(0.5), 1);
+		assert.strictEqual(numRound(2.5), 3);
+		assert.strictEqual(numRound(-0.5), -1);
+		assert.strictEqual(numRound(-1.5), -2);
+		assert.strictEqual(numRound(1.4), 1);
+		assert.strictEqual(numRound(-1.4), -1);
+		assert.strictEqual(numRound(1.005, 2), 1.01);
+		assert.strictEqual(numRound(2.675, 2), 2.68);
+		assert.strictEqual(numRound(1234, -2), 1200);
+		assert.strictEqual(numRound(4.006, 2), 4.01);
+		assert.strictEqual(numRound(1.1, 1), 1.1);
+		assert.strictEqual(numRound(0), 0);
+		assert.strictEqual(numRound(-0.4), 0);
+		assert.strictEqual(Number.isNaN(numRound(NaN)), true);
+		assert.strictEqual(numRound(Infinity), Infinity);
 	});
 
-	it('max', () => {
-		assert.strictEqual(max(1, 2, 3), 3);
-		assert.strictEqual(max([4, 2, 8, 6]), 8);
-		assert.strictEqual(max(-4, -2, -8), -2);
-		assert.strictEqual(max(1.5, 1.25), 1.5);
-		assert.strictEqual(max(7), 7);
-		assert.strictEqual(max([]), null);
-		assert.strictEqual(max(), null);
-		assert.strictEqual(max([NaN, 5]), 5);
-		assert.strictEqual(max(['a', 3, null] as any), 3);
+	it('numMax', () => {
+		assert.strictEqual(numMax(1, 2, 3), 3);
+		assert.strictEqual(numMax([4, 2, 8, 6]), 8);
+		assert.strictEqual(numMax(-4, -2, -8), -2);
+		assert.strictEqual(numMax(1.5, 1.25), 1.5);
+		assert.strictEqual(numMax(7), 7);
+		assert.strictEqual(numMax([]), null);
+		assert.strictEqual(numMax(), null);
+		assert.strictEqual(numMax([NaN, 5]), 5);
+		assert.strictEqual(numMax(['a', 3, null] as any), 3);
 	});
 
-	it('numPick', () => {
-		assert.strictEqual(typeof numPick(1, 60) === 'number', true);
+	it('numRandom', () => {
+		assert.strictEqual(typeof numRandom(1, 60) === 'number', true);
 		for (let i = 0; i < 50; i += 1) {
-			const offsetTest: number = numPick(5, 10);
+			const offsetTest: number = numRandom(5, 10);
 			assert(offsetTest >= 5 && offsetTest <= 10);
 		}
 	});
 
-	it('numUnique', () => {
-		assert.strictEqual(typeof numUnique() === 'number', true);
+	it('numUniqueId', () => {
+		assert.strictEqual(typeof numUniqueId() === 'number', true);
 
 		const uniqSets = new Set();
 
 		for (let i = 0; i < 100; i += 1) {
-			const uniq = numUnique();
+			const uniq = numUniqueId();
 
 			if (uniqSets.has(uniq)) {
 				throw new Error('Duplicate number generated');
@@ -108,23 +108,23 @@ describe('Math', () => {
 		}
 	});
 
-	it('sum', () => {
-		assert.strictEqual(sum(0), 0);
-		assert.strictEqual(sum(1, 2, 3, 4), 10);
-		assert.strictEqual(sum([1, 2, 3]), 6);
-		assert.strictEqual(sum(1234), 1234);
+	it('numSum', () => {
+		assert.strictEqual(numSum(0), 0);
+		assert.strictEqual(numSum(1, 2, 3, 4), 10);
+		assert.strictEqual(numSum([1, 2, 3]), 6);
+		assert.strictEqual(numSum(1234), 1234);
 	});
 
-	it('min', () => {
-		assert.strictEqual(min(1, 2, 3), 1);
-		assert.strictEqual(min([4, 2, 8, 6]), 2);
-		assert.strictEqual(min(-4, -2, -8), -8);
-		assert.strictEqual(min(1.5, 1.25), 1.25);
-		assert.strictEqual(min(7), 7);
-		assert.strictEqual(min([]), null);
-		assert.strictEqual(min(), null);
-		assert.strictEqual(min([NaN, 5]), 5);
-		assert.strictEqual(min(['a', 3, null] as any), 3);
+	it('numMin', () => {
+		assert.strictEqual(numMin(1, 2, 3), 1);
+		assert.strictEqual(numMin([4, 2, 8, 6]), 2);
+		assert.strictEqual(numMin(-4, -2, -8), -8);
+		assert.strictEqual(numMin(1.5, 1.25), 1.25);
+		assert.strictEqual(numMin(7), 7);
+		assert.strictEqual(numMin([]), null);
+		assert.strictEqual(numMin(), null);
+		assert.strictEqual(numMin([NaN, 5]), 5);
+		assert.strictEqual(numMin(['a', 3, null] as any), 3);
 	});
 
 	it('mul', () => {

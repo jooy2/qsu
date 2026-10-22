@@ -1,6 +1,6 @@
 /**
  * (Private, not exported from the package) Reads the kind of device a User-Agent string
- * names, for `isMobileDeviceFromUA`, `isTabletDeviceFromUA` and `isDesktopDeviceFromUA`.
+ * names, for `isMobileDeviceFromUa`, `isTabletDeviceFromUa` and `isDesktopDeviceFromUa`.
  *
  * The checks run in order and the first one that answers wins, so the three functions can
  * never all agree on one string: a tablet is tested before a phone because an iPad's Safari

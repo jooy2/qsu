@@ -150,14 +150,14 @@ export function parseAddress(url: string, options?: ParseAddressOptions): Parsed
 		hostname: undefined,
 		port: undefined,
 		defaultPort: undefined,
-		user: undefined,
-		pass: undefined,
+		username: undefined,
+		password: undefined,
 		path: undefined,
 		query: undefined,
 		params: undefined,
 		hash: undefined,
-		isIP: false,
-		isIPv6: false
+		isIp: false,
+		isIpv6: false
 	};
 
 	if (typeof url !== 'string' || url.trim() === '') {
@@ -217,13 +217,13 @@ export function parseAddress(url: string, options?: ParseAddressOptions): Parsed
 
 		hostPort = authority.slice(atIndex + 1);
 
-		// Split the user off by the first `:`, so a `:` inside the password stays.
+		// Split the username off by the first `:`, so a `:` inside the password stays.
 		const colonIndex = userInfo.indexOf(':');
-		const user = colonIndex === -1 ? userInfo : userInfo.slice(0, colonIndex);
-		const pass = colonIndex === -1 ? '' : userInfo.slice(colonIndex + 1);
+		const username = colonIndex === -1 ? userInfo : userInfo.slice(0, colonIndex);
+		const password = colonIndex === -1 ? '' : userInfo.slice(colonIndex + 1);
 
-		result.user = user === '' ? undefined : decode ? percentDecode(user) : user;
-		result.pass = pass === '' ? undefined : decode ? percentDecode(pass) : pass;
+		result.username = username === '' ? undefined : decode ? percentDecode(username) : username;
+		result.password = password === '' ? undefined : decode ? percentDecode(password) : password;
 	}
 
 	const parsePort = (portString: string): void => {
@@ -280,8 +280,8 @@ export function parseAddress(url: string, options?: ParseAddressOptions): Parsed
 
 	if (result.host !== undefined) {
 		result.hostname = result.host.startsWith('[') ? result.host.slice(1, -1) : result.host;
-		result.isIPv6 = isIPv6Address(result.hostname);
-		result.isIP = result.isIPv6 || isIPv4Address(result.hostname);
+		result.isIpv6 = isIPv6Address(result.hostname);
+		result.isIp = result.isIpv6 || isIPv4Address(result.hostname);
 	}
 
 	return result;

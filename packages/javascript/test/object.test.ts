@@ -1,14 +1,14 @@
 import assert from 'assert';
 import { describe, it } from 'node:test';
 import {
-	objTo1d,
+	objFlatten,
 	objToQueryString,
-	objToPrettyStr,
-	objFindItemRecursiveByKey,
-	objToArray,
-	objDeleteKeyByValue,
+	objToPrettyJson,
+	objFindInTree,
+	objToEntries,
+	objOmitByValue,
 	objUpdate,
-	objMergeNewKey,
+	objMergeWithArrays,
 	objPickBy,
 	objMapKeys,
 	objInvert,
@@ -22,7 +22,7 @@ import {
 } from '../dist';
 
 describe('Misc', () => {
-	it('funcTimes', () => {
+	it('objToQueryString', () => {
 		assert.deepStrictEqual(objToQueryString({}), '');
 		assert.deepStrictEqual(
 			objToQueryString({
@@ -48,17 +48,17 @@ describe('Misc', () => {
 		);
 	});
 
-	it('objToPrettyStr', () => {
-		assert.deepStrictEqual(objToPrettyStr({}), '{}');
+	it('objToPrettyJson', () => {
+		assert.deepStrictEqual(objToPrettyJson({}), '{}');
 		assert.deepStrictEqual(
-			objToPrettyStr({ a: 1, b: { c: 1, d: 2 } }),
+			objToPrettyJson({ a: 1, b: { c: 1, d: 2 } }),
 			'{\n\t"a": 1,\n\t"b": {\n\t\t"c": 1,\n\t\t"d": 2\n\t}\n}'
 		);
 	});
 
-	it('objFindItemRecursiveByKey', () => {
+	it('objFindInTree', () => {
 		assert.deepStrictEqual(
-			objFindItemRecursiveByKey(
+			objFindInTree(
 				{
 					a: 1,
 					b: 2,
@@ -71,7 +71,7 @@ describe('Misc', () => {
 			null
 		);
 		assert.deepStrictEqual(
-			objFindItemRecursiveByKey(
+			objFindInTree(
 				[
 					{
 						a: 1,
@@ -105,7 +105,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objFindItemRecursiveByKey(
+			objFindInTree(
 				{
 					a: {
 						a: {
@@ -126,7 +126,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objFindItemRecursiveByKey(
+			objFindInTree(
 				{
 					id: 123,
 					child: [
@@ -148,10 +148,10 @@ describe('Misc', () => {
 		);
 	});
 
-	it('objToArray', () => {
-		assert.deepStrictEqual(objToArray({}), []);
+	it('objToEntries', () => {
+		assert.deepStrictEqual(objToEntries({}), []);
 		assert.deepStrictEqual(
-			objToArray({
+			objToEntries({
 				a: 1,
 				b: 2,
 				c: 3
@@ -163,7 +163,7 @@ describe('Misc', () => {
 			]
 		);
 		assert.deepStrictEqual(
-			objToArray(
+			objToEntries(
 				{
 					a: 1,
 					b: {
@@ -191,7 +191,7 @@ describe('Misc', () => {
 			]
 		);
 		assert.deepStrictEqual(
-			objToArray({
+			objToEntries({
 				a: 1.234,
 				b: 'str',
 				c: [1, 2, 3],
@@ -206,10 +206,10 @@ describe('Misc', () => {
 		);
 	});
 
-	it('objTo1d', () => {
-		assert.deepStrictEqual(objTo1d({}), {});
+	it('objFlatten', () => {
+		assert.deepStrictEqual(objFlatten({}), {});
 		assert.deepStrictEqual(
-			objTo1d({
+			objFlatten({
 				a: 1,
 				b: 2,
 				c: 3
@@ -221,7 +221,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objTo1d({
+			objFlatten({
 				a: 1,
 				b: {
 					aa: 1,
@@ -237,7 +237,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objTo1d(
+			objFlatten(
 				{
 					a: 1,
 					b: {
@@ -256,7 +256,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objTo1d({
+			objFlatten({
 				a: 1,
 				b: {
 					aa: {
@@ -279,10 +279,10 @@ describe('Misc', () => {
 		);
 	});
 
-	it('objDeleteKeyByValue', () => {
-		assert.deepStrictEqual(objDeleteKeyByValue({}, 1), {});
+	it('objOmitByValue', () => {
+		assert.deepStrictEqual(objOmitByValue({}, 1), {});
 		assert.deepStrictEqual(
-			objDeleteKeyByValue(
+			objOmitByValue(
 				{
 					a: 1,
 					b: 2,
@@ -300,7 +300,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objDeleteKeyByValue(
+			objOmitByValue(
 				{
 					a: 1,
 					b: 2,
@@ -332,7 +332,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objDeleteKeyByValue(
+			objOmitByValue(
 				{
 					a: 1,
 					b: 2,
@@ -394,24 +394,24 @@ describe('Misc', () => {
 		});
 	});
 
-	it('objMergeNewKey', () => {
-		assert.deepStrictEqual(objMergeNewKey({ a: 1 }, {}), { a: 1 });
-		assert.deepStrictEqual(objMergeNewKey({ a: 1 }, { a: 2 }), { a: 2 });
-		assert.deepStrictEqual(objMergeNewKey({ a: 1 }, { b: 2 }), { a: 1, b: 2 });
-		assert.deepStrictEqual(objMergeNewKey({ a: 1, c: 3 }, { b: 2, d: '4' }), {
+	it('objMergeWithArrays', () => {
+		assert.deepStrictEqual(objMergeWithArrays({ a: 1 }, {}), { a: 1 });
+		assert.deepStrictEqual(objMergeWithArrays({ a: 1 }, { a: 2 }), { a: 2 });
+		assert.deepStrictEqual(objMergeWithArrays({ a: 1 }, { b: 2 }), { a: 1, b: 2 });
+		assert.deepStrictEqual(objMergeWithArrays({ a: 1, c: 3 }, { b: 2, d: '4' }), {
 			a: 1,
 			b: 2,
 			c: 3,
 			d: '4'
 		});
-		assert.deepStrictEqual(objMergeNewKey({ a: 1, c: 3 }, { b: [1, 2], d: null }), {
+		assert.deepStrictEqual(objMergeWithArrays({ a: 1, c: 3 }, { b: [1, 2], d: null }), {
 			a: 1,
 			b: [1, 2],
 			c: 3,
 			d: null
 		});
 		assert.deepStrictEqual(
-			objMergeNewKey({ a: { aa: 1 }, b: 2 }, { a: { bb: 2, cc: 3 }, c: { dd: 1 } }),
+			objMergeWithArrays({ a: { aa: 1 }, b: 2 }, { a: { bb: 2, cc: 3 }, c: { dd: 1 } }),
 			{
 				a: { aa: 1, bb: 2, cc: 3 },
 				b: 2,
@@ -419,7 +419,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objMergeNewKey(
+			objMergeWithArrays(
 				{
 					a: 1,
 					b: {
@@ -446,7 +446,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objMergeNewKey(
+			objMergeWithArrays(
 				{
 					a: 1,
 					b: {
@@ -474,7 +474,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objMergeNewKey(
+			objMergeWithArrays(
 				{
 					a: 1,
 					b: {
@@ -502,7 +502,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objMergeNewKey(
+			objMergeWithArrays(
 				{
 					a: 1,
 					b: {
@@ -530,7 +530,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objMergeNewKey(
+			objMergeWithArrays(
 				{
 					a: 1,
 					b: {
@@ -566,7 +566,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objMergeNewKey(
+			objMergeWithArrays(
 				{
 					a: [
 						{ aa: 1, bb: 2, cc: null },
@@ -585,7 +585,7 @@ describe('Misc', () => {
 			}
 		);
 		assert.deepStrictEqual(
-			objMergeNewKey(
+			objMergeWithArrays(
 				{
 					a: [
 						{ aa: 1, bb: 2 },
@@ -926,13 +926,13 @@ describe('Misc', () => {
 		assert.ok(isOwnData(objOmit(source, 'a')));
 		assert.ok(isOwnData(objClone(source, { deep: true })));
 		assert.ok(isOwnData(objMerge({}, source)));
-		assert.ok(isOwnData(objMergeNewKey({}, source)));
+		assert.ok(isOwnData(objMergeWithArrays({}, source)));
 		assert.ok(isOwnData(objUpdate(source, '__proto__', { polluted: true })));
 		assert.ok(isOwnData(objUpdate({}, '__proto__', { polluted: true }, false, true)));
-		assert.ok(isOwnData(objDeleteKeyByValue(source, 1, true)));
+		assert.ok(isOwnData(objOmitByValue(source, 1, true)));
 		assert.ok(isOwnData(objMapKeys({ a: { polluted: true } }, () => '__proto__')));
 		assert.ok(isOwnData(objInvert({ a: '__proto__' })));
-		assert.ok(isOwnData(objTo1d(JSON.parse('{"__proto__": 1, "a": {"b": 2}}'))));
+		assert.ok(isOwnData(objFlatten(JSON.parse('{"__proto__": 1, "a": {"b": 2}}'))));
 		assert.strictEqual(({} as any).polluted, undefined);
 	});
 });

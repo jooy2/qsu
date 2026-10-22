@@ -23,7 +23,7 @@ export async function getFileInfo(filePath: string): Promise<FileInfo> {
 		name: getFileName(filePath),
 		dirname: dirname(filePath),
 		path: pathResolve(filePath),
-		created: dateToUnixTime(fileItem.ctime),
+		changed: dateToUnixTime(fileItem.ctime),
 		modified: dateToUnixTime(fileItem.mtime)
 	};
 }

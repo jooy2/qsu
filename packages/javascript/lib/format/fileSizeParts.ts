@@ -2,7 +2,7 @@ import type {
 	FileSizeOptions,
 	FileSizeParts,
 	FileSizeStandard,
-	PositiveNumber
+	NonNegativeNumber
 } from '../_types/global.js';
 
 type UnitTable = { base: number; short: string[]; long: string[] };
@@ -86,7 +86,7 @@ export function sizeExponent(bytes: number, base: number, unitCount: number): nu
 }
 
 export function fileSizeParts<N extends number>(
-	bytes: PositiveNumber<N>,
+	bytes: NonNegativeNumber<N>,
 	options?: FileSizeOptions
 ): FileSizeParts {
 	const { standard, unitDisplay } = { ...options };

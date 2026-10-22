@@ -18,8 +18,8 @@ function splitLines(text: string): string[] {
 	return lines;
 }
 
-export async function tailFile(filePath: string, length = 1): Promise<string | null> {
-	if (length <= 0) {
+export async function tailFile(filePath: string, lineCount = 1): Promise<string | null> {
+	if (lineCount <= 0) {
 		return null;
 	}
 
@@ -53,12 +53,12 @@ export async function tailFile(filePath: string, length = 1): Promise<string | n
 			// One line more than asked for means the first line held in the
 			// buffer is complete garbage - it starts wherever the chunk boundary
 			// fell, possibly mid-character - but it is also about to be dropped.
-			if (lines.length > length) {
+			if (lines.length > lineCount) {
 				break;
 			}
 		}
 
-		const buffer = lines.slice(-length);
+		const buffer = lines.slice(-lineCount);
 
 		// The last line of newline characters is ignored.
 		if (buffer.length > 0 && buffer[buffer.length - 1] === '') {

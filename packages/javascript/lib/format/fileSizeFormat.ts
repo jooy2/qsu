@@ -1,8 +1,8 @@
-import type { FileSizeOptions, PositiveNumber } from '../_types/global.js';
+import type { FileSizeOptions, NonNegativeNumber } from '../_types/global.js';
 import { fileSizeParts, resolveUnitTable, unitLabel } from './fileSizeParts.js';
 
 export function fileSizeFormat<N extends number>(
-	bytes: PositiveNumber<N>,
+	bytes: NonNegativeNumber<N>,
 	decimals = 2,
 	ceil = false,
 	options?: FileSizeOptions

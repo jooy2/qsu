@@ -41,14 +41,14 @@ describe('Net', () => {
 			hostname?: string;
 			port?: number;
 			defaultPort?: number;
-			user?: string;
-			pass?: string;
+			username?: string;
+			password?: string;
 			path?: string;
 			query?: string;
 			params?: { [key: string]: string };
 			hash?: string;
-			isIP: boolean;
-			isIPv6: boolean;
+			isIp: boolean;
+			isIpv6: boolean;
 		};
 		const base: Expected = {
 			error: false,
@@ -57,19 +57,19 @@ describe('Net', () => {
 			hostname: undefined,
 			port: undefined,
 			defaultPort: undefined,
-			user: undefined,
-			pass: undefined,
+			username: undefined,
+			password: undefined,
 			path: undefined,
 			query: undefined,
 			params: undefined,
 			hash: undefined,
-			isIP: false,
-			isIPv6: false
+			isIp: false,
+			isIpv6: false
 		};
 
 		// [input, only the fields that differ from `base`]
 		const cases: Array<[string, Partial<Expected>]> = [
-			// Full form: scheme, user, password and port.
+			// Full form: scheme, username, password and port.
 			[
 				'ssh://test:pass@host:1234',
 				{
@@ -78,8 +78,8 @@ describe('Net', () => {
 					host: 'host',
 					hostname: 'host',
 					port: 1234,
-					user: 'test',
-					pass: 'pass'
+					username: 'test',
+					password: 'pass'
 				}
 			],
 			// Web URL. Missing values stay `undefined`, not an error.
@@ -88,16 +88,22 @@ describe('Net', () => {
 				{ protocol: 'HTTPS', defaultPort: 443, host: 'google.com', hostname: 'google.com' }
 			],
 			// No scheme -> protocol is `undefined` (no SSH default).
-			['user:test@host', { host: 'host', hostname: 'host', user: 'user', pass: 'test' }],
+			['user:test@host', { host: 'host', hostname: 'host', username: 'user', password: 'test' }],
 			['host:1234', { host: 'host', hostname: 'host', port: 1234 }],
 			[
 				'192.168.1.123:1234',
-				{ host: '192.168.1.123', hostname: '192.168.1.123', port: 1234, isIP: true }
+				{ host: '192.168.1.123', hostname: '192.168.1.123', port: 1234, isIp: true }
 			],
 			['hostname', { host: 'hostname', hostname: 'hostname' }],
 			[
 				'ssh://test@hostname',
-				{ protocol: 'SSH', defaultPort: 22, host: 'hostname', hostname: 'hostname', user: 'test' }
+				{
+					protocol: 'SSH',
+					defaultPort: 22,
+					host: 'hostname',
+					hostname: 'hostname',
+					username: 'test'
+				}
 			],
 			// IPv6 without brackets keeps the raw address and cannot carry a port.
 			[
@@ -107,11 +113,11 @@ describe('Net', () => {
 					defaultPort: 22,
 					host: '::1',
 					hostname: '::1',
-					isIP: true,
-					isIPv6: true
+					isIp: true,
+					isIpv6: true
 				}
 			],
-			['::1', { host: '::1', hostname: '::1', isIP: true, isIPv6: true }],
+			['::1', { host: '::1', hostname: '::1', isIp: true, isIpv6: true }],
 			[
 				'ssh://fe80::f9e9:1d57:9f2d:fb87',
 				{
@@ -119,8 +125,8 @@ describe('Net', () => {
 					defaultPort: 22,
 					host: 'fe80::f9e9:1d57:9f2d:fb87',
 					hostname: 'fe80::f9e9:1d57:9f2d:fb87',
-					isIP: true,
-					isIPv6: true
+					isIp: true,
+					isIpv6: true
 				}
 			],
 			// IPv6 with brackets keeps the brackets on `host` and drops them from `hostname`.
@@ -131,8 +137,8 @@ describe('Net', () => {
 					defaultPort: 22,
 					host: '[fe80::f9e9:1d57:9f2d:fb87]',
 					hostname: 'fe80::f9e9:1d57:9f2d:fb87',
-					isIP: true,
-					isIPv6: true
+					isIp: true,
+					isIpv6: true
 				}
 			],
 			[
@@ -141,8 +147,8 @@ describe('Net', () => {
 					host: '[fe80::f9e9:1d57:9f2d:fb87]',
 					hostname: 'fe80::f9e9:1d57:9f2d:fb87',
 					port: 1234,
-					isIP: true,
-					isIPv6: true
+					isIp: true,
+					isIpv6: true
 				}
 			],
 			[
@@ -151,18 +157,18 @@ describe('Net', () => {
 					host: '[fe80::f9e9:1d57:9f2d:fb87]',
 					hostname: 'fe80::f9e9:1d57:9f2d:fb87',
 					port: 1234,
-					user: 'test',
-					pass: 'pass',
-					isIP: true,
-					isIPv6: true
+					username: 'test',
+					password: 'pass',
+					isIp: true,
+					isIpv6: true
 				}
 			],
-			['[::1]', { host: '[::1]', hostname: '::1', isIP: true, isIPv6: true }],
-			['192.168.1.1', { host: '192.168.1.1', hostname: '192.168.1.1', isIP: true }],
+			['[::1]', { host: '[::1]', hostname: '::1', isIp: true, isIpv6: true }],
+			['192.168.1.1', { host: '192.168.1.1', hostname: '192.168.1.1', isIp: true }],
 			// Unknown scheme is parsed as-is (generic parser, no error) and has no default port.
 			[
 				'asd://192.168.1.1',
-				{ protocol: 'ASD', host: '192.168.1.1', hostname: '192.168.1.1', isIP: true }
+				{ protocol: 'ASD', host: '192.168.1.1', hostname: '192.168.1.1', isIp: true }
 			],
 			// Scheme only: empty host is `undefined`, not an error.
 			['ssh://', { protocol: 'SSH', defaultPort: 22 }],
@@ -173,18 +179,18 @@ describe('Net', () => {
 					defaultPort: 22,
 					host: 'localhost',
 					hostname: 'localhost',
-					user: 'test'
+					username: 'test'
 				}
 			],
-			['test@localhost', { host: 'localhost', hostname: 'localhost', user: 'test' }],
+			['test@localhost', { host: 'localhost', hostname: 'localhost', username: 'test' }],
 			[
 				'test@192.168.1.1:1234',
 				{
 					host: '192.168.1.1',
 					hostname: '192.168.1.1',
 					port: 1234,
-					user: 'test',
-					isIP: true
+					username: 'test',
+					isIp: true
 				}
 			],
 			[
@@ -192,9 +198,9 @@ describe('Net', () => {
 				{
 					host: 'fe80::f9e9:1d57:9f2d:fb87',
 					hostname: 'fe80::f9e9:1d57:9f2d:fb87',
-					user: 'test',
-					isIP: true,
-					isIPv6: true
+					username: 'test',
+					isIp: true,
+					isIpv6: true
 				}
 			],
 			// The host is split by the last `@`; the password may keep `@` and `:`.
@@ -203,9 +209,9 @@ describe('Net', () => {
 				{
 					host: '192.168.1.1',
 					hostname: '192.168.1.1',
-					user: 'test',
-					pass: 'hell@test',
-					isIP: true
+					username: 'test',
+					password: 'hell@test',
+					isIp: true
 				}
 			],
 			[
@@ -216,18 +222,21 @@ describe('Net', () => {
 					host: '192.168.1.1',
 					hostname: '192.168.1.1',
 					port: 1234,
-					user: 'test',
-					pass: 'he::@test',
-					isIP: true
+					username: 'test',
+					password: 'he::@test',
+					isIp: true
 				}
 			],
-			['test@test:pass@host', { host: 'host', hostname: 'host', user: 'test@test', pass: 'pass' }],
+			[
+				'test@test:pass@host',
+				{ host: 'host', hostname: 'host', username: 'test@test', password: 'pass' }
+			],
 			[
 				'test:test@test@host:1234',
-				{ host: 'host', hostname: 'host', port: 1234, user: 'test', pass: 'test@test' }
+				{ host: 'host', hostname: 'host', port: 1234, username: 'test', password: 'test@test' }
 			],
 			['kara', { host: 'kara', hostname: 'kara' }],
-			// Empty user and password become `undefined`.
+			// Empty username and password become `undefined`.
 			[':@test', { host: 'test', hostname: 'test' }],
 
 			// --- Path, query and fragment ---
@@ -239,8 +248,8 @@ describe('Net', () => {
 					host: 'example.com',
 					hostname: 'example.com',
 					port: 8080,
-					user: 'user',
-					pass: 'pw',
+					username: 'user',
+					password: 'pw',
 					path: '/path',
 					query: 'q=1',
 					params: { q: '1' },
@@ -395,7 +404,7 @@ describe('Net', () => {
 					host: 'host',
 					hostname: 'host',
 					port: 22,
-					user: 'user',
+					username: 'user',
 					path: '/var/log'
 				}
 			],
@@ -422,7 +431,7 @@ describe('Net', () => {
 			],
 			[
 				'postgres://user@db',
-				{ protocol: 'POSTGRES', defaultPort: 5432, host: 'db', hostname: 'db', user: 'user' }
+				{ protocol: 'POSTGRES', defaultPort: 5432, host: 'db', hostname: 'db', username: 'user' }
 			],
 			[
 				'mongodb://db:27018',
@@ -446,8 +455,8 @@ describe('Net', () => {
 					defaultPort: 22,
 					host: 'host',
 					hostname: 'host',
-					user: 'us@er',
-					pass: 'p@ss'
+					username: 'us@er',
+					password: 'p@ss'
 				}
 			],
 			[
@@ -457,8 +466,8 @@ describe('Net', () => {
 					defaultPort: 22,
 					host: 'host',
 					hostname: 'host',
-					user: 'user',
-					pass: 'pa/ss'
+					username: 'user',
+					password: 'pa/ss'
 				}
 			],
 			[
@@ -468,7 +477,7 @@ describe('Net', () => {
 					defaultPort: 443,
 					host: 'example.com',
 					hostname: 'example.com',
-					user: '테스트'
+					username: '테스트'
 				}
 			],
 			// `%ZZ` is not an escape, so the value is left exactly as it was written.
@@ -479,8 +488,8 @@ describe('Net', () => {
 					defaultPort: 22,
 					host: 'host',
 					hostname: 'host',
-					user: 'user',
-					pass: 'p%ZZss'
+					username: 'user',
+					password: 'p%ZZss'
 				}
 			],
 			// Well-formed escapes that are not valid UTF-8 are left alone too.
@@ -491,8 +500,8 @@ describe('Net', () => {
 					defaultPort: 22,
 					host: 'host',
 					hostname: 'host',
-					user: 'user',
-					pass: '%E0%A4'
+					username: 'user',
+					password: '%E0%A4'
 				}
 			],
 			// The query is reported raw and its values decoded.
@@ -523,23 +532,23 @@ describe('Net', () => {
 			],
 
 			// --- IPv4 and IPv6 detection ---
-			['127.0.0.1', { host: '127.0.0.1', hostname: '127.0.0.1', isIP: true }],
-			['0.0.0.0', { host: '0.0.0.0', hostname: '0.0.0.0', isIP: true }],
-			['255.255.255.255', { host: '255.255.255.255', hostname: '255.255.255.255', isIP: true }],
+			['127.0.0.1', { host: '127.0.0.1', hostname: '127.0.0.1', isIp: true }],
+			['0.0.0.0', { host: '0.0.0.0', hostname: '0.0.0.0', isIp: true }],
+			['255.255.255.255', { host: '255.255.255.255', hostname: '255.255.255.255', isIp: true }],
 			// An octet over 255, a leading zero or a missing octet is not an address.
 			['256.1.1.1', { host: '256.1.1.1', hostname: '256.1.1.1' }],
 			['01.2.3.4', { host: '01.2.3.4', hostname: '01.2.3.4' }],
 			['1.2.3', { host: '1.2.3', hostname: '1.2.3' }],
 			['example.com', { host: 'example.com', hostname: 'example.com' }],
-			['[::]', { host: '[::]', hostname: '::', isIP: true, isIPv6: true }],
-			['::', { host: '::', hostname: '::', isIP: true, isIPv6: true }],
+			['[::]', { host: '[::]', hostname: '::', isIp: true, isIpv6: true }],
+			['::', { host: '::', hostname: '::', isIp: true, isIpv6: true }],
 			[
 				'[1:2:3:4:5:6:7:8]',
-				{ host: '[1:2:3:4:5:6:7:8]', hostname: '1:2:3:4:5:6:7:8', isIP: true, isIPv6: true }
+				{ host: '[1:2:3:4:5:6:7:8]', hostname: '1:2:3:4:5:6:7:8', isIp: true, isIpv6: true }
 			],
 			[
 				'1:2:3:4:5:6:7:8',
-				{ host: '1:2:3:4:5:6:7:8', hostname: '1:2:3:4:5:6:7:8', isIP: true, isIPv6: true }
+				{ host: '1:2:3:4:5:6:7:8', hostname: '1:2:3:4:5:6:7:8', isIp: true, isIpv6: true }
 			],
 			// An IPv4 tail fills the last two groups.
 			[
@@ -548,8 +557,8 @@ describe('Net', () => {
 					host: '[::ffff:192.168.1.1]',
 					hostname: '::ffff:192.168.1.1',
 					port: 443,
-					isIP: true,
-					isIPv6: true
+					isIp: true,
+					isIpv6: true
 				}
 			],
 			[
@@ -557,8 +566,8 @@ describe('Net', () => {
 				{
 					host: '[1:2:3:4:5:6:1.2.3.4]',
 					hostname: '1:2:3:4:5:6:1.2.3.4',
-					isIP: true,
-					isIPv6: true
+					isIp: true,
+					isIpv6: true
 				}
 			],
 			// Nine groups, a group outside hex, a second `::` and a bad IPv4 tail are all rejected.
@@ -590,11 +599,11 @@ describe('Net', () => {
 			// A bracketed host followed by anything other than `:port`.
 			[
 				'[fe80::1]x',
-				{ error: true, host: '[fe80::1]', hostname: 'fe80::1', isIP: true, isIPv6: true }
+				{ error: true, host: '[fe80::1]', hostname: 'fe80::1', isIp: true, isIpv6: true }
 			],
 			[
 				'[fe80::1]:70000',
-				{ error: true, host: '[fe80::1]', hostname: 'fe80::1', isIP: true, isIPv6: true }
+				{ error: true, host: '[fe80::1]', hostname: 'fe80::1', isIp: true, isIpv6: true }
 			],
 			// The path is still read from an address whose port is in error.
 			[
@@ -627,8 +636,8 @@ describe('Net', () => {
 			defaultPort: 22,
 			host: 'host',
 			hostname: 'host',
-			user: 'us%40er',
-			pass: 'p%40ss'
+			username: 'us%40er',
+			password: 'p%40ss'
 		});
 		assert.deepStrictEqual(parseAddress('https://example.com/s?q=a%20b', { decode: false }), {
 			...base,
@@ -646,7 +655,7 @@ describe('Net', () => {
 			defaultPort: 22,
 			host: 'host',
 			hostname: 'host',
-			user: 'us@er'
+			username: 'us@er'
 		});
 
 		// Anything that is not a string cannot be parsed.

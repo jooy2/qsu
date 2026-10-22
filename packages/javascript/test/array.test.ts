@@ -2,19 +2,19 @@ import assert from 'assert';
 import { describe, it } from 'node:test';
 import {
 	arrShuffle,
-	arrWithDefault,
+	arrFill,
 	arrUnique,
-	arrWithNumber,
+	arrRange,
 	average,
 	arrMove,
-	arrTo1dArray,
+	arrFlatten,
 	arrRepeat,
 	arrCount,
 	sortByObjectKey,
-	sortNumeric,
-	arrGroupByMaxCount,
-	funcTimes,
-	arrPick,
+	sortNatural,
+	arrChunk,
+	times,
+	arrRandom,
 	arrCompact,
 	arrDifference,
 	arrIntersection,
@@ -36,10 +36,10 @@ describe('Array', () => {
 		assert(arrShuffle([{ A: 1 }, { B: 2 }, { C: 3 }, { D: 4 }]));
 	});
 
-	it('arrWithDefault', () => {
-		assert(arrWithDefault('test'));
-		assert(arrWithDefault('test', 10));
-		assert(arrWithDefault(100, 5));
+	it('arrFill', () => {
+		assert(arrFill('test'));
+		assert(arrFill('test', 10));
+		assert(arrFill(100, 5));
 	});
 
 	it('arrUnique', () => {
@@ -48,9 +48,9 @@ describe('Array', () => {
 			[1, 2, 3, 4, 5],
 			[6, 7, 8, 9, 0]
 		];
-		funcTimes(150000, () => big2dArray.push([1, 1, 1, 1, 1]));
-		funcTimes(150000, () => big2dArray.push([2, 2, 2, 2, 2]));
-		funcTimes(150000, () => big2dArray.push([3, 3, 3, 3, 3]));
+		times(150000, () => big2dArray.push([1, 1, 1, 1, 1]));
+		times(150000, () => big2dArray.push([2, 2, 2, 2, 2]));
+		times(150000, () => big2dArray.push([3, 3, 3, 3, 3]));
 
 		assert.deepStrictEqual(arrUnique(big2dArray), [
 			[10, 20, 30, 40, 50],
@@ -97,28 +97,28 @@ describe('Array', () => {
 		assert.strictEqual(arrUnique([NaN, NaN]).length, 1);
 	});
 
-	it('arrWithNumber', () => {
-		assert.deepStrictEqual(arrWithNumber(1, 2), [1, 2]);
-		assert.throws(() => arrWithNumber(2, 1));
-		assert.deepStrictEqual(arrWithNumber(0, 5), [0, 1, 2, 3, 4, 5]);
-		assert.deepStrictEqual(arrWithNumber(1, 1), [1]);
-		assert.deepStrictEqual(arrWithNumber(1, 5), [1, 2, 3, 4, 5]);
-		assert.deepStrictEqual(arrWithNumber(3, 3), [3]);
+	it('arrRange', () => {
+		assert.deepStrictEqual(arrRange(1, 2), [1, 2]);
+		assert.throws(() => arrRange(2, 1));
+		assert.deepStrictEqual(arrRange(0, 5), [0, 1, 2, 3, 4, 5]);
+		assert.deepStrictEqual(arrRange(1, 1), [1]);
+		assert.deepStrictEqual(arrRange(1, 5), [1, 2, 3, 4, 5]);
+		assert.deepStrictEqual(arrRange(3, 3), [3]);
 		// The end is included only when a step lands on it.
-		assert.deepStrictEqual(arrWithNumber(0, 10, { step: 3 }), [0, 3, 6, 9]);
-		assert.deepStrictEqual(arrWithNumber(0, 10, { step: 5 }), [0, 5, 10]);
-		assert.deepStrictEqual(arrWithNumber(1, 2, { step: 10 }), [1]);
-		assert.deepStrictEqual(arrWithNumber(-5, 5, { step: 5 }), [-5, 0, 5]);
-		assert.throws(() => arrWithNumber(5, 1), {
+		assert.deepStrictEqual(arrRange(0, 10, { step: 3 }), [0, 3, 6, 9]);
+		assert.deepStrictEqual(arrRange(0, 10, { step: 5 }), [0, 5, 10]);
+		assert.deepStrictEqual(arrRange(1, 2, { step: 10 }), [1]);
+		assert.deepStrictEqual(arrRange(-5, 5, { step: 5 }), [-5, 0, 5]);
+		assert.throws(() => arrRange(5, 1), {
 			name: 'RangeError',
 			message: '`start` is greater than `end`.'
 		});
 
 		const stepError = { name: 'RangeError', message: '`step` must be a positive integer.' };
 
-		assert.throws(() => arrWithNumber(0, 10, { step: 0 }), stepError);
-		assert.throws(() => arrWithNumber(0, 10, { step: -1 }), stepError);
-		assert.throws(() => arrWithNumber(0, 10, { step: 1.5 }), stepError);
+		assert.throws(() => arrRange(0, 10, { step: 0 }), stepError);
+		assert.throws(() => arrRange(0, 10, { step: -1 }), stepError);
+		assert.throws(() => arrRange(0, 10, { step: 1.5 }), stepError);
 	});
 
 	it('average', () => {
@@ -136,7 +136,7 @@ describe('Array', () => {
 		assert.strictEqual(median([1, 3]), 2);
 		assert.strictEqual(median([-1, -5, 0]), -1);
 		assert.strictEqual(median([1.5, 2.5]), 2);
-		// `NaN` is skipped, as `min` and `max` skip it.
+		// `NaN` is skipped, as `numMin` and `numMax` skip it.
 		assert.strictEqual(median([NaN, 1, 3]), 2);
 		assert.strictEqual(median([]), null);
 		assert.strictEqual(median([NaN]), null);
@@ -154,27 +154,27 @@ describe('Array', () => {
 		assert.deepStrictEqual(arrMove([5, 10, 15], 1, 1), [5, 10, 15]);
 	});
 
-	it('arrPick', () => {
-		assert.deepStrictEqual(arrPick([1]), 1);
+	it('arrRandom', () => {
+		assert.deepStrictEqual(arrRandom([1]), 1);
 
-		const pickResult = arrPick([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+		const pickResult = arrRandom([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
 
 		assert.deepStrictEqual(pickResult < 10, true);
 		assert.deepStrictEqual(typeof pickResult === 'number', true);
-		assert.deepStrictEqual(arrPick([]), null);
+		assert.deepStrictEqual(arrRandom([]), null);
 	});
 
-	it('arrTo1dArray', () => {
+	it('arrFlatten', () => {
 		assert.deepStrictEqual(
-			arrTo1dArray([
+			arrFlatten([
 				[1, 2, 3, 4],
 				[5, 6, 7, 8]
 			]),
 			[1, 2, 3, 4, 5, 6, 7, 8]
 		);
-		assert.deepStrictEqual(arrTo1dArray([[1, 2, 3], 4, 5, [6, 7, 8]]), [1, 2, 3, 4, 5, 6, 7, 8]);
+		assert.deepStrictEqual(arrFlatten([[1, 2, 3], 4, 5, [6, 7, 8]]), [1, 2, 3, 4, 5, 6, 7, 8]);
 		assert.deepStrictEqual(
-			arrTo1dArray([
+			arrFlatten([
 				[1, 2],
 				[
 					[3, 4],
@@ -185,7 +185,7 @@ describe('Array', () => {
 			]),
 			[1, 2, 3, 4, 5, 6, 7, 8]
 		);
-		assert.deepStrictEqual(arrTo1dArray([[[[1, 2, 3, 4, 5, 6]]], 7, 8]), [1, 2, 3, 4, 5, 6, 7, 8]);
+		assert.deepStrictEqual(arrFlatten([[[[1, 2, 3, 4, 5, 6]]], 7, 8]), [1, 2, 3, 4, 5, 6, 7, 8]);
 	});
 
 	it('arrRepeat', () => {
@@ -322,10 +322,10 @@ describe('Array', () => {
 		]);
 	});
 
-	it('sortNumeric', () => {
-		assert.deepStrictEqual(sortNumeric([]), []);
-		assert.deepStrictEqual(sortNumeric(['a', 'd', 'c', 'b']), ['a', 'b', 'c', 'd']);
-		assert.deepStrictEqual(sortNumeric(['a1a', 'b2a', 'aa1a', '1', 'a11a', 'a3a', 'a2a', '1a']), [
+	it('sortNatural', () => {
+		assert.deepStrictEqual(sortNatural([]), []);
+		assert.deepStrictEqual(sortNatural(['a', 'd', 'c', 'b']), ['a', 'b', 'c', 'd']);
+		assert.deepStrictEqual(sortNatural(['a1a', 'b2a', 'aa1a', '1', 'a11a', 'a3a', 'a2a', '1a']), [
 			'1',
 			'1a',
 			'a1a',
@@ -335,7 +335,7 @@ describe('Array', () => {
 			'aa1a',
 			'b2a'
 		]);
-		assert.deepStrictEqual(sortNumeric(['3', '1', '11', '100', '10', '2', '15']), [
+		assert.deepStrictEqual(sortNatural(['3', '1', '11', '100', '10', '2', '15']), [
 			'1',
 			'2',
 			'3',
@@ -349,37 +349,37 @@ describe('Array', () => {
 	// The ordering below has to be identical in the Dart and Python packages. It used to
 	// come from `Intl.Collator` here, which answered differently depending on the locale
 	// of the machine, and neither of the other two packages matched it.
-	it('sortNumeric (ordering is the same in every package)', () => {
+	it('sortNatural (ordering is the same in every package)', () => {
 		// Case is a tie-break, not the first thing compared, so the numbers still decide.
-		assert.deepStrictEqual(sortNumeric(['item2', 'Item10', 'item1']), ['item1', 'item2', 'Item10']);
-		assert.deepStrictEqual(sortNumeric(['file-1.txt', 'File-3.txt', 'file-10.txt', 'file-2.txt']), [
+		assert.deepStrictEqual(sortNatural(['item2', 'Item10', 'item1']), ['item1', 'item2', 'Item10']);
+		assert.deepStrictEqual(sortNatural(['file-1.txt', 'File-3.txt', 'file-10.txt', 'file-2.txt']), [
 			'file-1.txt',
 			'file-2.txt',
 			'File-3.txt',
 			'file-10.txt'
 		]);
 		// Lower case comes before upper case when nothing else separates them.
-		assert.deepStrictEqual(sortNumeric(['Apple', 'apple', 'Banana', 'banana']), [
+		assert.deepStrictEqual(sortNatural(['Apple', 'apple', 'Banana', 'banana']), [
 			'apple',
 			'Apple',
 			'banana',
 			'Banana'
 		]);
-		assert.deepStrictEqual(sortNumeric(['a', 'A', 'b', 'B']), ['a', 'A', 'b', 'B']);
+		assert.deepStrictEqual(sortNatural(['a', 'A', 'b', 'B']), ['a', 'A', 'b', 'B']);
 		// An accent is a tie-break too, so `äpple` sits next to `apple` and not after `z`.
-		assert.deepStrictEqual(sortNumeric(['zebra', 'äpple', 'apple', 'Zebra']), [
+		assert.deepStrictEqual(sortNatural(['zebra', 'äpple', 'apple', 'Zebra']), [
 			'apple',
 			'äpple',
 			'zebra',
 			'Zebra'
 		]);
-		assert.deepStrictEqual(sortNumeric(['résumé', 'resume', 'Resume']), [
+		assert.deepStrictEqual(sortNatural(['résumé', 'resume', 'Resume']), [
 			'resume',
 			'Resume',
 			'résumé'
 		]);
 		// Whitespace, then punctuation, then digits, then letters.
-		assert.deepStrictEqual(sortNumeric(['1file', '.gitignore', 'apple', '_private']), [
+		assert.deepStrictEqual(sortNatural(['1file', '.gitignore', 'apple', '_private']), [
 			'.gitignore',
 			'_private',
 			'1file',
@@ -387,17 +387,17 @@ describe('Array', () => {
 		]);
 		// A run of digits is compared by length first, so it stays exact past
 		// `Number.MAX_SAFE_INTEGER`.
-		assert.deepStrictEqual(sortNumeric(['12345678901234567891', '12345678901234567890', '2']), [
+		assert.deepStrictEqual(sortNatural(['12345678901234567891', '12345678901234567890', '2']), [
 			'2',
 			'12345678901234567890',
 			'12345678901234567891'
 		]);
 		// Leading zeros do not change the value, so the raw string breaks the tie.
-		assert.deepStrictEqual(sortNumeric(['007', '7', '08', '8']), ['007', '7', '08', '8']);
-		assert.deepStrictEqual(sortNumeric(['b', 'a', 'c'], true), ['c', 'b', 'a']);
+		assert.deepStrictEqual(sortNatural(['007', '7', '08', '8']), ['007', '7', '08', '8']);
+		assert.deepStrictEqual(sortNatural(['b', 'a', 'c'], true), ['c', 'b', 'a']);
 	});
 
-	it('sortByObjectKey (numerically uses the same ordering)', () => {
+	it('sortByObjectKey (natural uses the same ordering)', () => {
 		const rows = [{ n: 'item2' }, { n: 'Item10' }, { n: 'item1' }];
 
 		assert.deepStrictEqual(sortByObjectKey(rows, 'n', false, true), [
@@ -412,11 +412,11 @@ describe('Array', () => {
 		]);
 	});
 
-	it('arrGroupByMaxCount', () => {
-		assert.deepStrictEqual(arrGroupByMaxCount([1, 2, 3], 1), [[1], [2], [3]]);
-		assert.deepStrictEqual(arrGroupByMaxCount([1, 2, [], 4, [[]]], 2), [[1, 2], [[], 4], [[[]]]]);
-		assert.deepStrictEqual(arrGroupByMaxCount([1, 2, 3, 4], 5), [[1, 2, 3, 4]]);
-		assert.deepStrictEqual(arrGroupByMaxCount([1, 1, 1, 1, 1, 1], 2), [
+	it('arrChunk', () => {
+		assert.deepStrictEqual(arrChunk([1, 2, 3], 1), [[1], [2], [3]]);
+		assert.deepStrictEqual(arrChunk([1, 2, [], 4, [[]]], 2), [[1, 2], [[], 4], [[[]]]]);
+		assert.deepStrictEqual(arrChunk([1, 2, 3, 4], 5), [[1, 2, 3, 4]]);
+		assert.deepStrictEqual(arrChunk([1, 1, 1, 1, 1, 1], 2), [
 			[1, 1],
 			[1, 1],
 			[1, 1]
