@@ -1,8 +1,10 @@
 name: release
 
-# Releases a package from its tag. Each package versions on its own, so each is
-# tagged on its own, as `javascript-v1.21.0`, `dart-v1.9.0` or `python-v1.6.0`,
-# once the commit that cut the version is on `main` and its CI has passed.
+# Releases a package from its tag. The three packages share one version number
+# from 1.100.0 on, and each is tagged on its own, as `javascript-v1.100.0`,
+# `dart-v1.100.0` and `python-v1.100.0`, once the commit that cut the version is
+# on `main` and its CI has passed. GitHub creates no event for a push of more
+# than three tags at once, so the tags are pushed one at a time.
 #
 # `build` checks that the tag names the version that was cut, builds the
 # package the way its registry takes it, and writes the notes from the

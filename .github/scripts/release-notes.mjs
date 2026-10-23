@@ -1,10 +1,11 @@
 /**
  * The body of a GitHub release, cut out of one package's `CHANGELOG.md`.
  *
- *   node .github/scripts/release-notes.mjs javascript-v1.21.0 > notes.md
+ *   node .github/scripts/release-notes.mjs javascript-v1.100.0 > notes.md
  *
- * The three packages version on their own, so a tag names the package as well
- * as the version: `javascript-v1.21.0`, `dart-v1.9.0` or `python-v1.6.0`.
+ * The three packages share one version number from 1.100.0 on, but each has a
+ * tag, a changelog and a release of its own, so a tag names the package as well
+ * as the version: `javascript-v1.100.0`, `dart-v1.100.0` or `python-v1.100.0`.
  *
  * Nothing is written for a tag the package was not cut for. Every file that
  * carries the package's version has to name the tag's version, and the

@@ -267,13 +267,18 @@ Follow the existing history: `[scope] tag: message`.
 
 ## Releasing
 
-Each package is released on its own, from a tag named after it: `javascript-v1.21.0`,
-`dart-v1.9.0`, `python-v1.6.0`. The steps are in `CONTRIBUTING.md` under "Releasing".
+The three packages share one version number from 1.100.0 on and are released together, each
+from a tag named after it: `javascript-v1.100.0`, `dart-v1.100.0`, `python-v1.100.0`. Versions
+before 1.100.0 were numbered separately in each package. The steps are in `CONTRIBUTING.md`
+under "Releasing".
 
 - **The version lives in more than one file.** JavaScript: `package.json` and both versions
   at the top of `package-lock.json`. Dart: `pubspec.yaml`. Python: `pyproject.toml` and
   `__version__` in `qsu/__init__.py`. The bump commit is `[<scope>] package: bump the version
-  to \`X.Y.Z\``, one per package.
+  to \`X.Y.Z\``, one per package, with the same version in all three.
+- **A package with nothing new is still released.** Its changelog section says that it has no
+  changes and takes the version to stay in step, because the notes script refuses an empty
+  section.
 - **The changelog keeps an empty `## vNext (YYYY--)` on top.** A release adds its dated
   `## X.Y.Z (YYYY-MM-DD)` heading directly under it.
 - **A tag push runs `.github/workflows/release.yml`**, which builds the package, publishes it
