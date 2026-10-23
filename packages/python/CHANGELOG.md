@@ -2,6 +2,8 @@
 
 ## vNext (2026--)
 
+## 1.100.0 (2026-10-23)
+
 ### Breaking changes
 
 These names were changed so that each one says what it does and matches its siblings. Replace the old name with the new one; nothing else about them changed, except for `isValidFileName` below. Keyword arguments, option dict keys and result dict keys have to be changed in your code.
