@@ -2,6 +2,8 @@
 
 ## vNext (2026--)
 
+## 1.100.0 (2026-10-23)
+
 ### Breaking changes
 
 These names were changed so that each one says what it does and matches its siblings. Replace the old name with the new one; nothing else about them changed, except for `isValidFileName` below. A renamed positional parameter only changes in the type declarations and the documentation, while a renamed option or result field has to be changed in your code.
